@@ -1,0 +1,81 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TF2HUD.Editor.Properties" GeneratedClassName="flawhud">
+  <Profiles />
+  <Settings>
+    <Setting Name="color_ammo_low" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#BE1414</Value>
+    </Setting>
+    <Setting Name="color_health_buff" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#00AA7F</Value>
+    </Setting>
+    <Setting Name="color_health_low" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#BE1414</Value>
+    </Setting>
+    <Setting Name="color_uber_bar" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#00AA7F</Value>
+    </Setting>
+    <Setting Name="color_uber_full" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#00AA7F</Value>
+    </Setting>
+    <Setting Name="color_xhair_normal" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#F2F2F2</Value>
+    </Setting>
+    <Setting Name="color_xhair_pulse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF0000</Value>
+    </Setting>
+    <Setting Name="hud_updated" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_code_fonts" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_disguise_image" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_menu_images" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_stock_backgrounds" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_transparent_viewmodels" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_xhair_enable" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_xhair_pulse" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_xhair_rotate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="val_xhair_effect" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="val_xhair_style" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">24</Value>
+    </Setting>
+    <Setting Name="val_health_style" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="val_killfeed_rows" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="toggle_lower_stats" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="color_target_health" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#00FF7F</Value>
+    </Setting>
+    <Setting Name="color_target_damage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFFF00</Value>
+    </Setting>
+    <Setting Name="toggle_alt_stats" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="val_xhair_size" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">18</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

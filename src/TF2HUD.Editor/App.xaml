@@ -1,0 +1,93 @@
+﻿<Application x:Class="TF2HUD.Editor.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:x2="http://schemas.xceed.com/wpf/xaml/toolkit"
+             StartupUri="MainWindow.xaml">
+
+    <Application.Resources>
+        <Setter x:Key="Tf2Build" Property="TextElement.FontFamily"
+                Value="./Resources/style/TF2Build.ttf #TF2 Build" />
+        <Setter x:Key="Tf2Secondary" Property="TextElement.FontFamily"
+                Value="./Resources/style/TF2Secondary.ttf #TF2 Secondary" />
+
+        <Style TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="16px" />
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+        </Style>
+
+        <Style TargetType="GroupBox">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <Style TargetType="x2:ColorPicker">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="ColorMode" Value="ColorCanvas" />
+            <Setter Property="ShowRecentColors" Value="True" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
+
+        <Style TargetType="x2:IntegerUpDown">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="FormatString" Value="N0" />
+            <Setter Property="Increment" Value="1" />
+            <Setter Property="AllowTextInput" Value="False" />
+        </Style>
+
+        <Style x:Key="Crosshair" TargetType="ComboBoxItem">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="./Resources/style/TF2Crosshairs.otf #TF2Crosshairs" />
+        </Style>
+
+        <Style x:Key="CrosshairBox" TargetType="ComboBox">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="./Resources/style/TF2Crosshairs.otf #TF2Crosshairs" />
+        </Style>
+
+        <Style x:Key="Button" TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="FontFamily" Value="./Resources/style/TF2Build.ttf #TF2 Build" />
+            <Setter Property="FontSize" Value="15px" />
+            <Setter Property="Foreground" Value="#EBE2CA" />
+            <Setter Property="Background" Value="#776B5F" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#934739" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Application.Resources>
+</Application>

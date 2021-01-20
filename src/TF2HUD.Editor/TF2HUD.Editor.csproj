@@ -1,0 +1,108 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <StartupObject>TF2HUD.Editor.App</StartupObject>
+    <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
+    <Authors>Igor Nikitin</Authors>
+    <Company>CriticalFlaw</Company>
+    <Copyright>Igor Nikitin</Copyright>
+    <PackageProjectUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="hud.cfg" />
+    <None Remove="log4net.config" />
+    <None Remove="Resources\favicon.ico" />
+    <None Remove="Resources\raysfox.png" />
+    <None Remove="Resources\rayshud.ico" />
+    <None Remove="Resources\TF2Build.ttf" />
+    <None Remove="Resources\TF2Crosshairs.otf" />
+    <None Remove="Resources\TF2Secondary.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.6.4" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
+    <PackageReference Include="log4net" Version="2.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="hud.cfg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\raysfox.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\rayshud.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\TF2Build.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\TF2Crosshairs.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\TF2Secondary.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\flawhud.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>flawhud.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\rayshud.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>rayshud.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\flawhud.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>flawhud.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Properties\rayshud.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>rayshud.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="RD /S /Q &quot;$(TargetDir)ar&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)cs-CZ&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)da&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)de&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)es&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)fr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)hu&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)it&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ja-JP&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ko&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)nl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pt&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pt-BR&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ro&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ru&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sk&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)th&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)tr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sv&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-Hans&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-tw&quot;" />
+  </Target>
+
+</Project>

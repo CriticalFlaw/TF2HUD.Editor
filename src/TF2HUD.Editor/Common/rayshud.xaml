@@ -1,0 +1,575 @@
+﻿<UserControl x:Class="TF2HUD.Editor.Common.rayshud"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x2="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             Height="680" Width="900"
+             FontFamily="../Resources/Cerbetica.otf #Cerbetica"
+             FontSize="16px">
+
+    <Grid>
+        <GroupBox
+            Width="870"
+            Height="150"
+            Margin="10,425,0,0"
+            Header="Options">
+            <Grid>
+                <CheckBox
+                    x:Name="CbClassicHud"
+                    Margin="10,10,0,0"
+                    Content="Classic Main Menu Style"
+                    ToolTip="Use the classic rayshud main menu style" />
+
+                <CheckBox
+                    x:Name="CbScoreboard"
+                    Margin="10,100,0,0"
+                    Content="Minimal Scoreboard"
+                    ToolTip="Use the minimalistic scoreboard style" />
+
+                <CheckBox
+                    x:Name="CbDisguiseImage"
+                    Margin="10,70,0,0"
+                    Content="Spy Disguise Image"
+                    ToolTip="Display the silhouette of the Spy while disguising" />
+
+                <CheckBox
+                    x:Name="CbMenuImages"
+                    Margin="10,40,0,0"
+                    Content="Main Menu Class Images"
+                    ToolTip="Display class images on the main menu" />
+
+                <CheckBox
+                    x:Name="CbDamagePos"
+                    Margin="260,40,0,0"
+                    Content="Damage Above Health"
+                    ToolTip="Move the damage number to be above the health" />
+
+                <CheckBox
+                    x:Name="CbChatBottom"
+                    Margin="260,70,0,0"
+                    Content="Chatbox On The Bottom"
+                    ToolTip="Move the chatbox to be near the bottom of the screen" />
+
+                <CheckBox
+                    x:Name="CbTeamCenter"
+                    Margin="260,100,0,0"
+                    Content="Centered Team/Class Select"
+                    ToolTip="Use the centered style for class and team selection" />
+
+                <CheckBox
+                    x:Name="CbTransparentViewmodel"
+                    Margin="510,10,0,0"
+                    Content="Transparent Viewmodels"
+                    ToolTip="Enable transparency on the weapon viewmodels" />
+
+                <CheckBox
+                    x:Name="CbMetalPos"
+                    Margin="510,40,0,0"
+                    Content="Center Metal Counter"
+                    ToolTip="Move the metal number to the centre of the screen" />
+
+                <CheckBox
+                    x:Name="CbPlayerModel"
+                    Margin="260,10,0,0"
+                    Content="Alternate Player Model"
+                    ToolTip="Use the alternate player model position" />
+
+                <Label
+                    Margin="505,63,0,0"
+                    Content="Main Menu Background:" />
+
+                <ComboBox
+                    x:Name="CbMainMenuBackground"
+                    Width="155"
+                    Margin="680,65,0,0">
+                    <ComboBoxItem IsSelected="True">Modern</ComboBoxItem>
+                    <ComboBoxItem>Classic</ComboBoxItem>
+                    <ComboBoxItem>Default</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Width="430"
+            Height="240"
+            Margin="10,10,0,0"
+            Header="ÜberCharge">
+            <Grid>
+                <ComboBox
+                    x:Name="CbUberStyle"
+                    Width="200"
+                    Margin="190,5,0,0"
+                    SelectionChanged="CbUberStyle_SelectionChanged">
+                    <ComboBoxItem>Flash</ComboBoxItem>
+                    <ComboBoxItem>Solid</ComboBoxItem>
+                    <ComboBoxItem>Rainbow</ComboBoxItem>
+                </ComboBox>
+
+                <x2:ColorPicker
+                    x:Name="CpUberBarColor"
+                    Width="200"
+                    Margin="190,45,0,0" />
+
+                <x2:ColorPicker
+                    x:Name="CpUberFullColor"
+                    Width="200"
+                    Margin="190,85,0,0" />
+
+                <x2:ColorPicker
+                    x:Name="CpUberFlash1"
+                    Width="200"
+                    Margin="190,125,0,0" />
+
+                <x2:ColorPicker
+                    x:Name="CpUberFlash2"
+                    Width="200"
+                    Margin="190,165,0,0" />
+
+                <Label
+                    Margin="10,5,0,0"
+                    Content="ÜberCharge Style:"
+                    ToolTip="Color of the ÜberCharge when full" />
+
+                <Label
+                    Margin="10,45,0,0"
+                    Content="Charging Color:"
+                    ToolTip="Color of the ÜberCharge when charging" />
+
+                <Label
+                    Margin="10,85,0,0"
+                    Content="Full Charge Color:" />
+
+                <Label
+                    Margin="10,125,0,0"
+                    Content="Full Charge Flash 1:"
+                    ToolTip="First ÜberCharge color (Rainbow style)" />
+
+                <Label
+                    Margin="10,165,0,0"
+                    Content="Full Charge Flash 2:"
+                    ToolTip="Second ÜberCharge color (Rainbow style)" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Width="430"
+            Height="240"
+            Margin="450,10,0,0"
+            Header="Crosshair">
+
+            <Grid>
+
+                <ComboBox
+                    x:Name="CbXHairStyle"
+                    Width="200"
+                    Margin="190,45,0,0"
+                    SelectedValuePath="Content"
+                    Height="26"
+                    Style="{StaticResource CrosshairBox}"
+                    IsEnabled="False">
+
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="!" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="#" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="$" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="%" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="'" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="(" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content=")" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="*" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="+" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="," />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="-" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="." />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="/" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="1" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="2" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="3" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="4" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="5" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="6" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="7" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="8" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="9" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content=":" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content=";" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="&lt;" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="=" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content=">" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="?" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="@" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="A" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="B" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="C" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="D" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="E" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="F" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="G" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="H" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="I" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="J" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="K" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="L" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="M" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="N" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="O" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="P" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="Q" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="R" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="S" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="T" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="U" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="V" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="W" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="X" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="Y" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="Z" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="[" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="\" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="]" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="^" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="_" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="`" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="a" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="b" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="c" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="d" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="e" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="f" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="g" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="h" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="i" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="j" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="k" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="l" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="m" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="n" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="o" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="p" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="q" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="r" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="s" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="t" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="u" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="v" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="w" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="x" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="y" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="z" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="|" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="}" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="x" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="y" />
+                    <ComboBoxItem Style="{StaticResource Crosshair}"
+                                  Content="z" />
+                </ComboBox>
+
+                <!--<x2:IntegerUpDown
+                        x:Name="IntXHairSize"
+                        Margin="190,85,0,0"
+                        Value="14"
+                        Increment="1"
+                        Minimum="10"
+                        Maximum="30" Height="26" Width="200"
+                        TextAlignment="Center"
+                        IsEnabled="False" />-->
+
+                <ComboBox
+                    x:Name="CbXHairEffect"
+                    Width="200"
+                    Margin="190,125,0,0"
+                    SelectedValuePath="Content">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>Blur</ComboBoxItem>
+                    <ComboBoxItem>Outline</ComboBoxItem>
+                    <ComboBoxItem>Shadow</ComboBoxItem>
+                </ComboBox>
+
+                <x2:ColorPicker
+                    x:Name="CpXHairColor"
+                    Width="100"
+                    Margin="190,165,0,0"
+                    IsEnabled="False" />
+
+                <x2:ColorPicker
+                    x:Name="CpXHairPulse"
+                    Width="100"
+                    Margin="290,165,0,0"
+                    IsEnabled="False" />
+
+                <CheckBox
+                    x:Name="CbXHairEnable"
+                    Margin="10,10,0,0"
+                    Content="Toggle Crosshair"
+                    Click="CbXHairEnable_OnClick" />
+
+                <CheckBox
+                    x:Name="CbXHairHitmarker"
+                    Margin="190,10,0,0"
+                    Content="Toggle Hitmarker"
+                    IsEnabled="False" />
+
+                <Label
+                    Margin="10,45,0,0"
+                    Content="Crosshair Style:"
+                    ToolTip="Style of the crosshair" />
+
+                <Label
+                    Margin="10,85,0,0"
+                    Content="Crosshair Size:"
+                    ToolTip="Size of the crosshair" />
+
+                <Label
+                    Margin="10,125,0,0"
+                    Content="Crosshair Effect:"
+                    ToolTip="Effect applied to the crosshair (Blur, Outline or Shadow)" />
+
+                <Label
+                    Margin="10,165,0,0"
+                    Content="Crosshair Colors:"
+                    ToolTip="Color of the crosshair" />
+
+                <Label
+                    Margin="10,190,0,0"
+                    Content="*First color is the crosshair default and second is the hitmarker"
+                    FontSize="10px" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Width="430"
+            Height="165"
+            Margin="450,255,0,0"
+            Header="Health">
+
+            <Grid>
+                <x2:ColorPicker
+                    x:Name="CpHealthNormal"
+                    Width="180"
+                    Margin="220,35,0,0" />
+
+                <x2:ColorPicker
+                    x:Name="CpHealthBuffed"
+                    Width="180"
+                    Margin="10,100,0,0" />
+
+                <x2:ColorPicker
+                    x:Name="CpHealthLow"
+                    Width="180"
+                    Margin="220,100,0,0" />
+
+                <ComboBox
+                    x:Name="CbHealthStyle"
+                    Width="180"
+                    Margin="10,35,0,0">
+                    <ComboBoxItem IsSelected="True">Default</ComboBoxItem>
+                    <ComboBoxItem>Broesel</ComboBoxItem>
+                    <ComboBoxItem>Cross</ComboBoxItem>
+                </ComboBox>
+
+                <Label
+                    Margin="220,5,0,0"
+                    Content="Health Normal:"
+                    ToolTip="Color of the player health" Width="180" />
+
+                <Label
+                    Margin="10,70,0,0"
+                    Content="Health Buffed:"
+                    ToolTip="Color of the player health when buffed" Width="180" />
+
+                <Label
+                    Margin="10,5,0,0"
+                    Content="Health Style:"
+                    ToolTip="Style of the player health" Width="180" />
+
+                <Label
+                    Margin="220,70,0,0"
+                    Content="Health Low:"
+                    ToolTip="Color of the player health when low" Width="180" />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Width="430"
+            Height="165"
+            Margin="10,255,0,0"
+            Header="Ammo">
+
+            <Grid>
+                <x2:ColorPicker
+                    x:Name="CpAmmoClip"
+                    Width="180"
+                    Margin="10,35,0,0" />
+
+                <x2:ColorPicker
+                    x:Name="CpAmmoReserve"
+                    Width="180"
+                    Margin="220,35,0,0" />
+
+                <x2:ColorPicker
+                    x:Name="CpAmmoClipLow"
+                    Width="180"
+                    Margin="10,100,0,0" />
+
+                <x2:ColorPicker
+                    x:Name="CpAmmoReserveLow"
+                    Width="180"
+                    Margin="220,100,0,0" />
+
+                <Label
+                    Margin="10,5,0,0"
+                    Content="Ammo Clip Normal:"
+                    ToolTip="Color of the ammo clip" Width="180" />
+
+                <Label
+                    Margin="10,70,0,0"
+                    Content="Ammo Clip Low:"
+                    ToolTip="Color of the ammo clip when low" Width="180" />
+
+                <Label
+                    Margin="220,5,0,0"
+                    Content="Ammo Reserve Normal:"
+                    ToolTip="Color of the ammo reserve" Width="180" />
+
+                <Label
+                    Margin="220,70,0,0"
+                    Content="Ammo Reserve Low:"
+                    ToolTip="Color of the ammo reserve when low" Width="180" />
+            </Grid>
+        </GroupBox>
+
+        <Button
+            x:Name="BtnInstall"
+            Width="120"
+            Height="30"
+            Click="BtnInstall_OnClick"
+            Content="Install"
+            Style="{StaticResource Button}" Margin="58,580,0,0" />
+
+        <Button
+            x:Name="BtnUninstall"
+            Width="120"
+            Height="30"
+            Click="BtnUninstall_OnClick"
+            Content="Uninstall"
+            Style="{StaticResource Button}" Margin="183,580,0,0" />
+
+        <Button
+            x:Name="BtnSave"
+            Width="130"
+            Height="30"
+            Click="BtnSave_OnClick"
+            Content="Apply Changes"
+            Style="{StaticResource Button}" Margin="308,580,0,0" />
+
+        <Button
+            x:Name="BtnReset"
+            Width="130"
+            Height="30"
+            Click="BtnReset_OnClick"
+            Content="Reset Changes"
+            Style="{StaticResource Button}" Margin="443,580,0,0" />
+
+        <Button
+            x:Name="BtnReportIssue"
+            Width="125"
+            Height="30"
+            Click="BtnReportIssue_OnClick"
+            Content="Report Issue"
+            Style="{StaticResource Button}" Margin="713,580,0,0" />
+
+        <DockPanel Margin="0,620,0,0" />
+    </Grid>
+</UserControl>

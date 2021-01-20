@@ -1,0 +1,105 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TF2HUD.Editor.Properties" GeneratedClassName="rayshud">
+  <Profiles />
+  <Settings>
+    <Setting Name="color_ammo_clip" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#30FF30</Value>
+    </Setting>
+    <Setting Name="color_ammo_clip_low" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF2A82</Value>
+    </Setting>
+    <Setting Name="color_ammo_reserve" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#48FFFF</Value>
+    </Setting>
+    <Setting Name="color_ammo_reserve_low" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF801C</Value>
+    </Setting>
+    <Setting Name="color_health_buff" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#30FF30</Value>
+    </Setting>
+    <Setting Name="color_health_healed" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#30FF30</Value>
+    </Setting>
+    <Setting Name="color_health_low" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF9900</Value>
+    </Setting>
+    <Setting Name="color_health_normal" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#EBE2CA</Value>
+    </Setting>
+    <Setting Name="color_uber_bar" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#EBE2CA</Value>
+    </Setting>
+    <Setting Name="color_uber_flash1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FFA500</Value>
+    </Setting>
+    <Setting Name="color_uber_flash2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF4500</Value>
+    </Setting>
+    <Setting Name="color_uber_full" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF3219</Value>
+    </Setting>
+    <Setting Name="color_xhair_normal" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#F2F2F2</Value>
+    </Setting>
+    <Setting Name="color_xhair_pulse" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF0000</Value>
+    </Setting>
+    <Setting Name="hud_updated" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_alt_player_model" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_center_select" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_chat_bottom" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_classic_menu" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_damage_pos" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_disguise_image" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_menu_images" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_metal_pos" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_min_scoreboard" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_transparent_viewmodels" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_xhair_enable" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="toggle_xhair_pulse" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="val_health_style" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="val_main_menu_bg" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="val_uber_animation" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="val_xhair_effect" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="val_xhair_size" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">18</Value>
+    </Setting>
+    <Setting Name="val_xhair_style" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">6</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
