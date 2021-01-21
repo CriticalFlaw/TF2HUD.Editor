@@ -6,9 +6,9 @@
 
     <Application.Resources>
         <Setter x:Key="Tf2Build" Property="TextElement.FontFamily"
-                Value="./Resources/style/TF2Build.ttf #TF2 Build" />
+                Value="../Resources/TF2Build.ttf #TF2 Build" />
         <Setter x:Key="Tf2Secondary" Property="TextElement.FontFamily"
-                Value="./Resources/style/TF2Secondary.ttf #TF2 Secondary" />
+                Value="../Resources/TF2Secondary.ttf #TF2 Secondary" />
 
         <Style TargetType="Label">
             <Setter Property="HorizontalAlignment" Value="Left" />
@@ -55,7 +55,7 @@
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontSize" Value="30" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="FontFamily" Value="./Resources/style/TF2Crosshairs.otf #TF2Crosshairs" />
+            <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.otf #TF2Crosshairs" />
         </Style>
 
         <Style x:Key="CrosshairBox" TargetType="ComboBox">
@@ -63,13 +63,13 @@
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontSize" Value="30" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="FontFamily" Value="./Resources/style/TF2Crosshairs.otf #TF2Crosshairs" />
+            <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.otf #TF2Crosshairs" />
         </Style>
 
         <Style x:Key="Button" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="FontFamily" Value="./Resources/style/TF2Build.ttf #TF2 Build" />
+            <Setter Property="FontFamily" Value="../Resources/TF2Build.ttf #TF2 Build" />
             <Setter Property="FontSize" Value="15px" />
             <Setter Property="Foreground" Value="#EBE2CA" />
             <Setter Property="Background" Value="#776B5F" />
@@ -86,6 +86,9 @@
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#934739" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#2B2724" />
                 </Trigger>
             </Style.Triggers>
         </Style>

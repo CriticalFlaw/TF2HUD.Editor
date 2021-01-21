@@ -37,10 +37,10 @@ namespace TF2HUD.Editor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int hud_selected {
+        [global::System.Configuration.DefaultSettingValueAttribute("stock")]
+        public string hud_selected {
             get {
-                return ((int)(this["hud_selected"]));
+                return ((string)(this["hud_selected"]));
             }
             set {
                 this["hud_selected"] = value;

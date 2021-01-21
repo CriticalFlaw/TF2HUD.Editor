@@ -1,9 +1,10 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Linq;
 
 namespace TF2HUD.Editor.Common
 {
-    public class Utilities
+    public static class Utilities
     {
         public enum HUDs
         {
@@ -65,5 +66,31 @@ namespace TF2HUD.Editor.Common
             var pulseNew = pulse && color.G >= 50 ? color.G - 50 : color.G;
             return $"{color.R} {pulseNew} {color.B} {alphaNew}";
         }
+
+        /// <summary>
+        ///     Convert the enumeration name to a user-friendly string value
+        /// </summary>
+        public static string GetStringValue(Enum value)
+        {
+            // Get the type, FieldInfo for this type and StringValue attributes
+            var type = value.GetType();
+            var fieldInfo = type.GetField(value.ToString());
+            var attributes =
+                fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
+
+            // Return the first if there was a match, or enum value if no match
+            return attributes.Length > 0 ? attributes[0].StringValue : value.ToString();
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.All)]
+    public class StringValueAttribute : Attribute
+    {
+        public StringValueAttribute(string value)
+        {
+            StringValue = value;
+        }
+
+        public string StringValue { get; protected set; }
     }
 }

@@ -94,7 +94,8 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Saving HUD Settings.", Properties.Resources.error_app_save, ex.Message);
+                MainWindow.ShowErrorMessage(string.Format(Properties.Resources.error_app_save, MainWindow.HudSelection),
+                    ex.Message);
             }
         }
 
@@ -134,7 +135,8 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Loading HUD Settings.", Properties.Resources.error_app_load, ex.Message);
+                MainWindow.ShowErrorMessage(string.Format(Properties.Resources.error_app_load, MainWindow.HudSelection),
+                    ex.Message);
             }
         }
 
@@ -174,8 +176,8 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Resetting HUD Settings.", Properties.Resources.error_app_reset,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(
+                    string.Format(Properties.Resources.error_app_reset, MainWindow.HudSelection), ex.Message);
             }
         }
 
@@ -213,7 +215,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating the color client scheme.");
-                var file = MainWindow.HudPath + Properties.Resources.file_clientscheme_colors;
+                var file = string.Format(Properties.Resources.file_clientscheme_colors, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 // Health
                 lines[Utilities.FindIndex(lines, "\"Overheal\"")] =
@@ -255,8 +258,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error updating colors.", Properties.Resources.error_set_colors,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_colors, ex.Message);
                 return false;
             }
         }
@@ -269,7 +271,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Setting player health color style.");
-                var file = MainWindow.HudPath + Properties.Resources.file_hudanimations;
+                var file = string.Format(Properties.Resources.file_hudanimations, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 // Panels
                 Utilities.CommentOutTextLineSuper(lines, "HudHealthBonusPulse", "HealthBG", !colorText);
@@ -286,9 +289,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error updating player health color style.",
-                    Properties.Resources.error_set_colors,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_colors, ex.Message);
                 return false;
             }
         }
@@ -302,7 +303,8 @@ namespace TF2HUD.Editor.Common
             {
                 MainWindow.Logger.Info("Toggling rotating crosshairs.");
 
-                var file = MainWindow.HudPath + Properties.Resources.file_hudlayout;
+                var file = string.Format(Properties.Resources.file_hudlayout, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "\"Crosshair\"");
                 lines[Utilities.FindIndex(lines, "\"visible\"", start)] = "\t\t\"visible\"\t\t\t\"0\"";
@@ -325,8 +327,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error toggling rotating crosshairs.", Properties.Resources.error_set_xhair,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_xhair, ex.Message);
                 return false;
             }
         }
@@ -339,10 +340,13 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Toggling custom main menu backgrounds.");
-                var directory = new DirectoryInfo(MainWindow.HudPath + Properties.Resources.dir_console);
-                var chapterbackgrounds = MainWindow.HudPath + Properties.Resources.file_chapterbackgrounds;
+                var directory = new DirectoryInfo(string.Format(Properties.Resources.dir_console, MainWindow.HudPath,
+                    MainWindow.HudSelection));
+                var chapterbackgrounds = string.Format(Properties.Resources.file_chapterbackgrounds, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var chapterbackgroundsTemp = chapterbackgrounds.Replace(".txt", ".file");
-                var menu = MainWindow.HudPath + Properties.Resources.file_mainmenuoverride;
+                var menu = string.Format(Properties.Resources.file_mainmenuoverride, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(menu);
                 var start = Utilities.FindIndex(lines, "Background");
                 var index1 = Utilities.FindIndex(lines, "image", Utilities.FindIndex(lines, "if_halloween", start));
@@ -375,9 +379,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error toggling custom main menu backgrounds.",
-                    Properties.Resources.error_set_menu_backgrounds,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_menu_background, ex.Message);
                 return false;
             }
         }
@@ -390,7 +392,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Toggling main menu class images.");
-                var file = MainWindow.HudPath + Properties.Resources.file_mainmenuoverride;
+                var file = string.Format(Properties.Resources.file_mainmenuoverride, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "TFCharacterImage");
                 var value = flawhud.Default.toggle_menu_images ? "-80" : "9999";
@@ -400,9 +403,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error toggling main menu class images.",
-                    Properties.Resources.error_set_menu_class_image,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_menu_class_image, ex.Message);
                 return false;
             }
         }
@@ -415,7 +416,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Setting player health style.");
-                var file = MainWindow.HudPath + Properties.Resources.file_playerhealth;
+                var file = string.Format(Properties.Resources.file_playerhealth, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "\"PlayerStatusHealthBonusImage\"");
                 var index = Utilities.FindIndex(lines, "image", start);
@@ -428,7 +430,8 @@ namespace TF2HUD.Editor.Common
                     lines[index] = "\t\t\"image\"\t\t\t\"../hud/health_over_bg\"";
                     File.WriteAllLines(file, lines);
 
-                    file = MainWindow.HudPath + Properties.Resources.file_hudanimations;
+                    file = string.Format(Properties.Resources.file_hudanimations, MainWindow.HudPath,
+                        MainWindow.HudSelection);
                     lines = File.ReadAllLines(file);
                     Utilities.CommentOutTextLineSuper(lines, "HudHealthBonusPulse", "HealthBG", false);
                     Utilities.CommentOutTextLineSuper(lines, "HudHealthDyingPulse", "HealthBG", false);
@@ -439,8 +442,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error setting player health style.", Properties.Resources.error_set_colors,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_colors, ex.Message);
                 return false;
             }
         }
@@ -453,7 +455,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Setting to the preferred font.");
-                var file = MainWindow.HudPath + Properties.Resources.file_clientscheme;
+                var file = string.Format(Properties.Resources.file_clientscheme, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var value = flawhud.Default.toggle_code_fonts ? "clientscheme_fonts_pro" : "clientscheme_fonts";
                 lines[Utilities.FindIndex(lines, "clientscheme_fonts")] =
@@ -463,9 +466,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error setting to the preferred font.",
-                    Properties.Resources.error_set_fonts,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_fonts, ex.Message);
                 return false;
             }
         }
@@ -478,7 +479,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating player health and ammo positions.");
-                var file = MainWindow.HudPath + Properties.Resources.file_hudlayout;
+                var file = string.Format(Properties.Resources.file_hudlayout, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "HudWeaponAmmo");
                 var value = flawhud.Default.toggle_lower_stats ? "r83" : "c93";
@@ -500,45 +502,52 @@ namespace TF2HUD.Editor.Common
                 lines[Utilities.FindIndex(lines, "xpos", start)] = $"\t\t\"xpos\"\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = MainWindow.HudPath + Properties.Resources.file_huddamageaccount;
+                file = string.Format(Properties.Resources.file_huddamageaccount, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 lines = File.ReadAllLines(file);
                 start = Utilities.FindIndex(lines, "\"DamageAccountValue\"");
                 value = flawhud.Default.toggle_lower_stats ? "r105" : "0";
                 lines[Utilities.FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = MainWindow.HudPath + Properties.Resources.file_playerhealth;
+                file = string.Format(Properties.Resources.file_playerhealth, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 lines = File.ReadAllLines(file);
                 start = Utilities.FindIndex(lines, "HudPlayerHealth");
                 value = flawhud.Default.toggle_lower_stats ? "r108" : "c68";
                 lines[Utilities.FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                SetItemEffectPosition(string.Format(MainWindow.HudPath + Properties.Resources.file_itemeffectmeter,
-                    ""));
+                SetItemEffectPosition(string.Format(Properties.Resources.file_itemeffectmeter, MainWindow.HudPath,
+                    MainWindow.HudSelection,
+                    string.Empty));
                 SetItemEffectPosition(
-                    string.Format(MainWindow.HudPath + Properties.Resources.file_itemeffectmeter, "_cleaver"),
+                    string.Format(Properties.Resources.file_itemeffectmeter, MainWindow.HudPath,
+                        MainWindow.HudSelection, "_cleaver"),
                     Utilities.Positions.Middle);
                 SetItemEffectPosition(
-                    string.Format(MainWindow.HudPath + Properties.Resources.file_itemeffectmeter, "_sodapopper"),
+                    string.Format(Properties.Resources.file_itemeffectmeter, MainWindow.HudPath,
+                        MainWindow.HudSelection, "_sodapopper"),
                     Utilities.Positions.Top);
                 SetItemEffectPosition(
-                    MainWindow.HudPath + Properties.Resources.dir_resource_ui + "\\huddemomancharge.res",
+                    string.Format(Properties.Resources.dir_resource_ui, MainWindow.HudPath, MainWindow.HudSelection) +
+                    "\\huddemomancharge.res",
                     Utilities.Positions.Middle,
                     "ChargeMeter");
                 SetItemEffectPosition(
-                    MainWindow.HudPath + Properties.Resources.dir_resource_ui + "\\huddemomanpipes.res",
+                    string.Format(Properties.Resources.dir_resource_ui, MainWindow.HudPath, MainWindow.HudSelection) +
+                    "\\huddemomanpipes.res",
                     Utilities.Positions.Default,
                     "PipesPresentPanel");
-                SetItemEffectPosition(MainWindow.HudPath + Properties.Resources.dir_resource_ui + "\\hudrocketpack.res",
+                SetItemEffectPosition(
+                    string.Format(Properties.Resources.dir_resource_ui, MainWindow.HudPath, MainWindow.HudSelection) +
+                    "\\hudrocketpack.res",
                     Utilities.Positions.Middle);
                 return true;
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error updating player health and ammo positions.",
-                    Properties.Resources.error_set_lower_player_stats,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_lower_stats, ex.Message);
                 return false;
             }
         }
@@ -553,7 +562,8 @@ namespace TF2HUD.Editor.Common
                 // Skip if the player already has "Lowered Player Stats" enabled.
                 if (flawhud.Default.toggle_lower_stats) return true;
                 MainWindow.Logger.Info("Repositioning player health and ammo.");
-                var file = MainWindow.HudPath + Properties.Resources.file_hudlayout;
+                var file = string.Format(Properties.Resources.file_hudlayout, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "HudWeaponAmmo");
                 var value = flawhud.Default.toggle_alt_stats ? "r110" : "c90";
@@ -585,7 +595,8 @@ namespace TF2HUD.Editor.Common
                 lines[Utilities.FindIndex(lines, "tall", start)] = $"\t\t\"tall\"\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = MainWindow.HudPath + Properties.Resources.file_playerhealth;
+                file = string.Format(Properties.Resources.file_playerhealth, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 lines = File.ReadAllLines(file);
                 start = Utilities.FindIndex(lines, "HudPlayerHealth");
                 value = flawhud.Default.toggle_alt_stats ? "137" : "c-120";
@@ -594,7 +605,8 @@ namespace TF2HUD.Editor.Common
                 lines[Utilities.FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = MainWindow.HudPath + Properties.Resources.file_huddamageaccount;
+                file = string.Format(Properties.Resources.file_huddamageaccount, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 lines = File.ReadAllLines(file);
                 start = Utilities.FindIndex(lines, "\"DamageAccountValue\"");
                 value = flawhud.Default.toggle_alt_stats ? "137" : "c-120";
@@ -603,7 +615,8 @@ namespace TF2HUD.Editor.Common
                 lines[Utilities.FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = MainWindow.HudPath + Properties.Resources.file_playerhealth;
+                file = string.Format(Properties.Resources.file_playerhealth, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 lines = File.ReadAllLines(file);
                 start = Utilities.FindIndex(lines, "HudPlayerHealth");
                 value = flawhud.Default.toggle_alt_stats ? "10" : "c-190";
@@ -612,7 +625,8 @@ namespace TF2HUD.Editor.Common
                 lines[Utilities.FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = MainWindow.HudPath + Properties.Resources.file_playerclass;
+                file = string.Format(Properties.Resources.file_playerclass, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 lines = File.ReadAllLines(file);
                 start = Utilities.FindIndex(lines, "PlayerStatusClassImage");
                 value = flawhud.Default.toggle_alt_stats ? "r125" : "r75";
@@ -624,7 +638,8 @@ namespace TF2HUD.Editor.Common
                 lines[Utilities.FindIndex(lines, "tall", start)] = $"\t\t\"tall\"\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = string.Format(MainWindow.HudPath + Properties.Resources.file_itemeffectmeter, string.Empty);
+                file = string.Format(Properties.Resources.file_itemeffectmeter, MainWindow.HudPath,
+                    MainWindow.HudSelection, string.Empty);
                 lines = File.ReadAllLines(file);
                 start = Utilities.FindIndex(lines, "HudItemEffectMeter");
                 value = flawhud.Default.toggle_alt_stats ? "r110" : "c-60";
@@ -639,21 +654,24 @@ namespace TF2HUD.Editor.Common
                 lines[Utilities.FindIndex(lines, "wide", start)] = $"\t\t\"wide\"\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = string.Format(MainWindow.HudPath + Properties.Resources.file_itemeffectmeter, "_cleaver");
+                file = string.Format(Properties.Resources.file_itemeffectmeter, MainWindow.HudPath,
+                    MainWindow.HudSelection, "_cleaver");
                 lines = File.ReadAllLines(file);
                 start = Utilities.FindIndex(lines, "HudItemEffectMeter");
                 value = flawhud.Default.toggle_alt_stats ? "r85" : "c110";
                 lines[Utilities.FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = string.Format(MainWindow.HudPath + Properties.Resources.file_itemeffectmeter, "_sodapopper");
+                file = string.Format(Properties.Resources.file_itemeffectmeter, MainWindow.HudPath,
+                    MainWindow.HudSelection, "_sodapopper");
                 lines = File.ReadAllLines(file);
                 start = Utilities.FindIndex(lines, "HudItemEffectMeter");
                 value = flawhud.Default.toggle_alt_stats ? "r75" : "c100";
                 lines[Utilities.FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = string.Format(MainWindow.HudPath + Properties.Resources.file_itemeffectmeter, "_killstreak");
+                file = string.Format(Properties.Resources.file_itemeffectmeter, MainWindow.HudPath,
+                    MainWindow.HudSelection, "_killstreak");
                 lines = File.ReadAllLines(file);
                 start = Utilities.FindIndex(lines, "HudItemEffectMeter");
                 value = flawhud.Default.toggle_alt_stats ? "115" : "2";
@@ -662,7 +680,8 @@ namespace TF2HUD.Editor.Common
                 lines[Utilities.FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
 
-                file = MainWindow.HudPath + Properties.Resources.file_hudanimations;
+                file = string.Format(Properties.Resources.file_hudanimations, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 File.WriteAllText(file,
                     flawhud.Default.toggle_alt_stats
                         ? File.ReadAllText(file).Replace("Blank", "HudBlack")
@@ -671,9 +690,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error repositioning player health and ammo.",
-                    Properties.Resources.error_set_lower_player_stats,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_lower_stats, ex.Message);
                 return false;
             }
         }
@@ -696,6 +713,6 @@ namespace TF2HUD.Editor.Common
             File.WriteAllLines(file, lines);
         }
 
-        #endregion
+        #endregion CONTROLLER
     }
 }

@@ -14,6 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Common\StringValueAttribute.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="hud.cfg" />
     <None Remove="log4net.config" />
     <None Remove="Resources\favicon.ico" />
@@ -31,12 +35,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="hud.cfg">
+    <Content Include="Resources\hud.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="log4net.config">
+    </Content>
+    <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
     <Resource Include="Resources\favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

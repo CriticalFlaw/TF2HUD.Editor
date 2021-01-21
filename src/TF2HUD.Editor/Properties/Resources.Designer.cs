@@ -79,7 +79,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\materials\console\.
+        ///   Looks up a localized string similar to {0}\{1}\materials\console\.
         /// </summary>
         internal static string dir_console {
             get {
@@ -97,7 +97,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \rayshud\console\backgrounds\.
+        ///   Looks up a localized string similar to {0}\{1}\console\backgrounds\.
         /// </summary>
         internal static string dir_custom_background {
             get {
@@ -106,7 +106,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui.
         /// </summary>
         internal static string dir_resource_ui {
             get {
@@ -115,7 +115,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\scripts.
+        ///   Looks up a localized string similar to {0}\{1}\scripts.
         /// </summary>
         internal static string dir_scripts {
             get {
@@ -156,15 +156,6 @@ namespace TF2HUD.Editor.Properties {
         internal static string error_app_directory_title {
             get {
                 return ResourceManager.GetString("error_app_directory_title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The tf/custom directory needs to be set in order to use the installer..
-        /// </summary>
-        internal static string error_app_directory1 {
-            get {
-                return ResourceManager.GetString("error_app_directory1", resourceCulture);
             }
         }
         
@@ -214,11 +205,56 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while checking the {0} version number..
+        ///   Looks up a localized string similar to An error occurred while applying the chatbox position setting..
         /// </summary>
-        internal static string error_app_version {
+        internal static string error_chat_pos {
             get {
-                return ResourceManager.GetString("error_app_version", resourceCulture);
+                return ResourceManager.GetString("error_chat_pos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the color settings..
+        /// </summary>
+        internal static string error_colors {
+            get {
+                return ResourceManager.GetString("error_colors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the damage position setting..
+        /// </summary>
+        internal static string error_damage_pos {
+            get {
+                return ResourceManager.GetString("error_damage_pos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the spy disguise image setting..
+        /// </summary>
+        internal static string error_disguise_image {
+            get {
+                return ResourceManager.GetString("error_disguise_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the custom fonts setting..
+        /// </summary>
+        internal static string error_fonts {
+            get {
+                return ResourceManager.GetString("error_fonts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while applying the health style setting..
+        /// </summary>
+        internal static string error_health_style {
+            get {
+                return ResourceManager.GetString("error_health_style", resourceCulture);
             }
         }
         
@@ -232,178 +268,115 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while applying the chatbox position setting..
-        /// </summary>
-        internal static string error_set_chatbox_pos {
-            get {
-                return ResourceManager.GetString("error_set_chatbox_pos", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while applying the color settings..
-        /// </summary>
-        internal static string error_set_colors {
-            get {
-                return ResourceManager.GetString("error_set_colors", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while applying the damage position setting..
-        /// </summary>
-        internal static string error_set_damage_pos {
-            get {
-                return ResourceManager.GetString("error_set_damage_pos", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while applying the custom fonts setting..
-        /// </summary>
-        internal static string error_set_fonts {
-            get {
-                return ResourceManager.GetString("error_set_fonts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while applying the health style setting..
-        /// </summary>
-        internal static string error_set_health_style {
-            get {
-                return ResourceManager.GetString("error_set_health_style", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the killfeed row count..
         /// </summary>
-        internal static string error_set_killfeed_row_count {
+        internal static string error_killfeed {
             get {
-                return ResourceManager.GetString("error_set_killfeed_row_count", resourceCulture);
+                return ResourceManager.GetString("error_killfeed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the lower player stats position..
         /// </summary>
-        internal static string error_set_lower_player_stats {
+        internal static string error_lower_stats {
             get {
-                return ResourceManager.GetString("error_set_lower_player_stats", resourceCulture);
+                return ResourceManager.GetString("error_lower_stats", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the main menu style setting..
         /// </summary>
-        internal static string error_set_main_menu {
+        internal static string error_main_menu {
             get {
-                return ResourceManager.GetString("error_set_main_menu", resourceCulture);
+                return ResourceManager.GetString("error_main_menu", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the main menu background setting..
         /// </summary>
-        internal static string error_set_menu_backgrounds {
+        internal static string error_menu_background {
             get {
-                return ResourceManager.GetString("error_set_menu_backgrounds", resourceCulture);
+                return ResourceManager.GetString("error_menu_background", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the main menu class image setting..
         /// </summary>
-        internal static string error_set_menu_class_image {
+        internal static string error_menu_class_image {
             get {
-                return ResourceManager.GetString("error_set_menu_class_image", resourceCulture);
+                return ResourceManager.GetString("error_menu_class_image", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the player model position setting..
         /// </summary>
-        internal static string error_set_player_model_pos {
+        internal static string error_player_model_pos {
             get {
-                return ResourceManager.GetString("error_set_player_model_pos", resourceCulture);
+                return ResourceManager.GetString("error_player_model_pos", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the scoreboard style setting..
         /// </summary>
-        internal static string error_set_scoreboard {
+        internal static string error_scoreboard {
             get {
-                return ResourceManager.GetString("error_set_scoreboard", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while applying the spy disguise image setting..
-        /// </summary>
-        internal static string error_set_spy_disguise_image {
-            get {
-                return ResourceManager.GetString("error_set_spy_disguise_image", resourceCulture);
+                return ResourceManager.GetString("error_scoreboard", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the team select style setting..
         /// </summary>
-        internal static string error_set_team_select {
+        internal static string error_team_select {
             get {
-                return ResourceManager.GetString("error_set_team_select", resourceCulture);
+                return ResourceManager.GetString("error_team_select", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the transparent viewmodels setting..
         /// </summary>
-        internal static string error_set_transparent_viewmodels {
+        internal static string error_transparent_vm {
             get {
-                return ResourceManager.GetString("error_set_transparent_viewmodels", resourceCulture);
+                return ResourceManager.GetString("error_transparent_vm", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the uber animation setting..
         /// </summary>
-        internal static string error_set_uber_animation {
+        internal static string error_uber_animation {
             get {
-                return ResourceManager.GetString("error_set_uber_animation", resourceCulture);
+                return ResourceManager.GetString("error_uber_animation", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the crosshair settings..
         /// </summary>
-        internal static string error_set_xhair {
+        internal static string error_xhair {
             get {
-                return ResourceManager.GetString("error_set_xhair", resourceCulture);
+                return ResourceManager.GetString("error_xhair", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while applying the crosshair pulse setting..
         /// </summary>
-        internal static string error_set_xhair_pulse {
+        internal static string error_xhair_pulse {
             get {
-                return ResourceManager.GetString("error_set_xhair_pulse", resourceCulture);
+                return ResourceManager.GetString("error_xhair_pulse", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while applying the crosshair settings..
-        /// </summary>
-        internal static string error_set_xhair1 {
-            get {
-                return ResourceManager.GetString("error_set_xhair1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \rayshud\materials\console\background_.
+        ///   Looks up a localized string similar to {0}\{1}\materials\console\background_{2}.
         /// </summary>
         internal static string file_background_upward {
             get {
@@ -412,7 +385,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\basechat.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\basechat.res.
         /// </summary>
         internal static string file_basechat {
             get {
@@ -421,7 +394,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\cfg\hud.cfg.
+        ///   Looks up a localized string similar to {0}\{1}\cfg\hud.cfg.
         /// </summary>
         internal static string file_cfg {
             get {
@@ -430,7 +403,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\scripts\chapterbackgrounds.txt.
+        ///   Looks up a localized string similar to {0}\{1}\scripts\chapterbackgrounds.txt.
         /// </summary>
         internal static string file_chapterbackgrounds {
             get {
@@ -439,7 +412,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\classselection.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\classselection.res.
         /// </summary>
         internal static string file_classselection {
             get {
@@ -448,7 +421,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\clientscheme.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\clientscheme.res.
         /// </summary>
         internal static string file_clientscheme {
             get {
@@ -457,7 +430,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\scheme\clientscheme_colors.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\scheme\clientscheme_colors.res.
         /// </summary>
         internal static string file_clientscheme_colors {
             get {
@@ -466,7 +439,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \rayshud\customizations\main_menu\mainmenuoverride.res.
+        ///   Looks up a localized string similar to {0}\{1}\customizations\main_menu\mainmenuoverride.res.
         /// </summary>
         internal static string file_custom_mainmenu {
             get {
@@ -475,7 +448,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \rayshud\customizations\main_menu\mainmenuoverride-classic.res.
+        ///   Looks up a localized string similar to {0}\{1}\customizations\main_menu\mainmenuoverride-classic.res.
         /// </summary>
         internal static string file_custom_mainmenu_classic {
             get {
@@ -484,7 +457,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\gamemenu.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\gamemenu.res.
         /// </summary>
         internal static string file_gamemenu {
             get {
@@ -493,7 +466,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\scripts\hudanimations_custom.txt.
+        ///   Looks up a localized string similar to {0}\{1}\scripts\hudanimations_custom.txt.
         /// </summary>
         internal static string file_hudanimations {
             get {
@@ -502,7 +475,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\huddamageaccount.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\huddamageaccount.res.
         /// </summary>
         internal static string file_huddamageaccount {
             get {
@@ -511,7 +484,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\scripts\hudlayout.res.
+        ///   Looks up a localized string similar to {0}\{1}\scripts\hudlayout.res.
         /// </summary>
         internal static string file_hudlayout {
             get {
@@ -520,7 +493,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\hudplayerclass.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\hudplayerclass.res.
         /// </summary>
         internal static string file_hudplayerclass {
             get {
@@ -529,7 +502,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\hudplayerhealth.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\hudplayerhealth.res.
         /// </summary>
         internal static string file_hudplayerhealth {
             get {
@@ -538,7 +511,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\huditemeffectmeter{1}.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\huditemeffectmeter{1}.res.
         /// </summary>
         internal static string file_itemeffectmeter {
             get {
@@ -547,7 +520,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\mainmenuoverride.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\mainmenuoverride.res.
         /// </summary>
         internal static string file_mainmenuoverride {
             get {
@@ -556,7 +529,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\hudplayerclass.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\hudplayerclass.res.
         /// </summary>
         internal static string file_playerclass {
             get {
@@ -565,7 +538,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\hudplayerhealth.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\hudplayerhealth.res.
         /// </summary>
         internal static string file_playerhealth {
             get {
@@ -574,7 +547,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\scoreboard.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\scoreboard.res.
         /// </summary>
         internal static string file_scoreboard {
             get {
@@ -583,7 +556,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to \{0}\resource\ui\teammenu.res.
+        ///   Looks up a localized string similar to {0}\{1}\resource\ui\teammenu.res.
         /// </summary>
         internal static string file_teammenu {
             get {
@@ -669,15 +642,6 @@ namespace TF2HUD.Editor.Properties {
         internal static string info_uninstall_complete_desc {
             get {
                 return ResourceManager.GetString("info_uninstall_complete_desc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uninstall Complete.
-        /// </summary>
-        internal static string info_uninstall_complete1 {
-            get {
-                return ResourceManager.GetString("info_uninstall_complete1", resourceCulture);
             }
         }
     }

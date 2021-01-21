@@ -112,7 +112,8 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Saving HUD Settings.", Properties.Resources.error_app_save, ex.Message);
+                MainWindow.ShowErrorMessage(string.Format(Properties.Resources.error_app_save, MainWindow.HudSelection),
+                    ex.Message);
             }
         }
 
@@ -159,7 +160,8 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Loading HUD Settings.", Properties.Resources.error_app_load, ex.Message);
+                MainWindow.ShowErrorMessage(string.Format(Properties.Resources.error_app_load, MainWindow.HudSelection),
+                    ex.Message);
             }
         }
 
@@ -206,8 +208,8 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Resetting HUD Settings.", Properties.Resources.error_app_reset,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(
+                    string.Format(Properties.Resources.error_app_reset, MainWindow.HudSelection), ex.Message);
             }
         }
 
@@ -248,7 +250,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating the color client scheme.");
-                var file = MainWindow.HudPath + Properties.Resources.file_clientscheme_colors;
+                var file = string.Format(Properties.Resources.file_clientscheme_colors, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 // Health
                 lines[Utilities.FindIndex(lines, "\"Health Normal\"")] =
@@ -287,8 +290,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error updating colors.", Properties.Resources.error_set_colors,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_colors, ex.Message);
                 return false;
             }
         }
@@ -301,7 +303,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating position of the damage value.");
-                var file = MainWindow.HudPath + Properties.Resources.file_huddamageaccount;
+                var file = string.Format(Properties.Resources.file_huddamageaccount, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "DamageAccountValue");
                 var value = Properties.rayshud.Default.toggle_damage_pos ? "c-188" : "c108";
@@ -313,9 +316,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error updating position of the damage value.",
-                    Properties.Resources.error_set_damage_pos,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_damage_pos, ex.Message);
                 return false;
             }
         }
@@ -328,7 +329,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating position of the metal counter.");
-                var file = MainWindow.HudPath + Properties.Resources.file_hudlayout;
+                var file = string.Format(Properties.Resources.file_hudlayout, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "CHudAccountPanel");
                 var value = Properties.rayshud.Default.toggle_metal_pos ? "c-20" : "c200";
@@ -344,9 +346,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error updating position of the damage value.",
-                    Properties.Resources.error_set_damage_pos,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_damage_pos, ex.Message);
                 return false;
             }
         }
@@ -359,7 +359,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating Player Health Style.");
-                var file = MainWindow.HudPath + Properties.Resources.file_hudplayerhealth;
+                var file = string.Format(Properties.Resources.file_hudplayerhealth, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var index = Properties.rayshud.Default.val_health_style - 1;
                 lines[0] = Utilities.CommentOutTextLine(lines[0]);
@@ -371,9 +372,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Player Health Style.",
-                    Properties.Resources.error_set_health_style,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_health_style, ex.Message);
                 return false;
             }
         }
@@ -388,7 +387,8 @@ namespace TF2HUD.Editor.Common
                 MainWindow.Logger.Info("Toggling custom main menu backgrounds.");
                 var line1 = "\t\"$baseTexture\" \"console/backgrounds/background_modern\"";
                 var line2 = "\t\"$baseTexture\" \"console/backgrounds/background_modern_widescreen\"";
-                var chapterbackgrounds = MainWindow.HudPath + Properties.Resources.file_chapterbackgrounds;
+                var chapterbackgrounds = string.Format(Properties.Resources.file_chapterbackgrounds, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var chapterbackgroundsTemp = chapterbackgrounds.Replace(".txt", ".file");
 
                 // Restore the backgrounds to the default
@@ -408,13 +408,15 @@ namespace TF2HUD.Editor.Common
                         return true;
                 }
 
-                var file = MainWindow.HudPath + Properties.Resources.file_background_upward + "upward.vmt";
+                var file = string.Format(Properties.Resources.file_background_upward, MainWindow.HudPath,
+                    MainWindow.HudSelection, "upward.vmt");
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "baseTexture");
                 lines[start] = line1;
                 File.WriteAllLines(file, lines);
 
-                file = MainWindow.HudPath + Properties.Resources.file_background_upward + "upward_widescreen.vmt";
+                file = string.Format(Properties.Resources.file_background_upward, MainWindow.HudPath,
+                    MainWindow.HudSelection, "upward_widescreen.vmt");
                 lines = File.ReadAllLines(file);
                 lines[start] = line2;
                 File.WriteAllLines(file, lines);
@@ -422,9 +424,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error toggling custom main menu backgrounds.",
-                    Properties.Resources.error_set_menu_backgrounds,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_menu_background, ex.Message);
                 return false;
             }
         }
@@ -437,9 +437,11 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Toggling main menu class images.");
-                var file = MainWindow.HudPath + (Properties.rayshud.Default.toggle_classic_menu
-                    ? Properties.Resources.file_custom_mainmenu_classic
-                    : Properties.Resources.file_custom_mainmenu);
+                var file = Properties.rayshud.Default.toggle_classic_menu
+                    ? string.Format(Properties.Resources.file_custom_mainmenu_classic, MainWindow.HudPath,
+                        MainWindow.HudSelection)
+                    : string.Format(Properties.Resources.file_custom_mainmenu, MainWindow.HudPath,
+                        MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "TFCharacterImage");
                 var value = Properties.rayshud.Default.toggle_menu_images ? "-80" : "9999";
@@ -449,9 +451,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Error toggling main menu class images.",
-                    Properties.Resources.error_set_menu_class_image,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_menu_class_image, ex.Message);
                 return false;
             }
         }
@@ -465,7 +465,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating Main Menu Style.");
-                var file = MainWindow.HudPath + Properties.Resources.file_mainmenuoverride;
+                var file = string.Format(Properties.Resources.file_mainmenuoverride, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var index = Properties.rayshud.Default.toggle_classic_menu ? 1 : 2;
                 lines[1] = Utilities.CommentOutTextLine(lines[1]);
@@ -476,8 +477,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Main Menu Style.", Properties.Resources.error_set_main_menu,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_main_menu, ex.Message);
                 return false;
             }
         }
@@ -490,7 +490,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating Scoreboard Style.");
-                var file = MainWindow.HudPath + Properties.Resources.file_scoreboard;
+                var file = string.Format(Properties.Resources.file_scoreboard, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 lines[0] = Properties.rayshud.Default.toggle_min_scoreboard
                     ? lines[0].Replace("//", string.Empty)
@@ -500,8 +501,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Scoreboard Style.", Properties.Resources.error_set_scoreboard,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_scoreboard, ex.Message);
                 return false;
             }
         }
@@ -516,7 +516,8 @@ namespace TF2HUD.Editor.Common
                 MainWindow.Logger.Info("Updating Team Selection.");
 
                 // CLASS SELECT
-                var file = MainWindow.HudPath + Properties.Resources.file_classselection;
+                var file = string.Format(Properties.Resources.file_classselection, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 lines[0] = Properties.rayshud.Default.toggle_center_select
                     ? lines[0].Replace("//", string.Empty)
@@ -524,7 +525,7 @@ namespace TF2HUD.Editor.Common
                 File.WriteAllLines(file, lines);
 
                 // TEAM MENU
-                file = MainWindow.HudPath + Properties.Resources.file_teammenu;
+                file = string.Format(Properties.Resources.file_teammenu, MainWindow.HudPath, MainWindow.HudSelection);
                 lines = File.ReadAllLines(file);
                 lines[0] = Properties.rayshud.Default.toggle_center_select
                     ? lines[0].Replace("//", string.Empty)
@@ -534,8 +535,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Team Selection.", Properties.Resources.error_set_team_select,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_team_select, ex.Message);
                 return false;
             }
         }
@@ -548,7 +548,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating ÜberCharge Animation.");
-                var file = MainWindow.HudPath + Properties.Resources.file_hudanimations;
+                var file = string.Format(Properties.Resources.file_hudanimations, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "HudMedicCharged");
                 var index1 = Utilities.FindIndex(lines, "HudMedicOrangePulseCharge", start);
@@ -569,9 +570,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating ÜberCharge Animation.",
-                    Properties.Resources.error_set_uber_animation,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_uber_animation, ex.Message);
                 return false;
             }
         }
@@ -584,14 +583,15 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating Player Model Position.");
-                var file = MainWindow.HudPath + Properties.Resources.file_hudplayerclass;
+                var file = string.Format(Properties.Resources.file_hudplayerclass, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 lines[0] = Properties.rayshud.Default.toggle_alt_player_model
                     ? lines[0].Replace("//", string.Empty)
                     : Utilities.CommentOutTextLine(lines[0]);
                 File.WriteAllLines(file, lines);
 
-                file = MainWindow.HudPath + Properties.Resources.file_hudlayout;
+                file = string.Format(Properties.Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
                 lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "DisguiseStatus");
                 lines[Utilities.FindIndex(lines, "xpos", start)] =
@@ -601,9 +601,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Player Model Position.",
-                    Properties.Resources.error_set_player_model_pos,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_player_model_pos, ex.Message);
                 return false;
             }
         }
@@ -616,7 +614,8 @@ namespace TF2HUD.Editor.Common
             try
             {
                 MainWindow.Logger.Info("Updating Chatbox Position.");
-                var file = MainWindow.HudPath + Properties.Resources.file_basechat;
+                var file = string.Format(Properties.Resources.file_basechat, MainWindow.HudPath,
+                    MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "HudChat");
                 lines[Utilities.FindIndex(lines, "ypos", start)] =
@@ -626,12 +625,11 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage("Updating Chatbox Position.", Properties.Resources.error_set_chatbox_pos,
-                    ex.Message);
+                MainWindow.ShowErrorMessage(Properties.Resources.error_chat_pos, ex.Message);
                 return false;
             }
         }
 
-        #endregion
+        #endregion CONTROLLER
     }
 }

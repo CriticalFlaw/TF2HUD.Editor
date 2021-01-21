@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="app_tracker" xml:space="preserve">
     <value>https://github.com/CriticalFlaw/TF2HUD.Editor/issues</value>
@@ -124,19 +124,21 @@
     <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</value>
   </data>
   <data name="dir_console" xml:space="preserve">
-    <value>\{0}\materials\console\</value>
+    <value>{0}\{1}\materials\console\</value>
   </data>
   <data name="dir_custom" xml:space="preserve">
     <value>\Program Files\Steam\steamapps\common\Team Fortress 2\tf\custom</value>
   </data>
   <data name="dir_custom_background" xml:space="preserve">
-    <value>\rayshud\console\backgrounds\</value>
+    <value>{0}\{1}\console\backgrounds\</value>
+    <comment>unused?</comment>
   </data>
   <data name="dir_resource_ui" xml:space="preserve">
-    <value>\{0}\resource\ui</value>
+    <value>{0}\{1}\resource\ui</value>
   </data>
   <data name="dir_scripts" xml:space="preserve">
-    <value>\{0}\scripts</value>
+    <value>{0}\{1}\scripts</value>
+    <comment>unused?</comment>
   </data>
   <data name="download_flawhud" xml:space="preserve">
     <value>https://github.com/CriticalFlaw/flawhud/archive/master.zip</value>
@@ -145,9 +147,6 @@
     <value>https://github.com/raysfire/rayshud/archive/master.zip</value>
   </data>
   <data name="error_app_directory" xml:space="preserve">
-    <value>The tf/custom directory needs to be set in order to use the installer.</value>
-  </data>
-  <data name="error_app_directory1" xml:space="preserve">
     <value>The tf/custom directory needs to be set in order to use the installer.</value>
   </data>
   <data name="error_app_directory_title" xml:space="preserve">
@@ -168,131 +167,126 @@
   <data name="error_app_uninstall" xml:space="preserve">
     <value>An error occurred while uninstalling {0}.</value>
   </data>
-  <data name="error_app_version" xml:space="preserve">
-    <value>An error occurred while checking the {0} version number.</value>
+  <data name="error_chat_pos" xml:space="preserve">
+    <value>An error occurred while applying the chatbox position setting.</value>
+  </data>
+  <data name="error_colors" xml:space="preserve">
+    <value>An error occurred while applying the color settings.</value>
+  </data>
+  <data name="error_damage_pos" xml:space="preserve">
+    <value>An error occurred while applying the damage position setting.</value>
+  </data>
+  <data name="error_disguise_image" xml:space="preserve">
+    <value>An error occurred while applying the spy disguise image setting.</value>
+  </data>
+  <data name="error_fonts" xml:space="preserve">
+    <value>An error occurred while applying the custom fonts setting.</value>
+  </data>
+  <data name="error_health_style" xml:space="preserve">
+    <value>An error occurred while applying the health style setting.</value>
   </data>
   <data name="error_info" xml:space="preserve">
     <value>Error: {0}</value>
   </data>
-  <data name="error_set_chatbox_pos" xml:space="preserve">
-    <value>An error occurred while applying the chatbox position setting.</value>
-  </data>
-  <data name="error_set_colors" xml:space="preserve">
-    <value>An error occurred while applying the color settings.</value>
-  </data>
-  <data name="error_set_damage_pos" xml:space="preserve">
-    <value>An error occurred while applying the damage position setting.</value>
-  </data>
-  <data name="error_set_fonts" xml:space="preserve">
-    <value>An error occurred while applying the custom fonts setting.</value>
-  </data>
-  <data name="error_set_health_style" xml:space="preserve">
-    <value>An error occurred while applying the health style setting.</value>
-  </data>
-  <data name="error_set_killfeed_row_count" xml:space="preserve">
+  <data name="error_killfeed" xml:space="preserve">
     <value>An error occurred while applying the killfeed row count.</value>
   </data>
-  <data name="error_set_lower_player_stats" xml:space="preserve">
+  <data name="error_lower_stats" xml:space="preserve">
     <value>An error occurred while applying the lower player stats position.</value>
   </data>
-  <data name="error_set_main_menu" xml:space="preserve">
+  <data name="error_main_menu" xml:space="preserve">
     <value>An error occurred while applying the main menu style setting.</value>
   </data>
-  <data name="error_set_menu_backgrounds" xml:space="preserve">
+  <data name="error_menu_background" xml:space="preserve">
     <value>An error occurred while applying the main menu background setting.</value>
   </data>
-  <data name="error_set_menu_class_image" xml:space="preserve">
+  <data name="error_menu_class_image" xml:space="preserve">
     <value>An error occurred while applying the main menu class image setting.</value>
   </data>
-  <data name="error_set_player_model_pos" xml:space="preserve">
+  <data name="error_player_model_pos" xml:space="preserve">
     <value>An error occurred while applying the player model position setting.</value>
   </data>
-  <data name="error_set_scoreboard" xml:space="preserve">
+  <data name="error_scoreboard" xml:space="preserve">
     <value>An error occurred while applying the scoreboard style setting.</value>
   </data>
-  <data name="error_set_spy_disguise_image" xml:space="preserve">
-    <value>An error occurred while applying the spy disguise image setting.</value>
-  </data>
-  <data name="error_set_team_select" xml:space="preserve">
+  <data name="error_team_select" xml:space="preserve">
     <value>An error occurred while applying the team select style setting.</value>
   </data>
-  <data name="error_set_transparent_viewmodels" xml:space="preserve">
+  <data name="error_transparent_vm" xml:space="preserve">
     <value>An error occurred while applying the transparent viewmodels setting.</value>
   </data>
-  <data name="error_set_uber_animation" xml:space="preserve">
+  <data name="error_uber_animation" xml:space="preserve">
     <value>An error occurred while applying the uber animation setting.</value>
   </data>
-  <data name="error_set_xhair" xml:space="preserve">
+  <data name="error_xhair" xml:space="preserve">
     <value>An error occurred while applying the crosshair settings.</value>
   </data>
-  <data name="error_set_xhair1" xml:space="preserve">
-    <value>An error occurred while applying the crosshair settings.</value>
-  </data>
-  <data name="error_set_xhair_pulse" xml:space="preserve">
+  <data name="error_xhair_pulse" xml:space="preserve">
     <value>An error occurred while applying the crosshair pulse setting.</value>
   </data>
   <data name="file_background_upward" xml:space="preserve">
-    <value>\rayshud\materials\console\background_</value>
+    <value>{0}\{1}\materials\console\background_{2}</value>
   </data>
   <data name="file_basechat" xml:space="preserve">
-    <value>\{0}\resource\ui\basechat.res</value>
+    <value>{0}\{1}\resource\ui\basechat.res</value>
   </data>
   <data name="file_cfg" xml:space="preserve">
-    <value>\{0}\cfg\hud.cfg</value>
+    <value>{0}\{1}\cfg\hud.cfg</value>
   </data>
   <data name="file_chapterbackgrounds" xml:space="preserve">
-    <value>\{0}\scripts\chapterbackgrounds.txt</value>
+    <value>{0}\{1}\scripts\chapterbackgrounds.txt</value>
   </data>
   <data name="file_classselection" xml:space="preserve">
-    <value>\{0}\resource\ui\classselection.res</value>
+    <value>{0}\{1}\resource\ui\classselection.res</value>
   </data>
   <data name="file_clientscheme" xml:space="preserve">
-    <value>\{0}\resource\clientscheme.res</value>
+    <value>{0}\{1}\resource\clientscheme.res</value>
   </data>
   <data name="file_clientscheme_colors" xml:space="preserve">
-    <value>\{0}\resource\scheme\clientscheme_colors.res</value>
+    <value>{0}\{1}\resource\scheme\clientscheme_colors.res</value>
   </data>
   <data name="file_custom_mainmenu" xml:space="preserve">
-    <value>\rayshud\customizations\main_menu\mainmenuoverride.res</value>
+    <value>{0}\{1}\customizations\main_menu\mainmenuoverride.res</value>
   </data>
   <data name="file_custom_mainmenu_classic" xml:space="preserve">
-    <value>\rayshud\customizations\main_menu\mainmenuoverride-classic.res</value>
+    <value>{0}\{1}\customizations\main_menu\mainmenuoverride-classic.res</value>
   </data>
   <data name="file_gamemenu" xml:space="preserve">
-    <value>\{0}\resource\gamemenu.res</value>
+    <value>{0}\{1}\resource\gamemenu.res</value>
+    <comment>unused?</comment>
   </data>
   <data name="file_hudanimations" xml:space="preserve">
-    <value>\{0}\scripts\hudanimations_custom.txt</value>
+    <value>{0}\{1}\scripts\hudanimations_custom.txt</value>
   </data>
   <data name="file_huddamageaccount" xml:space="preserve">
-    <value>\{0}\resource\ui\huddamageaccount.res</value>
+    <value>{0}\{1}\resource\ui\huddamageaccount.res</value>
   </data>
   <data name="file_hudlayout" xml:space="preserve">
-    <value>\{0}\scripts\hudlayout.res</value>
+    <value>{0}\{1}\scripts\hudlayout.res</value>
   </data>
   <data name="file_hudplayerclass" xml:space="preserve">
-    <value>\{0}\resource\ui\hudplayerclass.res</value>
+    <value>{0}\{1}\resource\ui\hudplayerclass.res</value>
   </data>
   <data name="file_hudplayerhealth" xml:space="preserve">
-    <value>\{0}\resource\ui\hudplayerhealth.res</value>
+    <value>{0}\{1}\resource\ui\hudplayerhealth.res</value>
   </data>
   <data name="file_itemeffectmeter" xml:space="preserve">
-    <value>\{0}\resource\ui\huditemeffectmeter{1}.res</value>
+    <value>{0}\{1}\resource\ui\huditemeffectmeter{1}.res</value>
   </data>
   <data name="file_mainmenuoverride" xml:space="preserve">
-    <value>\{0}\resource\ui\mainmenuoverride.res</value>
+    <value>{0}\{1}\resource\ui\mainmenuoverride.res</value>
   </data>
   <data name="file_playerclass" xml:space="preserve">
-    <value>\{0}\resource\ui\hudplayerclass.res</value>
+    <value>{0}\{1}\resource\ui\hudplayerclass.res</value>
   </data>
   <data name="file_playerhealth" xml:space="preserve">
-    <value>\{0}\resource\ui\hudplayerhealth.res</value>
+    <value>{0}\{1}\resource\ui\hudplayerhealth.res</value>
   </data>
   <data name="file_scoreboard" xml:space="preserve">
-    <value>\{0}\resource\ui\scoreboard.res</value>
+    <value>{0}\{1}\resource\ui\scoreboard.res</value>
   </data>
   <data name="file_teammenu" xml:space="preserve">
-    <value>\{0}\resource\ui\teammenu.res</value>
+    <value>{0}\{1}\resource\ui\teammenu.res</value>
   </data>
   <data name="info_create_backup" xml:space="preserve">
     <value>An existing {0} folder has been found. To avoid conflicts, a backup has been created.</value>
@@ -316,9 +310,6 @@
     <value>{0} has been successfully installed</value>
   </data>
   <data name="info_uninstall_complete" xml:space="preserve">
-    <value>Uninstall Complete</value>
-  </data>
-  <data name="info_uninstall_complete1" xml:space="preserve">
     <value>Uninstall Complete</value>
   </data>
   <data name="info_uninstall_complete_desc" xml:space="preserve">

@@ -5,8 +5,8 @@
     <Setting Name="app_mod_date" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">01/19/2021 18:19:00</Value>
     </Setting>
-    <Setting Name="hud_selected" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
+    <Setting Name="hud_selected" Type="System.String" Scope="User">
+      <Value Profile="(Default)">stock</Value>
     </Setting>
     <Setting Name="hud_directory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

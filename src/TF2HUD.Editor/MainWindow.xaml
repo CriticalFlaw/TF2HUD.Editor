@@ -6,25 +6,30 @@
         xmlns:local="clr-namespace:TF2HUD.Editor.Common"
         mc:Ignorable="d"
         Title="TF2 HUD Editor"
-        Height="800" Width="1300"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterScreen"
         FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px">
 
     <Grid Background="#2B2724">
-
         <Label
             Name="LblStatus"
-            Margin="10,652,0,0"
-            Content="..." />
+            Margin="0,670,0,0"
+            Content="..." Width="1262" HorizontalAlignment="Center" />
 
-        <local:SelectHUD x:Name="SelectHud" Margin="10,10,10,132" />
-        <local:FlawHUD x:Name="FlawHud" Visibility="Hidden" Margin="10,10,10,132" />
-        <local:rayshud x:Name="RaysHud" Visibility="Hidden" Margin="200,40,200,140" />
+        <GroupBox x:Name="gbSelectHUD" Header="Select a HUD" Width="1262" Height="640" Margin="0,10,0,0"
+                  Visibility="Visible" HorizontalAlignment="Center">
+            <ListBox x:Name="lbSelectHud" Margin="10,0,725,0" SelectionChanged="lbSelectHud_SelectionChanged"
+                     Height="589" />
+        </GroupBox>
+
+        <local:FlawHUD x:Name="uiFlawHud" Visibility="Hidden" Margin="10,11,10,133" Grid.ColumnSpan="2" />
+        <local:rayshud x:Name="uiRaysHud" Visibility="Hidden" Margin="10,11,10,133" Grid.ColumnSpan="2" />
 
         <GroupBox
             Width="1271"
             Height="90"
-            Margin="10,684,0,0"
+            Margin="19,704,0,0"
             Header="Buttons">
 
             <Grid>
