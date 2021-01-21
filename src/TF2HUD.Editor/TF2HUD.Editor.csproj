@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>TF2HUD.Editor.App</StartupObject>
     <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
     <Authors>Igor Nikitin</Authors>

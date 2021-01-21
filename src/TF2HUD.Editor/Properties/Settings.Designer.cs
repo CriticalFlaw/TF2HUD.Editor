@@ -46,5 +46,17 @@ namespace TF2HUD.Editor.Properties {
                 this["hud_selected"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string hud_directory {
+            get {
+                return ((string)(this["hud_directory"]));
+            }
+            set {
+                this["hud_directory"] = value;
+            }
+        }
     }
 }

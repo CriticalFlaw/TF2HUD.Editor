@@ -6,22 +6,76 @@
         xmlns:local="clr-namespace:TF2HUD.Editor.Common"
         mc:Ignorable="d"
         Title="TF2 HUD Editor"
-        Height="800" Width="1200"
-        FontFamily="./Resources/TF2Secondary.ttf #TF2 Secondary"
+        Height="800" Width="1300"
+        FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px">
 
     <Grid Background="#2B2724">
+
         <Label
             Name="LblStatus"
-            Margin="0,10,10,0"
-            HorizontalAlignment="Right"
+            Margin="10,652,0,0"
             Content="..." />
 
-        <local:FlawHUD x:Name="flawhud" Visibility="Visible" />
-        <local:rayshud x:Name="rayshud" Visibility="Hidden" Margin="0,47,0,-47" />
-        <ComboBox Name="SelectHud" Margin="10,10,0,0" Width="200" SelectionChanged="SelectHud_OnSelectionChanged">
-            <ComboBoxItem IsSelected="True">FlawHUD</ComboBoxItem>
-            <ComboBoxItem>rayshud</ComboBoxItem>
-        </ComboBox>
+        <local:SelectHUD x:Name="SelectHud" Margin="10,10,10,132" />
+        <local:FlawHUD x:Name="FlawHud" Visibility="Hidden" Margin="10,10,10,132" />
+        <local:rayshud x:Name="RaysHud" Visibility="Hidden" Margin="200,40,200,140" />
+
+        <GroupBox
+            Width="1271"
+            Height="90"
+            Margin="10,684,0,0"
+            Header="Buttons">
+
+            <Grid>
+                <Button
+                    x:Name="BtnInstall"
+                    Width="190"
+                    Height="40"
+                    Click="BtnInstall_OnClick"
+                    Content="Install"
+                    Style="{StaticResource Button}" Margin="10,10,0,0" />
+
+                <Button
+                    x:Name="BtnUninstall"
+                    Width="190"
+                    Height="40"
+                    Click="BtnUninstall_OnClick"
+                    Content="Uninstall"
+                    Style="{StaticResource Button}" Margin="218,10,0,0" />
+
+                <Button
+                    x:Name="BtnSave"
+                    Width="190"
+                    Height="40"
+                    Click="BtnSave_OnClick"
+                    Content="Apply Changes"
+                    Style="{StaticResource Button}" Margin="426,10,0,0" />
+
+                <Button
+                    x:Name="BtnReset"
+                    Width="190"
+                    Height="40"
+                    Click="BtnReset_OnClick"
+                    Content="Reset to Default"
+                    Style="{StaticResource Button}" Margin="634,10,0,0" />
+
+                <Button
+                    x:Name="BtnReportIssue"
+                    Width="190"
+                    Height="40"
+                    Click="BtnReportIssue_OnClick"
+                    Content="Report Issue"
+                    Style="{StaticResource Button}" Margin="842,10,0,0" />
+
+                <Button
+                    x:Name="BtnSwitch"
+                    Width="190"
+                    Height="40"
+                    Click="BtnSwitch_OnClick"
+                    Content="Switch HUD"
+                    Style="{StaticResource Button}" Margin="1050,10,0,0" />
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>
