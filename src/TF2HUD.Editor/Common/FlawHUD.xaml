@@ -13,9 +13,9 @@
 
         <GroupBox
             Width="430"
-            Height="620"
-            Margin="10,0,0,0"
-            Header="Colors" VerticalAlignment="Center">
+            Height="460"
+            Margin="10,10,0,0"
+            Header="Colors">
             <Grid>
                 <Label
                     Margin="10,10,0,0"
@@ -24,9 +24,7 @@
 
                 <ComboBox
                     x:Name="CbHealthStyle"
-                    Width="200"
-                    Margin="200,10,0,0"
-                    SelectedValuePath="Content">
+                    Margin="200,10,0,0">
                     <ComboBoxItem>Default</ComboBoxItem>
                     <ComboBoxItem>Colored Text</ComboBoxItem>
                     <ComboBoxItem>Cross</ComboBoxItem>
@@ -34,7 +32,6 @@
 
                 <x2:ColorPicker
                     x:Name="CpHealthBuffed"
-                    Width="200"
                     Margin="200,60,0,0" />
 
                 <Label
@@ -44,7 +41,6 @@
 
                 <x2:ColorPicker
                     x:Name="CpHealthLow"
-                    Width="200"
                     Margin="200,110,0,0" />
 
                 <Label
@@ -54,7 +50,6 @@
 
                 <x2:ColorPicker
                     x:Name="CpAmmoLow"
-                    Width="200"
                     Margin="200,160,0,0" />
 
                 <Label
@@ -64,7 +59,6 @@
 
                 <x2:ColorPicker
                     x:Name="CpUberBarColor"
-                    Width="200"
                     Margin="200,210,0,0" />
 
                 <Label
@@ -74,7 +68,6 @@
 
                 <x2:ColorPicker
                     x:Name="CpUberFullColor"
-                    Width="200"
                     Margin="200,260,0,0" />
 
                 <Label
@@ -84,7 +77,6 @@
 
                 <x2:ColorPicker
                     x:Name="CpTargetHealth"
-                    Width="200"
                     Margin="200,310,0,0" />
 
                 <Label
@@ -94,13 +86,30 @@
 
                 <x2:ColorPicker
                     x:Name="CpTargetDamage"
-                    Width="200"
                     Margin="200,360,0,0" />
 
                 <Label
                     Margin="10,360,0,0"
                     Content="Target Damage:"
                     ToolTip="Color of the damage dealt to another player. Requires a game restart." />
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Width="430"
+            Height="155"
+            Margin="10,475,0,0"
+            Header="Social Media"
+            Visibility="Hidden">
+            <Grid>
+                <Button x:Name="btnHudsTF" Width="75" Height="75" Click="btnHudsTF_Click"
+                        Style="{StaticResource TransparentStyle}" Margin="130,0,0,0">
+                    <Image Source="../Resources/hudstf.png" Margin="0,0,0,0" />
+                </Button>
+                <Button x:Name="btnSteam" Width="75" Height="75" Click="btnSteam_Click"
+                        Style="{StaticResource TransparentStyle}" Margin="320,0,0,0">
+                    <Image Source="../Resources/steam.png" Margin="0,0,0,0" />
+                </Button>
             </Grid>
         </GroupBox>
 
@@ -133,7 +142,8 @@
                     Margin="200,110,0,0"
                     Value="18"
                     Minimum="10"
-                    Maximum="30" Height="28" Width="200"
+                    Maximum="30" Height="28"
+                    TextAlignment="Center"
                     IsEnabled="False" />
 
                 <Label
@@ -148,9 +158,7 @@
 
                 <ComboBox
                     Name="CbXHairStyle"
-                    Width="200"
                     Margin="200,210,0,0"
-                    SelectedValuePath="Content"
                     Style="{StaticResource CrosshairBox}"
                     IsEnabled="False">
 
@@ -347,8 +355,8 @@
 
                 <ComboBox
                     x:Name="CbXHairEffect"
-                    Width="200"
                     Margin="200,160,0,0"
+                    HorizontalContentAlignment="Center"
                     SelectedValuePath="Content">
                     <ComboBoxItem>None</ComboBoxItem>
                     <ComboBoxItem>Blur</ComboBoxItem>
@@ -423,19 +431,18 @@
                     Margin="10,210,0,0"
                     Content="Lowered Player Stats"
                     ToolTip="If enabled, lowers the player health and ammo indicators."
-                    Click="CbLowerPlayerStats_OnClick" />
+                    Click="CbMovePlayerStats_OnClick" />
 
                 <CheckBox
                     x:Name="CbAlternatePlayerStats"
                     Margin="10,250,0,0"
                     Content="Alternate Player Stats"
                     ToolTip="If enabled, will use alternate positions for player health and ammo. Note: Cannot be used at the same time as the 'Lowered Player Stats' option"
-                    Click="CbAlternatePlayerStats_OnClick" />
+                    Click="CbMovePlayerStats_OnClick" />
 
                 <Label
-                    Margin="10,280,0,0"
+                    Margin="10,290,0,0"
                     Content="Killfeed Rows:"
-                    FontSize="16px"
                     ToolTip="Color of the ÜberCharge meter when charged." />
 
                 <x2:IntegerUpDown
@@ -443,10 +450,9 @@
                     Value="6"
                     Minimum="0"
                     Maximum="9"
-                    Margin="120,283,0,0"
-                    TextAlignment="Left"
-                    FontSize="16px"
-                    Width="50" />
+                    Margin="140,290,0,0"
+                    TextAlignment="Right"
+                    Width="70" />
             </Grid>
         </GroupBox>
     </Grid>

@@ -123,23 +123,6 @@
   <data name="app_update" xml:space="preserve">
     <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</value>
   </data>
-  <data name="dir_console" xml:space="preserve">
-    <value>{0}\{1}\materials\console\</value>
-  </data>
-  <data name="dir_custom" xml:space="preserve">
-    <value>\Program Files\Steam\steamapps\common\Team Fortress 2\tf\custom</value>
-  </data>
-  <data name="dir_custom_background" xml:space="preserve">
-    <value>{0}\{1}\console\backgrounds\</value>
-    <comment>unused?</comment>
-  </data>
-  <data name="dir_resource_ui" xml:space="preserve">
-    <value>{0}\{1}\resource\ui</value>
-  </data>
-  <data name="dir_scripts" xml:space="preserve">
-    <value>{0}\{1}\scripts</value>
-    <comment>unused?</comment>
-  </data>
   <data name="download_flawhud" xml:space="preserve">
     <value>https://github.com/CriticalFlaw/flawhud/archive/master.zip</value>
   </data>
@@ -147,10 +130,7 @@
     <value>https://github.com/raysfire/rayshud/archive/master.zip</value>
   </data>
   <data name="error_app_directory" xml:space="preserve">
-    <value>The tf/custom directory needs to be set in order to use the installer.</value>
-  </data>
-  <data name="error_app_directory_title" xml:space="preserve">
-    <value>Directory Not Set</value>
+    <value>The tf/custom directory must be set to use the editor.</value>
   </data>
   <data name="error_app_install" xml:space="preserve">
     <value>An error occurred while installing {0}.</value>
@@ -168,61 +148,58 @@
     <value>An error occurred while uninstalling {0}.</value>
   </data>
   <data name="error_chat_pos" xml:space="preserve">
-    <value>An error occurred while applying the chatbox position setting.</value>
+    <value>An error occurred while changing the chatbox position.</value>
   </data>
   <data name="error_colors" xml:space="preserve">
-    <value>An error occurred while applying the color settings.</value>
+    <value>An error occurred while updating the color values.</value>
   </data>
   <data name="error_damage_pos" xml:space="preserve">
-    <value>An error occurred while applying the damage position setting.</value>
+    <value>An error occurred while changing the damage position.</value>
   </data>
   <data name="error_disguise_image" xml:space="preserve">
-    <value>An error occurred while applying the spy disguise image setting.</value>
+    <value>An error occurred while toggling the spy disguise image.</value>
   </data>
   <data name="error_fonts" xml:space="preserve">
-    <value>An error occurred while applying the custom fonts setting.</value>
+    <value>An error occurred while applying the font selection.</value>
   </data>
   <data name="error_health_style" xml:space="preserve">
-    <value>An error occurred while applying the health style setting.</value>
-  </data>
-  <data name="error_info" xml:space="preserve">
-    <value>Error: {0}</value>
+    <value>An error occurred while changing the health style.</value>
   </data>
   <data name="error_killfeed" xml:space="preserve">
-    <value>An error occurred while applying the killfeed row count.</value>
+    <value>An error occurred while updating the killfeed row count.</value>
   </data>
   <data name="error_lower_stats" xml:space="preserve">
-    <value>An error occurred while applying the lower player stats position.</value>
+    <value>An error occurred while changing the player stats position.</value>
   </data>
   <data name="error_main_menu" xml:space="preserve">
-    <value>An error occurred while applying the main menu style setting.</value>
+    <value>An error occurred while changing the main menu style.</value>
   </data>
   <data name="error_menu_background" xml:space="preserve">
-    <value>An error occurred while applying the main menu background setting.</value>
+    <value>An error occurred while changing the main menu backgrounds.</value>
   </data>
   <data name="error_menu_class_image" xml:space="preserve">
-    <value>An error occurred while applying the main menu class image setting.</value>
+    <value>An error occurred while toggling the main menu class image.</value>
   </data>
   <data name="error_player_model_pos" xml:space="preserve">
-    <value>An error occurred while applying the player model position setting.</value>
+    <value>An error occurred while changing the player model position.</value>
   </data>
   <data name="error_scoreboard" xml:space="preserve">
-    <value>An error occurred while applying the scoreboard style setting.</value>
+    <value>An error occurred while changing the scoreboard style.</value>
   </data>
   <data name="error_team_select" xml:space="preserve">
-    <value>An error occurred while applying the team select style setting.</value>
+    <value>An error occurred while changing the team select style.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
-    <value>An error occurred while applying the transparent viewmodels setting.</value>
+    <value>An error occurred while toggling transparent viewmodels.</value>
   </data>
   <data name="error_uber_animation" xml:space="preserve">
-    <value>An error occurred while applying the uber animation setting.</value>
+    <value>An error occurred while changing the ÜberCharge style.</value>
   </data>
   <data name="error_xhair" xml:space="preserve">
-    <value>An error occurred while applying the crosshair settings.</value>
+    <value>An error occurred while applying the crosshair selection.</value>
   </data>
   <data name="error_xhair_pulse" xml:space="preserve">
-    <value>An error occurred while applying the crosshair pulse setting.</value>
+    <value>An error occurred while toggling the crosshair pulse.</value>
   </data>
   <data name="file_background_upward" xml:space="preserve">
     <value>{0}\{1}\materials\console\background_{2}</value>
@@ -251,10 +228,6 @@
   <data name="file_custom_mainmenu_classic" xml:space="preserve">
     <value>{0}\{1}\customizations\main_menu\mainmenuoverride-classic.res</value>
   </data>
-  <data name="file_gamemenu" xml:space="preserve">
-    <value>{0}\{1}\resource\gamemenu.res</value>
-    <comment>unused?</comment>
-  </data>
   <data name="file_hudanimations" xml:space="preserve">
     <value>{0}\{1}\scripts\hudanimations_custom.txt</value>
   </data>
@@ -271,7 +244,7 @@
     <value>{0}\{1}\resource\ui\hudplayerhealth.res</value>
   </data>
   <data name="file_itemeffectmeter" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\huditemeffectmeter{1}.res</value>
+    <value>{0}\{1}\resource\ui\huditemeffectmeter{2}.res</value>
   </data>
   <data name="file_mainmenuoverride" xml:space="preserve">
     <value>{0}\{1}\resource\ui\mainmenuoverride.res</value>
@@ -291,28 +264,34 @@
   <data name="info_create_backup" xml:space="preserve">
     <value>An existing {0} folder has been found. To avoid conflicts, a backup has been created.</value>
   </data>
-  <data name="info_create_backup_title" xml:space="preserve">
-    <value>Backup Created</value>
-  </data>
   <data name="info_folder_browser" xml:space="preserve">
-    <value>Select your tf/custom folder. If a valid directory is not provided, the options to install and modify the HUD will not be available.</value>
+    <value>Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available.</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
-    <value>TF2 is still running</value>
-  </data>
-  <data name="info_game_running_desc" xml:space="preserve">
-    <value>Unable to initiate process because Team Fortress 2 is still running. Please close it then try again.</value>
+    <value>Unable to continue because Team Fortress 2 is still running. Please close it and then try again.</value>
   </data>
   <data name="info_install_complete" xml:space="preserve">
-    <value>Install Complete</value>
-  </data>
-  <data name="info_install_complete_desc" xml:space="preserve">
-    <value>{0} has been successfully installed</value>
+    <value>{0} has been successfully installed.</value>
   </data>
   <data name="info_uninstall_complete" xml:space="preserve">
-    <value>Uninstall Complete</value>
+    <value>{0} has been successfully uninstalled.</value>
   </data>
-  <data name="info_uninstall_complete_desc" xml:space="preserve">
-    <value>{0} has been successfully uninstalled</value>
+  <data name="path_console" xml:space="preserve">
+    <value>{0}\{1}\materials\console\</value>
+  </data>
+  <data name="path_resource_ui" xml:space="preserve">
+    <value>{0}\{1}\resource\ui</value>
+  </data>
+  <data name="url_flawhud_hudstf" xml:space="preserve">
+    <value>https://huds.tf/site/s-FlawHUD</value>
+  </data>
+  <data name="url_flawhud_steam" xml:space="preserve">
+    <value>https://steamcommunity.com/groups/FlawHUD</value>
+  </data>
+  <data name="url_rayshud_hudstf" xml:space="preserve">
+    <value>https://huds.tf/site/s-rayshud--377</value>
+  </data>
+  <data name="url_rayshud_steam" xml:space="preserve">
+    <value>https://steamcommunity.com/groups/rayshud</value>
   </data>
 </root>

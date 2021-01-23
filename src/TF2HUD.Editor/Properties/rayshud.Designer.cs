@@ -194,18 +194,6 @@ namespace TF2HUD.Editor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool hud_updated {
-            get {
-                return ((bool)(this["hud_updated"]));
-            }
-            set {
-                this["hud_updated"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool toggle_alt_player_model {
             get {
                 return ((bool)(this["toggle_alt_player_model"]));

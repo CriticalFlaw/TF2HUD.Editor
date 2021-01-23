@@ -1,19 +1,20 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
 using TF2HUD.Editor.Properties;
 
 namespace TF2HUD.Editor.Common
 {
-    public class Common
+    public static class Common
     {
         /// <summary>
         ///     Set the crosshair style, position and effect.
         /// </summary>
-        public bool Crosshair(string style, int? size, string effect)
+        /// <remarks>TODO: Refactor to remove passed parameters, the options should be pulled from the HUD settings.</remarks>
+        public static bool Crosshair(string style, int? size, string effect)
         {
             try
             {
-                MainWindow.Logger.Info("Updating crosshair settings.");
                 var file = string.Format(Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "CustomCrosshair");
@@ -49,19 +50,18 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage(Resources.error_xhair, ex.Message);
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_xhair, ex.Message);
                 return false;
             }
         }
 
         /// <summary>
-        ///     Toggle the crosshair hitmarker.
+        ///     Toggle crosshair hitmarker.
         /// </summary>
-        public bool CrosshairPulse()
+        public static bool CrosshairPulse()
         {
             try
             {
-                MainWindow.Logger.Info("Toggling crosshair hitmarker.");
                 var file = string.Format(Resources.file_hudanimations, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "DamagedPlayer");
@@ -92,19 +92,18 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage(Resources.error_xhair_pulse, ex.Message);
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_xhair_pulse, ex.Message);
                 return false;
             }
         }
 
         /// <summary>
-        ///     Toggle the visibility of the Spy's disguise image.
+        ///     Toggle Spy's disguise image.
         /// </summary>
-        public bool DisguiseImage()
+        public static bool DisguiseImage()
         {
             try
             {
-                MainWindow.Logger.Info("Toggling the Spy's disguise image.");
                 var file = string.Format(Resources.file_hudanimations, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "HudSpyDisguiseFadeIn");
@@ -142,19 +141,18 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage(Resources.error_disguise_image, ex.Message);
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_disguise_image, ex.Message);
                 return false;
             }
         }
 
         /// <summary>
-        ///     Toggle the weapon viewmodel transparency.
+        ///     Toggle transparent viewmodels.
         /// </summary>
-        public bool TransparentViewmodels()
+        public static bool TransparentViewmodels()
         {
             try
             {
-                MainWindow.Logger.Info("Toggling transparent viewmodels.");
                 var file = string.Format(Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "\"TransparentViewmodel\"");
@@ -163,6 +161,9 @@ namespace TF2HUD.Editor.Common
                 lines[index1] = "\t\t\"visible\"\t\t\t\"0\"";
                 lines[index2] = "\t\t\"enabled\"\t\t\t\"0\"";
                 File.WriteAllLines(file, lines);
+
+                if (File.Exists(string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection)))
+                    File.Delete(string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection));
 
                 switch (MainWindow.HudSelection.ToLowerInvariant())
                 {
@@ -183,16 +184,14 @@ namespace TF2HUD.Editor.Common
 
                 if (!Directory.Exists(MainWindow.HudPath + $"\\{MainWindow.HudSelection}\\cfg"))
                     Directory.CreateDirectory(MainWindow.HudPath + $"\\{MainWindow.HudSelection}\\cfg");
-                if (File.Exists(string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection)))
-                    File.Delete(string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection));
                 File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\hud.cfg",
-                    string.Format(MainWindow.HudPath, Resources.file_cfg, MainWindow.HudSelection));
+                    string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection));
                 File.WriteAllLines(file, lines);
                 return true;
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage(Resources.error_transparent_vm, ex.Message);
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_transparent_vm, ex.Message);
                 return false;
             }
         }
@@ -200,11 +199,10 @@ namespace TF2HUD.Editor.Common
         /// <summary>
         ///     Set the number of rows shown on the killfeed.
         /// </summary>
-        public bool KillFeedRows()
+        public static bool KillFeedRows()
         {
             try
             {
-                MainWindow.Logger.Info("Setting the killfeed row count.");
                 var file = string.Format(Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "HudDeathNotice");
@@ -227,7 +225,7 @@ namespace TF2HUD.Editor.Common
             }
             catch (Exception ex)
             {
-                MainWindow.ShowErrorMessage(Resources.error_menu_class_image, ex.Message);
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_menu_class_image, ex.Message);
                 return false;
             }
         }

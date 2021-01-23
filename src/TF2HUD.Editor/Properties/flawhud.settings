@@ -23,9 +23,6 @@
     <Setting Name="color_xhair_pulse" Type="System.String" Scope="User">
       <Value Profile="(Default)">#FF0000</Value>
     </Setting>
-    <Setting Name="hud_updated" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="toggle_code_fonts" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -45,7 +42,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="toggle_xhair_pulse" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="toggle_xhair_rotate" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

@@ -1,18 +1,25 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace TF2HUD.Editor.Common
 {
     public static class Utilities
     {
+        /// <summary>
+        ///     List of selectable HUDs.
+        /// </summary>
         public enum HUDs
         {
             FlawHUD,
-            rayshud,
-            stock
+            rayshud
         }
 
+        /// <summary>
+        ///     List of possible positions for item effect meters.
+        /// </summary>
         public enum Positions
         {
             Top,
@@ -22,7 +29,7 @@ namespace TF2HUD.Editor.Common
         }
 
         /// <summary>
-        ///     Retrieves the index of where a given value was found in a string array.
+        ///     Get the line number of a given text value found in a string array.
         /// </summary>
         public static int FindIndex(string[] array, string value, int skip = 0)
         {
@@ -54,11 +61,11 @@ namespace TF2HUD.Editor.Common
         }
 
         /// <summary>
-        ///     Convert color HEX code to RGB
+        ///     Convert  HEX code to an RGB value.
         /// </summary>
-        /// <param name="hex">The HEX code representing the color to convert to RGB</param>
-        /// <param name="alpha">Flag the code as having a lower alpha value than normal</param>
-        /// <param name="pulse">Flag the color as a pulse, slightly lowering the alpha</param>
+        /// <param name="hex">HEX code of the color to be converted to RGB.</param>
+        /// <param name="alpha">Flag the color as having a lower alpha value than normal.</param>
+        /// <param name="pulse">Flag the color as a pulse, slightly changing green channel.</param>
         public static string RgbConverter(string hex, bool alpha = false, bool pulse = false)
         {
             var color = ColorTranslator.FromHtml(hex);
@@ -68,7 +75,7 @@ namespace TF2HUD.Editor.Common
         }
 
         /// <summary>
-        ///     Convert the enumeration name to a user-friendly string value
+        ///     Convert an Enum name to a user-friendly string value.
         /// </summary>
         public static string GetStringValue(Enum value)
         {
@@ -80,6 +87,35 @@ namespace TF2HUD.Editor.Common
 
             // Return the first if there was a match, or enum value if no match
             return attributes.Length > 0 ? attributes[0].StringValue : value.ToString();
+        }
+
+        public static void OpenWebpage(string url)
+        {
+            try
+            {
+                // Attempt to open the issue tracker, if that fails, try other methods.
+                Process.Start(url);
+            }
+            catch
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    url = url.Replace("&", "^&");
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") {CreateNoWindow = true});
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", url);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", url);
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
     }
 

@@ -20,12 +20,13 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontSize" Value="16px" />
         </Style>
 
         <Style TargetType="ComboBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="SelectedValuePath" Value="Content" />
+            <Setter Property="Width" Value="200px" />
         </Style>
 
         <Style TargetType="GroupBox">
@@ -40,6 +41,7 @@
             <Setter Property="ColorMode" Value="ColorCanvas" />
             <Setter Property="ShowRecentColors" Value="True" />
             <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Width" Value="200px" />
         </Style>
 
         <Style TargetType="x2:IntegerUpDown">
@@ -47,6 +49,7 @@
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FormatString" Value="N0" />
             <Setter Property="Increment" Value="1" />
+            <Setter Property="Width" Value="200px" />
             <Setter Property="AllowTextInput" Value="False" />
         </Style>
 
@@ -62,8 +65,24 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontSize" Value="30" />
+            <Setter Property="Width" Value="200px" />
+            <Setter Property="SelectedValuePath" Value="Content" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.otf #TF2Crosshairs" />
+        </Style>
+
+        <Style x:Key="HeaderText" TargetType="Label">
+            <Setter Property="FontFamily" Value="../Resources/TF2Build.ttf #TF2 Build" />
+            <Setter Property="FontSize" Value="40px" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="#EBE2CA" />
+        </Style>
+
+        <Style x:Key="BodyText" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="../Resources/TF2Secondary.ttf #TF2 Secondary" />
+            <Setter Property="FontSize" Value="25px" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Foreground" Value="#A49E9E" />
         </Style>
 
         <Style x:Key="Button" TargetType="Button">
@@ -91,6 +110,18 @@
                     <Setter Property="Foreground" Value="#2B2724" />
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TransparentStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="Transparent">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Application.Resources>
 </Application>

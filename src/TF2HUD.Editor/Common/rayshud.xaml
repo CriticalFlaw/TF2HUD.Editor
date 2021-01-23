@@ -78,30 +78,28 @@
 
                 <Label
                     Margin="10,410,0,0"
-                    FontSize="15px"
                     Content="Main Menu Background:" />
 
                 <ComboBox
                     x:Name="CbMainMenuBackground"
-                    Width="155"
-                    FontSize="15px"
-                    Margin="190,413,0,0">
+                    Margin="15,442,0,0" RenderTransformOrigin="0.545,0.533">
                     <ComboBoxItem IsSelected="True">Modern</ComboBoxItem>
                     <ComboBoxItem>Classic</ComboBoxItem>
                     <ComboBoxItem>Default</ComboBoxItem>
                 </ComboBox>
+
+                <Image Margin="0,521,306,-2" Source="../Resources/raysfox.png" />
             </Grid>
         </GroupBox>
 
         <GroupBox
             Width="430"
-            Height="620"
-            Margin="10,0,0,0"
-            Header="ÜberCharge" VerticalAlignment="Center">
+            Height="300"
+            Margin="10,10,0,0"
+            Header="ÜberCharge">
             <Grid>
                 <ComboBox
                     x:Name="CbUberStyle"
-                    Width="200"
                     Margin="200,10,0,0"
                     SelectionChanged="CbUberStyle_SelectionChanged">
                     <ComboBoxItem>Flash</ComboBoxItem>
@@ -111,22 +109,18 @@
 
                 <x2:ColorPicker
                     x:Name="CpUberBarColor"
-                    Width="200"
                     Margin="200,60,0,0" />
 
                 <x2:ColorPicker
                     x:Name="CpUberFullColor"
-                    Width="200"
                     Margin="200,110,0,0" />
 
                 <x2:ColorPicker
                     x:Name="CpUberFlash1"
-                    Width="200"
                     Margin="200,160,0,0" />
 
                 <x2:ColorPicker
                     x:Name="CpUberFlash2"
-                    Width="200"
                     Margin="200,210,0,0" />
 
                 <Label
@@ -157,6 +151,26 @@
 
         <GroupBox
             Width="430"
+            Height="155"
+            Margin="10,475,0,0"
+            Header="Social Media"
+            Visibility="Hidden">
+            <Grid>
+                <Image Margin="0,0,306,0" Stretch="Fill" Source="../Resources/raysfox.png" />
+
+                <Button x:Name="btnHudsTF" Width="75" Height="75" Click="btnHudsTF_Click"
+                        Style="{StaticResource TransparentStyle}" Margin="130,0,0,0">
+                    <Image Source="../Resources/hudstf.png" Margin="0,0,0,0" />
+                </Button>
+                <Button x:Name="btnSteam" Width="75" Height="75" Click="btnSteam_Click"
+                        Style="{StaticResource TransparentStyle}" Margin="320,0,0,0">
+                    <Image Source="../Resources/steam.png" Margin="0,0,0,0" />
+                </Button>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox
+            Width="430"
             Height="300"
             Margin="450,10,0,0"
             Header="Crosshair">
@@ -165,9 +179,7 @@
 
                 <ComboBox
                     Name="CbXHairStyle"
-                    Width="200"
                     Margin="200,210,0,0"
-                    SelectedValuePath="Content"
                     Style="{StaticResource CrosshairBox}"
                     IsEnabled="False">
 
@@ -363,19 +375,18 @@
                     Value="14"
                     Increment="1"
                     Minimum="10"
-                    Maximum="30" Height="26" Width="200"
+                    Maximum="30" Height="26"
                     TextAlignment="Center"
                     IsEnabled="False" />
 
                 <ComboBox
                     x:Name="CbXHairEffect"
-                    Width="200"
                     Margin="200,160,0,0"
+                    HorizontalContentAlignment="Center"
                     SelectedValuePath="Content">
                     <ComboBoxItem>None</ComboBoxItem>
                     <ComboBoxItem>Blur</ComboBoxItem>
                     <ComboBoxItem>Outline</ComboBoxItem>
-                    <ComboBoxItem>Shadow</ComboBoxItem>
                 </ComboBox>
 
                 <x2:ColorPicker
@@ -432,7 +443,7 @@
         <GroupBox
             Width="430"
             Height="155"
-            Margin="450,315,0,0"
+            Margin="10,315,0,0"
             Header="Health">
 
             <Grid>
@@ -463,33 +474,33 @@
                 <Label
                     Margin="220,5,0,0"
                     Content="Health Normal:"
-                    FontSize="16px"
-                    ToolTip="Color of the player health" Width="180" />
+                    FontSize="15px"
+                    ToolTip="Color of the player health" />
 
                 <Label
                     Margin="10,65,0,0"
                     Content="Health Buffed:"
-                    FontSize="16px"
-                    ToolTip="Color of the player health when buffed" Width="180" />
+                    FontSize="15px"
+                    ToolTip="Color of the player health when buffed" />
 
                 <Label
                     Margin="10,5,0,0"
                     Content="Health Style:"
-                    FontSize="16px"
-                    ToolTip="Style of the player health" Width="180" />
+                    FontSize="15px"
+                    ToolTip="Style of the player health" />
 
                 <Label
                     Margin="220,65,0,0"
                     Content="Health Low:"
-                    FontSize="16px"
-                    ToolTip="Color of the player health when low" Width="180" />
+                    FontSize="15px"
+                    ToolTip="Color of the player health when low" />
             </Grid>
         </GroupBox>
 
         <GroupBox
             Width="430"
             Height="155"
-            Margin="450,475,0,0"
+            Margin="450,315,0,0"
             Header="Ammo">
 
             <Grid>
@@ -516,26 +527,26 @@
                 <Label
                     Margin="10,5,0,0"
                     Content="Ammo Clip Normal:"
-                    FontSize="16px"
-                    ToolTip="Color of the ammo clip" Width="180" />
+                    FontSize="15px"
+                    ToolTip="Color of the ammo clip" />
 
                 <Label
                     Margin="10,65,0,0"
                     Content="Ammo Clip Low:"
-                    FontSize="16px"
-                    ToolTip="Color of the ammo clip when low" Width="180" />
+                    FontSize="15px"
+                    ToolTip="Color of the ammo clip when low" />
 
                 <Label
                     Margin="220,5,0,0"
                     Content="Ammo Reserve Normal:"
-                    FontSize="16px"
-                    ToolTip="Color of the ammo reserve" Width="180" />
+                    FontSize="15px"
+                    ToolTip="Color of the ammo reserve" />
 
                 <Label
                     Margin="220,65,0,0"
                     Content="Ammo Reserve Low:"
-                    FontSize="16px"
-                    ToolTip="Color of the ammo reserve when low" Width="180" />
+                    FontSize="15px"
+                    ToolTip="Color of the ammo reserve when low" />
             </Grid>
         </GroupBox>
     </Grid>

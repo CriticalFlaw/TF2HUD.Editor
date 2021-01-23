@@ -21,8 +21,9 @@
     <None Remove="hud.cfg" />
     <None Remove="log4net.config" />
     <None Remove="Resources\favicon.ico" />
+    <None Remove="Resources\hudstf.png" />
     <None Remove="Resources\raysfox.png" />
-    <None Remove="Resources\rayshud.ico" />
+    <None Remove="Resources\steam.png" />
     <None Remove="Resources\TF2Build.ttf" />
     <None Remove="Resources\TF2Crosshairs.otf" />
     <None Remove="Resources\TF2Secondary.ttf" />
@@ -44,10 +45,13 @@
     <Resource Include="Resources\favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\hudstf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\raysfox.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\rayshud.ico">
+    <Resource Include="Resources\steam.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\TF2Build.ttf">

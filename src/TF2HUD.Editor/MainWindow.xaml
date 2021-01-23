@@ -17,10 +17,44 @@
             Margin="0,670,0,0"
             Content="..." Width="1262" HorizontalAlignment="Center" />
 
-        <GroupBox x:Name="gbSelectHUD" Header="Select a HUD" Width="1262" Height="640" Margin="0,10,0,0"
-                  Visibility="Visible" HorizontalAlignment="Center">
-            <ListBox x:Name="lbSelectHud" Margin="10,0,725,0" SelectionChanged="lbSelectHud_SelectionChanged"
-                     Height="589" />
+        <GroupBox
+            x:Name="gbSelectHUD"
+            Width="1200"
+            Height="626"
+            Margin="0,30,0,0"
+            Header="Select a HUD"
+            Visibility="Visible" HorizontalAlignment="Center">
+
+            <Grid>
+                <ListBox
+                    x:Name="lbSelectHud"
+                    Margin="30,32,750,30"
+                    SelectionChanged="lbSelectHud_SelectionChanged" />
+
+                <Label Content="TF2 HUD Editor" Margin="493,10,10,540" Style="{StaticResource HeaderText}" Width="685" />
+                <TextBlock Margin="493,75,10,330" Style="{StaticResource BodyText}">
+                    <Run Text="An editor for " /><Run Foreground="#70B04A" Text="installing" /><Run Text=" and " />
+                    <Run Foreground="#38F3AB" Text="customizing" />
+                    <Run
+                        Text=" Team Fortress 2 HUDs! This editor is open-source and code contributions towards new features, maintenance and bug fixes are welcome and encouraged. For questions, issues and suggestions - please contact me on Discord (" />
+                    <Run Foreground="#FFD700" Text="CriticalFlaw#0415" /><Run Text=") or Twitter (" />
+                    <Run Foreground="#FFD700" Text="@CriticalFlaw_" /><Run Text="). Thanks!" />
+                </TextBlock>
+
+                <Label
+                    Content="____________________________________________________________________________________________________________________________________________________________"
+                    Margin="478,242,0,0" Height="30" Width="700" />
+                <Label Content="Version 1.0" Margin="493,277,10,263" Style="{StaticResource HeaderText}" Width="685" />
+                <TextBlock Margin="493,337,10,30" Style="{StaticResource BodyText}">
+                    <Run Text="-" /><Run Text=" Initial Release" /><Run Text=". M" />
+                    <Run Text="erged FlawHUD and rayshud installers into one" /><Run Language="en-ca" Text=", " />
+                    <Run Text="with more HUDs to be added later." /><LineBreak /><Run Text="- " />
+                    <Run
+                        Text="Fixed Transparent Viewmodel setting not removing the custom config file if the option is disabled." />
+                    <LineBreak /><Run Text="- Buttons will now be visually different when disabled." /><LineBreak />
+                    <Run Text="- Miscellaneous bug fixes and improvements." />
+                </TextBlock>
+            </Grid>
         </GroupBox>
 
         <local:FlawHUD x:Name="uiFlawHud" Visibility="Hidden" Margin="10,11,10,133" Grid.ColumnSpan="2" />
