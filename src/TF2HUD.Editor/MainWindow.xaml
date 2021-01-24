@@ -1,120 +1,128 @@
 ﻿<Window x:Class="TF2HUD.Editor.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TF2HUD.Editor.Common"
-        mc:Ignorable="d"
-        Title="TF2 HUD Editor"
-        SizeToContent="WidthAndHeight"
-        WindowStartupLocation="CenterScreen"
-        FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
-        FontSize="20px">
-
-    <Grid Background="#2B2724">
-        <Label
-            Name="LblStatus"
-            Margin="0,670,0,0"
-            Content="..." Width="1262" HorizontalAlignment="Center" />
-
-        <GroupBox
-            x:Name="gbSelectHUD"
-            Width="1200"
-            Height="626"
-            Margin="0,30,0,0"
-            Header="Select a HUD"
-            Visibility="Visible" HorizontalAlignment="Center">
-
-            <Grid>
-                <ListBox
-                    x:Name="lbSelectHud"
-                    Margin="30,32,750,30"
-                    SelectionChanged="lbSelectHud_SelectionChanged" />
-
-                <Label Content="TF2 HUD Editor" Margin="493,10,10,540" Style="{StaticResource HeaderText}" Width="685" />
-                <TextBlock Margin="493,75,10,330" Style="{StaticResource BodyText}">
-                    <Run Text="An editor for " /><Run Foreground="#70B04A" Text="installing" /><Run Text=" and " />
-                    <Run Foreground="#38F3AB" Text="customizing" />
-                    <Run
-                        Text=" Team Fortress 2 HUDs! This editor is open-source and code contributions towards new features, maintenance and bug fixes are welcome and encouraged. For questions, issues and suggestions - please contact me on Discord (" />
-                    <Run Foreground="#FFD700" Text="CriticalFlaw#0415" /><Run Text=") or Twitter (" />
-                    <Run Foreground="#FFD700" Text="@CriticalFlaw_" /><Run Text="). Thanks!" />
-                </TextBlock>
-
-                <Label
-                    Content="____________________________________________________________________________________________________________________________________________________________"
-                    Margin="478,242,0,0" Height="30" Width="700" />
-                <Label Content="Version 1.0" Margin="493,277,10,263" Style="{StaticResource HeaderText}" Width="685" />
-                <TextBlock Margin="493,337,10,30" Style="{StaticResource BodyText}">
-                    <Run Text="-" /><Run Text=" Initial Release" /><Run Text=". M" />
-                    <Run Text="erged FlawHUD and rayshud installers into one" /><Run Language="en-ca" Text=", " />
-                    <Run Text="with more HUDs to be added later." /><LineBreak /><Run Text="- " />
-                    <Run
-                        Text="Fixed Transparent Viewmodel setting not removing the custom config file if the option is disabled." />
-                    <LineBreak /><Run Text="- Buttons will now be visually different when disabled." /><LineBreak />
-                    <Run Text="- Miscellaneous bug fixes and improvements." />
-                </TextBlock>
-            </Grid>
-        </GroupBox>
-
-        <local:FlawHUD x:Name="uiFlawHud" Visibility="Hidden" Margin="10,11,10,133" Grid.ColumnSpan="2" />
-        <local:rayshud x:Name="uiRaysHud" Visibility="Hidden" Margin="10,11,10,133" Grid.ColumnSpan="2" />
-
-        <GroupBox
-            Width="1271"
-            Height="90"
-            Margin="19,704,0,0"
-            Header="Buttons">
-
-            <Grid>
-                <Button
-                    x:Name="BtnInstall"
-                    Width="190"
-                    Height="40"
-                    Click="BtnInstall_OnClick"
-                    Content="Install"
-                    Style="{StaticResource Button}" Margin="10,10,0,0" />
-
-                <Button
-                    x:Name="BtnUninstall"
-                    Width="190"
-                    Height="40"
-                    Click="BtnUninstall_OnClick"
-                    Content="Uninstall"
-                    Style="{StaticResource Button}" Margin="218,10,0,0" />
-
-                <Button
-                    x:Name="BtnSave"
-                    Width="190"
-                    Height="40"
-                    Click="BtnSave_OnClick"
-                    Content="Apply Changes"
-                    Style="{StaticResource Button}" Margin="426,10,0,0" />
-
-                <Button
-                    x:Name="BtnReset"
-                    Width="190"
-                    Height="40"
-                    Click="BtnReset_OnClick"
-                    Content="Reset to Default"
-                    Style="{StaticResource Button}" Margin="634,10,0,0" />
-
-                <Button
-                    x:Name="BtnReportIssue"
-                    Width="190"
-                    Height="40"
-                    Click="BtnReportIssue_OnClick"
-                    Content="Report Issue"
-                    Style="{StaticResource Button}" Margin="842,10,0,0" />
-
-                <Button
-                    x:Name="BtnSwitch"
-                    Width="190"
-                    Height="40"
-                    Click="BtnSwitch_OnClick"
-                    Content="Switch HUD"
-                    Style="{StaticResource Button}" Margin="1050,10,0,0" />
-            </Grid>
-        </GroupBox>
-    </Grid>
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:TF2HUD.Editor.Common"
+	mc:Ignorable="d"
+	Title="TF2 HUD Editor"
+	Width="1300"
+	Height="750"
+	WindowStartupLocation="CenterScreen"
+	FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
+	FontSize="20px">
+	<Grid Background="#2B2724">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="auto"/>
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+		<GroupBox
+			x:Name="gbSelectHUD"
+			Header="Select a HUD"
+			Visibility="Visible"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch"
+			Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1"
+			Margin="10,10,10,5"
+			Padding="20">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<!-- Select a HUD Listbox -->
+				<ListBox x:Name="lbSelectHud" SelectionChanged="lbSelectHud_SelectionChanged" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1"/>
+				<!-- TF2 HUD Editor and Version -->
+				<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
+					<StackPanel Margin="25">
+						<Label Content="TF2 HUD Editor" Style="{StaticResource HeaderText}" Margin="0,0,0,15"/>
+						<TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Center">
+						An editor for <Run Foreground="#70B04A" Text="installing"/> and <Run Foreground="#38F3AB" Text="customizing"/> Team Fortress 2 HUDs! This editor is open-source and code contributions towards new features, maintenance and bug fixes are welcome and encouraged. For questions, issues and suggestions - please contact me on Discord (<Run Foreground="#FFD700" Text="CriticalFlaw#0415"/>) or Twitter (<Run Foreground="#FFD700" Text="@CriticalFlaw_"/>). Thanks!
+						</TextBlock>
+						<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,15"/>
+						<Label Content="Version 1.0" Style="{StaticResource HeaderText}" Margin="0,0,0,15"/>
+						<TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
+						- Inital Release. Merged FlawHUD and rayshud installers into one, with more HUDs to be added later.
+						<LineBreak/>
+						Fixed Transparent Viewmodel settings not removing the custom config if the option is disabled.
+						<LineBreak/>
+						- Buttons will now be visually different when disabled.
+						<LineBreak/>
+						- Miscellaneous bug fixes and improvements.
+						</TextBlock>
+					</StackPanel>
+				</ScrollViewer>
+			</Grid>
+		</GroupBox>
+		<!-- Editor Custom Controls -->
+		<local:FlawHUD x:Name="uiFlawHud" Visibility="Hidden" Grid.ColumnSpan="2"/>
+		<local:rayshud x:Name="uiRaysHud" Visibility="Hidden" Grid.ColumnSpan="2"/>
+		<!-- HUD Status -->
+		<Label Name="LblStatus" Content="..." Margin="10,5,10,5" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Grid.RowSpan="1"/>
+		<!-- HUD Options -->
+		<GroupBox
+			Header="Buttons" HorizontalAlignment="Stretch"
+			Margin="10,5,10,10"
+			Padding="10"
+			Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="1" Grid.RowSpan="1">
+			<WrapPanel HorizontalAlignment="Center">
+				<Button
+					x:Name="BtnInstall"
+					Click="BtnInstall_OnClick"
+					Content="Install"
+					Width="190"
+					Height="40"
+					Margin="5"
+					Style="{StaticResource Button}"/>
+				<Button
+					x:Name="BtnUninstall"
+					Click="BtnUninstall_OnClick"
+					Content="Uninstall"
+					Width="190"
+					Height="40"
+					Margin="5"
+					Style="{StaticResource Button}"/>
+				<Button
+					x:Name="BtnSave"
+					Click="BtnSave_OnClick"
+					Content="Apply Changes"
+				Width="190"
+					Height="40"
+					Margin="5"
+					Style="{StaticResource Button}"/>
+				<Button
+					x:Name="BtnReset"
+					Click="BtnReset_OnClick"
+					Content="Reset to Default"
+					Width="190"
+					Height="40"
+					Margin="5"
+					Style="{StaticResource Button}"/>
+				<Button
+					x:Name="BtnReportIssue"
+					Click="BtnReportIssue_OnClick"
+					Content="Report Issue"
+					Width="190"
+					Height="40"
+					Margin="5"
+					Style="{StaticResource Button}"/>
+				<Button
+					x:Name="BtnSwitch"
+					Click="BtnSwitch_OnClick"
+					Content="Switch HUD"
+					Width="190"
+					Height="40"
+					Margin="5"
+					Style="{StaticResource Button}"/>
+			</WrapPanel>
+		</GroupBox>
+	</Grid>
 </Window>
