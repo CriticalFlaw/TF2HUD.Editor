@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using TF2HUD.Editor.Common;
 using TF2HUD.Editor.Properties;
 
-namespace TF2HUD.Editor.Common
+namespace TF2HUD.Editor.HUDs
 {
     public static class Common
     {
@@ -206,18 +207,13 @@ namespace TF2HUD.Editor.Common
                 var file = string.Format(Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "HudDeathNotice");
-                var value = 5;
 
-                switch (MainWindow.HudSelection.ToLowerInvariant())
+                var value = MainWindow.HudSelection.ToLowerInvariant() switch
                 {
-                    case "flawhud":
-                        value = flawhud.Default.val_killfeed_rows;
-                        break;
-
-                    case "rayshud":
-                        value = Properties.rayshud.Default.val_killfeed_rows;
-                        break;
-                }
+                    "flawhud" => flawhud.Default.val_killfeed_rows,
+                    "rayshud" => Properties.rayshud.Default.val_killfeed_rows,
+                    _ => 5
+                };
 
                 lines[Utilities.FindIndex(lines, "MaxDeathNotices", start)] = $"\t\t\"MaxDeathNotices\"\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);

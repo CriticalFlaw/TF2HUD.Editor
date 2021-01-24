@@ -2,9 +2,10 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
+using TF2HUD.Editor.Common;
 using TF2HUD.Editor.Properties;
 
-namespace TF2HUD.Editor.Common
+namespace TF2HUD.Editor.HUDs
 {
     /// <summary>
     ///     Interaction logic for FlawHUD.xaml
@@ -35,7 +36,7 @@ namespace TF2HUD.Editor.Common
         ///     Used to determine where to position the item effect meters.
         /// </summary>
         private static void SetItemEffectPosition(string file,
-            Utilities.Positions position = Utilities.Positions.Bottom,
+            Positions position = Positions.Bottom,
             string search = "HudItemEffectMeter")
         {
             // positions 1 = top, 2 = middle, 3 = bottom
@@ -43,9 +44,9 @@ namespace TF2HUD.Editor.Common
             var start = Utilities.FindIndex(lines, search);
             var value = position switch
             {
-                Utilities.Positions.Top => flawhud.Default.toggle_lower_stats ? "r70" : "c100",
-                Utilities.Positions.Middle => flawhud.Default.toggle_lower_stats ? "r60" : "c110",
-                Utilities.Positions.Bottom => flawhud.Default.toggle_lower_stats ? "r50" : "c120",
+                Positions.Top => flawhud.Default.toggle_lower_stats ? "r70" : "c100",
+                Positions.Middle => flawhud.Default.toggle_lower_stats ? "r60" : "c110",
+                Positions.Bottom => flawhud.Default.toggle_lower_stats ? "r50" : "c120",
                 _ => flawhud.Default.toggle_lower_stats ? "r80" : "c92"
             };
             lines[Utilities.FindIndex(lines, "ypos", start)] = $"\t\t\"ypos\"\t\t\t\t\"{value}\"";
@@ -549,25 +550,25 @@ namespace TF2HUD.Editor.Common
                 SetItemEffectPosition(
                     string.Format(Properties.Resources.file_itemeffectmeter, MainWindow.HudPath,
                         MainWindow.HudSelection, "_cleaver"),
-                    Utilities.Positions.Middle);
+                    Positions.Middle);
                 SetItemEffectPosition(
                     string.Format(Properties.Resources.file_itemeffectmeter, MainWindow.HudPath,
                         MainWindow.HudSelection, "_sodapopper"),
-                    Utilities.Positions.Top);
+                    Positions.Top);
                 SetItemEffectPosition(
                     string.Format(Properties.Resources.path_resource_ui, MainWindow.HudPath, MainWindow.HudSelection) +
                     "\\huddemomancharge.res",
-                    Utilities.Positions.Middle,
+                    Positions.Middle,
                     "ChargeMeter");
                 SetItemEffectPosition(
                     string.Format(Properties.Resources.path_resource_ui, MainWindow.HudPath, MainWindow.HudSelection) +
                     "\\huddemomanpipes.res",
-                    Utilities.Positions.Default,
+                    Positions.Default,
                     "PipesPresentPanel");
                 SetItemEffectPosition(
                     string.Format(Properties.Resources.path_resource_ui, MainWindow.HudPath, MainWindow.HudSelection) +
                     "\\hudrocketpack.res",
-                    Utilities.Positions.Middle);
+                    Positions.Middle);
                 return true;
             }
             catch (Exception ex)

@@ -9,26 +9,6 @@ namespace TF2HUD.Editor.Common
     public static class Utilities
     {
         /// <summary>
-        ///     List of selectable HUDs.
-        /// </summary>
-        public enum HUDs
-        {
-            FlawHUD,
-            rayshud
-        }
-
-        /// <summary>
-        ///     List of possible positions for item effect meters.
-        /// </summary>
-        public enum Positions
-        {
-            Top,
-            Middle,
-            Bottom,
-            Default
-        }
-
-        /// <summary>
         ///     Get the line number of a given text value found in a string array.
         /// </summary>
         public static int FindIndex(string[] array, string value, int skip = 0)

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TF2HUD.Editor.Common.FlawHUD"
+﻿<UserControl x:Class="TF2HUD.Editor.HUDs.FlawHUD"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -389,9 +389,9 @@
 
         <GroupBox
             Width="385"
-            Height="620"
-            Margin="885,0,0,0"
-            Header="Options" VerticalAlignment="Center">
+            Height="460"
+            Margin="885,10,0,0"
+            Header="Options">
 
             <Grid>
                 <CheckBox

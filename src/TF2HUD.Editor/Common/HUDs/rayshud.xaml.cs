@@ -3,8 +3,9 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using TF2HUD.Editor.Common;
 
-namespace TF2HUD.Editor.Common
+namespace TF2HUD.Editor.HUDs
 {
     /// <summary>
     ///     Interaction logic for rayshud.xaml
