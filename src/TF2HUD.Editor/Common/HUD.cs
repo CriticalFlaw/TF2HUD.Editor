@@ -32,19 +32,33 @@ namespace TF2HUD.Editor.Common
         {
             if (ControlsRendered) return Controls;
 
+            Controls.RowDefinitions.Add(new RowDefinition());
+            Controls.RowDefinitions.Add(new RowDefinition());
+            Controls.Margin = new Thickness(10, 10, 10, 10);
+
+
+            var CustomiserTitle = new Label();
+            CustomiserTitle.Content = this.Name;
+            CustomiserTitle.FontSize = 35;
+            Grid.SetRow(CustomiserTitle, 0);
+            Controls.Children.Add(CustomiserTitle);
+
             //var lastMargin = new Thickness(10, 10, 0, 0);
             // var lastTop = lastMargin.Top;
             // SectionContainer.Margin = lastMargin;
             // SectionContainer.Width = 330;
 
             var SectionsContainer = new WrapPanel();
+            Grid.SetRow(SectionsContainer, 1);
 
             foreach (var Section in ControlOptions.Keys)
             {
                 var SectionContainer = new GroupBox();
                 SectionContainer.Header = Section;
+                SectionContainer.Margin = new Thickness(10);
 
-                var SectionContent = new WrapPanel();
+                var SectionContent = new StackPanel();
+                SectionContent.Margin = new Thickness(15, 5, 15, 5);
 
                 foreach (var ControlItem in ControlOptions[Section])
                 {
@@ -61,21 +75,38 @@ namespace TF2HUD.Editor.Common
                             // lastMargin = cbCustomisation.Margin;
                             SectionContent.Children.Add(cbCustomisation);
                             break;
+                        case "Color":
+                        case "Colour":
+                            var ColourInputContainer = new StackPanel();
+                            var ColoutInputLabel = new Label();
+                            ColoutInputLabel.Content = Label;
+                            var ColourInput = new Xceed.Wpf.Toolkit.ColorPicker();
+                            ColourInput.SelectedColor = System.Windows.Media.Color.FromArgb(255, 0, 255, 0);
+                            ColourInputContainer.Children.Add(ColoutInputLabel);
+                            ColourInputContainer.Children.Add(ColourInput);
+                            SectionContent.Children.Add(ColourInputContainer);
+                            break;
                         case "DropDown":
                         case "DropDownMenu":
                         case "Select":
                         case "ComboBox":
+                            var ComboBoxContainer = new WrapPanel();
+                            var ComboBoxLabel = new Label();
+                            ComboBoxLabel.Content = Label;
                             var ComboBoxCustomisation = new ComboBox();
-                            // if (control.Options.Count <= 0) break;
-                            // foreach (var option in control.Options)
-                            // {
-                            //    var OptionLabel = option.Label;
-                            //    var OptionValue = option.Value;
-                            //    ComboBoxCustomisation.Items.Add(OptionLabel);
-                            // }
+                            if (ControlItem.Options == null) break;
+                            if (ControlItem.Options.Length <= 0) break;
+                            foreach (var option in ControlItem.Options)
+                            {
+                                var OptionLabel = option.Label;
+                                var OptionValue = option.Value;
+                                ComboBoxCustomisation.Items.Add(OptionLabel);
+                            }
+                            ComboBoxContainer.Children.Add(ComboBoxLabel);
+                            ComboBoxContainer.Children.Add(ComboBoxCustomisation);
 
                             // ComboBoxCustomisation.Margin = new Thickness(10, lastTop, 0, 10);
-                            SectionContent.Children.Add(ComboBoxCustomisation);
+                            SectionContent.Children.Add(ComboBoxContainer);
 
                             break;
                         default:
