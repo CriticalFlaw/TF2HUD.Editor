@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace TF2HUD.Editor.Common
 {
@@ -66,6 +67,21 @@ namespace TF2HUD.Editor.Common
 
                     switch (Type)
                     {
+                        case "Char":
+                            var CharInputContainer = new WrapPanel();
+                            CharInputContainer.Margin = new Thickness(10, lastTop, 0, 0);
+                            var CharInputLabel = new Label();
+                            CharInputLabel.Content = Label;
+                            var CharInput = new TextBox();
+                            CharInput.Width = 60;
+                            CharInput.PreviewTextInput += (object sender, TextCompositionEventArgs e) =>
+                            {
+                                e.Handled = CharInput.Text != "";
+                            };
+                            CharInputContainer.Children.Add(CharInputLabel);
+                            CharInputContainer.Children.Add(CharInput);
+                            SectionContent.Children.Add(CharInputContainer);
+                            break;
                         case "Checkbox":
                             var cbCustomisation = new CheckBox();
                             cbCustomisation.Content = Label;
@@ -108,6 +124,21 @@ namespace TF2HUD.Editor.Common
                             ComboBoxContainer.Margin = new Thickness(10, lastTop, 0, 10);
                             SectionContent.Children.Add(ComboBoxContainer);
 
+                            break;
+                        case "Number":
+                            var NumberInputContainer = new WrapPanel();
+                            NumberInputContainer.Margin = new Thickness(10, lastTop, 0, 0);
+                            var NumberInputLabel = new Label();
+                            NumberInputLabel.Content = Label;
+                            var NumberInput = new TextBox();
+                            NumberInput.Width = 60;
+                            NumberInput.PreviewTextInput += (object sender, TextCompositionEventArgs e) =>
+                            {
+                                e.Handled = !System.Text.RegularExpressions.Regex.IsMatch(e.Text, "\\d");
+                            };
+                            NumberInputContainer.Children.Add(NumberInputLabel);
+                            NumberInputContainer.Children.Add(NumberInput);
+                            SectionContent.Children.Add(NumberInputContainer);
                             break;
                         default:
                             throw new Exception($"Type {Type} is not a valid type!");
