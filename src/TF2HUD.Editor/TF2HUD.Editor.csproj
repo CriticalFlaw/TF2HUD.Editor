@@ -37,9 +37,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Common\HUDs\budhud.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\hud.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -100,6 +97,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Common\HUDs\*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\flawhud.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>flawhud.Designer.cs</LastGenOutput>
