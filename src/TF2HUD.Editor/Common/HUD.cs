@@ -9,7 +9,7 @@ namespace TF2HUD.Editor.Common
     public class HUD
     {
         private readonly Grid Controls = new();
-        public Controls ControlOptions;
+        public Dictionary<string, Control[]> ControlOptions;
         private bool ControlsRendered;
         public string CustomisationsFolder;
         public string EnabledFolder;
@@ -32,56 +32,62 @@ namespace TF2HUD.Editor.Common
         {
             if (ControlsRendered) return Controls;
 
-            var lastMargin = new Thickness(10, 10, 0, 0);
-            var lastTop = lastMargin.Top;
-            var SectionContainer = new GroupBox();
-            SectionContainer.Header = "New Section"; // TODO: Use section name from JSON
-            SectionContainer.Margin = lastMargin;
-            SectionContainer.Width = 330;
-            var SectionContent = new WrapPanel();
+            //var lastMargin = new Thickness(10, 10, 0, 0);
+            // var lastTop = lastMargin.Top;
+            // SectionContainer.Margin = lastMargin;
+            // SectionContainer.Width = 330;
 
-            // Render Controls Here
-            foreach (var control in ControlOptions.General)
+            var SectionsContainer = new WrapPanel();
+
+            foreach (var Section in ControlOptions.Keys)
             {
-                var Label = control.Label;
-                var Type = control.Type;
-                var File = control.File;
+                var SectionContainer = new GroupBox();
+                SectionContainer.Header = Section;
 
-                switch (Type)
+                var SectionContent = new WrapPanel();
+
+                foreach (var ControlItem in ControlOptions[Section])
                 {
-                    case "Checkbox":
-                        var cbCustomisation = new CheckBox();
-                        cbCustomisation.Content = Label;
-                        cbCustomisation.Margin = new Thickness(10, lastTop, 0, 0);
-                        lastMargin = cbCustomisation.Margin;
-                        SectionContent.Children.Add(cbCustomisation);
-                        break;
-                    case "DropDown":
-                    case "DropDownMenu":
-                    case "Select":
-                    case "ComboBox":
-                        var ComboBoxCustomisation = new ComboBox();
-                        if (control.Options.Count <= 0) break;
-                        foreach (var option in control.Options)
-                        {
-                            var OptionLabel = option.Label;
-                            var OptionValue = option.Value;
-                            ComboBoxCustomisation.Items.Add(OptionLabel);
-                        }
+                    var Label = ControlItem.Label;
+                    var Type = ControlItem.Type;
+                    // var File = ControlItem.File;
 
-                        ComboBoxCustomisation.Margin = new Thickness(10, lastTop, 0, 10);
-                        SectionContent.Children.Add(ComboBoxCustomisation);
+                    switch (Type)
+                    {
+                        case "Checkbox":
+                            var cbCustomisation = new CheckBox();
+                            cbCustomisation.Content = Label;
+                            // cbCustomisation.Margin = new Thickness(10, lastTop, 0, 0);
+                            // lastMargin = cbCustomisation.Margin;
+                            SectionContent.Children.Add(cbCustomisation);
+                            break;
+                        case "DropDown":
+                        case "DropDownMenu":
+                        case "Select":
+                        case "ComboBox":
+                            var ComboBoxCustomisation = new ComboBox();
+                            // if (control.Options.Count <= 0) break;
+                            // foreach (var option in control.Options)
+                            // {
+                            //    var OptionLabel = option.Label;
+                            //    var OptionValue = option.Value;
+                            //    ComboBoxCustomisation.Items.Add(OptionLabel);
+                            // }
 
-                        break;
-                    default:
-                        throw new Exception($"Type {Type} is not a valid type!");
+                            // ComboBoxCustomisation.Margin = new Thickness(10, lastTop, 0, 10);
+                            SectionContent.Children.Add(ComboBoxCustomisation);
+
+                            break;
+                        default:
+                            throw new Exception($"Type {Type} is not a valid type!");
+                    }
+
+                    // lastTop = lastMargin.Top + 10;
                 }
-
-                lastTop = lastMargin.Top + 10;
+                SectionContainer.Content = SectionContent;
+                SectionsContainer.Children.Add(SectionContainer);
             }
-
-            SectionContainer.Content = SectionContent;
-            Controls.Children.Add(SectionContainer);
+            Controls.Children.Add(SectionsContainer);
 
             ControlsRendered = true;
             return Controls;
@@ -97,7 +103,7 @@ namespace TF2HUD.Editor.Common
 
     public class HUDRoot
     {
-        [JsonPropertyName("Controls")] public Controls Controls;
+        [JsonPropertyName("Controls")] public Dictionary<string, Control[]> Controls;
 
         [JsonPropertyName("CustomisationsFolder")]
         public string CustomisationsFolder;
@@ -107,28 +113,23 @@ namespace TF2HUD.Editor.Common
         [JsonPropertyName("UpdateUrl")] public string UpdateUrl;
     }
 
-    public class Controls
+    public class Control
     {
-        [JsonPropertyName("General")] public List<General> General;
+        [JsonPropertyName("File")] public string Label;
+
+        [JsonPropertyName("File")] public string Type;
+
+        [JsonPropertyName("File")] public Option[] Options;
+
     }
 
-    public class General
-    {
-        [JsonPropertyName("File")] public string File;
+	public class Option
+	{
+        [JsonPropertyName("File")] public string Label;
 
-        [JsonPropertyName("Label")] public string Label;
-
-        [JsonPropertyName("Options")] public List<Option> Options;
-
-        [JsonPropertyName("Type")] public string Type;
+        [JsonPropertyName("File")] public string Value;
     }
 
-    public class Option
-    {
-        [JsonPropertyName("Label")] public string Label;
-
-        [JsonPropertyName("Value")] public string Value;
-    }
 
     #endregion
 }
