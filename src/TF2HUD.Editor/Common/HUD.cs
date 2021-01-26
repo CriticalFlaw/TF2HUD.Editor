@@ -32,24 +32,22 @@ namespace TF2HUD.Editor.Common
         {
             if (ControlsRendered) return Controls;
 
-            Controls.RowDefinitions.Add(new RowDefinition());
-            Controls.RowDefinitions.Add(new RowDefinition());
-            Controls.Margin = new Thickness(10, 10, 10, 10);
+            var Container = new StackPanel();
 
-
+            // Title
             var CustomiserTitle = new Label();
             CustomiserTitle.Content = this.Name;
             CustomiserTitle.FontSize = 35;
+            CustomiserTitle.Margin = new Thickness(10, 10, 0, 0);
             Grid.SetRow(CustomiserTitle, 0);
-            Controls.Children.Add(CustomiserTitle);
-
-            //var lastMargin = new Thickness(10, 10, 0, 0);
-            // var lastTop = lastMargin.Top;
-            // SectionContainer.Margin = lastMargin;
-            // SectionContainer.Width = 330;
-
+            Container.Children.Add(CustomiserTitle);
+ 
             var SectionsContainer = new WrapPanel();
+            Grid.SetColumn(SectionsContainer, 0);
             Grid.SetRow(SectionsContainer, 1);
+
+            var lastMargin = new Thickness(10, 10, 0, 0);
+            var lastTop = lastMargin.Top;
 
             foreach (var Section in ControlOptions.Keys)
             {
@@ -58,7 +56,7 @@ namespace TF2HUD.Editor.Common
                 SectionContainer.Margin = new Thickness(10);
 
                 var SectionContent = new StackPanel();
-                SectionContent.Margin = new Thickness(15, 5, 15, 5);
+                SectionContent.Margin = new Thickness(5);
 
                 foreach (var ControlItem in ControlOptions[Section])
                 {
@@ -71,15 +69,17 @@ namespace TF2HUD.Editor.Common
                         case "Checkbox":
                             var cbCustomisation = new CheckBox();
                             cbCustomisation.Content = Label;
-                            // cbCustomisation.Margin = new Thickness(10, lastTop, 0, 0);
-                            // lastMargin = cbCustomisation.Margin;
+                            cbCustomisation.Margin = new Thickness(10, lastTop, 0, 0);
+                            lastMargin = cbCustomisation.Margin;
                             SectionContent.Children.Add(cbCustomisation);
                             break;
                         case "Color":
                         case "Colour":
                             var ColourInputContainer = new StackPanel();
+                            ColourInputContainer.Margin = new Thickness(10, lastTop, 0, 10);
                             var ColoutInputLabel = new Label();
                             ColoutInputLabel.Content = Label;
+                            ColoutInputLabel.FontSize = 16;
                             var ColourInput = new Xceed.Wpf.Toolkit.ColorPicker();
                             ColourInput.SelectedColor = System.Windows.Media.Color.FromArgb(255, 0, 255, 0);
                             ColourInputContainer.Children.Add(ColoutInputLabel);
@@ -105,7 +105,7 @@ namespace TF2HUD.Editor.Common
                             ComboBoxContainer.Children.Add(ComboBoxLabel);
                             ComboBoxContainer.Children.Add(ComboBoxCustomisation);
 
-                            // ComboBoxCustomisation.Margin = new Thickness(10, lastTop, 0, 10);
+                            ComboBoxContainer.Margin = new Thickness(10, lastTop, 0, 10);
                             SectionContent.Children.Add(ComboBoxContainer);
 
                             break;
@@ -118,7 +118,8 @@ namespace TF2HUD.Editor.Common
                 SectionContainer.Content = SectionContent;
                 SectionsContainer.Children.Add(SectionContainer);
             }
-            Controls.Children.Add(SectionsContainer);
+            Container.Children.Add(SectionsContainer);
+            Controls.Children.Add(Container);
 
             ControlsRendered = true;
             return Controls;
