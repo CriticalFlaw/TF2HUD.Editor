@@ -6,8 +6,7 @@
     public enum HUDs
     {
         FlawHUD,
-        rayshud,
-        budhud
+        rayshud
     }
 
     /// <summary>

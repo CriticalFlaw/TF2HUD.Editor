@@ -282,6 +282,18 @@
   <data name="path_resource_ui" xml:space="preserve">
     <value>{0}\{1}\resource\ui</value>
   </data>
+  <data name="url_budhud_discord" xml:space="preserve">
+    <value>https://discord.gg/PTWkt3h</value>
+  </data>
+  <data name="url_budhud_github" xml:space="preserve">
+    <value>https://github.com/rbjaxter/budhud</value>
+  </data>
+  <data name="url_budhud_hudstf" xml:space="preserve">
+    <value>https://huds.tf/site/s-budhud</value>
+  </data>
+  <data name="url_budhud_steam" xml:space="preserve">
+    <value>https://steamcommunity.com/groups/budhud</value>
+  </data>
   <data name="url_flawhud_hudstf" xml:space="preserve">
     <value>https://huds.tf/site/s-FlawHUD</value>
   </data>

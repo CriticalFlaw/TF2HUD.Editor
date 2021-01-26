@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -28,6 +27,7 @@ namespace TF2HUD.Editor
         public static string HudSelection = Settings.Default.hud_selected; // TODO: Should use the Enum type
         public static string HudPath = Settings.Default.hud_directory;
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        public Json JSON;
 
         public MainWindow()
         {
@@ -35,6 +35,9 @@ namespace TF2HUD.Editor
             var repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
             Logger.Info("INITIALIZING...");
+
+            // Setup HUDs
+            JSON = new Json("Common\\HUDs");
 
             // Setup the GUI.
             InitializeComponent();
@@ -96,7 +99,8 @@ namespace TF2HUD.Editor
 
             // Reload the HUD selection list.
             lbSelectHud.Items.Clear();
-            foreach (Enum item in Enum.GetValues(typeof(Utilities.HUDs)))
+            foreach (var HUDItem in JSON.HUDs) lbSelectHud.Items.Add(HUDItem.Name);
+            foreach (Enum item in Enum.GetValues(typeof(Common.HUDs)))
                 lbSelectHud.Items.Add(Utilities.GetStringValue(item));
         }
 
@@ -248,7 +252,6 @@ namespace TF2HUD.Editor
             else
             {
                 // The selected HUD is not installed in a valid directory.
-                BtnInstall.IsEnabled = false;
                 BtnInstall.Content = "Set Directory";
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
@@ -444,6 +447,7 @@ namespace TF2HUD.Editor
             gbSelectHUD.Visibility = Visibility.Visible;
             uiFlawHud.Visibility = Visibility.Hidden;
             uiRaysHud.Visibility = Visibility.Hidden;
+            HUDEditorContainer.Children.Clear();
             SetFormControls();
         }
 
@@ -454,6 +458,9 @@ namespace TF2HUD.Editor
             Settings.Default.hud_selected = lbSelectHud.SelectedValue.ToString().ToLowerInvariant();
             Settings.Default.Save();
             HudSelection = Settings.Default.hud_selected;
+
+            gbSelectHUD.Visibility = Visibility.Hidden;
+            HUDEditorContainer.Children.Clear();
 
             // Change the page view to the selected HUD.
             switch (Settings.Default.hud_selected)
@@ -469,11 +476,18 @@ namespace TF2HUD.Editor
                     uiFlawHud.Visibility = Visibility.Hidden;
                     uiRaysHud.Visibility = Visibility.Visible;
                     break;
-
                 default:
-                    gbSelectHUD.Visibility = Visibility.Visible;
-                    uiFlawHud.Visibility = Visibility.Hidden;
-                    uiRaysHud.Visibility = Visibility.Hidden;
+                    try
+                    {
+                        var SelectedHUD = JSON.GetHUDByName(Settings.Default.hud_selected);
+                        HUDEditorContainer.Children.Clear();
+                        HUDEditorContainer.Children.Add(SelectedHUD.GetControls());
+                    }
+                    catch (Exception error)
+                    {
+                        MessageBox.Show(error.ToString());
+                    }
+
                     break;
             }
 

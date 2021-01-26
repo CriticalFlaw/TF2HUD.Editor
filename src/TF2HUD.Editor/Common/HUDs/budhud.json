@@ -1,0 +1,33 @@
+{
+	"UpdateUrl": "https://github.com/cooolbros/TF2HUD.Editor",
+	"CustomisationsFolder": "#customisations",
+	"EnabledFolder": "#customisations\\_enabled",
+	"Controls": {
+		"General": [
+			{
+				"Label": "Chat Top Left",
+				"Type": "Checkbox",
+				"File": "Chat_Top_Left.res"
+			},
+			{
+				"Label": "Transparent Viewmodels",
+				"Type": "Checkbox",
+				"File": "hudanimations_custom.txt"
+			},
+			{
+				"Label": "Style",
+				"Type": "ComboBox",
+				"Options": [
+					{
+						"Label": "Good",
+						"Value": "good"
+					},
+					{
+						"Label": "Bad",
+						"Value": "bad"
+					}
+				]
+			}
+		]
+	}
+}

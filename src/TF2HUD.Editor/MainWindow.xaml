@@ -65,15 +65,14 @@
                         </TextBlock>
                     </StackPanel>
                 </ScrollViewer>
-                <WrapPanel Name="HUDEditorContainer">
-                    <!-- Content goes here -->
-                </WrapPanel>
             </Grid>
         </GroupBox>
         <!-- Editor Custom Controls -->
+        <WrapPanel Name="HUDEditorContainer">
+            <!-- Content goes here -->
+        </WrapPanel>
         <local:FlawHUD x:Name="uiFlawHud" Visibility="Hidden" Grid.ColumnSpan="2" />
         <local:rayshud x:Name="uiRaysHud" Visibility="Hidden" Grid.ColumnSpan="2" />
-        <local:budhud x:Name="uiBudHud" Visibility="Hidden" Grid.ColumnSpan="2" />
         <!-- HUD Status -->
         <Label Name="LblStatus" Content="..." Margin="10,5,10,5" Grid.Column="0" Grid.Row="1" />
         <!-- HUD Options -->

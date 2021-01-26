@@ -6,15 +6,15 @@
              xmlns:x2="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              Height="640" Width="1280"
-             FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
+             FontFamily="../../Resources/TF2Secondary.ttf #TF2 Secondary"
              FontSize="20px">
 
     <Grid>
         <GroupBox
             Width="385"
-            Height="620"
-            Margin="885,0,0,0"
-            Header="Options" VerticalAlignment="Center">
+            Height="520"
+            Margin="885,10,0,0"
+            Header="Options">
             <Grid>
                 <CheckBox
                     x:Name="CbClassicHud"
@@ -442,7 +442,7 @@
 
         <GroupBox
             Width="430"
-            Height="155"
+            Height="170"
             Margin="10,315,0,0"
             Header="Health">
 
@@ -499,7 +499,7 @@
 
         <GroupBox
             Width="430"
-            Height="155"
+            Height="170"
             Margin="450,315,0,0"
             Header="Ammo">
 

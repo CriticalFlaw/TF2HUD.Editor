@@ -6,7 +6,7 @@
              xmlns:x2="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
              Height="640" Width="1280"
-             FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
+             FontFamily="../../Resources/TF2Secondary.ttf #TF2 Secondary"
              FontSize="20px">
 
     <Grid>

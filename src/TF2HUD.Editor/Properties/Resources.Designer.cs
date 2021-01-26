@@ -556,6 +556,42 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://discord.gg/PTWkt3h.
+        /// </summary>
+        internal static string url_budhud_discord {
+            get {
+                return ResourceManager.GetString("url_budhud_discord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/rbjaxter/budhud.
+        /// </summary>
+        internal static string url_budhud_github {
+            get {
+                return ResourceManager.GetString("url_budhud_github", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://huds.tf/site/s-budhud.
+        /// </summary>
+        internal static string url_budhud_hudstf {
+            get {
+                return ResourceManager.GetString("url_budhud_hudstf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://steamcommunity.com/groups/budhud.
+        /// </summary>
+        internal static string url_budhud_steam {
+            get {
+                return ResourceManager.GetString("url_budhud_steam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://huds.tf/site/s-FlawHUD.
         /// </summary>
         internal static string url_flawhud_hudstf {
