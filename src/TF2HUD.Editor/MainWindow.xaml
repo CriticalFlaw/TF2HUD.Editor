@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="TF2 HUD Editor"
         Width="1300"
-        Height="750"
+        Height="900"
         WindowStartupLocation="CenterScreen"
         FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px">

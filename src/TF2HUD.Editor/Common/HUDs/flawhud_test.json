@@ -1,0 +1,179 @@
+{
+	"UpdateUrl": "https://github.com/cooolbros/TF2HUD.Editor",
+	"CustomisationsFolder": null,
+	"EnabledFolder": null,
+	"Controls": {
+		"Health/Ammo": [
+			{
+				"Type": "ComboBox",
+				"Label": "Health Style:",
+				"Default": "1",
+				"Options": [
+					{
+						"Label": "Default"
+					},
+					{
+						"Label": "Colored Text"
+					},
+					{
+						"Label": "Cross"
+					}
+				]
+			},
+			{
+				"Type": "ColorPicker",
+				"Label": "Buffed Health:",
+				"Default": "#00AA7F",
+				"File": "resource\\scheme\\clientscheme_colors.res"
+			},
+			{
+				"Type": "ColorPicker",
+				"Label": "Low Health:",
+				"Default": "#BE1414",
+				"File": "resource\\scheme\\clientscheme_colors.res"
+			},
+			{
+				"Type": "ColorPicker",
+				"Label": "Target Health:",
+				"Default": "#00FF7F",
+				"File": "resource\\scheme\\clientscheme_colors.res"
+			},
+			{
+				"Type": "ColorPicker",
+				"Label": "Target Damage:",
+				"Default": "#FFFF00",
+				"File": "resource\\scheme\\clientscheme_colors.res"
+			}
+		],
+		"UberCharge": [
+			{
+				"Type": "ColorPicker",
+				"Label": "Uber Charging:",
+				"Default": "#00AA7F",
+				"File": "resource\\scheme\\clientscheme_colors.res"
+			},
+			{
+				"Type": "ColorPicker",
+				"Label": "Uber Charged:",
+				"Default": "#00AA7F",
+				"File": "resource\\scheme\\clientscheme_colors.res"
+			}
+		],
+		"Crosshair": [
+			{
+				"Type": "Checkbox",
+				"Label": "Enable Crosshair",
+				"Default": "0",
+				"File": "scripts\\hudlayout.res"
+			},
+			{
+				"Type": "Checkbox",
+				"Label": "Rotate Crosshair",
+				"Default": "0",
+				"File": "scripts\\hudlayout.res"
+			},
+			{
+				"Type": "Checkbox",
+				"Label": "Pulse Hitmarker",
+				"Default": "1",
+				"File": "scripts\\hudanimations_custom.txt"
+			},
+			{
+				"Type": "ColorPicker",
+				"Label": "Base Color:",
+				"Default": "#F2F2F2",
+				"File": "resource\\scheme\\clientscheme_colors.res"
+			},
+			{
+				"Type": "ColorPicker",
+				"Label": "Hitmarker:",
+				"Default": "#FF0000",
+				"File": "resource\\scheme\\clientscheme_colors.res"
+			},
+			{
+				"Type": "IntegerUpDown",
+				"Label": "Crosshair Size:",
+				"Default": "18",
+				"Minimum": 10,
+				"Maximum": 30,
+				"Increment": 2,
+				"File": "scripts\\hudlayout.res"
+			},
+			{
+				"Type": "ComboBox",
+				"Label": "Crosshair Effect:",
+				"Default": "1",
+				"File": "scripts\\hudlayout.res",
+				"Options": [
+					{
+						"Label": "None"
+					},
+					{
+						"Label": "Blur"
+					},
+					{
+						"Label": "Outline"
+					}
+				]
+			},
+			{
+				"Type": "ComboBox",
+				"Label": "Crosshair Style:",
+				"Default": "24",
+				"File": "scripts\\hudlayout.res",
+				"Options": [
+					{
+						"Label": "None"
+					}
+				]
+			}
+		],
+		"Options": [
+			{
+				"Type": "Checkbox",
+				"Label": "Code Pro Fonts",
+				"Default": "0",
+				"File": "resource\\clientscheme.res"
+			},
+			{
+				"Type": "Checkbox",
+				"Label": "Spy Disguise Image",
+				"Default": "0",
+				"File": "scripts\\hudanimations_custom.txt"
+			},
+			{
+				"Type": "Checkbox",
+				"Label": "Main Menu Class Images",
+				"Default": "0",
+				"File": "resource\\ui\\mainmenuoverride.res"
+			},
+			{
+				"Type": "Checkbox",
+				"Label": "Default Backgrounds",
+				"Default": "0"
+			},
+			{
+				"Type": "Checkbox",
+				"Label": "Transparent Viewmodels",
+				"Default": "0",
+				"File": "scripts\\hudlayout.res"
+			},
+			{
+				"Type": "Checkbox",
+				"Label": "Lowered Player Stats",
+				"Default": "0"
+			},
+			{
+				"Type": "Checkbox",
+				"Label": "Alternate Player Stats",
+				"Default": "0"
+			},
+			{
+				"Type": "IntegerUpDown",
+				"Label": "Killfeed Rows:",
+				"Default": "5",
+				"File": "scripts\\hudlayout.res"
+			}
+		]
+	}
+}
