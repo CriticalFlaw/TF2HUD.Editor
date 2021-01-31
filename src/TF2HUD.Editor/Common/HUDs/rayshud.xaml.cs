@@ -90,6 +90,22 @@ namespace TF2HUD.Editor.HUDs
                 settings.color_xhair_pulse = CpXHairPulse.SelectedColor?.ToString();
                 settings.color_uber_flash1 = CpUberFlash1.SelectedColor?.ToString();
                 settings.color_uber_flash2 = CpUberFlash2.SelectedColor?.ToString();
+                settings.color_normal = CpItemNormal.SelectedColor?.ToString();
+                settings.color_unique = CpItemUnique.SelectedColor?.ToString();
+                settings.color_strange = CpItemStrange.SelectedColor?.ToString();
+                settings.color_vintage = CpItemVintage.SelectedColor?.ToString();
+                settings.color_haunted = CpItemHaunted.SelectedColor?.ToString();
+                settings.color_genuine = CpItemGenuine.SelectedColor?.ToString();
+                settings.color_collectors = CpItemCollectors.SelectedColor?.ToString();
+                settings.color_unusual = CpItemUnusual.SelectedColor?.ToString();
+                settings.color_community = CpItemCommunity.SelectedColor?.ToString();
+                settings.color_valve = CpItemValve.SelectedColor?.ToString();
+                settings.color_civilian = CpItemCivilian.SelectedColor?.ToString();
+                settings.color_freelance = CpItemFreelance.SelectedColor?.ToString();
+                settings.color_mercenary = CpItemMercenary.SelectedColor?.ToString();
+                settings.color_commando = CpItemCommando.SelectedColor?.ToString();
+                settings.color_assassin = CpItemAssassin.SelectedColor?.ToString();
+                settings.color_elite = CpItemElite.SelectedColor?.ToString();
                 settings.val_uber_animation = CbUberStyle.SelectedIndex;
                 settings.val_health_style = CbHealthStyle.SelectedIndex;
                 settings.val_xhair_size = IntXHairSize.Value ?? 18;
@@ -139,6 +155,22 @@ namespace TF2HUD.Editor.HUDs
                 CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom(settings.color_xhair_pulse);
                 CpUberFlash1.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_flash1);
                 CpUberFlash2.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_flash2);
+                CpItemNormal.SelectedColor = (Color)cc.ConvertFrom(settings.color_normal);
+                CpItemUnique.SelectedColor = (Color)cc.ConvertFrom(settings.color_unique);
+                CpItemStrange.SelectedColor = (Color)cc.ConvertFrom(settings.color_strange);
+                CpItemVintage.SelectedColor = (Color)cc.ConvertFrom(settings.color_vintage);
+                CpItemHaunted.SelectedColor = (Color)cc.ConvertFrom(settings.color_haunted);
+                CpItemGenuine.SelectedColor = (Color)cc.ConvertFrom(settings.color_genuine);
+                CpItemCollectors.SelectedColor = (Color)cc.ConvertFrom(settings.color_collectors);
+                CpItemUnusual.SelectedColor = (Color)cc.ConvertFrom(settings.color_unusual);
+                CpItemCommunity.SelectedColor = (Color)cc.ConvertFrom(settings.color_community);
+                CpItemValve.SelectedColor = (Color)cc.ConvertFrom(settings.color_valve);
+                CpItemCivilian.SelectedColor = (Color)cc.ConvertFrom(settings.color_civilian);
+                CpItemFreelance.SelectedColor = (Color)cc.ConvertFrom(settings.color_freelance);
+                CpItemMercenary.SelectedColor = (Color)cc.ConvertFrom(settings.color_mercenary);
+                CpItemCommando.SelectedColor = (Color)cc.ConvertFrom(settings.color_commando);
+                CpItemAssassin.SelectedColor = (Color)cc.ConvertFrom(settings.color_assassin);
+                CpItemElite.SelectedColor = (Color)cc.ConvertFrom(settings.color_elite);
                 CbUberStyle.SelectedIndex = settings.val_uber_animation;
                 CbHealthStyle.SelectedIndex = settings.val_health_style;
                 IntXHairSize.Value = settings.val_xhair_size;
@@ -188,6 +220,22 @@ namespace TF2HUD.Editor.HUDs
                 CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom("#FF0000");
                 CpUberFlash1.SelectedColor = (Color) cc.ConvertFrom("#FFA500");
                 CpUberFlash2.SelectedColor = (Color) cc.ConvertFrom("#FF4500");
+                CpItemNormal.SelectedColor = (Color)cc.ConvertFrom("#B2B2B2");
+                CpItemUnique.SelectedColor = (Color)cc.ConvertFrom("#FFD700");
+                CpItemStrange.SelectedColor = (Color)cc.ConvertFrom("#CF6A32");
+                CpItemVintage.SelectedColor = (Color)cc.ConvertFrom("#476291");
+                CpItemHaunted.SelectedColor = (Color)cc.ConvertFrom("#38F3AB");
+                CpItemGenuine.SelectedColor = (Color)cc.ConvertFrom("#4D7455");
+                CpItemCollectors.SelectedColor = (Color)cc.ConvertFrom("#AA0000");
+                CpItemUnusual.SelectedColor = (Color)cc.ConvertFrom("#8650AC");
+                CpItemCommunity.SelectedColor = (Color)cc.ConvertFrom("#70B04A");
+                CpItemValve.SelectedColor = (Color)cc.ConvertFrom("#A50F79");
+                CpItemCivilian.SelectedColor = (Color)cc.ConvertFrom("#B0C3D9");
+                CpItemFreelance.SelectedColor = (Color)cc.ConvertFrom("#5E98D9");
+                CpItemMercenary.SelectedColor = (Color)cc.ConvertFrom("#4B69FF");
+                CpItemCommando.SelectedColor = (Color)cc.ConvertFrom("#8847FF");
+                CpItemAssassin.SelectedColor = (Color)cc.ConvertFrom("#D32CE6");
+                CpItemElite.SelectedColor = (Color)cc.ConvertFrom("#EB4B4B");
                 CbUberStyle.SelectedIndex = 0;
                 CbHealthStyle.SelectedIndex = 0;
                 IntXHairSize.Value = 18;
@@ -236,6 +284,7 @@ namespace TF2HUD.Editor.HUDs
             if (!Common.Crosshair(CbXHairStyle.SelectedValue.ToString(), IntXHairSize.Value,
                 CbXHairEffect.SelectedValue.ToString())) return;
             if (!Common.CrosshairPulse()) return;
+            if (!Common.ItemColors()) return;
             Common.TransparentViewmodels();
         }
 

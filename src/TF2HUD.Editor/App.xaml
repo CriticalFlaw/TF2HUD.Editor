@@ -41,7 +41,7 @@
             <Setter Property="ColorMode" Value="ColorCanvas" />
             <Setter Property="ShowRecentColors" Value="True" />
             <Setter Property="Foreground" Value="Black" />
-            <Setter Property="Width" Value="200px" />
+            <Setter Property="Width" Value="100px" />
         </Style>
 
         <Style TargetType="x2:IntegerUpDown">

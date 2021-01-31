@@ -94,8 +94,27 @@
                     ToolTip="Color of the damage dealt to another player. Requires a game restart." />
             </Grid>
         </GroupBox>
-
+        
         <GroupBox
+            Width="570"
+            Height="155"
+            Margin="10,475,0,0"
+            Header="Item Qualitiy">
+            <Grid>
+                <x2:ColorPicker x:Name="CpItemNormal" Margin="10,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemUnique" Margin="120,10,0,0"/>
+                <x2:ColorPicker x:Name="CpItemStrange" Margin="230,10,0,0"/>
+                <x2:ColorPicker x:Name="CpItemVintage" Margin="340,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemHaunted" Margin="450,10,0,0"/>
+                <x2:ColorPicker x:Name="CpItemGenuine" Margin="10,50,0,0"/>
+                <x2:ColorPicker x:Name="CpItemCollectors" Margin="120,50,0,0"/>
+                <x2:ColorPicker x:Name="CpItemUnusual" Margin="230,50,0,0"/>
+                <x2:ColorPicker x:Name="CpItemCommunity" Margin="340,50,0,0"/>
+                <x2:ColorPicker x:Name="CpItemValve" Margin="450,50,0,0"/>
+            </Grid>
+        </GroupBox>
+
+            <GroupBox
             Width="430"
             Height="155"
             Margin="10,475,0,0"
@@ -453,6 +472,21 @@
                     Margin="140,290,0,0"
                     TextAlignment="Right"
                     Width="70" />
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox
+            Width="430"
+            Height="155"
+            Margin="585,475,0,0"
+            Header="Item Rarity">
+            <Grid>
+                <x2:ColorPicker x:Name="CpItemCivilian" Margin="10,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemFreelance" Margin="120,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemMercenary" Margin="230,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemCommando" Margin="10,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemAssassin" Margin="120,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemElite" Margin="230,50,0,0" />
             </Grid>
         </GroupBox>
     </Grid>

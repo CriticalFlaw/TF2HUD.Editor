@@ -418,5 +418,197 @@ namespace TF2HUD.Editor.Properties {
                 this["val_killfeed_rows"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#B2B2B2")]
+        public string color_normal {
+            get {
+                return ((string)(this["color_normal"]));
+            }
+            set {
+                this["color_normal"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#FFD700")]
+        public string color_unique {
+            get {
+                return ((string)(this["color_unique"]));
+            }
+            set {
+                this["color_unique"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#CF6A32")]
+        public string color_strange {
+            get {
+                return ((string)(this["color_strange"]));
+            }
+            set {
+                this["color_strange"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#476291")]
+        public string color_vintage {
+            get {
+                return ((string)(this["color_vintage"]));
+            }
+            set {
+                this["color_vintage"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#38F3AB")]
+        public string color_haunted {
+            get {
+                return ((string)(this["color_haunted"]));
+            }
+            set {
+                this["color_haunted"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#4D7455")]
+        public string color_genuine {
+            get {
+                return ((string)(this["color_genuine"]));
+            }
+            set {
+                this["color_genuine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#AA0000")]
+        public string color_collectors {
+            get {
+                return ((string)(this["color_collectors"]));
+            }
+            set {
+                this["color_collectors"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#8650AC")]
+        public string color_unusual {
+            get {
+                return ((string)(this["color_unusual"]));
+            }
+            set {
+                this["color_unusual"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#70B04A")]
+        public string color_community {
+            get {
+                return ((string)(this["color_community"]));
+            }
+            set {
+                this["color_community"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#A50F79")]
+        public string color_valve {
+            get {
+                return ((string)(this["color_valve"]));
+            }
+            set {
+                this["color_valve"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#B0C3D9")]
+        public string color_civilian {
+            get {
+                return ((string)(this["color_civilian"]));
+            }
+            set {
+                this["color_civilian"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#5E98D9")]
+        public string color_freelance {
+            get {
+                return ((string)(this["color_freelance"]));
+            }
+            set {
+                this["color_freelance"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#4B69FF")]
+        public string color_mercenary {
+            get {
+                return ((string)(this["color_mercenary"]));
+            }
+            set {
+                this["color_mercenary"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#8847FF")]
+        public string color_commando {
+            get {
+                return ((string)(this["color_commando"]));
+            }
+            set {
+                this["color_commando"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#D32CE6")]
+        public string color_assassin {
+            get {
+                return ((string)(this["color_assassin"]));
+            }
+            set {
+                this["color_assassin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#EB4B4B")]
+        public string color_elite {
+            get {
+                return ((string)(this["color_elite"]));
+            }
+            set {
+                this["color_elite"] = value;
+            }
+        }
     }
 }
