@@ -10,7 +10,6 @@
              FontSize="18px">
 
     <Grid>
-
         <GroupBox
             Width="555"
             Height="160"
@@ -28,8 +27,8 @@
                 <Label Content="Uber Charging:" Margin="280,10,0,0" ToolTip="Color of the ÜberCharge meter while charging." />
                 <Label Content="Low Health:" Margin="10,50,0,0" ToolTip="Color of the player's health when low." />
                 <Label Content="Low Ammo:" Margin="280,50,0,0" ToolTip="Color of the player's ammo when low." />
-                <Label Content="Target Health:" Margin="10,90,0,0" ToolTip="Color of the health amount healed. Requires a game restart." />
-                <Label Content="Target Damage:" Margin="280,90,0,0" ToolTip="Color of the damage dealt to another player. Requires a game restart." />
+                <Label Content="Health Healed:" Margin="10,90,0,0" ToolTip="Color of the health amount healed. Requires a game restart." />
+                <Label Content="Damage Dealt:" Margin="280,90,0,0" ToolTip="Color of the damage dealt to another player. Requires a game restart." />
             </Grid>
         </GroupBox>
 
@@ -70,48 +69,58 @@
             Header="Crosshair">
 
             <Grid>
+                <CheckBox
+                    x:Name="CbXHairEnable"
+                    Margin="10,15,0,0"
+                    Content="Enable Crosshair"
+                    Click="CbXHairEnable_OnClick" />
+
+                <CheckBox
+                    x:Name="CbXHairHitmarker"
+                    Margin="200,15,0,0"
+                    Content="Pulse Hitmarker"
+                    IsEnabled="False" />
+
+                <CheckBox
+                    x:Name="CbXHairRotate"
+                    Margin="390,15,0,0"
+                    Content="Rotate Crosshair"
+                    Click="CbXHairEnable_OnClick"
+                    IsEnabled="False" />
+
                 <x2:ColorPicker
                     x:Name="CpXHairColor"
-                    Width="100"
                     Margin="160,50,0,0"
                     IsEnabled="False" />
 
                 <x2:ColorPicker
                     x:Name="CpXHairPulse"
-                    Width="100"
                     Margin="260,50,0,0"
                     IsEnabled="False" />
 
-                <Label
-                    Margin="10,50,0,0"
-                    Content="Base Colors:"
-                    ToolTip="Default crosshair color." />
-
                 <x2:IntegerUpDown
                     x:Name="IntXHairSize"
-                    Margin="460,50,0,0"
+                    Margin="500,50,0,0"
                     Value="18"
                     Minimum="10"
                     Maximum="30" Height="28"
-                    TextAlignment="Center"
-                    IsEnabled="False" />
+                    IsEnabled="False" Width="150" />
 
-                <Label
-                    Margin="400,50,0,0"
-                    Content="Crosshair Size:"
-                    ToolTip="Size of the crosshair." />
-
-                <Label
-                    Margin="400,90,0,0"
-                    Content="Crosshair Style:"
-                    ToolTip="Size of the crosshair." />
+                <ComboBox
+                    x:Name="CbXHairEffect"
+                    Margin="500,90,0,0"
+                    SelectedValuePath="Content" Width="150">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>Blur</ComboBoxItem>
+                    <ComboBoxItem>Outline</ComboBoxItem>
+                </ComboBox>
 
                 <ComboBox
                     Name="CbXHairStyle"
-                    Margin="460,90,0,0"
+                    Margin="160,90,0,0"
+                    Width="200"
                     Style="{StaticResource CrosshairBox}"
-                    IsEnabled="False">
-
+                    IsEnabled="False" Height="26">
                     <ComboBoxItem Style="{StaticResource Crosshair}"
                                   Content="!" />
                     <ComboBoxItem Style="{StaticResource Crosshair}"
@@ -298,39 +307,10 @@
                                   Content="z" />
                 </ComboBox>
 
-                <Label
-                    Margin="10,90,0,0"
-                    Content="Crosshair Effect:"
-                    ToolTip="Effect applied to the crosshair (None, Blur or Outline)." />
-
-                <ComboBox
-                    x:Name="CbXHairEffect"
-                    Margin="160,90,0,0"
-                    HorizontalContentAlignment="Center"
-                    SelectedValuePath="Content">
-                    <ComboBoxItem>None</ComboBoxItem>
-                    <ComboBoxItem>Blur</ComboBoxItem>
-                    <ComboBoxItem>Outline</ComboBoxItem>
-                </ComboBox>
-
-                <CheckBox
-                    x:Name="CbXHairEnable"
-                    Margin="10,20,0,0"
-                    Content="Enable Crosshair"
-                    Click="CbXHairEnable_OnClick" />
-
-                <CheckBox
-                    x:Name="CbXHairHitmarker"
-                    Margin="390,20,0,0"
-                    Content="Pulse Hitmarker"
-                    IsEnabled="False" />
-
-                <CheckBox
-                    x:Name="CbXHairRotate"
-                    Margin="200,20,0,0"
-                    Content="Rotate Crosshair"
-                    Click="CbXHairEnable_OnClick"
-                    IsEnabled="False" />
+                <Label Content="Base Colors:" Margin="10,50,0,0" ToolTip="Default crosshair color." />
+                <Label Content="Style:" Margin="10,90,0,0" ToolTip="Size of the crosshair." />
+                <Label Content="Effect:" Margin="380,90,0,0" ToolTip="Effect applied to the crosshair (None, Blur or Outline)." />
+                <Label Content="Size:" Margin="380,50,0,0" ToolTip="Size of the crosshair." />
             </Grid>
         </GroupBox>
 
@@ -343,74 +323,73 @@
             <Grid>
                 <CheckBox
                     x:Name="CbDisguiseImage"
-                    Margin="10,50,0,0"
+                    Margin="10,55,0,0"
                     Content="Spy Disguise Image"
                     ToolTip="Display the silhouette of the Spy while disguising." />
 
                 <CheckBox
                     x:Name="CbDefaultBg"
-                    Margin="10,130,0,0"
+                    Margin="10,135,0,0"
                     Content="Default Backgrounds"
                     ToolTip="Display the default TF2 backgrounds on the main menu."
                     Grid.ColumnSpan="2" />
 
                 <CheckBox
                     x:Name="CbMenuImages"
-                    Margin="10,90,0,0"
+                    Margin="10,95,0,0"
                     Content="Main Menu Class Images"
                     ToolTip="Display class images on the main menu."
                     Grid.ColumnSpan="2" />
 
                 <CheckBox
                     x:Name="CbTransparentViewmodel"
-                    Margin="10,170,0,0"
+                    Margin="10,175,0,0"
                     Content="Transparent Viewmodels"
                     ToolTip="Enable transparency on the weapon viewmodels." />
 
                 <CheckBox
                     x:Name="CbCodeProFonts"
-                    Margin="10,10,0,0"
+                    Margin="10,15,0,0"
                     Content="Code Pro Fonts"
                     ToolTip="Change the HUD fonts to Code Pro." />
 
                 <CheckBox
                     x:Name="CbLowerPlayerStats"
-                    Margin="10,210,0,0"
+                    Margin="10,215,0,0"
                     Content="Lowered Player Stats"
                     ToolTip="If enabled, lowers the player health and ammo indicators."
                     Click="CbMovePlayerStats_OnClick" />
 
                 <CheckBox
                     x:Name="CbAlternatePlayerStats"
-                    Margin="10,250,0,0"
+                    Margin="10,255,0,0"
                     Content="Alternate Player Stats"
                     ToolTip="If enabled, will use alternate positions for player health and ammo. Note: Cannot be used at the same time as the 'Lowered Player Stats' option"
                     Click="CbMovePlayerStats_OnClick" />
 
                 <Label
                     Margin="300,10,0,0"
+                    Content="Health Style:"
+                    ToolTip="Select the style of the health display." />
+                <ComboBox
+                    x:Name="CbHealthStyle"
+                    Margin="450,10,0,0">
+                    <ComboBoxItem Content="Default"/>
+                    <ComboBoxItem Content="Colored Text"/>
+                    <ComboBoxItem Content="Cross"/>
+                </ComboBox>
+
+                <Label
+                    Margin="300,50,0,0"
                     Content="Killfeed Rows:"
                     ToolTip="Color of the ÜberCharge meter when charged." />
-
                 <x2:IntegerUpDown
                     x:Name="IntKillFeedRows"
                     Value="6"
                     Minimum="0"
                     Maximum="9"
-                    Margin="450,10,0,0"
-                    TextAlignment="Right"
-                    Width="133" />
-                <Label
-                    Margin="300,50,0,0"
-                    Content="Health Style:"
-                    ToolTip="Select the style of the health display." />
-                <ComboBox
-                    x:Name="CbHealthStyle"
-                    Margin="450,50,0,0" Width="133">
-                    <ComboBoxItem Content="Default"/>
-                    <ComboBoxItem Content="Colored Text"/>
-                    <ComboBoxItem Content="Cross"/>
-                </ComboBox>
+                    Margin="450,50,0,0"
+                    Width="200" />
             </Grid>
         </GroupBox>
 

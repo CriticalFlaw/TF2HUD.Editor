@@ -25,6 +25,7 @@
         <Style TargetType="ComboBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="SelectedValuePath" Value="Content" />
             <Setter Property="Width" Value="200px" />
         </Style>
@@ -47,6 +48,7 @@
         <Style TargetType="x2:IntegerUpDown">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="TextAlignment" Value="Center" />
             <Setter Property="FormatString" Value="N0" />
             <Setter Property="Increment" Value="1" />
             <Setter Property="Width" Value="200px" />
@@ -54,7 +56,7 @@
         </Style>
 
         <Style x:Key="Crosshair" TargetType="ComboBoxItem">
-            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontSize" Value="30" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -64,8 +66,7 @@
         <Style x:Key="CrosshairBox" TargetType="ComboBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="FontSize" Value="30" />
-            <Setter Property="Width" Value="200px" />
+            <Setter Property="FontSize" Value="22" />
             <Setter Property="SelectedValuePath" Value="Content" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.otf #TF2Crosshairs" />

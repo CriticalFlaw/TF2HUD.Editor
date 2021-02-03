@@ -326,7 +326,7 @@ namespace TF2HUD.Editor.HUDs
                 lines[Utilities.FindIndex(lines, "UberCharge")] =
                     $"\t\t\"UberCharge\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_ubercharge)}\"";
                 lines[Utilities.FindIndex(lines, "UberChargePulse")] =
-                    $"\t\t\"UberChargePulse\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_ubercharge, pulse: true)}\"";
+                    $"\t\t\"UberChargePulse\"\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_ubercharge, pulse: true)}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
