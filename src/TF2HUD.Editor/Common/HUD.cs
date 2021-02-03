@@ -136,7 +136,8 @@ namespace TF2HUD.Editor.Common
                                 ComboBoxCustomisation.Items.Add(OptionLabel);
                             }
 
-                            ComboBoxCustomisation.SelectedIndex = int.TryParse(ControlItem.Default, out var index) ? index : 1;
+                            ComboBoxCustomisation.SelectedIndex =
+                                int.TryParse(ControlItem.Default, out var index) ? index : 1;
                             ComboBoxContainer.Children.Add(ComboBoxLabel);
                             ComboBoxContainer.Children.Add(ComboBoxCustomisation);
 

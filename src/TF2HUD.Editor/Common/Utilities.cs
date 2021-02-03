@@ -108,4 +108,24 @@ namespace TF2HUD.Editor.Common
 
         public string StringValue { get; protected set; }
     }
+
+    public class ItemColorList
+    {
+        public string Assassin = "#D32CE6";
+        public string Civilian = "#B0C3D9";
+        public string Collectors = "#AA0000";
+        public string Commando = "#8847FF";
+        public string Community = "#70B04A";
+        public string Elite = "#EB4B4B";
+        public string Freelance = "#5E98D9";
+        public string Genuine = "#4D7455";
+        public string Haunted = "#38F3AB";
+        public string Mercenary = "#4B69FF";
+        public string Normal = "#B2B2B2";
+        public string Strange = "#CF6A32";
+        public string Unique = "#FFD700";
+        public string Unusual = "#8650AC";
+        public string Valve = "#A50F79";
+        public string Vintage = "#476291";
+    }
 }

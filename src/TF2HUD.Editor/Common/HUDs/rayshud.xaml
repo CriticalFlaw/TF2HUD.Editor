@@ -7,18 +7,18 @@
              mc:Ignorable="d"
              Height="640" Width="1280"
              FontFamily="../../Resources/TF2Secondary.ttf #TF2 Secondary"
-             FontSize="20px">
+             FontSize="18px">
 
     <Grid>
         <GroupBox
             Width="385"
-            Height="520"
-            Margin="885,10,0,0"
+            Height="455"
+            Margin="885,175,0,0"
             Header="Options">
             <Grid>
                 <CheckBox
                     x:Name="CbClassicHud"
-                    Margin="10,10,0,0"
+                    Margin="10,15,0,0"
                     Content="Classic Main Menu Style"
                     ToolTip="Use the classic rayshud main menu style" />
 
@@ -30,59 +30,59 @@
 
                 <CheckBox
                     x:Name="CbDisguiseImage"
-                    Margin="10,90,0,0"
+                    Margin="10,85,0,0"
                     Content="Spy Disguise Image"
                     ToolTip="Display the silhouette of the Spy while disguising" />
 
                 <CheckBox
                     x:Name="CbMenuImages"
-                    Margin="10,130,0,0"
+                    Margin="10,120,0,0"
                     Content="Main Menu Class Images"
                     ToolTip="Display class images on the main menu" />
 
                 <CheckBox
                     x:Name="CbDamagePos"
-                    Margin="10,170,0,0"
+                    Margin="10,155,0,0"
                     Content="Damage Above Health"
                     ToolTip="Move the damage number to be above the health" />
 
                 <CheckBox
                     x:Name="CbChatBottom"
-                    Margin="10,210,0,0"
+                    Margin="10,190,0,0"
                     Content="Chatbox On The Bottom"
                     ToolTip="Move the chatbox to be near the bottom of the screen" />
 
                 <CheckBox
                     x:Name="CbTeamCenter"
-                    Margin="10,250,0,0"
+                    Margin="10,225,0,0"
                     Content="Centered Team/Class Select"
                     ToolTip="Use the centered style for class and team selection" />
 
                 <CheckBox
                     x:Name="CbTransparentViewmodel"
-                    Margin="10,290,0,0"
+                    Margin="10,260,0,0"
                     Content="Transparent Viewmodels"
                     ToolTip="Enable transparency on the weapon viewmodels" />
 
                 <CheckBox
                     x:Name="CbMetalPos"
-                    Margin="10,330,0,0"
+                    Margin="10,295,0,0"
                     Content="Center Metal Counter"
                     ToolTip="Move the metal number to the centre of the screen" />
 
                 <CheckBox
                     x:Name="CbPlayerModel"
-                    Margin="10,370,0,0"
+                    Margin="10,330,0,0"
                     Content="Alternate Player Model"
                     ToolTip="Use the alternate player model position" />
 
                 <Label
-                    Margin="10,410,0,0"
+                    Margin="10,365,0,0"
                     Content="Main Menu Background:" />
 
                 <ComboBox
                     x:Name="CbMainMenuBackground"
-                    Margin="15,442,0,0" RenderTransformOrigin="0.545,0.533">
+                    Margin="220,368,0,0" RenderTransformOrigin="0.545,0.533" Width="143">
                     <ComboBoxItem IsSelected="True">Modern</ComboBoxItem>
                     <ComboBoxItem>Classic</ComboBoxItem>
                     <ComboBoxItem>Default</ComboBoxItem>
@@ -93,59 +93,30 @@
         </GroupBox>
 
         <GroupBox
-            Width="430"
-            Height="300"
+            Width="555"
+            Height="160"
             Margin="10,10,0,0"
             Header="ÜberCharge">
             <Grid>
                 <ComboBox
                     x:Name="CbUberStyle"
-                    Margin="200,10,0,0"
+                    Margin="160,10,0,0"
                     SelectionChanged="CbUberStyle_SelectionChanged">
                     <ComboBoxItem>Flash</ComboBoxItem>
                     <ComboBoxItem>Solid</ComboBoxItem>
                     <ComboBoxItem>Rainbow</ComboBoxItem>
                 </ComboBox>
 
-                <x2:ColorPicker
-                    x:Name="CpUberBarColor"
-                    Margin="200,60,0,0" />
+                <x2:ColorPicker x:Name="CpUberBarColor" Margin="160,50,0,0" />
+                <x2:ColorPicker x:Name="CpUberFullColor" Margin="430,50,0,0" />
+                <x2:ColorPicker x:Name="CpUberFlash1" Margin="160,90,0,0" />
+                <x2:ColorPicker x:Name="CpUberFlash2" Margin="430,90,0,0" />
 
-                <x2:ColorPicker
-                    x:Name="CpUberFullColor"
-                    Margin="200,110,0,0" />
-
-                <x2:ColorPicker
-                    x:Name="CpUberFlash1"
-                    Margin="200,160,0,0" />
-
-                <x2:ColorPicker
-                    x:Name="CpUberFlash2"
-                    Margin="200,210,0,0" />
-
-                <Label
-                    Margin="10,10,0,0"
-                    Content="ÜberCharge Style:"
-                    ToolTip="Color of the ÜberCharge when full" />
-
-                <Label
-                    Margin="10,60,0,0"
-                    Content="Charging Color:"
-                    ToolTip="Color of the ÜberCharge when charging" />
-
-                <Label
-                    Margin="10,110,0,0"
-                    Content="Full Charge Color:" />
-
-                <Label
-                    Margin="10,160,0,0"
-                    Content="Full Charge Flash 1:"
-                    ToolTip="First ÜberCharge color (Rainbow style)" />
-
-                <Label
-                    Margin="10,210,0,0"
-                    Content="Full Charge Flash 2:"
-                    ToolTip="Second ÜberCharge color (Rainbow style)" />
+                <Label Content="Über Style:" Margin="10,10,0,0" ToolTip="Color of the ÜberCharge when full" />
+                <Label Content="Charging:" Margin="10,50,0,0" ToolTip="Color of the ÜberCharge when charging" />
+                <Label Content="Charged Solid:" Margin="280,50,0,0" />
+                <Label Content="Charged Flash 1:" Margin="10,90,0,0" ToolTip="First ÜberCharge color (Rainbow style)" />
+                <Label Content="Charged Flash 2:" Margin="280,90,0,0" ToolTip="Second ÜberCharge color (Rainbow style)" />
             </Grid>
         </GroupBox>
 
@@ -170,19 +141,64 @@
         </GroupBox>
 
         <GroupBox
-            Width="430"
-            Height="300"
-            Margin="450,10,0,0"
+            Width="700"
+            Height="160"
+            Margin="570,10,0,0"
             Header="Crosshair">
 
             <Grid>
+                <CheckBox
+                    x:Name="CbXHairEnable"
+                    Margin="10,15,0,0"
+                    Content="Enable Crosshair"
+                    Click="CbXHairEnable_OnClick" />
+
+                <CheckBox
+                    x:Name="CbXHairHitmarker"
+                    Margin="200,15,0,0"
+                    Content="Pulse Hitmarker"
+                    IsEnabled="False" />
+
+                <CheckBox
+                    x:Name="CbXHairRotate"
+                    Margin="390,15,0,0"
+                    Content="Rotate Crosshair"
+                    Click="CbXHairEnable_OnClick"
+                    IsEnabled="False" />
+
+                <x2:ColorPicker
+                    x:Name="CpXHairColor"
+                    Margin="160,50,0,0"
+                    IsEnabled="False" />
+
+                <x2:ColorPicker
+                    x:Name="CpXHairPulse"
+                    Margin="260,50,0,0"
+                    IsEnabled="False" />
+
+                <x2:IntegerUpDown
+                    x:Name="IntXHairSize"
+                    Margin="500,50,0,0"
+                    Value="18"
+                    Minimum="10"
+                    Maximum="30" Height="28"
+                    IsEnabled="False" Width="150" />
+
+                <ComboBox
+                    x:Name="CbXHairEffect"
+                    Margin="500,90,0,0"
+                    SelectedValuePath="Content" Width="150">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>Blur</ComboBoxItem>
+                    <ComboBoxItem>Outline</ComboBoxItem>
+                </ComboBox>
 
                 <ComboBox
                     Name="CbXHairStyle"
-                    Margin="200,210,0,0"
+                    Margin="160,90,0,0"
+                    Width="200"
                     Style="{StaticResource CrosshairBox}"
-                    IsEnabled="False">
-
+                    IsEnabled="False" Height="26">
                     <ComboBoxItem Style="{StaticResource Crosshair}"
                                   Content="!" />
                     <ComboBoxItem Style="{StaticResource Crosshair}"
@@ -369,218 +385,109 @@
                                   Content="z" />
                 </ComboBox>
 
-                <x2:IntegerUpDown
-                    x:Name="IntXHairSize"
-                    Margin="200,110,0,0"
-                    Value="14"
-                    Increment="1"
-                    Minimum="10"
-                    Maximum="30" Height="26"
-                    TextAlignment="Center"
-                    IsEnabled="False" />
-
-                <ComboBox
-                    x:Name="CbXHairEffect"
-                    Margin="200,160,0,0"
-                    HorizontalContentAlignment="Center"
-                    SelectedValuePath="Content">
-                    <ComboBoxItem>None</ComboBoxItem>
-                    <ComboBoxItem>Blur</ComboBoxItem>
-                    <ComboBoxItem>Outline</ComboBoxItem>
-                </ComboBox>
-
-                <x2:ColorPicker
-                    x:Name="CpXHairColor"
-                    Width="100"
-                    Margin="200,60,0,0"
-                    IsEnabled="False" />
-
-                <x2:ColorPicker
-                    x:Name="CpXHairPulse"
-                    Width="100"
-                    Margin="300,60,0,0"
-                    IsEnabled="False" />
-
-                <CheckBox
-                    x:Name="CbXHairEnable"
-                    Margin="10,20,0,0"
-                    Content="Toggle Crosshair"
-                    Click="CbXHairEnable_OnClick" />
-
-                <CheckBox
-                    x:Name="CbXHairHitmarker"
-                    Margin="190,20,0,0"
-                    Content="Toggle Hitmarker"
-                    IsEnabled="False" />
-
-                <Label
-                    Margin="10,210,0,0"
-                    Content="Crosshair Style:"
-                    ToolTip="Style of the crosshair" />
-
-                <Label
-                    Margin="10,110,0,0"
-                    Content="Crosshair Size:"
-                    ToolTip="Size of the crosshair" />
-
-                <Label
-                    Margin="10,160,0,0"
-                    Content="Crosshair Effect:"
-                    ToolTip="Effect applied to the crosshair (Blur, Outline or Shadow)" />
-
-                <Label
-                    Margin="10,60,0,0"
-                    Content="Crosshair Colors:"
-                    ToolTip="Color of the crosshair" />
-
-                <Label
-                    Margin="10,85,0,0"
-                    Content="*First color is the crosshair default and second is the hitmarker"
-                    FontSize="10px" />
+                <Label Content="Base Colors:" Margin="10,50,0,0" ToolTip="Default crosshair color." />
+                <Label Content="Style:" Margin="10,90,0,0" ToolTip="Size of the crosshair." />
+                <Label Content="Effect:" Margin="380,90,0,0"
+                       ToolTip="Effect applied to the crosshair (None, Blur or Outline)." />
+                <Label Content="Size:" Margin="380,50,0,0" ToolTip="Size of the crosshair." />
             </Grid>
         </GroupBox>
 
         <GroupBox
             Width="430"
             Height="170"
-            Margin="10,315,0,0"
+            Margin="10,175,0,0"
             Header="Health">
 
             <Grid>
-                <x2:ColorPicker
-                    x:Name="CpHealthNormal"
-                    Width="180"
-                    Margin="220,30,0,0" />
-
-                <x2:ColorPicker
-                    x:Name="CpHealthBuffed"
-                    Width="180"
-                    Margin="10,90,0,0" />
-
-                <x2:ColorPicker
-                    x:Name="CpHealthLow"
-                    Width="180"
-                    Margin="220,90,0,0" />
-
                 <ComboBox
                     x:Name="CbHealthStyle"
                     Width="180"
-                    Margin="10,30,0,0">
+                    Margin="10,40,0,0">
                     <ComboBoxItem IsSelected="True">Default</ComboBoxItem>
                     <ComboBoxItem>Broesel</ComboBoxItem>
                     <ComboBoxItem>Cross</ComboBoxItem>
                 </ComboBox>
 
-                <Label
-                    Margin="220,5,0,0"
-                    Content="Health Normal:"
-                    FontSize="15px"
-                    ToolTip="Color of the player health" />
+                <x2:ColorPicker x:Name="CpHealthNormal" Width="180" Margin="220,40,0,0" />
+                <x2:ColorPicker x:Name="CpHealthBuffed" Width="180" Margin="10,100,0,0" />
+                <x2:ColorPicker x:Name="CpHealthLow" Width="180" Margin="220,100,0,0" />
 
-                <Label
-                    Margin="10,65,0,0"
-                    Content="Health Buffed:"
-                    FontSize="15px"
-                    ToolTip="Color of the player health when buffed" />
-
-                <Label
-                    Margin="10,5,0,0"
-                    Content="Health Style:"
-                    FontSize="15px"
-                    ToolTip="Style of the player health" />
-
-                <Label
-                    Margin="220,65,0,0"
-                    Content="Health Low:"
-                    FontSize="15px"
-                    ToolTip="Color of the player health when low" />
+                <Label Content="Health Style:" Margin="10,10,0,0" ToolTip="Style of the player health" />
+                <Label Content="Health Normal:" Margin="220,10,0,0" ToolTip="Color of the player health" />
+                <Label Content="Health Buffed:" Margin="10,70,0,0" ToolTip="Color of the player health when buffed" />
+                <Label Content="Health Low:" Margin="220,70,0,0" ToolTip="Color of the player health when low" />
             </Grid>
         </GroupBox>
 
         <GroupBox
             Width="430"
             Height="170"
-            Margin="450,315,0,0"
+            Margin="445,175,0,0"
             Header="Ammo">
 
             <Grid>
-                <x2:ColorPicker
-                    x:Name="CpAmmoClip"
-                    Width="180"
-                    Margin="10,30,0,0" />
+                <x2:ColorPicker x:Name="CpAmmoClip" Width="180" Margin="10,40,0,0" />
+                <x2:ColorPicker x:Name="CpAmmoReserve" Width="180" Margin="220,40,0,0" />
+                <x2:ColorPicker x:Name="CpAmmoClipLow" Width="180" Margin="10,100,0,0" />
+                <x2:ColorPicker x:Name="CpAmmoReserveLow" Width="180" Margin="220,100,0,0" />
 
-                <x2:ColorPicker
-                    x:Name="CpAmmoReserve"
-                    Width="180"
-                    Margin="220,30,0,0" />
-
-                <x2:ColorPicker
-                    x:Name="CpAmmoClipLow"
-                    Width="180"
-                    Margin="10,90,0,0" />
-
-                <x2:ColorPicker
-                    x:Name="CpAmmoReserveLow"
-                    Width="180"
-                    Margin="220,90,0,0" />
-
-                <Label
-                    Margin="10,5,0,0"
-                    Content="Ammo Clip Normal:"
-                    FontSize="15px"
-                    ToolTip="Color of the ammo clip" />
-
-                <Label
-                    Margin="10,65,0,0"
-                    Content="Ammo Clip Low:"
-                    FontSize="15px"
-                    ToolTip="Color of the ammo clip when low" />
-
-                <Label
-                    Margin="220,5,0,0"
-                    Content="Ammo Reserve Normal:"
-                    FontSize="15px"
-                    ToolTip="Color of the ammo reserve" />
-
-                <Label
-                    Margin="220,65,0,0"
-                    Content="Ammo Reserve Low:"
-                    FontSize="15px"
-                    ToolTip="Color of the ammo reserve when low" />
+                <Label Content="Ammo Clip Normal:" Margin="10,10,0,0" ToolTip="Color of the ammo clip" />
+                <Label Content="Ammo Reserve Normal:" Margin="220,10,0,0" ToolTip="Color of the ammo reserve" />
+                <Label Content="Ammo Clip Low:" Margin="10,70,0,0" ToolTip="Color of the ammo clip when low" />
+                <Label Content="Ammo Reserve Low:" Margin="220,70,0,0" ToolTip="Color of the ammo reserve when low" />
             </Grid>
         </GroupBox>
-        
+
         <GroupBox
-            Width="570"
+            Width="865"
             Height="155"
-            Margin="10,475,0,0"
-            Header="Item Qualitiy">
+            Margin="10,350,0,0"
+            Header="Item Quality">
             <Grid>
-                <x2:ColorPicker x:Name="CpItemNormal" Margin="10,10,0,0" />
-                <x2:ColorPicker x:Name="CpItemUnique" Margin="120,10,0,0"/>
-                <x2:ColorPicker x:Name="CpItemStrange" Margin="230,10,0,0"/>
-                <x2:ColorPicker x:Name="CpItemVintage" Margin="340,10,0,0" />
-                <x2:ColorPicker x:Name="CpItemHaunted" Margin="450,10,0,0"/>
-                <x2:ColorPicker x:Name="CpItemGenuine" Margin="10,50,0,0"/>
-                <x2:ColorPicker x:Name="CpItemCollectors" Margin="120,50,0,0"/>
-                <x2:ColorPicker x:Name="CpItemUnusual" Margin="230,50,0,0"/>
-                <x2:ColorPicker x:Name="CpItemCommunity" Margin="340,50,0,0"/>
-                <x2:ColorPicker x:Name="CpItemValve" Margin="450,50,0,0"/>
+                <x2:ColorPicker x:Name="CpItemNormal" Margin="160,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemUnique" Margin="430,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemStrange" Margin="700,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemVintage" Margin="160,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemHaunted" Margin="430,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemGenuine" Margin="700,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemCollectors" Margin="160,90,0,0" />
+                <x2:ColorPicker x:Name="CpItemUnusual" Margin="430,90,0,0" />
+                <x2:ColorPicker x:Name="CpItemCommunity" Margin="700,90,0,0" />
+                <x2:ColorPicker x:Name="CpItemValve" Margin="160,90,0,0" Visibility="Hidden" />
+
+                <Label Content="Normal:" Margin="10,10,0,0" />
+                <Label Content="Unique:" Margin="280,10,0,0" />
+                <Label Content="Strange:" Margin="550,10,0,0" />
+                <Label Content="Vintage:" Margin="10,50,0,0" />
+                <Label Content="Haunted:" Margin="280,50,0,0" />
+                <Label Content="Genuine:" Margin="550,50,0,0" />
+                <Label Content="Collectors:" Margin="10,90,0,0" />
+                <Label Content="Unusual:" Margin="280,90,0,0" />
+                <Label Content="Community:" Margin="550,90,0,0" />
+                <Label Content="Valve:" Margin="550,90,0,0" Visibility="Hidden" />
             </Grid>
         </GroupBox>
 
         <GroupBox
-            Width="430"
-            Height="155"
-            Margin="585,475,0,0"
+            Width="865"
+            Height="120"
+            Margin="10,510,0,0"
             Header="Item Rarity">
             <Grid>
-                <x2:ColorPicker x:Name="CpItemCivilian" Margin="10,10,0,0" />
-                <x2:ColorPicker x:Name="CpItemFreelance" Margin="120,10,0,0" />
-                <x2:ColorPicker x:Name="CpItemMercenary" Margin="230,10,0,0" />
-                <x2:ColorPicker x:Name="CpItemCommando" Margin="10,50,0,0" />
-                <x2:ColorPicker x:Name="CpItemAssassin" Margin="120,50,0,0" />
-                <x2:ColorPicker x:Name="CpItemElite" Margin="230,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemCivilian" Margin="160,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemFreelance" Margin="430,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemMercenary" Margin="700,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemCommando" Margin="160,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemAssassin" Margin="430,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemElite" Margin="700,50,0,0" />
+
+                <Label Content="Civilian:" Margin="10,10,0,0" />
+                <Label Content="Freelance:" Margin="280,10,0,0" />
+                <Label Content="Mercenary:" Margin="550,10,0,0" />
+                <Label Content="Commando:" Margin="10,50,0,0" />
+                <Label Content="Assassin:" Margin="280,50,0,0" />
+                <Label Content="Elite:" Margin="550,50,0,0" />
             </Grid>
         </GroupBox>
     </Grid>

@@ -24,11 +24,14 @@
                 <x2:ColorPicker x:Name="CpTargetDamage" Margin="430,90,0,0" />
 
                 <Label Content="Buffed Health:" Margin="10,10,0,0" ToolTip="Color of the player's health when buffed." />
-                <Label Content="Uber Charging:" Margin="280,10,0,0" ToolTip="Color of the ÜberCharge meter while charging." />
+                <Label Content="Uber Charging:" Margin="280,10,0,0"
+                       ToolTip="Color of the ÜberCharge meter while charging." />
                 <Label Content="Low Health:" Margin="10,50,0,0" ToolTip="Color of the player's health when low." />
                 <Label Content="Low Ammo:" Margin="280,50,0,0" ToolTip="Color of the player's ammo when low." />
-                <Label Content="Health Healed:" Margin="10,90,0,0" ToolTip="Color of the health amount healed. Requires a game restart." />
-                <Label Content="Damage Dealt:" Margin="280,90,0,0" ToolTip="Color of the damage dealt to another player. Requires a game restart." />
+                <Label Content="Health Healed:" Margin="10,90,0,0"
+                       ToolTip="Color of the health amount healed. Requires a game restart." />
+                <Label Content="Damage Dealt:" Margin="280,90,0,0"
+                       ToolTip="Color of the damage dealt to another player. Requires a game restart." />
             </Grid>
         </GroupBox>
 
@@ -39,15 +42,15 @@
             Header="Item Quality">
             <Grid>
                 <x2:ColorPicker x:Name="CpItemNormal" Margin="160,10,0,0" />
-                <x2:ColorPicker x:Name="CpItemUnique" Margin="430,10,0,0"/>
-                <x2:ColorPicker x:Name="CpItemStrange" Margin="160,50,0,0"/>
-                <x2:ColorPicker x:Name="CpItemVintage" Margin="430,50,0,0"/>
-                <x2:ColorPicker x:Name="CpItemHaunted" Margin="160,90,0,0"/>
-                <x2:ColorPicker x:Name="CpItemGenuine" Margin="430,90,0,0"/>
-                <x2:ColorPicker x:Name="CpItemCollectors" Margin="160,130,0,0"/>
-                <x2:ColorPicker x:Name="CpItemUnusual" Margin="430,130,0,0"/>
-                <x2:ColorPicker x:Name="CpItemCommunity" Margin="160,170,0,0"/>
-                <x2:ColorPicker x:Name="CpItemValve" Margin="430,170,0,0"/>
+                <x2:ColorPicker x:Name="CpItemUnique" Margin="430,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemStrange" Margin="160,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemVintage" Margin="430,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemHaunted" Margin="160,90,0,0" />
+                <x2:ColorPicker x:Name="CpItemGenuine" Margin="430,90,0,0" />
+                <x2:ColorPicker x:Name="CpItemCollectors" Margin="160,130,0,0" />
+                <x2:ColorPicker x:Name="CpItemUnusual" Margin="430,130,0,0" />
+                <x2:ColorPicker x:Name="CpItemCommunity" Margin="160,170,0,0" />
+                <x2:ColorPicker x:Name="CpItemValve" Margin="430,170,0,0" />
 
                 <Label Content="Normal:" Margin="10,10,0,0" />
                 <Label Content="Unique:" Margin="280,10,0,0" />
@@ -309,7 +312,8 @@
 
                 <Label Content="Base Colors:" Margin="10,50,0,0" ToolTip="Default crosshair color." />
                 <Label Content="Style:" Margin="10,90,0,0" ToolTip="Size of the crosshair." />
-                <Label Content="Effect:" Margin="380,90,0,0" ToolTip="Effect applied to the crosshair (None, Blur or Outline)." />
+                <Label Content="Effect:" Margin="380,90,0,0"
+                       ToolTip="Effect applied to the crosshair (None, Blur or Outline)." />
                 <Label Content="Size:" Margin="380,50,0,0" ToolTip="Size of the crosshair." />
             </Grid>
         </GroupBox>
@@ -374,9 +378,9 @@
                 <ComboBox
                     x:Name="CbHealthStyle"
                     Margin="450,10,0,0">
-                    <ComboBoxItem Content="Default"/>
-                    <ComboBoxItem Content="Colored Text"/>
-                    <ComboBoxItem Content="Cross"/>
+                    <ComboBoxItem Content="Default" />
+                    <ComboBoxItem Content="Colored Text" />
+                    <ComboBoxItem Content="Cross" />
                 </ComboBox>
 
                 <Label
@@ -399,12 +403,12 @@
             Margin="10,420,0,0"
             Header="Item Rarity">
             <Grid>
-                <x2:ColorPicker x:Name="CpItemCivilian" Margin="160,10,0,0"/>
-                <x2:ColorPicker x:Name="CpItemFreelance" Margin="430,10,0,0"/>
-                <x2:ColorPicker x:Name="CpItemMercenary" Margin="160,50,0,0"/>
-                <x2:ColorPicker x:Name="CpItemCommando" Margin="430,50,0,0"/>
-                <x2:ColorPicker x:Name="CpItemAssassin" Margin="160,90,0,0"/>
-                <x2:ColorPicker x:Name="CpItemElite" Margin="430,90,0,0"/>
+                <x2:ColorPicker x:Name="CpItemCivilian" Margin="160,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemFreelance" Margin="430,10,0,0" />
+                <x2:ColorPicker x:Name="CpItemMercenary" Margin="160,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemCommando" Margin="430,50,0,0" />
+                <x2:ColorPicker x:Name="CpItemAssassin" Margin="160,90,0,0" />
+                <x2:ColorPicker x:Name="CpItemElite" Margin="430,90,0,0" />
 
                 <Label Content="Civilian:" Margin="10,10,0,0" />
                 <Label Content="Freelance:" Margin="280,10,0,0" />

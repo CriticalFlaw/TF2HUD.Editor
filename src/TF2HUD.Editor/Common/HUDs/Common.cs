@@ -75,7 +75,9 @@ namespace TF2HUD.Editor.HUDs
                 switch (MainWindow.HudSelection.ToLowerInvariant())
                 {
                     case "flawhud":
-                        if (!flawhud.Default.toggle_xhair_pulse) return true;   // TODO: Update to enable hitmarker for rotating crosshair (disabled by default in flawhud since 2021/02/01)
+                        if (!flawhud.Default.toggle_xhair_pulse)
+                            return
+                                true; // TODO: Update to enable hitmarker for rotating crosshair (disabled by default in flawhud since 2021/02/01)
                         break;
 
                     case "rayshud":
@@ -229,7 +231,7 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Update the client scheme colors.
         /// </summary>
-        public static bool ItemColors()
+        public static bool ItemColors(ItemColorList itemColors)
         {
             try
             {
@@ -238,70 +240,70 @@ namespace TF2HUD.Editor.HUDs
                 var lines = File.ReadAllLines(file);
                 // Quality
                 lines[Utilities.FindIndex(lines, "\"QualityColorNormal\"")] =
-                    $"\t\t\"QualityColorNormal\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_normal)}\"";
+                    $"\t\t\"QualityColorNormal\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Normal)}\"";
                 lines[Utilities.FindIndex(lines, "DimmQualityColorNormal")] =
-                    $"\t\t\"DimmQualityColorNormal\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_normal, 100)}\"";
+                    $"\t\t\"DimmQualityColorNormal\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Normal, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"QualityColorUnique\"")] =
-                    $"\t\t\"QualityColorUnique\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_unique)}\"";
+                    $"\t\t\"QualityColorUnique\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Unique)}\"";
                 lines[Utilities.FindIndex(lines, "DimmQualityColorUnique")] =
-                    $"\t\t\"DimmQualityColorUnique\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_unique, 100)}\"";
+                    $"\t\t\"DimmQualityColorUnique\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Unique, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"QualityColorStrange\"")] =
-                    $"\t\t\"QualityColorStrange\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_strange)}\"";
+                    $"\t\t\"QualityColorStrange\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Strange)}\"";
                 lines[Utilities.FindIndex(lines, "DimmQualityColorStrange")] =
-                    $"\t\t\"DimmQualityColorStrange\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_strange, 100)}\"";
+                    $"\t\t\"DimmQualityColorStrange\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Strange, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"QualityColorVintage\"")] =
-                    $"\t\t\"QualityColorVintage\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_vintage)}\"";
+                    $"\t\t\"QualityColorVintage\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Vintage)}\"";
                 lines[Utilities.FindIndex(lines, "DimmQualityColorVintage")] =
-                    $"\t\t\"DimmQualityColorVintage\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_vintage, 100)}\"";
+                    $"\t\t\"DimmQualityColorVintage\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Vintage, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"QualityColorHaunted\"")] =
-                    $"\t\t\"QualityColorHaunted\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_haunted)}\"";
+                    $"\t\t\"QualityColorHaunted\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Haunted)}\"";
                 lines[Utilities.FindIndex(lines, "DimmQualityColorHaunted")] =
-                    $"\t\t\"DimmQualityColorHaunted\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_haunted, 100)}\"";
+                    $"\t\t\"DimmQualityColorHaunted\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Haunted, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"QualityColorrarity1\"")] =
-                    $"\t\t\"QualityColorrarity1\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_genuine)}\"";
+                    $"\t\t\"QualityColorrarity1\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Genuine)}\"";
                 lines[Utilities.FindIndex(lines, "DimmQualityColorrarity1")] =
-                    $"\t\t\"DimmQualityColorrarity1\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_genuine, 100)}\"";
+                    $"\t\t\"DimmQualityColorrarity1\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Genuine, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"QualityColorCollectors\"")] =
-                    $"\t\t\"QualityColorCollectors\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_collectors)}\"";
+                    $"\t\t\"QualityColorCollectors\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Collectors)}\"";
                 lines[Utilities.FindIndex(lines, "DimmQualityColorCollectors")] =
-                    $"\t\t\"DimmQualityColorCollectors\"\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_collectors, 100)}\"";
+                    $"\t\t\"DimmQualityColorCollectors\"\t\t\t\"{Utilities.RgbConverter(itemColors.Collectors, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"QualityColorrarity4\"")] =
-                    $"\t\t\"QualityColorrarity4\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_unusual)}\"";
+                    $"\t\t\"QualityColorrarity4\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Unusual)}\"";
                 lines[Utilities.FindIndex(lines, "DimmQualityColorrarity4")] =
-                    $"\t\t\"DimmQualityColorrarity4\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_unusual, 100)}\"";
+                    $"\t\t\"DimmQualityColorrarity4\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Unusual, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"QualityColorCommunity\"")] =
-                    $"\t\t\"QualityColorCommunity\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_community)}\"";
+                    $"\t\t\"QualityColorCommunity\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Community)}\"";
                 lines[Utilities.FindIndex(lines, "DimmQualityColorCommunity")] =
-                    $"\t\t\"DimmQualityColorCommunity\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_community, 100)}\"";
+                    $"\t\t\"DimmQualityColorCommunity\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Community, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"QualityColorDeveloper\"")] =
-                    $"\t\t\"QualityColorDeveloper\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_valve)}\"";
+                    $"\t\t\"QualityColorDeveloper\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Valve)}\"";
                 lines[Utilities.FindIndex(lines, "DimmQualityColorDeveloper")] =
-                    $"\t\t\"DimmQualityColorDeveloper\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_valve, 100)}\"";
+                    $"\t\t\"DimmQualityColorDeveloper\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Valve, 100)}\"";
                 // Rarity
                 lines[Utilities.FindIndex(lines, "\"ItemRarityCommon\"")] =
-                    $"\t\t\"ItemRarityCommon\"\t\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_civilian)}\"";
+                    $"\t\t\"ItemRarityCommon\"\t\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Civilian)}\"";
                 lines[Utilities.FindIndex(lines, "DimmItemRarityCommon")] =
-                    $"\t\t\"DimmItemRarityCommon\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_civilian, 100)}\"";
+                    $"\t\t\"DimmItemRarityCommon\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Civilian, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"ItemRarityUncommon\"")] =
-                    $"\t\t\"ItemRarityUncommon\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_freelance)}\"";
+                    $"\t\t\"ItemRarityUncommon\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Freelance)}\"";
                 lines[Utilities.FindIndex(lines, "DimmItemRarityUncommon")] =
-                    $"\t\t\"DimmItemRarityUncommon\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_freelance, 100)}\"";
+                    $"\t\t\"DimmItemRarityUncommon\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Freelance, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"ItemRarityRare\"")] =
-                    $"\t\t\"ItemRarityRare\"\t\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_mercenary)}\"";
+                    $"\t\t\"ItemRarityRare\"\t\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Mercenary)}\"";
                 lines[Utilities.FindIndex(lines, "DimmItemRarityRare")] =
-                    $"\t\t\"DimmItemRarityRare\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_mercenary, 100)}\"";
+                    $"\t\t\"DimmItemRarityRare\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Mercenary, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"ItemRarityMythical\"")] =
-                    $"\t\t\"ItemRarityMythical\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_commando)}\"";
+                    $"\t\t\"ItemRarityMythical\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Commando)}\"";
                 lines[Utilities.FindIndex(lines, "DimmItemRarityMythical")] =
-                    $"\t\t\"DimmItemRarityMythical\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_commando, 100)}\"";
+                    $"\t\t\"DimmItemRarityMythical\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Commando, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"ItemRarityLegendary\"")] =
-                    $"\t\t\"ItemRarityLegendary\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_assassin)}\"";
+                    $"\t\t\"ItemRarityLegendary\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Assassin)}\"";
                 lines[Utilities.FindIndex(lines, "DimmItemRarityLegendary")] =
-                    $"\t\t\"DimmItemRarityLegendary\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_assassin, 100)}\"";
+                    $"\t\t\"DimmItemRarityLegendary\"\t\t\t\t\"{Utilities.RgbConverter(itemColors.Assassin, 100)}\"";
                 lines[Utilities.FindIndex(lines, "\"ItemRarityAncient\"")] =
-                    $"\t\t\"ItemRarityAncient\"\t\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_elite)}\"";
+                    $"\t\t\"ItemRarityAncient\"\t\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Elite)}\"";
                 lines[Utilities.FindIndex(lines, "DimmItemRarityAncient")] =
-                    $"\t\t\"DimmItemRarityAncient\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_elite, 100)}\"";
+                    $"\t\t\"DimmItemRarityAncient\"\t\t\t\t\t\"{Utilities.RgbConverter(itemColors.Elite, 100)}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
