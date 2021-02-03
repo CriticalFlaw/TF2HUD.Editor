@@ -11,10 +11,7 @@
     <Setting Name="color_health_low" Type="System.String" Scope="User">
       <Value Profile="(Default)">#BE1414</Value>
     </Setting>
-    <Setting Name="color_uber_bar" Type="System.String" Scope="User">
-      <Value Profile="(Default)">#00AA7F</Value>
-    </Setting>
-    <Setting Name="color_uber_full" Type="System.String" Scope="User">
+    <Setting Name="color_ubercharge" Type="System.String" Scope="User">
       <Value Profile="(Default)">#00AA7F</Value>
     </Setting>
     <Setting Name="color_xhair_normal" Type="System.String" Scope="User">

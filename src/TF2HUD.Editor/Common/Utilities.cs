@@ -46,12 +46,11 @@ namespace TF2HUD.Editor.Common
         /// <param name="hex">HEX code of the color to be converted to RGB.</param>
         /// <param name="alpha">Flag the color as having a lower alpha value than normal.</param>
         /// <param name="pulse">Flag the color as a pulse, slightly changing green channel.</param>
-        public static string RgbConverter(string hex, bool alpha = false, bool pulse = false)
+        public static string RgbConverter(string hex, int alpha = 255, bool pulse = false)
         {
             var color = ColorTranslator.FromHtml(hex);
-            var alphaNew = alpha ? "200" : color.A.ToString();
             var pulseNew = pulse && color.G >= 50 ? color.G - 50 : color.G;
-            return $"{color.R} {pulseNew} {color.B} {alphaNew}";
+            return $"{color.R} {pulseNew} {color.B} {alpha}";
         }
 
         /// <summary>

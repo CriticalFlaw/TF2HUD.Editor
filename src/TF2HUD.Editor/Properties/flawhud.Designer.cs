@@ -62,24 +62,12 @@ namespace TF2HUD.Editor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("#00AA7F")]
-        public string color_uber_bar {
+        public string color_ubercharge {
             get {
-                return ((string)(this["color_uber_bar"]));
+                return ((string)(this["color_ubercharge"]));
             }
             set {
-                this["color_uber_bar"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("#00AA7F")]
-        public string color_uber_full {
-            get {
-                return ((string)(this["color_uber_full"]));
-            }
-            set {
-                this["color_uber_full"] = value;
+                this["color_ubercharge"] = value;
             }
         }
         

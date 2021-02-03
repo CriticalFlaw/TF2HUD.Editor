@@ -99,8 +99,7 @@ namespace TF2HUD.Editor.HUDs
                 settings.color_health_buff = CpHealthBuffed.SelectedColor?.ToString();
                 settings.color_health_low = CpHealthLow.SelectedColor?.ToString();
                 settings.color_ammo_low = CpAmmoLow.SelectedColor?.ToString();
-                settings.color_uber_bar = CpUberBarColor.SelectedColor?.ToString();
-                settings.color_uber_full = CpUberFullColor.SelectedColor?.ToString();
+                settings.color_ubercharge = CpUberBarColor.SelectedColor?.ToString();
                 settings.color_xhair_normal = CpXHairColor.SelectedColor?.ToString();
                 settings.color_xhair_pulse = CpXHairPulse.SelectedColor?.ToString();
                 settings.color_target_health = CpTargetHealth.SelectedColor?.ToString();
@@ -157,8 +156,7 @@ namespace TF2HUD.Editor.HUDs
                 CpHealthBuffed.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_buff);
                 CpHealthLow.SelectedColor = (Color) cc.ConvertFrom(settings.color_health_low);
                 CpAmmoLow.SelectedColor = (Color) cc.ConvertFrom(settings.color_ammo_low);
-                CpUberBarColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_bar);
-                CpUberFullColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_uber_full);
+                CpUberBarColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_ubercharge);
                 CpXHairColor.SelectedColor = (Color) cc.ConvertFrom(settings.color_xhair_normal);
                 CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom(settings.color_xhair_pulse);
                 CpTargetHealth.SelectedColor = (Color) cc.ConvertFrom(settings.color_target_health);
@@ -216,20 +214,10 @@ namespace TF2HUD.Editor.HUDs
                 CpHealthLow.SelectedColor = (Color) cc.ConvertFrom("#BE1414");
                 CpAmmoLow.SelectedColor = (Color) cc.ConvertFrom("#BE1414");
                 CpUberBarColor.SelectedColor = (Color) cc.ConvertFrom("#00AA7F");
-                CpUberFullColor.SelectedColor = (Color) cc.ConvertFrom("#00AA7F");
                 CpXHairColor.SelectedColor = (Color) cc.ConvertFrom("#F2F2F2");
                 CpXHairPulse.SelectedColor = (Color) cc.ConvertFrom("#FF0000");
                 CpTargetHealth.SelectedColor = (Color) cc.ConvertFrom("#00AA7F");
                 CpTargetDamage.SelectedColor = (Color) cc.ConvertFrom("#FFFF00");
-                CpHealthBuffed.SelectedColor = (Color)cc.ConvertFrom("#FFFF00");
-                CpHealthLow.SelectedColor = (Color)cc.ConvertFrom("#FFFF00");
-                CpAmmoLow.SelectedColor = (Color)cc.ConvertFrom("#FFFF00");
-                CpUberBarColor.SelectedColor = (Color)cc.ConvertFrom("#FFFF00");
-                CpUberFullColor.SelectedColor = (Color)cc.ConvertFrom("#FFFF00");
-                CpXHairColor.SelectedColor = (Color)cc.ConvertFrom("#FFFF00");
-                CpXHairPulse.SelectedColor = (Color)cc.ConvertFrom("#FFFF00");
-                CpTargetHealth.SelectedColor = (Color)cc.ConvertFrom("#FFFF00");
-                CpTargetDamage.SelectedColor = (Color)cc.ConvertFrom("#FFFF00");
                 CpItemNormal.SelectedColor = (Color)cc.ConvertFrom("#B2B2B2");
                 CpItemUnique.SelectedColor = (Color)cc.ConvertFrom("#FFD700");
                 CpItemStrange.SelectedColor = (Color)cc.ConvertFrom("#CF6A32");
@@ -310,21 +298,21 @@ namespace TF2HUD.Editor.HUDs
                 lines[Utilities.FindIndex(lines, "\"Overheal\"")] =
                     $"\t\t\"Overheal\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_health_buff)}\"";
                 lines[Utilities.FindIndex(lines, "OverhealPulse")] =
-                    $"\t\t\"OverhealPulse\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_health_buff, true)}\"";
+                    $"\t\t\"OverhealPulse\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_health_buff, 200)}\"";
                 lines[Utilities.FindIndex(lines, "\"LowHealth\"")] =
                     $"\t\t\"LowHealth\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_health_low)}\"";
                 lines[Utilities.FindIndex(lines, "LowHealthPulse")] =
-                    $"\t\t\"LowHealthPulse\"\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_health_low, true)}\"";
+                    $"\t\t\"LowHealthPulse\"\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_health_low, 200)}\"";
                 // Ammo
                 lines[Utilities.FindIndex(lines, "\"LowAmmo\"")] =
                     $"\t\t\"LowAmmo\"\t\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_ammo_low)}\"";
                 lines[Utilities.FindIndex(lines, "LowAmmoPulse")] =
-                    $"\t\t\"LowAmmoPulse\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_ammo_low, true)}\"";
+                    $"\t\t\"LowAmmoPulse\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_ammo_low, 200)}\"";
                 // Misc
                 lines[Utilities.FindIndex(lines, "\"PositiveValue\"")] =
                     $"\t\t\"PositiveValue\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_health_buff)}\"";
                 lines[Utilities.FindIndex(lines, "NegativeValue")] =
-                    $"\t\t\"NegativeValue\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_health_low, true)}\"";
+                    $"\t\t\"NegativeValue\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_health_low, 200)}\"";
                 lines[Utilities.FindIndex(lines, "\"TargetHealth\"")] =
                     $"\t\t\"TargetHealth\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_target_health)}\"";
                 lines[Utilities.FindIndex(lines, "TargetDamage")] =
@@ -335,12 +323,10 @@ namespace TF2HUD.Editor.HUDs
                 lines[Utilities.FindIndex(lines, "CrosshairDamage")] =
                     $"\t\t\"CrosshairDamage\"\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_xhair_pulse)}\"";
                 // ÜberCharge
-                lines[Utilities.FindIndex(lines, "UberCharged1")] =
-                    $"\t\t\"UberCharged1\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_uber_full)}\"";
-                lines[Utilities.FindIndex(lines, "UberCharged2")] =
-                    $"\t\t\"UberCharged2\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_uber_full, pulse: true)}\"";
-                lines[Utilities.FindIndex(lines, "UberCharging")] =
-                    $"\t\t\"UberCharging\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_uber_bar)}\"";
+                lines[Utilities.FindIndex(lines, "UberCharge")] =
+                    $"\t\t\"UberCharge\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_ubercharge)}\"";
+                lines[Utilities.FindIndex(lines, "UberChargePulse")] =
+                    $"\t\t\"UberChargePulse\"\t\t\t\t\"{Utilities.RgbConverter(flawhud.Default.color_ubercharge, pulse: true)}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
