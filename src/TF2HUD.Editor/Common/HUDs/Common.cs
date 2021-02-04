@@ -270,7 +270,7 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Toggle seasonal (Christmas, Halloween) backgrounds.
         /// </summary>
-        public static bool SeasonalBackgrounds()
+        public static bool SeasonalBackgrounds(bool enable)
         {
             try
             {
@@ -279,10 +279,10 @@ namespace TF2HUD.Editor.HUDs
                 var start = Utilities.FindIndex(lines, "Background");
                 var index1 = Utilities.FindIndex(lines, "image", Utilities.FindIndex(lines, "if_halloween", start));
                 var index2 = Utilities.FindIndex(lines, "image", Utilities.FindIndex(lines, "if_christmas", start));
-                lines[index1] = flawhud.Default.toggle_background_stock
+                lines[index1] = enable
                     ? lines[index1].Replace("//", string.Empty)
                     : Utilities.CommentOutTextLine(lines[index1]);
-                lines[index2] = flawhud.Default.toggle_background_stock
+                lines[index2] = enable
                     ? lines[index2].Replace("//", string.Empty)
                     : Utilities.CommentOutTextLine(lines[index2]);
                 File.WriteAllLines(menu, lines);

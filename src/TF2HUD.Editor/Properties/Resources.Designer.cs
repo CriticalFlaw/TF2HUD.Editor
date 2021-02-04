@@ -628,6 +628,15 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://github.com/CriticalFlaw/FlawHUD.
+        /// </summary>
+        internal static string url_flawhud_github {
+            get {
+                return ResourceManager.GetString("url_flawhud_github", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://huds.tf/site/s-FlawHUD.
         /// </summary>
         internal static string url_flawhud_hudstf {
@@ -642,6 +651,15 @@ namespace TF2HUD.Editor.Properties {
         internal static string url_flawhud_steam {
             get {
                 return ResourceManager.GetString("url_flawhud_steam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://github.com/raysfire/rayshud.
+        /// </summary>
+        internal static string url_rayshud_github {
+            get {
+                return ResourceManager.GetString("url_rayshud_github", resourceCulture);
             }
         }
         

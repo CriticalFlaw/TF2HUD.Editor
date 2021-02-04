@@ -140,16 +140,6 @@ namespace TF2HUD.Editor.HUDs
                 CbLowerPlayerStats.IsEnabled = !(bool) CbAlternatePlayerStats.IsChecked;
         }
 
-        private void btnHudsTF_Click(object sender, RoutedEventArgs e)
-        {
-            Utilities.OpenWebpage(Properties.Resources.url_flawhud_hudstf);
-        }
-
-        private void btnSteam_Click(object sender, RoutedEventArgs e)
-        {
-            Utilities.OpenWebpage(Properties.Resources.url_flawhud_steam);
-        }
-
         #endregion CLICK_EVENTS
 
         #region SAVE_LOAD
@@ -523,7 +513,7 @@ namespace TF2HUD.Editor.HUDs
             {
                 var directoryPath = new DirectoryInfo(string.Format(Properties.Resources.path_console,
                     MainWindow.HudPath, MainWindow.HudSelection));
-                var backgroundsFile = string.Format(Properties.Resources.file_chapterbackgrounds, MainWindow.HudPath,
+                var chapterBackgrounds = string.Format(Properties.Resources.file_chapterbackgrounds, MainWindow.HudPath,
                     MainWindow.HudSelection);
 
                 if (flawhud.Default.toggle_background_custom)
@@ -536,20 +526,20 @@ namespace TF2HUD.Editor.HUDs
                     // Revert all changes before reapplying them.
                     foreach (var file in directoryPath.GetFiles())
                         File.Move(file.FullName, file.FullName.Replace("bak", "vtf"));
-                    if (File.Exists(backgroundsFile.Replace("txt", "bak")))
-                        File.Move(backgroundsFile.Replace("txt", "bak"), backgroundsFile);
+                    if (File.Exists(chapterBackgrounds.Replace("txt", "bak")))
+                        File.Move(chapterBackgrounds.Replace("txt", "bak"), chapterBackgrounds);
 
                     if (flawhud.Default.toggle_background_stock)
                     {
                         foreach (var file in directoryPath.GetFiles())
                             File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
-                        if (File.Exists(backgroundsFile))
-                            File.Move(backgroundsFile, backgroundsFile.Replace("txt", "bak"));
+                        if (File.Exists(chapterBackgrounds))
+                            File.Move(chapterBackgrounds, chapterBackgrounds.Replace("txt", "bak"));
                     }
                 }
 
                 // Update the seasonal backgrounds
-                return Common.SeasonalBackgrounds();
+                return Common.SeasonalBackgrounds(true);
             }
             catch (Exception ex)
             {

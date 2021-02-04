@@ -306,11 +306,17 @@
   <data name="url_budhud_steam" xml:space="preserve">
     <value>https://steamcommunity.com/groups/budhud</value>
   </data>
+  <data name="url_flawhud_github" xml:space="preserve">
+    <value>https://github.com/CriticalFlaw/FlawHUD</value>
+  </data>
   <data name="url_flawhud_hudstf" xml:space="preserve">
     <value>https://huds.tf/site/s-FlawHUD</value>
   </data>
   <data name="url_flawhud_steam" xml:space="preserve">
     <value>https://steamcommunity.com/groups/FlawHUD</value>
+  </data>
+  <data name="url_rayshud_github" xml:space="preserve">
+    <value>https://github.com/raysfire/rayshud</value>
   </data>
   <data name="url_rayshud_hudstf" xml:space="preserve">
     <value>https://huds.tf/site/s-rayshud--377</value>

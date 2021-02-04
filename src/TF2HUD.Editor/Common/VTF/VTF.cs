@@ -8,77 +8,74 @@ namespace TF2HUD.Editor.Common
 {
     internal class VTF
     {
-        private readonly string TF2Path;
+        private readonly string tf2Path;
 
-        public VTF(string TF2Path)
+        public VTF(string tf2Path)
         {
-            this.TF2Path = TF2Path.Replace("\\tf\\custom", string.Empty);
+            this.tf2Path = tf2Path.Replace("\\tf\\custom", string.Empty);
         }
 
-        public void Convert(string InFile, string OutFile)
+        public void Convert(string inFile, string outFile)
         {
             // Resize image to square of larger proportional
-            var Image = new Bitmap(InFile);
-            var SquareImage = ResizeImage(Image);
-
-            var MateralSrc = $"{TF2Path}\\tf\\materialsrc";
+            var image = new Bitmap(inFile);
+            var materialSrc = $"{tf2Path}\\tf\\materialsrc";
 
             // Create materialsrc (ensure it exists)
-            Directory.CreateDirectory(MateralSrc);
+            Directory.CreateDirectory(materialSrc);
 
             // Save image as .tga (cast using TGASharpLib)
-            var TGASquareImage = (TGA) SquareImage;
-            TGASquareImage.Save($"{MateralSrc}\\temp.tga");
+            var tgaSquareImage = (TGA) ResizeImage(image);
+            tgaSquareImage.Save($"{materialSrc}\\temp.tga");
 
             // Convert using VTEX
-            VTEXConvert(MateralSrc, "temp");
+            VtexConvert(materialSrc, "temp");
 
             // Path to VTEX output file
-            var VTFLocation = $"{TF2Path}\\tf\\materials\\temp.vtf";
+            var vtfOutput = $"{tf2Path}\\tf\\materials\\temp.vtf";
 
             // Create absolute path to output folder and make directory
-            var PathInfo = OutFile.Split('\\', '/');
-            PathInfo[PathInfo.Length - 1] = "";
-            var FolderPath = string.Join("\\", PathInfo);
-            Directory.CreateDirectory(FolderPath);
+            var pathInfo = outFile.Split('\\', '/');
+            pathInfo[pathInfo.Length - 1] = "";
+            Directory.CreateDirectory(string.Join("\\", pathInfo));
 
             // Make a backup of the existing background files.
-            var BgPath =
+            var hudBgPath =
                 new DirectoryInfo(string.Format(Resources.path_console, MainWindow.HudPath, MainWindow.HudSelection));
-            foreach (var file in BgPath.GetFiles())
+            foreach (var file in hudBgPath.GetFiles())
                 File.Delete(file.FullName);
 
             // Copy vtf from vtex output to user defined path
-            File.Copy(VTFLocation, OutFile, true);
+            File.Copy(vtfOutput, outFile, true);
 
             // Delete temporary tga and vtex output
-            File.Delete($"{MateralSrc}\\temp.tga");
-            File.Delete($"{MateralSrc}\\temp.txt");
-            File.Delete(VTFLocation);
+            File.Delete($"{materialSrc}\\temp.tga");
+            File.Delete($"{materialSrc}\\temp.txt");
+            File.Delete(vtfOutput);
         }
 
-        private Bitmap ResizeImage(Bitmap Image)
+        private static Bitmap ResizeImage(Bitmap image)
         {
-            var ImageMaxSize = Math.Max(Image.Width, Image.Height);
-            var Power = 2;
+            var power = 2;
             do
             {
-                Power *= 2;
-            } while (Power < ImageMaxSize);
+                power *= 2;
+            } while (power < Math.Max(image.Width, image.Height));
 
-            // Paint G onto SquareImage Bitmap
-            var SquareImage = new Bitmap(Power, Power);
-            var G = Graphics.FromImage(SquareImage);
-            G.DrawImage(Image, 0, 0, Power, Power);
-
-            return SquareImage;
+            // Paint graphics onto the SquareImage Bitmap
+            var squareImage = new Bitmap(power, power);
+            var graphics = Graphics.FromImage(squareImage);
+            graphics.DrawImage(image, 0, 0, power, power);
+            return squareImage;
         }
 
-        private void VTEXConvert(string FolderPath, string FileNameNoExt)
+        /// <summary>
+        ///     https://developer.valvesoftware.com/wiki/Vtex_compile_parameters
+        /// </summary>
+        private void VtexConvert(string folderPath, string fileName)
         {
             // VTEX Args
-            // https://developer.valvesoftware.com/wiki/Vtex_compile_parameters
-            File.WriteAllLines($"{FolderPath}\\{FileNameNoExt}.txt", new[]
+            File.WriteAllLines($"{folderPath}\\{fileName}.txt", new[]
             {
                 "pointsample 1",
                 "nolod 1",
@@ -86,16 +83,15 @@ namespace TF2HUD.Editor.Common
             });
 
             // VTEX CLI Args
-            string[] Args =
+            string[] args =
             {
-                $"\"{FolderPath}\\{FileNameNoExt}.tga\"",
+                $"\"{folderPath}\\{fileName}.tga\"",
                 "-nopause",
                 "-game",
-                $"\"{TF2Path}\\tf\\\""
+                $"\"{tf2Path}\\tf\\\""
             };
 
-            var ArgsString = string.Join(" ", Args);
-            Process.Start($"{TF2Path}\\bin\\vtex.exe", ArgsString).WaitForExit();
+            Process.Start($"{tf2Path}\\bin\\vtex.exe", string.Join(" ", args)).WaitForExit();
         }
     }
 }

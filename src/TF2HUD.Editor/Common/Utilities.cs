@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
+using TF2HUD.Editor.Properties;
 
 namespace TF2HUD.Editor.Common
 {
@@ -95,6 +96,29 @@ namespace TF2HUD.Editor.Common
                     throw;
                 }
             }
+        }
+
+        public static void OpenLinkButton(HUDS hud, Links link)
+        {
+            var url = hud switch
+            {
+                HUDS.flawhud => link switch
+                {
+                    Links.Steam => Resources.url_flawhud_steam,
+                    Links.GitHub => Resources.url_flawhud_github,
+                    Links.hudsTF => Resources.url_flawhud_hudstf,
+                    _ => throw new NotImplementedException()
+                },
+                HUDS.rayshud => link switch
+                {
+                    Links.Steam => Resources.url_rayshud_steam,
+                    Links.GitHub => Resources.url_rayshud_github,
+                    Links.hudsTF => Resources.url_rayshud_hudstf,
+                    _ => throw new NotImplementedException()
+                },
+                _ => string.Empty
+            };
+            OpenWebpage(url);
         }
     }
 

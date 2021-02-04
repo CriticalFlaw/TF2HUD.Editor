@@ -79,16 +79,6 @@ namespace TF2HUD.Editor.HUDs
             SetCrosshairControls();
         }
 
-        private void btnHudsTF_Click(object sender, RoutedEventArgs e)
-        {
-            Utilities.OpenWebpage(Properties.Resources.url_rayshud_hudstf);
-        }
-
-        private void btnSteam_Click(object sender, RoutedEventArgs e)
-        {
-            Utilities.OpenWebpage(Properties.Resources.url_rayshud_steam);
-        }
-
         #endregion CLICK_EVENTS
 
         #region SAVE_LOAD
@@ -381,11 +371,11 @@ namespace TF2HUD.Editor.HUDs
                     MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var xpos = Properties.rayshud.Default.toggle_damage_pos ? "c-188" : "c108";
-                var xpos_min = Properties.rayshud.Default.toggle_damage_pos ? "c-138" : "c58";
+                var xposMin = Properties.rayshud.Default.toggle_damage_pos ? "c-138" : "c58";
                 lines[Utilities.FindIndex(lines, "\"xpos\"", Utilities.FindIndex(lines, "DamageAccountValue"))] =
                     $"\t\t\"xpos\"\t\t\t\t\t\"{xpos}\"";
                 lines[Utilities.FindIndex(lines, "\"xpos_minmode\"", Utilities.FindIndex(lines, "DamageAccountValue"))]
-                    = $"\t\t\"xpos_minmode\"\t\t\t\"{xpos_min}\"";
+                    = $"\t\t\"xpos_minmode\"\t\t\t\"{xposMin}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -408,16 +398,16 @@ namespace TF2HUD.Editor.HUDs
                 var lines = File.ReadAllLines(file);
                 var xpos = Properties.rayshud.Default.toggle_metal_pos ? "c-20" : "c200";
                 var ypos = Properties.rayshud.Default.toggle_metal_pos ? "c110" : "c130";
-                var xpos_min = Properties.rayshud.Default.toggle_metal_pos ? "c-30" : "c130";
-                var ypos_min = Properties.rayshud.Default.toggle_metal_pos ? "c73" : "c83";
+                var xposMin = Properties.rayshud.Default.toggle_metal_pos ? "c-30" : "c130";
+                var yposMin = Properties.rayshud.Default.toggle_metal_pos ? "c73" : "c83";
                 lines[Utilities.FindIndex(lines, "\"xpos\"", Utilities.FindIndex(lines, "CHudAccountPanel"))] =
                     $"\t\t\"xpos\"\t\t\t\t\t\"{xpos}\"";
                 lines[Utilities.FindIndex(lines, "\"ypos\"", Utilities.FindIndex(lines, "CHudAccountPanel"))] =
                     $"\t\t\"ypos\"\t\t\t\t\t\"{ypos}\"";
                 lines[Utilities.FindIndex(lines, "\"xpos_minmode\"", Utilities.FindIndex(lines, "CHudAccountPanel"))] =
-                    $"\t\t\"xpos_minmode\"\t\t\t\"{xpos_min}\"";
+                    $"\t\t\"xpos_minmode\"\t\t\t\"{xposMin}\"";
                 lines[Utilities.FindIndex(lines, "\"ypos_minmode\"", Utilities.FindIndex(lines, "CHudAccountPanel"))] =
-                    $"\t\t\"ypos_minmode\"\t\t\t\"{ypos_min}\"";
+                    $"\t\t\"ypos_minmode\"\t\t\t\"{yposMin}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -456,46 +446,50 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Toggle custom main menu backgrounds.
         /// </summary>
-        /// <remarks>TODO: Consider refactoring.</remarks>
         private static bool MainMenuBackground()
         {
             try
             {
-                var line1 = "\t\"$baseTexture\" \"console/backgrounds/background_modern\"";
-                var line2 = "\t\"$baseTexture\" \"console/backgrounds/background_modern_widescreen\"";
-                var chapterbackgrounds = string.Format(Properties.Resources.file_chapterbackgrounds, MainWindow.HudPath,
+                var directoryPath = new DirectoryInfo(string.Format(Properties.Resources.path_console,
+                    MainWindow.HudPath, MainWindow.HudSelection));
+                var chapterBackgrounds = string.Format(Properties.Resources.file_chapterbackgrounds, MainWindow.HudPath,
                     MainWindow.HudSelection);
-                var chapterbackgroundsTemp = chapterbackgrounds.Replace(".txt", ".file");
+                var backgroundsFile = string.Format(Properties.Resources.file_background, MainWindow.HudPath,
+                    MainWindow.HudSelection, "background_upward.vmt");
+                var value = Properties.rayshud.Default.val_main_menu_bg == 1 ? "classic" : "modern";
 
-                // Restore the backgrounds to the default
-                if (File.Exists(chapterbackgroundsTemp))
-                    File.Move(chapterbackgroundsTemp, chapterbackgrounds);
+                // Revert all changes before reapplying them.
+                foreach (var file in directoryPath.GetFiles())
+                    File.Move(file.FullName, file.FullName.Replace("bak", "vtf"));
+                if (File.Exists(chapterBackgrounds.Replace("txt", "bak")))
+                    File.Move(chapterBackgrounds.Replace("txt", "bak"), chapterBackgrounds);
 
                 switch (Properties.rayshud.Default.val_main_menu_bg)
                 {
-                    case 1: // Classic
-                        line1 = "\t\"$baseTexture\" \"console/backgrounds/background_classic\"";
-                        line2 = "\t\"$baseTexture\" \"console/backgrounds/background_classic_widescreen\"";
+                    case 0:
+                    case 1:
+                        var lines = File.ReadAllLines(backgroundsFile);
+                        lines[Utilities.FindIndex(lines, "baseTexture")] =
+                            $"\t\"$baseTexture\" \"console/backgrounds/background_{value}\"";
+                        File.WriteAllLines(backgroundsFile, lines);
+
+                        backgroundsFile =
+                            backgroundsFile.Replace("background_upward.vmt", "background_upward_widescreen.vmt");
+                        lines = File.ReadAllLines(backgroundsFile);
+                        lines[Utilities.FindIndex(lines, "baseTexture")] =
+                            $"\t\"$baseTexture\" \"console/backgrounds/background_{value}_widescreen\"";
+                        File.WriteAllLines(backgroundsFile, lines);
                         break;
 
                     case 2: // Default
-                        if (File.Exists(chapterbackgrounds))
-                            File.Move(chapterbackgrounds, chapterbackgroundsTemp);
-                        return true;
+                        foreach (var file in directoryPath.GetFiles())
+                            File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
+                        if (File.Exists(chapterBackgrounds))
+                            File.Move(chapterBackgrounds, chapterBackgrounds.Replace("txt", "bak"));
+                        Common.SeasonalBackgrounds(true);
+                        break;
                 }
 
-                var file = string.Format(Properties.Resources.file_background, MainWindow.HudPath,
-                    MainWindow.HudSelection, "background_upward.vmt");
-                var lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "baseTexture");
-                lines[start] = line1;
-                File.WriteAllLines(file, lines);
-
-                file = string.Format(Properties.Resources.file_background, MainWindow.HudPath,
-                    MainWindow.HudSelection, "background_upward_widescreen.vmt");
-                lines = File.ReadAllLines(file);
-                lines[start] = line2;
-                File.WriteAllLines(file, lines);
                 return true;
             }
             catch (Exception ex)

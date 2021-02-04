@@ -3,10 +3,20 @@
     /// <summary>
     ///     List of selectable HUDs.
     /// </summary>
-    public enum HUDs
+    public enum HUDS
     {
-        FlawHUD,
+        flawhud,
         rayshud
+    }
+
+    /// <summary>
+    ///     List of possible media links.
+    /// </summary>
+    public enum Links
+    {
+        Steam,
+        GitHub,
+        hudsTF
     }
 
     /// <summary>

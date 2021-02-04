@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x2="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d"
-             Height="640" Width="1280"
+             Height="610" Width="1280"
              FontFamily="../../Resources/TF2Secondary.ttf #TF2 Secondary"
              FontSize="18px">
 

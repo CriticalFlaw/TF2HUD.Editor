@@ -22,6 +22,7 @@
     <None Remove="log4net.config" />
     <None Remove="Resources\favicon.ico" />
     <None Remove="Resources\hudstf.png" />
+    <None Remove="Resources\Icons.otf" />
     <None Remove="Resources\raysfox.png" />
     <None Remove="Resources\steam.png" />
     <None Remove="Resources\TF2Build.ttf" />
@@ -47,6 +48,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\hudstf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons.otf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\raysfox.png">

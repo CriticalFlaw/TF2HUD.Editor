@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="TF2 HUD Editor"
         Width="1300"
-        Height="900"
+        Height="850"
         WindowStartupLocation="CenterScreen"
         FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px">
@@ -21,7 +21,7 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <GroupBox
-            x:Name="gbSelectHUD"
+            x:Name="GbSelectHud"
             Header="Select a HUD"
             Visibility="Visible"
             HorizontalAlignment="Stretch"
@@ -39,11 +39,10 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <!-- Select a HUD Listbox -->
-                <ListBox x:Name="lbSelectHud" SelectionChanged="lbSelectHud_SelectionChanged" Grid.Column="0"
+                <ListBox x:Name="LbSelectHud" SelectionChanged="lbSelectHud_SelectionChanged" Grid.Column="0"
                          Grid.Row="0" />
                 <!-- TF2 HUD Editor and Version -->
-                <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"
-                              Grid.RowSpan="2">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
                     <StackPanel Margin="25">
                         <Label Content="TF2 HUD Editor" Style="{StaticResource HeaderText}" Margin="0,0,0,15" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Center">
@@ -55,7 +54,7 @@
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,15" />
                         <Label Content="Version 1.0" Style="{StaticResource HeaderText}" Margin="0,0,0,15" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-                            - Inital Release. Merged FlawHUD and rayshud installers into one, with more HUDs to be added later.
+                            - Initial Release. Merged FlawHUD and rayshud installers into one, with more HUDs to be added later.
                             <LineBreak />
                             Fixed Transparent Viewmodel settings not removing the custom config if the option is disabled.
                             <LineBreak />
@@ -68,11 +67,11 @@
             </Grid>
         </GroupBox>
         <!-- Editor Custom Controls -->
-        <WrapPanel Name="HUDEditorContainer">
+        <WrapPanel Name="EditorContainer">
             <!-- Content goes here -->
         </WrapPanel>
-        <local:FlawHUD x:Name="uiFlawHud" Visibility="Hidden" Grid.ColumnSpan="2" />
-        <local:rayshud x:Name="uiRaysHud" Visibility="Hidden" Grid.ColumnSpan="2" />
+        <local:FlawHUD x:Name="GuiFlawHud" Visibility="Hidden" Margin="10,10,10,50" />
+        <local:rayshud x:Name="GuiRaysHud" Visibility="Hidden" Grid.ColumnSpan="2" />
         <!-- HUD Status -->
         <Label Name="LblStatus" Content="..." Margin="10,5,10,5" Grid.Column="0" Grid.Row="1" />
         <!-- HUD Options -->
@@ -86,7 +85,7 @@
                     x:Name="BtnInstall"
                     Click="BtnInstall_OnClick"
                     Content="Install"
-                    Width="190"
+                    Width="165"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -94,7 +93,7 @@
                     x:Name="BtnUninstall"
                     Click="BtnUninstall_OnClick"
                     Content="Uninstall"
-                    Width="190"
+                    Width="165"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -102,7 +101,7 @@
                     x:Name="BtnSave"
                     Click="BtnSave_OnClick"
                     Content="Apply Changes"
-                    Width="190"
+                    Width="165"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -110,7 +109,7 @@
                     x:Name="BtnReset"
                     Click="BtnReset_OnClick"
                     Content="Reset to Default"
-                    Width="190"
+                    Width="165"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -118,7 +117,7 @@
                     x:Name="BtnReportIssue"
                     Click="BtnReportIssue_OnClick"
                     Content="Report Issue"
-                    Width="190"
+                    Width="165"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -126,10 +125,32 @@
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"
                     Content="Switch HUD"
-                    Width="190"
+                    Width="165"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
+                <Button
+                    x:Name="BtnSteam"
+                    Click="BtnSteam_OnClick"
+                    Content="X"
+                    Margin="5"
+                    Background="#1B2838"
+                    Style="{StaticResource LinkButton}" />
+                <Button
+                    x:Name="BtnGitHub"
+                    Click="BtnGitHub_OnClick"
+                    Content="Y"
+                    Margin="5"
+                    Background="#171a21"
+                    Style="{StaticResource LinkButton}" />
+                <Button
+                    x:Name="BtnHuds"
+                    Click="BtnHuds_OnClick"
+                    Content="H"
+                    Margin="5"
+                    Background="#5398f3"
+                    FontFamily="../Resources/TF2Build.ttf #TF2 Build"
+                    Style="{StaticResource LinkButton}" />
             </WrapPanel>
         </GroupBox>
     </Grid>

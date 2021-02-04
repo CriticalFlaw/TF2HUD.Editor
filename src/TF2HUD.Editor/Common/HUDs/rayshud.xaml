@@ -77,18 +77,18 @@
                     ToolTip="Use the alternate player model position" />
 
                 <Label
-                    Margin="10,365,0,0"
+                    Margin="10,360,0,0"
                     Content="Main Menu Background:" />
 
                 <ComboBox
                     x:Name="CbMainMenuBackground"
-                    Margin="220,368,0,0" RenderTransformOrigin="0.545,0.533" Width="143">
+                    Margin="220,363,0,0" RenderTransformOrigin="0.545,0.533" Width="143">
                     <ComboBoxItem IsSelected="True">Modern</ComboBoxItem>
                     <ComboBoxItem>Classic</ComboBoxItem>
                     <ComboBoxItem>Default</ComboBoxItem>
                 </ComboBox>
 
-                <Image Margin="0,521,306,-2" Source="../Resources/raysfox.png" />
+                <Image Width="50" Height="50" Source="/Resources/raysfox.png" Margin="0,380,323,-2" />
             </Grid>
         </GroupBox>
 
@@ -117,26 +117,6 @@
                 <Label Content="Charged Solid:" Margin="280,50,0,0" />
                 <Label Content="Charged Flash 1:" Margin="10,90,0,0" ToolTip="First ÜberCharge color (Rainbow style)" />
                 <Label Content="Charged Flash 2:" Margin="280,90,0,0" ToolTip="Second ÜberCharge color (Rainbow style)" />
-            </Grid>
-        </GroupBox>
-
-        <GroupBox
-            Width="430"
-            Height="155"
-            Margin="10,475,0,0"
-            Header="Social Media"
-            Visibility="Hidden">
-            <Grid>
-                <Image Margin="0,0,306,0" Stretch="Fill" Source="../Resources/raysfox.png" />
-
-                <Button x:Name="btnHudsTF" Width="75" Height="75" Click="btnHudsTF_Click"
-                        Style="{StaticResource TransparentStyle}" Margin="130,0,0,0">
-                    <Image Source="../Resources/hudstf.png" Margin="0,0,0,0" />
-                </Button>
-                <Button x:Name="btnSteam" Width="75" Height="75" Click="btnSteam_Click"
-                        Style="{StaticResource TransparentStyle}" Margin="320,0,0,0">
-                    <Image Source="../Resources/steam.png" Margin="0,0,0,0" />
-                </Button>
             </Grid>
         </GroupBox>
 

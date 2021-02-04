@@ -28,7 +28,7 @@ namespace TF2HUD.Editor
         public static string HudSelection = Settings.Default.hud_selected;
         public static string HudPath = Settings.Default.hud_directory;
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
-        public Json JSON;
+        public Json Json;
 
         public MainWindow()
         {
@@ -38,7 +38,7 @@ namespace TF2HUD.Editor
             Logger.Info("INITIALIZING...");
 
             // Setup HUDs
-            JSON = new Json("Common\\HUDs");
+            Json = new Json("Common\\HUDs");
 
             // Setup the GUI.
             InitializeComponent();
@@ -79,32 +79,32 @@ namespace TF2HUD.Editor
         /// </summary>
         public void SetupMenu()
         {
-            gbSelectHUD.Visibility = Visibility.Hidden;
-            uiFlawHud.Visibility = Visibility.Hidden;
-            uiRaysHud.Visibility = Visibility.Hidden;
+            GbSelectHud.Visibility = Visibility.Hidden;
+            GuiFlawHud.Visibility = Visibility.Hidden;
+            GuiRaysHud.Visibility = Visibility.Hidden;
 
             switch (Settings.Default.hud_selected)
             {
                 case "flawhud":
-                    uiFlawHud.Visibility = Visibility.Visible;
+                    GuiFlawHud.Visibility = Visibility.Visible;
                     break;
 
                 case "rayshud":
-                    uiRaysHud.Visibility = Visibility.Visible;
+                    GuiRaysHud.Visibility = Visibility.Visible;
                     break;
 
                 default:
-                    gbSelectHUD.Visibility = Visibility.Visible;
+                    GbSelectHud.Visibility = Visibility.Visible;
                     break;
             }
 
             // Reload the HUD selection list.
-            lbSelectHud.Items.Clear();
+            LbSelectHud.Items.Clear();
 #if DEBUG
-            foreach (var HUDItem in JSON.HUDs) lbSelectHud.Items.Add(HUDItem.Name);
+            foreach (var hud in Json.HUDs) LbSelectHud.Items.Add(hud.Name);
 #endif
-            foreach (Enum item in Enum.GetValues(typeof(Common.HUDs)))
-                lbSelectHud.Items.Add(Utilities.GetStringValue(item));
+            foreach (Enum item in Enum.GetValues(typeof(HUDS)))
+                LbSelectHud.Items.Add(Utilities.GetStringValue(item));
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace TF2HUD.Editor
         public void SetFormControls()
         {
             // If the HUD Selection is visible, disable most control buttons.
-            if (gbSelectHUD.Visibility == Visibility.Visible)
+            if (GbSelectHud.Visibility == Visibility.Visible)
             {
                 BtnInstall.IsEnabled = false;
                 BtnUninstall.IsEnabled = false;
@@ -314,7 +314,7 @@ namespace TF2HUD.Editor
                         ZipFile.ExtractToDirectory(Directory.GetCurrentDirectory() + "\\temp.zip", HudPath);
 
                         // Step 3. Clear out tf/custom of other installed HUDs.
-                        foreach (var x in lbSelectHud.Items)
+                        foreach (var x in LbSelectHud.Items)
                             if (Directory.Exists(HudPath + "\\" + x.ToString().ToLowerInvariant()))
                                 Directory.Delete(HudPath + "\\" + x.ToString().ToLowerInvariant(), true);
 
@@ -328,13 +328,13 @@ namespace TF2HUD.Editor
                         switch (HudSelection)
                         {
                             case "flawhud":
-                                uiFlawHud.SaveHudSettings();
-                                uiFlawHud.ApplyHudSettings();
+                                GuiFlawHud.SaveHudSettings();
+                                GuiFlawHud.ApplyHudSettings();
                                 break;
 
                             case "rayshud":
-                                uiRaysHud.SaveHudSettings();
-                                uiRaysHud.ApplyHudSettings();
+                                GuiRaysHud.SaveHudSettings();
+                                GuiRaysHud.ApplyHudSettings();
                                 break;
                         }
 
@@ -398,13 +398,13 @@ namespace TF2HUD.Editor
                     switch (HudSelection)
                     {
                         case "flawhud":
-                            uiFlawHud.SaveHudSettings();
-                            uiFlawHud.ApplyHudSettings();
+                            GuiFlawHud.SaveHudSettings();
+                            GuiFlawHud.ApplyHudSettings();
                             break;
 
                         case "rayshud":
-                            uiRaysHud.SaveHudSettings();
-                            uiRaysHud.ApplyHudSettings();
+                            GuiRaysHud.SaveHudSettings();
+                            GuiRaysHud.ApplyHudSettings();
                             break;
                     }
                 });
@@ -422,11 +422,11 @@ namespace TF2HUD.Editor
             switch (HudSelection)
             {
                 case "flawhud":
-                    uiFlawHud.ResetHudSettings();
+                    GuiFlawHud.ResetHudSettings();
                     break;
 
                 case "rayshud":
-                    uiRaysHud.ResetHudSettings();
+                    GuiRaysHud.ResetHudSettings();
                     break;
             }
 
@@ -446,46 +446,46 @@ namespace TF2HUD.Editor
         /// </summary>
         private void BtnSwitch_OnClick(object sender, RoutedEventArgs e)
         {
-            lbSelectHud.UnselectAll();
-            gbSelectHUD.Visibility = Visibility.Visible;
-            uiFlawHud.Visibility = Visibility.Hidden;
-            uiRaysHud.Visibility = Visibility.Hidden;
-            HUDEditorContainer.Children.Clear();
+            LbSelectHud.UnselectAll();
+            GbSelectHud.Visibility = Visibility.Visible;
+            GuiFlawHud.Visibility = Visibility.Hidden;
+            GuiRaysHud.Visibility = Visibility.Hidden;
+            EditorContainer.Children.Clear();
             SetFormControls();
         }
 
         private void lbSelectHud_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lbSelectHud.SelectedIndex == -1) return;
+            if (LbSelectHud.SelectedIndex == -1) return;
             // Save the selected HUD.
-            Settings.Default.hud_selected = lbSelectHud.SelectedValue.ToString().ToLowerInvariant();
+            Settings.Default.hud_selected = LbSelectHud.SelectedValue.ToString().ToLowerInvariant();
             Settings.Default.Save();
             HudSelection = Settings.Default.hud_selected;
 
-            gbSelectHUD.Visibility = Visibility.Hidden;
-            HUDEditorContainer.Children.Clear();
+            GbSelectHud.Visibility = Visibility.Hidden;
+            EditorContainer.Children.Clear();
 
             // Change the page view to the selected HUD.
             switch (Settings.Default.hud_selected)
             {
                 case "flawhud":
-                    gbSelectHUD.Visibility = Visibility.Hidden;
-                    uiFlawHud.Visibility = Visibility.Visible;
-                    uiRaysHud.Visibility = Visibility.Hidden;
+                    GbSelectHud.Visibility = Visibility.Hidden;
+                    GuiFlawHud.Visibility = Visibility.Visible;
+                    GuiRaysHud.Visibility = Visibility.Hidden;
                     break;
 
                 case "rayshud":
-                    gbSelectHUD.Visibility = Visibility.Hidden;
-                    uiFlawHud.Visibility = Visibility.Hidden;
-                    uiRaysHud.Visibility = Visibility.Visible;
+                    GbSelectHud.Visibility = Visibility.Hidden;
+                    GuiFlawHud.Visibility = Visibility.Hidden;
+                    GuiRaysHud.Visibility = Visibility.Visible;
                     break;
 
                 default:
                     try
                     {
-                        var SelectedHUD = JSON.GetHUDByName(Settings.Default.hud_selected);
-                        HUDEditorContainer.Children.Clear();
-                        HUDEditorContainer.Children.Add(SelectedHUD.GetControls());
+                        var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+                        EditorContainer.Children.Clear();
+                        EditorContainer.Children.Add(selection.GetControls());
                     }
                     catch (Exception error)
                     {
@@ -497,6 +497,21 @@ namespace TF2HUD.Editor
 
             // Update the control buttons.
             SetFormControls();
+        }
+
+        private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
+        {
+            Utilities.OpenLinkButton(Enum.Parse<HUDS>(Settings.Default.hud_selected), Links.Steam);
+        }
+
+        private void BtnGitHub_OnClick(object sender, RoutedEventArgs e)
+        {
+            Utilities.OpenLinkButton(Enum.Parse<HUDS>(Settings.Default.hud_selected), Links.GitHub);
+        }
+
+        private void BtnHuds_OnClick(object sender, RoutedEventArgs e)
+        {
+            Utilities.OpenLinkButton(Enum.Parse<HUDS>(Settings.Default.hud_selected), Links.hudsTF);
         }
     }
 }
