@@ -160,6 +160,15 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while toggling health colors on text over panel or vice versa..
+        /// </summary>
+        internal static string error_color_text {
+            get {
+                return ResourceManager.GetString("error_color_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while updating the color values..
         /// </summary>
         internal static string error_colors {
@@ -214,15 +223,6 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while changing the player stats position..
-        /// </summary>
-        internal static string error_lower_stats {
-            get {
-                return ResourceManager.GetString("error_lower_stats", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An error occurred while changing the main menu style..
         /// </summary>
         internal static string error_main_menu {
@@ -250,6 +250,15 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while changing the metal position..
+        /// </summary>
+        internal static string error_metal_pos {
+            get {
+                return ResourceManager.GetString("error_metal_pos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while changing the player model position..
         /// </summary>
         internal static string error_player_model_pos {
@@ -264,6 +273,24 @@ namespace TF2HUD.Editor.Properties {
         internal static string error_scoreboard {
             get {
                 return ResourceManager.GetString("error_scoreboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while toggling seasonal backgrounds..
+        /// </summary>
+        internal static string error_seasonal_backgrounds {
+            get {
+                return ResourceManager.GetString("error_seasonal_backgrounds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while changing the player stats position..
+        /// </summary>
+        internal static string error_stats_position {
+            get {
+                return ResourceManager.GetString("error_stats_position", resourceCulture);
             }
         }
         
@@ -313,11 +340,11 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\materials\console\background_{2}.
+        ///   Looks up a localized string similar to {0}\{1}\materials\console\{2}.
         /// </summary>
-        internal static string file_background_upward {
+        internal static string file_background {
             get {
-                return ResourceManager.GetString("file_background_upward", resourceCulture);
+                return ResourceManager.GetString("file_background", resourceCulture);
             }
         }
         
@@ -498,6 +525,15 @@ namespace TF2HUD.Editor.Properties {
         internal static string info_create_backup {
             get {
                 return ResourceManager.GetString("info_create_backup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option will overwrite your current background, are you sure you want to continue?.
+        /// </summary>
+        internal static string info_custom_background {
+            get {
+                return ResourceManager.GetString("info_custom_background", resourceCulture);
             }
         }
         

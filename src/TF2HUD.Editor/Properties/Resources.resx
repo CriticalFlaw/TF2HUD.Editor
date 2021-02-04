@@ -153,6 +153,9 @@
   <data name="error_colors" xml:space="preserve">
     <value>An error occurred while updating the color values.</value>
   </data>
+  <data name="error_color_text" xml:space="preserve">
+    <value>An error occurred while toggling health colors on text over panel or vice versa.</value>
+  </data>
   <data name="error_damage_pos" xml:space="preserve">
     <value>An error occurred while changing the damage position.</value>
   </data>
@@ -168,9 +171,6 @@
   <data name="error_killfeed" xml:space="preserve">
     <value>An error occurred while updating the killfeed row count.</value>
   </data>
-  <data name="error_lower_stats" xml:space="preserve">
-    <value>An error occurred while changing the player stats position.</value>
-  </data>
   <data name="error_main_menu" xml:space="preserve">
     <value>An error occurred while changing the main menu style.</value>
   </data>
@@ -180,11 +180,20 @@
   <data name="error_menu_class_image" xml:space="preserve">
     <value>An error occurred while toggling the main menu class image.</value>
   </data>
+  <data name="error_metal_pos" xml:space="preserve">
+    <value>An error occurred while changing the metal position.</value>
+  </data>
   <data name="error_player_model_pos" xml:space="preserve">
     <value>An error occurred while changing the player model position.</value>
   </data>
   <data name="error_scoreboard" xml:space="preserve">
     <value>An error occurred while changing the scoreboard style.</value>
+  </data>
+  <data name="error_seasonal_backgrounds" xml:space="preserve">
+    <value>An error occurred while toggling seasonal backgrounds.</value>
+  </data>
+  <data name="error_stats_position" xml:space="preserve">
+    <value>An error occurred while changing the player stats position.</value>
   </data>
   <data name="error_team_select" xml:space="preserve">
     <value>An error occurred while changing the team select style.</value>
@@ -201,8 +210,8 @@
   <data name="error_xhair_pulse" xml:space="preserve">
     <value>An error occurred while toggling the crosshair pulse.</value>
   </data>
-  <data name="file_background_upward" xml:space="preserve">
-    <value>{0}\{1}\materials\console\background_{2}</value>
+  <data name="file_background" xml:space="preserve">
+    <value>{0}\{1}\materials\console\{2}</value>
   </data>
   <data name="file_basechat" xml:space="preserve">
     <value>{0}\{1}\resource\ui\basechat.res</value>
@@ -263,6 +272,9 @@
   </data>
   <data name="info_create_backup" xml:space="preserve">
     <value>An existing {0} folder has been found. To avoid conflicts, a backup has been created.</value>
+  </data>
+  <data name="info_custom_background" xml:space="preserve">
+    <value>This option will overwrite your current background, are you sure you want to continue?</value>
   </data>
   <data name="info_folder_browser" xml:space="preserve">
     <value>Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available.</value>

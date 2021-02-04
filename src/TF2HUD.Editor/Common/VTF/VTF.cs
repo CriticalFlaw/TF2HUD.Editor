@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using TF2HUD.Editor.Properties;
 
 namespace TF2HUD.Editor.Common
 {
@@ -40,6 +41,12 @@ namespace TF2HUD.Editor.Common
             PathInfo[PathInfo.Length - 1] = "";
             var FolderPath = string.Join("\\", PathInfo);
             Directory.CreateDirectory(FolderPath);
+
+            // Make a backup of the existing background files.
+            var BgPath =
+                new DirectoryInfo(string.Format(Resources.path_console, MainWindow.HudPath, MainWindow.HudSelection));
+            foreach (var file in BgPath.GetFiles())
+                File.Delete(file.FullName);
 
             // Copy vtf from vtex output to user defined path
             File.Copy(VTFLocation, OutFile, true);

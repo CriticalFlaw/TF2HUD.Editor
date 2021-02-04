@@ -332,13 +332,6 @@
                     ToolTip="Display the silhouette of the Spy while disguising." />
 
                 <CheckBox
-                    x:Name="CbDefaultBg"
-                    Margin="10,135,0,0"
-                    Content="Default Backgrounds"
-                    ToolTip="Display the default TF2 backgrounds on the main menu."
-                    Grid.ColumnSpan="2" />
-
-                <CheckBox
                     x:Name="CbMenuImages"
                     Margin="10,95,0,0"
                     Content="Main Menu Class Images"
@@ -347,7 +340,7 @@
 
                 <CheckBox
                     x:Name="CbTransparentViewmodel"
-                    Margin="10,175,0,0"
+                    Margin="10,135,0,0"
                     Content="Transparent Viewmodels"
                     ToolTip="Enable transparency on the weapon viewmodels." />
 
@@ -359,41 +352,61 @@
 
                 <CheckBox
                     x:Name="CbLowerPlayerStats"
-                    Margin="10,215,0,0"
+                    Margin="10,175,0,0"
                     Content="Lowered Player Stats"
                     ToolTip="If enabled, lowers the player health and ammo indicators."
                     Click="CbMovePlayerStats_OnClick" />
 
                 <CheckBox
                     x:Name="CbAlternatePlayerStats"
-                    Margin="10,255,0,0"
+                    Margin="10,215,0,0"
                     Content="Alternate Player Stats"
                     ToolTip="If enabled, will use alternate positions for player health and ammo. Note: Cannot be used at the same time as the 'Lowered Player Stats' option"
                     Click="CbMovePlayerStats_OnClick" />
 
+                <CheckBox
+                    x:Name="CbDefaultBg"
+                    Margin="10,255,0,0"
+                    Content="Default Backgrounds"
+                    ToolTip="Display the default TF2 backgrounds on the main menu."
+                    Click="CbCustomBg_OnClick"
+                    Grid.ColumnSpan="2" />
+
+                <CheckBox
+                    x:Name="CbCustomBg"
+                    Margin="10,295,0,0"
+                    Content="Custom Background"
+                    Click="CbCustomBg_OnClick" />
+
+                <Button Name="BtnSelectImage" Content="Browse" Width="100px" Height="30px" Click="BtnSelectImage_Click"
+                        Margin="10,325,580,25" IsEnabled="False" />
+                <Button Name="BtnClearImage" Content="Clear" Width="100px" Height="30px" Click="BtnClearImage_Click"
+                        Margin="110,325,478,25" IsEnabled="False" />
+                <Image Name="PreviewImage" Width="380" Height="220" Margin="280,40,18,18" />
+                <Label Name="LblImagePath" Margin="230,325,0,0" Width="420" />
+
                 <Label
-                    Margin="300,10,0,0"
+                    Margin="380,10,0,0"
                     Content="Health Style:"
                     ToolTip="Select the style of the health display." />
                 <ComboBox
                     x:Name="CbHealthStyle"
-                    Margin="450,10,0,0">
+                    Margin="500,10,0,0" Width="150">
                     <ComboBoxItem Content="Default" />
                     <ComboBoxItem Content="Colored Text" />
                     <ComboBoxItem Content="Cross" />
                 </ComboBox>
 
-                <Label
-                    Margin="300,50,0,0"
-                    Content="Killfeed Rows:"
-                    ToolTip="Color of the ÜberCharge meter when charged." />
+                <Label Content="Killfeed Rows:" Margin="380,50,0,0"
+                       ToolTip="Color of the ÜberCharge meter when charged." />
+
                 <x2:IntegerUpDown
                     x:Name="IntKillFeedRows"
                     Value="6"
                     Minimum="0"
                     Maximum="9"
-                    Margin="450,50,0,0"
-                    Width="200" />
+                    Margin="500,50,0,0"
+                    Width="150" />
             </Grid>
         </GroupBox>
 

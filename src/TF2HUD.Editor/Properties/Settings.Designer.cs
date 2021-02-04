@@ -58,5 +58,17 @@ namespace TF2HUD.Editor.Properties {
                 this["hud_directory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string image_path {
+            get {
+                return ((string)(this["image_path"]));
+            }
+            set {
+                this["image_path"] = value;
+            }
+        }
     }
 }

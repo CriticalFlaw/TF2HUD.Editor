@@ -305,11 +305,12 @@ namespace TF2HUD.Editor.HUDs
             if (!MetalPosition()) return;
             if (!PlayerModelPos()) return;
             if (!MainMenuBackground()) return;
-            if (!Common.DisguiseImage()) return;
-            if (!Common.Crosshair(CbXHairStyle.SelectedValue.ToString(), IntXHairSize.Value,
+            if (!Common.DisguiseImage(Properties.rayshud.Default.toggle_disguise_image)) return;
+            if (!Common.Crosshair(Properties.rayshud.Default.toggle_xhair_enable, CbXHairStyle.SelectedValue.ToString(),
+                IntXHairSize.Value,
                 CbXHairEffect.SelectedValue.ToString())) return;
-            if (!Common.CrosshairPulse()) return;
-            if (!Common.TransparentViewmodels()) return;
+            if (!Common.CrosshairPulse(Properties.rayshud.Default.toggle_xhair_pulse)) return;
+            if (!Common.TransparentViewmodels(Properties.rayshud.Default.toggle_transparent_viewmodels)) return;
             Common.ItemColors(GetItemColorList());
         }
 
@@ -379,11 +380,12 @@ namespace TF2HUD.Editor.HUDs
                 var file = string.Format(Properties.Resources.file_huddamageaccount, MainWindow.HudPath,
                     MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "DamageAccountValue");
-                lines[Utilities.FindIndex(lines, "\"xpos\"", start)] =
-                    $"\t\t\"xpos\"\t\t\t\t\t\"{(Properties.rayshud.Default.toggle_damage_pos ? "c-188" : "c108")}\"";
-                lines[Utilities.FindIndex(lines, "\"xpos_minmode\"", start)] =
-                    $"\t\t\"xpos_minmode\"\t\t\t\"{(Properties.rayshud.Default.toggle_damage_pos ? "c-138" : "c58")}\"";
+                var xpos = Properties.rayshud.Default.toggle_damage_pos ? "c-188" : "c108";
+                var xpos_min = Properties.rayshud.Default.toggle_damage_pos ? "c-138" : "c58";
+                lines[Utilities.FindIndex(lines, "\"xpos\"", Utilities.FindIndex(lines, "DamageAccountValue"))] =
+                    $"\t\t\"xpos\"\t\t\t\t\t\"{xpos}\"";
+                lines[Utilities.FindIndex(lines, "\"xpos_minmode\"", Utilities.FindIndex(lines, "DamageAccountValue"))]
+                    = $"\t\t\"xpos_minmode\"\t\t\t\"{xpos_min}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -404,22 +406,24 @@ namespace TF2HUD.Editor.HUDs
                 var file = string.Format(Properties.Resources.file_hudlayout, MainWindow.HudPath,
                     MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "CHudAccountPanel");
-                lines[Utilities.FindIndex(lines, "\"xpos\"", start)] =
-                    $"\t\t\"xpos\"\t\t\t\t\t\"{(Properties.rayshud.Default.toggle_metal_pos ? "c-20" : "c200")}\"";
-                lines[Utilities.FindIndex(lines, "\"xpos_minmode\"", start)] =
-                    $"\t\t\"xpos_minmode\"\t\t\t\"{(Properties.rayshud.Default.toggle_metal_pos ? "c-30" : "c130")}\"";
-                lines[Utilities.FindIndex(lines, "\"ypos\"", start)] =
-                    $"\t\t\"ypos\"\t\t\t\t\t\"{(Properties.rayshud.Default.toggle_metal_pos ? "c110" : "c130")}\"";
-                lines[Utilities.FindIndex(lines, "\"ypos_minmode\"", start)] =
-                    $"\t\t\"ypos_minmode\"\t\t\t\"{(Properties.rayshud.Default.toggle_metal_pos ? "c73" : "c83")}\"";
+                var xpos = Properties.rayshud.Default.toggle_metal_pos ? "c-20" : "c200";
+                var ypos = Properties.rayshud.Default.toggle_metal_pos ? "c110" : "c130";
+                var xpos_min = Properties.rayshud.Default.toggle_metal_pos ? "c-30" : "c130";
+                var ypos_min = Properties.rayshud.Default.toggle_metal_pos ? "c73" : "c83";
+                lines[Utilities.FindIndex(lines, "\"xpos\"", Utilities.FindIndex(lines, "CHudAccountPanel"))] =
+                    $"\t\t\"xpos\"\t\t\t\t\t\"{xpos}\"";
+                lines[Utilities.FindIndex(lines, "\"ypos\"", Utilities.FindIndex(lines, "CHudAccountPanel"))] =
+                    $"\t\t\"ypos\"\t\t\t\t\t\"{ypos}\"";
+                lines[Utilities.FindIndex(lines, "\"xpos_minmode\"", Utilities.FindIndex(lines, "CHudAccountPanel"))] =
+                    $"\t\t\"xpos_minmode\"\t\t\t\"{xpos_min}\"";
+                lines[Utilities.FindIndex(lines, "\"ypos_minmode\"", Utilities.FindIndex(lines, "CHudAccountPanel"))] =
+                    $"\t\t\"ypos_minmode\"\t\t\t\"{ypos_min}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
             catch (Exception ex)
             {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, Properties.Resources.error_damage_pos,
-                    ex.Message); // TODO: Use a unique error message.
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, Properties.Resources.error_metal_pos, ex.Message);
                 return false;
             }
         }
@@ -434,8 +438,7 @@ namespace TF2HUD.Editor.HUDs
                 var file = string.Format(Properties.Resources.file_hudplayerhealth, MainWindow.HudPath,
                     MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var index = Properties.rayshud.Default.val_health_style -
-                            1; // TODO: These next three lines are a bit ugly.
+                var index = Properties.rayshud.Default.val_health_style - 1;
                 lines[0] = Utilities.CommentOutTextLine(lines[0]);
                 lines[1] = Utilities.CommentOutTextLine(lines[1]);
                 if (Properties.rayshud.Default.val_health_style > 0)
@@ -481,15 +484,15 @@ namespace TF2HUD.Editor.HUDs
                         return true;
                 }
 
-                var file = string.Format(Properties.Resources.file_background_upward, MainWindow.HudPath,
-                    MainWindow.HudSelection, "upward.vmt");
+                var file = string.Format(Properties.Resources.file_background, MainWindow.HudPath,
+                    MainWindow.HudSelection, "background_upward.vmt");
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "baseTexture");
                 lines[start] = line1;
                 File.WriteAllLines(file, lines);
 
-                file = string.Format(Properties.Resources.file_background_upward, MainWindow.HudPath,
-                    MainWindow.HudSelection, "upward_widescreen.vmt");
+                file = string.Format(Properties.Resources.file_background, MainWindow.HudPath,
+                    MainWindow.HudSelection, "background_upward_widescreen.vmt");
                 lines = File.ReadAllLines(file);
                 lines[start] = line2;
                 File.WriteAllLines(file, lines);
@@ -516,9 +519,9 @@ namespace TF2HUD.Editor.HUDs
                     : string.Format(Properties.Resources.file_custom_mainmenu, MainWindow.HudPath,
                         MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "TFCharacterImage");
-                lines[Utilities.FindIndex(lines, "ypos", start)] =
-                    $"\t\t\"ypos\"\t\t\t\"{(Properties.rayshud.Default.toggle_menu_images ? "-80" : "9999")}\"";
+                var value = Properties.rayshud.Default.toggle_menu_images ? "-80" : "9999";
+                lines[Utilities.FindIndex(lines, "ypos", Utilities.FindIndex(lines, "TFCharacterImage"))] =
+                    $"\t\t\"ypos\"\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -533,7 +536,6 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Set the main menu style.
         /// </summary>
-        /// <remarks>TODO: Consider refactoring.</remarks>
         private static bool MainMenuStyle()
         {
             try
@@ -620,10 +622,12 @@ namespace TF2HUD.Editor.HUDs
                 var file = string.Format(Properties.Resources.file_hudanimations, MainWindow.HudPath,
                     MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "HudMedicCharged");
-                var index1 = Utilities.FindIndex(lines, "HudMedicOrangePulseCharge", start);
-                var index2 = Utilities.FindIndex(lines, "HudMedicSolidColorCharge", start);
-                var index3 = Utilities.FindIndex(lines, "HudMedicRainbowCharged", start);
+                var index1 = Utilities.FindIndex(lines, "HudMedicOrangePulseCharge",
+                    Utilities.FindIndex(lines, "HudMedicCharged"));
+                var index2 = Utilities.FindIndex(lines, "HudMedicSolidColorCharge",
+                    Utilities.FindIndex(lines, "HudMedicCharged"));
+                var index3 = Utilities.FindIndex(lines, "HudMedicRainbowCharged",
+                    Utilities.FindIndex(lines, "HudMedicCharged"));
                 lines[index1] = Utilities.CommentOutTextLine(lines[index1]);
                 lines[index2] = Utilities.CommentOutTextLine(lines[index2]);
                 lines[index3] = Utilities.CommentOutTextLine(lines[index3]);
@@ -661,9 +665,9 @@ namespace TF2HUD.Editor.HUDs
 
                 file = string.Format(Properties.Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
                 lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "DisguiseStatus");
-                lines[Utilities.FindIndex(lines, "xpos", start)] =
-                    $"\t\t\"xpos\"\t\t\t\t\t\"{(Properties.rayshud.Default.toggle_alt_player_model ? 100 : 15)}\"";
+                var value = Properties.rayshud.Default.toggle_alt_player_model ? 100 : 15;
+                lines[Utilities.FindIndex(lines, "xpos", Utilities.FindIndex(lines, "DisguiseStatus"))] =
+                    $"\t\t\"xpos\"\t\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -685,9 +689,9 @@ namespace TF2HUD.Editor.HUDs
                 var file = string.Format(Properties.Resources.file_basechat, MainWindow.HudPath,
                     MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "HudChat");
-                lines[Utilities.FindIndex(lines, "ypos", start)] =
-                    $"\t\t\"ypos\"\t\t\t\t\t\"{(Properties.rayshud.Default.toggle_chat_bottom ? 315 : 25)}\"";
+                var value = Properties.rayshud.Default.toggle_chat_bottom ? 315 : 25;
+                lines[Utilities.FindIndex(lines, "ypos", Utilities.FindIndex(lines, "HudChat"))] =
+                    $"\t\t\"ypos\"\t\t\t\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }

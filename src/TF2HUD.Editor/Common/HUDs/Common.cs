@@ -11,41 +11,20 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Set the crosshair style, position and effect.
         /// </summary>
-        /// <remarks>TODO: Refactor to remove passed parameters, the options should be pulled from the HUD settings.</remarks>
-        public static bool Crosshair(string style, int? size, string effect)
+        public static bool Crosshair(bool enable, string style, int? size, string effect)
         {
             try
             {
                 var file = string.Format(Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "CustomCrosshair");
-                lines[Utilities.FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\t\"0\"";
-                lines[Utilities.FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\t\"0\"";
-                lines[Utilities.FindIndex(lines, "\"labelText\"", start)] = "\t\t\"labelText\"\t\t\t\"<\"";
-                lines[Utilities.FindIndex(lines, "font", start)] = "\t\t\"font\"\t\t\t\t\"Size:18 | Outline:OFF\"";
-                File.WriteAllLines(file, lines);
-
-                switch (MainWindow.HudSelection.ToLowerInvariant())
-                {
-                    case "flawhud":
-                        if (flawhud.Default.toggle_xhair_rotate) return true;
-                        if (!flawhud.Default.toggle_xhair_enable) return true;
-                        break;
-
-                    case "rayshud":
-                        //if (Properties.rayshud.Default.toggle_xhair_rotate) return true;
-                        if (!Properties.rayshud.Default.toggle_xhair_enable) return true;
-                        break;
-
-                    default:
-                        return true;
-                }
-
-                var strEffect = effect != "None" ? $"{effect}:ON" : "Outline:OFF";
-                lines[Utilities.FindIndex(lines, "visible", start)] = "\t\t\"visible\"\t\t\t\"1\"";
-                lines[Utilities.FindIndex(lines, "enabled", start)] = "\t\t\"enabled\"\t\t\t\"1\"";
+                effect = effect != "None" ? $"{effect}:ON" : "Outline:OFF";
+                lines[Utilities.FindIndex(lines, "visible", start)] =
+                    $"\t\t\"visible\"\t\t\t\"{Convert.ToInt32(enable)}\"";
+                lines[Utilities.FindIndex(lines, "enabled", start)] =
+                    $"\t\t\"enabled\"\t\t\t\"{Convert.ToInt32(enable)}\"";
                 lines[Utilities.FindIndex(lines, "\"labelText\"", start)] = $"\t\t\"labelText\"\t\t\t\"{style}\"";
-                lines[Utilities.FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\t\"Size:{size} | {strEffect}\"";
+                lines[Utilities.FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\t\"Size:{size} | {effect}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -59,37 +38,20 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Toggle crosshair hitmarker.
         /// </summary>
-        public static bool CrosshairPulse()
+        public static bool CrosshairPulse(bool enable)
         {
             try
             {
                 var file = string.Format(Resources.file_hudanimations, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "DamagedPlayer");
-                var index1 = Utilities.FindIndex(lines, "StopEvent", start);
-                var index2 = Utilities.FindIndex(lines, "RunEvent", start);
-                lines[index1] = Utilities.CommentOutTextLine(lines[index1]);
-                lines[index2] = Utilities.CommentOutTextLine(lines[index2]);
-                File.WriteAllLines(file, lines);
-
-                switch (MainWindow.HudSelection.ToLowerInvariant())
-                {
-                    case "flawhud":
-                        if (!flawhud.Default.toggle_xhair_pulse)
-                            return
-                                true; // TODO: Update to enable hitmarker for rotating crosshair (disabled by default in flawhud since 2021/02/01)
-                        break;
-
-                    case "rayshud":
-                        if (!Properties.rayshud.Default.toggle_xhair_pulse) return true;
-                        break;
-
-                    default:
-                        return true;
-                }
-
-                lines[index1] = lines[index1].Replace("//", string.Empty);
-                lines[index2] = lines[index2].Replace("//", string.Empty);
+                var index1 = Utilities.FindIndex(lines, "StopEvent", Utilities.FindIndex(lines, "DamagedPlayer"));
+                var index2 = Utilities.FindIndex(lines, "RunEvent", Utilities.FindIndex(lines, "DamagedPlayer"));
+                lines[index1] = enable
+                    ? Utilities.CommentOutTextLine(lines[index1])
+                    : lines[index1].Replace("//", string.Empty);
+                lines[index2] = enable
+                    ? Utilities.CommentOutTextLine(lines[index2])
+                    : lines[index2].Replace("//", string.Empty);
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -103,42 +65,29 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Toggle Spy's disguise image.
         /// </summary>
-        public static bool DisguiseImage()
+        public static bool DisguiseImage(bool enable)
         {
             try
             {
                 var file = string.Format(Resources.file_hudanimations, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "HudSpyDisguiseFadeIn");
-                var index1 = Utilities.FindIndex(lines, "RunEvent", start);
-                var index2 = Utilities.FindIndex(lines, "Animate", start);
-                start = Utilities.FindIndex(lines, "HudSpyDisguiseFadeOut");
-                var index3 = Utilities.FindIndex(lines, "RunEvent", start);
-                var index4 = Utilities.FindIndex(lines, "Animate", start);
-                lines[index1] = Utilities.CommentOutTextLine(lines[index1]);
-                lines[index2] = Utilities.CommentOutTextLine(lines[index2]);
-                lines[index3] = Utilities.CommentOutTextLine(lines[index3]);
-                lines[index4] = Utilities.CommentOutTextLine(lines[index4]);
-                File.WriteAllLines(file, lines);
-
-                switch (MainWindow.HudSelection.ToLowerInvariant())
-                {
-                    case "flawhud":
-                        if (!flawhud.Default.toggle_disguise_image) return true;
-                        break;
-
-                    case "rayshud":
-                        if (!Properties.rayshud.Default.toggle_disguise_image) return true;
-                        break;
-
-                    default:
-                        return true;
-                }
-
-                lines[index1] = lines[index1].Replace("//", string.Empty);
-                lines[index2] = lines[index2].Replace("//", string.Empty);
-                lines[index3] = lines[index3].Replace("//", string.Empty);
-                lines[index4] = lines[index4].Replace("//", string.Empty);
+                var index1 = Utilities.FindIndex(lines, "RunEvent", Utilities.FindIndex(lines, "HudSpyDisguiseFadeIn"));
+                var index2 = Utilities.FindIndex(lines, "Animate", Utilities.FindIndex(lines, "HudSpyDisguiseFadeIn"));
+                var index3 = Utilities.FindIndex(lines, "RunEvent",
+                    Utilities.FindIndex(lines, "HudSpyDisguiseFadeOut"));
+                var index4 = Utilities.FindIndex(lines, "Animate", Utilities.FindIndex(lines, "HudSpyDisguiseFadeOut"));
+                lines[index1] = enable
+                    ? lines[index1].Replace("//", string.Empty)
+                    : Utilities.CommentOutTextLine(lines[index1]);
+                lines[index2] = enable
+                    ? lines[index2].Replace("//", string.Empty)
+                    : Utilities.CommentOutTextLine(lines[index2]);
+                lines[index3] = enable
+                    ? lines[index3].Replace("//", string.Empty)
+                    : Utilities.CommentOutTextLine(lines[index3]);
+                lines[index4] = enable
+                    ? lines[index4].Replace("//", string.Empty)
+                    : Utilities.CommentOutTextLine(lines[index4]);
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -152,44 +101,28 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Toggle transparent viewmodels.
         /// </summary>
-        public static bool TransparentViewmodels()
+        public static bool TransparentViewmodels(bool enable)
         {
             try
             {
                 var file = string.Format(Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "\"TransparentViewmodel\"");
-                var index1 = Utilities.FindIndex(lines, "visible", start);
-                var index2 = Utilities.FindIndex(lines, "enabled", start);
-                lines[index1] = "\t\t\"visible\"\t\t\t\"0\"";
-                lines[index2] = "\t\t\"enabled\"\t\t\t\"0\"";
+                var index1 = Utilities.FindIndex(lines, "visible",
+                    Utilities.FindIndex(lines, "\"TransparentViewmodel\""));
+                var index2 = Utilities.FindIndex(lines, "enabled",
+                    Utilities.FindIndex(lines, "\"TransparentViewmodel\""));
+                lines[index1] = $"\t\t\"visible\"\t\t\t\"{Convert.ToInt32(enable)}\"";
+                lines[index2] = $"\t\t\"enabled\"\t\t\t\"{Convert.ToInt32(enable)}\"";
                 File.WriteAllLines(file, lines);
 
+                // Copy the config file required for this feature - TODO: Consider refactoring
+                if (!enable) return true;
                 if (File.Exists(string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection)))
                     File.Delete(string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection));
-
-                switch (MainWindow.HudSelection.ToLowerInvariant())
-                {
-                    case "flawhud":
-                        if (!flawhud.Default.toggle_transparent_viewmodels) return true;
-                        break;
-
-                    case "rayshud":
-                        if (!Properties.rayshud.Default.toggle_transparent_viewmodels) return true;
-                        break;
-
-                    default:
-                        return true;
-                }
-
-                lines[index1] = "\t\t\"visible\"\t\t\t\"1\"";
-                lines[index2] = "\t\t\"enabled\"\t\t\t\"1\"";
-
                 if (!Directory.Exists(MainWindow.HudPath + $"\\{MainWindow.HudSelection}\\cfg"))
                     Directory.CreateDirectory(MainWindow.HudPath + $"\\{MainWindow.HudSelection}\\cfg");
                 File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\hud.cfg",
-                    string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection));
-                File.WriteAllLines(file, lines);
+                    string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection), true);
                 return true;
             }
             catch (Exception ex)
@@ -208,8 +141,6 @@ namespace TF2HUD.Editor.HUDs
             {
                 var file = string.Format(Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var start = Utilities.FindIndex(lines, "HudDeathNotice");
-
                 var value = MainWindow.HudSelection.ToLowerInvariant() switch
                 {
                     "flawhud" => flawhud.Default.val_killfeed_rows,
@@ -217,7 +148,8 @@ namespace TF2HUD.Editor.HUDs
                     _ => 5
                 };
 
-                lines[Utilities.FindIndex(lines, "MaxDeathNotices", start)] = $"\t\t\"MaxDeathNotices\"\t\t\"{value}\"";
+                lines[Utilities.FindIndex(lines, "MaxDeathNotices", Utilities.FindIndex(lines, "HudDeathNotice"))] =
+                    $"\t\t\"MaxDeathNotices\"\t\t\"{value}\"";
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -310,6 +242,55 @@ namespace TF2HUD.Editor.HUDs
             catch (Exception ex)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_colors, ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Generate or remove a user provided background.
+        /// </summary>
+        public static bool CustomBackground()
+        {
+            try
+            {
+                var converter = new VTF(MainWindow.HudPath);
+                var output = string.Format(Resources.file_background, MainWindow.HudPath, MainWindow.HudSelection,
+                    "background_upward.vtf");
+                converter.Convert(Settings.Default.image_path, output);
+                File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_seasonal_backgrounds, ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Toggle seasonal (Christmas, Halloween) backgrounds.
+        /// </summary>
+        public static bool SeasonalBackgrounds()
+        {
+            try
+            {
+                var menu = string.Format(Resources.file_mainmenuoverride, MainWindow.HudPath, MainWindow.HudSelection);
+                var lines = File.ReadAllLines(menu);
+                var start = Utilities.FindIndex(lines, "Background");
+                var index1 = Utilities.FindIndex(lines, "image", Utilities.FindIndex(lines, "if_halloween", start));
+                var index2 = Utilities.FindIndex(lines, "image", Utilities.FindIndex(lines, "if_christmas", start));
+                lines[index1] = flawhud.Default.toggle_background_stock
+                    ? lines[index1].Replace("//", string.Empty)
+                    : Utilities.CommentOutTextLine(lines[index1]);
+                lines[index2] = flawhud.Default.toggle_background_stock
+                    ? lines[index2].Replace("//", string.Empty)
+                    : Utilities.CommentOutTextLine(lines[index2]);
+                File.WriteAllLines(menu, lines);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_seasonal_backgrounds, ex.Message);
                 return false;
             }
         }

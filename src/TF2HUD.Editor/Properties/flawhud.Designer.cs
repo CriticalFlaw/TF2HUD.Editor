@@ -134,12 +134,12 @@ namespace TF2HUD.Editor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_stock_backgrounds {
+        public bool toggle_background_stock {
             get {
-                return ((bool)(this["toggle_stock_backgrounds"]));
+                return ((bool)(this["toggle_background_stock"]));
             }
             set {
-                this["toggle_stock_backgrounds"] = value;
+                this["toggle_background_stock"] = value;
             }
         }
         
@@ -488,6 +488,18 @@ namespace TF2HUD.Editor.Properties {
             }
             set {
                 this["color_elite"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool toggle_background_custom {
+            get {
+                return ((bool)(this["toggle_background_custom"]));
+            }
+            set {
+                this["toggle_background_custom"] = value;
             }
         }
     }

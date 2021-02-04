@@ -25,7 +25,7 @@ namespace TF2HUD.Editor
     /// </summary>
     public partial class MainWindow
     {
-        public static string HudSelection = Settings.Default.hud_selected; // TODO: Should use the Enum type
+        public static string HudSelection = Settings.Default.hud_selected;
         public static string HudPath = Settings.Default.hud_directory;
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         public Json JSON;
@@ -100,7 +100,9 @@ namespace TF2HUD.Editor
 
             // Reload the HUD selection list.
             lbSelectHud.Items.Clear();
+#if DEBUG
             foreach (var HUDItem in JSON.HUDs) lbSelectHud.Items.Add(HUDItem.Name);
+#endif
             foreach (Enum item in Enum.GetValues(typeof(Common.HUDs)))
                 lbSelectHud.Items.Add(Utilities.GetStringValue(item));
         }
@@ -264,10 +266,11 @@ namespace TF2HUD.Editor
         /// <summary>
         ///     Display a message box and log the exception message.
         /// </summary>
-        public static void ShowMessageBox(MessageBoxImage type, string message, string exception = null)
+        public static MessageBoxResult ShowMessageBox(MessageBoxImage type, string message, string exception = null,
+            MessageBoxButton buttons = MessageBoxButton.OK)
         {
-            MessageBox.Show($"{message} {exception}", string.Empty, MessageBoxButton.OK, type);
             if (!string.IsNullOrEmpty(exception)) Logger.Debug(exception);
+            return MessageBox.Show($"{message} {exception}", string.Empty, buttons, type);
         }
 
         /// <summary>
@@ -406,7 +409,6 @@ namespace TF2HUD.Editor
                     }
                 });
             };
-            //worker.RunWorkerCompleted();  // TODO: Is this needed?
             worker.RunWorkerAsync();
             LblStatus.Content = "Settings Applied at " + DateTime.Now;
         }
@@ -477,6 +479,7 @@ namespace TF2HUD.Editor
                     uiFlawHud.Visibility = Visibility.Hidden;
                     uiRaysHud.Visibility = Visibility.Visible;
                     break;
+
                 default:
                     try
                     {

@@ -29,7 +29,7 @@
     <Setting Name="toggle_menu_images" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="toggle_stock_backgrounds" Type="System.Boolean" Scope="User">
+    <Setting Name="toggle_background_stock" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="toggle_transparent_viewmodels" Type="System.Boolean" Scope="User">
@@ -118,6 +118,9 @@
     </Setting>
     <Setting Name="color_elite" Type="System.String" Scope="User">
       <Value Profile="(Default)">#EB4B4B</Value>
+    </Setting>
+    <Setting Name="toggle_background_custom" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
