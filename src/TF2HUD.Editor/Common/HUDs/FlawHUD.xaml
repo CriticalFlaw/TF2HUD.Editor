@@ -79,9 +79,11 @@
                     Click="CbXHairEnable_OnClick" />
 
                 <CheckBox
-                    x:Name="CbXHairHitmarker"
+                    x:Name="CbXHairPulse"
                     Margin="200,15,0,0"
                     Content="Pulse Hitmarker"
+                    Checked="CbXHairPulse_OnChecked"
+                    Unchecked="CbXHairPulse_OnChecked"
                     IsEnabled="False" />
 
                 <CheckBox
@@ -355,14 +357,16 @@
                     Margin="10,175,0,0"
                     Content="Lowered Player Stats"
                     ToolTip="If enabled, lowers the player health and ammo indicators."
-                    Click="CbMovePlayerStats_OnClick" />
+                    Checked="CbMovePlayerStats_OnClick"
+                    Unchecked="CbMovePlayerStats_OnClick" />
 
                 <CheckBox
                     x:Name="CbAlternatePlayerStats"
                     Margin="10,215,0,0"
                     Content="Alternate Player Stats"
                     ToolTip="If enabled, will use alternate positions for player health and ammo. Note: Cannot be used at the same time as the 'Lowered Player Stats' option"
-                    Click="CbMovePlayerStats_OnClick" />
+                    Checked="CbMovePlayerStats_OnClick"
+                    Unchecked="CbMovePlayerStats_OnClick" />
 
                 <CheckBox
                     x:Name="CbDefaultBg"

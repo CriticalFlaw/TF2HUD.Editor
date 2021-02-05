@@ -23,7 +23,7 @@ namespace TF2HUD.Editor.HUDs
         /// </summary>
         private void SetCrosshairControls()
         {
-            CbXHairHitmarker.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            CbXHairPulse.IsEnabled = CbXHairEnable.IsChecked ?? false;
             CpXHairColor.IsEnabled = CbXHairEnable.IsChecked ?? false;
             CpXHairPulse.IsEnabled = CbXHairEnable.IsChecked ?? false;
             IntXHairSize.IsEnabled = CbXHairEnable.IsChecked ?? false;
@@ -58,6 +58,19 @@ namespace TF2HUD.Editor.HUDs
         #region CLICK_EVENTS
 
         /// <summary>
+        ///     Disable crosshair options if the crosshair is toggled on.
+        /// </summary>
+        private void CbXHairEnable_OnClick(object sender, RoutedEventArgs e)
+        {
+            SetCrosshairControls();
+        }
+
+        private void CbXHairPulse_OnChecked(object sender, RoutedEventArgs e)
+        {
+            CpXHairPulse.IsEnabled = CbXHairPulse.IsChecked == true;
+        }
+
+        /// <summary>
         ///     Toggle ÜberCharge options depending on the style selected.
         /// </summary>
         private void CbUberStyle_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -66,17 +79,9 @@ namespace TF2HUD.Editor.HUDs
             CpUberFlash1.IsEnabled = false;
             CpUberFlash2.IsEnabled = false;
 
-            CpUberFullColor.IsEnabled = CbUberStyle.SelectedIndex == 0;
-            CpUberFlash1.IsEnabled = CbUberStyle.SelectedIndex == 1;
-            CpUberFlash2.IsEnabled = CbUberStyle.SelectedIndex == 1;
-        }
-
-        /// <summary>
-        ///     Toggle crosshair options if the crosshair is disabled.
-        /// </summary>
-        private void CbXHairEnable_OnClick(object sender, RoutedEventArgs e)
-        {
-            SetCrosshairControls();
+            CpUberFullColor.IsEnabled = CbUberStyle.SelectedIndex == 1;
+            CpUberFlash1.IsEnabled = CbUberStyle.SelectedIndex == 0;
+            CpUberFlash2.IsEnabled = CbUberStyle.SelectedIndex == 0;
         }
 
         #endregion CLICK_EVENTS
@@ -126,9 +131,9 @@ namespace TF2HUD.Editor.HUDs
                 settings.val_xhair_style = CbXHairStyle.SelectedIndex;
                 settings.val_xhair_effect = CbXHairEffect.SelectedIndex;
                 settings.toggle_xhair_enable = CbXHairEnable.IsChecked ?? false;
-                settings.toggle_xhair_pulse = CbXHairHitmarker.IsChecked ?? false;
+                settings.toggle_xhair_pulse = CbXHairPulse.IsChecked ?? false;
                 settings.toggle_disguise_image = CbDisguiseImage.IsChecked ?? false;
-                settings.toggle_menu_images = CbMenuImages.IsChecked ?? false;
+                settings.toggle_menu_image = CbMenuImages.IsChecked ?? false;
                 settings.toggle_transparent_viewmodels = CbTransparentViewmodel.IsChecked ?? false;
                 settings.toggle_damage_pos = CbDamagePos.IsChecked ?? false;
                 settings.toggle_chat_bottom = CbChatBottom.IsChecked ?? false;
@@ -191,9 +196,9 @@ namespace TF2HUD.Editor.HUDs
                 CbXHairStyle.SelectedIndex = settings.val_xhair_style;
                 CbXHairEffect.SelectedIndex = settings.val_xhair_effect;
                 CbXHairEnable.IsChecked = settings.toggle_xhair_enable;
-                CbXHairHitmarker.IsChecked = settings.toggle_xhair_pulse;
+                CbXHairPulse.IsChecked = settings.toggle_xhair_pulse;
                 CbDisguiseImage.IsChecked = settings.toggle_disguise_image;
-                CbMenuImages.IsChecked = settings.toggle_menu_images;
+                CbMenuImages.IsChecked = settings.toggle_menu_image;
                 CbTransparentViewmodel.IsChecked = settings.toggle_transparent_viewmodels;
                 CbDamagePos.IsChecked = settings.toggle_damage_pos;
                 CbChatBottom.IsChecked = settings.toggle_chat_bottom;
@@ -257,7 +262,7 @@ namespace TF2HUD.Editor.HUDs
                 CbXHairStyle.SelectedIndex = 24;
                 CbXHairEffect.SelectedIndex = 0;
                 CbXHairEnable.IsChecked = false;
-                CbXHairHitmarker.IsChecked = true;
+                CbXHairPulse.IsChecked = true;
                 CbDisguiseImage.IsChecked = false;
                 CbMenuImages.IsChecked = false;
                 CbTransparentViewmodel.IsChecked = false;
@@ -284,7 +289,6 @@ namespace TF2HUD.Editor.HUDs
         public void ApplyHudSettings()
         {
             if (!MainMenuStyle()) return;
-            if (!MainMenuClassImage()) return;
             if (!ScoreboardStyle()) return;
             if (!TeamSelect()) return;
             if (!HealthStyle()) return;
@@ -295,6 +299,7 @@ namespace TF2HUD.Editor.HUDs
             if (!MetalPosition()) return;
             if (!PlayerModelPos()) return;
             if (!MainMenuBackground()) return;
+            if (!Common.MainMenuClassImage(Properties.rayshud.Default.toggle_menu_image)) return;
             if (!Common.DisguiseImage(Properties.rayshud.Default.toggle_disguise_image)) return;
             if (!Common.Crosshair(Properties.rayshud.Default.toggle_xhair_enable, CbXHairStyle.SelectedValue.ToString(),
                 IntXHairSize.Value,
@@ -454,13 +459,13 @@ namespace TF2HUD.Editor.HUDs
                     MainWindow.HudPath, MainWindow.HudSelection));
                 var chapterBackgrounds = string.Format(Properties.Resources.file_chapterbackgrounds, MainWindow.HudPath,
                     MainWindow.HudSelection);
-                var backgroundsFile = string.Format(Properties.Resources.file_background, MainWindow.HudPath,
+                var backgroundUpward = string.Format(Properties.Resources.file_background, MainWindow.HudPath,
                     MainWindow.HudSelection, "background_upward.vmt");
                 var value = Properties.rayshud.Default.val_main_menu_bg == 1 ? "classic" : "modern";
 
                 // Revert all changes before reapplying them.
                 foreach (var file in directoryPath.GetFiles())
-                    File.Move(file.FullName, file.FullName.Replace("bak", "vtf"));
+                    File.Move(file.FullName, file.FullName.Replace("bak", "vmt"));
                 if (File.Exists(chapterBackgrounds.Replace("txt", "bak")))
                     File.Move(chapterBackgrounds.Replace("txt", "bak"), chapterBackgrounds);
 
@@ -468,25 +473,23 @@ namespace TF2HUD.Editor.HUDs
                 {
                     case 0:
                     case 1:
-                        var lines = File.ReadAllLines(backgroundsFile);
+                        var lines = File.ReadAllLines(backgroundUpward);
                         lines[Utilities.FindIndex(lines, "baseTexture")] =
                             $"\t\"$baseTexture\" \"console/backgrounds/background_{value}\"";
-                        File.WriteAllLines(backgroundsFile, lines);
-
-                        backgroundsFile =
-                            backgroundsFile.Replace("background_upward.vmt", "background_upward_widescreen.vmt");
-                        lines = File.ReadAllLines(backgroundsFile);
+                        File.WriteAllLines(backgroundUpward, lines);
+                        backgroundUpward =
+                            backgroundUpward.Replace("background_upward.vmt", "background_upward_widescreen.vmt");
+                        lines = File.ReadAllLines(backgroundUpward);
                         lines[Utilities.FindIndex(lines, "baseTexture")] =
                             $"\t\"$baseTexture\" \"console/backgrounds/background_{value}_widescreen\"";
-                        File.WriteAllLines(backgroundsFile, lines);
+                        File.WriteAllLines(backgroundUpward, lines);
                         break;
 
                     case 2: // Default
                         foreach (var file in directoryPath.GetFiles())
-                            File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
+                            File.Move(file.FullName, file.FullName.Replace("vmt", "bak"));
                         if (File.Exists(chapterBackgrounds))
                             File.Move(chapterBackgrounds, chapterBackgrounds.Replace("txt", "bak"));
-                        Common.SeasonalBackgrounds(true);
                         break;
                 }
 
@@ -495,33 +498,6 @@ namespace TF2HUD.Editor.HUDs
             catch (Exception ex)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, Properties.Resources.error_menu_background,
-                    ex.Message);
-                return false;
-            }
-        }
-
-        /// <summary>
-        ///     Toggle main menu class images.
-        /// </summary>
-        private static bool MainMenuClassImage()
-        {
-            try
-            {
-                var file = Properties.rayshud.Default.toggle_classic_menu
-                    ? string.Format(Properties.Resources.file_custom_mainmenu_classic, MainWindow.HudPath,
-                        MainWindow.HudSelection)
-                    : string.Format(Properties.Resources.file_custom_mainmenu, MainWindow.HudPath,
-                        MainWindow.HudSelection);
-                var lines = File.ReadAllLines(file);
-                var value = Properties.rayshud.Default.toggle_menu_images ? "-80" : "9999";
-                lines[Utilities.FindIndex(lines, "ypos", Utilities.FindIndex(lines, "TFCharacterImage"))] =
-                    $"\t\t\"ypos\"\t\t\t\"{value}\"";
-                File.WriteAllLines(file, lines);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, Properties.Resources.error_menu_class_image,
                     ex.Message);
                 return false;
             }

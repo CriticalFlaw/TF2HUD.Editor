@@ -200,6 +200,7 @@ namespace TF2HUD.Editor
                 registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
                 if (Directory.Exists(registry))
                 {
+                    Settings.Default.hud_directory = registry;
                     Settings.Default.Save();
                     Logger.Info("Directory found at " + registry);
                     return true;
@@ -256,6 +257,7 @@ namespace TF2HUD.Editor
             {
                 // The selected HUD is not installed in a valid directory.
                 BtnInstall.Content = "Set Directory";
+                BtnInstall.IsEnabled = true;
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnReset.IsEnabled = false;

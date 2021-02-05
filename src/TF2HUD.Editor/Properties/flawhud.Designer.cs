@@ -122,12 +122,12 @@ namespace TF2HUD.Editor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool toggle_menu_images {
+        public bool toggle_menu_image {
             get {
-                return ((bool)(this["toggle_menu_images"]));
+                return ((bool)(this["toggle_menu_image"]));
             }
             set {
-                this["toggle_menu_images"] = value;
+                this["toggle_menu_image"] = value;
             }
         }
         

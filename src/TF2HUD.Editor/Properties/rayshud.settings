@@ -62,7 +62,7 @@
     <Setting Name="toggle_disguise_image" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="toggle_menu_images" Type="System.Boolean" Scope="User">
+    <Setting Name="toggle_menu_image" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="toggle_metal_pos" Type="System.Boolean" Scope="User">

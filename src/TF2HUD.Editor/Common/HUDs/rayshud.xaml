@@ -59,16 +59,16 @@
                     ToolTip="Use the centered style for class and team selection" />
 
                 <CheckBox
-                    x:Name="CbTransparentViewmodel"
+                    x:Name="CbMetalPos"
                     Margin="10,260,0,0"
-                    Content="Transparent Viewmodels"
-                    ToolTip="Enable transparency on the weapon viewmodels" />
+                    Content="Centered Metal Counter"
+                    ToolTip="Move the metal number to the centre of the screen" />
 
                 <CheckBox
-                    x:Name="CbMetalPos"
+                    x:Name="CbTransparentViewmodel"
                     Margin="10,295,0,0"
-                    Content="Center Metal Counter"
-                    ToolTip="Move the metal number to the centre of the screen" />
+                    Content="Transparent Viewmodels"
+                    ToolTip="Enable transparency on the weapon viewmodels" />
 
                 <CheckBox
                     x:Name="CbPlayerModel"
@@ -134,16 +134,9 @@
                     Click="CbXHairEnable_OnClick" />
 
                 <CheckBox
-                    x:Name="CbXHairHitmarker"
+                    x:Name="CbXHairPulse"
                     Margin="200,15,0,0"
                     Content="Pulse Hitmarker"
-                    IsEnabled="False" />
-
-                <CheckBox
-                    x:Name="CbXHairRotate"
-                    Margin="390,15,0,0"
-                    Content="Rotate Crosshair"
-                    Click="CbXHairEnable_OnClick"
                     IsEnabled="False" />
 
                 <x2:ColorPicker

@@ -274,7 +274,7 @@
     <value>An existing {0} folder has been found. To avoid conflicts, a backup has been created.</value>
   </data>
   <data name="info_custom_background" xml:space="preserve">
-    <value>This option will overwrite your current background, are you sure you want to continue?</value>
+    <value>This option will overwrite your current background, if you want to go back to the default you'll have to reinstall the HUD. Are you sure you want to continue?</value>
   </data>
   <data name="info_folder_browser" xml:space="preserve">
     <value>Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available.</value>

@@ -529,7 +529,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This option will overwrite your current background, are you sure you want to continue?.
+        ///   Looks up a localized string similar to This option will overwrite your current background, if you want to go back to the default you&apos;ll have to reinstall the HUD. Are you sure you want to continue?.
         /// </summary>
         internal static string info_custom_background {
             get {

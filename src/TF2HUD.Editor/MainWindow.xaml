@@ -52,15 +52,24 @@
                             <Run Foreground="#FFD700" Text="@CriticalFlaw_" />). Thanks!
                         </TextBlock>
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,15" />
-                        <Label Content="Version 1.0" Style="{StaticResource HeaderText}" Margin="0,0,0,15" />
+                        <Label Content="Version 1.1" Style="{StaticResource HeaderText}" Margin="0,0,0,15" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-                            - Initial Release. Merged FlawHUD and rayshud installers into one, with more HUDs to be added later.
+                            - Added option to import a custom main menu background (flawhud, Revan)
                             <LineBreak />
-                            Fixed Transparent Viewmodel settings not removing the custom config if the option is disabled.
+                            - Added options to change the item quality and rarity colors (flawhud, rayshud)
                             <LineBreak />
-                            - Buttons will now be visually different when disabled.
+                            - Fixed multiple cases of incorrect error messages being used.
                             <LineBreak />
-                            - Miscellaneous bug fixes and improvements.
+                            - Fixed the Set Directory button staying disabled when it shouldn't be.
+                            <LineBreak />
+                            - Removed the redundant UberCharged color option (flawhud)
+                            <LineBreak />
+                            - Updated GUIs for both flawhud and rayshud.
+                            <LineBreak />
+                            - Updated the main window to be more responsive when resizing (Revan)
+                            <LineBreak />
+                            - Miscellaneous backend bug-fixes and improvements.
+                            <LineBreak />
                         </TextBlock>
                     </StackPanel>
                 </ScrollViewer>

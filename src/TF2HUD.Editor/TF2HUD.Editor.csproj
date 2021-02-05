@@ -11,6 +11,9 @@
     <Company>CriticalFlaw</Company>
     <Copyright>Igor Nikitin</Copyright>
     <PackageProjectUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</PackageProjectUrl>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

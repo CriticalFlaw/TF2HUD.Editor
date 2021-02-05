@@ -25,7 +25,7 @@ namespace TF2HUD.Editor.HUDs
         /// </summary>
         private void SetCrosshairControls()
         {
-            CbXHairHitmarker.IsEnabled = CbXHairEnable.IsChecked ?? false;
+            CbXHairPulse.IsEnabled = CbXHairEnable.IsChecked ?? false;
             CbXHairRotate.IsEnabled = CbXHairEnable.IsChecked ?? false;
             CpXHairColor.IsEnabled = CbXHairEnable.IsChecked ?? false;
             CpXHairPulse.IsEnabled = CbXHairEnable.IsChecked ?? false;
@@ -98,6 +98,11 @@ namespace TF2HUD.Editor.HUDs
         private void CbXHairEnable_OnClick(object sender, RoutedEventArgs e)
         {
             SetCrosshairControls();
+        }
+
+        private void CbXHairPulse_OnChecked(object sender, RoutedEventArgs e)
+        {
+            CpXHairPulse.IsEnabled = CbXHairPulse.IsChecked == true;
         }
 
         private void CbCustomBg_OnClick(object sender, RoutedEventArgs e)
@@ -180,12 +185,12 @@ namespace TF2HUD.Editor.HUDs
                 settings.val_xhair_style = CbXHairStyle.SelectedIndex;
                 settings.val_xhair_effect = CbXHairEffect.SelectedIndex;
                 settings.toggle_xhair_enable = CbXHairEnable.IsChecked ?? false;
-                settings.toggle_xhair_pulse = CbXHairHitmarker.IsChecked ?? false;
+                settings.toggle_xhair_pulse = CbXHairPulse.IsChecked ?? false;
                 settings.toggle_xhair_rotate = CbXHairRotate.IsChecked ?? false;
                 settings.toggle_disguise_image = CbDisguiseImage.IsChecked ?? false;
                 settings.toggle_background_stock = CbDefaultBg.IsChecked ?? false;
                 settings.toggle_background_custom = CbCustomBg.IsChecked ?? false;
-                settings.toggle_menu_images = CbMenuImages.IsChecked ?? false;
+                settings.toggle_menu_image = CbMenuImages.IsChecked ?? false;
                 settings.toggle_transparent_viewmodels = CbTransparentViewmodel.IsChecked ?? false;
                 settings.toggle_code_fonts = CbCodeProFonts.IsChecked ?? false;
                 settings.toggle_lower_stats = CbLowerPlayerStats.IsChecked ?? false;
@@ -238,12 +243,12 @@ namespace TF2HUD.Editor.HUDs
                 CbXHairStyle.SelectedIndex = settings.val_xhair_style;
                 CbXHairEffect.SelectedIndex = settings.val_xhair_effect;
                 CbXHairEnable.IsChecked = settings.toggle_xhair_enable;
-                CbXHairHitmarker.IsChecked = settings.toggle_xhair_pulse;
+                CbXHairPulse.IsChecked = settings.toggle_xhair_pulse;
                 CbXHairRotate.IsChecked = settings.toggle_xhair_rotate;
                 CbDisguiseImage.IsChecked = settings.toggle_disguise_image;
                 CbDefaultBg.IsChecked = settings.toggle_background_stock;
                 CbCustomBg.IsChecked = settings.toggle_background_custom;
-                CbMenuImages.IsChecked = settings.toggle_menu_images;
+                CbMenuImages.IsChecked = settings.toggle_menu_image;
                 CbTransparentViewmodel.IsChecked = settings.toggle_transparent_viewmodels;
                 CbCodeProFonts.IsChecked = settings.toggle_code_fonts;
                 CbLowerPlayerStats.IsChecked = settings.toggle_lower_stats;
@@ -299,7 +304,7 @@ namespace TF2HUD.Editor.HUDs
                 CbXHairStyle.SelectedIndex = 24;
                 CbXHairEffect.SelectedIndex = 0;
                 CbXHairEnable.IsChecked = false;
-                CbXHairHitmarker.IsChecked = true;
+                CbXHairPulse.IsChecked = true;
                 CbXHairRotate.IsChecked = false;
                 CbDisguiseImage.IsChecked = true;
                 CbDefaultBg.IsChecked = false;
@@ -328,20 +333,21 @@ namespace TF2HUD.Editor.HUDs
         public void ApplyHudSettings()
         {
             if (!MainMenuBackground()) return;
-            if (!MainMenuClassImage()) return;
             if (!CrosshairRotate()) return;
             if (!Colors()) return;
             if (!CodeProFonts()) return;
             if (!HealthStyle()) return;
             if (!LowerPlayerStats()) return;
             if (!AlternatePlayerStats()) return;
+            if (!Common.MainMenuClassImage(flawhud.Default.toggle_menu_image)) return;
             if (!Common.DisguiseImage(flawhud.Default.toggle_disguise_image)) return;
-            if (!Common.Crosshair(flawhud.Default.toggle_xhair_enable, CbXHairStyle.SelectedValue.ToString(),
+            if (!Common.Crosshair(flawhud.Default.toggle_xhair_enable && !flawhud.Default.toggle_xhair_rotate,
+                CbXHairStyle.SelectedValue.ToString(),
                 IntXHairSize.Value,
                 CbXHairEffect.SelectedValue.ToString())) return;
             if (!Common.TransparentViewmodels(flawhud.Default.toggle_transparent_viewmodels)) return;
-            if (Common.KillFeedRows()) return;
-            if (Common.ItemColors(GetItemColorList())) return;
+            if (!Common.KillFeedRows()) return;
+            if (!Common.ItemColors(GetItemColorList())) return;
             if (flawhud.Default.toggle_xhair_rotate)
                 RotatingCrosshairPulse();
             else
@@ -446,7 +452,7 @@ namespace TF2HUD.Editor.HUDs
                     MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
                 var start = Utilities.FindIndex(lines, "\"Crosshair\"");
-                var value = !flawhud.Default.toggle_xhair_enable || !flawhud.Default.toggle_xhair_rotate ? 0 : 1;
+                var value = flawhud.Default.toggle_xhair_enable && flawhud.Default.toggle_xhair_rotate ? 1 : 0;
                 lines[Utilities.FindIndex(lines, "\"visible\"", start)] = $"\t\t\"visible\"\t\t\t\"{value}\"";
                 lines[Utilities.FindIndex(lines, "\"enabled\"", start)] = $"\t\t\"enabled\"\t\t\t\"{value}\"";
                 start = Utilities.FindIndex(lines, "\"CrosshairPulse\"");
@@ -469,31 +475,27 @@ namespace TF2HUD.Editor.HUDs
         {
             try
             {
+                // Apply player health and ammo colors to the text instead of the panel, if enabled.
+                if (!ColorText(flawhud.Default.val_health_style == 1)) return false;
+
+                // Apply the health cross, if enabled.
                 var file = string.Format(Properties.Resources.file_playerhealth, MainWindow.HudPath,
                     MainWindow.HudSelection);
                 var lines = File.ReadAllLines(file);
-                var index = Utilities.FindIndex(lines, "image",
-                    Utilities.FindIndex(lines, "\"PlayerStatusHealthBonusImage\""));
-                lines[index] = "\t\t\"image\"\t\t\t\"\"";
+                var value = flawhud.Default.val_health_style == 2 ? "../hud/health_over_bg" : string.Empty;
+                lines[
+                        Utilities.FindIndex(lines, "image",
+                            Utilities.FindIndex(lines, "\"PlayerStatusHealthBonusImage\""))]
+                    = $"\t\t\"image\"\t\t\t\"{value}\"";
+                File.WriteAllLines(file, lines);
 
-                switch (flawhud.Default.val_health_style)
-                {
-                    case 1:
-                        if (!ColorText(true)) return false;
-                        break;
-
-                    case 2:
-                        lines[index] = "\t\t\"image\"\t\t\t\"../hud/health_over_bg\"";
-                        File.WriteAllLines(file, lines);
-
-                        file = string.Format(Properties.Resources.file_hudanimations, MainWindow.HudPath,
-                            MainWindow.HudSelection);
-                        lines = File.ReadAllLines(file);
-                        Utilities.CommentOutTextLineSuper(lines, "HudHealthBonusPulse", "HealthBG", false);
-                        Utilities.CommentOutTextLineSuper(lines, "HudHealthDyingPulse", "HealthBG", false);
-                        break;
-                }
-
+                file = string.Format(Properties.Resources.file_hudanimations, MainWindow.HudPath,
+                    MainWindow.HudSelection);
+                lines = File.ReadAllLines(file);
+                Utilities.CommentOutTextLineSuper(lines, "HudHealthBonusPulse", "HealthBG",
+                    flawhud.Default.val_health_style != 2);
+                Utilities.CommentOutTextLineSuper(lines, "HudHealthDyingPulse", "HealthBG",
+                    flawhud.Default.val_health_style != 2);
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -539,35 +541,11 @@ namespace TF2HUD.Editor.HUDs
                 }
 
                 // Update the seasonal backgrounds
-                return Common.SeasonalBackgrounds(true);
+                return Common.SeasonalBackgrounds(flawhud.Default.toggle_background_stock);
             }
             catch (Exception ex)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, Properties.Resources.error_menu_background,
-                    ex.Message);
-                return false;
-            }
-        }
-
-        /// <summary>
-        ///     Toggle main menu class images.
-        /// </summary>
-        private static bool MainMenuClassImage()
-        {
-            try
-            {
-                var file = string.Format(Properties.Resources.file_mainmenuoverride, MainWindow.HudPath,
-                    MainWindow.HudSelection);
-                var lines = File.ReadAllLines(file);
-                var value = flawhud.Default.toggle_menu_images ? "-80" : "9999";
-                lines[Utilities.FindIndex(lines, "ypos", Utilities.FindIndex(lines, "TFCharacterImage"))] =
-                    $"\t\t\"ypos\"\t\t\t\"{value}\"";
-                File.WriteAllLines(file, lines);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, Properties.Resources.error_menu_class_image,
                     ex.Message);
                 return false;
             }
@@ -716,7 +694,7 @@ namespace TF2HUD.Editor.HUDs
                 lines[Utilities.FindIndex(lines, "EngineerY", start)] =
                     $"\t\t\"EngineerY\"\t\t\t\"{(flawhud.Default.toggle_alt_stats ? "9999" : "335")}\"";
                 lines[Utilities.FindIndex(lines, "tall", start)] =
-                    $"\t\t\"tall\"\t\t\t\t\"{(flawhud.Default.toggle_alt_stats ? "9999" : "95")}\"";
+                    $"\t\t\"tall\"\t\t\t\t\"{(flawhud.Default.toggle_alt_stats ? "9999" : "f0")}\"";
                 File.WriteAllLines(file, lines);
 
                 file = string.Format(Properties.Resources.file_playerhealth, MainWindow.HudPath,

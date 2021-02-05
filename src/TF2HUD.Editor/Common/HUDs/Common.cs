@@ -47,11 +47,11 @@ namespace TF2HUD.Editor.HUDs
                 var index1 = Utilities.FindIndex(lines, "StopEvent", Utilities.FindIndex(lines, "DamagedPlayer"));
                 var index2 = Utilities.FindIndex(lines, "RunEvent", Utilities.FindIndex(lines, "DamagedPlayer"));
                 lines[index1] = enable
-                    ? Utilities.CommentOutTextLine(lines[index1])
-                    : lines[index1].Replace("//", string.Empty);
+                    ? lines[index1].Replace("//", string.Empty)
+                    : Utilities.CommentOutTextLine(lines[index1]);
                 lines[index2] = enable
-                    ? Utilities.CommentOutTextLine(lines[index2])
-                    : lines[index2].Replace("//", string.Empty);
+                    ? lines[index2].Replace("//", string.Empty)
+                    : Utilities.CommentOutTextLine(lines[index2]);
                 File.WriteAllLines(file, lines);
                 return true;
             }
@@ -115,10 +115,11 @@ namespace TF2HUD.Editor.HUDs
                 lines[index2] = $"\t\t\"enabled\"\t\t\t\"{Convert.ToInt32(enable)}\"";
                 File.WriteAllLines(file, lines);
 
-                // Copy the config file required for this feature - TODO: Consider refactoring
-                if (!enable) return true;
                 if (File.Exists(string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection)))
                     File.Delete(string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection));
+
+                // Copy the config file required for this feature
+                if (!enable) return true;
                 if (!Directory.Exists(MainWindow.HudPath + $"\\{MainWindow.HudSelection}\\cfg"))
                     Directory.CreateDirectory(MainWindow.HudPath + $"\\{MainWindow.HudSelection}\\cfg");
                 File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\hud.cfg",
@@ -291,6 +292,29 @@ namespace TF2HUD.Editor.HUDs
             catch (Exception ex)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_seasonal_backgrounds, ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Toggle main menu class images.
+        /// </summary>
+        public static bool MainMenuClassImage(bool enable)
+        {
+            try
+            {
+                var file = string.Format(Resources.file_mainmenuoverride, MainWindow.HudPath, MainWindow.HudSelection);
+                var lines = File.ReadAllLines(file);
+                var value = enable ? "-80" : "9999";
+                lines[Utilities.FindIndex(lines, "ypos", Utilities.FindIndex(lines, "TFCharacterImage"))] =
+                    $"\t\t\"ypos\"\t\t\t\"{value}\"";
+                File.WriteAllLines(file, lines);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_menu_class_image,
+                    ex.Message);
                 return false;
             }
         }
