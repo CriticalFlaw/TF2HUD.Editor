@@ -125,9 +125,9 @@ namespace TF2HUD.Editor
                 })
                 {
                     // Loop until the user provides a directory with tf/custom, unless they cancel out.
-                    while (!browser.SelectedPath.Contains("tf\\custom"))
+                    while (!browser.SelectedPath.EndsWith("tf\\custom"))
                         if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
-                            browser.SelectedPath.Contains("tf\\custom"))
+                            browser.SelectedPath.EndsWith("tf\\custom"))
                         {
                             Settings.Default.hud_directory = browser.SelectedPath;
                             Settings.Default.Save();
@@ -224,7 +224,7 @@ namespace TF2HUD.Editor
         /// </summary>
         public static bool CheckUserPath()
         {
-            return !string.IsNullOrWhiteSpace(HudPath) && HudPath.Contains("tf\\custom");
+            return !string.IsNullOrWhiteSpace(HudPath) && HudPath.EndsWith("tf\\custom");
         }
 
         /// <summary>
