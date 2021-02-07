@@ -12,6 +12,8 @@ namespace TF2HUD.Editor.Common
     public class HUD
     {
         private readonly Grid Controls = new();
+        private string[] LayoutOptions;
+        private string[][] Layout;
         public Dictionary<string, Control[]> ControlOptions;
         private bool ControlsRendered;
         public string CustomisationsFolder;
@@ -30,13 +32,23 @@ namespace TF2HUD.Editor.Common
                 : string.Empty;
             EnabledFolder = !string.IsNullOrWhiteSpace(Options.EnabledFolder) ? Options.EnabledFolder : string.Empty;
             ControlOptions = Options.Controls;
+            LayoutOptions = Options.Layout;
         }
 
         public Grid GetControls()
         {
             if (ControlsRendered) return Controls;
 
-            var Container = new StackPanel();
+            var Container = new Grid();
+            var TitleRowDefinition = new RowDefinition();
+            TitleRowDefinition.Height = GridLength.Auto;
+            Container.RowDefinitions.Add(TitleRowDefinition);
+            var ContentRowDefinition = new RowDefinition();
+            if (Layout != null)
+            {
+                ContentRowDefinition.Height = GridLength.Auto;
+            }
+            Container.RowDefinitions.Add(ContentRowDefinition);
 
             // Title
             var CustomiserTitle = new Label();
@@ -46,23 +58,59 @@ namespace TF2HUD.Editor.Common
             Grid.SetRow(CustomiserTitle, 0);
             Container.Children.Add(CustomiserTitle);
 
-            var SectionsContainer = new WrapPanel();
-            SectionsContainer.Orientation = Orientation.Vertical;
+            if (LayoutOptions != null)
+            {
+                // Splits Layout string[] into 2D Array using \s+
+                var TempLayout = new List<string[]>();
+                for (int i = 0; i < LayoutOptions.Length; i++)
+                {
+                    TempLayout.Add(Regex.Split(LayoutOptions[i], "\\s+"));
+                }
+                Layout = TempLayout.ToArray();
+            }
+
+            // ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic
+            dynamic SectionsContainer;
+            if (Layout != null)
+            {
+                SectionsContainer = new Grid();
+                // Assume that all row arrays are the same length, use column information from Layout[0]
+                for (int i = 0; i < Layout[0].Length; i++)
+                {
+                    SectionsContainer.ColumnDefinitions.Add(new ColumnDefinition());
+                }
+                for (int i = 0; i < Layout.Length; i++)
+                {
+                    SectionsContainer.RowDefinitions.Add(new RowDefinition());
+                }
+            }
+            else
+            {
+                // If no layout is provided, wrap GroupPanels to space
+                SectionsContainer = new WrapPanel();
+                SectionsContainer.Orientation = Orientation.Vertical;
+            }
+
             SectionsContainer.MaxWidth = 1270;
             SectionsContainer.MaxHeight = 720;
-            Grid.SetColumn(SectionsContainer, 0);
             Grid.SetRow(SectionsContainer, 1);
 
             var lastMargin = new Thickness(10, 2, 0, 0);
             var lastTop = lastMargin.Top;
 
+            int GroupBoxIndex = 0;
             foreach (var Section in ControlOptions.Keys)
             {
                 var SectionContainer = new GroupBox();
                 SectionContainer.Header = Section;
                 SectionContainer.Margin = new Thickness(5);
+                SectionContainer.HorizontalAlignment = HorizontalAlignment.Stretch;
 
-                var SectionContent = new StackPanel();
+                Panel SectionContent = new StackPanel();
+                if (Layout != null)
+                {
+                    SectionContent = new WrapPanel();
+                }
                 SectionContent.Margin = new Thickness(5);
 
                 foreach (var ControlItem in ControlOptions[Section])
@@ -97,6 +145,7 @@ namespace TF2HUD.Editor.Common
                         case "Color":
                         case "Colour":
                         case "ColorPicker":
+                        case "ColourPicker":
                             var ColourInputContainer = new StackPanel();
                             ColourInputContainer.Margin = new Thickness(10, lastTop, 0, 10);
                             var ColoutInputLabel = new Label();
@@ -182,7 +231,61 @@ namespace TF2HUD.Editor.Common
                 }
 
                 SectionContainer.Content = SectionContent;
+
+                if (Layout != null)
+                {
+                    for (int i = 0; i < Layout.Length; i++)
+                    {
+                        for (int j = 0; j < Layout[i].Length; j++)
+                        {
+                            // Avoid evaluating unnecessarily
+                            bool GroupBoxItemEvaluated = false;
+
+                            // Allow index and grid area for grid coordinates
+                            if (GroupBoxIndex.ToString() == Layout[i][j] || Section == Layout[i][j])
+                            {
+                                // Dont set column or row if it has already been set
+                                // setting the column/row every time will break spans
+                                if (Grid.GetColumn(SectionContainer) == 0)
+                                {
+                                    Grid.SetColumn(SectionContainer, j);
+                                    System.Diagnostics.Debug.WriteLine($"GroupBox {Section} starts at column {j}");
+                                }
+                                if (Grid.GetRow(SectionContainer) == 0)
+                                {
+                                    Grid.SetRow(SectionContainer, i);
+                                    System.Diagnostics.Debug.WriteLine($"GroupBox {Section} starts at row {i}");
+                                }
+
+                                // These are not optimal speed but the code should be easier to understand:
+                                // Counts the occurences of the current item id/index
+                                int ColumnSpan = 0;
+                                // Iterate current row 
+                                for (int TempColumnIndex = 0; TempColumnIndex < Layout[i].Length; TempColumnIndex++)
+                                {
+                                    if (GroupBoxIndex.ToString() == Layout[i][TempColumnIndex] || Section == Layout[i][TempColumnIndex])
+                                    {
+                                        ColumnSpan++;
+                                    }
+                                }
+                                Grid.SetColumnSpan(SectionContainer, ColumnSpan);
+                                System.Diagnostics.Debug.WriteLine($"GroupBox {GroupBoxIndex} spans {ColumnSpan} rows");
+
+                                // Break parent loop
+                                GroupBoxItemEvaluated = true;
+                                break;
+                            }
+
+                            if (GroupBoxItemEvaluated)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 SectionsContainer.Children.Add(SectionContainer);
+                GroupBoxIndex++;
             }
 
             Container.Children.Add(SectionsContainer);
@@ -208,6 +311,8 @@ namespace TF2HUD.Editor.Common
         public string CustomisationsFolder;
 
         [JsonPropertyName("EnabledFolder")] public string EnabledFolder;
+
+        [JsonPropertyName("Layout")] public string[] Layout;
 
         [JsonPropertyName("UpdateUrl")] public string UpdateUrl;
     }

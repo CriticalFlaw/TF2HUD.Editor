@@ -76,9 +76,9 @@
             </Grid>
         </GroupBox>
         <!-- Editor Custom Controls -->
-        <WrapPanel Name="EditorContainer">
+        <Grid Name="EditorContainer">
             <!-- Content goes here -->
-        </WrapPanel>
+        </Grid>
         <local:FlawHUD x:Name="GuiFlawHud" Visibility="Hidden" Margin="10,10,10,50" />
         <local:rayshud x:Name="GuiRaysHud" Visibility="Hidden" Grid.ColumnSpan="2" />
         <!-- HUD Status -->
