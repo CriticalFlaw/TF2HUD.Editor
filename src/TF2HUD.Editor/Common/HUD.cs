@@ -83,6 +83,7 @@ namespace TF2HUD.Editor.Common
                 {
                     SectionsContainer.RowDefinitions.Add(new RowDefinition());
                 }
+                SectionsContainer.VerticalAlignment = VerticalAlignment.Top;
             }
             else
             {
@@ -105,6 +106,7 @@ namespace TF2HUD.Editor.Common
                 SectionContainer.Header = Section;
                 SectionContainer.Margin = new Thickness(5);
                 SectionContainer.HorizontalAlignment = HorizontalAlignment.Stretch;
+                SectionContainer.VerticalAlignment = VerticalAlignment.Stretch;
 
                 Panel SectionContent = new StackPanel();
                 if (Layout != null)
@@ -148,9 +150,9 @@ namespace TF2HUD.Editor.Common
                         case "ColourPicker":
                             var ColourInputContainer = new StackPanel();
                             ColourInputContainer.Margin = new Thickness(10, lastTop, 0, 10);
-                            var ColoutInputLabel = new Label();
-                            ColoutInputLabel.Content = Label;
-                            ColoutInputLabel.FontSize = 16;
+                            var ColourInputLabel = new Label();
+                            ColourInputLabel.Content = Label;
+                            ColourInputLabel.FontSize = 16;
                             var ColourInput = new ColorPicker();
                             try
                             {
@@ -162,7 +164,7 @@ namespace TF2HUD.Editor.Common
                                 ColourInput.SelectedColor = Color.FromArgb(255, 0, 255, 0);
                             }
 
-                            ColourInputContainer.Children.Add(ColoutInputLabel);
+                            ColourInputContainer.Children.Add(ColourInputLabel);
                             ColourInputContainer.Children.Add(ColourInput);
                             SectionContent.Children.Add(ColourInputContainer);
                             break;
@@ -234,27 +236,25 @@ namespace TF2HUD.Editor.Common
 
                 if (Layout != null)
                 {
+                    // Avoid evaluating unnecessarily
+                    bool GroupBoxItemEvaluated = false;
+
                     for (int i = 0; i < Layout.Length; i++)
                     {
                         for (int j = 0; j < Layout[i].Length; j++)
                         {
-                            // Avoid evaluating unnecessarily
-                            bool GroupBoxItemEvaluated = false;
-
                             // Allow index and grid area for grid coordinates
-                            if (GroupBoxIndex.ToString() == Layout[i][j] || Section == Layout[i][j])
+                            if (GroupBoxIndex.ToString() == Layout[i][j] || Section == Layout[i][j] && !GroupBoxItemEvaluated)
                             {
                                 // Dont set column or row if it has already been set
                                 // setting the column/row every time will break spans
                                 if (Grid.GetColumn(SectionContainer) == 0)
                                 {
                                     Grid.SetColumn(SectionContainer, j);
-                                    System.Diagnostics.Debug.WriteLine($"GroupBox {Section} starts at column {j}");
                                 }
                                 if (Grid.GetRow(SectionContainer) == 0)
                                 {
                                     Grid.SetRow(SectionContainer, i);
-                                    System.Diagnostics.Debug.WriteLine($"GroupBox {Section} starts at row {i}");
                                 }
 
                                 // These are not optimal speed but the code should be easier to understand:
@@ -269,7 +269,16 @@ namespace TF2HUD.Editor.Common
                                     }
                                 }
                                 Grid.SetColumnSpan(SectionContainer, ColumnSpan);
-                                System.Diagnostics.Debug.WriteLine($"GroupBox {GroupBoxIndex} spans {ColumnSpan} rows");
+
+                                int RowSpan = 0;
+                                for (int TempRowIndex = 0; TempRowIndex < Layout.Length; TempRowIndex++)
+                                {
+                                    if (GroupBoxIndex.ToString() == Layout[TempRowIndex][j] || Section == Layout[TempRowIndex][j])
+                                    {
+                                        RowSpan++;
+                                    }
+                                }
+                                Grid.SetRowSpan(SectionContainer, RowSpan);
 
                                 // Break parent loop
                                 GroupBoxItemEvaluated = true;
