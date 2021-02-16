@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
 namespace TF2HUD.Editor.Common
@@ -23,10 +24,10 @@ namespace TF2HUD.Editor.Common
             {
                 // Extracts HUD name from the file path
                 var HUDArray = HUDPath.Split("\\");
-                var FileName = HUDArray[HUDArray.Length - 1];
+                var FileName = HUDArray[^1];
                 var FileInfo = FileName.Split(".");
                 var HUDName = FileInfo[0];
-                var Extension = FileInfo[FileInfo.Length - 1];
+                var Extension = FileInfo[^1];
                 if (Extension == "json")
                 {
                     var json = new StreamReader(File.OpenRead(HUDPath), new UTF8Encoding(false)).ReadToEnd();
@@ -47,4 +48,21 @@ namespace TF2HUD.Editor.Common
             throw new Exception("Cannot find HUD " + HUDName + "!");
         }
     }
+
+    #region MODEL
+
+    public class UserSettings
+    {
+        [JsonPropertyName("Settings")] public List<Setting> Settings { get; set; }
+    }
+
+    public class Setting
+    {
+        [JsonPropertyName("HUD")] public string HUD { get; set; }
+        [JsonPropertyName("Name")] public string Name { get; set; }
+        [JsonPropertyName("Type")] public string Type { get; set; }
+        [JsonPropertyName("Value")] public string Value { get; set; }
+    }
+
+    #endregion
 }

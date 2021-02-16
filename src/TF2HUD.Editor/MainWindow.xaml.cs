@@ -299,6 +299,7 @@ namespace TF2HUD.Editor
                     Dispatcher.Invoke(() =>
                     {
                         // Step 1. Download the HUD
+                        // TODO: Migrate xaml-based HUDs to pull download URL from their own json file.
                         Logger.Info($"Downloading the latest {HudSelection}...");
                         switch (HudSelection)
                         {
@@ -308,6 +309,10 @@ namespace TF2HUD.Editor
 
                             case "rayshud":
                                 DownloadHud(Properties.Resources.download_rayshud);
+                                break;
+
+                            default:
+                                Json.GetHUDByName(Settings.Default.hud_selected).Update();
                                 break;
                         }
 
@@ -337,6 +342,13 @@ namespace TF2HUD.Editor
                             case "rayshud":
                                 GuiRaysHud.SaveHudSettings();
                                 GuiRaysHud.ApplyHudSettings();
+                                break;
+
+                            default:
+                                var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+                                selection.Save();
+                                EditorContainer.Children.Clear();
+                                EditorContainer.Children.Add(selection.GetControls());
                                 break;
                         }
 
@@ -408,6 +420,11 @@ namespace TF2HUD.Editor
                             GuiRaysHud.SaveHudSettings();
                             GuiRaysHud.ApplyHudSettings();
                             break;
+
+                        default:
+                            var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+                            selection.Save();
+                            break;
                     }
                 });
             };
@@ -429,6 +446,13 @@ namespace TF2HUD.Editor
 
                 case "rayshud":
                     GuiRaysHud.ResetHudSettings();
+                    break;
+
+                default:
+                    var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+                    // BUG: Doesn't actually clear the elements, so they stack over each other?
+                    EditorContainer.Children.Clear();
+                    EditorContainer.Children.Add(selection.GetControls());
                     break;
             }
 
@@ -488,6 +512,7 @@ namespace TF2HUD.Editor
                         var selection = Json.GetHUDByName(Settings.Default.hud_selected);
                         EditorContainer.Children.Clear();
                         EditorContainer.Children.Add(selection.GetControls());
+                        selection.Load();
                     }
                     catch (Exception error)
                     {

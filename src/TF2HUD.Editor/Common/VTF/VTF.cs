@@ -36,7 +36,7 @@ namespace TF2HUD.Editor.Common
 
             // Create absolute path to output folder and make directory
             var pathInfo = outFile.Split('\\', '/');
-            pathInfo[pathInfo.Length - 1] = "";
+            pathInfo[^1] = "";
             Directory.CreateDirectory(string.Join("\\", pathInfo));
 
             // Make a backup of the existing background files.

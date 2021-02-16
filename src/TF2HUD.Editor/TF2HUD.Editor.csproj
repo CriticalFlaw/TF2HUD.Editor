@@ -107,6 +107,9 @@
     <None Update="Common\HUDs\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Common\settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\flawhud.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>flawhud.Designer.cs</LastGenOutput>

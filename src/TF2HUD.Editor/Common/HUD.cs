@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Newtonsoft.Json;
 using Xceed.Wpf.Toolkit;
 
 namespace TF2HUD.Editor.Common
@@ -12,293 +15,318 @@ namespace TF2HUD.Editor.Common
     public class HUD
     {
         private readonly Grid Controls = new();
-        private string[] LayoutOptions;
-        private string[][] Layout;
+        public Dictionary<string, Type> ConstrolList = new();
         public Dictionary<string, Control[]> ControlOptions;
         private bool ControlsRendered;
         public string CustomisationsFolder;
         public string Default;
         public string EnabledFolder;
+        private string[][] Layout;
+        private readonly string[] LayoutOptions;
         public string Name;
         public string UpdateUrl;
 
-        public HUD(string Name, HUDRoot Options)
+        public HUD(string name, HUDRoot options)
         {
             // Validate properties from JSON
-            this.Name = Name;
-            UpdateUrl = !string.IsNullOrWhiteSpace(Options.UpdateUrl) ? Options.UpdateUrl : string.Empty;
-            CustomisationsFolder = !string.IsNullOrWhiteSpace(Options.CustomisationsFolder)
-                ? Options.CustomisationsFolder
+            this.Name = name;
+            UpdateUrl = !string.IsNullOrWhiteSpace(options.UpdateUrl) ? options.UpdateUrl : string.Empty;
+            CustomisationsFolder = !string.IsNullOrWhiteSpace(options.CustomisationsFolder)
+                ? options.CustomisationsFolder
                 : string.Empty;
-            EnabledFolder = !string.IsNullOrWhiteSpace(Options.EnabledFolder) ? Options.EnabledFolder : string.Empty;
-            ControlOptions = Options.Controls;
-            LayoutOptions = Options.Layout;
+            EnabledFolder = !string.IsNullOrWhiteSpace(options.EnabledFolder) ? options.EnabledFolder : string.Empty;
+            ControlOptions = options.Controls;
+            LayoutOptions = options.Layout;
         }
 
         public Grid GetControls()
         {
-            if (ControlsRendered) return Controls;
-
-            var Container = new Grid();
-            var TitleRowDefinition = new RowDefinition();
-            TitleRowDefinition.Height = GridLength.Auto;
-            Container.RowDefinitions.Add(TitleRowDefinition);
-            var ContentRowDefinition = new RowDefinition();
-            if (Layout != null)
+            if (ControlsRendered)
             {
-                ContentRowDefinition.Height = GridLength.Auto;
+                Load();
+                return Controls;
             }
-            Container.RowDefinitions.Add(ContentRowDefinition);
+
+            var container = new Grid();
+            var titleRowDefinition = new RowDefinition
+            {
+                Height = GridLength.Auto
+            };
+            var contentRowDefinition = new RowDefinition();
+            if (Layout != null) contentRowDefinition.Height = GridLength.Auto;
+            container.RowDefinitions.Add(titleRowDefinition);
+            container.RowDefinitions.Add(contentRowDefinition);
 
             // Title
-            var CustomiserTitle = new Label();
-            CustomiserTitle.Content = Name;
-            CustomiserTitle.FontSize = 35;
-            CustomiserTitle.Margin = new Thickness(10, 10, 0, 0);
-            Grid.SetRow(CustomiserTitle, 0);
-            Container.Children.Add(CustomiserTitle);
+            var pageTitle = new Label
+            {
+                Content = Name,
+                FontSize = 35,
+                Margin = new Thickness(10, 10, 0, 0)
+            };
+            Grid.SetRow(pageTitle, 0);
+            container.Children.Add(pageTitle);
 
             if (LayoutOptions != null)
-            {
                 // Splits Layout string[] into 2D Array using \s+
-                var TempLayout = new List<string[]>();
-                for (int i = 0; i < LayoutOptions.Length; i++)
-                {
-                    TempLayout.Add(Regex.Split(LayoutOptions[i], "\\s+"));
-                }
-                Layout = TempLayout.ToArray();
-            }
+                Layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
 
             // ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic
-            dynamic SectionsContainer;
+            dynamic sectionsContainer;
             if (Layout != null)
             {
-                SectionsContainer = new Grid();
+                sectionsContainer = new Grid();
                 // Assume that all row arrays are the same length, use column information from Layout[0]
-                for (int i = 0; i < Layout[0].Length; i++)
-                {
-                    SectionsContainer.ColumnDefinitions.Add(new ColumnDefinition());
-                }
-                for (int i = 0; i < Layout.Length; i++)
-                {
-                    SectionsContainer.RowDefinitions.Add(new RowDefinition());
-                }
-                SectionsContainer.VerticalAlignment = VerticalAlignment.Top;
+                for (var i = 0; i < Layout[0].Length; i++)
+                    sectionsContainer.ColumnDefinitions.Add(new ColumnDefinition());
+                for (var i = 0; i < Layout.Length; i++) sectionsContainer.RowDefinitions.Add(new RowDefinition());
+                sectionsContainer.VerticalAlignment = VerticalAlignment.Top;
             }
             else
             {
                 // If no layout is provided, wrap GroupPanels to space
-                SectionsContainer = new WrapPanel();
-                SectionsContainer.Orientation = Orientation.Vertical;
+                sectionsContainer = new WrapPanel();
+                sectionsContainer.Orientation = Orientation.Vertical;
             }
 
-            SectionsContainer.MaxWidth = 1270;
-            SectionsContainer.MaxHeight = 720;
-            Grid.SetRow(SectionsContainer, 1);
+            sectionsContainer.MaxWidth = 1270;
+            sectionsContainer.MaxHeight = 720;
+            Grid.SetRow(sectionsContainer, 1);
 
             var lastMargin = new Thickness(10, 2, 0, 0);
             var lastTop = lastMargin.Top;
 
-            int GroupBoxIndex = 0;
-            foreach (var Section in ControlOptions.Keys)
+            var groupBoxIndex = 0;
+            foreach (var section in ControlOptions.Keys)
             {
-                var SectionContainer = new GroupBox();
-                SectionContainer.Header = Section;
-                SectionContainer.Margin = new Thickness(5);
-                SectionContainer.HorizontalAlignment = HorizontalAlignment.Stretch;
-                SectionContainer.VerticalAlignment = VerticalAlignment.Stretch;
-
-                Panel SectionContent = new StackPanel();
-                if (Layout != null)
+                var sectionContainer = new GroupBox
                 {
-                    SectionContent = new WrapPanel();
-                }
-                SectionContent.Margin = new Thickness(5);
+                    Header = section,
+                    Margin = new Thickness(5),
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Stretch
+                };
 
-                foreach (var ControlItem in ControlOptions[Section])
+                Panel sectionContent = new StackPanel();
+                if (Layout != null) sectionContent = new WrapPanel();
+                sectionContent.Margin = new Thickness(5);
+
+                foreach (var controlItem in ControlOptions[section])
                 {
-                    var Label = ControlItem.Label;
-                    var Type = ControlItem.Type;
-                    //var File = ControlItem.File;
-                    var Default = ControlItem.Default;
+                    var id = controlItem.Tag;
+                    var label = controlItem.Label;
+                    var type = controlItem.Type;
+                    //var file = ControlItem.File;
+                    var value = controlItem.Default;
 
-                    switch (Type)
+                    switch (type)
                     {
                         case "Char":
-                            var CharInputContainer = new WrapPanel();
-                            CharInputContainer.Margin = new Thickness(10, lastTop, 0, 0);
-                            var CharInputLabel = new Label();
-                            CharInputLabel.Content = Label;
-                            var CharInput = new TextBox();
-                            CharInput.Width = 60;
-                            CharInput.PreviewTextInput += (sender, e) => { e.Handled = CharInput.Text != ""; };
-                            CharInputContainer.Children.Add(CharInputLabel);
-                            CharInputContainer.Children.Add(CharInput);
-                            SectionContent.Children.Add(CharInputContainer);
+                            var charContainer = new WrapPanel
+                            {
+                                Margin = new Thickness(10, lastTop, 0, 0)
+                            };
+                            var charLabel = new Label
+                            {
+                                Content = label
+                            };
+                            var charInput = new TextBox
+                            {
+                                Name = id,
+                                Width = 60
+                            };
+                            charInput.PreviewTextInput += (sender, e) => e.Handled = charInput.Text != "";
+                            charContainer.Children.Add(charLabel);
+                            charContainer.Children.Add(charInput);
+                            sectionContent.Children.Add(charContainer);
+                            ConstrolList.Add(charInput.Name, charInput.GetType());
                             break;
+
                         case "Checkbox":
-                            var cbCustomisation = new CheckBox();
-                            cbCustomisation.Content = Label;
-                            cbCustomisation.Margin = new Thickness(10, lastTop + 10, 0, 0);
-                            lastMargin = cbCustomisation.Margin;
-                            cbCustomisation.IsChecked = ControlItem.Default == "1";
-                            SectionContent.Children.Add(cbCustomisation);
+                            var checkBoxInput = new CheckBox
+                            {
+                                Name = id,
+                                Content = label,
+                                Margin = new Thickness(10, lastTop + 10, 0, 0),
+                                IsChecked = controlItem.Default == "1"
+                            };
+                            lastMargin = checkBoxInput.Margin;
+                            sectionContent.Children.Add(checkBoxInput);
+                            ConstrolList.Add(checkBoxInput.Name, checkBoxInput.GetType());
                             break;
+
                         case "Color":
                         case "Colour":
                         case "ColorPicker":
                         case "ColourPicker":
-                            var ColourInputContainer = new StackPanel();
-                            ColourInputContainer.Margin = new Thickness(10, lastTop, 0, 10);
-                            var ColourInputLabel = new Label();
-                            ColourInputLabel.Content = Label;
-                            ColourInputLabel.FontSize = 16;
-                            var ColourInput = new ColorPicker();
+                            var colorContainer = new StackPanel
+                            {
+                                Margin = new Thickness(10, lastTop, 0, 10)
+                            };
+                            var colorLabel = new Label
+                            {
+                                Content = label,
+                                FontSize = 16
+                            };
+                            var colorInput = new ColorPicker
+                            {
+                                Name = id
+                            };
                             try
                             {
-                                ColourInput.SelectedColor =
-                                    (Color) new ColorConverter().ConvertFrom(ControlItem.Default);
+                                colorInput.SelectedColor =
+                                    (Color) new ColorConverter().ConvertFrom(controlItem.Default);
                             }
                             catch
                             {
-                                ColourInput.SelectedColor = Color.FromArgb(255, 0, 255, 0);
+                                colorInput.SelectedColor = Color.FromArgb(255, 0, 255, 0);
                             }
 
-                            ColourInputContainer.Children.Add(ColourInputLabel);
-                            ColourInputContainer.Children.Add(ColourInput);
-                            SectionContent.Children.Add(ColourInputContainer);
+                            colorContainer.Children.Add(colorLabel);
+                            colorContainer.Children.Add(colorInput);
+                            sectionContent.Children.Add(colorContainer);
+                            ConstrolList.Add(colorInput.Name, colorInput.GetType());
                             break;
+
                         case "DropDown":
                         case "DropDownMenu":
                         case "Select":
                         case "ComboBox":
-                            var ComboBoxContainer = new StackPanel();
-                            ComboBoxContainer.Margin = new Thickness(10, lastTop, 0, 10);
-                            var ComboBoxLabel = new Label();
-                            ComboBoxLabel.Content = Label;
-                            ComboBoxLabel.FontSize = 16;
-                            var ComboBoxCustomisation = new ComboBox();
-                            if (ControlItem.Options == null) break;
-                            if (ControlItem.Options.Length <= 0) break;
-                            foreach (var option in ControlItem.Options)
+                            var comboBoxContainer = new StackPanel
                             {
+                                Margin = new Thickness(10, lastTop, 0, 10)
+                            };
+                            var comboBoxLabel = new Label
+                            {
+                                Content = label,
+                                FontSize = 16
+                            };
+                            if (controlItem.Options == null) break;
+                            if (controlItem.Options.Length <= 0) break;
+                            var comboBoxInput = new ComboBox
+                            {
+                                Name = id,
+                                SelectedIndex = int.TryParse(controlItem.Default, out var index) ? index : 1
+                            };
+                            foreach (var option in controlItem.Options)
+                            {
+                                // TOOD: Add the display value and actual value.
                                 var OptionLabel = option.Label;
                                 var OptionValue = option.Value;
-                                ComboBoxCustomisation.Items.Add(OptionLabel);
+                                comboBoxInput.Items.Add(OptionLabel);
                             }
 
-                            ComboBoxCustomisation.SelectedIndex =
-                                int.TryParse(ControlItem.Default, out var index) ? index : 1;
-                            ComboBoxContainer.Children.Add(ComboBoxLabel);
-                            ComboBoxContainer.Children.Add(ComboBoxCustomisation);
-
-                            ComboBoxContainer.Margin = new Thickness(10, lastTop, 0, 10);
-                            SectionContent.Children.Add(ComboBoxContainer);
+                            comboBoxContainer.Children.Add(comboBoxLabel);
+                            comboBoxContainer.Children.Add(comboBoxInput);
+                            sectionContent.Children.Add(comboBoxContainer);
+                            ConstrolList.Add(comboBoxInput.Name, comboBoxInput.GetType());
                             break;
+
                         case "Number":
-                            var NumberInputContainer = new WrapPanel();
-                            NumberInputContainer.Margin = new Thickness(10, lastTop, 0, 0);
-                            var NumberInputLabel = new Label();
-                            NumberInputLabel.Content = Label;
-                            var NumberInput = new TextBox();
-                            NumberInput.Width = 60;
-                            NumberInput.PreviewTextInput += (sender, e) =>
+                            var numberContainer = new WrapPanel
+                            {
+                                Margin = new Thickness(10, lastTop, 0, 0)
+                            };
+                            var numberLabel = new Label
+                            {
+                                Content = label
+                            };
+                            var numberInput = new TextBox
+                            {
+                                Name = id,
+                                Width = 60
+                            };
+                            numberInput.PreviewTextInput += (sender, e) =>
                             {
                                 e.Handled = !Regex.IsMatch(e.Text, "\\d");
                             };
-                            NumberInputContainer.Children.Add(NumberInputLabel);
-                            NumberInputContainer.Children.Add(NumberInput);
-                            SectionContent.Children.Add(NumberInputContainer);
+                            numberContainer.Children.Add(numberLabel);
+                            numberContainer.Children.Add(numberInput);
+                            sectionContent.Children.Add(numberContainer);
+                            ConstrolList.Add(numberInput.Name, numberInput.GetType());
                             break;
+
                         case "IntegerUpDown":
-                            var IntegerInputContainer = new StackPanel();
-                            IntegerInputContainer.Margin = new Thickness(10, lastTop, 0, 10);
-                            var IntegerInputLabel = new Label();
-                            IntegerInputLabel.Content = Label;
-                            IntegerInputLabel.FontSize = 16;
-                            var IntegerInput = new IntegerUpDown();
-                            IntegerInput.Value = int.TryParse(ControlItem.Default, out index) ? index : 0;
-                            IntegerInput.Minimum = ControlItem.Minimum;
-                            IntegerInput.Maximum = ControlItem.Maximum;
-                            IntegerInput.Increment = ControlItem.Increment;
-                            IntegerInputContainer.Children.Add(IntegerInputLabel);
-                            IntegerInputContainer.Children.Add(IntegerInput);
-                            SectionContent.Children.Add(IntegerInputContainer);
+                            var integerContainer = new StackPanel
+                            {
+                                Margin = new Thickness(10, lastTop, 0, 10)
+                            };
+                            var integerLabel = new Label
+                            {
+                                Content = label,
+                                FontSize = 16
+                            };
+                            var integerInput = new IntegerUpDown
+                            {
+                                Name = id,
+                                Value = int.TryParse(controlItem.Default, out index) ? index : 0,
+                                Minimum = controlItem.Minimum,
+                                Maximum = controlItem.Maximum,
+                                Increment = controlItem.Increment
+                            };
+                            integerContainer.Children.Add(integerLabel);
+                            integerContainer.Children.Add(integerInput);
+                            sectionContent.Children.Add(integerContainer);
+                            ConstrolList.Add(integerInput.Name, integerInput.GetType());
                             break;
+
                         default:
-                            throw new Exception($"Type {Type} is not a valid type!");
+                            throw new Exception($"Type {type} is not a valid type!");
                     }
 
                     // lastTop = lastMargin.Top + 10;
                 }
 
-                SectionContainer.Content = SectionContent;
+                sectionContainer.Content = sectionContent;
 
                 if (Layout != null)
                 {
                     // Avoid evaluating unnecessarily
-                    bool GroupBoxItemEvaluated = false;
+                    var groupBoxItemEvaluated = false;
 
-                    for (int i = 0; i < Layout.Length; i++)
+                    for (var i = 0; i < Layout.Length; i++)
+                    for (var j = 0; j < Layout[i].Length; j++)
                     {
-                        for (int j = 0; j < Layout[i].Length; j++)
+                        // Allow index and grid area for grid coordinates
+                        if (groupBoxIndex.ToString() == Layout[i][j] ||
+                            section == Layout[i][j] && !groupBoxItemEvaluated)
                         {
-                            // Allow index and grid area for grid coordinates
-                            if (GroupBoxIndex.ToString() == Layout[i][j] || Section == Layout[i][j] && !GroupBoxItemEvaluated)
-                            {
-                                // Dont set column or row if it has already been set
-                                // setting the column/row every time will break spans
-                                if (Grid.GetColumn(SectionContainer) == 0)
-                                {
-                                    Grid.SetColumn(SectionContainer, j);
-                                }
-                                if (Grid.GetRow(SectionContainer) == 0)
-                                {
-                                    Grid.SetRow(SectionContainer, i);
-                                }
+                            // Don't set column or row if it has already been set
+                            // setting the column/row every time will break spans
+                            if (Grid.GetColumn(sectionContainer) == 0) Grid.SetColumn(sectionContainer, j);
+                            if (Grid.GetRow(sectionContainer) == 0) Grid.SetRow(sectionContainer, i);
 
-                                // These are not optimal speed but the code should be easier to understand:
-                                // Counts the occurences of the current item id/index
-                                int ColumnSpan = 0;
-                                // Iterate current row 
-                                for (int TempColumnIndex = 0; TempColumnIndex < Layout[i].Length; TempColumnIndex++)
-                                {
-                                    if (GroupBoxIndex.ToString() == Layout[i][TempColumnIndex] || Section == Layout[i][TempColumnIndex])
-                                    {
-                                        ColumnSpan++;
-                                    }
-                                }
-                                Grid.SetColumnSpan(SectionContainer, ColumnSpan);
+                            // These are not optimal speed but the code should be easier to understand:
+                            // Counts the occurrences of the current item id/index
+                            var columnSpan = 0;
+                            // Iterate current row
+                            for (var index = 0; index < Layout[i].Length; index++)
+                                if (groupBoxIndex.ToString() == Layout[i][index] || section == Layout[i][index])
+                                    columnSpan++;
+                            Grid.SetColumnSpan(sectionContainer, columnSpan);
 
-                                int RowSpan = 0;
-                                for (int TempRowIndex = 0; TempRowIndex < Layout.Length; TempRowIndex++)
-                                {
-                                    if (GroupBoxIndex.ToString() == Layout[TempRowIndex][j] || Section == Layout[TempRowIndex][j])
-                                    {
-                                        RowSpan++;
-                                    }
-                                }
-                                Grid.SetRowSpan(SectionContainer, RowSpan);
+                            var rowSpan = 0;
+                            for (var TempRowIndex = 0; TempRowIndex < Layout.Length; TempRowIndex++)
+                                if (groupBoxIndex.ToString() == Layout[TempRowIndex][j] ||
+                                    section == Layout[TempRowIndex][j])
+                                    rowSpan++;
+                            Grid.SetRowSpan(sectionContainer, rowSpan);
 
-                                // Break parent loop
-                                GroupBoxItemEvaluated = true;
-                                break;
-                            }
-
-                            if (GroupBoxItemEvaluated)
-                            {
-                                break;
-                            }
+                            // Break parent loop
+                            groupBoxItemEvaluated = true;
+                            break;
                         }
+
+                        if (groupBoxItemEvaluated) break;
                     }
                 }
 
-                SectionsContainer.Children.Add(SectionContainer);
-                GroupBoxIndex++;
+                sectionsContainer.Children.Add(sectionContainer);
+                groupBoxIndex++;
             }
 
-            Container.Children.Add(SectionsContainer);
-            Controls.Children.Add(Container);
+            container.Children.Add(sectionsContainer);
+            Controls.Children.Add(container);
 
             ControlsRendered = true;
             return Controls;
@@ -307,6 +335,130 @@ namespace TF2HUD.Editor.Common
         public void Update()
         {
             if (UpdateUrl != null) MainWindow.DownloadHud(UpdateUrl);
+        }
+
+        public void Save()
+        {
+            try
+            {
+                // TODO: If the json has a duplicate key, this process fails. The json will need to be validated before we get to this point.
+                var grid = (WrapPanel) ((Grid) Controls.Children[0]).Children[1];
+                for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
+                    if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
+                    {
+                        var panel = (StackPanel) groupBox.Content;
+                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount(panel); y++)
+                        {
+                            var control = (Visual) VisualTreeHelper.GetChild(panel, y);
+                            switch (control)
+                            {
+                                case TextBox text:
+                                    UpdateJson(text.Name, text.Text);
+                                    break;
+                                case CheckBox check:
+                                    UpdateJson(check.Name, check.IsChecked == true ? "1" : "0");
+                                    break;
+                                case ColorPicker color:
+                                    UpdateJson(color.Name, color.SelectedColor.ToString());
+                                    break;
+                                case ComboBox combo:
+                                    UpdateJson(combo.Name, combo.SelectedIndex.ToString());
+                                    break;
+                                case IntegerUpDown integer:
+                                    UpdateJson(integer.Name, integer.Text);
+                                    break;
+                            }
+                        }
+                    }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public void Load()
+        {
+            try
+            {
+                // TODO: If the json has a duplicate key, this process fails. The json will need to be validated before we get to this point.
+                var grid = (WrapPanel)((Grid)Controls.Children[0]).Children[1];
+                for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
+                    if ((Visual)VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
+                    {
+                        var panel = (StackPanel)groupBox.Content;
+                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount(panel); y++)
+                        {
+                            var control = (Visual)VisualTreeHelper.GetChild(panel, y);
+                            switch (control)
+                            {
+                                case TextBox text:
+                                    text.Text = ReadFromJson(text.Name, control);
+                                    break;
+                                case CheckBox check:
+                                    check.IsChecked = ReadFromJson(check.Name, control);
+                                    break;
+                                case ColorPicker color:
+                                    color.SelectedColor = ReadFromJson(color.Name, control);
+                                    break;
+                                case ComboBox combo:
+                                    combo.SelectedIndex = ReadFromJson(combo.Name, control); ;
+                                    break;
+                                case IntegerUpDown integer:
+                                    integer.Text = ReadFromJson(integer.Name, control);
+                                    break;
+                            }
+                        }
+                    }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public bool UpdateJson(string key, string value)
+        {
+            try
+            {
+                var json = JsonConvert.DeserializeObject<UserSettings>(File.ReadAllText("Common//settings.json"));
+                json.Settings.Where(x => x.HUD == Name).First(x => x.Name == key).Value = value;
+                File.WriteAllText("Common//settings.json", JsonConvert.SerializeObject(json, Formatting.Indented));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public dynamic ReadFromJson(string key, Visual control)
+        {
+            try
+            {
+                var json = JsonConvert.DeserializeObject<UserSettings>(File.ReadAllText("Common//settings.json"));
+                var value = json.Settings.Where(x => x.HUD == Name).First(x => x.Name == key).Value;
+                switch (control)
+                {
+                    case CheckBox:
+                        return value == "1";
+                    case ColorPicker:
+                        var cc = new ColorConverter();
+                        return (Color)cc.ConvertFrom(value);
+                    case ComboBox:
+                        return int.Parse(value);
+                    default:    //TextBox, IntegerUpDown
+                        return value;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
         }
     }
 
@@ -339,6 +491,8 @@ namespace TF2HUD.Editor.Common
 
         [JsonPropertyName("Options")] public Option[] Options;
 
+        [JsonPropertyName("Tag")] public string Tag;
+
         [JsonPropertyName("Type")] public string Type;
     }
 
@@ -349,5 +503,5 @@ namespace TF2HUD.Editor.Common
         [JsonPropertyName("Value")] public string Value;
     }
 
-    #endregion
+    #endregion MODEL
 }

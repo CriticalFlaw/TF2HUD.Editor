@@ -1,32 +1,113 @@
 {
-	"UpdateUrl": "https://github.com/cooolbros/TF2HUD.Editor",
+	"UpdateUrl": "https://github.com/cooolbros/budhud/archive/master.zip",
 	"CustomisationsFolder": "#customisations",
 	"EnabledFolder": "#customisations\\_enabled",
 	"Controls": {
-		"General": [
+		"General UI": [
 			{
-				"Label": "Chat Top Left",
+				"Tag": "bh_player_hideclassmodel",
+				"Label": "Disable 3D Player Model",
 				"Type": "Checkbox",
-				"File": "Chat_Top_Left.res"
+				"FileName": "bh_player_hideclassmodel.res",
+				"Default": "0"
 			},
 			{
+				"Tag": "bh_chat_lowerleft",
+				"Label": "Chat Location",
+				"Type": "Checkbox",
+				"FileName": "bh_chat_lowerleft.res",
+				"Default": "0"
+			},
+			{
+				"Tag": "bh_youtuber_select",
+				"Label": "Youtuber HUD",
+				"Type": "Select",
+				"Path": "#users"
+			},
+			{
+				"Tag": "bh_player_transparentviewmodels",
 				"Label": "Transparent Viewmodels",
 				"Type": "Checkbox",
-				"File": "hudanimations_custom.txt"
+				"FileName": "bh_player_transparentviewmodels.res",
+				"Default": "0"
+			}
+		],
+		"Health and Ammo": [
+			{
+				"Tag": "bh_player_largehealth",
+				"Label": "Larger Health & Ammo",
+				"Type": "Checkbox",
+				"FileName": "bh_player_largehealth.res",
+				"Default": "0"
 			},
 			{
-				"Label": "Style",
-				"Type": "ComboBox",
-				"Options": [
-					{
-						"Label": "Good",
-						"Value": "good"
-					},
-					{
-						"Label": "Bad",
-						"Value": "bad"
-					}
-				]
+				"Tag": "bh_player_healthcross_inset",
+				"Label": "Enable Player Health Cross",
+				"Type": "Checkbox",
+				"FileName": "bh_player_healthcross_inset.res",
+				"Default": "1"
+			}
+		],
+		"TargetIDs": [
+			{
+				"Tag": "bh_targetid_healthcross2",
+				"Label": "Health Cross",
+				"Type": "Checkbox",
+				"FileName": "bh_targetid_healthcross2.res",
+				"Default": "0"
+			},
+			{
+				"Tag": "bh_targetid_largehealth",
+				"Label": "Large Health Size",
+				"Type": "Checkbox",
+				"FileName": "bh_targetid_largehealth.res",
+				"Default": "1"
+			}
+		],
+		"Main Menu": [
+			{
+				"Tag": "bh_menu_hidefriends",
+				"Label": "Hide Friends",
+				"Type": "Checkbox",
+				"FileName": "bh_menu_hidefriends",
+				"Default": "0"
+			},
+			{
+				"Tag": "bh_menu_hidegif",
+				"Label": "Hide Menu GIF",
+				"Type": "Checkbox",
+				"FileName": "bh_menu_hidegif.res",
+				"Default": "0"
+			},
+			{
+				"Tag": "bh_menu_hidemotd",
+				"Label": "Hide MOTD",
+				"Type": "Checkbox",
+				"FileName": "bh_menu_hidemotd.res",
+				"Default": "1"
+			},
+			{
+				"Tag": "bh_menu_hidestats",
+				"Label": "Hide Stats",
+				"Type": "Checkbox",
+				"FileName": "bh_menu_hidestats.res",
+				"Default": "0"
+			}
+		],
+		"Medic Customizations": [
+			{
+				"Tag": "bh_uber_longchargemeter",
+				"Label": "Full Width Charge Meter",
+				"Type": "Checkbox",
+				"FileName": "bh_uber_longchargemeter.res",
+				"Default": "0"
+			},
+			{
+				"Tag": "bh_uber_percentagenearcrosshair",
+				"Label": "Uber Percentage Near Crosshair",
+				"Type": "Checkbox",
+				"FileName": "bh_uber_percentagenearcrosshair.res",
+				"Default": "0"
 			}
 		]
 	}
