@@ -1,7 +1,7 @@
 {
 	"UpdateUrl": "https://github.com/cooolbros/budhud/archive/master.zip",
-	"CustomisationsFolder": "#customisations",
-	"EnabledFolder": "#customisations\\_enabled",
+	"CustomisationsFolder": "#customization",
+	"EnabledFolder": "#customization\\_enabled",
 	"Controls": {
 		"General UI": [
 			{

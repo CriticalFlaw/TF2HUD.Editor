@@ -424,6 +424,7 @@ namespace TF2HUD.Editor
                         default:
                             var selection = Json.GetHUDByName(Settings.Default.hud_selected);
                             selection.Save();
+                            selection.ApplyCustomization();
                             break;
                     }
                 });

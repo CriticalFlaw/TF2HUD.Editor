@@ -28,13 +28,11 @@ namespace TF2HUD.Editor.Common
                 var FileInfo = FileName.Split(".");
                 var HUDName = FileInfo[0];
                 var Extension = FileInfo[^1];
-                if (Extension == "json")
-                {
-                    var json = new StreamReader(File.OpenRead(HUDPath), new UTF8Encoding(false)).ReadToEnd();
+                if (Extension != "json") continue;
+                var json = new StreamReader(File.OpenRead(HUDPath), new UTF8Encoding(false)).ReadToEnd();
 
-                    // Pass the name and options to hud.
-                    TempHUDs.Add(new HUD(HUDName, JsonConvert.DeserializeObject<HUDRoot>(json)));
-                }
+                // Pass the name and options to hud.
+                TempHUDs.Add(new HUD(HUDName, JsonConvert.DeserializeObject<HUDRoot>(json)));
             }
 
             HUDs = TempHUDs.ToArray();

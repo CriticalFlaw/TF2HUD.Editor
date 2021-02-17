@@ -117,7 +117,7 @@ namespace TF2HUD.Editor.Common
                     var label = controlItem.Label;
                     var type = controlItem.Type;
                     //var file = ControlItem.File;
-                    var value = controlItem.Default;
+                    //var value = controlItem.Default;
 
                     switch (type)
                     {
@@ -135,7 +135,7 @@ namespace TF2HUD.Editor.Common
                                 Name = id,
                                 Width = 60
                             };
-                            charInput.PreviewTextInput += (sender, e) => e.Handled = charInput.Text != "";
+                            charInput.PreviewTextInput += (_, e) => e.Handled = charInput.Text != "";
                             charContainer.Children.Add(charLabel);
                             charContainer.Children.Add(charInput);
                             sectionContent.Children.Add(charContainer);
@@ -150,7 +150,7 @@ namespace TF2HUD.Editor.Common
                                 Margin = new Thickness(10, lastTop + 10, 0, 0),
                                 IsChecked = controlItem.Default == "1"
                             };
-                            lastMargin = checkBoxInput.Margin;
+                            //lastMargin = checkBoxInput.Margin;
                             sectionContent.Children.Add(checkBoxInput);
                             ConstrolList.Add(checkBoxInput.Name, checkBoxInput.GetType());
                             break;
@@ -211,9 +211,8 @@ namespace TF2HUD.Editor.Common
                             foreach (var option in controlItem.Options)
                             {
                                 // TOOD: Add the display value and actual value.
-                                var OptionLabel = option.Label;
-                                var OptionValue = option.Value;
-                                comboBoxInput.Items.Add(OptionLabel);
+                                //var OptionValue = option.Value;
+                                comboBoxInput.Items.Add(option.Label);
                             }
 
                             comboBoxContainer.Children.Add(comboBoxLabel);
@@ -236,7 +235,7 @@ namespace TF2HUD.Editor.Common
                                 Name = id,
                                 Width = 60
                             };
-                            numberInput.PreviewTextInput += (sender, e) =>
+                            numberInput.PreviewTextInput += (_, e) =>
                             {
                                 e.Handled = !Regex.IsMatch(e.Text, "\\d");
                             };
@@ -403,7 +402,7 @@ namespace TF2HUD.Editor.Common
                                     color.SelectedColor = ReadFromJson(color.Name, control);
                                     break;
                                 case ComboBox combo:
-                                    combo.SelectedIndex = ReadFromJson(combo.Name, control); ;
+                                    combo.SelectedIndex = ReadFromJson(combo.Name, control);
                                     break;
                                 case IntegerUpDown integer:
                                     integer.Text = ReadFromJson(integer.Name, control);
@@ -457,6 +456,61 @@ namespace TF2HUD.Editor.Common
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public bool ApplyCustomization()
+        {
+            try
+            {
+                // Check if the customization folders are valid.
+                var path = $"{MainWindow.HudPath}\\{Name}\\";
+                if (string.IsNullOrWhiteSpace($"{path}\\{CustomisationsFolder}")) return true;
+                
+                // TODO: If the json has a duplicate key, this process fails. The json will need to be validated before we get to this point.
+                var grid = (WrapPanel)((Grid)Controls.Children[0]).Children[1];
+                for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
+                    if ((Visual)VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
+                    {
+                        var panel = (StackPanel)groupBox.Content;
+                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount(panel); y++)
+                        {
+                            var control = (Visual)VisualTreeHelper.GetChild(panel, y);
+                            switch (control)
+                            {
+                                case TextBox:
+                                case ColorPicker:
+                                case ComboBox:
+                                case IntegerUpDown:
+                                    break;
+                                case CheckBox check:
+                                    var custom = $"{path}{CustomisationsFolder}\\{check.Name}.res";
+                                    var enabled = $"{path}{EnabledFolder}\\{check.Name}.res";
+                                    if (check.IsChecked == true)    // Move to enabled
+                                    {
+                                        if (File.Exists(custom))
+                                        {
+                                            File.Move(custom, enabled);
+                                        }
+                                    }
+                                    else // Move to customization folder
+                                    {
+                                        if (File.Exists(enabled))
+                                        {
+                                            File.Move(enabled, custom);
+                                        }
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 return false;
             }
         }
