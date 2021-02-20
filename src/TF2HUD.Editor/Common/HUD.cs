@@ -67,30 +67,32 @@ namespace TF2HUD.Editor.Common
             Grid.SetRow(pageTitle, 0);
             container.Children.Add(pageTitle);
 
-            if (LayoutOptions != null)
-                // Splits Layout string[] into 2D Array using \s+
-                Layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
-
             // ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic
-            dynamic sectionsContainer;
-            if (Layout != null)
+            var sectionsContainer = new Grid
             {
-                sectionsContainer = new Grid();
-                // Assume that all row arrays are the same length, use column information from Layout[0]
-                for (var i = 0; i < Layout[0].Length; i++)
-                    sectionsContainer.ColumnDefinitions.Add(new ColumnDefinition());
-                for (var i = 0; i < Layout.Length; i++) sectionsContainer.RowDefinitions.Add(new RowDefinition());
-                sectionsContainer.VerticalAlignment = VerticalAlignment.Top;
+                VerticalAlignment = VerticalAlignment.Top,
+                MaxWidth = 1270,
+                MaxHeight = 720
+            };
+
+            if (LayoutOptions is null)
+            {
+                // TODO: Generate the layout dynamically if one was not provided.
+                Layout = new string[4][];
+                Layout[0] = new[] { "0","0","0","1","1","1" };
+                Layout[1] = new[] { "2", "2", "3", "4", "4", "4" };
+                Layout[2] = new[] { "5", "5", "5", "5", "4", "4" };
+                Layout[3] = new[] { "6", "6", "6", "6", "4", "4" };
             }
             else
             {
-                // If no layout is provided, wrap GroupPanels to space
-                sectionsContainer = new WrapPanel();
-                sectionsContainer.Orientation = Orientation.Vertical;
+                // Splits Layout string[] into 2D Array using \s+
+                Layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
             }
-
-            sectionsContainer.MaxWidth = 1270;
-            sectionsContainer.MaxHeight = 720;
+            // Assume that all row arrays are the same length, use column information from Layout[0]
+            for (var i = 0; i < Layout[0].Length; i++)
+                sectionsContainer.ColumnDefinitions.Add(new ColumnDefinition());
+            for (var i = 0; i < Layout.Length; i++) sectionsContainer.RowDefinitions.Add(new RowDefinition());
             Grid.SetRow(sectionsContainer, 1);
 
             var lastMargin = new Thickness(10, 2, 0, 0);
@@ -113,7 +115,7 @@ namespace TF2HUD.Editor.Common
 
                 foreach (var controlItem in ControlOptions[section])
                 {
-                    var id = controlItem.Tag;
+                    var id = controlItem.Name;
                     var label = controlItem.Label;
                     var type = controlItem.Type;
                     //var file = ControlItem.File;
@@ -382,11 +384,12 @@ namespace TF2HUD.Editor.Common
             try
             {
                 // TODO: If the json has a duplicate key, this process fails. The json will need to be validated before we get to this point.
-                var grid = (WrapPanel)((Grid)Controls.Children[0]).Children[1];
+                // TODO: This section does not work with complex layouts because we expect a WrapPanel whereas we end up with another Grid.
+                var grid = (Grid)((Grid)Controls.Children[0]).Children[1];
                 for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
                     if ((Visual)VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
                     {
-                        var panel = (StackPanel)groupBox.Content;
+                        var panel = (WrapPanel)groupBox.Content;
                         for (var y = 0; y < VisualTreeHelper.GetChildrenCount(panel); y++)
                         {
                             var control = (Visual)VisualTreeHelper.GetChild(panel, y);
@@ -545,9 +548,11 @@ namespace TF2HUD.Editor.Common
 
         [JsonPropertyName("Options")] public Option[] Options;
 
-        [JsonPropertyName("Tag")] public string Tag;
+        [JsonPropertyName("Name")] public string Name;
 
         [JsonPropertyName("Type")] public string Type;
+
+        [JsonPropertyName("Tag")] public string Tag;
     }
 
     public class Option

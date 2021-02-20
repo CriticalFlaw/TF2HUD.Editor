@@ -1,0 +1,375 @@
+{
+	"Layout":[
+		"0 0 0 1 1 1",
+		"2 2 2 3 4 4",
+		"5 5 5 5 4 4",
+		"6 6 6 6 4 4"
+	],
+	"UpdateUrl": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
+	"Controls": {
+		"Colors": [
+			{
+				"Name": "fh_color_health_buff",
+				"Label": "Buffed Health",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "Overheal",
+				"Default": "#00AA7F"
+			},
+			{
+				"Name": "fh_color_ubercharge",
+				"Label": "Uber Charging",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "UberCharge",
+				"Default": "#00AA7F"
+			},
+			{
+				"Name": "fh_color_health_low",
+				"Label": "Low Health",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "LowHealth",
+				"Default": "#BE1414"
+			},
+			{
+				"Name": "fh_color_ammo_low",
+				"Label": "Low Ammo",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "LowAmmo",
+				"Default": "#BE1414"
+			},
+			{
+				"Name": "fh_color_target_health",
+				"Label": "Health Healed",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "TargetHealth",
+				"Default": "#00FF7F"
+			},
+			{
+				"Name": "fh_color_target_damage",
+				"Label": "Damage Dealt",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "TargetDamage",
+				"Default": "#FFFF00"
+			}
+		],
+		"Item Quality": [
+			{
+				"Name": "fh_color_normal",
+				"Label": "Normal",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorNormal",
+				"Default": "#B2B2B2"
+			},
+			{
+				"Name": "fh_color_unique",
+				"Label": "Unique",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorUnique",
+				"Default": "#FFD700"
+			},
+			{
+				"Name": "fh_color_strange",
+				"Label": "Strange",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorStrange",
+				"Default": "#CF6A32"
+			},
+			{
+				"Name": "fh_color_vintage",
+				"Label": "Vintage",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorVintage",
+				"Default": "#476291"
+			},
+			{
+				"Name": "fh_color_haunted",
+				"Label": "Haunted",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorHaunted",
+				"Default": "#38F3AB"
+			},
+			{
+				"Name": "fh_color_genuine",
+				"Label": "Genuine",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorrarity1",
+				"Default": "#4D7455"
+			},
+			{
+				"Name": "fh_color_collectors",
+				"Label": "Collectors",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorCollectors",
+				"Default": "#AA0000"
+			},
+			{
+				"Name": "fh_color_unusual",
+				"Label": "Unusual",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorrarity4",
+				"Default": "#8650AC"
+			},
+			{
+				"Name": "fh_color_community",
+				"Label": "Community",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorCommunity",
+				"Default": "#70B04A"
+			},
+			{
+				"Name": "fh_color_valve",
+				"Label": "Valve",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorDeveloper",
+				"Default": "#A50F79"
+			}
+		],
+		"Item Rarity": [
+			{
+				"Name": "fh_color_civilian",
+				"Label": "Civilian",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "ItemRarityCommon",
+				"Default": "#B0C3D9"
+			},
+			{
+				"Name": "fh_color_freelance",
+				"Label": "Freelance",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "ItemRarityUncommon",
+				"Default": "#5E98D9"
+			},
+			{
+				"Name": "fh_color_mercenary",
+				"Label": "Mercenary",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "QualityColorDeveloper",
+				"Default": "#4B69FF"
+			},
+			{
+				"Name": "fh_color_commando",
+				"Label": "Commando",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "ItemRarityRare",
+				"Default": "#8847FF"
+			},
+			{
+				"Name": "fh_color_assassin",
+				"Label": "Assassin",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "ItemRarityMythical",
+				"Default": "#D32CE6"
+			},
+			{
+				"Name": "fh_color_elite",
+				"Label": "Elite",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "ItemRarityAncient",
+				"Default": "#EB4B4B"
+			}
+		],
+		"Crosshair": [
+			{
+				"Name": "fh_toggle_xhair_enable",
+				"Label": "Enable",
+				"Type": "Checkbox",
+				"FileName": "scripts//hudlayout.res",
+				"Tag": "CustomCrosshair",
+				"Default": "0"
+			},
+			{
+				"Name": "fh_toggle_xhair_pulse",
+				"Label": "Hitmarker",
+				"Type": "Checkbox",
+				"FileName": "scripts//hudanimations_custom.txt",
+				"Tag": "DamagedPlayer",
+				"Default": "1"
+			},
+			{
+				"Name": "fh_toggle_xhair_rotate",
+				"Label": "Rotate",
+				"Type": "Checkbox",
+				"FileName": "scripts//hudlayout.res",
+				"Tag": "Crosshair",
+				"Default": "0"
+			},
+			{
+				"Name": "fh_color_xhair_normal",
+				"Label": "Base Color",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "Crosshair",
+				"Default": "#F2F2F2"
+			},
+			{
+				"Name": "fh_color_xhair_pulse",
+				"Label": "Hitmarker Color",
+				"Type": "ColorPicker",
+				"FileName": "resource//scheme//clientscheme_colors.res",
+				"Tag": "CrosshairDamage",
+				"Default": "#FF0000"
+			},
+			{
+				"Name": "fh_val_xhair_size",
+				"Label": "Size",
+				"Type": "IntegerUpDown",
+				"FileName": "scripts//hudlayout.res",
+				"Tag": "CustomCrosshair",
+				"Minimum": "10",
+				"Maximum": "30",
+				"Increment": "1",
+				"Default": "18"
+			},
+			{
+				"Name": "fh_val_xhair_style",
+				"Label": "Style",
+				"Type": "ComboBox",
+				"FileName": "scripts//hudlayout.res",
+				"Tag": "CustomCrosshair",
+				"Default": "24"
+			},
+			{
+				"Name": "fh_val_xhair_effect",
+				"Label": "Effect",
+				"Type": "ComboBox",
+				"FileName": "scripts//hudlayout.res",
+				"Tag": "CustomCrosshair",
+				"Default": "0",
+				"Options": [
+					{
+						"Name": "None",
+						"Valve":  "0"
+					},
+					{
+						"Name": "Blur",
+						"Valve":  "1"
+					},
+					{
+						"Name": "Outline",
+						"Valve":  "2"
+					}
+				]
+			}
+		],
+		"Customizations": [
+			{
+				"Name": "bh_toggle_code_fonts",
+				"Label": "Code Pro Fonts",
+				"Type": "Checkbox",
+				"FileName": "resource//clientscheme.res",
+				"Tag": "clientscheme_fonts",
+				"Default": "0"
+			},
+			{
+				"Name": "bh_toggle_disguise_image",
+				"Label": "Spy Disguise Image",
+				"Type": "Checkbox",
+				"FileName": "scripts//hudanimations_custom.txt",
+				"Tag": "HudSpyDisguiseFadeIn",
+				"Default": "0"
+			},
+			{
+				"Name": "bh_toggle_menu_image",
+				"Label": "Main Menu Class Images",
+				"Type": "Checkbox",
+				"FileName": "resource//ui//mainmenuoverride.res",
+				"Tag": "TFCharacterImage",
+				"Default": "0"
+			},
+			{
+				"Name": "bh_toggle_transparent_viewmodels",
+				"Label": "Transparent Viewmodels",
+				"Type": "Checkbox",
+				"FileName": "resource//clientscheme.res",
+				"Tag": "TransparentViewmodel",
+				"Default": "0"
+			},
+			{
+				"Name": "bh_toggle_lower_stats",
+				"Label": "Lowered Player Stats",
+				"Type": "Checkbox",
+				"FileName": "resource//clientscheme.res",
+				"Tag": "",
+				"Default": "0"
+			},
+			{
+				"Name": "bh_toggle_alt_stats",
+				"Label": "Alternate Player Stats",
+				"Type": "Checkbox",
+				"FileName": "resource//clientscheme.res",
+				"Tag": "",
+				"Default": "0"
+			},
+			{
+				"Name": "bh_toggle_background_stock",
+				"Label": "Default Backgrounds",
+				"Type": "Checkbox",
+				"FileName": "materials//console//background_upward.vtf",
+				"Tag": "",
+				"Default": "0"
+			},
+			{
+				"Name": "bh_toggle_background_custom",
+				"Label": "Custom Backgrounds",
+				"Type": "Checkbox",
+				"FileName": "materials//console//background_upward.vtf",
+				"Tag": "",
+				"Default": "0"
+			},
+			{
+				"Name": "fh_val_health_style",
+				"Label": "Health Style",
+				"Type": "ComboBox",
+				"FileName": "scripts//hudanimations_custom.txt",
+				"Tag": "HudHealthBonusPulse",
+				"Default": "0",
+				"Options": [
+					{
+						"Name": "Default",
+						"Valve":  "0"
+					},
+					{
+						"Name": "Colored Text",
+						"Valve":  "1"
+					},
+					{
+						"Name": "Cross",
+						"Valve":  "2"
+					}
+				]
+			},
+			{
+				"Name": "fh_val_killfeed_rows",
+				"Label": "Killfeed Rows",
+				"Type": "IntegerUpDown",
+				"FileName": "scripts//hudlayout.res",
+				"Tag": "MaxDeathNotices",
+				"Minimum": "0",
+				"Maximum": "9",
+				"Increment": "1",
+				"Default": "5"
+			}
+		]
+	}
+}
