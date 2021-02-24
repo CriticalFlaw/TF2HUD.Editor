@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -14,11 +15,18 @@ namespace TF2HUD.Editor.Common
         /// </summary>
         public static int FindIndex(string[] array, string value, int skip = 0)
         {
-            var list = array.Skip(skip);
-            var index = list.Select((v, i) => new {Index = i, Value = v}) // Pair up values and indexes
-                .Where(p => p.Value.Contains(value)) // Do the filtering
-                .Select(p => p.Index); // Keep the index and drop the value
-            return index.First() + skip;
+            try
+            {
+                var list = array.Skip(skip);
+                var index = list.Select((v, i) => new {Index = i, Value = v}) // Pair up values and indexes
+                    .Where(p => p.Value.Contains(value)) // Do the filtering
+                    .Select(p => p.Index); // Keep the index and drop the value
+                return index.First() + skip;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         /// <summary>
@@ -119,6 +127,23 @@ namespace TF2HUD.Editor.Common
                 _ => string.Empty
             };
             OpenWebpage(url);
+        }
+
+        /// <summary>
+        ///     Return an empty element if it's null
+        /// </summary>
+        public static IEnumerable<T> OrEmptyIfNull<T>(this IEnumerable<T> source)
+        {
+            return source ?? Enumerable.Empty<T>();
+        }
+
+        public static bool ParseBool(string input)
+        {
+            return (input.ToLower()) switch
+            {
+                "yes" or "1" or "true" => true,
+                _ => false,
+            };
         }
     }
 

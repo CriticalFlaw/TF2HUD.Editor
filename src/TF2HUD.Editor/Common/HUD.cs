@@ -15,6 +15,7 @@ namespace TF2HUD.Editor.Common
     public class HUD
     {
         private readonly Grid Controls = new();
+        private readonly string[] LayoutOptions;
         public Dictionary<string, Type> ConstrolList = new();
         public Dictionary<string, Control[]> ControlOptions;
         private bool ControlsRendered;
@@ -22,14 +23,13 @@ namespace TF2HUD.Editor.Common
         public string Default;
         public string EnabledFolder;
         private string[][] Layout;
-        private readonly string[] LayoutOptions;
         public string Name;
         public string UpdateUrl;
 
         public HUD(string name, HUDRoot options)
         {
             // Validate properties from JSON
-            this.Name = name;
+            Name = name;
             UpdateUrl = !string.IsNullOrWhiteSpace(options.UpdateUrl) ? options.UpdateUrl : string.Empty;
             CustomisationsFolder = !string.IsNullOrWhiteSpace(options.CustomisationsFolder)
                 ? options.CustomisationsFolder
@@ -79,16 +79,17 @@ namespace TF2HUD.Editor.Common
             {
                 // TODO: Generate the layout dynamically if one was not provided.
                 Layout = new string[4][];
-                Layout[0] = new[] { "0","0","0","1","1","1" };
-                Layout[1] = new[] { "2", "2", "3", "4", "4", "4" };
-                Layout[2] = new[] { "5", "5", "5", "5", "4", "4" };
-                Layout[3] = new[] { "6", "6", "6", "6", "4", "4" };
+                Layout[0] = new[] {"0", "0", "0", "1", "1", "1"};
+                Layout[1] = new[] {"2", "2", "3", "4", "4", "4"};
+                Layout[2] = new[] {"5", "5", "5", "5", "4", "4"};
+                Layout[3] = new[] {"6", "6", "6", "6", "4", "4"};
             }
             else
             {
                 // Splits Layout string[] into 2D Array using \s+
                 Layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
             }
+
             // Assume that all row arrays are the same length, use column information from Layout[0]
             for (var i = 0; i < Layout[0].Length; i++)
                 sectionsContainer.ColumnDefinitions.Add(new ColumnDefinition());
@@ -118,6 +119,7 @@ namespace TF2HUD.Editor.Common
                     var id = controlItem.Name;
                     var label = controlItem.Label;
                     var type = controlItem.Type;
+                    var def = controlItem.Default;
                     //var file = ControlItem.File;
                     //var value = controlItem.Default;
 
@@ -150,7 +152,7 @@ namespace TF2HUD.Editor.Common
                                 Name = id,
                                 Content = label,
                                 Margin = new Thickness(10, lastTop + 10, 0, 0),
-                                IsChecked = controlItem.Default == "1"
+                                IsChecked = string.Equals(controlItem.Default, "true")
                             };
                             //lastMargin = checkBoxInput.Margin;
                             sectionContent.Children.Add(checkBoxInput);
@@ -208,14 +210,13 @@ namespace TF2HUD.Editor.Common
                             var comboBoxInput = new ComboBox
                             {
                                 Name = id,
+                                Width = 150,
                                 SelectedIndex = int.TryParse(controlItem.Default, out var index) ? index : 1
                             };
                             foreach (var option in controlItem.Options)
-                            {
                                 // TOOD: Add the display value and actual value.
                                 //var OptionValue = option.Value;
                                 comboBoxInput.Items.Add(option.Label);
-                            }
 
                             comboBoxContainer.Children.Add(comboBoxLabel);
                             comboBoxContainer.Children.Add(comboBoxInput);
@@ -237,10 +238,7 @@ namespace TF2HUD.Editor.Common
                                 Name = id,
                                 Width = 60
                             };
-                            numberInput.PreviewTextInput += (_, e) =>
-                            {
-                                e.Handled = !Regex.IsMatch(e.Text, "\\d");
-                            };
+                            numberInput.PreviewTextInput += (_, e) => { e.Handled = !Regex.IsMatch(e.Text, "\\d"); };
                             numberContainer.Children.Add(numberLabel);
                             numberContainer.Children.Add(numberInput);
                             sectionContent.Children.Add(numberContainer);
@@ -260,6 +258,7 @@ namespace TF2HUD.Editor.Common
                             var integerInput = new IntegerUpDown
                             {
                                 Name = id,
+                                Width = 100,
                                 Value = int.TryParse(controlItem.Default, out index) ? index : 0,
                                 Minimum = controlItem.Minimum,
                                 Maximum = controlItem.Maximum,
@@ -343,34 +342,32 @@ namespace TF2HUD.Editor.Common
             try
             {
                 // TODO: If the json has a duplicate key, this process fails. The json will need to be validated before we get to this point.
-                var grid = (WrapPanel) ((Grid) Controls.Children[0]).Children[1];
+                var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
                 for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
                     if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
-                    {
-                        var panel = (StackPanel) groupBox.Content;
-                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount(panel); y++)
-                        {
-                            var control = (Visual) VisualTreeHelper.GetChild(panel, y);
-                            switch (control)
-                            {
-                                case TextBox text:
-                                    UpdateJson(text.Name, text.Text);
-                                    break;
-                                case CheckBox check:
-                                    UpdateJson(check.Name, check.IsChecked == true ? "1" : "0");
-                                    break;
-                                case ColorPicker color:
-                                    UpdateJson(color.Name, color.SelectedColor.ToString());
-                                    break;
-                                case ComboBox combo:
-                                    UpdateJson(combo.Name, combo.SelectedIndex.ToString());
-                                    break;
-                                case IntegerUpDown integer:
-                                    UpdateJson(integer.Name, integer.Text);
-                                    break;
-                            }
-                        }
-                    }
+                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
+                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is StackPanel
+                                stackPanel)
+                                switch ((Visual) VisualTreeHelper.GetChild(stackPanel, stackPanel.Children.Count - 1))
+                                {
+                                    case TextBox text:
+                                        UpdateJson(text.Name, text.Text);
+                                        break;
+
+                                    case ColorPicker color:
+                                        UpdateJson(color.Name, color.SelectedColor.ToString());
+                                        break;
+
+                                    case ComboBox combo:
+                                        UpdateJson(combo.Name, combo.SelectedIndex.ToString());
+                                        break;
+
+                                    case IntegerUpDown integer:
+                                        UpdateJson(integer.Name, integer.Text);
+                                        break;
+                                }
+                            else if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is CheckBox
+                                checkBox) UpdateJson(checkBox.Name, checkBox.IsChecked == true ? "true" : "false");
             }
             catch (Exception e)
             {
@@ -385,40 +382,102 @@ namespace TF2HUD.Editor.Common
             {
                 // TODO: If the json has a duplicate key, this process fails. The json will need to be validated before we get to this point.
                 // TODO: This section does not work with complex layouts because we expect a WrapPanel whereas we end up with another Grid.
-                var grid = (Grid)((Grid)Controls.Children[0]).Children[1];
+                var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
                 for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
-                    if ((Visual)VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
-                    {
-                        var panel = (WrapPanel)groupBox.Content;
-                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount(panel); y++)
-                        {
-                            var control = (Visual)VisualTreeHelper.GetChild(panel, y);
-                            switch (control)
+                    if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
+                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
+                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is StackPanel
+                                stackPanel)
                             {
-                                case TextBox text:
-                                    text.Text = ReadFromJson(text.Name, control);
-                                    break;
-                                case CheckBox check:
-                                    check.IsChecked = ReadFromJson(check.Name, control);
-                                    break;
-                                case ColorPicker color:
-                                    color.SelectedColor = ReadFromJson(color.Name, control);
-                                    break;
-                                case ComboBox combo:
-                                    combo.SelectedIndex = ReadFromJson(combo.Name, control);
-                                    break;
-                                case IntegerUpDown integer:
-                                    integer.Text = ReadFromJson(integer.Name, control);
-                                    break;
+                                var control =
+                                    (Visual) VisualTreeHelper.GetChild(stackPanel, stackPanel.Children.Count - 1);
+                                switch (control)
+                                {
+                                    case TextBox text:
+                                        text.Text = ReadFromJson(text.Name, control);
+                                        break;
+
+                                    case ColorPicker color:
+                                        color.SelectedColor = ReadFromJson(color.Name, control);
+                                        break;
+
+                                    case ComboBox combo:
+                                        combo.SelectedIndex = ReadFromJson(combo.Name, control);
+                                        break;
+
+                                    case IntegerUpDown integer:
+                                        integer.Text = ReadFromJson(integer.Name, control);
+                                        break;
+                                }
                             }
-                        }
-                    }
+                            else if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is CheckBox
+                                checkBox)
+                            {
+                                checkBox.IsChecked = ReadFromJson(checkBox.Name, checkBox);
+                            }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public void Reset()
+        {
+            try
+            {
+                var json = JsonConvert.DeserializeObject<HUDRoot>(File.ReadAllText($"Common//HUDs//{Name}.json"))
+                    .Controls;
+                var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
+                for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
+                    if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
+                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
+                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is StackPanel
+                                stackPanel)
+                            {
+                                var control =
+                                    (Visual) VisualTreeHelper.GetChild(stackPanel, stackPanel.Children.Count - 1);
+                                switch (control)
+                                {
+                                    case TextBox text:
+                                        text.Text = GetDefaultFromControls(text.Name, json);
+                                        break;
+
+                                    case ColorPicker color:
+                                        var cc = new ColorConverter();
+                                        color.SelectedColor = (Color) cc.ConvertFrom(GetDefaultFromControls(color.Name, json));
+                                        break;
+
+                                    case ComboBox combo:
+                                        combo.SelectedIndex = int.Parse(GetDefaultFromControls(combo.Name, json));
+                                        break;
+
+                                    case IntegerUpDown integer:
+                                        integer.Text = GetDefaultFromControls(integer.Name, json);
+                                        break;
+                                }
+                            }
+                            else if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is CheckBox
+                                checkBox)
+                            {
+                                checkBox.IsChecked = Utilities.ParseBool(GetDefaultFromControls(checkBox.Name, json));
+                            }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public string GetDefaultFromControls(string name, Dictionary<string, Control[]> controls)
+        {
+            foreach (var collection in controls.Values)
+                foreach (var control in collection)
+                    if (string.Equals(name, control.Name))
+                        return control.Default;
+            return null;
         }
 
         public bool UpdateJson(string key, string value)
@@ -446,20 +505,23 @@ namespace TF2HUD.Editor.Common
                 switch (control)
                 {
                     case CheckBox:
-                        return value == "1";
+                        return value == "true" || value == "1";
+
                     case ColorPicker:
                         var cc = new ColorConverter();
-                        return (Color)cc.ConvertFrom(value);
+                        return (Color) cc.ConvertFrom(value);
+
                     case ComboBox:
                         return int.Parse(value);
-                    default:    //TextBox, IntegerUpDown
+
+                    default: //TextBox, IntegerUpDown
                         return value;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                return false;
+                return null;
             }
         }
 
@@ -467,47 +529,136 @@ namespace TF2HUD.Editor.Common
         {
             try
             {
-                // Check if the customization folders are valid.
                 var path = $"{MainWindow.HudPath}\\{Name}\\";
-                if (string.IsNullOrWhiteSpace($"{path}\\{CustomisationsFolder}")) return true;
-                
-                // TODO: If the json has a duplicate key, this process fails. The json will need to be validated before we get to this point.
-                var grid = (WrapPanel)((Grid)Controls.Children[0]).Children[1];
+                if (string.IsNullOrWhiteSpace(CustomisationsFolder)) return ApplyFileCustomization(path);
+
+                var json = JsonConvert.DeserializeObject<HUDRoot>(File.ReadAllText($"Common//HUDs//{Name}.json"))
+                    .Controls;
+                // Check if the customization folders are valid.
+                var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
                 for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
-                    if ((Visual)VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
-                    {
-                        var panel = (StackPanel)groupBox.Content;
-                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount(panel); y++)
-                        {
-                            var control = (Visual)VisualTreeHelper.GetChild(panel, y);
-                            switch (control)
+                    if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
+                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
+                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is StackPanel
+                                stackPanel)
                             {
-                                case TextBox:
-                                case ColorPicker:
-                                case ComboBox:
-                                case IntegerUpDown:
+                                var control =
+                                    (Visual) VisualTreeHelper.GetChild(stackPanel, stackPanel.Children.Count - 1);
+                                var instructions = new Control();
+                                string name;
+                                bool useDefault;
+                                switch (control)
+                                {
+                                    case TextBox text:
+                                        name = text.Name;
+                                        useDefault = !string.Equals(text.Text, instructions.Default);
+                                        break;
+
+                                    case ColorPicker color:
+                                        name = color.Name;
+                                        useDefault = color.SelectedColor.ToString() !=
+                                                     Utilities.RgbConverter(instructions.Default);
+                                        break;
+
+                                    case ComboBox combo:
+                                        name = combo.Name;
+                                        useDefault = combo.SelectedIndex != int.Parse(instructions.Default);
+                                        break;
+
+                                    case IntegerUpDown integer:
+                                        name = integer.Name;
+                                        useDefault = integer.Value != int.Parse(instructions.Default);
+                                        break;
+
+                                    case CheckBox check:
+                                        name = check.Name;
+                                        useDefault = check.IsChecked == true;
+                                        break;
+
+                                    default:
+                                        continue;
+                                }
+
+                                foreach (var (_, variables) in json)
+                                foreach (var variable in variables)
+                                {
+                                    if (!string.Equals(variable.Name, name)) continue;
+                                    instructions = variable;
                                     break;
-                                case CheckBox check:
-                                    var custom = $"{path}{CustomisationsFolder}\\{check.Name}.res";
-                                    var enabled = $"{path}{EnabledFolder}\\{check.Name}.res";
-                                    if (check.IsChecked == true)    // Move to enabled
-                                    {
-                                        if (File.Exists(custom))
-                                        {
-                                            File.Move(custom, enabled);
-                                        }
-                                    }
-                                    else // Move to customization folder
-                                    {
-                                        if (File.Exists(enabled))
-                                        {
-                                            File.Move(enabled, custom);
-                                        }
-                                    }
-                                    break;
+                                }
+
+                                WriteToFile(path, instructions, useDefault);
                             }
-                        }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public bool ApplyFileCustomization(string path)
+        {
+            try
+            {
+                // Check if the customization folders are valid.
+                if (Directory.Exists($"{path}\\{CustomisationsFolder}")) return true;
+
+                // TODO: If the json has a duplicate key, this process fails. The json will need to be validated before we get to this point.
+                var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
+                for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
+                    if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
+                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
+                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is CheckBox checkBox
+                            )
+                            {
+                                var custom = $"{path}{CustomisationsFolder}\\{checkBox.Name}.res";
+                                var enabled = $"{path}{EnabledFolder}\\{checkBox.Name}.res";
+                                if (checkBox.IsChecked == true) // Move to enabled
+                                {
+                                    if (File.Exists(custom)) File.Move(custom, enabled);
+                                }
+                                else // Move to customization folder
+                                {
+                                    if (File.Exists(enabled)) File.Move(enabled, custom);
+                                }
+
+                                break;
+                            }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public static bool WriteToFile(string path, Control instructions, bool useDefault = false, string value = null)
+        {
+            try
+            {
+                foreach (var file in instructions.Instructions.OrEmptyIfNull())
+                {
+                    if (file is null) continue;
+                    var res = path + file.FileName;
+                    if (!File.Exists(res)) continue;
+                    var lines = File.ReadAllLines(res);
+                    var start = Utilities.FindIndex(lines, $"\"{file.Group}\"");
+                    foreach (var tag in file.Tags)
+                    {
+                        if (!string.IsNullOrWhiteSpace(file.Value))
+                            value = useDefault ? instructions.Default : file.Value;
+                        else
+                            value = useDefault ? instructions.Default : value;
+                        lines[Utilities.FindIndex(lines, $"\"{tag}\"", start)] = $"\t\t\"{tag}\"\t\t\t\t\t\"{value}\"";
                     }
+
+                    File.WriteAllLines(res, lines);
+                }
 
                 return true;
             }
@@ -529,7 +680,6 @@ namespace TF2HUD.Editor.Common
         public string CustomisationsFolder;
 
         [JsonPropertyName("EnabledFolder")] public string EnabledFolder;
-
         [JsonPropertyName("Layout")] public string[] Layout;
 
         [JsonPropertyName("UpdateUrl")] public string UpdateUrl;
@@ -540,24 +690,35 @@ namespace TF2HUD.Editor.Common
         [JsonPropertyName("Default")] public string Default = "0";
 
         [JsonPropertyName("Increment")] public int Increment = 2;
+
+        [JsonPropertyName("Instructions")] public Instructions[] Instructions;
+
         [JsonPropertyName(";")] public string Label;
 
         [JsonPropertyName("Maximum")] public int Maximum = 30;
 
         [JsonPropertyName("Minimum")] public int Minimum = 10;
+        [JsonPropertyName("Name")] public string Name;
 
         [JsonPropertyName("Options")] public Option[] Options;
 
-        [JsonPropertyName("Name")] public string Name;
-
         [JsonPropertyName("Type")] public string Type;
-
-        [JsonPropertyName("Tag")] public string Tag;
     }
 
     public class Option
     {
         [JsonPropertyName("Label")] public string Label;
+
+        [JsonPropertyName("Value")] public string Value;
+    }
+
+    public class Instructions
+    {
+        [JsonPropertyName("FileName")] public string FileName;
+
+        [JsonPropertyName("Group")] public string Group;
+
+        [JsonPropertyName("Tags")] public string[] Tags;
 
         [JsonPropertyName("Value")] public string Value;
     }

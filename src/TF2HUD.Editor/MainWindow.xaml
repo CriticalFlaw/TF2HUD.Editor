@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TF2HUD.Editor.HUDs"
         mc:Ignorable="d"
         Title="TF2 HUD Editor"
         Width="1300"
@@ -79,8 +78,6 @@
         <Grid Name="EditorContainer">
             <!-- Content goes here -->
         </Grid>
-        <local:FlawHUD x:Name="GuiFlawHud" Visibility="Hidden" Margin="10,10,10,50" />
-        <local:rayshud x:Name="GuiRaysHud" Visibility="Hidden" Grid.ColumnSpan="2" />
         <!-- HUD Status -->
         <Label Name="LblStatus" Content="..." Margin="10,5,10,5" Grid.Column="0" Grid.Row="1" />
         <!-- HUD Options -->
