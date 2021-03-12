@@ -16,12 +16,18 @@
     <Version>1.1.1</Version>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Output\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
-    <Compile Remove="Common\StringValueAttribute.cs" />
+    <Compile Remove="JSON\StringValueAttribute.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="hud.cfg" />
+    <None Remove="JSON\budhud.json" />
+    <None Remove="JSON\flawhud.json" />
+    <None Remove="JSON\rayshud.json" />
     <None Remove="log4net.config" />
     <None Remove="Resources\favicon.ico" />
     <None Remove="Resources\hudstf.png" />
@@ -41,6 +47,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="JSON\budhud.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JSON\flawhud.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="JSON\rayshud.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\hud.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -74,16 +89,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\flawhud.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>flawhud.settings</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\rayshud.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>rayshud.settings</DependentUpon>
-    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -104,19 +109,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Common\HUDs\*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Common\settings.json">
+    <None Update="settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Properties\flawhud.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>flawhud.Designer.cs</LastGenOutput>
-    </None>
-    <None Update="Properties\rayshud.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>rayshud.Designer.cs</LastGenOutput>
     </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -127,5 +121,4 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="RD /S /Q &quot;$(TargetDir)ar&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)cs-CZ&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)da&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)de&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)es&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)fr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)hu&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)it&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ja-JP&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ko&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)nl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pt&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pt-BR&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ro&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ru&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sk&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)th&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)tr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sv&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-Hans&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-tw&quot;" />
   </Target>
-
 </Project>

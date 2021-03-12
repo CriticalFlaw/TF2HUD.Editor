@@ -1,22 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using TF2HUD.Editor.Common;
 using TF2HUD.Editor.Properties;
 
-namespace TF2HUD.Editor.HUDs
+namespace TF2HUD.Editor.Classes
 {
-    public static class Common
+    public static class stock
     {
         /// <summary>
         ///     Set the crosshair style, position and effect.
         /// </summary>
-        public static bool Crosshair(bool enable, string style, int? size, string effect)
+        public static bool Crosshair(string path, bool enable, string style, int? size, string effect)
         {
             try
             {
-                var file = string.Format(Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
-                var lines = File.ReadAllLines(file);
+                var lines = File.ReadAllLines(path);
                 var start = Utilities.FindIndex(lines, "CustomCrosshair");
                 effect = effect != "None" ? $"{effect}:ON" : "Outline:OFF";
                 lines[Utilities.FindIndex(lines, "visible", start)] =
@@ -25,7 +23,7 @@ namespace TF2HUD.Editor.HUDs
                     $"\t\t\"enabled\"\t\t\t\"{Convert.ToInt32(enable)}\"";
                 lines[Utilities.FindIndex(lines, "\"labelText\"", start)] = $"\t\t\"labelText\"\t\t\t\"{style}\"";
                 lines[Utilities.FindIndex(lines, "font", start)] = $"\t\t\"font\"\t\t\t\t\"Size:{size} | {effect}\"";
-                File.WriteAllLines(file, lines);
+                File.WriteAllLines(path, lines);
                 return true;
             }
             catch (Exception ex)
@@ -38,12 +36,11 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Toggle crosshair hitmarker.
         /// </summary>
-        public static bool CrosshairPulse(bool enable)
+        public static bool CrosshairPulse(string path, bool enable)
         {
             try
             {
-                var file = string.Format(Resources.file_hudanimations, MainWindow.HudPath, MainWindow.HudSelection);
-                var lines = File.ReadAllLines(file);
+                var lines = File.ReadAllLines(path);
                 var index1 = Utilities.FindIndex(lines, "StopEvent", Utilities.FindIndex(lines, "DamagedPlayer"));
                 var index2 = Utilities.FindIndex(lines, "RunEvent", Utilities.FindIndex(lines, "DamagedPlayer"));
                 lines[index1] = enable
@@ -52,7 +49,7 @@ namespace TF2HUD.Editor.HUDs
                 lines[index2] = enable
                     ? lines[index2].Replace("//", string.Empty)
                     : Utilities.CommentOutTextLine(lines[index2]);
-                File.WriteAllLines(file, lines);
+                File.WriteAllLines(path, lines);
                 return true;
             }
             catch (Exception ex)
@@ -65,12 +62,11 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Toggle Spy's disguise image.
         /// </summary>
-        public static bool DisguiseImage(bool enable)
+        public static bool DisguiseImage(string path, bool enable)
         {
             try
             {
-                var file = string.Format(Resources.file_hudanimations, MainWindow.HudPath, MainWindow.HudSelection);
-                var lines = File.ReadAllLines(file);
+                var lines = File.ReadAllLines(path);
                 var index1 = Utilities.FindIndex(lines, "RunEvent", Utilities.FindIndex(lines, "HudSpyDisguiseFadeIn"));
                 var index2 = Utilities.FindIndex(lines, "Animate", Utilities.FindIndex(lines, "HudSpyDisguiseFadeIn"));
                 var index3 = Utilities.FindIndex(lines, "RunEvent",
@@ -88,7 +84,7 @@ namespace TF2HUD.Editor.HUDs
                 lines[index4] = enable
                     ? lines[index4].Replace("//", string.Empty)
                     : Utilities.CommentOutTextLine(lines[index4]);
-                File.WriteAllLines(file, lines);
+                File.WriteAllLines(path, lines);
                 return true;
             }
             catch (Exception ex)
@@ -101,29 +97,29 @@ namespace TF2HUD.Editor.HUDs
         /// <summary>
         ///     Toggle transparent viewmodels.
         /// </summary>
-        public static bool TransparentViewmodels(bool enable)
+        public static bool TransparentViewmodels(string path, bool enable)
         {
             try
             {
-                var file = string.Format(Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
-                var lines = File.ReadAllLines(file);
+                var lines = File.ReadAllLines(path);
                 var index1 = Utilities.FindIndex(lines, "visible",
                     Utilities.FindIndex(lines, "\"TransparentViewmodel\""));
                 var index2 = Utilities.FindIndex(lines, "enabled",
                     Utilities.FindIndex(lines, "\"TransparentViewmodel\""));
                 lines[index1] = $"\t\t\"visible\"\t\t\t\"{Convert.ToInt32(enable)}\"";
                 lines[index2] = $"\t\t\"enabled\"\t\t\t\"{Convert.ToInt32(enable)}\"";
-                File.WriteAllLines(file, lines);
+                File.WriteAllLines(path, lines);
 
-                if (File.Exists(string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection)))
-                    File.Delete(string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection));
+                path = path.Replace("\\scripts\\hudlayout.res", string.Empty);
+                if (File.Exists(string.Format(Resources.file_cfg, path)))
+                    File.Delete(string.Format(Resources.file_cfg, path));
 
                 // Copy the config file required for this feature
                 if (!enable) return true;
-                if (!Directory.Exists(MainWindow.HudPath + $"\\{MainWindow.HudSelection}\\cfg"))
-                    Directory.CreateDirectory(MainWindow.HudPath + $"\\{MainWindow.HudSelection}\\cfg");
+                if (!Directory.Exists(path + "\\cfg"))
+                    Directory.CreateDirectory(path + "\\cfg");
                 File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\hud.cfg",
-                    string.Format(Resources.file_cfg, MainWindow.HudPath, MainWindow.HudSelection), true);
+                    string.Format(Resources.file_cfg, path), true);
                 return true;
             }
             catch (Exception ex)
@@ -134,29 +130,43 @@ namespace TF2HUD.Editor.HUDs
         }
 
         /// <summary>
-        ///     Set the number of rows shown on the killfeed.
+        ///     Set the number of rows shown on the kill-feed.
         /// </summary>
-        public static bool KillFeedRows()
+        public static bool KillFeedRows(string path, int value)
         {
             try
             {
-                var file = string.Format(Resources.file_hudlayout, MainWindow.HudPath, MainWindow.HudSelection);
-                var lines = File.ReadAllLines(file);
-                var value = MainWindow.HudSelection.ToLowerInvariant() switch
-                {
-                    "flawhud" => flawhud.Default.val_killfeed_rows,
-                    "rayshud" => Properties.rayshud.Default.val_killfeed_rows,
-                    _ => 5
-                };
-
+                var lines = File.ReadAllLines(path);
                 lines[Utilities.FindIndex(lines, "MaxDeathNotices", Utilities.FindIndex(lines, "HudDeathNotice"))] =
                     $"\t\t\"MaxDeathNotices\"\t\t\"{value}\"";
-                File.WriteAllLines(file, lines);
+                File.WriteAllLines(path, lines);
                 return true;
             }
             catch (Exception ex)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_menu_class_image, ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Toggle main menu class images.
+        /// </summary>
+        public static bool MainMenuClassImage(string path, bool enable, int value)
+        {
+            try
+            {
+                var lines = File.ReadAllLines(path);
+                value = enable ? value : 9999;
+                lines[Utilities.FindIndex(lines, "ypos", Utilities.FindIndex(lines, "TFCharacterImage"))] =
+                    $"\t\t\"ypos\"\t\t\t\"{value}\"";
+                File.WriteAllLines(path, lines);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_menu_class_image,
+                    ex.Message);
                 return false;
             }
         }
@@ -292,29 +302,6 @@ namespace TF2HUD.Editor.HUDs
             catch (Exception ex)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_seasonal_backgrounds, ex.Message);
-                return false;
-            }
-        }
-
-        /// <summary>
-        ///     Toggle main menu class images.
-        /// </summary>
-        public static bool MainMenuClassImage(bool enable)
-        {
-            try
-            {
-                var file = string.Format(Resources.file_mainmenuoverride, MainWindow.HudPath, MainWindow.HudSelection);
-                var lines = File.ReadAllLines(file);
-                var value = enable ? "-80" : "9999";
-                lines[Utilities.FindIndex(lines, "ypos", Utilities.FindIndex(lines, "TFCharacterImage"))] =
-                    $"\t\t\"ypos\"\t\t\t\"{value}\"";
-                File.WriteAllLines(file, lines);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, Resources.error_menu_class_image,
-                    ex.Message);
                 return false;
             }
         }

@@ -4,9 +4,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using TF2HUD.Editor.Properties;
 
-namespace TF2HUD.Editor.Common
+namespace TF2HUD.Editor.Classes
 {
     public static class Utilities
     {
@@ -106,29 +105,6 @@ namespace TF2HUD.Editor.Common
             }
         }
 
-        public static void OpenLinkButton(HUDS hud, Links link)
-        {
-            var url = hud switch
-            {
-                HUDS.flawhud => link switch
-                {
-                    Links.Steam => Resources.url_flawhud_steam,
-                    Links.GitHub => Resources.url_flawhud_github,
-                    Links.hudsTF => Resources.url_flawhud_hudstf,
-                    _ => throw new NotImplementedException()
-                },
-                HUDS.rayshud => link switch
-                {
-                    Links.Steam => Resources.url_rayshud_steam,
-                    Links.GitHub => Resources.url_rayshud_github,
-                    Links.hudsTF => Resources.url_rayshud_hudstf,
-                    _ => throw new NotImplementedException()
-                },
-                _ => string.Empty
-            };
-            OpenWebpage(url);
-        }
-
         /// <summary>
         ///     Return an empty element if it's null
         /// </summary>
@@ -137,12 +113,15 @@ namespace TF2HUD.Editor.Common
             return source ?? Enumerable.Empty<T>();
         }
 
+        /// <summary>
+        ///     Convert string value to a boolean
+        /// </summary>
         public static bool ParseBool(string input)
         {
-            return (input.ToLower()) switch
+            return input.ToLower() switch
             {
                 "yes" or "1" or "true" => true,
-                _ => false,
+                _ => false
             };
         }
     }
@@ -176,5 +155,16 @@ namespace TF2HUD.Editor.Common
         public string Unusual = "#8650AC";
         public string Valve = "#A50F79";
         public string Vintage = "#476291";
+    }
+
+    /// <summary>
+    ///     List of possible positions for item effect meters.
+    /// </summary>
+    public enum Positions
+    {
+        Top,
+        Middle,
+        Bottom,
+        Default
     }
 }

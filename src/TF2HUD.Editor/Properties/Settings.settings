@@ -5,13 +5,13 @@
     <Setting Name="app_mod_date" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)">01/19/2021 18:19:00</Value>
     </Setting>
-    <Setting Name="hud_selected" Type="System.String" Scope="User">
-      <Value Profile="(Default)">stock</Value>
-    </Setting>
-    <Setting Name="hud_directory" Type="System.String" Scope="User">
+    <Setting Name="image_path" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="image_path" Type="System.String" Scope="User">
+    <Setting Name="hud_selected" Type="System.String" Scope="User">
+      <Value Profile="(Default)">budhud</Value>
+    </Setting>
+    <Setting Name="hud_directory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

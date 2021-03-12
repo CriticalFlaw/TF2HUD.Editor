@@ -1,0 +1,598 @@
+{
+  "Layout": [
+    "0 0 0 1 1 1",
+    "2 2 3 3 6 6",
+    "4 4 4 4 6 6",
+    "5 5 5 5 6 6"
+  ],
+  "URLs": {
+    "Update": "https://github.com/raysfire/rayshud/archive/master.zip",
+    "GitHub": "https://github.com/raysfire/rayshud",
+    "HudsTF": "https://huds.tf/site/s-rayshud--377",
+    "Steam": "https://steamcommunity.com/groups/rayshud",
+    "Issue": "https://github.com/raysfire/rayshud/issues"
+  },
+  "Controls": {
+    "UberCharge": [
+      {
+        "Name": "rh_val_uber_animation",
+        "Label": "Uber Style",
+        "Type": "ComboBox",
+        "Default": "0",
+        "Options": [
+          {
+            "Label": "Flash",
+            "Value": "0"
+          },
+          {
+            "Label": "Solid",
+            "Value": "1"
+          },
+          {
+            "Label": "Rainbow",
+            "Value": "2"
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_uber_bar",
+        "Label": "Charging",
+        "Type": "ColorPicker",
+        "Default": "#EBE2CA",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Uber Bar Color"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_uber_full",
+        "Label": "Charged Solid",
+        "Type": "ColorPicker",
+        "Default": "#FF3219",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Solid Color Uber"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_uber_flash1",
+        "Label": "Charged Flash 1",
+        "Type": "ColorPicker",
+        "Default": "#FFA500",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Flashing Uber Color1"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_uber_flash2",
+        "Label": "Charged Flash 2",
+        "Type": "ColorPicker",
+        "Default": "#FF4500",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Flashing Uber Color2"]
+          }
+        ]
+      }
+    ],
+    "Crosshair": [
+      {
+        "Name": "rh_toggle_xhair_enable",
+        "Label": "Enable",
+        "Type": "Checkbox",
+        "Default": "false",
+        "Instructions": [
+          {
+            "FileName": "scripts\\hudlayout.res",
+            "Group": "CustomCrosshair",
+            "Tags": ["visible", "enabled"],
+            "Values": ["1", "1"],
+            "Defaults": ["0", "0"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_toggle_xhair_pulse",
+        "Label": "Hitmarker",
+        "Type": "Checkbox",
+        "Default": "true",
+        "Instructions": [
+          {
+            "FileName": "scripts\\hudanimations_custom.txt",
+            "Group": "DamagedPlayer",
+            "Tags": ["StopEvent", "RunEvent"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_xhair_normal",
+        "Label": "Base Color",
+        "Type": "ColorPicker",
+        "Default": "#F2F2F2",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Crosshair"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_xhair_pulse",
+        "Label": "Hitmarker Color",
+        "Type": "ColorPicker",
+        "Default": "#FF0000",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["CrosshairDamage"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_val_xhair_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Default": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "Instructions": [
+          {
+            "FileName": "scripts\\hudlayout.res",
+            "Group": "CustomCrosshair",
+            "Tags": ["font"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_val_xhair_style",
+        "Label": "Style",
+        "Type": "ComboBox",
+        "Default": "24",
+        "Instructions": [
+          {
+            "FileName": "scripts\\hudlayout.res",
+            "Group": "CustomCrosshair",
+            "Tags": ["labelText"],
+            "Defaults": ["<"]
+          }
+        ]
+      }
+    ],
+    "Health": [
+      {
+        "Name": "rh_val_health_style",
+        "Label": "Health Style",
+        "Type": "ComboBox",
+        "Default": "0",
+        "Options": [
+          {
+            "Label": "Default",
+            "Value": "0"
+          },
+          {
+            "Label": "Broesel",
+            "Value": "1"
+          },
+          {
+            "Label": "Cross",
+            "Value": "2"
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_health_normal",
+        "Label": "Health Normal",
+        "Type": "ColorPicker",
+        "Default": "#EBE2CA",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Health Normal"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_health_buff",
+        "Label": "Health Buffed",
+        "Type": "ColorPicker",
+        "Default": "#30FF30",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Health Buff"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_health_low",
+        "Label": "Health Low",
+        "Type": "ColorPicker",
+        "Default": "#FF9900",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Health Hurt"]
+          }
+        ]
+      }
+    ],
+    "Ammo": [
+      {
+        "Name": "rh_color_ammo_clip",
+        "Label": "Ammo Clip Normal",
+        "Type": "ColorPicker",
+        "Default": "#30FF30",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Ammo In Clip"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_ammo_reserve",
+        "Label": "Ammo Reserve Normal",
+        "Type": "ColorPicker",
+        "Default": "#48FFFF",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Ammo In Reserve"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_ammo_clip_low",
+        "Label": "Ammo Clip Low",
+        "Type": "ColorPicker",
+        "Default": "#FF2A82",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Ammo In Clip Low"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_ammo_reserve_low",
+        "Label": "Ammo Reserve Low",
+        "Type": "ColorPicker",
+        "Default": "#FF801C",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["Ammo In Reserve Low"]
+          }
+        ]
+      }
+    ],
+    "Item Quality": [
+      {
+        "Name": "rh_color_normal",
+        "Label": "Normal",
+        "Type": "ColorPicker",
+        "Default": "#B2B2B2",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["QualityColorNormal"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_unique",
+        "Label": "Unique",
+        "Type": "ColorPicker",
+        "Default": "#FFD700",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["QualityColorUnique"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_strange",
+        "Label": "Strange",
+        "Type": "ColorPicker",
+        "Default": "#CF6A32",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["QualityColorStrange"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_vintage",
+        "Label": "Vintage",
+        "Type": "ColorPicker",
+        "Default": "#476291",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["QualityColorVintage"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_haunted",
+        "Label": "Haunted",
+        "Type": "ColorPicker",
+        "Default": "#38F3AB",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["QualityColorHaunted"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_genuine",
+        "Label": "Genuine",
+        "Type": "ColorPicker",
+        "Default": "#4D7455",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["QualityColorrarity1"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_collectors",
+        "Label": "Collectors",
+        "Type": "ColorPicker",
+        "Default": "#AA0000",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["QualityColorCollectors"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_unusual",
+        "Label": "Unusual",
+        "Type": "ColorPicker",
+        "Default": "#8650AC",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["QualityColorrarity4"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_community",
+        "Label": "Community",
+        "Type": "ColorPicker",
+        "Default": "#70B04A",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["QualityColorCommunity"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_valve",
+        "Label": "Valve",
+        "Type": "ColorPicker",
+        "Default": "#A50F79",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["QualityColorDeveloper"]
+          }
+        ]
+      }
+    ],
+    "Item Rarity": [
+      {
+        "Name": "rh_color_civilian",
+        "Label": "Civilian",
+        "Type": "ColorPicker",
+        "Default": "#B0C3D9",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["ItemRarityCommon"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_freelance",
+        "Label": "Freelance",
+        "Type": "ColorPicker",
+        "Default": "#5E98D9",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["ItemRarityUncommon"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_mercenary",
+        "Label": "Mercenary",
+        "Type": "ColorPicker",
+        "Default": "#4B69FF",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["ItemRarityRare"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_commando",
+        "Label": "Commando",
+        "Type": "ColorPicker",
+        "Default": "#8847FF",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["ItemRarityMythical"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_assassin",
+        "Label": "Assassin",
+        "Type": "ColorPicker",
+        "Default": "#D32CE6",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["ItemRarityLegendary"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_color_elite",
+        "Label": "Elite",
+        "Type": "ColorPicker",
+        "Default": "#EB4B4B",
+        "Instructions": [
+          {
+            "FileName": "resource\\scheme\\clientscheme_colors.res",
+            "Tags": ["ItemRarityAncient"]
+          }
+        ]
+      }
+    ],
+    "Options": [
+      {
+        "Name": "rh_toggle_classic_menu",
+        "Label": "Classic Main Menu Style",
+        "Type": "Checkbox",
+        "Default": "false"
+      },
+      {
+        "Name": "rh_toggle_min_scoreboard",
+        "Label": "Minimal Scoreboard",
+        "Type": "Checkbox",
+        "Default": "false"
+      },
+      {
+        "Name": "rh_toggle_disguise_image",
+        "Label": "Spy Disguise Image",
+        "Type": "Checkbox",
+        "Default": "true",
+        "Instructions": [
+          {
+            "FileName": "scripts\\hudanimations_custom.txt",
+            "Group": "HudSpyDisguiseFadeIn",
+            "Tags": ["RunEvent", "Animate"],
+            "Values": ["\\", "\\"],
+            "Defaults": [" ", " "],
+            "Command": "COMMENT-OUT"
+          }
+        ]
+      },
+      {
+        "Name": "rh_toggle_menu_image",
+        "Label": "Main Menu Class Images",
+        "Type": "Checkbox",
+        "Default": "false",
+        "Instructions": [
+          {
+            "FileName": "resource\\ui\\mainmenuoverride.res",
+            "Group": "TFCharacterImage",
+            "Tags": ["ypos"],
+            "Values": ["-80"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_toggle_damage_pos",
+        "Label": "Damage Above Health",
+        "Type": "Checkbox",
+        "Default": "false"
+      },
+      {
+        "Name": "rh_toggle_chat_bottom",
+        "Label": "Chatbox On The Bottom",
+        "Type": "Checkbox",
+        "Default": "false"
+      },
+      {
+        "Name": "rh_toggle_center_select",
+        "Label": "Centered Team/Class Select",
+        "Type": "Checkbox",
+        "Default": "false"
+      },
+      {
+        "Name": "rh_toggle_metal_pos",
+        "Label": "Centered Metal Counter",
+        "Type": "Checkbox",
+        "Default": "false"
+      },
+      {
+        "Name": "rh_toggle_transparent_viewmodels",
+        "Label": "Transparent Viewmodels",
+        "Type": "Checkbox",
+        "Default": "false",
+        "Instructions": [
+          {
+            "FileName": "scripts\\hudlayout.res",
+            "Group": "TransparentViewmodel",
+            "Tags": ["visible", "enabled"]
+          }
+        ]
+      },
+      {
+        "Name": "rh_toggle_alt_player_model",
+        "Label": "Alternate Player Model",
+        "Type": "Checkbox",
+        "Default": "false"
+      },
+      {
+        "Name": "rh_val_main_menu_bg",
+        "Label": "Main Menu Background",
+        "Type": "ComboBox",
+        "Default": "0",
+        "Options": [
+          {
+            "Label": "Modern",
+            "Value": "0"
+          },
+          {
+            "Label": "Classic",
+            "Value": "1"
+          },
+          {
+            "Label": "Default",
+            "Value": "2"
+          }
+        ]
+      },
+      {
+        "Name": "rh_val_killfeed_rows",
+        "Label": "Killfeed Rows",
+        "Type": "IntegerUpDown",
+        "Default": "5",
+        "Minimum": "0",
+        "Maximum": "9",
+        "Increment": "1",
+        "Instructions": [
+          {
+            "FileName": "scripts\\hudlayout.res",
+            "Group": "HudDeathNotice",
+            "Tags": ["MaxDeathNotices"]
+          }
+        ]
+      }
+    ]
+  }
+}
