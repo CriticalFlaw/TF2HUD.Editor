@@ -124,6 +124,34 @@ namespace TF2HUD.Editor.Classes
                 _ => false
             };
         }
+
+        public static void Merge(Dictionary<string, dynamic> Obj1, Dictionary<string, dynamic> Obj2)
+        {
+            foreach (string i in Obj1.Keys)
+            {
+                if (Obj1[i].GetType().Name.Contains("Dictionary"))
+                {
+                    if (Obj2.ContainsKey(i) && Obj2[i].GetType().Name.Contains("Dictionary"))
+                    {
+                        Merge(Obj1[i], Obj2[i]);
+                    }
+                }
+                else
+                {
+                    if (Obj2.ContainsKey(i))
+                    {
+                        Obj1[i] = Obj2[i];
+                    }
+                }
+            }
+            foreach (string j in Obj2.Keys)
+            {
+                if (!Obj1.ContainsKey(j))
+                {
+                    Obj1[j] = Obj2[j];
+                }
+            }
+        }
     }
 
     [AttributeUsage(AttributeTargets.All)]

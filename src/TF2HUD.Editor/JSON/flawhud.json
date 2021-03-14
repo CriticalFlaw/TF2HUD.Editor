@@ -4,7 +4,7 @@
     "1 1 1 4",
     "3 5 5 4"
   ],
-  "URLs": {
+  "Links": {
     "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
     "GitHub": "https://github.com/CriticalFlaw/FlawHUD",
     "HudsTF": "https://huds.tf/site/s-FlawHUD",
@@ -18,102 +18,114 @@
         "Label": "Buffed Health",
         "Type": "ColorPicker",
         "Default": "#00AA7F",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "Overheal": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "Overheal": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_ubercharge",
         "Label": "UberCharge",
         "Type": "ColorPicker",
         "Default": "#00AA7F",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "UberCharge": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "UberCharge": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_health_low",
         "Label": "Low Health",
         "Type": "ColorPicker",
         "Default": "#BE1414",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "LowHealth": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "LowHealth": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_ammo_low",
         "Label": "Low Ammo",
         "Type": "ColorPicker",
         "Default": "#BE1414",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "LowAmmo": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "LowAmmo": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_target_health",
         "Label": "Health Healed",
         "Type": "ColorPicker",
         "Default": "#00AA7F",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "TargetHealth": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "TargetHealth": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_target_damage",
         "Label": "Damage Dealt",
         "Type": "ColorPicker",
         "Default": "#FFFF00",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "TargetDamage": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "TargetDamage": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       }
     ],
     "Item Quality": [
@@ -122,170 +134,190 @@
         "Label": "Normal",
         "Type": "ColorPicker",
         "Default": "#B2B2B2",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "QualityColorNormal": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "QualityColorNormal": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_unique",
         "Label": "Unique",
         "Type": "ColorPicker",
         "Default": "#FFD700",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "QualityColorUnique": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "QualityColorUnique": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_strange",
         "Label": "Strange",
         "Type": "ColorPicker",
         "Default": "#CF6A32",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "QualityColorStrange": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "QualityColorStrange": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_vintage",
         "Label": "Vintage",
         "Type": "ColorPicker",
         "Default": "#476291",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "QualityColorVintage": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "QualityColorVintage": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_haunted",
         "Label": "Haunted",
         "Type": "ColorPicker",
         "Default": "#38F3AB",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "QualityColorHaunted": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "QualityColorHaunted": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_genuine",
         "Label": "Genuine",
         "Type": "ColorPicker",
         "Default": "#4D7455",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "QualityColorrarity1": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "QualityColorrarity1": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_collectors",
         "Label": "Collectors",
         "Type": "ColorPicker",
         "Default": "#AA0000",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "QualityColorCollectors": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "QualityColorCollectors": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_unusual",
         "Label": "Unusual",
         "Type": "ColorPicker",
         "Default": "#8650AC",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "QualityColorrarity4": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "QualityColorrarity4": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_community",
         "Label": "Community",
         "Type": "ColorPicker",
         "Default": "#70B04A",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "QualityColorCommunity": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "QualityColorCommunity": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_valve",
         "Label": "Valve",
         "Type": "ColorPicker",
         "Default": "#A50F79",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "QualityColorDeveloper": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "QualityColorDeveloper": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       }
     ],
     "Item Rarity": [
@@ -294,102 +326,114 @@
         "Label": "Civilian",
         "Type": "ColorPicker",
         "Default": "#B0C3D9",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "ItemRarityCommon": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "ItemRarityCommon": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_freelance",
         "Label": "Freelance",
         "Type": "ColorPicker",
         "Default": "#5E98D9",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "ItemRarityUncommon": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "ItemRarityUncommon": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_mercenary",
         "Label": "Mercenary",
         "Type": "ColorPicker",
         "Default": "#4B69FF",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "ItemRarityRare": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "ItemRarityRare": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_commando",
         "Label": "Commando",
         "Type": "ColorPicker",
         "Default": "#8847FF",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "ItemRarityMythical": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "ItemRarityMythical": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_assassin",
         "Label": "Assassin",
         "Type": "ColorPicker",
         "Default": "#D32CE6",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "ItemRarityLegendary": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "ItemRarityLegendary": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_elite",
         "Label": "Elite",
         "Type": "ColorPicker",
         "Default": "#EB4B4B",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "ItemRarityAncient": "$value"
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Scheme": {
+                  "Colors": {
+                    "ItemRarityAncient": "$value"
+                  }
                 }
               }
             }
           }
-        ]
+        }
       }
     ],
     "Crosshair": [
@@ -398,10 +442,10 @@
         "Label": "Enable",
         "Type": "Checkbox",
         "Default": "false",
-        "Instructions": [
-          {
-            "scripts": {
-              "hudlayout.res": {
+        "Instruction": {
+          "scripts": {
+            "hudlayout.res": {
+              "Resource/HudLayout.res": {
                 "CustomCrosshair": {
                   "visible": {
                     "true": "1",
@@ -415,58 +459,55 @@
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_toggle_xhair_pulse",
         "Label": "Hitmarker",
         "Type": "Checkbox",
         "Default": "true",
-        "Instructions": [
-          {
-            "scripts": {
-              "hudanimations_custom.txt": {
-                "DamagedPlayer": {
-                  "comment": ["StopEvent", "RunEvent"]
-                }
+        "Instruction": {
+          "scripts": {
+            "hudanimations_custom.txt": {
+              "DamagedPlayer": {
+                "comment": [
+                  "StopEvent",
+                  "RunEvent"
+                ]
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_xhair_normal",
         "Label": "Base Color",
         "Type": "ColorPicker",
         "Default": "#F2F2F2",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "Crosshair": "$value"
-                }
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "Crosshair": "$value"
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_color_xhair_pulse",
         "Label": "Hitmarker Color",
         "Type": "ColorPicker",
         "Default": "#FF0000",
-        "Instructions": [
-          {
-            "resource": {
-              "scheme": {
-                "clientscheme_colors.res": {
-                  "CrosshairDamage": "$value"
-                }
+        "Instruction": {
+          "resource": {
+            "scheme": {
+              "clientscheme_colors.res": {
+                "CrosshairDamage": "$value"
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_val_xhair_size",
@@ -476,34 +517,34 @@
         "Minimum": "10",
         "Maximum": "30",
         "Increment": "1",
-        "Instructions": [
-          {
-            "scripts": {
-              "hudlayout.res": {
+        "Instruction": {
+          "scripts": {
+            "hudlayout.res": {
+              "Resource/HudLayout.res": {
                 "CustomCrosshair": {
                   "font": "Size:$value"
                 }
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_val_xhair_style",
         "Label": "Style",
         "Type": "ComboBox",
         "Default": "24",
-        "Instructions": [
-          {
-            "scripts": {
-              "hudlayout.res": {
+        "Instruction": {
+          "scripts": {
+            "hudlayout.res": {
+              "Resource/HudLayout.res": {
                 "CustomCrosshair": {
                   "labelText": "$value"
                 }
               }
             }
           }
-        ]
+        }
       }
     ],
     "Customizations": [
@@ -512,43 +553,45 @@
         "Label": "Code Pro Fonts",
         "Type": "Checkbox",
         "Default": "false",
-        "Instructions": [
-          {
-            "resource": {
-              "clientscheme.res": {
-                "replace": ["#base \"scheme/clientscheme_fonts.res\"", "#base \"scheme/clientscheme_fonts_pro.res\""]
-              }
+        "Instruction": {
+          "resource": {
+            "clientscheme.res": {
+              "replace": [
+                "clientscheme_fonts.res",
+                "clientscheme_fonts_pro.res"
+              ]
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_toggle_disguise_image",
         "Label": "Spy Disguise Image",
         "Type": "Checkbox",
         "Default": "true",
-        "Instructions": [
-          {
-            "scripts": {
-              "hudanimations_custom.txt": {
-                "HudSpyDisguiseFadeIn": {
-                  "comment": ["RunEvent", "Animate"]
-                }
+        "Instruction": {
+          "scripts": {
+            "hudanimations_custom.txt": {
+              "HudSpyDisguiseFadeIn": {
+                "comment": [
+                  "RunEvent",
+                  "Animate"
+                ]
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_toggle_menu_image",
         "Label": "Main Menu Class Images",
         "Type": "Checkbox",
         "Default": "true",
-        "Instructions": [
-          {
-            "resource": {
-              "ui": {
-                "mainmenuoverride.res": {
+        "Instruction": {
+          "resource": {
+            "ui": {
+              "mainmenuoverride.res": {
+                "Resource/UI/MainMenuOverride.res": {
                   "TFCharacterImage": {
                     "ypos": {
                       "true": "-80",
@@ -559,17 +602,17 @@
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_toggle_transparent_viewmodels",
         "Label": "Transparent Viewmodels",
         "Type": "Checkbox",
         "Default": "false",
-        "Instructions": [
-          {
-            "scripts": {
-              "hudlayout.res": {
+        "Instruction": {
+          "scripts": {
+            "hudlayout.res": {
+              "Resource/HudLayout.res": {
                 "TransparentViewmodel": {
                   "visible": {
                     "true": "1",
@@ -583,17 +626,17 @@
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_toggle_lower_stats",
         "Label": "Lowered Player Stats",
         "Type": "Checkbox",
         "Default": "false",
-        "Instructions": [
-          {
-            "scripts": {
-              "hudlayout.res": {
+        "Instruction": {
+          "scripts": {
+            "hudlayout.res": {
+              "Resource/HudLayout.res": {
                 "HudWeaponAmmo": {
                   "ypos": {
                     "true": "r83",
@@ -631,10 +674,12 @@
                   }
                 }
               }
-            },
-            "resource": {
-              "ui": {
-                "huddamageaccount.res": {
+            }
+          },
+          "resource": {
+            "ui": {
+              "huddamageaccount.res": {
+                "Resource/UI/HudDamageAccount.res": {
                   "DamageAccountValue": {
                     "ypos": {
                       "true": "r105",
@@ -642,56 +687,70 @@
                     }
                   }
                 }
-              },
-              "hudplayerhealth.res": {
+              }
+            },
+            "hudplayerhealth.res": {
+              "Resource/UI/HudPlayerHealth.res": {
                 "HudPlayerHealth": {
                   "ypos": {
                     "true": "r108",
                     "false": "c68"
                   }
                 }
-              },
-              "huditemeffectmeter.res": {
+              }
+            },
+            "huditemeffectmeter.res": {
+              "Resource/UI/HudItemEffectMeter.res": {
                 "HudItemEffectMeter": { // Bottom
                   "ypos": {
                     "true": "r50",
                     "false": "c120"
                   }
                 }
-              },
-              "huditemeffectmeter_cleaver.res": {
+              }
+            },
+            "huditemeffectmeter_cleaver.res": {
+              "Resource/UI/HudItemEffectMeter_Cleaver.res": {
                 "HudItemEffectMeter": { // Middle
                   "ypos": {
                     "true": "r60",
                     "false": "c110"
                   }
                 }
-              },
-              "huditemeffectmeter_sodapopper.res": {
+              }
+            },
+            "huditemeffectmeter_sodapopper.res": {
+              "Resource/UI/HudItemEffectMeter_SodaPopper.res": {
                 "HudItemEffectMeter": { // Top
                   "ypos": {
                     "true": "r70",
                     "false": "c100"
                   }
                 }
-              },
-              "huddemomancharge.res": {
+              }
+            },
+            "huddemomancharge.res": {
+              "Resource/UI/HudDemomanCharge.res": {
                 "HudItemEffectMeter": { // Middle
                   "ypos": {
                     "true": "r60",
                     "false": "c110"
                   }
                 }
-              },
-              "huddemomanpipes.res": {
+              }
+            },
+            "huddemomanpipes.res": {
+              "Resource/UI/HudDemomanPipes.res": {
                 "HudItemEffectMeter": { // Default
                   "ypos": {
                     "true": "r80",
                     "false": "c92"
                   }
                 }
-              },
-              "hudrocketpack.res": {
+              }
+            },
+            "hudrocketpack.res": {
+              "Resource/UI/HudRocketPack.res": {
                 "HudItemEffectMeter": { // Middle
                   "ypos": {
                     "true": "r60",
@@ -701,17 +760,17 @@
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_toggle_alt_stats",
         "Label": "Alternate Player Stats",
         "Type": "Checkbox",
         "Default": "false",
-        "Instructions": [
-          {
-            "scripts": {
-              "hudlayout.res": {
+        "Instruction": {
+          "scripts": {
+            "hudlayout.res": {
+              "Resource/HudLayout.res": {
                 "HudWeaponAmmo": {
                   "xpos": {
                     "true": "r110",
@@ -768,14 +827,19 @@
                     "false": "f0"
                   }
                 }
-              },
-              "hudanimations_custom.txt": {
-                "replace": ["Blank", "HudBlack"]
               }
             },
-            "resource": {
-              "ui": {
-                "huddamageaccount.res": {
+            "hudanimations_custom.txt": {
+              "replace": [
+                "Blank",
+                "HudBlack"
+              ]
+            }
+          },
+          "resource": {
+            "ui": {
+              "huddamageaccount.res": {
+                "Resource/UI/HudDamageAccount.res": {
                   "DamageAccountValue": {
                     "xpos": {
                       "true": "137",
@@ -786,8 +850,10 @@
                       "false": "c70"
                     }
                   }
-                },
-                "hudplayerhealth.res": {
+                }
+              },
+              "hudplayerhealth.res": {
+                "Resource/UI/HudPlayerHealth.res": {
                   "HudPlayerHealth": {
                     "xpos": {
                       "true": "10",
@@ -798,8 +864,10 @@
                       "false": "c68"
                     }
                   }
-                },
-                "hudplayerclass.res": {
+                }
+              },
+              "hudplayerclass.res": {
+                "Resource/UI/HudPlayerClass.res": {
                   "PlayerStatusClassImage": {
                     "xpos": {
                       "true": "r125",
@@ -816,8 +884,10 @@
                       }
                     }
                   }
-                },
-                "huditemeffectmeter.res": {
+                }
+              },
+              "huditemeffectmeter.res": {
+                "Resource/UI/HudItemEffectMeter.res": {
                   "HudItemEffectMeter": {
                     "xpos": {
                       "true": "r110",
@@ -840,24 +910,30 @@
                       "false": "120"
                     }
                   }
-                },
-                "huditemeffectmeter_cleaver.res": {
+                }
+              },
+              "huditemeffectmeter_cleaver.res": {
+                "Resource/UI/HudItemEffectMeter_Cleaver.res": {
                   "HudItemEffectMeter": {
                     "ypos": {
                       "true": "r85",
                       "false": "c110"
                     }
                   }
-                },
-                "huditemeffectmeter_sodapopper.res": {
+                }
+              },
+              "huditemeffectmeter_sodapopper.res": {
+                "Resource/UI/HudItemEffectMeter_SodaPopper.res": {
                   "HudItemEffectMeter": {
                     "ypos": {
                       "true": "r70",
                       "false": "c100"
                     }
                   }
-                },
-                "huditemeffectmeter_killstreak.res": {
+                }
+              },
+              "huditemeffectmeter_killstreak.res": {
+                "Resource/UI/HudItemEffectMeter_Killstreak.res": {
                   "HudItemEffectMeter": {
                     "xpos": {
                       "true": "115",
@@ -872,7 +948,7 @@
               }
             }
           }
-        ]
+        }
       },
       {
         "Name": "fh_toggle_background_stock",
@@ -910,17 +986,17 @@
         "Minimum": "0",
         "Maximum": "9",
         "Increment": "1",
-        "Instructions": [
-          {
-            "scripts": {
-              "hudlayout.res": {
+        "Instruction": {
+          "scripts": {
+            "hudlayout.res": {
+              "Resource/HudLayout.res": {
                 "HudDeathNotice": {
                   "MaxDeathNotices": "$value"
                 }
               }
             }
           }
-        ]
+        }
       }
     ]
   }

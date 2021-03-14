@@ -575,20 +575,51 @@ namespace TF2HUD.Editor.Classes
                 var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
                     .Controls.Values;
 
-                //var Options = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(File.ReadAllText("compiler.json"));
-                //Dictionary<string, string> InputIDs = new()
-                //{
-                //    test_hud_health_xpos = "c-50",
-                //    test_hud_bold_font = "true",
-                //};
-                //HUDWriter.Write(path, Options, InputIDs);
+                // This Dictionary contains folders/files/properties as they should be written to the hud
+                // the 'IterateFolder' and 'IterateHUDFileProperties' will write the properties to this
+                var hudFolders = new Dictionary<string, dynamic>();
 
                 foreach (var userSetting in userSettings)
                 foreach (var control in from hudSetting in hudSettings
                     from control in hudSetting
                     where string.Equals(control.Name, userSetting.Name)
                     select control)
-                    WriteToFile(path, control, userSetting);
+                    WriteToFile(path, control, userSetting, hudFolders);
+
+                void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
+                {
+                    foreach (string property in folder.Keys)
+                    {
+                        if (folder[property].GetType() == typeof(Dictionary<string, dynamic>))
+                        {
+                            if (property.Contains("."))
+                            {
+                                // Merge files
+                                string filePath = folderPath + "\\" + property;
+                                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                                if (File.Exists(filePath))
+                                {
+                                    var obj = VDF.Parse(File.ReadAllText(filePath));
+                                    Utilities.Merge(obj, folder[property]);
+                                    File.WriteAllText(filePath, VDF.Stringify(obj));
+                                }
+                                else
+                                {
+                                    File.WriteAllText(filePath, VDF.Stringify(folder[property]));
+                                }
+                            }
+                            else
+                            {
+                                IterateProperties(folder[property], folderPath + "\\" + property);
+                            }
+                        }
+                    }
+                }
+
+                // write hudFolders to the HUD once instead of each WriteToFile call reading and writing
+                IterateProperties(hudFolders, MainWindow.HudPath + "\\" + Name);
+
                 return true;
             }
             catch (Exception e)
@@ -644,10 +675,100 @@ namespace TF2HUD.Editor.Classes
         /// <param name="path">Path to the HUD installation</param>
         /// <param name="hudSetting">Settings as defined for the HUD</param>
         /// <param name="userSetting">Settings as selected by the user</param>
-        private void WriteToFile(string path, Controls hudSetting, Setting userSetting)
+        /// <param name="hudFolders">folders/files/properties Dictionary to write HUD properties to</param>
+        private void WriteToFile(string path, Controls hudSetting, Setting userSetting, Dictionary<string, dynamic> hudFolders)
         {
             try
             {
+                if (hudSetting.Instruction != null)
+                {
+                    void IterateFolder(Newtonsoft.Json.Linq.JObject folder, string folderPath, Dictionary<string, dynamic> hudFolder)
+                    {
+                        foreach (var item in folder)
+                        {
+                            if (item.Value.GetType() == typeof(Newtonsoft.Json.Linq.JObject))
+                            {
+                                if (!hudFolder.ContainsKey(item.Key))
+                                    hudFolder[item.Key] = new Dictionary<string, dynamic>();
+
+                                if (item.Key.Contains("."))
+                                {
+                                    string extension = item.Key.Split('.')[^1];
+                                    switch (extension)
+                                    {
+                                        case "res":
+                                            IterateHUDFileProperties(item.Value.ToObject<Newtonsoft.Json.Linq.JObject>(), item.Key, folderPath + "\\" + item.Key, hudFolder[item.Key]);
+                                            break;
+                                        case "vmt":
+                                        case "vdf":
+                                            IterateHUDFileProperties(item.Value.ToObject<Newtonsoft.Json.Linq.JObject>(), item.Key, folderPath + "\\" + item.Key, hudFolder[item.Key]);
+                                            break;
+                                        default:
+                                            System.Windows.MessageBox.Show($"Could not recognise file extension '{extension}'");
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    IterateFolder(item.Value.ToObject<Newtonsoft.Json.Linq.JObject>(), folderPath + "\\" + item.Key, hudFolder[item.Key]);
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception($"Unexpected type {item.Value.GetType().Name}");
+                            }
+                        }
+                    }
+
+                    void IterateHUDFileProperties(Newtonsoft.Json.Linq.JObject properties, string propertyName, string filePath, Dictionary<string, dynamic> hudFolder)
+                    {
+                        foreach (var item in properties)
+                        {
+                            if (item.Key == "replace")
+                            {
+                                Newtonsoft.Json.Linq.JToken[] values = item.Value.ToArray();
+
+                                string find, replace;
+                                if (userSetting.Value.ToString() == "true")
+                                {
+                                    find = values[0].ToString();
+                                    replace = values[1].ToString();
+                                }
+                                else
+                                {
+                                    find = values[1].ToString();
+                                    replace = values[0].ToString();
+                                }
+
+                                File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
+                            }
+                            else if (item.Value.GetType() == typeof(Newtonsoft.Json.Linq.JObject))
+                            {
+                                var currentObj = item.Value.ToObject<Newtonsoft.Json.Linq.JObject>();
+
+                                if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
+                                {
+                                    hudFolder[item.Key] = currentObj[userSetting.Value.ToString()];
+                                }
+                                else
+                                {
+                                    if (!hudFolder.ContainsKey(item.Key))
+                                        hudFolder[item.Key] = new Dictionary<string, dynamic>();
+
+                                    IterateHUDFileProperties(currentObj, item.Key, filePath, hudFolder[item.Key]);
+                                }
+                            }
+                            else
+                                hudFolder[item.Key] = item.Value.ToString().Replace("$value", userSetting.Value);
+                        }
+                    }
+
+                    IterateFolder(hudSetting.Instruction, path, hudFolders);
+
+                    return;
+                }
+
+
                 foreach (var instruction in hudSetting.Instructions.OrEmptyIfNull())
                 {
                     var res = path + instruction.FileName;

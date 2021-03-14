@@ -28,7 +28,7 @@ namespace TF2HUD.Editor.JSON
     {
         [JsonPropertyName("Default")] public string Default = "0";
         [JsonPropertyName("Increment")] public int Increment = 2;
-        [JsonPropertyName("Instructions")] public Dictionary<string, dynamic> Instruction;
+        [JsonPropertyName("Instructions")] public Newtonsoft.Json.Linq.JObject Instruction;
 
         [JsonPropertyName("Instruction")] public Instructions[] Instructions;
         [JsonPropertyName(";")] public string Label;
