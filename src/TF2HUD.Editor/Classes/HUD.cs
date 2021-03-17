@@ -587,6 +587,7 @@ namespace TF2HUD.Editor.Classes
                     WriteToFile(path, control, userSetting, hudFolders);
 
 
+
                 void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
                 {
                     foreach (string property in folder.Keys)
@@ -759,21 +760,206 @@ namespace TF2HUD.Editor.Classes
                         return hudElement;
                     }
 
+                    void WriteAnimationCustomizations(string filePath, Newtonsoft.Json.Linq.JObject animationOptions)
+                    {
+                        // Don't read animations file unless the user requests a new event
+                        // the majority of the animation customisations are for enabling/disabling
+                        // events, which use the 'replace' keyword
+                        Dictionary<string, List<HUDAnimation>> animations = null;
+
+                        foreach (var animationOption in animationOptions)
+                        {
+                            if (animationOption.Key == "replace")
+                            {
+                                // Example:
+                                // "replace": [
+                                //   "HudSpyDisguiseFadeIn_disabled",
+                                //   "HudSpyDisguiseFadeIn"
+                                // ]
+
+                                Newtonsoft.Json.Linq.JToken[] values = animationOption.Value.ToArray();
+
+                                string find, replace;
+                                if (userSetting.Value.ToString() == "true")
+                                {
+                                    find = values[0].ToString();
+                                    replace = values[1].ToString();
+                                }
+                                else
+                                {
+                                    find = values[1].ToString();
+                                    replace = values[0].ToString();
+                                }
+
+                                File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
+                            }
+                            else
+                            {
+                                // animation
+                                // example:
+                                // "HudHealthBonusPulse": [
+                                //   {
+                                //     "Type": "Animate",
+                                //     "Element": "PlayerStatusHealthValue",
+                                //     "Property": "Fgcolor",
+                                //     "Value": "0 170 255 255",
+                                //     "Interpolator": "Linear",
+                                //     "Delay": "0",
+                                //     "Duration": "0"
+                                //   }
+                                // ]
+
+                                if (animations == null)
+                                {
+                                    animations = HUDAnimations.Parse(File.ReadAllText(filePath));
+                                }
+
+                                // Create new event or animation statements could stack
+                                // over multiple 'apply customisations'
+                                animations[animationOption.Key] = new List<HUDAnimation>();
+
+                                foreach (var _animation in animationOption.Value.ToArray())
+                                {
+                                    var animation = _animation.ToObject<Dictionary<string, dynamic>>();
+
+                                    // Create temporary variable to store current animation instead of adding directly in switch case
+                                    // because there are conditional properties that might need to be added later
+                                    //
+                                    // Initialize to dynamic so type checker doesnt return HUDAnimation
+                                    // for setting freq/gain/bias
+                                    //
+                                    dynamic current = null;
+
+                                    switch (animation["Type"].ToString().ToLower())
+                                    {
+                                        case "animate":
+                                            current = new Animate()
+                                            {
+                                                Type =         "Animate",
+                                                Element =      animation["Element"],
+                                                Property =     animation["Property"],
+                                                Value =        animation["Value"],
+                                                Interpolator = animation["Interpolator"],
+                                                Delay =        animation["Delay"],
+                                                Duration =     animation["Duration"]
+                                            };
+                                            break;
+                                        case "runevent":
+                                            current = new RunEvent()
+                                            {
+                                                Type =  "RunEvent",
+                                                Event = animation["Event"],
+                                                Delay = animation["Delay"],
+                                            };
+                                            break;
+                                        case "stopevent":
+                                            current = new StopEvent()
+                                            {
+                                                Type =  "StopEvent",
+                                                Event = animation["Event"],
+                                                Delay = animation["Delay"],
+                                            };
+                                            break;
+                                        case "setvisible":
+                                            current = new SetVisible()
+                                            {
+                                                Type =     "StopEvent",
+                                                Element =  animation["Element"],
+                                                Delay =    animation["Delay"],
+                                                Duration = animation["Duration"],
+                                            };
+                                            break;
+                                        case "firecommand":
+                                            current = new FireCommand()
+                                            {
+                                                Type =    "FireCommand",
+                                                Delay =   animation["Delay"],
+                                                Command = animation["Command"]
+                                            };
+                                            break;
+                                        case "runeventchild":
+                                            current = new RunEventChild()
+                                            {
+                                                Type =    "RunEventChild",
+                                                Element = animation["Element"],
+                                                Event =   animation["Event"],
+                                                Delay =   animation["Delay"]
+                                            };
+                                            break;
+                                        case "setinputenabled":
+                                            current = new SetInputEnabled()
+                                            {
+                                                Type =    "SetInputEnabled",
+                                                Element = animation["Element"],
+                                                Visible = animation["Visible"],
+                                                Delay =   animation["Delay"]
+                                            };
+                                            break;
+                                        case "playsound":
+                                            current = new PlaySound()
+                                            {
+                                                Type =  "PlaySound",
+                                                Delay = animation["Delay"],
+                                                Sound = animation["Sound"]
+                                            };
+                                            break;
+                                        case "stoppanelanimations":
+                                            current = new StopPanelAnimations()
+                                            {
+                                                Type =    "StopPanelAnimations",
+                                                Element = animation["Element"],
+                                                Delay =   animation["Delay"]
+                                            };
+                                            break;
+                                        default:
+                                            throw new Exception($"Unexpected animation type '{animation["Type"]}' in {animationOption.Key}!");
+                                    }
+
+                                    // Animate statements can have an extra argument make sure to account for them
+                                    if (current.GetType() == typeof(Animate))
+                                    {
+                                        if (current.Interpolator.ToLower() == "pulse")
+                                        {
+                                            current.Frequency = animation["Frequency"];
+                                        }
+                                        if (current.Interpolator.ToLower() == "gain" || current.Interpolator.ToLower() == "bias")
+                                        {
+                                            current.Bias = animation["Bias"];
+                                        }
+                                    }
+
+                                    animations[animationOption.Key].Add(current);
+                                }
+                            }
+                        }
+
+                        if (animations != null)
+                        {
+                            File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
+                        }
+                    }
+
+                    string[] resFileExtensions = { "res", "vmt", "vdf" };
+
                     foreach (var filePath in hudSetting.Files)
                     {
+                        string currentFilePath = MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key;
                         var extension = filePath.Key.Split(".")[^1];
 
-                        switch (extension)
+                        if (resFileExtensions.Contains(extension))
                         {
-                            case "res":
-                            case "vmt":
-                            case "vdf":
-                                    var hudFile = Utilities.CreateNestedObject(hudFolders, Regex.Split(filePath.Key, @"[\/]+"));
-                                    Utilities.Merge(hudFile, CompileHudElement(filePath.Value.ToObject<Newtonsoft.Json.Linq.JObject>(), MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key));
-                                break;
-                            default:
-                                System.Windows.MessageBox.Show($"Could not recognise file extension '{extension}'");
-                                break;
+                            var hudFile = Utilities.CreateNestedObject(hudFolders, Regex.Split(filePath.Key, @"[\/]+"));
+                            Utilities.Merge(hudFile, CompileHudElement(filePath.Value.ToObject<Newtonsoft.Json.Linq.JObject>(), currentFilePath));
+                        }
+                        else if (extension == "txt")
+                        {
+                            // assume .txt is always an animation file
+                            // (may cause issues with mod_textures.txt but assume we are only editing hud files)
+                            WriteAnimationCustomizations(currentFilePath, filePath.Value.ToObject<Newtonsoft.Json.Linq.JObject>());
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show($"Could not recognise file extension '{extension}'", "Unrecognized file extension");
                         }
                     }
 
