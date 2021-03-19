@@ -123,12 +123,6 @@
   <data name="app_update" xml:space="preserve">
     <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</value>
   </data>
-  <data name="download_flawhud" xml:space="preserve">
-    <value>https://github.com/CriticalFlaw/flawhud/archive/master.zip</value>
-  </data>
-  <data name="download_rayshud" xml:space="preserve">
-    <value>https://github.com/raysfire/rayshud/archive/master.zip</value>
-  </data>
   <data name="error_app_directory" xml:space="preserve">
     <value>The tf/custom directory must be set to use the editor.</value>
   </data>
@@ -211,64 +205,64 @@
     <value>An error occurred while toggling the crosshair pulse.</value>
   </data>
   <data name="file_background" xml:space="preserve">
-    <value>{0}\{1}\materials\console\{2}</value>
+    <value>{0}\materials\console\{1}</value>
   </data>
   <data name="file_basechat" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\basechat.res</value>
+    <value>{0}\resource\ui\basechat.res</value>
   </data>
   <data name="file_cfg" xml:space="preserve">
-    <value>{0}\{1}\cfg\hud.cfg</value>
+    <value>{0}\cfg\hud.cfg</value>
   </data>
   <data name="file_chapterbackgrounds" xml:space="preserve">
-    <value>{0}\{1}\scripts\chapterbackgrounds.txt</value>
+    <value>{0}\scripts\chapterbackgrounds.txt</value>
   </data>
   <data name="file_classselection" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\classselection.res</value>
+    <value>{0}\resource\ui\classselection.res</value>
   </data>
   <data name="file_clientscheme" xml:space="preserve">
-    <value>{0}\{1}\resource\clientscheme.res</value>
+    <value>{0}\resource\clientscheme.res</value>
   </data>
   <data name="file_clientscheme_colors" xml:space="preserve">
-    <value>{0}\{1}\resource\scheme\clientscheme_colors.res</value>
+    <value>{0}\resource\scheme\clientscheme_colors.res</value>
   </data>
   <data name="file_custom_mainmenu" xml:space="preserve">
-    <value>{0}\{1}\customizations\main_menu\mainmenuoverride.res</value>
+    <value>{0}\customizations\main_menu\mainmenuoverride.res</value>
   </data>
   <data name="file_custom_mainmenu_classic" xml:space="preserve">
-    <value>{0}\{1}\customizations\main_menu\mainmenuoverride-classic.res</value>
+    <value>{0}\customizations\main_menu\mainmenuoverride-classic.res</value>
   </data>
   <data name="file_hudanimations" xml:space="preserve">
-    <value>{0}\{1}\scripts\hudanimations_custom.txt</value>
+    <value>{0}\scripts\hudanimations_custom.txt</value>
   </data>
   <data name="file_huddamageaccount" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\huddamageaccount.res</value>
+    <value>{0}\resource\ui\huddamageaccount.res</value>
   </data>
   <data name="file_hudlayout" xml:space="preserve">
-    <value>{0}\{1}\scripts\hudlayout.res</value>
+    <value>{0}\scripts\hudlayout.res</value>
   </data>
   <data name="file_hudplayerclass" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\hudplayerclass.res</value>
+    <value>{0}\resource\ui\hudplayerclass.res</value>
   </data>
   <data name="file_hudplayerhealth" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\hudplayerhealth.res</value>
+    <value>{0}\resource\ui\hudplayerhealth.res</value>
   </data>
   <data name="file_itemeffectmeter" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\huditemeffectmeter{2}.res</value>
+    <value>{0}\resource\ui\huditemeffectmeter{1}.res</value>
   </data>
   <data name="file_mainmenuoverride" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\mainmenuoverride.res</value>
+    <value>{0}\resource\ui\mainmenuoverride.res</value>
   </data>
   <data name="file_playerclass" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\hudplayerclass.res</value>
+    <value>{0}\resource\ui\hudplayerclass.res</value>
   </data>
   <data name="file_playerhealth" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\hudplayerhealth.res</value>
+    <value>{0}\resource\ui\hudplayerhealth.res</value>
   </data>
   <data name="file_scoreboard" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\scoreboard.res</value>
+    <value>{0}\resource\ui\scoreboard.res</value>
   </data>
   <data name="file_teammenu" xml:space="preserve">
-    <value>{0}\{1}\resource\ui\teammenu.res</value>
+    <value>{0}\resource\ui\teammenu.res</value>
   </data>
   <data name="info_create_backup" xml:space="preserve">
     <value>An existing {0} folder has been found. To avoid conflicts, a backup has been created.</value>
@@ -289,39 +283,9 @@
     <value>{0} has been successfully uninstalled.</value>
   </data>
   <data name="path_console" xml:space="preserve">
-    <value>{0}\{1}\materials\console\</value>
+    <value>{0}\materials\console\</value>
   </data>
   <data name="path_resource_ui" xml:space="preserve">
-    <value>{0}\{1}\resource\ui</value>
-  </data>
-  <data name="url_budhud_discord" xml:space="preserve">
-    <value>https://discord.gg/PTWkt3h</value>
-  </data>
-  <data name="url_budhud_github" xml:space="preserve">
-    <value>https://github.com/rbjaxter/budhud</value>
-  </data>
-  <data name="url_budhud_hudstf" xml:space="preserve">
-    <value>https://huds.tf/site/s-budhud</value>
-  </data>
-  <data name="url_budhud_steam" xml:space="preserve">
-    <value>https://steamcommunity.com/groups/budhud</value>
-  </data>
-  <data name="url_flawhud_github" xml:space="preserve">
-    <value>https://github.com/CriticalFlaw/FlawHUD</value>
-  </data>
-  <data name="url_flawhud_hudstf" xml:space="preserve">
-    <value>https://huds.tf/site/s-FlawHUD</value>
-  </data>
-  <data name="url_flawhud_steam" xml:space="preserve">
-    <value>https://steamcommunity.com/groups/FlawHUD</value>
-  </data>
-  <data name="url_rayshud_github" xml:space="preserve">
-    <value>https://github.com/raysfire/rayshud</value>
-  </data>
-  <data name="url_rayshud_hudstf" xml:space="preserve">
-    <value>https://huds.tf/site/s-rayshud--377</value>
-  </data>
-  <data name="url_rayshud_steam" xml:space="preserve">
-    <value>https://steamcommunity.com/groups/rayshud</value>
+    <value>{0}\resource\ui</value>
   </data>
 </root>

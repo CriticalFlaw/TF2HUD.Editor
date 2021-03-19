@@ -1,0 +1,622 @@
+{
+  "Settings": [
+    {
+      "HUD": "budhud",
+      "Name": "bh_player_hideclassmodel",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_chat_lowerleft",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_youtuber_select",
+      "Type": "int",
+      "Value": "0"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_player_transparentviewmodels",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_player_largehealth",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_player_healthcross_inset",
+      "Type": "bool",
+      "Value": "true"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_targetid_healthcross2",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_targetid_largehealth",
+      "Type": "bool",
+      "Value": "true"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_menu_hidefriends",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_menu_hidegif",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_menu_hidemotd",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_menu_hidestats",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_uber_longchargemeter",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "budhud",
+      "Name": "bh_uber_percentagenearcrosshair",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_ammo_low",
+      "Type": "string",
+      "Value": "#BE1414"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_health_buff",
+      "Type": "string",
+      "Value": "#00AA7F"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_health_low",
+      "Type": "string",
+      "Value": "#BE1414"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_ubercharge",
+      "Type": "string",
+      "Value": "#00AA7F"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_xhair_normal",
+      "Type": "string",
+      "Value": "#F2F2F2"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_xhair_pulse",
+      "Type": "string",
+      "Value": "#FF0000"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_code_fonts",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_disguise_image",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_menu_image",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_background_stock",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_transparent_viewmodels",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_xhair_enable",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_xhair_pulse",
+      "Type": "bool",
+      "Value": "true"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_xhair_rotate",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_val_xhair_effect",
+      "Type": "int",
+      "Value": "0"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_val_xhair_style",
+      "Type": "int",
+      "Value": "24"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_val_health_style",
+      "Type": "int",
+      "Value": "0"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_val_killfeed_rows",
+      "Type": "int",
+      "Value": "5"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_lower_stats",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_target_health",
+      "Type": "string",
+      "Value": "#00FF7F"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_target_damage",
+      "Type": "string",
+      "Value": "#FFFF00"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_alt_stats",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_val_xhair_size",
+      "Type": "int",
+      "Value": "18"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_toggle_background_custom",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_normal",
+      "Type": "string",
+      "Value": "#B2B2B2"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_unique",
+      "Type": "string",
+      "Value": "#FFD700"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_strange",
+      "Type": "string",
+      "Value": "#CF6A32"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_vintage",
+      "Type": "string",
+      "Value": "#476291"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_haunted",
+      "Type": "string",
+      "Value": "#38F3AB"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_genuine",
+      "Type": "string",
+      "Value": "#4D7455"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_collectors",
+      "Type": "string",
+      "Value": "#AA0000"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_unusual",
+      "Type": "string",
+      "Value": "#8650AC"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_community",
+      "Type": "string",
+      "Value": "#70B04A"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_valve",
+      "Type": "string",
+      "Value": "#A50F79"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_civilian",
+      "Type": "string",
+      "Value": "#B2B2B2"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_freelance",
+      "Type": "string",
+      "Value": "#5E98D9"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_mercenary",
+      "Type": "string",
+      "Value": "#4B69FF"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_commando",
+      "Type": "string",
+      "Value": "#8847FF"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_assassin",
+      "Type": "string",
+      "Value": "#D32CE6"
+    },
+    {
+      "HUD": "flawhud",
+      "Name": "fh_color_elite",
+      "Type": "string",
+      "Value": "#EB4B4B"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_ammo_clip",
+      "Type": "string",
+      "Value": "#30FF30"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_ammo_clip_low",
+      "Type": "string",
+      "Value": "#FF2A82"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_ammo_reserve",
+      "Type": "string",
+      "Value": "#48FFFF"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_ammo_reserve_low",
+      "Type": "string",
+      "Value": "#FF801C"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_assassin",
+      "Type": "string",
+      "Value": "#D32CE6"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_civilian",
+      "Type": "string",
+      "Value": "#B0C3D9"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_collectors",
+      "Type": "string",
+      "Value": "#AA0000"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_commando",
+      "Type": "string",
+      "Value": "#8847FF"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_community",
+      "Type": "string",
+      "Value": "#70B04A"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_elite",
+      "Type": "string",
+      "Value": "#EB4B4B"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_freelance",
+      "Type": "string",
+      "Value": "#5E98D9"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_genuine",
+      "Type": "string",
+      "Value": "#4D7455"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_haunted",
+      "Type": "string",
+      "Value": "#38F3AB"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_health_buff",
+      "Type": "string",
+      "Value": "#30FF30"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_health_healed",
+      "Type": "string",
+      "Value": "#30FF30"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_health_low",
+      "Type": "string",
+      "Value": "#FF9900"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_health_normal",
+      "Type": "string",
+      "Value": "#EBE2CA"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_mercenary",
+      "Type": "string",
+      "Value": "#4B69FF"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_normal",
+      "Type": "string",
+      "Value": "#B2B2B2"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_strange",
+      "Type": "string",
+      "Value": "#CF6A32"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_uber_bar",
+      "Type": "string",
+      "Value": "#EBE2CA"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_uber_flash1",
+      "Type": "string",
+      "Value": "#FFA500"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_uber_flash2",
+      "Type": "string",
+      "Value": "#FF4500"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_uber_full",
+      "Type": "string",
+      "Value": "#FF3219"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_unique",
+      "Type": "string",
+      "Value": "#FFD700"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_unusual",
+      "Type": "string",
+      "Value": "#8650AC"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_valve",
+      "Type": "string",
+      "Value": "#A50F79"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_vintage",
+      "Type": "string",
+      "Value": "#476291"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_xhair_normal",
+      "Type": "string",
+      "Value": "#F2F2F2"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_color_xhair_pulse",
+      "Type": "string",
+      "Value": "#FF0000"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_alt_player_model",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_center_select",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_chat_bottom",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_classic_menu",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_damage_pos",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_disguise_image",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_menu_image",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_metal_pos",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_min_scoreboard",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_transparent_viewmodels",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_xhair_enable",
+      "Type": "bool",
+      "Value": "false"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_toggle_xhair_pulse",
+      "Type": "bool",
+      "Value": "true"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_val_health_style",
+      "Type": "int",
+      "Value": "0"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_val_killfeed_rows",
+      "Type": "int",
+      "Value": "5"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_val_main_menu_bg",
+      "Type": "int",
+      "Value": "0"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_val_uber_animation",
+      "Type": "int",
+      "Value": "0"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_val_xhair_effect",
+      "Type": "int",
+      "Value": "0"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_val_xhair_size",
+      "Type": "int",
+      "Value": "18"
+    },
+    {
+      "HUD": "rayshud",
+      "Name": "rh_val_xhair_style",
+      "Type": "int",
+      "Value": "6"
+    }
+  ]
+}

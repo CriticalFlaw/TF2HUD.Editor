@@ -28,7 +28,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace TF2HUD.Editor.Common
+namespace TF2HUD.Editor.Classes
 {
     #region Enums
 

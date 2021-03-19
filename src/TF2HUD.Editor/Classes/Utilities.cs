@@ -4,9 +4,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
-using TF2HUD.Editor.Properties;
 
-namespace TF2HUD.Editor.Common
+namespace TF2HUD.Editor.Classes
 {
     public static class Utilities
     {
@@ -55,11 +54,11 @@ namespace TF2HUD.Editor.Common
         /// <param name="hex">HEX code of the color to be converted to RGB.</param>
         /// <param name="alpha">Flag the color as having a lower alpha value than normal.</param>
         /// <param name="pulse">Flag the color as a pulse, slightly changing green channel.</param>
-        public static string RgbConverter(string hex, int alpha = 255, bool pulse = false)
+        public static string RgbConverter(string hex, bool pulse = false)
         {
             var color = ColorTranslator.FromHtml(hex);
             var pulseNew = pulse && color.G >= 50 ? color.G - 50 : color.G;
-            return $"{color.R} {pulseNew} {color.B} {alpha}";
+            return $"{color.R} {pulseNew} {color.B} {color.A}";
         }
 
         /// <summary>
@@ -106,44 +105,47 @@ namespace TF2HUD.Editor.Common
             }
         }
 
-        public static void OpenLinkButton(HUDS hud, Links link)
-        {
-            var url = hud switch
-            {
-                HUDS.flawhud => link switch
-                {
-                    Links.Steam => Resources.url_flawhud_steam,
-                    Links.GitHub => Resources.url_flawhud_github,
-                    Links.hudsTF => Resources.url_flawhud_hudstf,
-                    _ => throw new NotImplementedException()
-                },
-                HUDS.rayshud => link switch
-                {
-                    Links.Steam => Resources.url_rayshud_steam,
-                    Links.GitHub => Resources.url_rayshud_github,
-                    Links.hudsTF => Resources.url_rayshud_hudstf,
-                    _ => throw new NotImplementedException()
-                },
-                _ => string.Empty
-            };
-            OpenWebpage(url);
-        }
-
         /// <summary>
-        ///     Return an empty element if it's null
+        ///     Convert string value to a boolean
         /// </summary>
-        public static IEnumerable<T> OrEmptyIfNull<T>(this IEnumerable<T> source)
-        {
-            return source ?? Enumerable.Empty<T>();
-        }
-
         public static bool ParseBool(string input)
         {
-            return (input.ToLower()) switch
+            return input.ToLower() switch
             {
                 "yes" or "1" or "true" => true,
-                _ => false,
+                _ => false
             };
+        }
+
+        public static void Merge(Dictionary<string, dynamic> Obj1, Dictionary<string, dynamic> Obj2)
+        {
+            foreach (var i in Obj1.Keys)
+                if (Obj1[i].GetType().Name.Contains("Dictionary"))
+                {
+                    if (Obj2.ContainsKey(i) && Obj2[i].GetType().Name.Contains("Dictionary")) Merge(Obj1[i], Obj2[i]);
+                }
+                else
+                {
+                    if (Obj2.ContainsKey(i)) Obj1[i] = Obj2[i];
+                }
+
+            foreach (var j in Obj2.Keys)
+                if (!Obj1.ContainsKey(j))
+                    Obj1[j] = Obj2[j];
+        }
+
+        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> Obj,
+            IEnumerable<string> Keys)
+        {
+            var ObjectReference = Obj;
+            foreach (var Key in Keys)
+            {
+                if (!ObjectReference.ContainsKey(Key))
+                    ObjectReference[Key] = new Dictionary<string, dynamic>();
+                ObjectReference = ObjectReference[Key];
+            }
+
+            return ObjectReference;
         }
     }
 
@@ -176,5 +178,16 @@ namespace TF2HUD.Editor.Common
         public string Unusual = "#8650AC";
         public string Valve = "#A50F79";
         public string Vintage = "#476291";
+    }
+
+    /// <summary>
+    ///     List of possible positions for item effect meters.
+    /// </summary>
+    public enum Positions
+    {
+        Top,
+        Middle,
+        Bottom,
+        Default
     }
 }

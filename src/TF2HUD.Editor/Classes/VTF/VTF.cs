@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using TF2HUD.Editor.Properties;
 
-namespace TF2HUD.Editor.Common
+namespace TF2HUD.Editor.Classes
 {
     internal class VTF
     {

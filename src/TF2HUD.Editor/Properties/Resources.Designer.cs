@@ -79,24 +79,6 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/CriticalFlaw/flawhud/archive/master.zip.
-        /// </summary>
-        internal static string download_flawhud {
-            get {
-                return ResourceManager.GetString("download_flawhud", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://github.com/raysfire/rayshud/archive/master.zip.
-        /// </summary>
-        internal static string download_rayshud {
-            get {
-                return ResourceManager.GetString("download_rayshud", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The tf/custom directory must be set to use the editor..
         /// </summary>
         internal static string error_app_directory {
@@ -340,7 +322,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\materials\console\{2}.
+        ///   Looks up a localized string similar to {0}\materials\console\{1}.
         /// </summary>
         internal static string file_background {
             get {
@@ -349,7 +331,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\basechat.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\basechat.res.
         /// </summary>
         internal static string file_basechat {
             get {
@@ -358,7 +340,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\cfg\hud.cfg.
+        ///   Looks up a localized string similar to {0}\cfg\hud.cfg.
         /// </summary>
         internal static string file_cfg {
             get {
@@ -367,7 +349,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\scripts\chapterbackgrounds.txt.
+        ///   Looks up a localized string similar to {0}\scripts\chapterbackgrounds.txt.
         /// </summary>
         internal static string file_chapterbackgrounds {
             get {
@@ -376,7 +358,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\classselection.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\classselection.res.
         /// </summary>
         internal static string file_classselection {
             get {
@@ -385,7 +367,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\clientscheme.res.
+        ///   Looks up a localized string similar to {0}\resource\clientscheme.res.
         /// </summary>
         internal static string file_clientscheme {
             get {
@@ -394,7 +376,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\scheme\clientscheme_colors.res.
+        ///   Looks up a localized string similar to {0}\resource\scheme\clientscheme_colors.res.
         /// </summary>
         internal static string file_clientscheme_colors {
             get {
@@ -403,7 +385,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\customizations\main_menu\mainmenuoverride.res.
+        ///   Looks up a localized string similar to {0}\customizations\main_menu\mainmenuoverride.res.
         /// </summary>
         internal static string file_custom_mainmenu {
             get {
@@ -412,7 +394,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\customizations\main_menu\mainmenuoverride-classic.res.
+        ///   Looks up a localized string similar to {0}\customizations\main_menu\mainmenuoverride-classic.res.
         /// </summary>
         internal static string file_custom_mainmenu_classic {
             get {
@@ -421,7 +403,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\scripts\hudanimations_custom.txt.
+        ///   Looks up a localized string similar to {0}\scripts\hudanimations_custom.txt.
         /// </summary>
         internal static string file_hudanimations {
             get {
@@ -430,7 +412,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\huddamageaccount.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\huddamageaccount.res.
         /// </summary>
         internal static string file_huddamageaccount {
             get {
@@ -439,7 +421,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\scripts\hudlayout.res.
+        ///   Looks up a localized string similar to {0}\scripts\hudlayout.res.
         /// </summary>
         internal static string file_hudlayout {
             get {
@@ -448,7 +430,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\hudplayerclass.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\hudplayerclass.res.
         /// </summary>
         internal static string file_hudplayerclass {
             get {
@@ -457,7 +439,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\hudplayerhealth.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\hudplayerhealth.res.
         /// </summary>
         internal static string file_hudplayerhealth {
             get {
@@ -466,7 +448,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\huditemeffectmeter{2}.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\huditemeffectmeter{1}.res.
         /// </summary>
         internal static string file_itemeffectmeter {
             get {
@@ -475,7 +457,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\mainmenuoverride.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\mainmenuoverride.res.
         /// </summary>
         internal static string file_mainmenuoverride {
             get {
@@ -484,7 +466,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\hudplayerclass.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\hudplayerclass.res.
         /// </summary>
         internal static string file_playerclass {
             get {
@@ -493,7 +475,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\hudplayerhealth.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\hudplayerhealth.res.
         /// </summary>
         internal static string file_playerhealth {
             get {
@@ -502,7 +484,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\scoreboard.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\scoreboard.res.
         /// </summary>
         internal static string file_scoreboard {
             get {
@@ -511,7 +493,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui\teammenu.res.
+        ///   Looks up a localized string similar to {0}\resource\ui\teammenu.res.
         /// </summary>
         internal static string file_teammenu {
             get {
@@ -574,7 +556,7 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\materials\console\.
+        ///   Looks up a localized string similar to {0}\materials\console\.
         /// </summary>
         internal static string path_console {
             get {
@@ -583,101 +565,11 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\{1}\resource\ui.
+        ///   Looks up a localized string similar to {0}\resource\ui.
         /// </summary>
         internal static string path_resource_ui {
             get {
                 return ResourceManager.GetString("path_resource_ui", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://discord.gg/PTWkt3h.
-        /// </summary>
-        internal static string url_budhud_discord {
-            get {
-                return ResourceManager.GetString("url_budhud_discord", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://github.com/rbjaxter/budhud.
-        /// </summary>
-        internal static string url_budhud_github {
-            get {
-                return ResourceManager.GetString("url_budhud_github", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://huds.tf/site/s-budhud.
-        /// </summary>
-        internal static string url_budhud_hudstf {
-            get {
-                return ResourceManager.GetString("url_budhud_hudstf", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://steamcommunity.com/groups/budhud.
-        /// </summary>
-        internal static string url_budhud_steam {
-            get {
-                return ResourceManager.GetString("url_budhud_steam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://github.com/CriticalFlaw/FlawHUD.
-        /// </summary>
-        internal static string url_flawhud_github {
-            get {
-                return ResourceManager.GetString("url_flawhud_github", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://huds.tf/site/s-FlawHUD.
-        /// </summary>
-        internal static string url_flawhud_hudstf {
-            get {
-                return ResourceManager.GetString("url_flawhud_hudstf", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://steamcommunity.com/groups/FlawHUD.
-        /// </summary>
-        internal static string url_flawhud_steam {
-            get {
-                return ResourceManager.GetString("url_flawhud_steam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://github.com/raysfire/rayshud.
-        /// </summary>
-        internal static string url_rayshud_github {
-            get {
-                return ResourceManager.GetString("url_rayshud_github", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://huds.tf/site/s-rayshud--377.
-        /// </summary>
-        internal static string url_rayshud_hudstf {
-            get {
-                return ResourceManager.GetString("url_rayshud_hudstf", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://steamcommunity.com/groups/rayshud.
-        /// </summary>
-        internal static string url_rayshud_steam {
-            get {
-                return ResourceManager.GetString("url_rayshud_steam", resourceCulture);
             }
         }
     }

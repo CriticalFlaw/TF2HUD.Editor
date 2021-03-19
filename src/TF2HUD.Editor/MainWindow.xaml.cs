@@ -13,7 +13,7 @@ using AutoUpdaterDotNET;
 using log4net;
 using log4net.Config;
 using Microsoft.Win32;
-using TF2HUD.Editor.Common;
+using TF2HUD.Editor.Classes;
 using TF2HUD.Editor.Properties;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -38,7 +38,7 @@ namespace TF2HUD.Editor
             Logger.Info("INITIALIZING...");
 
             // Setup HUDs
-            Json = new Json("Common\\HUDs");
+            Json = new Json();
 
             // Setup the GUI.
             InitializeComponent();
@@ -79,8 +79,8 @@ namespace TF2HUD.Editor
         /// </summary>
         public void SetupMenu()
         {
-            // TODO: Restore the last selected HUD
-            //GbSelectHud.Visibility = (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) ? Visibility.Visible : Visibility.Hidden;
+            // Restore the last selected HUD
+            SetPageView();
 
             // Reload the HUD selection list.
             LbSelectHud.Items.Clear();
@@ -279,22 +279,8 @@ namespace TF2HUD.Editor
                     Dispatcher.Invoke(() =>
                     {
                         // Step 1. Download the HUD
-                        // TODO: Migrate xaml-based HUDs to pull download URL from their own json file.
-                        Logger.Info($"Downloading the latest {HudSelection}...");
-                        switch (HudSelection)
-                        {
-                            case "flawhud":
-                                DownloadHud(Properties.Resources.download_flawhud);
-                                break;
-
-                            case "rayshud":
-                                DownloadHud(Properties.Resources.download_rayshud);
-                                break;
-
-                            default:
-                                Json.GetHUDByName(Settings.Default.hud_selected).Update();
-                                break;
-                        }
+                        Logger.Info($"Downloading the latest {Settings.Default.hud_selected}...");
+                        Json.GetHUDByName(Settings.Default.hud_selected).Update();
 
                         // Step 2. Extract the HUD
                         Logger.Info($"Extracting {HudSelection} to {HudPath}");
@@ -371,6 +357,7 @@ namespace TF2HUD.Editor
         /// </summary>
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
+            WriterTest();
             Logger.Info("Applying HUD Settings...");
             var worker = new BackgroundWorker();
             worker.DoWork += (_, _) =>
@@ -387,6 +374,31 @@ namespace TF2HUD.Editor
             LblStatus.Content = "Settings Applied at " + DateTime.Now;
         }
 
+        private void WriterTest()
+        {
+            //string location = HudPath + $"\\{HudSelection}";
+            //var Options = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(File.ReadAllText("compiler.json"));
+            //Dictionary<string, string> InputIDs = new()
+            //{
+            //    test_hud_health_xpos = "c-50",
+            //    test_hud_bold_font = "true",
+            //};
+            //HUDWriter.Write(location, Options, InputIDs);
+
+            //System.Collections.Generic.Dictionary<string, dynamic> Options = new();
+            //Options["resource"] = new System.Collections.Generic.Dictionary<string, dynamic>();
+            //Options["resource"]["ui"] = new System.Collections.Generic.Dictionary<string, dynamic>();
+            //Options["resource"]["ui"]["mainmenuoverride.res"] = new System.Collections.Generic.Dictionary<string, dynamic>();
+            //Options["resource"]["ui"]["mainmenuoverride.res"]["TFCharacterImage"] = new System.Collections.Generic.Dictionary<string, dynamic>();
+            //Options["resource"]["ui"]["mainmenuoverride.res"]["TFCharacterImage"]["ypos"] = "$test ? yes : no";
+
+            //System.Collections.Generic.Dictionary<string, string> InputValues = new();
+            //InputValues["test"] = "true";
+            //InputValues["secondtest"] = "world";
+
+            //HUDWriter.Write(HudPath + $"\\{HudSelection}", Options, InputValues);
+        }
+
         /// <summary>
         ///     Resets settings of the selected HUD.
         /// </summary>
@@ -395,6 +407,7 @@ namespace TF2HUD.Editor
             // Reset settings of the selected HUD.
             var selection = Json.GetHUDByName(Settings.Default.hud_selected);
             selection.Reset();
+            selection.Save();
             LblStatus.Content = "Settings Reset at " + DateTime.Now;
         }
 
@@ -417,6 +430,9 @@ namespace TF2HUD.Editor
             SetFormControls();
         }
 
+        /// <summary>
+        ///     Save the selected HUD then update the page view and controls.
+        /// </summary>
         private void lbSelectHud_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (LbSelectHud.SelectedIndex == -1) return;
@@ -425,40 +441,57 @@ namespace TF2HUD.Editor
             Settings.Default.Save();
             HudSelection = Settings.Default.hud_selected;
 
-            GbSelectHud.Visibility = Visibility.Hidden;
-            EditorContainer.Children.Clear();
-
             // Change the page view to the selected HUD.
-            if (!string.IsNullOrWhiteSpace(Settings.Default.hud_selected))
-                try
-                {
-                    var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-                    EditorContainer.Children.Clear();
-                    EditorContainer.Children.Add(selection.GetControls());
-                    selection.Load();
-                }
-                catch (Exception error)
-                {
-                    MessageBox.Show(error.ToString());
-                }
+            SetPageView();
 
             // Update the control buttons.
             SetFormControls();
         }
 
+        /// <summary>
+        ///     Update the page view to the selected HUD.
+        /// </summary>
+        private void SetPageView()
+        {
+            try
+            {
+                GbSelectHud.Visibility = Visibility.Hidden;
+                EditorContainer.Children.Clear();
+
+                if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
+                var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+                EditorContainer.Children.Clear();
+                EditorContainer.Children.Add(selection.GetControls());
+                selection.Load();
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.ToString());
+            }
+        }
+
+        /// <summary>
+        ///     Link button to open the Steam Group page.
+        /// </summary>
         private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenLinkButton(Enum.Parse<HUDS>(Settings.Default.hud_selected), Links.Steam);
+            Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).SteamUrl);
         }
 
+        /// <summary>
+        ///     Link button to open the GitHub repository page.
+        /// </summary>
         private void BtnGitHub_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenLinkButton(Enum.Parse<HUDS>(Settings.Default.hud_selected), Links.GitHub);
+            Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).GitHubUrl);
         }
 
+        /// <summary>
+        ///     Link button to open the HUDS.TF page.
+        /// </summary>
         private void BtnHuds_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenLinkButton(Enum.Parse<HUDS>(Settings.Default.hud_selected), Links.hudsTF);
+            Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).HudsTfUrl);
         }
     }
 }

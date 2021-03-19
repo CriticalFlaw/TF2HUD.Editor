@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using TF2HUD.Editor.JSON;
 
-namespace TF2HUD.Editor.Common
+namespace TF2HUD.Editor.Classes
 {
     public class Json
     {
@@ -15,12 +15,12 @@ namespace TF2HUD.Editor.Common
         // HUDs to manage
         public HUD[] HUDs;
 
-        public Json(string FolderPath)
+        public Json()
         {
-            this.FolderPath = FolderPath;
+            FolderPath = "JSON";
 
             var TempHUDs = new List<HUD>();
-            foreach (var HUDPath in Directory.EnumerateFiles(this.FolderPath))
+            foreach (var HUDPath in Directory.EnumerateFiles(FolderPath))
             {
                 // Extracts HUD name from the file path
                 var HUDArray = HUDPath.Split("\\");
@@ -31,36 +31,23 @@ namespace TF2HUD.Editor.Common
                 if (Extension != "json") continue;
                 var json = new StreamReader(File.OpenRead(HUDPath), new UTF8Encoding(false)).ReadToEnd();
 
-                // Pass the name and options to hud.
-                TempHUDs.Add(new HUD(HUDName, JsonConvert.DeserializeObject<HUDRoot>(json)));
+                // Pass the name and options to HUD.
+                TempHUDs.Add(new HUD(HUDName, JsonConvert.DeserializeObject<HudJson>(json)));
             }
 
             HUDs = TempHUDs.ToArray();
         }
 
+        /// <summary>
+        ///     Retrieve the HUD object selected by the user.
+        /// </summary>
+        /// <param name="HUDName">Name of the HUD the user wants to view.</param>
         public HUD GetHUDByName(string HUDName)
         {
             foreach (var HUDItem in HUDs)
-                if (HUDItem.Name.ToLowerInvariant() == HUDName.ToLowerInvariant())
+                if (string.Equals(HUDItem.Name, HUDName, StringComparison.InvariantCultureIgnoreCase))
                     return HUDItem;
             throw new Exception("Cannot find HUD " + HUDName + "!");
         }
     }
-
-    #region MODEL
-
-    public class UserSettings
-    {
-        [JsonPropertyName("Settings")] public List<Setting> Settings { get; set; }
-    }
-
-    public class Setting
-    {
-        [JsonPropertyName("HUD")] public string HUD { get; set; }
-        [JsonPropertyName("Name")] public string Name { get; set; }
-        [JsonPropertyName("Type")] public string Type { get; set; }
-        [JsonPropertyName("Value")] public string Value { get; set; }
-    }
-
-    #endregion
 }

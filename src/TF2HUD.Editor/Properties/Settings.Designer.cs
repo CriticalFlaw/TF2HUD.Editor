@@ -37,7 +37,19 @@ namespace TF2HUD.Editor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("stock")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string image_path {
+            get {
+                return ((string)(this["image_path"]));
+            }
+            set {
+                this["image_path"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("budhud")]
         public string hud_selected {
             get {
                 return ((string)(this["hud_selected"]));
@@ -56,18 +68,6 @@ namespace TF2HUD.Editor.Properties {
             }
             set {
                 this["hud_directory"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string image_path {
-            get {
-                return ((string)(this["image_path"]));
-            }
-            set {
-                this["image_path"] = value;
             }
         }
     }
