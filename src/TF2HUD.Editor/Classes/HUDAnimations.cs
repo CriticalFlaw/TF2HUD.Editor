@@ -1,6 +1,8 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 // sample animation script
 //
@@ -49,13 +51,13 @@ using System.Collections.Generic;
 
 namespace TF2HUD.Editor.Classes
 {
-    class HUDAnimation
+    internal class HUDAnimation
     {
         public string Type { get; set; }
         public string OSTag { get; set; }
     }
 
-    class Animate : HUDAnimation
+    internal class Animate : HUDAnimation
     {
         public string Element { get; set; }
         public string Property { get; set; }
@@ -67,94 +69,85 @@ namespace TF2HUD.Editor.Classes
         public string Duration { get; set; }
     }
 
-    class RunEvent : HUDAnimation
+    internal class RunEvent : HUDAnimation
     {
         public string Event { get; set; }
         public string Delay { get; set; }
     }
 
-    class StopEvent : HUDAnimation
+    internal class StopEvent : HUDAnimation
     {
         public string Event { get; set; }
         public string Delay { get; set; }
     }
 
-    class SetVisible : HUDAnimation
+    internal class SetVisible : HUDAnimation
     {
         public string Element { get; set; }
         public string Delay { get; set; }
         public string Duration { get; set; }
     }
 
-    class FireCommand : HUDAnimation
+    internal class FireCommand : HUDAnimation
     {
         public string Delay { get; set; }
         public string Command { get; set; }
     }
 
-    class RunEventChild : HUDAnimation
+    internal class RunEventChild : HUDAnimation
     {
         public string Element { get; set; }
         public string Event { get; set; }
         public string Delay { get; set; }
     }
 
-    class SetInputEnabled : HUDAnimation
+    internal class SetInputEnabled : HUDAnimation
     {
         public string Element { get; set; }
         public int Visible { get; set; }
         public string Delay { get; set; }
     }
 
-    class PlaySound : HUDAnimation
+    internal class PlaySound : HUDAnimation
     {
         public string Delay { get; set; }
         public string Sound { get; set; }
     }
 
-    class StopPanelAnimations : HUDAnimation
+    internal class StopPanelAnimations : HUDAnimation
     {
         public string Element { get; set; }
         public string Delay { get; set; }
     }
 
-    static class HUDAnimations
+    internal static class HUDAnimations
     {
         public static Dictionary<string, List<HUDAnimation>> Parse(string Str)
         {
-            int i = 0;
-            char[] WhiteSpaceIgnore = new char[] { ' ', '\t', '\r', '\n' };
+            var i = 0;
+            char[] WhiteSpaceIgnore = {' ', '\t', '\r', '\n'};
 
             string Next(bool LookAhead = false)
             {
-                string CurrentToken = "";
-                int j = i;
+                var CurrentToken = "";
+                var j = i;
 
-                if (j >= Str.Length - 1)
-                {
-                    return "EOF";
-                }
+                if (j >= Str.Length - 1) return "EOF";
 
                 while ((WhiteSpaceIgnore.Contains(Str[j]) || Str[j] == '/') && j < Str.Length - 1)
                 {
                     if (Str[j] == '/')
                     {
                         if (Str[j + 1] == '/')
-                        {
                             while (Str[j] != '\n' && j < Str.Length - 1)
-                            {
                                 j++;
-                            }
-                        }
                     }
                     else
                     {
                         j++;
                     }
-                    if (j >= Str.Length)
-                    {
-                        return "EOF";
-                    }
+
+                    if (j >= Str.Length) return "EOF";
                 }
 
                 if (Str[j] == '"')
@@ -163,13 +156,11 @@ namespace TF2HUD.Editor.Classes
                     j++;
                     while (Str[j] != '"' && j < Str.Length - 1)
                     {
-                        if (Str[j] == '\n')
-                        {
-                            throw new Exception($"Unexpected end of line at position {j}");
-                        }
+                        if (Str[j] == '\n') throw new Exception($"Unexpected end of line at position {j}");
                         CurrentToken += Str[j];
                         j++;
                     }
+
                     j++; // Skip over closing quote
                 }
                 else
@@ -177,19 +168,13 @@ namespace TF2HUD.Editor.Classes
                     // Read until whitespace (or end of file)
                     while (j < Str.Length && !WhiteSpaceIgnore.Contains(Str[j]))
                     {
-                        if (Str[j] == '"')
-                        {
-                            throw new Exception($"Unexpected double quote at position {j}");
-                        }
+                        if (Str[j] == '"') throw new Exception($"Unexpected double quote at position {j}");
                         CurrentToken += Str[j];
                         j++;
                     }
                 }
 
-                if (!LookAhead)
-                {
-                    i = j;
-                }
+                if (!LookAhead) i = j;
 
                 //if (j > Str.Length)
                 //{
@@ -203,13 +188,13 @@ namespace TF2HUD.Editor.Classes
             {
                 Dictionary<string, List<HUDAnimation>> Animations = new();
 
-                string CurrentToken = Next();
+                var CurrentToken = Next();
 
                 // System.Diagnostics.Debugger.Break();
 
                 while (CurrentToken == "event")
                 {
-                    string EventName = Next();
+                    var EventName = Next();
                     Animations[EventName] = ParseEvent();
                     CurrentToken = Next();
                 }
@@ -220,39 +205,34 @@ namespace TF2HUD.Editor.Classes
             List<HUDAnimation> ParseEvent()
             {
                 List<HUDAnimation> Event = new();
-                string NextToken = Next();
+                var NextToken = Next();
                 if (NextToken == "{")
-                {
                     // string NextToken = Next();
                     while (NextToken != "}" && NextToken != "EOF")
                     {
                         // NextToken is not a closing brace therefore it is the animation type
                         // Pass the animation type to the animation
                         NextToken = Next();
-                        if (NextToken != "}")
-                        {
-                            Event.Add(ParseAnimation(NextToken));
-                        }
+                        if (NextToken != "}") Event.Add(ParseAnimation(NextToken));
                     }
-                }
                 else
-                {
                     throw new Exception($"Unexpected ${NextToken} at position {i}! Are you missing an opening brace?");
-                }
+
                 return Event;
             }
 
             void SetInterpolator(Animate Animation)
             {
-                string Interpolator = Next().ToLower();
+                var Interpolator = Next().ToLower();
                 if (Interpolator == "pulse")
                 {
                     Animation.Interpolator = Interpolator;
                     Animation.Frequency = Next();
                 }
-                else if (new string[] { "gain", "bias" }.Contains(Interpolator))
+                else if (new[] {"gain", "bias"}.Contains(Interpolator))
                 {
-                    Animation.Interpolator = Interpolator[0].ToString().ToUpper() + Interpolator.Substring(1, Interpolator.Length - 1);
+                    Animation.Interpolator = Interpolator[0].ToString().ToUpper() +
+                                             Interpolator.Substring(1, Interpolator.Length - 1);
                     Animation.Bias = Next();
                 }
                 else
@@ -336,14 +316,11 @@ namespace TF2HUD.Editor.Classes
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine(Str.Substring(i - 25, 25));
+                    Debug.WriteLine(Str.Substring(i - 25, 25));
                     throw new Exception($"Unexpected {AnimationType} at position {i}");
                 }
 
-                if (Next(true).StartsWith('['))
-                {
-                    Animation.OSTag = Next();
-                }
+                if (Next(true).StartsWith('[')) Animation.OSTag = Next();
 
                 return Animation;
             }
@@ -353,18 +330,18 @@ namespace TF2HUD.Editor.Classes
 
         public static string Stringify(Dictionary<string, List<HUDAnimation>> Animations)
         {
-            string Str = "";
-            char Tab = '\t';
-            string NewLine = "\r\n";
+            var Str = "";
+            var Tab = '\t';
+            var NewLine = "\r\n";
 
             string FormatWhiteSpace(string Str)
             {
-                return System.Text.RegularExpressions.Regex.IsMatch(Str, "\\s") ? $"\"{Str}\"" : Str;
+                return Regex.IsMatch(Str, "\\s") ? $"\"{Str}\"" : Str;
             }
 
             string GetInterpolator(Animate Animation)
             {
-                string Interpolator = Animation.Interpolator.ToLower();
+                var Interpolator = Animation.Interpolator.ToLower();
                 switch (Interpolator)
                 {
                     case "Pulse":
@@ -377,7 +354,7 @@ namespace TF2HUD.Editor.Classes
                 }
             }
 
-            foreach (string Event in Animations.Keys)
+            foreach (var Event in Animations.Keys)
             {
                 Str += $"event {Event}{NewLine}{{{NewLine}";
                 foreach (dynamic Execution in Animations[Event])
@@ -386,41 +363,29 @@ namespace TF2HUD.Editor.Classes
                     Type T = Execution.GetType();
 
                     if (T == typeof(Animate))
-                    {
-                        Str += $"Animate {FormatWhiteSpace(Execution.Element)} {FormatWhiteSpace(Execution.Property)} {FormatWhiteSpace(Execution.Value)} {GetInterpolator(Execution)} {Execution.Delay} {Execution.Duration}";
-                    }
+                        Str +=
+                            $"Animate {FormatWhiteSpace(Execution.Element)} {FormatWhiteSpace(Execution.Property)} {FormatWhiteSpace(Execution.Value)} {GetInterpolator(Execution)} {Execution.Delay} {Execution.Duration}";
                     else if (T == typeof(RunEvent) || T == typeof(StopEvent))
-                    {
                         Str += $"RunEvent {FormatWhiteSpace(Execution.Event)} {Execution.Delay}";
-                    }
                     else if (T == typeof(SetVisible))
-                    {
-                        Str += $"SetVisible {FormatWhiteSpace(Execution.Element)} {Execution.Delay} {Execution.Duration}";
-                    }
+                        Str +=
+                            $"SetVisible {FormatWhiteSpace(Execution.Element)} {Execution.Delay} {Execution.Duration}";
                     else if (T == typeof(FireCommand))
-                    {
                         Str += $"FireCommand {Execution.Delay} {FormatWhiteSpace(Execution.Command)}";
-                    }
                     else if (T == typeof(RunEventChild))
-                    {
-                        Str += $"RunEventChild {FormatWhiteSpace(Execution.Element)} {FormatWhiteSpace(Execution.Event)} {Execution.Delay}";
-                    }
+                        Str +=
+                            $"RunEventChild {FormatWhiteSpace(Execution.Element)} {FormatWhiteSpace(Execution.Event)} {Execution.Delay}";
                     else if (T == typeof(SetVisible))
-                    {
-                        Str += $"SetVisible {FormatWhiteSpace(Execution.Element)} {Execution.Visible} {Execution.Delay}";
-                    }
+                        Str +=
+                            $"SetVisible {FormatWhiteSpace(Execution.Element)} {Execution.Visible} {Execution.Delay}";
                     else if (T == typeof(PlaySound))
-                    {
                         Str += $"PlaySound {Execution.Delay} {FormatWhiteSpace(Execution.Sound)}";
-                    }
 
-                    if (Execution.OSTag != null)
-                    {
-                        Str += " " + Execution.OSTag;
-                    }
+                    if (Execution.OSTag != null) Str += " " + Execution.OSTag;
 
                     Str += NewLine;
                 }
+
                 Str += $"}}{NewLine}";
             }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Newtonsoft.Json.Linq;
 
 namespace TF2HUD.Editor.JSON
 {
@@ -27,27 +28,14 @@ namespace TF2HUD.Editor.JSON
     public class Controls
     {
         [JsonPropertyName("Default")] public string Default = "0";
+        [JsonPropertyName("Files")] public JObject Files;
         [JsonPropertyName("Increment")] public int Increment = 2;
-        [JsonPropertyName("Files")] public Newtonsoft.Json.Linq.JObject Files;
-
-        [JsonPropertyName("Instruction")] public Instructions[] Instructions;
         [JsonPropertyName(";")] public string Label;
         [JsonPropertyName("Maximum")] public int Maximum = 30;
-
         [JsonPropertyName("Minimum")] public int Minimum = 10;
         [JsonPropertyName("Name")] public string Name;
         [JsonPropertyName("Options")] public Option[] Options;
         [JsonPropertyName("Type")] public string Type;
-    }
-
-    public class Instructions
-    {
-        [JsonPropertyName("Command")] public string Command;
-        [JsonPropertyName("Defaults")] public string[] Defaults;
-        [JsonPropertyName("FileName")] public string FileName;
-        [JsonPropertyName("Group")] public string Group;
-        [JsonPropertyName("Tags")] public string[] Tags;
-        [JsonPropertyName("Values")] public string[] Values;
     }
 
     public class Option

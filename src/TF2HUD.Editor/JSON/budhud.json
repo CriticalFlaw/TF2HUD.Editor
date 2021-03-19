@@ -15,14 +15,14 @@
         "Label": "Disable 3D Player Model",
         "Type": "Checkbox",
         "FileName": "bh_player_hideclassmodel.res",
-        "Default": "0"
+        "Default": "false"
       },
       {
         "Name": "bh_chat_lowerleft",
         "Label": "Chat Location",
         "Type": "Checkbox",
         "FileName": "bh_chat_lowerleft.res",
-        "Default": "0"
+        "Default": "false"
       },
       {
         "Name": "bh_youtuber_select",
@@ -35,7 +35,7 @@
         "Label": "Transparent Viewmodels",
         "Type": "Checkbox",
         "FileName": "bh_player_transparentviewmodels.res",
-        "Default": "0"
+        "Default": "false"
       }
     ],
     "Health and Ammo": [
@@ -44,14 +44,14 @@
         "Label": "Larger Health & Ammo",
         "Type": "Checkbox",
         "FileName": "bh_player_largehealth.res",
-        "Default": "0"
+        "Default": "false"
       },
       {
         "Name": "bh_player_healthcross_inset",
         "Label": "Enable Player Health Cross",
         "Type": "Checkbox",
         "FileName": "bh_player_healthcross_inset.res",
-        "Default": "1"
+        "Default": "true"
       }
     ],
     "TargetIDs": [
@@ -60,14 +60,14 @@
         "Label": "Health Cross",
         "Type": "Checkbox",
         "FileName": "bh_targetid_healthcross2.res",
-        "Default": "0"
+        "Default": "false"
       },
       {
         "Name": "bh_targetid_largehealth",
         "Label": "Large Health Size",
         "Type": "Checkbox",
         "FileName": "bh_targetid_largehealth.res",
-        "Default": "1"
+        "Default": "true"
       }
     ],
     "Main Menu": [
@@ -76,28 +76,28 @@
         "Label": "Hide Friends",
         "Type": "Checkbox",
         "FileName": "bh_menu_hidefriends",
-        "Default": "0"
+        "Default": "false"
       },
       {
         "Name": "bh_menu_hidegif",
         "Label": "Hide Menu GIF",
         "Type": "Checkbox",
         "FileName": "bh_menu_hidegif.res",
-        "Default": "0"
+        "Default": "false"
       },
       {
         "Name": "bh_menu_hidemotd",
         "Label": "Hide MOTD",
         "Type": "Checkbox",
         "FileName": "bh_menu_hidemotd.res",
-        "Default": "1"
+        "Default": "true"
       },
       {
         "Name": "bh_menu_hidestats",
         "Label": "Hide Stats",
         "Type": "Checkbox",
         "FileName": "bh_menu_hidestats.res",
-        "Default": "0"
+        "Default": "false"
       }
     ],
     "Medic Customizations": [
@@ -106,14 +106,14 @@
         "Label": "Full Width Charge Meter",
         "Type": "Checkbox",
         "FileName": "bh_uber_longchargemeter.res",
-        "Default": "0"
+        "Default": "false"
       },
       {
         "Name": "bh_uber_percentagenearcrosshair",
         "Label": "Uber Percentage Near Crosshair",
         "Type": "Checkbox",
         "FileName": "bh_uber_percentagenearcrosshair.res",
-        "Default": "0"
+        "Default": "false"
       }
     ]
   }

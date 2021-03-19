@@ -7,8 +7,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using TF2HUD.Editor.JSON;
 using Xceed.Wpf.Toolkit;
+using MessageBox = System.Windows.MessageBox;
 
 namespace TF2HUD.Editor.Classes
 {
@@ -372,7 +374,7 @@ namespace TF2HUD.Editor.Classes
                                         break;
 
                                     case ColorPicker color:
-                                        UpdateJson(color.Name, color.SelectedColor.ToString());
+                                        UpdateJson(color.Name, Utilities.RgbConverter(color.SelectedColor.ToString()));
                                         break;
 
                                     case ComboBox combo:
@@ -587,16 +589,14 @@ namespace TF2HUD.Editor.Classes
                     WriteToFile(path, control, userSetting, hudFolders);
 
 
-
                 void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
                 {
-                    foreach (string property in folder.Keys)
-                    {
+                    foreach (var property in folder.Keys)
                         if (folder[property].GetType() == typeof(Dictionary<string, dynamic>))
                         {
                             if (property.Contains("."))
                             {
-                                string filePath = folderPath + "\\" + property;
+                                var filePath = folderPath + "\\" + property;
                                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
                                 // Read file, check each topmost element until we come to an element that matches
@@ -612,21 +612,23 @@ namespace TF2HUD.Editor.Classes
 
                                     // Initialize to null to check whether matching element has been found
                                     Dictionary<string, dynamic> hudContainer = null;
-                                    string pattern = @"(Resource/UI/)*.res";
+                                    var pattern = @"(Resource/UI/)*.res";
 
                                     int preventInfinite = 0, len = obj.Keys.Count;
                                     while (hudContainer == null && preventInfinite < len)
                                     {
-                                        string key = obj.Keys.ElementAt(preventInfinite);
+                                        var key = obj.Keys.ElementAt(preventInfinite);
 
                                         // Match pattern here, also ensure item is a HUD element
-                                        if (Regex.IsMatch(key, pattern) && obj[key].GetType() == typeof(Dictionary<string, dynamic>))
+                                        if (Regex.IsMatch(key, pattern) &&
+                                            obj[key].GetType() == typeof(Dictionary<string, dynamic>))
                                         {
                                             // Initialise hudContainer and create inner Dictionary
                                             //  to contain elements specified
-                                            hudContainer = new();
+                                            hudContainer = new Dictionary<string, dynamic>();
                                             hudContainer[key] = folder[property];
                                         }
+
                                         preventInfinite++;
                                     }
 
@@ -652,11 +654,10 @@ namespace TF2HUD.Editor.Classes
                                 IterateProperties(folder[property], folderPath + "\\" + property);
                             }
                         }
-                    }
                 }
 
                 // write hudFolders to the HUD once instead of each WriteToFile call reading and writing
-                string hudPath = MainWindow.HudPath + "\\" + Name;
+                var hudPath = MainWindow.HudPath + "\\" + Name;
                 IterateProperties(hudFolders, hudPath);
 
                 return true;
@@ -715,23 +716,23 @@ namespace TF2HUD.Editor.Classes
         /// <param name="hudSetting">Settings as defined for the HUD</param>
         /// <param name="userSetting">Settings as selected by the user</param>
         /// <param name="hudFolders">folders/files/properties Dictionary to write HUD properties to</param>
-        private void WriteToFile(string path, Controls hudSetting, Setting userSetting, Dictionary<string, dynamic> hudFolders)
+        private void WriteToFile(string path, Controls hudSetting, Setting userSetting,
+            Dictionary<string, dynamic> hudFolders)
         {
             try
             {
                 if (hudSetting.Files != null)
                 {
-                    Dictionary<string, dynamic> CompileHudElement(Newtonsoft.Json.Linq.JObject element, string filePath)
+                    Dictionary<string, dynamic> CompileHudElement(JObject element, string filePath)
                     {
                         var hudElement = new Dictionary<string, dynamic>();
                         foreach (var property in element)
-                        {
                             if (property.Key == "replace")
                             {
-                                Newtonsoft.Json.Linq.JToken[] values = property.Value.ToArray();
+                                var values = property.Value.ToArray();
 
                                 string find, replace;
-                                if (userSetting.Value.ToString() == "true")
+                                if (userSetting.Value == "true")
                                 {
                                     find = values[0].ToString();
                                     replace = values[1].ToString();
@@ -744,23 +745,25 @@ namespace TF2HUD.Editor.Classes
 
                                 File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
                             }
-                            else if (property.Value.GetType() == typeof(Newtonsoft.Json.Linq.JObject))
+                            else if (property.Value.GetType() == typeof(JObject))
                             {
-                                var currentObj = property.Value.ToObject<Newtonsoft.Json.Linq.JObject>();
+                                var currentObj = property.Value.ToObject<JObject>();
 
                                 if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
-                                    hudElement[property.Key] = currentObj[userSetting.Value.ToString()];
+                                    hudElement[property.Key] = currentObj[userSetting.Value];
                                 else
                                     hudElement[property.Key] = CompileHudElement(currentObj, filePath);
                             }
                             else
-                                hudElement[property.Key] = property.Value.ToString().Replace("$value", userSetting.Value);
+                            {
+                                hudElement[property.Key] =
+                                    property.Value.ToString().Replace("$value", userSetting.Value);
+                            }
 
-                        }
                         return hudElement;
                     }
 
-                    void WriteAnimationCustomizations(string filePath, Newtonsoft.Json.Linq.JObject animationOptions)
+                    void WriteAnimationCustomizations(string filePath, JObject animationOptions)
                     {
                         // Don't read animations file unless the user requests a new event
                         // the majority of the animation customisations are for enabling/disabling
@@ -768,7 +771,6 @@ namespace TF2HUD.Editor.Classes
                         Dictionary<string, List<HUDAnimation>> animations = null;
 
                         foreach (var animationOption in animationOptions)
-                        {
                             if (animationOption.Key == "replace")
                             {
                                 // Example:
@@ -777,10 +779,10 @@ namespace TF2HUD.Editor.Classes
                                 //   "HudSpyDisguiseFadeIn"
                                 // ]
 
-                                Newtonsoft.Json.Linq.JToken[] values = animationOption.Value.ToArray();
+                                var values = animationOption.Value.ToArray();
 
                                 string find, replace;
-                                if (userSetting.Value.ToString() == "true")
+                                if (userSetting.Value == "true")
                                 {
                                     find = values[0].ToString();
                                     replace = values[1].ToString();
@@ -809,10 +811,7 @@ namespace TF2HUD.Editor.Classes
                                 //   }
                                 // ]
 
-                                if (animations == null)
-                                {
-                                    animations = HUDAnimations.Parse(File.ReadAllText(filePath));
-                                }
+                                if (animations == null) animations = HUDAnimations.Parse(File.ReadAllText(filePath));
 
                                 // Create new event or animation statements could stack
                                 // over multiple 'apply customisations'
@@ -833,229 +832,133 @@ namespace TF2HUD.Editor.Classes
                                     switch (animation["Type"].ToString().ToLower())
                                     {
                                         case "animate":
-                                            current = new Animate()
+                                            current = new Animate
                                             {
-                                                Type =         "Animate",
-                                                Element =      animation["Element"],
-                                                Property =     animation["Property"],
-                                                Value =        animation["Value"],
+                                                Type = "Animate",
+                                                Element = animation["Element"],
+                                                Property = animation["Property"],
+                                                Value = animation["Value"],
                                                 Interpolator = animation["Interpolator"],
-                                                Delay =        animation["Delay"],
-                                                Duration =     animation["Duration"]
+                                                Delay = animation["Delay"],
+                                                Duration = animation["Duration"]
                                             };
                                             break;
                                         case "runevent":
-                                            current = new RunEvent()
+                                            current = new RunEvent
                                             {
-                                                Type =  "RunEvent",
+                                                Type = "RunEvent",
                                                 Event = animation["Event"],
-                                                Delay = animation["Delay"],
+                                                Delay = animation["Delay"]
                                             };
                                             break;
                                         case "stopevent":
-                                            current = new StopEvent()
+                                            current = new StopEvent
                                             {
-                                                Type =  "StopEvent",
+                                                Type = "StopEvent",
                                                 Event = animation["Event"],
-                                                Delay = animation["Delay"],
+                                                Delay = animation["Delay"]
                                             };
                                             break;
                                         case "setvisible":
-                                            current = new SetVisible()
+                                            current = new SetVisible
                                             {
-                                                Type =     "StopEvent",
-                                                Element =  animation["Element"],
-                                                Delay =    animation["Delay"],
-                                                Duration = animation["Duration"],
+                                                Type = "StopEvent",
+                                                Element = animation["Element"],
+                                                Delay = animation["Delay"],
+                                                Duration = animation["Duration"]
                                             };
                                             break;
                                         case "firecommand":
-                                            current = new FireCommand()
+                                            current = new FireCommand
                                             {
-                                                Type =    "FireCommand",
-                                                Delay =   animation["Delay"],
+                                                Type = "FireCommand",
+                                                Delay = animation["Delay"],
                                                 Command = animation["Command"]
                                             };
                                             break;
                                         case "runeventchild":
-                                            current = new RunEventChild()
+                                            current = new RunEventChild
                                             {
-                                                Type =    "RunEventChild",
+                                                Type = "RunEventChild",
                                                 Element = animation["Element"],
-                                                Event =   animation["Event"],
-                                                Delay =   animation["Delay"]
+                                                Event = animation["Event"],
+                                                Delay = animation["Delay"]
                                             };
                                             break;
                                         case "setinputenabled":
-                                            current = new SetInputEnabled()
+                                            current = new SetInputEnabled
                                             {
-                                                Type =    "SetInputEnabled",
+                                                Type = "SetInputEnabled",
                                                 Element = animation["Element"],
                                                 Visible = animation["Visible"],
-                                                Delay =   animation["Delay"]
+                                                Delay = animation["Delay"]
                                             };
                                             break;
                                         case "playsound":
-                                            current = new PlaySound()
+                                            current = new PlaySound
                                             {
-                                                Type =  "PlaySound",
+                                                Type = "PlaySound",
                                                 Delay = animation["Delay"],
                                                 Sound = animation["Sound"]
                                             };
                                             break;
                                         case "stoppanelanimations":
-                                            current = new StopPanelAnimations()
+                                            current = new StopPanelAnimations
                                             {
-                                                Type =    "StopPanelAnimations",
+                                                Type = "StopPanelAnimations",
                                                 Element = animation["Element"],
-                                                Delay =   animation["Delay"]
+                                                Delay = animation["Delay"]
                                             };
                                             break;
                                         default:
-                                            throw new Exception($"Unexpected animation type '{animation["Type"]}' in {animationOption.Key}!");
+                                            throw new Exception(
+                                                $"Unexpected animation type '{animation["Type"]}' in {animationOption.Key}!");
                                     }
 
                                     // Animate statements can have an extra argument make sure to account for them
                                     if (current.GetType() == typeof(Animate))
                                     {
                                         if (current.Interpolator.ToLower() == "pulse")
-                                        {
                                             current.Frequency = animation["Frequency"];
-                                        }
-                                        if (current.Interpolator.ToLower() == "gain" || current.Interpolator.ToLower() == "bias")
-                                        {
+
+                                        if (current.Interpolator.ToLower() == "gain" ||
+                                            current.Interpolator.ToLower() == "bias")
                                             current.Bias = animation["Bias"];
-                                        }
                                     }
 
                                     animations[animationOption.Key].Add(current);
                                 }
                             }
-                        }
 
-                        if (animations != null)
-                        {
-                            File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
-                        }
+                        if (animations != null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
                     }
 
-                    string[] resFileExtensions = { "res", "vmt", "vdf" };
+                    string[] resFileExtensions = {"res", "vmt", "vdf"};
 
                     foreach (var filePath in hudSetting.Files)
                     {
-                        string currentFilePath = MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key;
+                        var currentFilePath = MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key;
                         var extension = filePath.Key.Split(".")[^1];
 
                         if (resFileExtensions.Contains(extension))
                         {
                             var hudFile = Utilities.CreateNestedObject(hudFolders, Regex.Split(filePath.Key, @"[\/]+"));
-                            Utilities.Merge(hudFile, CompileHudElement(filePath.Value.ToObject<Newtonsoft.Json.Linq.JObject>(), currentFilePath));
+                            Utilities.Merge(hudFile,
+                                CompileHudElement(filePath.Value.ToObject<JObject>(),
+                                    currentFilePath));
                         }
                         else if (extension == "txt")
                         {
                             // assume .txt is always an animation file
                             // (may cause issues with mod_textures.txt but assume we are only editing hud files)
-                            WriteAnimationCustomizations(currentFilePath, filePath.Value.ToObject<Newtonsoft.Json.Linq.JObject>());
+                            WriteAnimationCustomizations(currentFilePath,
+                                filePath.Value.ToObject<JObject>());
                         }
                         else
                         {
-                            System.Windows.MessageBox.Show($"Could not recognise file extension '{extension}'", "Unrecognized file extension");
+                            MessageBox.Show($"Could not recognise file extension '{extension}'",
+                                "Unrecognized file extension");
                         }
-                    }
-
-                    return;
-                }
-
-
-                foreach (var instruction in hudSetting.Instructions.OrEmptyIfNull())
-                {
-                    var res = path + instruction.FileName;
-                    if (!File.Exists(res)) continue;
-
-                    var start = 0;
-                    var lines = File.ReadAllLines(res);
-                    if (!string.IsNullOrWhiteSpace(instruction.Group))
-                        start = Utilities.FindIndex(lines, $"\"{instruction.Group}\"");
-
-                    switch (instruction.Group)
-                    {
-                        case "DamagedPlayer":
-                            stock.CrosshairPulse(res, bool.Parse(userSetting.Value));
-                            break;
-
-                        case "HudSpyDisguiseFadeIn":
-                            stock.DisguiseImage(res, bool.Parse(userSetting.Value));
-                            break;
-
-                        case "TransparentViewmodel":
-                            stock.TransparentViewmodels(res, bool.Parse(userSetting.Value));
-                            break;
-
-                        case "HudDeathNotice":
-                            stock.KillFeedRows(res, int.Parse(userSetting.Value));
-                            break;
-
-                        case "TFCharacterImage":
-                            stock.MainMenuClassImage(res, bool.Parse(userSetting.Value),
-                                int.Parse(instruction.Values.FirstOrDefault()));
-                            break;
-
-                        default:
-                            switch (hudSetting.Type)
-                            {
-                                case "Checkbox":
-                                    for (var x = 0; x < instruction.Tags.Length; x++)
-                                        if (!string.IsNullOrWhiteSpace(instruction.Command))
-                                            switch (instruction.Command.ToLowerInvariant())
-                                            {
-                                                case "replace":
-                                                    var value = string.Equals(userSetting.Value, "true")
-                                                        ? instruction.Values[x]
-                                                        : instruction.Defaults[x];
-                                                    lines[
-                                                            Utilities.FindIndex(lines, $"\"{instruction.Tags[x]}\"",
-                                                                start)]
-                                                        = $"\t\t\"{instruction.Tags[x]}\"\t\t\t\t\t\"{value}\"";
-                                                    break;
-
-                                                case "comment":
-                                                    stock.DisguiseImage(res, bool.Parse(userSetting.Value));
-                                                    break;
-
-                                                default:
-                                                    lines[Utilities.FindIndex(lines, instruction.Tags[x], start)] =
-                                                        string.Equals(userSetting.Value, "true")
-                                                            ? instruction.Values[x]
-                                                            : instruction.Defaults[x];
-                                                    break;
-                                            }
-
-                                    break;
-
-                                case "Color":
-                                case "Colour":
-                                case "ColorPicker":
-                                case "ColourPicker":
-                                    foreach (var tag in instruction.Tags)
-                                        lines[Utilities.FindIndex(lines, $"\"{tag}\"", start)] =
-                                            $"\t\t\"{tag}\"\t\t\t\t\t\"{Utilities.RgbConverter(userSetting.Value)}\"";
-                                    break;
-
-                                case "DropDown":
-                                case "DropDownMenu":
-                                case "Select":
-                                case "ComboBox":
-                                    break;
-
-                                case "IntegerUpDown":
-                                    foreach (var tag in instruction.Tags)
-                                        lines[Utilities.FindIndex(lines, $"\"{tag}\"", start)] =
-                                            $"\t\t\"{tag}\"\t\t\t\t\t\"{userSetting.Value}\"";
-                                    break;
-                            }
-
-                            File.WriteAllLines(res, lines);
-                            break;
                     }
                 }
             }

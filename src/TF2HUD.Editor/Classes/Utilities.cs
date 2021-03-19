@@ -54,11 +54,11 @@ namespace TF2HUD.Editor.Classes
         /// <param name="hex">HEX code of the color to be converted to RGB.</param>
         /// <param name="alpha">Flag the color as having a lower alpha value than normal.</param>
         /// <param name="pulse">Flag the color as a pulse, slightly changing green channel.</param>
-        public static string RgbConverter(string hex, int alpha = 255, bool pulse = false)
+        public static string RgbConverter(string hex, bool pulse = false)
         {
             var color = ColorTranslator.FromHtml(hex);
             var pulseNew = pulse && color.G >= 50 ? color.G - 50 : color.G;
-            return $"{color.R} {pulseNew} {color.B} {alpha}";
+            return $"{color.R} {pulseNew} {color.B} {color.A}";
         }
 
         /// <summary>
@@ -106,14 +106,6 @@ namespace TF2HUD.Editor.Classes
         }
 
         /// <summary>
-        ///     Return an empty element if it's null
-        /// </summary>
-        public static IEnumerable<T> OrEmptyIfNull<T>(this IEnumerable<T> source)
-        {
-            return source ?? Enumerable.Empty<T>();
-        }
-
-        /// <summary>
         ///     Convert string value to a boolean
         /// </summary>
         public static bool ParseBool(string input)
@@ -127,41 +119,32 @@ namespace TF2HUD.Editor.Classes
 
         public static void Merge(Dictionary<string, dynamic> Obj1, Dictionary<string, dynamic> Obj2)
         {
-            foreach (string i in Obj1.Keys)
-            {
+            foreach (var i in Obj1.Keys)
                 if (Obj1[i].GetType().Name.Contains("Dictionary"))
                 {
-                    if (Obj2.ContainsKey(i) && Obj2[i].GetType().Name.Contains("Dictionary"))
-                    {
-                        Merge(Obj1[i], Obj2[i]);
-                    }
+                    if (Obj2.ContainsKey(i) && Obj2[i].GetType().Name.Contains("Dictionary")) Merge(Obj1[i], Obj2[i]);
                 }
                 else
                 {
-                    if (Obj2.ContainsKey(i))
-                    {
-                        Obj1[i] = Obj2[i];
-                    }
+                    if (Obj2.ContainsKey(i)) Obj1[i] = Obj2[i];
                 }
-            }
-            foreach (string j in Obj2.Keys)
-            {
+
+            foreach (var j in Obj2.Keys)
                 if (!Obj1.ContainsKey(j))
-                {
                     Obj1[j] = Obj2[j];
-                }
-            }
         }
 
-        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> Obj, IEnumerable<string> Keys)
+        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> Obj,
+            IEnumerable<string> Keys)
         {
             var ObjectReference = Obj;
-            foreach (string Key in Keys)
+            foreach (var Key in Keys)
             {
                 if (!ObjectReference.ContainsKey(Key))
                     ObjectReference[Key] = new Dictionary<string, dynamic>();
                 ObjectReference = ObjectReference[Key];
             }
+
             return ObjectReference;
         }
     }
