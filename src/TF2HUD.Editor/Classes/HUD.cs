@@ -823,6 +823,44 @@ namespace TF2HUD.Editor.Classes
 
                                 File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
                             }
+                            else if (animationOption.Key == "comment")
+                            {
+                                // Example:
+                                // "comment": [
+                                //   "StopEvent",
+                                //   "StopEvent"
+                                // ]
+
+                                var values = animationOption.Value.ToArray();
+
+                                foreach (string value in values)
+                                    File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(value.Insert(0, "//"), value));
+
+                                if (userSetting.Value != "true") continue;
+                                {
+                                    foreach (string value in values)
+                                        File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(value, value.Insert(0, "//")));
+                                }
+                            }
+                            else if (animationOption.Key == "uncomment")
+                            {
+                                // Example:
+                                // "uncomment": [
+                                //   "StopEvent",
+                                //   "StopEvent"
+                                // ]
+
+                                var values = animationOption.Value.ToArray();
+
+                                foreach (string value in values)
+                                    File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(value.Insert(0, "//"), value));
+
+                                if (userSetting.Value != "false") continue;
+                                {
+                                    foreach (string value in values)
+                                        File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(value, value.Insert(0, "//")));
+                                }
+                            }
                             else
                             {
                                 // animation

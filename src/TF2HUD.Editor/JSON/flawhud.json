@@ -376,12 +376,10 @@
         "Default": "true",
         "Files": {
           "scripts/hudanimations_custom.txt": {
-            "DamagedPlayer": {
-              "comment": [
-                "StopEvent",
-                "RunEvent"
-              ]
-            }
+            "uncomment": [
+              "StopEvent HitMarker",
+              "RunEvent HitMarker"
+            ]
           }
         }
       },
@@ -817,9 +815,8 @@
         "Default": "true",
         "Files": {
           "scripts/hudanimations_custom.txt": {
-            "replace": [
-              "HudSpyDisguiseFadeIn_disabled",
-              "HudSpyDisguiseFadeIn"
+            "uncomment": [
+              "RunEvent HudSpyDisguiseChanged"
             ]
           }
         }
@@ -923,7 +920,7 @@
             }
           },
           "resource/ui/hudrocketpack.res": {
-            "HudItemEffectMeter": { // Middle
+            "HudItemEffectMeter": {
               "ypos": {
                 "true": "r60",
                 "false": "c110"
