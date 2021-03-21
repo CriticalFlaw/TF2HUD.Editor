@@ -209,6 +209,7 @@ namespace TF2HUD.Editor.Classes
                         case "DropDownMenu":
                         case "Select":
                         case "ComboBox":
+                        case "Crosshair":
                             var comboBoxContainer = new StackPanel
                             {
                                 Margin = new Thickness(10, lastTop, 0, 10)
@@ -227,10 +228,22 @@ namespace TF2HUD.Editor.Classes
                                 Width = 150,
                                 SelectedIndex = int.TryParse(controlItem.Default, out var index) ? index : 1
                             };
+                            // TODO: Add the display value and actual value.
+                            //var OptionValue = option.Value;
                             foreach (var option in controlItem.Options)
-                                // TOOD: Add the display value and actual value.
-                                //var OptionValue = option.Value;
-                                comboBoxInput.Items.Add(option.Label);
+                            {
+                                var item = new ComboBoxItem
+                                {
+                                    Content = option.Label
+                                };
+                                if (string.Equals(controlItem.Type, "Crosshair"))
+                                {
+                                    comboBoxInput.Style = (Style) Application.Current.Resources["CrosshairBox"];
+                                    item.Style = (Style) Application.Current.Resources["Crosshair"];
+                                }
+
+                                comboBoxInput.Items.Add(item);
+                            }
 
                             comboBoxContainer.Children.Add(comboBoxLabel);
                             comboBoxContainer.Children.Add(comboBoxInput);
@@ -378,7 +391,11 @@ namespace TF2HUD.Editor.Classes
                                         break;
 
                                     case ComboBox combo:
-                                        UpdateJson(combo.Name, combo.SelectedIndex.ToString());
+                                        UpdateJson(combo.Name,
+                                            ((ComboBoxItem) combo.SelectedItem).Style ==
+                                            (Style) Application.Current.Resources["Crosshair"]
+                                                ? combo.SelectedValue.ToString()
+                                                : combo.SelectedIndex.ToString());
                                         break;
 
                                     case IntegerUpDown integer:
@@ -423,7 +440,11 @@ namespace TF2HUD.Editor.Classes
                                         break;
 
                                     case ComboBox combo:
-                                        combo.SelectedIndex = ReadFromJson(combo.Name, control);
+                                        if (((ComboBoxItem) combo.Items[0]).Style ==
+                                            (Style) Application.Current.Resources["Crosshair"])
+                                            combo.SelectedValue = ReadFromJson(combo.Name, control, true).ToString();
+                                        else
+                                            combo.SelectedIndex = ReadFromJson(combo.Name, control);
                                         break;
 
                                     case IntegerUpDown integer:
@@ -469,13 +490,18 @@ namespace TF2HUD.Editor.Classes
                                         break;
 
                                     case ColorPicker color:
-                                        var cc = new ColorConverter();
+                                        var colors = Array.ConvertAll(
+                                            GetDefaultFromControls(color.Name, json).Split(' '), c => byte.Parse(c));
                                         color.SelectedColor =
-                                            (Color) cc.ConvertFrom(GetDefaultFromControls(color.Name, json));
+                                            Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
                                         break;
 
                                     case ComboBox combo:
-                                        combo.SelectedIndex = int.Parse(GetDefaultFromControls(combo.Name, json));
+                                        if (((ComboBoxItem) combo.Items[0]).Style ==
+                                            (Style) Application.Current.Resources["Crosshair"])
+                                            combo.SelectedValue = GetDefaultFromControls(combo.Name, json);
+                                        else
+                                            combo.SelectedIndex = int.Parse(GetDefaultFromControls(combo.Name, json));
                                         break;
 
                                     case IntegerUpDown integer:
@@ -530,20 +556,22 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Retrieve a value from the user-settings Json file.
         /// </summary>
-        public dynamic ReadFromJson(string key, Visual control)
+        public dynamic ReadFromJson(string key, Visual control, bool returnVal = false)
         {
             try
             {
                 var json = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText("settings.json"));
                 var value = json.Settings.Where(x => x.HUD == Name).First(x => x.Name == key).Value;
+                if (returnVal) return value;
                 switch (control)
                 {
                     case CheckBox:
                         return value == "true" || value == "1";
 
                     case ColorPicker:
-                        var cc = new ColorConverter();
-                        return (Color) cc.ConvertFrom(value);
+                        var colors = Array.ConvertAll(value.Split(' '), c => byte.Parse(c));
+                        return Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                        ;
 
                     case ComboBox:
                         return int.Parse(value);

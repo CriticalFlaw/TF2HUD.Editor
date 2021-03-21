@@ -88,37 +88,37 @@
       "HUD": "flawhud",
       "Name": "fh_color_ammo_low",
       "Type": "string",
-      "Value": "#BE1414"
+      "Value": "190 20 20 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_health_buff",
       "Type": "string",
-      "Value": "#00AA7F"
+      "Value": "0 170 127 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_health_low",
       "Type": "string",
-      "Value": "#BE1414"
+      "Value": "190 20 20 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_ubercharge",
       "Type": "string",
-      "Value": "#00AA7F"
+      "Value": "0 170 127 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_xhair_normal",
       "Type": "string",
-      "Value": "#F2F2F2"
+      "Value": "242 242 242 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_xhair_pulse",
       "Type": "string",
-      "Value": "#FF0000"
+      "Value": "255 0 0 255"
     },
     {
       "HUD": "flawhud",
@@ -130,13 +130,13 @@
       "HUD": "flawhud",
       "Name": "fh_toggle_disguise_image",
       "Type": "bool",
-      "Value": "false"
+      "Value": "true"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_toggle_menu_image",
       "Type": "bool",
-      "Value": "false"
+      "Value": "true"
     },
     {
       "HUD": "flawhud",
@@ -177,8 +177,8 @@
     {
       "HUD": "flawhud",
       "Name": "fh_val_xhair_style",
-      "Type": "int",
-      "Value": "24"
+      "Type": "string",
+      "Value": "<"
     },
     {
       "HUD": "flawhud",
@@ -202,13 +202,13 @@
       "HUD": "flawhud",
       "Name": "fh_color_target_health",
       "Type": "string",
-      "Value": "#00FF7F"
+      "Value": "0 170 127 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_target_damage",
       "Type": "string",
-      "Value": "#FFFF00"
+      "Value": "255 255 0 255"
     },
     {
       "HUD": "flawhud",
@@ -232,97 +232,97 @@
       "HUD": "flawhud",
       "Name": "fh_color_normal",
       "Type": "string",
-      "Value": "#B2B2B2"
+      "Value": "178 178 178 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_unique",
       "Type": "string",
-      "Value": "#FFD700"
+      "Value": "255 215 0 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_strange",
       "Type": "string",
-      "Value": "#CF6A32"
+      "Value": "207 106 50 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_vintage",
       "Type": "string",
-      "Value": "#476291"
+      "Value": "71 98 145 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_haunted",
       "Type": "string",
-      "Value": "#38F3AB"
+      "Value": "56 243 171 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_genuine",
       "Type": "string",
-      "Value": "#4D7455"
+      "Value": "77 116 85 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_collectors",
       "Type": "string",
-      "Value": "#AA0000"
+      "Value": "170 0 0 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_unusual",
       "Type": "string",
-      "Value": "#8650AC"
+      "Value": "134 80 172 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_community",
       "Type": "string",
-      "Value": "#70B04A"
+      "Value": "112 176 74 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_valve",
       "Type": "string",
-      "Value": "#A50F79"
+      "Value": "165 15 121 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_civilian",
       "Type": "string",
-      "Value": "#B2B2B2"
+      "Value": "176 195 217 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_freelance",
       "Type": "string",
-      "Value": "#5E98D9"
+      "Value": "94 152 217 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_mercenary",
       "Type": "string",
-      "Value": "#4B69FF"
+      "Value": "75 105 255 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_commando",
       "Type": "string",
-      "Value": "#8847FF"
+      "Value": "136 71 255 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_assassin",
       "Type": "string",
-      "Value": "#D32CE6"
+      "Value": "211 44 230 255"
     },
     {
       "HUD": "flawhud",
       "Name": "fh_color_elite",
       "Type": "string",
-      "Value": "#EB4B4B"
+      "Value": "235 75 75 255"
     },
     {
       "HUD": "rayshud",
