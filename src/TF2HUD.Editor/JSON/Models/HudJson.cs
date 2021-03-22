@@ -42,5 +42,6 @@ namespace TF2HUD.Editor.JSON
     {
         [JsonPropertyName("Label")] public string Label;
         [JsonPropertyName("Value")] public string Value;
+        [JsonPropertyName("Files")] public JObject Files;
     }
 }

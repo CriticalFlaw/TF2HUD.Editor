@@ -194,9 +194,9 @@
     },
     {
       "HUD": "flawhud",
-      "Name": "fh_toggle_lower_stats",
-      "Type": "bool",
-      "Value": "false"
+      "Name": "fh_val_hud_style",
+      "Type": "int",
+      "Value": "0"
     },
     {
       "HUD": "flawhud",

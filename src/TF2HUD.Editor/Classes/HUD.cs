@@ -1001,6 +1001,11 @@ namespace TF2HUD.Editor.Classes
 
                     string[] resFileExtensions = {"res", "vmt", "vdf"};
 
+                    if (hudSetting.Type == "ComboBox")
+                    {
+                        hudSetting.Files = hudSetting.Options.Where((x) => x.Value == userSetting.Value).First().Files;
+                    }
+
                     foreach (var filePath in hudSetting.Files)
                     {
                         var currentFilePath = MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key;
