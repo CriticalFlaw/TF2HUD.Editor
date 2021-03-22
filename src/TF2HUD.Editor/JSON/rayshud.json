@@ -1,9 +1,9 @@
 {
   "Layout": [
-    "0 0 0 1 1 1",
-    "2 2 3 3 6 6",
-    "4 4 4 4 6 6",
-    "5 5 5 5 6 6"
+    "0 0 0 0 1 1",
+    "5 2 2 2 6 6",
+    "5 3 3 3 6 6",
+    "5 4 4 4 6 6"
   ],
   "Links": {
     "Update": "https://github.com/raysfire/rayshud/archive/master.zip",
@@ -22,15 +22,48 @@
         "Options": [
           {
             "Label": "Flash",
-            "Value": "0"
+            "Value": "0",
+            "Files": {
+              "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "RunEvent HudMedicSolidColorCharge",
+                  "RunEvent HudMedicRainbowCharged"
+                ],
+                "uncomment": [
+                  "RunEvent HudMedicOrangePulseCharge"
+                ]
+              }
+            }
           },
           {
             "Label": "Solid",
-            "Value": "1"
+            "Value": "1",
+            "Files": {
+              "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "RunEvent HudMedicOrangePulseCharge",
+                  "RunEvent HudMedicRainbowCharged"
+                ],
+                "uncomment": [
+                  "RunEvent HudMedicSolidColorCharge"
+                ]
+              }
+            }
           },
           {
             "Label": "Rainbow",
-            "Value": "2"
+            "Value": "2",
+            "Files": {
+              "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "RunEvent HudMedicSolidColorCharge",
+                  "RunEvent HudMedicOrangePulseCharge"
+                ],
+                "uncomment": [
+                  "RunEvent HudMedicRainbowCharged"
+                ]
+              }
+            }
           }
         ]
       },
@@ -38,7 +71,7 @@
         "Name": "rh_color_uber_bar",
         "Label": "Charging",
         "Type": "ColorPicker",
-        "Default": "#EBE2CA",
+        "Default": "235 226 202 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -53,7 +86,7 @@
         "Name": "rh_color_uber_full",
         "Label": "Charged Solid",
         "Type": "ColorPicker",
-        "Default": "#FF3219",
+        "Default": "255 50 25 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -68,7 +101,7 @@
         "Name": "rh_color_uber_flash1",
         "Label": "Charged Flash 1",
         "Type": "ColorPicker",
-        "Default": "#FFA500",
+        "Default": "255 165 0 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -83,7 +116,7 @@
         "Name": "rh_color_uber_flash2",
         "Label": "Charged Flash 2",
         "Type": "ColorPicker",
-        "Default": "#FF4500",
+        "Default": "255 69 0 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -97,46 +130,10 @@
     ],
     "Crosshair": [
       {
-        "Name": "rh_toggle_xhair_enable",
-        "Label": "Enable",
-        "Type": "Checkbox",
-        "Default": "false",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "visible": {
-                "true": "1",
-                "false": "0"
-              },
-              "enabled": {
-                "true": "1",
-                "false": "0"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "rh_toggle_xhair_pulse",
-        "Label": "Hitmarker",
-        "Type": "Checkbox",
-        "Default": "true",
-        "Files": {
-          "scripts/hudanimations_custom.txt": {
-            "DamagedPlayer": {
-              "comment": [
-                "StopEvent",
-                "RunEvent"
-              ]
-            }
-          }
-        }
-      },
-      {
         "Name": "rh_color_xhair_normal",
         "Label": "Base Color",
         "Type": "ColorPicker",
-        "Default": "#F2F2F2",
+        "Default": "242 242 242 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -151,7 +148,7 @@
         "Name": "rh_color_xhair_pulse",
         "Label": "Hitmarker Color",
         "Type": "ColorPicker",
-        "Default": "#FF0000",
+        "Default": "255 0 0 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -190,6 +187,42 @@
             }
           }
         }
+      },
+      {
+        "Name": "rh_toggle_xhair_enable",
+        "Label": "Enable",
+        "Type": "Checkbox",
+        "Default": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_toggle_xhair_pulse",
+        "Label": "Hitmarker",
+        "Type": "Checkbox",
+        "Default": "true",
+        "Files": {
+          "scripts/hudanimations_custom.txt": {
+            "DamagedPlayer": {
+              "comment": [
+                "StopEvent",
+                "RunEvent"
+              ]
+            }
+          }
+        }
       }
     ],
     "Health": [
@@ -201,15 +234,37 @@
         "Options": [
           {
             "Label": "Default",
-            "Value": "0"
+            "Value": "0",
+            "Files": {
+              "resource/ui/hudplayerhealth.res": {
+                "comment": [
+                  "#base \"../../customizations/player_health/hudplayerhealth-broesel.res\"\"",
+                  "#base \"../../customizations/player_health/hudplayerhealth-cross.res\"\""
+                ]
+              }
+            }
           },
           {
             "Label": "Broesel",
-            "Value": "1"
+            "Value": "1",
+            "Files": {
+              "resource/ui/hudplayerhealth.res": {
+                "uncomment": [
+                  "#base \"../../customizations/player_health/hudplayerhealth-broesel.res\"\""
+                ]
+              }
+            }
           },
           {
             "Label": "Cross",
-            "Value": "2"
+            "Value": "2",
+            "Files": {
+              "resource/ui/hudplayerhealth.res": {
+                "uncomment": [
+                  "#base \"../../customizations/player_health/hudplayerhealth-cross.res\"\""
+                ]
+              }
+            }
           }
         ]
       },
@@ -217,7 +272,7 @@
         "Name": "rh_color_health_normal",
         "Label": "Health Normal",
         "Type": "ColorPicker",
-        "Default": "#EBE2CA",
+        "Default": "235 226 202 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -232,7 +287,7 @@
         "Name": "rh_color_health_buff",
         "Label": "Health Buffed",
         "Type": "ColorPicker",
-        "Default": "#30FF30",
+        "Default": "48 255 48 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -247,7 +302,7 @@
         "Name": "rh_color_health_low",
         "Label": "Health Low",
         "Type": "ColorPicker",
-        "Default": "#FF9900",
+        "Default": "255 153 0 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -262,9 +317,9 @@
     "Ammo": [
       {
         "Name": "rh_color_ammo_clip",
-        "Label": "Ammo Clip Normal",
+        "Label": "Clip Normal",
         "Type": "ColorPicker",
-        "Default": "#30FF30",
+        "Default": "48 255 48 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -276,25 +331,10 @@
         }
       },
       {
-        "Name": "rh_color_ammo_reserve",
-        "Label": "Ammo Reserve Normal",
-        "Type": "ColorPicker",
-        "Default": "#48FFFF",
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "Ammo In Reserve": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
         "Name": "rh_color_ammo_clip_low",
-        "Label": "Ammo Clip Low",
+        "Label": "Clip Low",
         "Type": "ColorPicker",
-        "Default": "#FF2A82",
+        "Default": "255 42 130 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -306,10 +346,25 @@
         }
       },
       {
-        "Name": "rh_color_ammo_reserve_low",
-        "Label": "Ammo Reserve Low",
+        "Name": "rh_color_ammo_reserve",
+        "Label": "Reserve Normal",
         "Type": "ColorPicker",
-        "Default": "#FF801C",
+        "Default": "72 255 255 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_color_ammo_reserve_low",
+        "Label": "Reserve Low",
+        "Type": "ColorPicker",
+        "Default": "255 128 28 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -326,7 +381,7 @@
         "Name": "rh_color_normal",
         "Label": "Normal",
         "Type": "ColorPicker",
-        "Default": "#B2B2B2",
+        "Default": "178 178 178 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -341,7 +396,7 @@
         "Name": "rh_color_unique",
         "Label": "Unique",
         "Type": "ColorPicker",
-        "Default": "#FFD700",
+        "Default": "255 215 0 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -356,7 +411,7 @@
         "Name": "rh_color_strange",
         "Label": "Strange",
         "Type": "ColorPicker",
-        "Default": "#CF6A32",
+        "Default": "207 106 50 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -371,7 +426,7 @@
         "Name": "rh_color_vintage",
         "Label": "Vintage",
         "Type": "ColorPicker",
-        "Default": "#476291",
+        "Default": "71 98 145 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -386,7 +441,7 @@
         "Name": "rh_color_haunted",
         "Label": "Haunted",
         "Type": "ColorPicker",
-        "Default": "#38F3AB",
+        "Default": "56 243 171 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -401,7 +456,7 @@
         "Name": "rh_color_genuine",
         "Label": "Genuine",
         "Type": "ColorPicker",
-        "Default": "#4D7455",
+        "Default": "77 116 85 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -416,7 +471,7 @@
         "Name": "rh_color_collectors",
         "Label": "Collectors",
         "Type": "ColorPicker",
-        "Default": "#AA0000",
+        "Default": "170 0 0 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -431,7 +486,7 @@
         "Name": "rh_color_unusual",
         "Label": "Unusual",
         "Type": "ColorPicker",
-        "Default": "#8650AC",
+        "Default": "134 80 172 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -446,7 +501,7 @@
         "Name": "rh_color_community",
         "Label": "Community",
         "Type": "ColorPicker",
-        "Default": "#70B04A",
+        "Default": "112 176 74 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -461,7 +516,7 @@
         "Name": "rh_color_valve",
         "Label": "Valve",
         "Type": "ColorPicker",
-        "Default": "#A50F79",
+        "Default": "165 15 121 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -478,7 +533,7 @@
         "Name": "rh_color_civilian",
         "Label": "Civilian",
         "Type": "ColorPicker",
-        "Default": "#B0C3D9",
+        "Default": "176 195 217 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -493,7 +548,7 @@
         "Name": "rh_color_freelance",
         "Label": "Freelance",
         "Type": "ColorPicker",
-        "Default": "#5E98D9",
+        "Default": "94 152 217 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -508,7 +563,7 @@
         "Name": "rh_color_mercenary",
         "Label": "Mercenary",
         "Type": "ColorPicker",
-        "Default": "#4B69FF",
+        "Default": "75 105 255 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -523,7 +578,7 @@
         "Name": "rh_color_commando",
         "Label": "Commando",
         "Type": "ColorPicker",
-        "Default": "#8847FF",
+        "Default": "136 71 255 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -538,7 +593,7 @@
         "Name": "rh_color_assassin",
         "Label": "Assassin",
         "Type": "ColorPicker",
-        "Default": "#D32CE6",
+        "Default": "211 44 230 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -553,7 +608,7 @@
         "Name": "rh_color_elite",
         "Label": "Elite",
         "Type": "ColorPicker",
-        "Default": "#EB4B4B",
+        "Default": "235 75 75 255",
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -601,9 +656,8 @@
         "Default": "true",
         "Files": {
           "scripts/hudanimations_custom.txt": {
-            "replace": [
-              "HudSpyDisguiseFadeIn_disabled",
-              "HudSpyDisguiseFadeIn"
+            "uncomment": [
+              "RunEvent HudSpyDisguiseChanged"
             ]
           }
         }
@@ -684,7 +738,7 @@
         "Type": "Checkbox",
         "Default": "false",
         "Files": {
-          "resource/ui/hudaccountpanel.res": {
+          "scripts/hudlayout.res": {
             "CHudAccountPanel": {
               "xpos": {
                 "true": "c-20",
@@ -756,15 +810,36 @@
         "Options": [
           {
             "Label": "Modern",
-            "Value": "0"
+            "Value": "0",
+            "Files": {
+              "materials/console/background_upward.vmt": {
+                "UnlitGeneric": {
+                  "$baseTexture": "console/backgrounds/background_modern"
+                }
+              },
+              "materials/console/background_upward_widescreen.vmt": {
+                "UnlitGeneric": {
+                  "$baseTexture": "console/backgrounds/background_modern_widescreen"
+                }
+              }
+            }
           },
           {
             "Label": "Classic",
-            "Value": "1"
+            "Value": "1",
+            "Files": {
+              "materials/console/background_upward.vmt": {
+                "baseTexture": "console/backgrounds/background_classic"
+              },
+              "materials/console/background_upward_widescreen.vmt": {
+                "baseTexture": "console/backgrounds/background_classic_widescreen"
+              }
+            }
           },
           {
             "Label": "Default",
-            "Value": "2"
+            "Value": "2",
+            "Special": "StockBackgrounds"
           }
         ]
       },

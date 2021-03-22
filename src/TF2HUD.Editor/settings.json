@@ -34,7 +34,7 @@
       "HUD": "budhud",
       "Name": "bh_player_healthcross_inset",
       "Type": "bool",
-      "Value": "true"
+      "Value": "false"
     },
     {
       "HUD": "budhud",
@@ -46,7 +46,7 @@
       "HUD": "budhud",
       "Name": "bh_targetid_largehealth",
       "Type": "bool",
-      "Value": "true"
+      "Value": "false"
     },
     {
       "HUD": "budhud",
@@ -57,12 +57,6 @@
     {
       "HUD": "budhud",
       "Name": "bh_menu_hidegif",
-      "Type": "bool",
-      "Value": "false"
-    },
-    {
-      "HUD": "budhud",
-      "Name": "bh_menu_hidemotd",
       "Type": "bool",
       "Value": "false"
     },
@@ -328,181 +322,175 @@
       "HUD": "rayshud",
       "Name": "rh_color_ammo_clip",
       "Type": "string",
-      "Value": "#30FF30"
+      "Value": "48 255 48 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_ammo_clip_low",
       "Type": "string",
-      "Value": "#FF2A82"
+      "Value": "255 42 130 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_ammo_reserve",
       "Type": "string",
-      "Value": "#48FFFF"
+      "Value": "255 128 28 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_ammo_reserve_low",
       "Type": "string",
-      "Value": "#FF801C"
+      "Value": "255 128 28 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_assassin",
       "Type": "string",
-      "Value": "#D32CE6"
+      "Value": "211 44 230 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_civilian",
       "Type": "string",
-      "Value": "#B0C3D9"
+      "Value": "176 195 217 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_collectors",
       "Type": "string",
-      "Value": "#AA0000"
+      "Value": "170 0 0 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_commando",
       "Type": "string",
-      "Value": "#8847FF"
+      "Value": "136 71 255 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_community",
       "Type": "string",
-      "Value": "#70B04A"
+      "Value": "112 176 74 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_elite",
       "Type": "string",
-      "Value": "#EB4B4B"
+      "Value": "235 75 75 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_freelance",
       "Type": "string",
-      "Value": "#5E98D9"
+      "Value": "94 152 217 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_genuine",
       "Type": "string",
-      "Value": "#4D7455"
+      "Value": "77 116 85 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_haunted",
       "Type": "string",
-      "Value": "#38F3AB"
+      "Value": "56 243 171 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_health_buff",
       "Type": "string",
-      "Value": "#30FF30"
-    },
-    {
-      "HUD": "rayshud",
-      "Name": "rh_color_health_healed",
-      "Type": "string",
-      "Value": "#30FF30"
+      "Value": "48 255 48 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_health_low",
       "Type": "string",
-      "Value": "#FF9900"
+      "Value": "255 153 0 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_health_normal",
       "Type": "string",
-      "Value": "#EBE2CA"
+      "Value": "235 226 202 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_mercenary",
       "Type": "string",
-      "Value": "#4B69FF"
+      "Value": "75 105 255 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_normal",
       "Type": "string",
-      "Value": "#B2B2B2"
+      "Value": "178 178 178 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_strange",
       "Type": "string",
-      "Value": "#CF6A32"
+      "Value": "207 106 50 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_uber_bar",
       "Type": "string",
-      "Value": "#EBE2CA"
+      "Value": "235 226 202 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_uber_flash1",
       "Type": "string",
-      "Value": "#FFA500"
+      "Value": "255 165 0 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_uber_flash2",
       "Type": "string",
-      "Value": "#FF4500"
+      "Value": "255 69 0 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_uber_full",
       "Type": "string",
-      "Value": "#FF3219"
+      "Value": "255 50 25 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_unique",
       "Type": "string",
-      "Value": "#FFD700"
+      "Value": "255 215 0 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_unusual",
       "Type": "string",
-      "Value": "#8650AC"
+      "Value": "134 80 172 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_valve",
       "Type": "string",
-      "Value": "#A50F79"
+      "Value": "165 15 121 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_vintage",
       "Type": "string",
-      "Value": "#476291"
+      "Value": "71 98 145 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_xhair_normal",
       "Type": "string",
-      "Value": "#F2F2F2"
+      "Value": "242 242 242 255"
     },
     {
       "HUD": "rayshud",
       "Name": "rh_color_xhair_pulse",
       "Type": "string",
-      "Value": "#FF0000"
+      "Value": "255 0 0 255"
     },
     {
       "HUD": "rayshud",

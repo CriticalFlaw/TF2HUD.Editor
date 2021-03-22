@@ -126,7 +126,7 @@ namespace TF2HUD.Editor.Classes
 
                 Panel sectionContent = new StackPanel();
                 if (Layout != null) sectionContent = new WrapPanel();
-                sectionContent.Margin = new Thickness(5);
+                sectionContent.Margin = new Thickness(3);
 
                 foreach (var controlItem in ControlOptions[section])
                 {
@@ -571,7 +571,6 @@ namespace TF2HUD.Editor.Classes
                     case ColorPicker:
                         var colors = Array.ConvertAll(value.Split(' '), c => byte.Parse(c));
                         return Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
-                        ;
 
                     case ComboBox:
                         return int.Parse(value);
@@ -597,7 +596,7 @@ namespace TF2HUD.Editor.Classes
                 var path = $"{MainWindow.HudPath}\\{Name}\\";
 
                 // If the developer defined customization folders for their HUD, then copy those files.
-                if (!string.IsNullOrWhiteSpace(CustomisationsFolder)) return MoveCustomizationFiles(path);
+                if (!string.IsNullOrWhiteSpace(CustomisationsFolder)) MoveCustomizationFiles(path);
 
                 var userSettings = JsonConvert
                     .DeserializeObject<UserJson>(File.ReadAllText("settings.json")).Settings
@@ -609,13 +608,13 @@ namespace TF2HUD.Editor.Classes
                 // the 'IterateFolder' and 'IterateHUDFileProperties' will write the properties to this
                 var hudFolders = new Dictionary<string, dynamic>();
 
-                foreach (var userSetting in userSettings)
-                foreach (var control in from hudSetting in hudSettings
-                    from control in hudSetting
-                    where string.Equals(control.Name, userSetting.Name)
-                    select control)
-                    WriteToFile(path, control, userSetting, hudFolders);
-
+                foreach (var group in hudSettings)
+                foreach (var control in group)
+                {
+                    var user = userSettings.First(x => x.Name == control.Name);
+                    if (user is not null)
+                        WriteToFile(path, control, user, hudFolders);
+                }
 
                 void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
                 {
@@ -705,27 +704,29 @@ namespace TF2HUD.Editor.Classes
             try
             {
                 // Check if the customization folders are valid.
-                if (Directory.Exists($"{path}\\{CustomisationsFolder}")) return true;
+                if (!Directory.Exists($"{path}\\{CustomisationsFolder}")) return true;
 
                 var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
                 for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
                     if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
                         for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
-                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is CheckBox checkBox
-                            )
+                            switch ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y))
                             {
-                                var custom = $"{path}{CustomisationsFolder}\\{checkBox.Name}.res";
-                                var enabled = $"{path}{EnabledFolder}\\{checkBox.Name}.res";
-                                if (checkBox.IsChecked == true) // Move to enabled
-                                {
-                                    if (File.Exists(custom)) File.Move(custom, enabled);
-                                }
-                                else // Move to customization folder
-                                {
-                                    if (File.Exists(enabled)) File.Move(enabled, custom);
-                                }
+                                case CheckBox check:
+                                    var custom = $"{path}{CustomisationsFolder}\\{check.Name}.res";
+                                    var enabled = $"{path}{EnabledFolder}\\{check.Name}.res";
+                                    if (check.IsChecked == true) // Move to enabled
+                                    {
+                                        if (File.Exists(custom)) File.Move(custom, enabled);
+                                    }
+                                    else // Move to customization folder
+                                    {
+                                        if (File.Exists(enabled)) File.Move(enabled, custom);
+                                    }
 
-                                break;
+                                    break;
+                                case StackPanel:
+                                    break;
                             }
 
                 return true;
@@ -749,6 +750,14 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
+                if (hudSetting.Special is not null)
+                    if (string.Equals(hudSetting.Special, "StockBackgrounds"))
+                        custom.SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console",
+                            userSetting.Value == "true");
+
+                if (hudSetting.Type == "ComboBox")
+                    hudSetting.Files = hudSetting.Options.Where(x => x.Value == userSetting.Value).First().Files;
+
                 if (hudSetting.Files != null)
                 {
                     Dictionary<string, dynamic> CompileHudElement(JObject element, string filePath)
@@ -834,13 +843,13 @@ namespace TF2HUD.Editor.Classes
                                 var values = animationOption.Value.ToArray();
 
                                 foreach (string value in values)
-                                    File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(value.Insert(0, "//"), value));
+                                    File.WriteAllText(filePath,
+                                        File.ReadAllText(filePath).Replace(value.Insert(0, "//"), value));
 
-                                if (userSetting.Value != "true") continue;
-                                {
+                                if (string.Equals(userSetting.Value, "true") || int.TryParse(userSetting.Value, out _))
                                     foreach (string value in values)
-                                        File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(value, value.Insert(0, "//")));
-                                }
+                                        File.WriteAllText(filePath,
+                                            File.ReadAllText(filePath).Replace(value, value.Insert(0, "//")));
                             }
                             else if (animationOption.Key == "uncomment")
                             {
@@ -852,14 +861,10 @@ namespace TF2HUD.Editor.Classes
 
                                 var values = animationOption.Value.ToArray();
 
-                                foreach (string value in values)
-                                    File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(value.Insert(0, "//"), value));
-
-                                if (userSetting.Value != "false") continue;
-                                {
+                                if (string.Equals(userSetting.Value, "true") || int.TryParse(userSetting.Value, out _))
                                     foreach (string value in values)
-                                        File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(value, value.Insert(0, "//")));
-                                }
+                                        File.WriteAllText(filePath,
+                                            File.ReadAllText(filePath).Replace(value.Insert(0, "//"), value));
                             }
                             else
                             {
@@ -909,6 +914,7 @@ namespace TF2HUD.Editor.Classes
                                                 Duration = animation["Duration"]
                                             };
                                             break;
+
                                         case "runevent":
                                             current = new RunEvent
                                             {
@@ -917,6 +923,7 @@ namespace TF2HUD.Editor.Classes
                                                 Delay = animation["Delay"]
                                             };
                                             break;
+
                                         case "stopevent":
                                             current = new StopEvent
                                             {
@@ -925,6 +932,7 @@ namespace TF2HUD.Editor.Classes
                                                 Delay = animation["Delay"]
                                             };
                                             break;
+
                                         case "setvisible":
                                             current = new SetVisible
                                             {
@@ -934,6 +942,7 @@ namespace TF2HUD.Editor.Classes
                                                 Duration = animation["Duration"]
                                             };
                                             break;
+
                                         case "firecommand":
                                             current = new FireCommand
                                             {
@@ -942,6 +951,7 @@ namespace TF2HUD.Editor.Classes
                                                 Command = animation["Command"]
                                             };
                                             break;
+
                                         case "runeventchild":
                                             current = new RunEventChild
                                             {
@@ -951,6 +961,7 @@ namespace TF2HUD.Editor.Classes
                                                 Delay = animation["Delay"]
                                             };
                                             break;
+
                                         case "setinputenabled":
                                             current = new SetInputEnabled
                                             {
@@ -960,6 +971,7 @@ namespace TF2HUD.Editor.Classes
                                                 Delay = animation["Delay"]
                                             };
                                             break;
+
                                         case "playsound":
                                             current = new PlaySound
                                             {
@@ -968,6 +980,7 @@ namespace TF2HUD.Editor.Classes
                                                 Sound = animation["Sound"]
                                             };
                                             break;
+
                                         case "stoppanelanimations":
                                             current = new StopPanelAnimations
                                             {
@@ -976,6 +989,7 @@ namespace TF2HUD.Editor.Classes
                                                 Delay = animation["Delay"]
                                             };
                                             break;
+
                                         default:
                                             throw new Exception(
                                                 $"Unexpected animation type '{animation["Type"]}' in {animationOption.Key}!");
@@ -1000,11 +1014,6 @@ namespace TF2HUD.Editor.Classes
                     }
 
                     string[] resFileExtensions = {"res", "vmt", "vdf"};
-
-                    if (hudSetting.Type == "ComboBox")
-                    {
-                        hudSetting.Files = hudSetting.Options.Where((x) => x.Value == userSetting.Value).First().Files;
-                    }
 
                     foreach (var filePath in hudSetting.Files)
                     {
