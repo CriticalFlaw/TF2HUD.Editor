@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
+using TF2HUD.Editor.JSON;
 
 namespace TF2HUD.Editor.Classes
 {
@@ -39,13 +40,21 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Clear all existing comment identifiers, then apply a fresh one.
         /// </summary>
-        public static string[] CommentOutTextLineSuper(string[] lines, string start, string query, bool commentOut)
+        public static string UncommentOutTextLine(string value)
         {
-            var index1 = FindIndex(lines, query, FindIndex(lines, start));
-            var index2 = FindIndex(lines, query, index1++);
-            lines[index1] = commentOut ? lines[index1].Replace("//", string.Empty) : CommentOutTextLine(lines[index1]);
-            lines[index2] = commentOut ? lines[index2].Replace("//", string.Empty) : CommentOutTextLine(lines[index2]);
-            return lines;
+            return value.Replace("//", string.Empty);
+        }
+
+        /// <summary>
+        ///     Clear all existing comment identifiers, then apply a fresh one.
+        /// </summary>
+        public static List<int> GetStringIndexes(string[] lines, string text)
+        {
+            var indexList = new List<int>();
+            for (var x = 0; x < lines.Length; x++)
+                if (lines[x].Contains(text) || lines[x].Contains(text.Replace(" ", "\t")))
+                    indexList.Add(x);
+            return indexList;
         }
 
         /// <summary>
@@ -146,6 +155,19 @@ namespace TF2HUD.Editor.Classes
             }
 
             return ObjectReference;
+        }
+
+        /// <summary>
+        ///     Retrieve the filename from the HUD schema control using a string value.
+        /// </summary>
+        internal static string GetFileName(Dictionary<string, Controls[]>.ValueCollection controlGroups, string name)
+        {
+            foreach (var group in controlGroups)
+            foreach (var control in @group.Where(x => x.FileName is not null))
+                if (string.Equals(control.Name, name))
+                    return control.FileName.Replace(".res", string.Empty);
+
+            return null;
         }
     }
 

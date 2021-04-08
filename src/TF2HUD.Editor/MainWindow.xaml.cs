@@ -457,6 +457,9 @@ namespace TF2HUD.Editor
             {
                 GbSelectHud.Visibility = Visibility.Hidden;
                 EditorContainer.Children.Clear();
+                Application.Current.MainWindow.WindowState = string.Equals(Settings.Default.hud_selected, "rayshud")
+                    ? WindowState.Maximized
+                    : WindowState.Normal;
 
                 if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
                 var selection = Json.GetHUDByName(Settings.Default.hud_selected);

@@ -56,6 +56,8 @@ namespace TF2HUD.Editor.Classes
         /// </summary>
         public Grid GetControls()
         {
+            SetupUserSettings();
+
             if (ControlsRendered)
             {
                 Load();
@@ -560,6 +562,7 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
+                SetupUserSettings();
                 var json = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText("settings.json"));
                 var value = json.Settings.Where(x => x.HUD == Name).First(x => x.Name == key).Value;
                 if (returnVal) return value;
@@ -584,6 +587,69 @@ namespace TF2HUD.Editor.Classes
                 Console.WriteLine(ex);
                 return null;
             }
+        }
+
+        /// <summary>
+        ///     Retrieve a value from the user-settings Json file.
+        /// </summary>
+        public void SetupUserSettings()
+        {
+            try
+            {
+                // Check if the user settings file is present, if not create it.
+                if (!File.Exists("settings.json"))
+                    File.Create("settings.json");
+
+                // Check if the file has HUD's settings, if not recreate them.
+                var hudJson = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"));
+                var userJson = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText("settings.json"));
+                var userSettings = new UserJson {Settings = new List<Setting>()};
+
+                if (userJson is null)
+                {
+                    // File is new, generate only current HUD settings.
+                    UpdateUserSettings(userSettings, hudJson.Controls);
+                }
+                else
+                {
+                    // Check if the user already has settings for the currently selected HUD, no further actions needed.
+                    if (userJson.Settings.Where(x => x.HUD == Name).Any()) return;
+
+                    // Collect settings for other HUDs, retain them.
+                    foreach (var setting in userJson.Settings.Where(x => x.HUD != Name))
+                        userSettings.Settings.Add(setting);
+
+                    // File is old but may not have the options for the selected HUD.
+                    UpdateUserSettings(userSettings, hudJson.Controls);
+                }
+
+                // TODO: Check that the current version of user settings matches the latest HUD schema
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void UpdateUserSettings(UserJson userSettings, Dictionary<string, Controls[]> controlGroups)
+        {
+            // File is new, add just the current HUD settings.
+            foreach (var group in controlGroups)
+            foreach (var control in group.Value)
+            {
+                var user = new Setting
+                {
+                    HUD = Name,
+                    Name = control.Name,
+                    Type = control.Type,
+                    Value = control.Default
+                };
+                userSettings.Settings.Add(user);
+            }
+
+            // Clear the file before reapplying the settings.
+            File.WriteAllText("settings.json", string.Empty);
+            File.WriteAllText("settings.json", JsonConvert.SerializeObject(userSettings, Formatting.Indented));
         }
 
         /// <summary>
@@ -706,6 +772,8 @@ namespace TF2HUD.Editor.Classes
                 // Check if the customization folders are valid.
                 if (!Directory.Exists($"{path}\\{CustomisationsFolder}")) return true;
 
+                var controlGroups = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
+                    .Controls.Values;
                 var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
                 for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
                     if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
@@ -713,8 +781,11 @@ namespace TF2HUD.Editor.Classes
                             switch ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y))
                             {
                                 case CheckBox check:
-                                    var custom = $"{path}{CustomisationsFolder}\\{check.Name}.res";
-                                    var enabled = $"{path}{EnabledFolder}\\{check.Name}.res";
+                                    var fileName = Utilities.GetFileName(controlGroups, check.Name);
+                                    if (string.IsNullOrWhiteSpace(fileName)) continue; // File name not found, skipping.
+                                    var custom = $"{path}{CustomisationsFolder}\\{fileName}.res";
+                                    var enabled = $"{path}{EnabledFolder}\\{fileName}.res";
+
                                     if (check.IsChecked == true) // Move to enabled
                                     {
                                         if (File.Exists(custom)) File.Move(custom, enabled);
@@ -725,7 +796,8 @@ namespace TF2HUD.Editor.Classes
                                     }
 
                                     break;
-                                case StackPanel:
+                                case ComboBox combo:
+                                    // TODO: Add ComboBox control option
                                     break;
                             }
 
@@ -842,14 +914,24 @@ namespace TF2HUD.Editor.Classes
 
                                 var values = animationOption.Value.ToArray();
 
-                                foreach (string value in values)
-                                    File.WriteAllText(filePath,
-                                        File.ReadAllText(filePath).Replace(value.Insert(0, "//"), value));
-
-                                if (string.Equals(userSetting.Value, "true") || int.TryParse(userSetting.Value, out _))
+                                if (bool.TryParse(userSetting.Value, out var valid))
+                                {
+                                    var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
-                                        File.WriteAllText(filePath,
-                                            File.ReadAllText(filePath).Replace(value, value.Insert(0, "//")));
+                                    foreach (var index in Utilities.GetStringIndexes(lines, value))
+                                        lines[index] = valid
+                                            ? Utilities.CommentOutTextLine(lines[index])
+                                            : Utilities.UncommentOutTextLine(lines[index]);
+                                    File.WriteAllLines(filePath, lines);
+                                }
+                                else if (int.TryParse(userSetting.Value, out _))
+                                {
+                                    var lines = File.ReadAllLines(filePath);
+                                    foreach (string value in values)
+                                    foreach (var index in Utilities.GetStringIndexes(lines, value))
+                                        lines[index] = Utilities.CommentOutTextLine(lines[index]);
+                                    File.WriteAllLines(filePath, lines);
+                                }
                             }
                             else if (animationOption.Key == "uncomment")
                             {
@@ -861,10 +943,24 @@ namespace TF2HUD.Editor.Classes
 
                                 var values = animationOption.Value.ToArray();
 
-                                if (string.Equals(userSetting.Value, "true") || int.TryParse(userSetting.Value, out _))
+                                if (bool.TryParse(userSetting.Value, out var valid))
+                                {
+                                    var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
-                                        File.WriteAllText(filePath,
-                                            File.ReadAllText(filePath).Replace(value.Insert(0, "//"), value));
+                                    foreach (var index in Utilities.GetStringIndexes(lines, value))
+                                        lines[index] = valid
+                                            ? Utilities.UncommentOutTextLine(lines[index])
+                                            : Utilities.CommentOutTextLine(lines[index]);
+                                    File.WriteAllLines(filePath, lines);
+                                }
+                                else if (int.TryParse(userSetting.Value, out _))
+                                {
+                                    var lines = File.ReadAllLines(filePath);
+                                    foreach (string value in values)
+                                    foreach (var index in Utilities.GetStringIndexes(lines, value))
+                                        lines[index] = Utilities.UncommentOutTextLine(lines[index]);
+                                    File.WriteAllLines(filePath, lines);
+                                }
                             }
                             else
                             {

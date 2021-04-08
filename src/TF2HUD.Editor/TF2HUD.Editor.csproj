@@ -109,9 +109,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="settings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -119,6 +116,6 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="RD /S /Q &quot;$(TargetDir)ar&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)cs-CZ&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)da&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)de&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)es&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)fr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)hu&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)it&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ja-JP&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ko&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)nl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pt&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pt-BR&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ro&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ru&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sk&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)th&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)tr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sv&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-Hans&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-tw&quot;" />
+    <Exec Command="RD /S /Q &quot;$(TargetDir)ar&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)cs&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)cs-CZ&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)da&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)de&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)es&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)fr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)hu&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)it&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ja-JP&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ko&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)nl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pt&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pt-BR&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ro&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ru&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sk&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)th&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)tr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sv&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-Hans&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-tw&quot;" />
   </Target>
 </Project>
