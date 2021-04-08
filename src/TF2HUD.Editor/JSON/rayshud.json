@@ -12,6 +12,8 @@
     "Steam": "https://steamcommunity.com/groups/rayshud",
     "Issue": "https://github.com/raysfire/rayshud/issues"
   },
+  "CustomisationsFolder": "#customizations",
+  "EnabledFolder": "#customizations//_enabled",
   "Controls": {
     "UberCharge": [
       {
@@ -170,7 +172,7 @@
         "Files": {
           "scripts/hudlayout.res": {
             "CustomCrosshair": {
-              "font": "Size:$value"
+              "font": "Size:$value | Outline:OFF"
             }
           }
         }
@@ -178,8 +180,358 @@
       {
         "Name": "rh_val_xhair_style",
         "Label": "Style",
-        "Type": "ComboBox",
-        "Default": "24",
+        "Type": "Crosshair",
+        "Default": "<",
+        "Options": [
+          {
+            "Label": "!",
+            "Value": "!"
+          },
+          {
+            "Label": "#",
+            "Value": "#"
+          },
+          {
+            "Label": "$",
+            "Value": "$"
+          },
+          {
+            "Label": "%",
+            "Value": "%"
+          },
+          {
+            "Label": "'",
+            "Value": "'"
+          },
+          {
+            "Label": "(",
+            "Value": "("
+          },
+          {
+            "Label": ")",
+            "Value": ")"
+          },
+          {
+            "Label": "*",
+            "Value": "*"
+          },
+          {
+            "Label": "+",
+            "Value": "+"
+          },
+          {
+            "Label": ",",
+            "Value": ","
+          },
+          {
+            "Label": "-",
+            "Value": "-"
+          },
+          {
+            "Label": ".",
+            "Value": "."
+          },
+          {
+            "Label": "1",
+            "Value": "1"
+          },
+          {
+            "Label": "2",
+            "Value": "2"
+          },
+          {
+            "Label": "3",
+            "Value": "3"
+          },
+          {
+            "Label": "4",
+            "Value": "4"
+          },
+          {
+            "Label": "5",
+            "Value": "5"
+          },
+          {
+            "Label": "6",
+            "Value": "6"
+          },
+          {
+            "Label": "7",
+            "Value": "7"
+          },
+          {
+            "Label": "8",
+            "Value": "8"
+          },
+          {
+            "Label": "9",
+            "Value": "9"
+          },
+          {
+            "Label": ":",
+            "Value": ":"
+          },
+          {
+            "Label": ";",
+            "Value": ";"
+          },
+          {
+            "Label": "=",
+            "Value": "="
+          },
+          {
+            "Label": "<",
+            "Value": "<"
+          },
+          {
+            "Label": ">",
+            "Value": ">"
+          },
+          {
+            "Label": "?",
+            "Value": "?"
+          },
+          {
+            "Label": "@",
+            "Value": "@"
+          },
+          {
+            "Label": "|",
+            "Value": "|"
+          },
+          {
+            "Label": "}",
+            "Value": "}"
+          },
+          {
+            "Label": "`",
+            "Value": "`"
+          },
+          {
+            "Label": "_",
+            "Value": "_"
+          },
+          {
+            "Label": "^",
+            "Value": "^"
+          },
+          {
+            "Label": "]",
+            "Value": "]"
+          },
+          {
+            "Label": "[",
+            "Value": "["
+          },
+          {
+            "Label": "A",
+            "Value": "A"
+          },
+          {
+            "Label": "B",
+            "Value": "B"
+          },
+          {
+            "Label": "C",
+            "Value": "C"
+          },
+          {
+            "Label": "D",
+            "Value": "D"
+          },
+          {
+            "Label": "E",
+            "Value": "E"
+          },
+          {
+            "Label": "F",
+            "Value": "F"
+          },
+          {
+            "Label": "G",
+            "Value": "G"
+          },
+          {
+            "Label": "H",
+            "Value": "H"
+          },
+          {
+            "Label": "I",
+            "Value": "I"
+          },
+          {
+            "Label": "J",
+            "Value": "J"
+          },
+          {
+            "Label": "K",
+            "Value": "K"
+          },
+          {
+            "Label": "L",
+            "Value": "L"
+          },
+          {
+            "Label": "M",
+            "Value": "M"
+          },
+          {
+            "Label": "N",
+            "Value": "N"
+          },
+          {
+            "Label": "O",
+            "Value": "O"
+          },
+          {
+            "Label": "P",
+            "Value": "P"
+          },
+          {
+            "Label": "Q",
+            "Value": "Q"
+          },
+          {
+            "Label": "R",
+            "Value": "R"
+          },
+          {
+            "Label": "S",
+            "Value": "S"
+          },
+          {
+            "Label": "T",
+            "Value": "T"
+          },
+          {
+            "Label": "U",
+            "Value": "U"
+          },
+          {
+            "Label": "V",
+            "Value": "V"
+          },
+          {
+            "Label": "W",
+            "Value": "W"
+          },
+          {
+            "Label": "X",
+            "Value": "X"
+          },
+          {
+            "Label": "Y",
+            "Value": "Y"
+          },
+          {
+            "Label": "Z",
+            "Value": "Z"
+          },
+          {
+            "Label": "a",
+            "Value": "a"
+          },
+          {
+            "Label": "b",
+            "Value": "b"
+          },
+          {
+            "Label": "c",
+            "Value": "c"
+          },
+          {
+            "Label": "d",
+            "Value": "d"
+          },
+          {
+            "Label": "e",
+            "Value": "e"
+          },
+          {
+            "Label": "f",
+            "Value": "f"
+          },
+          {
+            "Label": "g",
+            "Value": "g"
+          },
+          {
+            "Label": "h",
+            "Value": "h"
+          },
+          {
+            "Label": "i",
+            "Value": "i"
+          },
+          {
+            "Label": "j",
+            "Value": "j"
+          },
+          {
+            "Label": "k",
+            "Value": "k"
+          },
+          {
+            "Label": "l",
+            "Value": "l"
+          },
+          {
+            "Label": "m",
+            "Value": "m"
+          },
+          {
+            "Label": "n",
+            "Value": "n"
+          },
+          {
+            "Label": "o",
+            "Value": "o"
+          },
+          {
+            "Label": "p",
+            "Value": "p"
+          },
+          {
+            "Label": "q",
+            "Value": "q"
+          },
+          {
+            "Label": "r",
+            "Value": "r"
+          },
+          {
+            "Label": "s",
+            "Value": "s"
+          },
+          {
+            "Label": "t",
+            "Value": "t"
+          },
+          {
+            "Label": "u",
+            "Value": "u"
+          },
+          {
+            "Label": "v",
+            "Value": "v"
+          },
+          {
+            "Label": "w",
+            "Value": "w"
+          },
+          {
+            "Label": "x",
+            "Value": "x"
+          },
+          {
+            "Label": "y",
+            "Value": "y"
+          },
+          {
+            "Label": "z",
+            "Value": "z"
+          }
+        ],
         "Files": {
           "scripts/hudlayout.res": {
             "CustomCrosshair": {
@@ -215,12 +567,10 @@
         "Default": "true",
         "Files": {
           "scripts/hudanimations_custom.txt": {
-            "DamagedPlayer": {
-              "comment": [
-                "StopEvent",
-                "RunEvent"
-              ]
-            }
+            "uncomment": [
+              "StopEvent HitMarker",
+              "RunEvent HitMarker"
+            ]
           }
         }
       }
@@ -235,36 +585,17 @@
           {
             "Label": "Default",
             "Value": "0",
-            "Files": {
-              "resource/ui/hudplayerhealth.res": {
-                "comment": [
-                  "#base \"../../customizations/player_health/hudplayerhealth-broesel.res\"\"",
-                  "#base \"../../customizations/player_health/hudplayerhealth-cross.res\"\""
-                ]
-              }
-            }
+            "FileName": [ "hudplayerhealth-broesel.res", "hudplayerhealth-cross.res" ]
           },
           {
             "Label": "Broesel",
             "Value": "1",
-            "Files": {
-              "resource/ui/hudplayerhealth.res": {
-                "uncomment": [
-                  "#base \"../../customizations/player_health/hudplayerhealth-broesel.res\"\""
-                ]
-              }
-            }
+            "FileName": "hudplayerhealth-broesel.res"
           },
           {
             "Label": "Cross",
             "Value": "2",
-            "Files": {
-              "resource/ui/hudplayerhealth.res": {
-                "uncomment": [
-                  "#base \"../../customizations/player_health/hudplayerhealth-cross.res\"\""
-                ]
-              }
-            }
+            "FileName": "hudplayerhealth-cross.res"
           }
         ]
       },
@@ -626,38 +957,25 @@
         "Label": "Classic Main Menu Style",
         "Type": "Checkbox",
         "Default": "false",
-        "Files": {
-          "resource/ui/mainmenuoverride.res": {
-            "replace": [
-              "\"#base\" \"../../customizations/main_menu/mainmenuoverride-classic.res\"",
-              "//\"#base\" \"../../customizations/main_menu/mainmenuoverride-classic.res\""
-            ]
-          }
-        }
+        "FileName": "mainmenuoverride-classic.res"
       },
       {
         "Name": "rh_toggle_min_scoreboard",
         "Label": "Minimal Scoreboard",
         "Type": "Checkbox",
         "Default": "false",
-        "Files": {
-          "resource/ui/scoreboard.res": {
-            "replace": [
-              "\"#base\" \"../../customizations/scoreboards/scoreboard-minimal.res\"",
-              "//\"#base\" \"../../customizations/scoreboards/scoreboard-minimal.res\""
-            ]
-          }
-        }
+        "FileName": "scoreboard-minimal.res"
       },
       {
         "Name": "rh_toggle_disguise_image",
         "Label": "Spy Disguise Image",
         "Type": "Checkbox",
-        "Default": "true",
+        "Default": "false",
         "Files": {
           "scripts/hudanimations_custom.txt": {
             "uncomment": [
-              "RunEvent HudSpyDisguiseChanged"
+              "RunEvent HudSpyDisguiseChanged",
+              "Animate PlayerStatusSpyImage"
             ]
           }
         }
@@ -713,24 +1031,18 @@
         }
       },
       {
-        "Name": "rh_toggle_center_select",
-        "Label": "Centered Team/Class Select",
+        "Name": "rh_toggle_center_team",
+        "Label": "Centered Class Select",
         "Type": "Checkbox",
         "Default": "false",
-        "Files": {
-          "resource/ui/classselection.res": {
-            "replace": [
-              "\"#base\" \"../../customizations/team_menu/classselection-center.res\"",
-              "//\"#base\" \"../../customizations/team_menu/classselection-center.res\""
-            ]
-          },
-          "resource/ui/teammenu.res": {
-            "replace": [
-              "\"#base\" \"../../customizations/team_menu/teammenu-center.res\"",
-              "//\"#base\" \"../../customizations/team_menu/teammenu-center.res\""
-            ]
-          }
-        }
+        "FileName": "classselection-center.res"
+      },
+      {
+        "Name": "rh_toggle_center_class",
+        "Label": "Centered Team Select",
+        "Type": "Checkbox",
+        "Default": "false",
+        "FileName": "teammenu-center.res"
       },
       {
         "Name": "rh_toggle_metal_pos",
@@ -785,13 +1097,8 @@
         "Label": "Alternate Player Model",
         "Type": "Checkbox",
         "Default": "false",
+        "FileName": "hudplayerclass-left.res",
         "Files": {
-          "resource/ui/hudplayerclass.res": {
-            "replace": [
-              "\"#base\" \"../../customizations/player_model/hudplayerclass-left.res\"",
-              "//\"#base\" \"../../customizations/player_model/hudplayerclass-left.res\""
-            ]
-          },
           "scripts/hudlayout.res": {
             "DisguiseStatus": {
               "xpos": {
@@ -829,10 +1136,10 @@
             "Value": "1",
             "Files": {
               "materials/console/background_upward.vmt": {
-                "baseTexture": "console/backgrounds/background_classic"
+                "$baseTexture": "console/backgrounds/background_classic"
               },
               "materials/console/background_upward_widescreen.vmt": {
-                "baseTexture": "console/backgrounds/background_classic_widescreen"
+                "$baseTexture": "console/backgrounds/background_classic_widescreen"
               }
             }
           },

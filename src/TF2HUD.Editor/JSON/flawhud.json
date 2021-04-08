@@ -757,7 +757,7 @@
         "Files": {
           "scripts/hudlayout.res": {
             "CustomCrosshair": {
-              "font": "Size:$value"
+              "font": "Size:$value | Outline:OFF"
             }
           }
         }
@@ -932,8 +932,8 @@
               },
               "resource/ui/huddamageaccount.res": {
                 "DamageAccountValue": {
-                  "xpos": "137",
-                  "ypos": "r47"
+                  "xpos": "c-120",
+                  "ypos": "c70"
                 }
               },
               "resource/ui/hudplayerclass.res": {
@@ -1007,6 +1007,119 @@
             "Files": {
               "resource/ui/huditemeffectmeter.res": {
                 "HudItemEffectMeter": {
+                  "xpos": "c-60",
+                  "ypos": "r80"
+                },
+                "ItemEffectMeterLabel": {
+                  "wide": "120"
+                },
+                "ItemEffectMeter": {
+                  "wide": "120"
+                }
+              },
+              "resource/ui/huddemomancharge.res": {
+                "ChargeMeter": {
+                  "ypos": "r60"
+                }
+              },
+              "resource/ui/huddemomanpipes.res": {
+                "PipesPresentPanel": {
+                  "ypos": "r80"
+                }
+              },
+              "resource/ui/huditemeffectmeter_cleaver.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r60"
+                }
+              },
+              "resource/ui/huditemeffectmeter_sodapopper.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r70"
+                }
+              },
+              "resource/ui/huditemeffectmeter_killstreak.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "2",
+                  "ypos": "r28"
+                }
+              },
+              "resource/ui/huddamageaccount.res": {
+                "DamageAccountValue": {
+                  "xpos": "137",
+                  "ypos": "r47"
+                }
+              },
+              "resource/ui/hudplayerclass.res": {
+                "PlayerStatusClassImage": {
+                  "xpos": "25"
+                },
+                "classmodelpanel": {
+                  "ypos": "r200",
+                  "tall": "200"
+                }
+              },
+              "resource/ui/hudplayerhealth.res": {
+                "HudPlayerHealth": {
+                  "xpos": "c-190",
+                  "ypos": "r108"
+                }
+              },
+              "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r60"
+                }
+              },
+              "scripts/hudlayout.res": {
+                "HudWeaponAmmo": {
+                  "xpos": "c90",
+                  "ypos": "r83"
+                },
+                "HudMannVsMachineStatus": {
+                  "ypos": "-55"
+                },
+                "HudMedicCharge": {
+                  "ypos": "c38"
+                },
+                "CHealthAccountPanel": {
+                  "xpos": "c-180",
+                  "ypos": "r150"
+                },
+                "CSecondaryTargetID": {
+                  "ypos": "325"
+                },
+                "DisguiseStatus": {
+                  "xpos": "100",
+                  "ypos": "r38"
+                },
+                "HudMenuSpyDisguise": {
+                  "ypos": "c60"
+                },
+                "CMainTargetID": {
+                  "ypos": "265"
+                },
+                "HudSpellMenu": {
+                  "xpos": "c-270"
+                },
+                "HudAchievementTracker": {
+                  "NormalY": "330",
+                  "EngineerY": "330",
+                  "tall": "130"
+                }
+              },
+              "scripts/hudanimations_custom.txt": {
+                "replace": [
+                  "Blank",
+                  "HudBlack"
+                ]
+              }
+            }
+          },
+          {
+            "Label": "Alternate",
+            "Value": "2",
+            "Files": {
+              "resource/ui/huditemeffectmeter.res": {
+                "HudItemEffectMeter": {
                   "xpos": "r110",
                   "ypos": "r65"
                 },
@@ -1017,6 +1130,16 @@
                   "wide": "100"
                 }
               },
+              "resource/ui/huddemomancharge.res": {
+                "ChargeMeter": {
+                  "ypos": "c110"
+                }
+              },
+              "resource/ui/huddemomanpipes.res": {
+                "PipesPresentPanel": {
+                  "ypos": "c92"
+                }
+              },
               "resource/ui/huditemeffectmeter_cleaver.res": {
                 "HudItemEffectMeter": {
                   "ypos": "r85"
@@ -1024,7 +1147,7 @@
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "r70"
+                  "ypos": "r75"
                 }
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
@@ -1054,92 +1177,6 @@
                   "ypos": "r75"
                 }
               },
-              "scripts/hudlayout.res": {
-                "HudWeaponAmmo": {
-                  "xpos": "r110",
-                  "ypos": "r50"
-                },
-                "HudMedicCharge": {
-                  "ypos": "c60"
-                },
-                "CHealthAccountPanel": {
-                  "xpos": "113",
-                  "ypos": "r90"
-                },
-                "DisguiseStatus": {
-                  "xpos": "115",
-                  "ypos": "r62"
-                },
-                "CMainTargetID": {
-                  "ypos": "r200"
-                },
-                "HudAchievementTracker": {
-                  "NormalY": "135",
-                  "EngineerY": "9999",
-                  "tall": "9999"
-                }
-              },
-              "scripts/hudanimations_custom.txt": {
-                "replace": [
-                  "Blank",
-                  "HudBlack"
-                ]
-              }
-            }
-          },
-          {
-            "Label": "Alternate",
-            "Value": "2",
-            "Files": {
-              "resource/ui/huditemeffectmeter.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "r110",
-                  "ypos": "r65"
-                },
-                "ItemEffectMeterLabel": {
-                  "wide": "100"
-                },
-                "ItemEffectMeter": {
-                  "wide": "100"
-                }
-              },
-              "resource/ui/huditemeffectmeter_cleaver.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "r85"
-                }
-              },
-              "resource/ui/huditemeffectmeter_sodapopper.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "r70"
-                }
-              },
-              "resource/ui/huditemeffectmeter_killstreak.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "115",
-                  "ypos": "r33"
-                }
-              },
-              "resource/ui/huddamageaccount.res": {
-                "DamageAccountValue": {
-                  "xpos": "137",
-                  "ypos": "r47"
-                }
-              },
-              "resource/ui/hudplayerclass.res": {
-                "PlayerStatusClassImage": {
-                  "xpos": "r125"
-                },
-                "classmodelpanel": {
-                  "xpos": "r230",
-                  "tall": "180"
-                }
-              },
-              "resource/ui/hudplayerhealth.res": {
-                "HudPlayerHealth": {
-                  "xpos": "10",
-                  "ypos": "r75"
-                }
-              },
               "resource/ui/hudrocketpack.res": {
                 "HudItemEffectMeter": {
                   "ypos": "r60"
@@ -1150,6 +1187,9 @@
                   "xpos": "r110",
                   "ypos": "r50"
                 },
+                "HudMannVsMachineStatus": {
+                  "ypos": "0"
+                },
                 "HudMedicCharge": {
                   "ypos": "c60"
                 },
@@ -1157,12 +1197,21 @@
                   "xpos": "113",
                   "ypos": "r90"
                 },
+                "CSecondaryTargetID": {
+                  "ypos": "355"
+                },
                 "DisguiseStatus": {
                   "xpos": "115",
                   "ypos": "r62"
                 },
+                "HudMenuSpyDisguise": {
+                  "ypos": "c130"
+                },
                 "CMainTargetID": {
                   "ypos": "r200"
+                },
+                "HudSpellMenu": {
+                  "xpos": "c-210"
                 },
                 "HudAchievementTracker": {
                   "NormalY": "135",
@@ -1197,15 +1246,15 @@
                 }
               },
               "scripts/hudanimations_custom.txt": {
-                "uncomment": [
-                  "Animate HealthBG",
-                  "Animate AmmoBG"
-                ],
                 "comment": [
                   "Animate PlayerStatusHealthValue",
                   "Animate AmmoInClip",
                   "Animate AmmoInReserve",
                   "Animate AmmoNoClip"
+                ],
+                "uncomment": [
+                  "Animate HealthBG",
+                  "Animate AmmoBG"
                 ]
               }
             }
@@ -1220,15 +1269,15 @@
                 }
               },
               "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "Animate HealthBG",
+                  "Animate AmmoBG"
+                ],
                 "uncomment": [
                   "Animate PlayerStatusHealthValue",
                   "Animate AmmoInClip",
                   "Animate AmmoInReserve",
                   "Animate AmmoNoClip"
-                ],
-                "comment": [
-                  "Animate HealthBG",
-                  "Animate AmmoBG"
                 ]
               }
             }
@@ -1244,14 +1293,14 @@
               },
               "scripts/hudanimations_custom.txt": {
                 "comment": [
-                  "Animate HealthBG",
+                  "Animate HealthBG"
+                ],
+                "uncomment": [
+                  "Animate AmmoBG",
                   "Animate PlayerStatusHealthValue",
                   "Animate AmmoInClip",
                   "Animate AmmoInReserve",
                   "Animate AmmoNoClip"
-                ],
-                "uncomment": [
-                  "Animate AmmoBG"
                 ]
               }
             }
