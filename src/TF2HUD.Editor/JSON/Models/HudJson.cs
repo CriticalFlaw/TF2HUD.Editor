@@ -27,6 +27,7 @@ namespace TF2HUD.Editor.JSON
 
     public class Controls
     {
+        [JsonPropertyName("ComboFiles")] public string[] ComboFiles;
         [JsonPropertyName("Default")] public string Default = "0";
         [JsonPropertyName("FileName")] public string FileName;
         [JsonPropertyName("Files")] public JObject Files;
@@ -36,14 +37,17 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("Minimum")] public int Minimum = 10;
         [JsonPropertyName("Name")] public string Name;
         [JsonPropertyName("Options")] public Option[] Options;
+        [JsonPropertyName("Pulse")] public bool Pulse;
         [JsonPropertyName("Special")] public string Special;
         [JsonPropertyName("Type")] public string Type;
     }
 
     public class Option
     {
+        [JsonPropertyName("FileName")] public string FileName;
         [JsonPropertyName("Files")] public JObject Files;
         [JsonPropertyName("Label")] public string Label;
+        [JsonPropertyName("Special")] public string Special;
         [JsonPropertyName("Value")] public string Value;
     }
 }

@@ -230,8 +230,6 @@ namespace TF2HUD.Editor.Classes
                                 Width = 150,
                                 SelectedIndex = int.TryParse(controlItem.Default, out var index) ? index : 1
                             };
-                            // TODO: Add the display value and actual value.
-                            //var OptionValue = option.Value;
                             foreach (var option in controlItem.Options)
                             {
                                 var item = new ComboBoxItem
@@ -389,7 +387,7 @@ namespace TF2HUD.Editor.Classes
                                         break;
 
                                     case ColorPicker color:
-                                        UpdateJson(color.Name, Utilities.RgbConverter(color.SelectedColor.ToString()));
+                                        UpdateJson(color.Name, Utilities.RgbaConverter(color.SelectedColor.ToString()));
                                         break;
 
                                     case ComboBox combo:
@@ -421,7 +419,7 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
-                // TODO: If the json has a duplicate key, this process fails. The json will need to be validated before we get to this point.
+                // TODO: Validate the HUD's JSON schema. Duplicate keys can cause this process to fail.
                 var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
                 for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
                     if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
@@ -622,8 +620,6 @@ namespace TF2HUD.Editor.Classes
                     // File is old but may not have the options for the selected HUD.
                     UpdateUserSettings(userSettings, hudJson.Controls);
                 }
-
-                // TODO: Check that the current version of user settings matches the latest HUD schema
             }
             catch (Exception ex)
             {
@@ -778,27 +774,38 @@ namespace TF2HUD.Editor.Classes
                 for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
                     if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
                         for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
-                            switch ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y))
+                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is StackPanel
+                                stackPanel)
                             {
-                                case CheckBox check:
-                                    var fileName = Utilities.GetFileName(controlGroups, check.Name);
-                                    if (string.IsNullOrWhiteSpace(fileName)) continue; // File name not found, skipping.
-                                    var custom = $"{path}{CustomisationsFolder}\\{fileName}.res";
-                                    var enabled = $"{path}{EnabledFolder}\\{fileName}.res";
+                                var custom = $"{path}{CustomisationsFolder}\\";
+                                var enabled = $"{path}{EnabledFolder}\\";
+                                var control =
+                                    (Visual) VisualTreeHelper.GetChild(stackPanel, stackPanel.Children.Count - 1);
 
-                                    if (check.IsChecked == true) // Move to enabled
-                                    {
-                                        if (File.Exists(custom)) File.Move(custom, enabled);
-                                    }
-                                    else // Move to customization folder
-                                    {
-                                        if (File.Exists(enabled)) File.Move(enabled, custom);
-                                    }
+                                switch (control)
+                                {
+                                    case CheckBox check:
+                                        var fileName = Utilities.GetFileName(controlGroups, check.Name);
+                                        if (string.IsNullOrWhiteSpace(fileName))
+                                            continue; // File name not found, skipping.
+                                        custom += $"{fileName}.res";
+                                        enabled += $"{fileName}.res";
 
-                                    break;
-                                case ComboBox combo:
-                                    // TODO: Add ComboBox control option
-                                    break;
+                                        if (check.IsChecked == true) // Move to the enabled folder
+                                        {
+                                            if (File.Exists(custom)) File.Move(custom, enabled);
+                                        }
+                                        else // Move back to the customization folder
+                                        {
+                                            if (File.Exists(enabled)) File.Move(enabled, custom);
+                                        }
+
+                                        break;
+
+                                    case ComboBox combo:
+                                        // TODO: Add ComboBox control option (see rayshud's health style option)
+                                        break;
+                                }
                             }
 
                 return true;
@@ -822,13 +829,25 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
+                var enableStockBG = userSetting.Value == "true";
+
+                if (hudSetting.Type == "ComboBox")
+                {
+                    hudSetting.Files = hudSetting.Options.Where(x => x.Value == userSetting.Value).First().Files;
+
+                    for (var x = 0; x < hudSetting.Options.Length; x++)
+                        if (hudSetting.Options[x].Special is not null)
+                        {
+                            hudSetting.Special = hudSetting.Options[x].Special;
+                            if (hudSetting.Options[x].Value == userSetting.Value)
+                                enableStockBG = true;
+                        }
+                }
+
                 if (hudSetting.Special is not null)
                     if (string.Equals(hudSetting.Special, "StockBackgrounds"))
                         custom.SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console",
-                            userSetting.Value == "true");
-
-                if (hudSetting.Type == "ComboBox")
-                    hudSetting.Files = hudSetting.Options.Where(x => x.Value == userSetting.Value).First().Files;
+                            enableStockBG);
 
                 if (hudSetting.Files != null)
                 {
@@ -865,6 +884,24 @@ namespace TF2HUD.Editor.Classes
                             }
                             else
                             {
+                                if (string.Equals(userSetting.Type, "ColorPicker"))
+                                {
+                                    // If the color is supposed to have a pulse, set the pulse value in the schema.
+                                    if (hudSetting.Pulse)
+                                    {
+                                        var pulseKey = property.Key + "Pulse";
+                                        hudElement[pulseKey] = Utilities.GetPulsedColor(userSetting.Value);
+                                    }
+
+                                    // If the color value is for an item rarity, update the dimmed and grayed values.
+                                    foreach (var value in Utilities.itemRarities)
+                                    {
+                                        if (!string.Equals(property.Key, value.Item1)) continue;
+                                        hudElement[value.Item2] = Utilities.GetDimmedColor(userSetting.Value);
+                                        hudElement[value.Item3] = Utilities.GetGrayedColor(userSetting.Value);
+                                    }
+                                }
+
                                 hudElement[property.Key] =
                                     property.Value.ToString().Replace("$value", userSetting.Value);
                             }

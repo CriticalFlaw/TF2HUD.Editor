@@ -581,11 +581,11 @@
         "Label": "Health Style",
         "Type": "ComboBox",
         "Default": "0",
+        "ComboFiles": ["hudplayerhealth-broesel.res", "hudplayerhealth-cross.res"],
         "Options": [
           {
             "Label": "Default",
-            "Value": "0",
-            "FileName": [ "hudplayerhealth-broesel.res", "hudplayerhealth-cross.res" ]
+            "Value": "0"
           },
           {
             "Label": "Broesel",
@@ -1021,11 +1021,13 @@
         "Label": "Chatbox On The Bottom",
         "Type": "Checkbox",
         "Default": "false",
-        "resource/ui/basechat.res": {
-          "HudChat": {
-            "ypos": {
-              "true": "315",
-              "false": "25"
+        "Files": {
+          "resource/ui/basechat.res": {
+            "HudChat": {
+              "ypos": {
+                "true": "315",
+                "false": "25"
+              }
             }
           }
         }
@@ -1111,7 +1113,7 @@
       },
       {
         "Name": "rh_val_main_menu_bg",
-        "Label": "Main Menu Background",
+        "Label": "Menu Background",
         "Type": "ComboBox",
         "Default": "0",
         "Options": [
@@ -1136,10 +1138,14 @@
             "Value": "1",
             "Files": {
               "materials/console/background_upward.vmt": {
-                "$baseTexture": "console/backgrounds/background_classic"
+                "UnlitGeneric": {
+                  "$baseTexture": "console/backgrounds/background_classic"
+                }
               },
               "materials/console/background_upward_widescreen.vmt": {
-                "$baseTexture": "console/backgrounds/background_classic_widescreen"
+                "UnlitGeneric": {
+                  "$baseTexture": "console/backgrounds/background_classic_widescreen"
+                }
               }
             }
           },

@@ -22,6 +22,8 @@ namespace TF2HUD.Editor.Classes
                 {
                     if (file.Name.EndsWith("bak"))
                         File.Move(file.FullName, file.FullName.Replace("bak", "vtf"));
+                    if (file.Name.EndsWith("tmp"))
+                        File.Move(file.FullName, file.FullName.Replace("tmp", "vmt"));
                     if (file.Name.EndsWith("temp"))
                         File.Move(file.FullName, file.FullName.Replace("temp", "txt"));
                 }
@@ -31,6 +33,8 @@ namespace TF2HUD.Editor.Classes
                     {
                         if (file.Name.EndsWith("vtf"))
                             File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
+                        if (file.Name.EndsWith("vmt"))
+                            File.Move(file.FullName, file.FullName.Replace("vmt", "tmp"));
                         if (file.Name.EndsWith("txt"))
                             File.Move(file.FullName, file.FullName.Replace("txt", "temp"));
                     }

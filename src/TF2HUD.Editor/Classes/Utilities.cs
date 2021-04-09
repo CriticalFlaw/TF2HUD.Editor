@@ -10,6 +10,40 @@ namespace TF2HUD.Editor.Classes
 {
     public static class Utilities
     {
+        public static List<Tuple<string, string, string>> itemRarities = new()
+        {
+            new Tuple<string, string, string>("QualityColorNormal", "DimmQualityColorNormal",
+                "QualityColorNormal_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorUnique", "DimmQualityColorUnique",
+                "QualityColorUnique_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorStrange", "DimmQualityColorStrange",
+                "QualityColorStrange_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorVintage", "DimmQualityColorVintage",
+                "QualityColorVintage_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorHaunted", "DimmQualityColorHaunted",
+                "QualityColorHaunted_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorrarity1", "DimmQualityColorrarity1",
+                "QualityColorrarity1_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorCollectors", "DimmQualityColorCollectors",
+                "QualityColorCollectors_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorrarity4", "DimmQualityColorrarity4",
+                "QualityColorrarity4_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorCommunity", "DimmQualityColorCommunity",
+                "QualityColorCommunity_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorDeveloper", "DimmQualityColorDeveloper",
+                "QualityColorDeveloper_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityCommon", "DimmItemRarityCommon", "ItemRarityCommon_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityUncommon", "DimmItemRarityUncommon",
+                "ItemRarityUncommon_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityRare", "DimmItemRarityRare", "ItemRarityRare_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityMythical", "DimmItemRarityMythical",
+                "ItemRarityMythical_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityLegendary", "DimmItemRarityLegendary",
+                "ItemRarityLegendary_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityAncient", "DimmItemRarityAncient",
+                "ItemRarityAncient_GreyedOut")
+        };
+
         /// <summary>
         ///     Get the line number of a given text value found in a string array.
         /// </summary>
@@ -58,16 +92,62 @@ namespace TF2HUD.Editor.Classes
         }
 
         /// <summary>
-        ///     Convert  HEX code to an RGB value.
+        ///     Convert HEX code to an RGBA value.
         /// </summary>
-        /// <param name="hex">HEX code of the color to be converted to RGB.</param>
-        /// <param name="alpha">Flag the color as having a lower alpha value than normal.</param>
-        /// <param name="pulse">Flag the color as a pulse, slightly changing green channel.</param>
-        public static string RgbConverter(string hex, bool pulse = false)
+        /// <param name="hex">HEX code of the color to be converted to RGBA.</param>
+        public static string RgbaConverter(string hex)
         {
             var color = ColorTranslator.FromHtml(hex);
-            var pulseNew = pulse && color.G >= 50 ? color.G - 50 : color.G;
-            return $"{color.R} {pulseNew} {color.B} {color.A}";
+            return $"{color.R} {color.G} {color.B} {color.A}";
+        }
+
+        /// <summary>
+        ///     Get a pulsed color by reducing a given color channel by 50.
+        /// </summary>
+        /// <param name="rgba">RGBA color that will have its alpha value reduced.</param>
+        /// <param name="index">Index value for a color in the RGBA to "pulse".</param>
+        public static string GetPulsedColor(string rgba, int index = 1)
+        {
+            var colors = Array.ConvertAll(rgba.Split(' '), x => int.Parse(x));
+
+            // If the green channel cannot be reduced, try blue then red. If there's no candidate, return the original color.
+            if (colors[index] < 50)
+            {
+                if (colors[index + 1] > 50)
+                    index++;
+                else if (colors[index - 1] > 50)
+                    index--;
+            }
+
+            // Apply the pulse change and return the color.
+            colors[index] = colors[index] >= 50 ? colors[index] - 50 : colors[index];
+            return $"{colors[0]} {colors[1]} {colors[2]} {colors[3]}";
+        }
+
+        /// <summary>
+        ///     Get a dimmed color by reducing the alpha channel to 100.
+        /// </summary>
+        /// <param name="rgba">RGBA color that will have its alpha value reduced.</param>
+        public static string GetDimmedColor(string rgba)
+        {
+            var colors = Array.ConvertAll(rgba.Split(' '), x => int.Parse(x));
+
+            // Return the color with a reduced alpha channel.
+            return $"{colors[0]} {colors[1]} {colors[2]} 100";
+        }
+
+        /// <summary>
+        ///     Get a grayed color by reducing each color channel by 75%.
+        /// </summary>
+        /// <param name="rgba">RGBA color that will have its alpha value reduced.</param>
+        public static string GetGrayedColor(string rgba)
+        {
+            var colors = Array.ConvertAll(rgba.Split(' '), x => int.Parse(x));
+
+            // Reduce each color channel (except alpha) by 75%, then return the color.
+            for (var x = 0; x < colors.Length; x++)
+                colors[x] = Convert.ToInt32(colors[x] * 0.25);
+            return $"{colors[0]} {colors[1]} {colors[2]} 255";
         }
 
         /// <summary>
@@ -163,7 +243,7 @@ namespace TF2HUD.Editor.Classes
         internal static string GetFileName(Dictionary<string, Controls[]>.ValueCollection controlGroups, string name)
         {
             foreach (var group in controlGroups)
-            foreach (var control in @group.Where(x => x.FileName is not null))
+            foreach (var control in group.Where(x => x.FileName is not null))
                 if (string.Equals(control.Name, name))
                     return control.FileName.Replace(".res", string.Empty);
 

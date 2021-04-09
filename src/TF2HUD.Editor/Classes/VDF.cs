@@ -6,7 +6,7 @@ namespace TF2HUD.Editor.Classes
 {
     internal static class VDF
     {
-        public static Dictionary<string, dynamic> Parse(string Str, string OSTagDelimeter = "%")
+        public static Dictionary<string, dynamic> Parse(string Str, string OSTagDelimeter = "^")
         {
             var i = 0;
             char[] WhiteSpaceIgnore = {' ', '\t', '\r', '\n'};
@@ -164,7 +164,7 @@ namespace TF2HUD.Editor.Classes
                     foreach (var Item in Obj[Key])
                         if (Item.GetType().Name.Contains("Dictionary"))
                         {
-                            var KeyTokens = Key.Split('%');
+                            var KeyTokens = Key.Split('^');
                             if (KeyTokens.Length > 1)
                                 // OS Tag
                                 Str += $"{new string(Tab, Tabs)}\"{Key}\" {KeyTokens[1]}{NewLine}";
@@ -176,7 +176,7 @@ namespace TF2HUD.Editor.Classes
                         }
                         else
                         {
-                            var KeyTokens = Key.Split('%');
+                            var KeyTokens = Key.Split('^');
                             if (KeyTokens.Length > 1)
                                 // OS Tag
                                 Str += $"{new string(Tab, Tabs)}\"{Key}\"\t\"{Item}\" {KeyTokens[1]}{NewLine}";
@@ -190,7 +190,7 @@ namespace TF2HUD.Editor.Classes
                     // There is only one object object/value
                     if (Obj[Key] is IDictionary<string, dynamic>)
                     {
-                        var KeyTokens = Key.Split('%');
+                        var KeyTokens = Key.Split('^');
                         if (KeyTokens.Length > 1)
                         {
                             Str += $"{new string(Tab, Tabs)}\"{KeyTokens[0]}\" {KeyTokens[1]}{NewLine}";
@@ -207,7 +207,7 @@ namespace TF2HUD.Editor.Classes
                     }
                     else
                     {
-                        var KeyTokens = Key.Split('%');
+                        var KeyTokens = Key.Split('^');
                         if (KeyTokens.Length > 1)
                             // OS Tag
                             Str += $"{new string(Tab, Tabs)}\"{KeyTokens[0]}\"\t\"{Obj[Key]}\" {KeyTokens[1]}{NewLine}";

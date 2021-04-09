@@ -108,6 +108,117 @@
         "Default": "false",
         "FileName": "bh_uber_percentagenearcrosshair.res"
       }
+    ],
+    "Health Colors": [
+      {
+        "Name": "bh_Health_Main",
+        "Label": "Normal",
+        "Type": "ColorPicker",
+        "Default": "255 255 255 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "bh_Health_Main": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_Health_Low",
+        "Label": "Low",
+        "Type": "ColorPicker",
+        "Default": "186 032 032 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "bh_Health_Low": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Ammo Colors": [
+      {
+        "Name": "bh_Ammo_Main",
+        "Label": "Normal",
+        "Type": "ColorPicker",
+        "Default": "255 255 255 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "bh_Ammo_Main": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_Ammo_Reserve",
+        "Label": "Reserve",
+        "Type": "ColorPicker",
+        "Default": "255 255 255 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "bh_Ammo_Reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_Ammo_Low",
+        "Label": "Low",
+        "Type": "ColorPicker",
+        "Default": "186 032 032 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "bh_Ammo_Low": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Crosshair Colors": [
+      {
+        "Name": "bh_hud_crosshair_1",
+        "Label": "Normal",
+        "Type": "ColorPicker",
+        "Default": "255 255 255 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "hud_crosshair_1": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_hud_crosshair_1_flash",
+        "Label": "Flash",
+        "Type": "ColorPicker",
+        "Default": "240 134 049 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "hud_crosshair_1_flash": "$value"
+              }
+            }
+          }
+        }
+      }
     ]
   }
 }

@@ -18,6 +18,7 @@
         "Label": "Buffed Health",
         "Type": "ColorPicker",
         "Default": "0 170 127 255",
+        "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -33,6 +34,7 @@
         "Label": "UberCharge",
         "Type": "ColorPicker",
         "Default": "0 170 127 255",
+        "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -48,6 +50,7 @@
         "Label": "Low Health",
         "Type": "ColorPicker",
         "Default": "190 20 20 255",
+        "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -63,6 +66,7 @@
         "Label": "Low Ammo",
         "Type": "ColorPicker",
         "Default": "190 20 20 255",
+        "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
