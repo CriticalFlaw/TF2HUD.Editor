@@ -3,3 +3,6 @@ site_author: criticalflaw
 theme: material
 repo_name: GitHub
 repo_url: https://github.com/CriticalFlaw/TF2HUD.Editor/
+nav:
+    - About:
+        - Home: 'index.md'
