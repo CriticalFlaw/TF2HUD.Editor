@@ -9,7 +9,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="hud_selected" Type="System.String" Scope="User">
-      <Value Profile="(Default)">budhud</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="hud_directory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

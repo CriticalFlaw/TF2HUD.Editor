@@ -43,6 +43,7 @@ namespace TF2HUD.Editor
             // Setup the GUI.
             InitializeComponent();
             SetupMenu();
+            SetBackground();
             SetupDirectory();
 
             // Check for updates.
@@ -301,7 +302,7 @@ namespace TF2HUD.Editor
                         if (!string.IsNullOrWhiteSpace(HudSelection))
                         {
                             var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-                            selection.Save();
+                            selection.Settings.SaveSettings();
                             EditorContainer.Children.Clear();
                             EditorContainer.Children.Add(selection.GetControls());
                         }
@@ -357,7 +358,6 @@ namespace TF2HUD.Editor
         /// </summary>
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            WriterTest();
             Logger.Info("Applying HUD Settings...");
             var worker = new BackgroundWorker();
             worker.DoWork += (_, _) =>
@@ -366,37 +366,12 @@ namespace TF2HUD.Editor
                 {
                     if (string.IsNullOrWhiteSpace(HudSelection)) return;
                     var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-                    selection.Save();
+                    selection.Settings.SaveSettings();
                     selection.ApplyCustomization();
                 });
             };
             worker.RunWorkerAsync();
             LblStatus.Content = "Settings Applied at " + DateTime.Now;
-        }
-
-        private void WriterTest()
-        {
-            //string location = HudPath + $"\\{HudSelection}";
-            //var Options = JsonSerializer.Deserialize<Dictionary<string, dynamic>>(File.ReadAllText("compiler.json"));
-            //Dictionary<string, string> InputIDs = new()
-            //{
-            //    test_hud_health_xpos = "c-50",
-            //    test_hud_bold_font = "true",
-            //};
-            //HUDWriter.Write(location, Options, InputIDs);
-
-            //System.Collections.Generic.Dictionary<string, dynamic> Options = new();
-            //Options["resource"] = new System.Collections.Generic.Dictionary<string, dynamic>();
-            //Options["resource"]["ui"] = new System.Collections.Generic.Dictionary<string, dynamic>();
-            //Options["resource"]["ui"]["mainmenuoverride.res"] = new System.Collections.Generic.Dictionary<string, dynamic>();
-            //Options["resource"]["ui"]["mainmenuoverride.res"]["TFCharacterImage"] = new System.Collections.Generic.Dictionary<string, dynamic>();
-            //Options["resource"]["ui"]["mainmenuoverride.res"]["TFCharacterImage"]["ypos"] = "$test ? yes : no";
-
-            //System.Collections.Generic.Dictionary<string, string> InputValues = new();
-            //InputValues["test"] = "true";
-            //InputValues["secondtest"] = "world";
-
-            //HUDWriter.Write(HudPath + $"\\{HudSelection}", Options, InputValues);
         }
 
         /// <summary>
@@ -407,7 +382,7 @@ namespace TF2HUD.Editor
             // Reset settings of the selected HUD.
             var selection = Json.GetHUDByName(Settings.Default.hud_selected);
             selection.Reset();
-            selection.Save();
+            selection.Settings.SaveSettings();
             LblStatus.Content = "Settings Reset at " + DateTime.Now;
         }
 
@@ -428,6 +403,7 @@ namespace TF2HUD.Editor
             GbSelectHud.Visibility = Visibility.Visible;
             EditorContainer.Children.Clear();
             SetFormControls();
+            SetBackground();
         }
 
         /// <summary>
@@ -443,6 +419,7 @@ namespace TF2HUD.Editor
 
             // Change the page view to the selected HUD.
             SetPageView();
+            SetBackground();
 
             // Update the control buttons.
             SetFormControls();
@@ -457,19 +434,52 @@ namespace TF2HUD.Editor
             {
                 GbSelectHud.Visibility = Visibility.Hidden;
                 EditorContainer.Children.Clear();
-                Application.Current.MainWindow.WindowState = string.Equals(Settings.Default.hud_selected, "rayshud")
-                    ? WindowState.Maximized
-                    : WindowState.Normal;
+                // Application.Current.MainWindow.WindowState = string.Equals(Settings.Default.hud_selected, "rayshud")
+                //     ? WindowState.Maximized
+                //     : WindowState.Normal;
 
                 if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
                 var selection = Json.GetHUDByName(Settings.Default.hud_selected);
                 EditorContainer.Children.Clear();
                 EditorContainer.Children.Add(selection.GetControls());
-                selection.Load();
+                // selection.Load();
             }
             catch (Exception error)
             {
                 MessageBox.Show(error.ToString());
+            }
+        }
+
+        private void SetBackground()
+        {
+            if (GbSelectHud.Visibility == Visibility.Visible)
+            {
+                var converter = new System.Windows.Media.BrushConverter();
+                var brush = (System.Windows.Media.Brush)converter.ConvertFromString("#2B2724");
+                Application.Current.MainWindow.Background = brush;
+            }
+            else
+            {
+                var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+                if (selection.Background != null)
+                {
+                    if (selection.Background.StartsWith("http"))
+                    {
+                        var brush = new System.Windows.Media.ImageBrush()
+                        {
+                            Stretch = System.Windows.Media.Stretch.UniformToFill,
+                            Opacity = 0.5
+                        };
+                        brush.ImageSource = new System.Windows.Media.Imaging.BitmapImage(new Uri(selection.Background, UriKind.RelativeOrAbsolute));
+                        Application.Current.MainWindow.Background = brush;
+                    }
+                    else
+                    {
+                        var colors = Array.ConvertAll(selection.Background.Split(' '), c => byte.Parse(c));
+                        var brush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
+                        Application.Current.MainWindow.Background = brush;
+                    }
+                }
             }
         }
 

@@ -49,7 +49,7 @@ namespace TF2HUD.Editor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("budhud")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string hud_selected {
             get {
                 return ((string)(this["hud_selected"]));

@@ -91,7 +91,7 @@ namespace TF2HUD.Editor.Classes
 
                         if (Obj.TryGetValue(CurrentToken, out var Value))
                         {
-                            if (Obj[CurrentToken].GetType().Name.Contains("List"))
+                            if (Obj[CurrentToken].GetType() == typeof(List<dynamic>))
                             {
                                 // Object list exists
                                 Obj[CurrentToken].Add(ParseObject());
@@ -122,7 +122,7 @@ namespace TF2HUD.Editor.Classes
                         if (Obj.TryGetValue(CurrentToken, out var Value))
                         {
                             // dynamic property exists
-                            if (Obj[CurrentToken].GetType().Name.Contains("List"))
+                            if (Obj[CurrentToken].GetType() == typeof(List<dynamic>))
                             {
                                 // Array already exists
                                 Obj[CurrentToken].Add(NextToken);
@@ -162,7 +162,7 @@ namespace TF2HUD.Editor.Classes
                 {
                     // Item has multiple instances
                     foreach (var Item in Obj[Key])
-                        if (Item.GetType().Name.Contains("Dictionary"))
+                        if (Item.GetType() == typeof(Dictionary<string, dynamic>))
                         {
                             var KeyTokens = Key.Split('^');
                             if (KeyTokens.Length > 1)

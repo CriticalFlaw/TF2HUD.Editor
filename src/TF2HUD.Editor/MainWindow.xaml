@@ -9,8 +9,9 @@
         Height="850"
         WindowStartupLocation="CenterScreen"
         FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
-        FontSize="20px">
-    <Grid Background="#2B2724">
+        FontSize="20px"
+        Background="#2B2724">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -154,7 +155,7 @@
                     Click="BtnHuds_OnClick"
                     Content="H"
                     Margin="5"
-                    Background="#5398f3"
+                    Background="#42A5F5"
                     FontFamily="../Resources/TF2Build.ttf #TF2 Build"
                     Style="{StaticResource LinkButton}" />
             </WrapPanel>

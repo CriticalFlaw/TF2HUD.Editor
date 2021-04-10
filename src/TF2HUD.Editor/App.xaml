@@ -120,7 +120,8 @@
             <Setter Property="FontFamily" Value="../Resources/Icons.otf #Icons" />
             <Setter Property="Width" Value="50px" />
             <Setter Property="FontSize" Value="33px" />
-            <Setter Property="Foreground" Value="#EBE2CA" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="BorderThickness" Value="0" />
         </Style>
     </Application.Resources>
 </Application>

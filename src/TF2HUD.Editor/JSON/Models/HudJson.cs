@@ -13,7 +13,8 @@ namespace TF2HUD.Editor.JSON
 
         [JsonPropertyName("EnabledFolder")] public string EnabledFolder;
         [JsonPropertyName("Layout")] public string[] Layout;
-        [JsonPropertyName("URLs")] public Links Links;
+        [JsonPropertyName("Links")] public Links Links;
+        [JsonPropertyName("Background")] public string Background;
     }
 
     public class Links

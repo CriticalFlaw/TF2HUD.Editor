@@ -167,31 +167,7 @@ namespace TF2HUD.Editor.Classes
 
         public static void OpenWebpage(string url)
         {
-            try
-            {
-                // Attempt to open the issue tracker, if that fails, try other methods.
-                Process.Start(url);
-            }
-            catch
-            {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    url = url.Replace("&", "^&");
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") {CreateNoWindow = true});
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                {
-                    Process.Start("xdg-open", url);
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
-                    Process.Start("open", url);
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            Process.Start(url);
         }
 
         /// <summary>
@@ -209,9 +185,9 @@ namespace TF2HUD.Editor.Classes
         public static void Merge(Dictionary<string, dynamic> Obj1, Dictionary<string, dynamic> Obj2)
         {
             foreach (var i in Obj1.Keys)
-                if (Obj1[i].GetType().Name.Contains("Dictionary"))
+                if (Obj1[i].GetType() == typeof(Dictionary<string, dynamic>))
                 {
-                    if (Obj2.ContainsKey(i) && Obj2[i].GetType().Name.Contains("Dictionary")) Merge(Obj1[i], Obj2[i]);
+                    if (Obj2.ContainsKey(i) && Obj2[i].GetType() == typeof(Dictionary<string, dynamic>)) Merge(Obj1[i], Obj2[i]);
                 }
                 else
                 {
