@@ -18,6 +18,8 @@ namespace TF2HUD.Editor.Classes
     {
         private readonly Grid Controls = new();
         private readonly string[] LayoutOptions;
+
+        public string Background;
         public Dictionary<string, Type> ConstrolList = new();
         public Dictionary<string, Controls[]> ControlOptions;
         private bool ControlsRendered;
@@ -26,10 +28,8 @@ namespace TF2HUD.Editor.Classes
         public string EnabledFolder;
         private string[][] Layout;
         public string Name;
-        public string UpdateUrl, GitHubUrl, HudsTfUrl, SteamUrl, IssueUrl;
         public HUDSettings Settings;
-
-        public string Background;
+        public string UpdateUrl, GitHubUrl, HudsTfUrl, SteamUrl, IssueUrl;
 
         public HUD(string name, HudJson options)
         {
@@ -55,10 +55,7 @@ namespace TF2HUD.Editor.Classes
             ControlOptions = options.Controls;
             LayoutOptions = options.Layout;
 
-            if (options.Background != null)
-            {
-                Background = options.Background;
-            }
+            if (options.Background != null) Background = options.Background;
         }
 
         /// <summary>
@@ -69,10 +66,8 @@ namespace TF2HUD.Editor.Classes
             // SetupUserSettings();
 
             if (ControlsRendered)
-            {
                 // Load();
                 return Controls;
-            }
 
             var container = new Grid();
             var titleRowDefinition = new RowDefinition
@@ -102,7 +97,7 @@ namespace TF2HUD.Editor.Classes
                 // Splits Layout string[] into 2D Array using \s+
                 Layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
 
-                sectionsContainer = new Grid()
+                sectionsContainer = new Grid
                 {
                     VerticalAlignment = VerticalAlignment.Top,
                     MaxWidth = 1270,
@@ -149,7 +144,7 @@ namespace TF2HUD.Editor.Classes
                     var id = controlItem.Name;
                     var label = controlItem.Label;
 
-                    this.Settings.AddSetting(controlItem.Name, controlItem);
+                    Settings.AddSetting(controlItem.Name, controlItem);
 
                     switch (controlItem.Type)
                     {
@@ -169,10 +164,10 @@ namespace TF2HUD.Editor.Classes
                                 Width = 60
                             };
                             charInput.PreviewTextInput += (_, e) => e.Handled = charInput.Text != "";
-                            charInput.TextChanged += (object sender, TextChangedEventArgs e) =>
+                            charInput.TextChanged += (sender, e) =>
                             {
                                 var input = sender as TextBox;
-                                this.Settings.SetSetting(input.Name, input.Text);
+                                Settings.SetSetting(input.Name, input.Text);
                             };
                             charContainer.Children.Add(charLabel);
                             charContainer.Children.Add(charInput);
@@ -186,12 +181,12 @@ namespace TF2HUD.Editor.Classes
                                 Name = id,
                                 Content = label,
                                 Margin = new Thickness(10, lastTop + 10, 0, 0),
-                                IsChecked = this.Settings.GetSetting<bool>(controlItem.Name)
+                                IsChecked = Settings.GetSetting<bool>(controlItem.Name)
                             };
-                            checkBoxInput.Checked += (object sender, RoutedEventArgs e) =>
+                            checkBoxInput.Checked += (sender, e) =>
                             {
                                 var input = sender as CheckBox;
-                                this.Settings.SetSetting(input.Name, input.IsChecked.ToString());
+                                Settings.SetSetting(input.Name, input.IsChecked.ToString());
                             };
                             //lastMargin = checkBoxInput.Margin;
                             sectionContent.Children.Add(checkBoxInput);
@@ -220,7 +215,7 @@ namespace TF2HUD.Editor.Classes
 
                             try
                             {
-                                var userColor = this.Settings.GetSetting<Color>(id);
+                                var userColor = Settings.GetSetting<Color>(id);
                                 colorInput.SelectedColor = userColor;
                             }
                             catch
@@ -228,10 +223,11 @@ namespace TF2HUD.Editor.Classes
                                 colorInput.SelectedColor = Color.FromArgb(255, 0, 255, 0);
                             }
 
-                            colorInput.Closed += (object sender, RoutedEventArgs e) =>
+                            colorInput.Closed += (sender, e) =>
                             {
                                 var input = sender as ColorPicker;
-                                this.Settings.SetSetting(input.Name, Utilities.RgbaConverter(input.SelectedColor.ToString()));
+                                Settings.SetSetting(input.Name,
+                                    Utilities.RgbaConverter(input.SelectedColor.ToString()));
                             };
                             colorContainer.Children.Add(colorLabel);
                             colorContainer.Children.Add(colorInput);
@@ -260,7 +256,7 @@ namespace TF2HUD.Editor.Classes
                             {
                                 Name = id,
                                 Width = 150,
-                                SelectedIndex = this.Settings.GetSetting<int>(controlItem.Name)
+                                SelectedIndex = Settings.GetSetting<int>(controlItem.Name)
                             };
                             foreach (var option in controlItem.Options)
                             {
@@ -277,10 +273,10 @@ namespace TF2HUD.Editor.Classes
                                 comboBoxInput.Items.Add(item);
                             }
 
-                            comboBoxInput.SelectionChanged += (object sender, SelectionChangedEventArgs e) =>
+                            comboBoxInput.SelectionChanged += (sender, e) =>
                             {
                                 var input = sender as ComboBox;
-                                this.Settings.SetSetting(input.Name, input.SelectedIndex.ToString());
+                                Settings.SetSetting(input.Name, input.SelectedIndex.ToString());
                             };
 
                             comboBoxContainer.Children.Add(comboBoxLabel);
@@ -303,14 +299,14 @@ namespace TF2HUD.Editor.Classes
                             {
                                 Name = id,
                                 Width = 60,
-                                Text = this.Settings.GetSetting<string>(controlItem.Name)
+                                Text = Settings.GetSetting<string>(controlItem.Name)
                             };
                             numberInput.PreviewTextInput += (_, e) => { e.Handled = !Regex.IsMatch(e.Text, "\\d"); };
 
-                            numberInput.TextChanged += (object sender, TextChangedEventArgs e) =>
+                            numberInput.TextChanged += (sender, e) =>
                             {
                                 var input = sender as TextBox;
-                                this.Settings.SetSetting(input.Name, input.Text);
+                                Settings.SetSetting(input.Name, input.Text);
                             };
 
                             numberContainer.Children.Add(numberLabel);
@@ -334,16 +330,16 @@ namespace TF2HUD.Editor.Classes
                             {
                                 Name = id,
                                 Width = 100,
-                                Value = this.Settings.GetSetting<int>(controlItem.Name),
+                                Value = Settings.GetSetting<int>(controlItem.Name),
                                 Minimum = controlItem.Minimum,
                                 Maximum = controlItem.Maximum,
                                 Increment = controlItem.Increment
                             };
 
-                            integerInput.ValueChanged += (object sender, RoutedPropertyChangedEventArgs<object> e) =>
+                            integerInput.ValueChanged += (sender, e) =>
                             {
                                 var input = sender as IntegerUpDown;
-                                this.Settings.SetSetting(input.Name, input.Text);
+                                Settings.SetSetting(input.Name, input.Text);
                             };
 
                             integerContainer.Children.Add(integerLabel);
@@ -428,32 +424,32 @@ namespace TF2HUD.Editor.Classes
             try
             {
                 foreach (var Section in ControlOptions.Keys)
-                    for (int i = 0; i < ControlOptions[Section].Length; i++)
+                    for (var i = 0; i < ControlOptions[Section].Length; i++)
                     {
                         var controlItem = ControlOptions[Section][i];
-                        var control = this.Controls.FindName(controlItem.Name);
+                        var control = Controls.FindName(controlItem.Name);
                         switch (control)
                         {
-                                    case TextBox text:
-                                        text.Text = controlItem.Default;
-                                        break;
+                            case TextBox text:
+                                text.Text = controlItem.Default;
+                                break;
 
-                                    case ColorPicker color:
-                                        var colors = Array.ConvertAll(controlItem.Default.Split(' '), c => byte.Parse(c));
-                                        color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
-                                        break;
+                            case ColorPicker color:
+                                var colors = Array.ConvertAll(controlItem.Default.Split(' '), c => byte.Parse(c));
+                                color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                                break;
 
-                                    case ComboBox combo:
-                                        if (((ComboBoxItem) combo.Items[0]).Style ==
-                                            (Style) Application.Current.Resources["Crosshair"])
-                                            combo.SelectedValue = controlItem.Default;
-                                        else
-                                            combo.SelectedIndex = int.Parse(controlItem.Default);
-                                        break;
+                            case ComboBox combo:
+                                if (((ComboBoxItem) combo.Items[0]).Style ==
+                                    (Style) Application.Current.Resources["Crosshair"])
+                                    combo.SelectedValue = controlItem.Default;
+                                else
+                                    combo.SelectedIndex = int.Parse(controlItem.Default);
+                                break;
 
-                                    case IntegerUpDown integer:
-                                        integer.Text = controlItem.Default;
-                                        break;
+                            case IntegerUpDown integer:
+                                integer.Text = controlItem.Default;
+                                break;
                         }
                     }
             }
@@ -473,12 +469,15 @@ namespace TF2HUD.Editor.Classes
             {
                 var path = $"{MainWindow.HudPath}\\{Name}\\";
 
-                // If the developer defined customization folders for their HUD, then copy those files.
-                if (!string.IsNullOrWhiteSpace(CustomisationsFolder)) MoveCustomizationFiles(path);
-
-                var userSettings = this.Settings;
+                var userSettings = JsonConvert
+                    .DeserializeObject<UserJson>(File.ReadAllText("settings.json")).Settings
+                    .Where(x => x.HUD == Name);
                 var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
                     .Controls.Values;
+
+                // If the developer defined customization folders for their HUD, then copy those files.
+                if (!string.IsNullOrWhiteSpace(CustomisationsFolder))
+                    MoveCustomizationFiles(path, userSettings, hudSettings);
 
                 // This Dictionary contains folders/files/properties as they should be written to the hud
                 // the 'IterateFolder' and 'IterateHUDFileProperties' will write the properties to this
@@ -487,7 +486,7 @@ namespace TF2HUD.Editor.Classes
                 foreach (var group in hudSettings)
                 foreach (var control in group)
                 {
-                    Setting user = this.Settings.GetSetting(control.Name);
+                    var user = Settings.GetSetting(control.Name);
                     if (user is not null)
                         WriteToFile(path, control, user, hudFolders);
                 }
@@ -575,47 +574,78 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Copy files used for folder-based customizations.
         /// </summary>
-        public bool MoveCustomizationFiles(string path)
+        public bool MoveCustomizationFiles(string path, IEnumerable<Setting> userSettings,
+            Dictionary<string, Controls[]>.ValueCollection hudSettings)
         {
             try
             {
                 // Check if the customization folders are valid.
                 if (!Directory.Exists($"{path}\\{CustomisationsFolder}")) return true;
 
-                var custom = $"{path}{CustomisationsFolder}\\";
-                var enabled = $"{path}{EnabledFolder}\\";
+                var controlFilter = new List<string>
+                {
+                    "CheckBox",
+                    "ComboBox"
+                };
+                userSettings = userSettings.Where(x => x.HUD == Name).Where(z =>
+                    controlFilter.Contains(z.Type, StringComparer.CurrentCultureIgnoreCase));
 
-                var ControlOptions = this.ControlOptions;
-                foreach (var Section in ControlOptions.Keys)
-                    foreach (var controlItem in ControlOptions[Section])
-                        if (controlItem.FileName != null)
-                        {
-                            var control = this.Controls.FindName(controlItem.Name);
-                            switch (control)
+                foreach (var group in hudSettings)
+                foreach (var control in group.Where(x =>
+                    controlFilter.Contains(x.Type, StringComparer.CurrentCultureIgnoreCase)))
+                {
+                    var userSetting = userSettings.Where(x => x.Name == control.Name).First();
+                    if (userSetting is null) continue; // File name not found, skipping.
+
+                    var custom = $"{path}{CustomisationsFolder}";
+                    var enabled = $"{path}{EnabledFolder}";
+
+                    switch (control.Type.ToLowerInvariant())
+                    {
+                        case "checkbox":
+                            var fileName = Utilities.GetFileNames(control);
+                            if (fileName is null || fileName is not string) continue; // File name not found, skipping.
+
+                            custom += $"\\{fileName}.res";
+                            enabled += $"\\{fileName}.res";
+
+                            if (string.Equals(userSetting.Value, "true")) // Move to enabled
                             {
-                                case CheckBox check:
-                                    var fileName = Utilities.GetFileName(ControlOptions.Values, check.Name);
-                                    if (string.IsNullOrWhiteSpace(fileName))
-                                        continue; // File name not found, skipping.
-                                    custom += $"{fileName}.res";
-                                    enabled += $"{fileName}.res";
-
-                                    if (check.IsChecked == true) // Move to the enabled folder
-                                    {
-                                        if (File.Exists(custom)) File.Move(custom, enabled);
-                                    }
-                                    else // Move back to the customization folder
-                                    {
-                                        if (File.Exists(enabled)) File.Move(enabled, custom);
-                                    }
-
-                                    break;
-
-                                case ComboBox combo:
-                                    // TODO: Add ComboBox control option (see rayshud's health style option)
-                                    break;
+                                if (File.Exists(custom)) File.Move(custom, enabled);
                             }
-                        }
+                            else // Move to customization folder
+                            {
+                                if (File.Exists(enabled)) File.Move(enabled, custom);
+                            }
+
+                            break;
+
+                        case "combobox":
+                            var fileNames = Utilities.GetFileNames(control);
+                            if (fileNames is null || fileNames is not string[])
+                                continue; // File name not found, skipping.
+
+                            foreach (string file in fileNames)
+                            {
+                                var name = file.Replace(".res", string.Empty);
+                                if (File.Exists(enabled + $"\\{name}.res"))
+                                    File.Move(enabled + $"\\{name}.res", custom + $"\\{name}.res");
+                            }
+
+                            if (!string.Equals(userSetting.Value, "0")) // Move to customization folder
+                            {
+                                var item = control.Options[int.Parse(userSetting.Value)];
+                                if (item.FileName is not null)
+                                {
+                                    var file = item.FileName.Replace(".res", string.Empty);
+                                    if (File.Exists(custom + $"\\{file}.res"))
+                                        File.Move(custom + $"\\{file}.res", enabled + $"\\{file}.res");
+                                }
+                            }
+
+                            break;
+                    }
+                }
 
                 return true;
             }

@@ -6,6 +6,7 @@ namespace TF2HUD.Editor.JSON
 {
     public class HudJson
     {
+        [JsonPropertyName("Background")] public string Background;
         [JsonPropertyName("Controls")] public Dictionary<string, Controls[]> Controls;
 
         [JsonPropertyName("CustomisationsFolder")]
@@ -14,7 +15,6 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("EnabledFolder")] public string EnabledFolder;
         [JsonPropertyName("Layout")] public string[] Layout;
         [JsonPropertyName("Links")] public Links Links;
-        [JsonPropertyName("Background")] public string Background;
     }
 
     public class Links

@@ -216,12 +216,11 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Retrieve the filename from the HUD schema control using a string value.
         /// </summary>
-        internal static string GetFileName(Dictionary<string, Controls[]>.ValueCollection controlGroups, string name)
+        internal static dynamic GetFileNames(Controls control)
         {
-            foreach (var group in controlGroups)
-            foreach (var control in group.Where(x => x.FileName is not null))
-                if (string.Equals(control.Name, name))
-                    return control.FileName.Replace(".res", string.Empty);
+            if (!string.IsNullOrWhiteSpace(control.FileName)) return control.FileName.Replace(".res", string.Empty);
+
+            if (control.ComboFiles is not null) return control.ComboFiles;
 
             return null;
         }
