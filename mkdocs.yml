@@ -1,0 +1,9 @@
+site_name: TF2 HUD Editor
+site_author: criticalflaw
+theme: material
+repo_name: GitHub
+site_url: https://criticalflaw.ca/tf2hud-editor/docs
+repo_url: https://github.com/CriticalFlaw/TF2HUD.Editor/
+nav:
+    - About:
+        - Home: 'index.md'
