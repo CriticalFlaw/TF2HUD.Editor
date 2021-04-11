@@ -45,25 +45,6 @@ namespace TF2HUD.Editor.Classes
         };
 
         /// <summary>
-        ///     Get the line number of a given text value found in a string array.
-        /// </summary>
-        public static int FindIndex(string[] array, string value, int skip = 0)
-        {
-            try
-            {
-                var list = array.Skip(skip);
-                var index = list.Select((v, i) => new {Index = i, Value = v}) // Pair up values and indexes
-                    .Where(p => p.Value.Contains(value)) // Do the filtering
-                    .Select(p => p.Index); // Keep the index and drop the value
-                return index.First() + skip;
-            }
-            catch
-            {
-                return 0;
-            }
-        }
-
-        /// <summary>
         ///     Clear all existing comment identifiers, then apply a fresh one.
         /// </summary>
         public static string CommentOutTextLine(string value)
@@ -106,22 +87,13 @@ namespace TF2HUD.Editor.Classes
         /// </summary>
         /// <param name="rgba">RGBA color that will have its alpha value reduced.</param>
         /// <param name="index">Index value for a color in the RGBA to "pulse".</param>
-        public static string GetPulsedColor(string rgba, int index = 1)
+        public static string GetPulsedColor(string rgba)
         {
             var colors = Array.ConvertAll(rgba.Split(' '), x => int.Parse(x));
 
-            // If the green channel cannot be reduced, try blue then red. If there's no candidate, return the original color.
-            if (colors[index] < 50)
-            {
-                if (colors[index + 1] > 50)
-                    index++;
-                else if (colors[index - 1] > 50)
-                    index--;
-            }
-
             // Apply the pulse change and return the color.
-            colors[index] = colors[index] >= 50 ? colors[index] - 50 : colors[index];
-            return $"{colors[0]} {colors[1]} {colors[2]} {colors[3]}";
+            colors[^1] = colors[^1] >= 50 ? colors[^1] - 50 : colors[^1];
+            return $"{colors[0]} {colors[1]} {colors[2]} {colors[^1]}";
         }
 
         /// <summary>
@@ -150,36 +122,9 @@ namespace TF2HUD.Editor.Classes
             return $"{colors[0]} {colors[1]} {colors[2]} 255";
         }
 
-        /// <summary>
-        ///     Convert an Enum name to a user-friendly string value.
-        /// </summary>
-        public static string GetStringValue(Enum value)
-        {
-            // Get the type, FieldInfo for this type and StringValue attributes
-            var type = value.GetType();
-            var fieldInfo = type.GetField(value.ToString());
-            var attributes =
-                fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
-
-            // Return the first if there was a match, or enum value if no match
-            return attributes.Length > 0 ? attributes[0].StringValue : value.ToString();
-        }
-
         public static void OpenWebpage(string url)
         {
             Process.Start("explorer", url);
-        }
-
-        /// <summary>
-        ///     Convert string value to a boolean
-        /// </summary>
-        public static bool ParseBool(string input)
-        {
-            return input.ToLower() switch
-            {
-                "yes" or "1" or "true" => true,
-                _ => false
-            };
         }
 
         public static void Merge(Dictionary<string, dynamic> Obj1, Dictionary<string, dynamic> Obj2)
@@ -224,47 +169,5 @@ namespace TF2HUD.Editor.Classes
 
             return null;
         }
-    }
-
-    [AttributeUsage(AttributeTargets.All)]
-    public class StringValueAttribute : Attribute
-    {
-        public StringValueAttribute(string value)
-        {
-            StringValue = value;
-        }
-
-        public string StringValue { get; protected set; }
-    }
-
-    public class ItemColorList
-    {
-        public string Assassin = "#D32CE6";
-        public string Civilian = "#B0C3D9";
-        public string Collectors = "#AA0000";
-        public string Commando = "#8847FF";
-        public string Community = "#70B04A";
-        public string Elite = "#EB4B4B";
-        public string Freelance = "#5E98D9";
-        public string Genuine = "#4D7455";
-        public string Haunted = "#38F3AB";
-        public string Mercenary = "#4B69FF";
-        public string Normal = "#B2B2B2";
-        public string Strange = "#CF6A32";
-        public string Unique = "#FFD700";
-        public string Unusual = "#8650AC";
-        public string Valve = "#A50F79";
-        public string Vintage = "#476291";
-    }
-
-    /// <summary>
-    ///     List of possible positions for item effect meters.
-    /// </summary>
-    public enum Positions
-    {
-        Top,
-        Middle,
-        Bottom,
-        Default
     }
 }

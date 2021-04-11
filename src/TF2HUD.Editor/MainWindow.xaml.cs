@@ -462,24 +462,23 @@ namespace TF2HUD.Editor
             {
                 if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
                 var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-                if (selection.Background != null)
+                if (selection.Background == null) return;
+
+                if (selection.Background.StartsWith("http"))
                 {
-                    if (selection.Background.StartsWith("http"))
+                    var brush = new System.Windows.Media.ImageBrush()
                     {
-                        var brush = new System.Windows.Media.ImageBrush()
-                        {
-                            Stretch = System.Windows.Media.Stretch.UniformToFill,
-                            Opacity = 0.5
-                        };
-                        brush.ImageSource = new System.Windows.Media.Imaging.BitmapImage(new Uri(selection.Background, UriKind.RelativeOrAbsolute));
-                        Application.Current.MainWindow.Background = brush;
-                    }
-                    else
-                    {
-                        var colors = Array.ConvertAll(selection.Background.Split(' '), c => byte.Parse(c));
-                        var brush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
-                        Application.Current.MainWindow.Background = brush;
-                    }
+                        Stretch = System.Windows.Media.Stretch.UniformToFill,
+                        Opacity = 0.5
+                    };
+                    brush.ImageSource = new System.Windows.Media.Imaging.BitmapImage(new Uri(selection.Background, UriKind.RelativeOrAbsolute));
+                    Application.Current.MainWindow.Background = brush;
+                }
+                else
+                {
+                    var colors = Array.ConvertAll(selection.Background.Split(' '), c => byte.Parse(c));
+                    var brush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
+                    Application.Current.MainWindow.Background = brush;
                 }
             }
         }

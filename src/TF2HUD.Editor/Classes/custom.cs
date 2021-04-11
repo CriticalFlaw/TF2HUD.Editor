@@ -28,16 +28,16 @@ namespace TF2HUD.Editor.Classes
                         File.Move(file.FullName, file.FullName.Replace("temp", "txt"));
                 }
 
-                if (enable)
-                    foreach (var file in directoryPath.GetFiles())
-                    {
-                        if (file.Name.EndsWith("vtf"))
-                            File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
-                        if (file.Name.EndsWith("vmt"))
-                            File.Move(file.FullName, file.FullName.Replace("vmt", "tmp"));
-                        if (file.Name.EndsWith("txt"))
-                            File.Move(file.FullName, file.FullName.Replace("txt", "temp"));
-                    }
+                if (!enable) return true;
+                foreach (var file in directoryPath.GetFiles())
+                {
+                    if (file.Name.EndsWith("vtf"))
+                        File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
+                    if (file.Name.EndsWith("vmt"))
+                        File.Move(file.FullName, file.FullName.Replace("vmt", "tmp"));
+                    if (file.Name.EndsWith("txt"))
+                        File.Move(file.FullName, file.FullName.Replace("txt", "temp"));
+                }
 
                 return true;
             }
@@ -92,14 +92,6 @@ namespace TF2HUD.Editor.Classes
             }
         }
 
-        private void CbCustomBg_OnClick()
-        {
-            //if (CbCustomBg.IsChecked == true)
-            //    CbCustomBg.IsChecked = MainWindow.ShowMessageBox(MessageBoxImage.Warning,
-            //        Properties.Resources.info_custom_background, null, MessageBoxButton.YesNo) == MessageBoxResult.Yes;
-            //SetBackgroundControls();
-        }
-
         private void BtnSelectImage_Click(object sender, RoutedEventArgs e)
         {
             using var browser = new OpenFileDialog();
@@ -111,14 +103,6 @@ namespace TF2HUD.Editor.Classes
             //PreviewImage.Source = new BitmapImage(new Uri(browser.FileName));
             //CbCustomBg.IsChecked = true;
             //SetBackgroundControls();
-        }
-
-        private void BtnClearImage_Click(object sender, RoutedEventArgs e)
-        {
-            //LblImagePath.Content = string.Empty;
-            //Settings.Default.image_path = string.Empty;
-            //Settings.Default.Save();
-            //PreviewImage.Source = null;
         }
     }
 }

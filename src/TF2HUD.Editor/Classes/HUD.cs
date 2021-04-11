@@ -268,7 +268,7 @@ namespace TF2HUD.Editor.Classes
                                 {
                                     Content = option.Label
                                 };
-                                if (string.Equals(controlItem.Type, "Crosshair"))
+                                if (string.Equals(controlItem.Type, "Crosshair", StringComparison.CurrentCultureIgnoreCase))
                                 {
                                     comboBoxInput.Style = (Style) Application.Current.Resources["CrosshairBox"];
                                     item.Style = (Style) Application.Current.Resources["Crosshair"];
@@ -460,7 +460,7 @@ namespace TF2HUD.Editor.Classes
                 var path = $"{MainWindow.HudPath}\\{Name}\\";
 
                 var userSettings = JsonConvert
-                    .DeserializeObject<UserJson>(File.ReadAllText("settings.json")).Settings
+                    .DeserializeObject<UserJson>(File.ReadAllText($"{System.Windows.Forms.Application.LocalUserAppDataPath}\\settings.json")).Settings
                     .Where(x => x.HUD == Name);
                 var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
                     .Controls.Values;
@@ -599,7 +599,7 @@ namespace TF2HUD.Editor.Classes
                             custom += $"\\{fileName}.res";
                             enabled += $"\\{fileName}.res";
 
-                            if (string.Equals(userSetting.Value, "true")) // Move to enabled
+                            if (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase)) // Move to enabled
                             {
                                 if (File.Exists(custom)) File.Move(custom, enabled);
                             }
@@ -658,9 +658,9 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
-                var enableStockBG = userSetting.Value == "true";
+                var enableStockBG = string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase);
 
-                if (hudSetting.Type == "ComboBox")
+                if (string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
                 {
                     // Determine files using the files of the selected item's label or value
                     // Could cause issues if label and value are both numbers but numbered differently
@@ -676,79 +676,81 @@ namespace TF2HUD.Editor.Classes
                 }
 
                 if (hudSetting.Special is not null)
-                    if (string.Equals(hudSetting.Special, "StockBackgrounds"))
+                    if (string.Equals(hudSetting.Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
                         custom.SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console",
                             enableStockBG);
 
-                if (hudSetting.Files != null)
+                if (hudSetting.Files == null) return;
+
+                Dictionary<string, dynamic> CompileHudElement(JObject element, string filePath)
                 {
-                    Dictionary<string, dynamic> CompileHudElement(JObject element, string filePath)
-                    {
-                        var hudElement = new Dictionary<string, dynamic>();
-                        foreach (var property in element)
-                            if (property.Key == "replace")
+                    var hudElement = new Dictionary<string, dynamic>();
+                    foreach (var property in element)
+                        if (string.Equals(property.Key, "replace", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            var values = property.Value.ToArray();
+
+                            string find, replace;
+                            if (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
                             {
-                                var values = property.Value.ToArray();
-
-                                string find, replace;
-                                if (userSetting.Value == "true")
-                                {
-                                    find = values[0].ToString();
-                                    replace = values[1].ToString();
-                                }
-                                else
-                                {
-                                    find = values[1].ToString();
-                                    replace = values[0].ToString();
-                                }
-
-                                File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
-                            }
-                            else if (property.Value.GetType() == typeof(JObject))
-                            {
-                                var currentObj = property.Value.ToObject<JObject>();
-
-                                if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
-                                    hudElement[property.Key] = currentObj[userSetting.Value];
-                                else
-                                    hudElement[property.Key] = CompileHudElement(currentObj, filePath);
+                                find = values[0].ToString();
+                                replace = values[1].ToString();
                             }
                             else
                             {
-                                if (string.Equals(userSetting.Type, "ColorPicker"))
-                                {
-                                    // If the color is supposed to have a pulse, set the pulse value in the schema.
-                                    if (hudSetting.Pulse)
-                                    {
-                                        var pulseKey = property.Key + "Pulse";
-                                        hudElement[pulseKey] = Utilities.GetPulsedColor(userSetting.Value);
-                                    }
-
-                                    // If the color value is for an item rarity, update the dimmed and grayed values.
-                                    foreach (var value in Utilities.itemRarities)
-                                    {
-                                        if (!string.Equals(property.Key, value.Item1)) continue;
-                                        hudElement[value.Item2] = Utilities.GetDimmedColor(userSetting.Value);
-                                        hudElement[value.Item3] = Utilities.GetGrayedColor(userSetting.Value);
-                                    }
-                                }
-
-                                hudElement[property.Key] =
-                                    property.Value.ToString().Replace("$value", userSetting.Value);
+                                find = values[1].ToString();
+                                replace = values[0].ToString();
                             }
 
-                        return hudElement;
-                    }
+                            File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
+                        }
+                        else if (property.Value.GetType() == typeof(JObject))
+                        {
+                            var currentObj = property.Value.ToObject<JObject>();
 
-                    void WriteAnimationCustomizations(string filePath, JObject animationOptions)
-                    {
-                        // Don't read animations file unless the user requests a new event
-                        // the majority of the animation customisations are for enabling/disabling
-                        // events, which use the 'replace' keyword
-                        Dictionary<string, List<HUDAnimation>> animations = null;
+                            if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
+                                hudElement[property.Key] = currentObj[userSetting.Value];
+                            else
+                                hudElement[property.Key] = CompileHudElement(currentObj, filePath);
+                        }
+                        else
+                        {
+                            if (string.Equals(userSetting.Type, "ColorPicker", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                // If the color is supposed to have a pulse, set the pulse value in the schema.
+                                if (hudSetting.Pulse)
+                                {
+                                    var pulseKey = property.Key + "Pulse";
+                                    hudElement[pulseKey] = Utilities.GetPulsedColor(userSetting.Value);
+                                }
 
-                        foreach (var animationOption in animationOptions)
-                            if (animationOption.Key == "replace")
+                                // If the color value is for an item rarity, update the dimmed and grayed values.
+                                foreach (var value in Utilities.itemRarities)
+                                {
+                                    if (!string.Equals(property.Key, value.Item1)) continue;
+                                    hudElement[value.Item2] = Utilities.GetDimmedColor(userSetting.Value);
+                                    hudElement[value.Item3] = Utilities.GetGrayedColor(userSetting.Value);
+                                }
+                            }
+
+                            hudElement[property.Key] =
+                                property.Value.ToString().Replace("$value", userSetting.Value);
+                        }
+
+                    return hudElement;
+                }
+
+                void WriteAnimationCustomizations(string filePath, JObject animationOptions)
+                {
+                    // Don't read animations file unless the user requests a new event
+                    // the majority of the animation customisations are for enabling/disabling
+                    // events, which use the 'replace' keyword
+                    Dictionary<string, List<HUDAnimation>> animations = null;
+
+                    foreach (var animationOption in animationOptions)
+                        switch (animationOption.Key.ToLowerInvariant())
+                        {
+                            case "replace":
                             {
                                 // Example:
                                 // "replace": [
@@ -759,7 +761,7 @@ namespace TF2HUD.Editor.Classes
                                 var values = animationOption.Value.ToArray();
 
                                 string find, replace;
-                                if (userSetting.Value == "true")
+                                if (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
                                 {
                                     find = values[0].ToString();
                                     replace = values[1].ToString();
@@ -771,8 +773,9 @@ namespace TF2HUD.Editor.Classes
                                 }
 
                                 File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
+                                break;
                             }
-                            else if (animationOption.Key == "comment")
+                            case "comment":
                             {
                                 // Example:
                                 // "comment": [
@@ -800,8 +803,10 @@ namespace TF2HUD.Editor.Classes
                                         lines[index] = Utilities.CommentOutTextLine(lines[index]);
                                     File.WriteAllLines(filePath, lines);
                                 }
+
+                                break;
                             }
-                            else if (animationOption.Key == "uncomment")
+                            case "uncomment":
                             {
                                 // Example:
                                 // "uncomment": [
@@ -829,8 +834,10 @@ namespace TF2HUD.Editor.Classes
                                         lines[index] = Utilities.UncommentOutTextLine(lines[index]);
                                     File.WriteAllLines(filePath, lines);
                                 }
+
+                                break;
                             }
-                            else
+                            default:
                             {
                                 // animation
                                 // example:
@@ -962,47 +969,49 @@ namespace TF2HUD.Editor.Classes
                                     // Animate statements can have an extra argument make sure to account for them
                                     if (current.GetType() == typeof(Animate))
                                     {
-                                        if (current.Interpolator.ToLower() == "pulse")
+                                        if (string.Equals(current.Interpolator, "pulse", StringComparison.CurrentCultureIgnoreCase))
                                             current.Frequency = animation["Frequency"];
 
-                                        if (current.Interpolator.ToLower() == "gain" ||
-                                            current.Interpolator.ToLower() == "bias")
+                                        if (string.Equals(current.Interpolator, "gain", StringComparison.CurrentCultureIgnoreCase) ||
+                                            string.Equals(current.Interpolator, "bias", StringComparison.CurrentCultureIgnoreCase))
                                             current.Bias = animation["Bias"];
                                     }
 
                                     animations[animationOption.Key].Add(current);
                                 }
+
+                                break;
                             }
+                        }
 
-                        if (animations != null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
-                    }
+                    if (animations != null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
+                }
 
-                    string[] resFileExtensions = {"res", "vmt", "vdf"};
+                string[] resFileExtensions = {"res", "vmt", "vdf"};
 
-                    foreach (var filePath in hudSetting.Files)
+                foreach (var filePath in hudSetting.Files)
+                {
+                    var currentFilePath = MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key;
+                    var extension = filePath.Key.Split(".")[^1];
+
+                    if (resFileExtensions.Contains(extension))
                     {
-                        var currentFilePath = MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key;
-                        var extension = filePath.Key.Split(".")[^1];
-
-                        if (resFileExtensions.Contains(extension))
-                        {
-                            var hudFile = Utilities.CreateNestedObject(hudFolders, Regex.Split(filePath.Key, @"[\/]+"));
-                            Utilities.Merge(hudFile,
-                                CompileHudElement(filePath.Value.ToObject<JObject>(),
-                                    currentFilePath));
-                        }
-                        else if (extension == "txt")
-                        {
-                            // assume .txt is always an animation file
-                            // (may cause issues with mod_textures.txt but assume we are only editing hud files)
-                            WriteAnimationCustomizations(currentFilePath,
-                                filePath.Value.ToObject<JObject>());
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Could not recognise file extension '{extension}'",
-                                "Unrecognized file extension");
-                        }
+                        var hudFile = Utilities.CreateNestedObject(hudFolders, Regex.Split(filePath.Key, @"[\/]+"));
+                        Utilities.Merge(hudFile,
+                            CompileHudElement(filePath.Value.ToObject<JObject>(),
+                                currentFilePath));
+                    }
+                    else if (string.Equals(extension, "txt"))
+                    {
+                        // assume .txt is always an animation file
+                        // (may cause issues with mod_textures.txt but assume we are only editing hud files)
+                        WriteAnimationCustomizations(currentFilePath,
+                            filePath.Value.ToObject<JObject>());
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Could not recognise file extension '{extension}'",
+                            "Unrecognized file extension");
                     }
                 }
             }

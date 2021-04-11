@@ -84,7 +84,7 @@ namespace TF2HUD.Editor.Classes
                         Next(); // Skip over opening brace
                         Obj[CurrentToken] = ParseObject();
                     }
-                    else if (NextToken == "{")
+                    else if (string.Equals(NextToken, "{"))
                     {
                         // Object
                         Next(); // Skip over opening brace

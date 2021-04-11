@@ -192,7 +192,7 @@ namespace TF2HUD.Editor.Classes
 
                 // System.Diagnostics.Debugger.Break();
 
-                while (CurrentToken == "event")
+                while (string.Equals(CurrentToken, "event", StringComparison.CurrentCultureIgnoreCase))
                 {
                     var EventName = Next();
                     Animations[EventName] = ParseEvent();
@@ -206,7 +206,7 @@ namespace TF2HUD.Editor.Classes
             {
                 List<HUDAnimation> Event = new();
                 var NextToken = Next();
-                if (NextToken == "{")
+                if (string.Equals(NextToken, "{"))
                     // string NextToken = Next();
                     while (NextToken != "}" && NextToken != "EOF")
                     {
@@ -223,8 +223,8 @@ namespace TF2HUD.Editor.Classes
 
             void SetInterpolator(Animate Animation)
             {
-                var Interpolator = Next().ToLower();
-                if (Interpolator == "pulse")
+                var Interpolator = Next().ToLowerInvariant();
+                if (string.Equals(Interpolator, "pulse", StringComparison.CurrentCultureIgnoreCase))
                 {
                     Animation.Interpolator = Interpolator;
                     Animation.Frequency = Next();
@@ -247,77 +247,69 @@ namespace TF2HUD.Editor.Classes
                 dynamic Animation;
                 AnimationType = AnimationType.ToLower();
 
-                if (AnimationType == "animate")
+                switch (AnimationType)
                 {
-                    Animation = new Animate();
-                    Animation.Type = AnimationType;
-                    Animation.Element = Next();
-                    Animation.Property = Next();
-                    Animation.Value = Next();
-                    SetInterpolator(Animation);
-                    Animation.Delay = Next();
-                    Animation.Duration = Next();
-                }
-                else if (AnimationType == "runevent")
-                {
-                    Animation = new RunEvent();
-                    Animation.Type = AnimationType;
-                    Animation.Event = Next();
-                    Animation.Delay = Next();
-                }
-                else if (AnimationType == "stopevent")
-                {
-                    Animation = new StopEvent();
-                    Animation.Type = AnimationType;
-                    Animation.Event = Next();
-                    Animation.Delay = Next();
-                }
-                else if (AnimationType == "setvisible")
-                {
-                    Animation = new SetVisible();
-                    Animation.Type = AnimationType;
-                    Animation.Element = Next();
-                    Animation.Delay = Next();
-                    Animation.Duration = Next();
-                }
-                else if (AnimationType == "firecommand")
-                {
-                    Animation = new FireCommand();
-                    Animation.Type = AnimationType;
-                    Animation.Delay = Next();
-                    Animation.Command = Next();
-                }
-                else if (AnimationType == "runeventchild")
-                {
-                    Animation = new RunEventChild();
-                    Animation.Type = AnimationType;
-                    Animation.Element = Next();
-                    Animation.Event = Next();
-                    Animation.Delay = Next();
-                }
-                else if (AnimationType == "setinputenabled")
-                {
-                    Animation = new SetInputEnabled();
-                    Animation.Element = Next();
-                    Animation.Visible = int.Parse(Next());
-                    Animation.Delay = Next();
-                }
-                else if (AnimationType == "playsound")
-                {
-                    Animation = new PlaySound();
-                    Animation.Delay = Next();
-                    Animation.Sound = Next();
-                }
-                else if (AnimationType == "stoppanelanimations")
-                {
-                    Animation = new StopPanelAnimations();
-                    Animation.Element = Next();
-                    Animation.Delay = Next();
-                }
-                else
-                {
-                    Debug.WriteLine(Str.Substring(i - 25, 25));
-                    throw new Exception($"Unexpected {AnimationType} at position {i}");
+                    case "animate":
+                        Animation = new Animate();
+                        Animation.Type = AnimationType;
+                        Animation.Element = Next();
+                        Animation.Property = Next();
+                        Animation.Value = Next();
+                        SetInterpolator(Animation);
+                        Animation.Delay = Next();
+                        Animation.Duration = Next();
+                        break;
+                    case "runevent":
+                        Animation = new RunEvent();
+                        Animation.Type = AnimationType;
+                        Animation.Event = Next();
+                        Animation.Delay = Next();
+                        break;
+                    case "stopevent":
+                        Animation = new StopEvent();
+                        Animation.Type = AnimationType;
+                        Animation.Event = Next();
+                        Animation.Delay = Next();
+                        break;
+                    case "setvisible":
+                        Animation = new SetVisible();
+                        Animation.Type = AnimationType;
+                        Animation.Element = Next();
+                        Animation.Delay = Next();
+                        Animation.Duration = Next();
+                        break;
+                    case "firecommand":
+                        Animation = new FireCommand();
+                        Animation.Type = AnimationType;
+                        Animation.Delay = Next();
+                        Animation.Command = Next();
+                        break;
+                    case "runeventchild":
+                        Animation = new RunEventChild();
+                        Animation.Type = AnimationType;
+                        Animation.Element = Next();
+                        Animation.Event = Next();
+                        Animation.Delay = Next();
+                        break;
+                    case "setinputenabled":
+                        Animation = new SetInputEnabled();
+                        Animation.Element = Next();
+                        Animation.Visible = int.Parse(Next());
+                        Animation.Delay = Next();
+                        break;
+                    case "playsound":
+                        Animation = new PlaySound();
+                        Animation.Delay = Next();
+                        Animation.Sound = Next();
+                        break;
+                    case "stoppanelanimations":
+                        Animation = new StopPanelAnimations();
+                        Animation.Element = Next();
+                        Animation.Delay = Next();
+                        break;
+                    default:
+                        Debug.WriteLine(Str.Substring(i - 25, 25));
+                        throw new Exception($"Unexpected {AnimationType} at position {i}");
                 }
 
                 if (Next(true).StartsWith('[')) Animation.OSTag = Next();

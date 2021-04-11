@@ -12,7 +12,7 @@ namespace TF2HUD.Editor.Classes
     public class HUDSettings
     {
         private static string FilePath = $"{Application.LocalUserAppDataPath}\\settings.json";
-        private static List<Setting> userSettings = File.Exists(HUDSettings.FilePath) ? JsonConvert.DeserializeObject<Dictionary<string, List<Setting>>>(File.ReadAllText("settings.json"))["Settings"] : new List<Setting>();
+        private static List<Setting> userSettings = File.Exists(HUDSettings.FilePath) ? JsonConvert.DeserializeObject<Dictionary<string, List<Setting>>>(File.ReadAllText(FilePath))["Settings"] : new List<Setting>();
 
         public string HUDName;
 
@@ -60,7 +60,7 @@ namespace TF2HUD.Editor.Classes
             switch (typeof(T).Name)
             {
                 case "Boolean":
-                    bool evaluatedValue = (value == "1" || value == "True" || value == "true");
+                    bool evaluatedValue = (value is "1" or "True" or "true");
                     return (T)(object)evaluatedValue;
                 case "Color":
                     var colors = Array.ConvertAll(value.Split(' '), c => byte.Parse(c));
