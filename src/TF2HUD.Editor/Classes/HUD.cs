@@ -173,6 +173,7 @@ namespace TF2HUD.Editor.Classes
                             charContainer.Children.Add(charInput);
                             sectionContent.Children.Add(charContainer);
                             ConstrolList.Add(charInput.Name, charInput.GetType());
+                            controlItem.Control = charInput;
                             break;
 
                         case "Checkbox":
@@ -191,6 +192,7 @@ namespace TF2HUD.Editor.Classes
                             //lastMargin = checkBoxInput.Margin;
                             sectionContent.Children.Add(checkBoxInput);
                             ConstrolList.Add(checkBoxInput.Name, checkBoxInput.GetType());
+                            controlItem.Control = checkBoxInput;
                             break;
 
                         case "Color":
@@ -229,10 +231,12 @@ namespace TF2HUD.Editor.Classes
                                 Settings.SetSetting(input.Name,
                                     Utilities.RgbaConverter(input.SelectedColor.ToString()));
                             };
+
                             colorContainer.Children.Add(colorLabel);
                             colorContainer.Children.Add(colorInput);
                             sectionContent.Children.Add(colorContainer);
                             ConstrolList.Add(colorInput.Name, colorInput.GetType());
+                            controlItem.Control = colorInput;
                             break;
 
                         case "DropDown":
@@ -252,11 +256,11 @@ namespace TF2HUD.Editor.Classes
                             };
                             if (controlItem.Options == null) break;
                             if (controlItem.Options.Length <= 0) break;
+
                             var comboBoxInput = new ComboBox
                             {
                                 Name = id,
                                 Width = 150,
-                                SelectedIndex = Settings.GetSetting<int>(controlItem.Name)
                             };
                             foreach (var option in controlItem.Options)
                             {
@@ -273,48 +277,33 @@ namespace TF2HUD.Editor.Classes
                                 comboBoxInput.Items.Add(item);
                             }
 
+                            var setting = Settings.GetSetting<string>(controlItem.Name);
+                            var containsLetters = Regex.IsMatch(setting, "\\D");
+
+                            if (!containsLetters)
+                            {
+                                comboBoxInput.SelectedIndex = int.Parse(setting);
+                            }
+                            else
+                            {
+                                comboBoxInput.SelectedValue = setting;
+                            }
+
                             comboBoxInput.SelectionChanged += (sender, e) =>
                             {
                                 var input = sender as ComboBox;
-                                Settings.SetSetting(input.Name, input.SelectedIndex.ToString());
+                                Settings.SetSetting(input.Name, comboBoxInput.SelectedValue.ToString());
                             };
 
                             comboBoxContainer.Children.Add(comboBoxLabel);
                             comboBoxContainer.Children.Add(comboBoxInput);
                             sectionContent.Children.Add(comboBoxContainer);
                             ConstrolList.Add(comboBoxInput.Name, comboBoxInput.GetType());
+                            controlItem.Control = comboBoxInput;
                             break;
 
                         case "Number":
-                            var numberContainer = new WrapPanel
-                            {
-                                Margin = new Thickness(10, lastTop, 0, 0)
-                            };
-                            var numberLabel = new Label
-                            {
-                                Content = label,
-                                Width = 60
-                            };
-                            var numberInput = new TextBox
-                            {
-                                Name = id,
-                                Width = 60,
-                                Text = Settings.GetSetting<string>(controlItem.Name)
-                            };
-                            numberInput.PreviewTextInput += (_, e) => { e.Handled = !Regex.IsMatch(e.Text, "\\d"); };
-
-                            numberInput.TextChanged += (sender, e) =>
-                            {
-                                var input = sender as TextBox;
-                                Settings.SetSetting(input.Name, input.Text);
-                            };
-
-                            numberContainer.Children.Add(numberLabel);
-                            numberContainer.Children.Add(numberInput);
-                            sectionContent.Children.Add(numberContainer);
-                            ConstrolList.Add(numberInput.Name, numberInput.GetType());
-                            break;
-
+                        case "Integer":
                         case "IntegerUpDown":
                             var integerContainer = new StackPanel
                             {
@@ -346,6 +335,7 @@ namespace TF2HUD.Editor.Classes
                             integerContainer.Children.Add(integerInput);
                             sectionContent.Children.Add(integerContainer);
                             ConstrolList.Add(integerInput.Name, integerInput.GetType());
+                            controlItem.Control = integerInput;
                             break;
 
                         default:
@@ -427,7 +417,7 @@ namespace TF2HUD.Editor.Classes
                     for (var i = 0; i < ControlOptions[Section].Length; i++)
                     {
                         var controlItem = ControlOptions[Section][i];
-                        var control = Controls.FindName(controlItem.Name);
+                        var control = controlItem.Control;
                         switch (control)
                         {
                             case TextBox text:
@@ -672,7 +662,9 @@ namespace TF2HUD.Editor.Classes
 
                 if (hudSetting.Type == "ComboBox")
                 {
-                    hudSetting.Files = hudSetting.Options.Where(x => x.Value == userSetting.Value).First().Files;
+                    // Determine files using the files of the selected item's label or value
+                    // Could cause issues if label and value are both numbers but numbered differently
+                    hudSetting.Files = hudSetting.Options.Where(x => x.Label == userSetting.Value || x.Value == userSetting.Value).First().Files;
 
                     for (var x = 0; x < hudSetting.Options.Length; x++)
                         if (hudSetting.Options[x].Special is not null)

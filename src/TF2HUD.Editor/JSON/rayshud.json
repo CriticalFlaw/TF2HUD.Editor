@@ -182,7 +182,7 @@
         "Name": "rh_val_xhair_style",
         "Label": "Style",
         "Type": "Crosshair",
-        "Default": "0",
+        "Default": "<",
         "Options": [
           {
             "Label": "!",

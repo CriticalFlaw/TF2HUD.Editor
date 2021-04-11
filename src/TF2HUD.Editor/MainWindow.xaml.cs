@@ -432,7 +432,7 @@ namespace TF2HUD.Editor
         {
             try
             {
-                GbSelectHud.Visibility = Visibility.Hidden;
+                GbSelectHud.Visibility = string.IsNullOrWhiteSpace(Settings.Default.hud_selected) ? Visibility.Visible : Visibility.Hidden;
                 EditorContainer.Children.Clear();
                 // Application.Current.MainWindow.WindowState = string.Equals(Settings.Default.hud_selected, "rayshud")
                 //     ? WindowState.Maximized
@@ -460,6 +460,7 @@ namespace TF2HUD.Editor
             }
             else
             {
+                if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
                 var selection = Json.GetHUDByName(Settings.Default.hud_selected);
                 if (selection.Background != null)
                 {

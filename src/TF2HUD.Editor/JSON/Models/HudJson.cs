@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json.Linq;
+using System.Windows;
 
 namespace TF2HUD.Editor.JSON
 {
@@ -41,6 +42,8 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("Pulse")] public bool Pulse;
         [JsonPropertyName("Special")] public string Special;
         [JsonPropertyName("Type")] public string Type;
+
+        public UIElement Control;
     }
 
     public class Option

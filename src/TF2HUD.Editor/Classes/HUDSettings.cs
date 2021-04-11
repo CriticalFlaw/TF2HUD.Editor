@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Media;
 using TF2HUD.Editor.JSON;
 using Newtonsoft.Json;
@@ -10,7 +11,7 @@ namespace TF2HUD.Editor.Classes
 {
     public class HUDSettings
     {
-        private static string FilePath = "settings.json";
+        private static string FilePath = $"{Application.LocalUserAppDataPath}\\settings.json";
         private static List<Setting> userSettings = File.Exists(HUDSettings.FilePath) ? JsonConvert.DeserializeObject<Dictionary<string, List<Setting>>>(File.ReadAllText("settings.json"))["Settings"] : new List<Setting>();
 
         public string HUDName;
@@ -18,6 +19,7 @@ namespace TF2HUD.Editor.Classes
         public HUDSettings(string Name)
         {
             this.HUDName = Name;
+            if (!File.Exists(HUDSettings.FilePath)) File.Create(HUDSettings.FilePath);
         }
 
         /// <summary>
@@ -65,6 +67,8 @@ namespace TF2HUD.Editor.Classes
                     return (T)(object)Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
                 case "Int32":
                     return (T)(object)int.Parse(value);
+                case "String":
+                    return (T)(object)value.ToString();
                 default:
                     throw new Exception($"Unexpected setting type {typeof(T).Name}!");
             }

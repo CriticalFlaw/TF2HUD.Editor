@@ -167,7 +167,7 @@ namespace TF2HUD.Editor.Classes
 
         public static void OpenWebpage(string url)
         {
-            Process.Start(url);
+            Process.Start("explorer", url);
         }
 
         /// <summary>
