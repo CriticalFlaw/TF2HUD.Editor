@@ -1,1333 +1,1333 @@
 {
-    "Background": "https://imgur.com/V441OsM.png",
-    "Layout": [
-        "0 0 0 4",
-        "1 2 3 4",
-        "1 2 3 4"
+  "Background": "https://imgur.com/V441OsM.png",
+  "Layout": [
+    "0 0 0 4",
+    "1 2 3 4",
+    "1 2 3 4"
+  ],
+  "Links": {
+    "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
+    "GitHub": "https://github.com/CriticalFlaw/FlawHUD",
+    "HudsTF": "https://huds.tf/site/s-FlawHUD",
+    "Steam": "https://steamcommunity.com/groups/FlawHUD",
+    "Issue": "https://github.com/CriticalFlaw/FlawHUD/issues"
+  },
+  "Controls": {
+    "Colors": [
+      {
+        "Name": "fh_color_health_buff",
+        "Label": "Buffed Health",
+        "Type": "ColorPicker",
+        "Default": "0 170 127 255",
+        "Pulse": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Overheal": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_ubercharge",
+        "Label": "UberCharge",
+        "Type": "ColorPicker",
+        "Default": "0 170 127 255",
+        "Pulse": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "UberCharge": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_health_low",
+        "Label": "Low Health",
+        "Type": "ColorPicker",
+        "Default": "190 20 20 255",
+        "Pulse": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "LowHealth": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_ammo_low",
+        "Label": "Low Ammo",
+        "Type": "ColorPicker",
+        "Default": "190 20 20 255",
+        "Pulse": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "LowAmmo": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_target_health",
+        "Label": "Health Healed",
+        "Type": "ColorPicker",
+        "Default": "0 170 127 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "TargetHealth": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_target_damage",
+        "Label": "Damage Dealt",
+        "Type": "ColorPicker",
+        "Default": "255 255 0 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "TargetDamage": "$value"
+              }
+            }
+          }
+        }
+      }
     ],
-    "Links": {
-        "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
-        "GitHub": "https://github.com/CriticalFlaw/FlawHUD",
-        "HudsTF": "https://huds.tf/site/s-FlawHUD",
-        "Steam": "https://steamcommunity.com/groups/FlawHUD",
-        "Issue": "https://github.com/CriticalFlaw/FlawHUD/issues"
-    },
-    "Controls": {
-        "Colors": [
-            {
-                "Name": "fh_color_health_buff",
-                "Label": "Buffed Health",
-                "Type": "ColorPicker",
-                "Default": "0 170 127 255",
-                "Pulse": true,
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "Overheal": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_ubercharge",
-                "Label": "UberCharge",
-                "Type": "ColorPicker",
-                "Default": "0 170 127 255",
-                "Pulse": true,
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "UberCharge": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_health_low",
-                "Label": "Low Health",
-                "Type": "ColorPicker",
-                "Default": "190 20 20 255",
-                "Pulse": true,
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "LowHealth": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_ammo_low",
-                "Label": "Low Ammo",
-                "Type": "ColorPicker",
-                "Default": "190 20 20 255",
-                "Pulse": true,
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "LowAmmo": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_target_health",
-                "Label": "Health Healed",
-                "Type": "ColorPicker",
-                "Default": "0 170 127 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "TargetHealth": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_target_damage",
-                "Label": "Damage Dealt",
-                "Type": "ColorPicker",
-                "Default": "255 255 0 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "TargetDamage": "$value"
-                            }
-                        }
-                    }
-                }
+    "Item Quality": [
+      {
+        "Name": "fh_color_normal",
+        "Label": "Normal",
+        "Type": "ColorPicker",
+        "Default": "178 178 178 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorNormal": "$value"
+              }
             }
-        ],
-        "Item Quality": [
-            {
-                "Name": "fh_color_normal",
-                "Label": "Normal",
-                "Type": "ColorPicker",
-                "Default": "178 178 178 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "QualityColorNormal": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_unique",
-                "Label": "Unique",
-                "Type": "ColorPicker",
-                "Default": "255 215 0 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "QualityColorUnique": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_strange",
-                "Label": "Strange",
-                "Type": "ColorPicker",
-                "Default": "207 106 50 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "QualityColorStrange": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_vintage",
-                "Label": "Vintage",
-                "Type": "ColorPicker",
-                "Default": "71 98 145 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "QualityColorVintage": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_haunted",
-                "Label": "Haunted",
-                "Type": "ColorPicker",
-                "Default": "56 243 171 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "QualityColorHaunted": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_genuine",
-                "Label": "Genuine",
-                "Type": "ColorPicker",
-                "Default": "77 116 85 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "QualityColorrarity1": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_collectors",
-                "Label": "Collectors",
-                "Type": "ColorPicker",
-                "Default": "170 0 0 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "QualityColorCollectors": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_unusual",
-                "Label": "Unusual",
-                "Type": "ColorPicker",
-                "Default": "134 80 172 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "QualityColorrarity4": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_community",
-                "Label": "Community",
-                "Type": "ColorPicker",
-                "Default": "112 176 74 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "QualityColorCommunity": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_valve",
-                "Label": "Valve",
-                "Type": "ColorPicker",
-                "Default": "165 15 121 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "QualityColorDeveloper": "$value"
-                            }
-                        }
-                    }
-                }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_unique",
+        "Label": "Unique",
+        "Type": "ColorPicker",
+        "Default": "255 215 0 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorUnique": "$value"
+              }
             }
-        ],
-        "Item Rarity": [
-            {
-                "Name": "fh_color_civilian",
-                "Label": "Civilian",
-                "Type": "ColorPicker",
-                "Default": "176 195 217 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "ItemRarityCommon": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_freelance",
-                "Label": "Freelance",
-                "Type": "ColorPicker",
-                "Default": "94 152 217 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "ItemRarityUncommon": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_mercenary",
-                "Label": "Mercenary",
-                "Type": "ColorPicker",
-                "Default": "75 105 255 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "ItemRarityRare": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_commando",
-                "Label": "Commando",
-                "Type": "ColorPicker",
-                "Default": "136 71 255 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "ItemRarityMythical": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_assassin",
-                "Label": "Assassin",
-                "Type": "ColorPicker",
-                "Default": "211 44 230 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "ItemRarityLegendary": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_elite",
-                "Label": "Elite",
-                "Type": "ColorPicker",
-                "Default": "235 75 75 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "ItemRarityAncient": "$value"
-                            }
-                        }
-                    }
-                }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_strange",
+        "Label": "Strange",
+        "Type": "ColorPicker",
+        "Default": "207 106 50 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorStrange": "$value"
+              }
             }
-        ],
-        "Crosshair": [
-            {
-                "Name": "fh_toggle_xhair_enable",
-                "Label": "Toggle the Crosshair",
-                "Type": "Checkbox",
-                "Default": "false",
-                "Files": {
-                    "scripts/hudlayout.res": {
-                        "CustomCrosshair": {
-                            "visible": {
-                                "true": "1",
-                                "false": "0"
-                            },
-                            "enabled": {
-                                "true": "1",
-                                "false": "0"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_toggle_xhair_pulse",
-                "Label": "Toggle the Hitmarker",
-                "Type": "Checkbox",
-                "Default": "true",
-                "Files": {
-                    "scripts/hudanimations_custom.txt": {
-                        "uncomment": [
-                            "StopEvent HitMarker",
-                            "RunEvent HitMarker"
-                        ]
-                    }
-                }
-            },
-            {
-                "Name": "fh_val_xhair_style",
-                "Label": "Style",
-                "Type": "Crosshair",
-                "Default": "<",
-                "Options": [
-                    {
-                        "Label": "!",
-                        "Value": "!"
-                    },
-                    {
-                        "Label": "#",
-                        "Value": "#"
-                    },
-                    {
-                        "Label": "$",
-                        "Value": "$"
-                    },
-                    {
-                        "Label": "%",
-                        "Value": "%"
-                    },
-                    {
-                        "Label": "'",
-                        "Value": "'"
-                    },
-                    {
-                        "Label": "(",
-                        "Value": "("
-                    },
-                    {
-                        "Label": ")",
-                        "Value": ")"
-                    },
-                    {
-                        "Label": "*",
-                        "Value": "*"
-                    },
-                    {
-                        "Label": "+",
-                        "Value": "+"
-                    },
-                    {
-                        "Label": ",",
-                        "Value": ","
-                    },
-                    {
-                        "Label": "-",
-                        "Value": "-"
-                    },
-                    {
-                        "Label": ".",
-                        "Value": "."
-                    },
-                    {
-                        "Label": "1",
-                        "Value": "1"
-                    },
-                    {
-                        "Label": "2",
-                        "Value": "2"
-                    },
-                    {
-                        "Label": "3",
-                        "Value": "3"
-                    },
-                    {
-                        "Label": "4",
-                        "Value": "4"
-                    },
-                    {
-                        "Label": "5",
-                        "Value": "5"
-                    },
-                    {
-                        "Label": "6",
-                        "Value": "6"
-                    },
-                    {
-                        "Label": "7",
-                        "Value": "7"
-                    },
-                    {
-                        "Label": "8",
-                        "Value": "8"
-                    },
-                    {
-                        "Label": "9",
-                        "Value": "9"
-                    },
-                    {
-                        "Label": ":",
-                        "Value": ":"
-                    },
-                    {
-                        "Label": ";",
-                        "Value": ";"
-                    },
-                    {
-                        "Label": "=",
-                        "Value": "="
-                    },
-                    {
-                        "Label": "<",
-                        "Value": "<"
-                    },
-                    {
-                        "Label": ">",
-                        "Value": ">"
-                    },
-                    {
-                        "Label": "?",
-                        "Value": "?"
-                    },
-                    {
-                        "Label": "@",
-                        "Value": "@"
-                    },
-                    {
-                        "Label": "|",
-                        "Value": "|"
-                    },
-                    {
-                        "Label": "}",
-                        "Value": "}"
-                    },
-                    {
-                        "Label": "`",
-                        "Value": "`"
-                    },
-                    {
-                        "Label": "_",
-                        "Value": "_"
-                    },
-                    {
-                        "Label": "^",
-                        "Value": "^"
-                    },
-                    {
-                        "Label": "]",
-                        "Value": "]"
-                    },
-                    {
-                        "Label": "[",
-                        "Value": "["
-                    },
-                    {
-                        "Label": "A",
-                        "Value": "A"
-                    },
-                    {
-                        "Label": "B",
-                        "Value": "B"
-                    },
-                    {
-                        "Label": "C",
-                        "Value": "C"
-                    },
-                    {
-                        "Label": "D",
-                        "Value": "D"
-                    },
-                    {
-                        "Label": "E",
-                        "Value": "E"
-                    },
-                    {
-                        "Label": "F",
-                        "Value": "F"
-                    },
-                    {
-                        "Label": "G",
-                        "Value": "G"
-                    },
-                    {
-                        "Label": "H",
-                        "Value": "H"
-                    },
-                    {
-                        "Label": "I",
-                        "Value": "I"
-                    },
-                    {
-                        "Label": "J",
-                        "Value": "J"
-                    },
-                    {
-                        "Label": "K",
-                        "Value": "K"
-                    },
-                    {
-                        "Label": "L",
-                        "Value": "L"
-                    },
-                    {
-                        "Label": "M",
-                        "Value": "M"
-                    },
-                    {
-                        "Label": "N",
-                        "Value": "N"
-                    },
-                    {
-                        "Label": "O",
-                        "Value": "O"
-                    },
-                    {
-                        "Label": "P",
-                        "Value": "P"
-                    },
-                    {
-                        "Label": "Q",
-                        "Value": "Q"
-                    },
-                    {
-                        "Label": "R",
-                        "Value": "R"
-                    },
-                    {
-                        "Label": "S",
-                        "Value": "S"
-                    },
-                    {
-                        "Label": "T",
-                        "Value": "T"
-                    },
-                    {
-                        "Label": "U",
-                        "Value": "U"
-                    },
-                    {
-                        "Label": "V",
-                        "Value": "V"
-                    },
-                    {
-                        "Label": "W",
-                        "Value": "W"
-                    },
-                    {
-                        "Label": "X",
-                        "Value": "X"
-                    },
-                    {
-                        "Label": "Y",
-                        "Value": "Y"
-                    },
-                    {
-                        "Label": "Z",
-                        "Value": "Z"
-                    },
-                    {
-                        "Label": "a",
-                        "Value": "a"
-                    },
-                    {
-                        "Label": "b",
-                        "Value": "b"
-                    },
-                    {
-                        "Label": "c",
-                        "Value": "c"
-                    },
-                    {
-                        "Label": "d",
-                        "Value": "d"
-                    },
-                    {
-                        "Label": "e",
-                        "Value": "e"
-                    },
-                    {
-                        "Label": "f",
-                        "Value": "f"
-                    },
-                    {
-                        "Label": "g",
-                        "Value": "g"
-                    },
-                    {
-                        "Label": "h",
-                        "Value": "h"
-                    },
-                    {
-                        "Label": "i",
-                        "Value": "i"
-                    },
-                    {
-                        "Label": "j",
-                        "Value": "j"
-                    },
-                    {
-                        "Label": "k",
-                        "Value": "k"
-                    },
-                    {
-                        "Label": "l",
-                        "Value": "l"
-                    },
-                    {
-                        "Label": "m",
-                        "Value": "m"
-                    },
-                    {
-                        "Label": "n",
-                        "Value": "n"
-                    },
-                    {
-                        "Label": "o",
-                        "Value": "o"
-                    },
-                    {
-                        "Label": "p",
-                        "Value": "p"
-                    },
-                    {
-                        "Label": "q",
-                        "Value": "q"
-                    },
-                    {
-                        "Label": "r",
-                        "Value": "r"
-                    },
-                    {
-                        "Label": "s",
-                        "Value": "s"
-                    },
-                    {
-                        "Label": "t",
-                        "Value": "t"
-                    },
-                    {
-                        "Label": "u",
-                        "Value": "u"
-                    },
-                    {
-                        "Label": "v",
-                        "Value": "v"
-                    },
-                    {
-                        "Label": "w",
-                        "Value": "w"
-                    },
-                    {
-                        "Label": "x",
-                        "Value": "x"
-                    },
-                    {
-                        "Label": "y",
-                        "Value": "y"
-                    },
-                    {
-                        "Label": "z",
-                        "Value": "z"
-                    }
-                ],
-                "Files": {
-                    "scripts/hudlayout.res": {
-                        "CustomCrosshair": {
-                            "labelText": "$value"
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_val_xhair_size",
-                "Label": "Size",
-                "Type": "IntegerUpDown",
-                "Default": "18",
-                "Minimum": "10",
-                "Maximum": "30",
-                "Increment": "1",
-                "Files": {
-                    "scripts/hudlayout.res": {
-                        "CustomCrosshair": {
-                            "font": "Size:$value | Outline:OFF"
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_xhair_normal",
-                "Label": "Crosshair",
-                "Type": "ColorPicker",
-                "Default": "242 242 242 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "Crosshair": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "fh_color_xhair_pulse",
-                "Label": "Hitmarker",
-                "Type": "ColorPicker",
-                "Default": "255 0 0 255",
-                "Files": {
-                    "resource/scheme/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "CrosshairDamage": "$value"
-                            }
-                        }
-                    }
-                }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_vintage",
+        "Label": "Vintage",
+        "Type": "ColorPicker",
+        "Default": "71 98 145 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorVintage": "$value"
+              }
             }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_haunted",
+        "Label": "Haunted",
+        "Type": "ColorPicker",
+        "Default": "56 243 171 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorHaunted": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_genuine",
+        "Label": "Genuine",
+        "Type": "ColorPicker",
+        "Default": "77 116 85 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorrarity1": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_collectors",
+        "Label": "Collectors",
+        "Type": "ColorPicker",
+        "Default": "170 0 0 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorCollectors": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_unusual",
+        "Label": "Unusual",
+        "Type": "ColorPicker",
+        "Default": "134 80 172 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorrarity4": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_community",
+        "Label": "Community",
+        "Type": "ColorPicker",
+        "Default": "112 176 74 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorCommunity": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_valve",
+        "Label": "Valve",
+        "Type": "ColorPicker",
+        "Default": "165 15 121 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorDeveloper": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Item Rarity": [
+      {
+        "Name": "fh_color_civilian",
+        "Label": "Civilian",
+        "Type": "ColorPicker",
+        "Default": "176 195 217 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityCommon": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_freelance",
+        "Label": "Freelance",
+        "Type": "ColorPicker",
+        "Default": "94 152 217 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityUncommon": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_mercenary",
+        "Label": "Mercenary",
+        "Type": "ColorPicker",
+        "Default": "75 105 255 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityRare": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_commando",
+        "Label": "Commando",
+        "Type": "ColorPicker",
+        "Default": "136 71 255 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityMythical": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_assassin",
+        "Label": "Assassin",
+        "Type": "ColorPicker",
+        "Default": "211 44 230 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityLegendary": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_elite",
+        "Label": "Elite",
+        "Type": "ColorPicker",
+        "Default": "235 75 75 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityAncient": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Crosshair": [
+      {
+        "Name": "fh_toggle_xhair_enable",
+        "Label": "Toggle the Crosshair",
+        "Type": "Checkbox",
+        "Default": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_xhair_pulse",
+        "Label": "Toggle the Hitmarker",
+        "Type": "Checkbox",
+        "Default": "true",
+        "Files": {
+          "scripts/hudanimations_custom.txt": {
+            "uncomment": [
+              "StopEvent HitMarker",
+              "RunEvent HitMarker"
+            ]
+          }
+        }
+      },
+      {
+        "Name": "fh_val_xhair_style",
+        "Label": "Style",
+        "Type": "Crosshair",
+        "Default": "<",
+        "Options": [
+          {
+            "Label": "!",
+            "Value": "!"
+          },
+          {
+            "Label": "#",
+            "Value": "#"
+          },
+          {
+            "Label": "$",
+            "Value": "$"
+          },
+          {
+            "Label": "%",
+            "Value": "%"
+          },
+          {
+            "Label": "'",
+            "Value": "'"
+          },
+          {
+            "Label": "(",
+            "Value": "("
+          },
+          {
+            "Label": ")",
+            "Value": ")"
+          },
+          {
+            "Label": "*",
+            "Value": "*"
+          },
+          {
+            "Label": "+",
+            "Value": "+"
+          },
+          {
+            "Label": ",",
+            "Value": ","
+          },
+          {
+            "Label": "-",
+            "Value": "-"
+          },
+          {
+            "Label": ".",
+            "Value": "."
+          },
+          {
+            "Label": "1",
+            "Value": "1"
+          },
+          {
+            "Label": "2",
+            "Value": "2"
+          },
+          {
+            "Label": "3",
+            "Value": "3"
+          },
+          {
+            "Label": "4",
+            "Value": "4"
+          },
+          {
+            "Label": "5",
+            "Value": "5"
+          },
+          {
+            "Label": "6",
+            "Value": "6"
+          },
+          {
+            "Label": "7",
+            "Value": "7"
+          },
+          {
+            "Label": "8",
+            "Value": "8"
+          },
+          {
+            "Label": "9",
+            "Value": "9"
+          },
+          {
+            "Label": ":",
+            "Value": ":"
+          },
+          {
+            "Label": ";",
+            "Value": ";"
+          },
+          {
+            "Label": "=",
+            "Value": "="
+          },
+          {
+            "Label": "<",
+            "Value": "<"
+          },
+          {
+            "Label": ">",
+            "Value": ">"
+          },
+          {
+            "Label": "?",
+            "Value": "?"
+          },
+          {
+            "Label": "@",
+            "Value": "@"
+          },
+          {
+            "Label": "|",
+            "Value": "|"
+          },
+          {
+            "Label": "}",
+            "Value": "}"
+          },
+          {
+            "Label": "`",
+            "Value": "`"
+          },
+          {
+            "Label": "_",
+            "Value": "_"
+          },
+          {
+            "Label": "^",
+            "Value": "^"
+          },
+          {
+            "Label": "]",
+            "Value": "]"
+          },
+          {
+            "Label": "[",
+            "Value": "["
+          },
+          {
+            "Label": "A",
+            "Value": "A"
+          },
+          {
+            "Label": "B",
+            "Value": "B"
+          },
+          {
+            "Label": "C",
+            "Value": "C"
+          },
+          {
+            "Label": "D",
+            "Value": "D"
+          },
+          {
+            "Label": "E",
+            "Value": "E"
+          },
+          {
+            "Label": "F",
+            "Value": "F"
+          },
+          {
+            "Label": "G",
+            "Value": "G"
+          },
+          {
+            "Label": "H",
+            "Value": "H"
+          },
+          {
+            "Label": "I",
+            "Value": "I"
+          },
+          {
+            "Label": "J",
+            "Value": "J"
+          },
+          {
+            "Label": "K",
+            "Value": "K"
+          },
+          {
+            "Label": "L",
+            "Value": "L"
+          },
+          {
+            "Label": "M",
+            "Value": "M"
+          },
+          {
+            "Label": "N",
+            "Value": "N"
+          },
+          {
+            "Label": "O",
+            "Value": "O"
+          },
+          {
+            "Label": "P",
+            "Value": "P"
+          },
+          {
+            "Label": "Q",
+            "Value": "Q"
+          },
+          {
+            "Label": "R",
+            "Value": "R"
+          },
+          {
+            "Label": "S",
+            "Value": "S"
+          },
+          {
+            "Label": "T",
+            "Value": "T"
+          },
+          {
+            "Label": "U",
+            "Value": "U"
+          },
+          {
+            "Label": "V",
+            "Value": "V"
+          },
+          {
+            "Label": "W",
+            "Value": "W"
+          },
+          {
+            "Label": "X",
+            "Value": "X"
+          },
+          {
+            "Label": "Y",
+            "Value": "Y"
+          },
+          {
+            "Label": "Z",
+            "Value": "Z"
+          },
+          {
+            "Label": "a",
+            "Value": "a"
+          },
+          {
+            "Label": "b",
+            "Value": "b"
+          },
+          {
+            "Label": "c",
+            "Value": "c"
+          },
+          {
+            "Label": "d",
+            "Value": "d"
+          },
+          {
+            "Label": "e",
+            "Value": "e"
+          },
+          {
+            "Label": "f",
+            "Value": "f"
+          },
+          {
+            "Label": "g",
+            "Value": "g"
+          },
+          {
+            "Label": "h",
+            "Value": "h"
+          },
+          {
+            "Label": "i",
+            "Value": "i"
+          },
+          {
+            "Label": "j",
+            "Value": "j"
+          },
+          {
+            "Label": "k",
+            "Value": "k"
+          },
+          {
+            "Label": "l",
+            "Value": "l"
+          },
+          {
+            "Label": "m",
+            "Value": "m"
+          },
+          {
+            "Label": "n",
+            "Value": "n"
+          },
+          {
+            "Label": "o",
+            "Value": "o"
+          },
+          {
+            "Label": "p",
+            "Value": "p"
+          },
+          {
+            "Label": "q",
+            "Value": "q"
+          },
+          {
+            "Label": "r",
+            "Value": "r"
+          },
+          {
+            "Label": "s",
+            "Value": "s"
+          },
+          {
+            "Label": "t",
+            "Value": "t"
+          },
+          {
+            "Label": "u",
+            "Value": "u"
+          },
+          {
+            "Label": "v",
+            "Value": "v"
+          },
+          {
+            "Label": "w",
+            "Value": "w"
+          },
+          {
+            "Label": "x",
+            "Value": "x"
+          },
+          {
+            "Label": "y",
+            "Value": "y"
+          },
+          {
+            "Label": "z",
+            "Value": "z"
+          }
         ],
-        "Customizations": [
-            {
-                "Name": "fh_toggle_code_fonts",
-                "Label": "Code Pro Fonts",
-                "Type": "Checkbox",
-                "Default": "false",
-                "Files": {
-                    "resource/clientscheme.res": {
-                        "replace": [
-                            "clientscheme_fonts.res",
-                            "clientscheme_fonts_pro.res"
-                        ]
-                    }
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_val_xhair_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Default": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "font": "Size:$value | Outline:OFF"
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_xhair_normal",
+        "Label": "Crosshair",
+        "Type": "ColorPicker",
+        "Default": "242 242 242 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_xhair_pulse",
+        "Label": "Hitmarker",
+        "Type": "ColorPicker",
+        "Default": "255 0 0 255",
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "CrosshairDamage": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Customizations": [
+      {
+        "Name": "fh_toggle_code_fonts",
+        "Label": "Code Pro Fonts",
+        "Type": "Checkbox",
+        "Default": "false",
+        "Files": {
+          "resource/clientscheme.res": {
+            "replace": [
+              "clientscheme_fonts.res",
+              "clientscheme_fonts_pro.res"
+            ]
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_disguise_image",
+        "Label": "Spy Disguise Image",
+        "Type": "Checkbox",
+        "Default": "true",
+        "Files": {
+          "scripts/hudanimations_custom.txt": {
+            "uncomment": [
+              "RunEvent HudSpyDisguiseChanged"
+            ]
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_menu_image",
+        "Label": "Main Menu Class Images",
+        "Type": "Checkbox",
+        "Default": "true",
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "TFCharacterImage": {
+              "ypos": {
+                "true": "-80",
+                "false": "9999"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_transparent_viewmodels",
+        "Label": "Transparent Viewmodels",
+        "Type": "Checkbox",
+        "Default": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "TransparentViewmodel": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_background_stock",
+        "Label": "Default Backgrounds",
+        "Type": "Checkbox",
+        "Default": "false",
+        "Special": "StockBackgrounds",
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "Background": {
+              "if_halloween": {
+                "image": {
+                  "true": "../console/title_scream_fortress_2017_widescreen",
+                  "false": ""
                 }
-            },
-            {
-                "Name": "fh_toggle_disguise_image",
-                "Label": "Spy Disguise Image",
-                "Type": "Checkbox",
-                "Default": "true",
-                "Files": {
-                    "scripts/hudanimations_custom.txt": {
-                        "uncomment": [
-                            "RunEvent HudSpyDisguiseChanged"
-                        ]
-                    }
+              },
+              "if_christmas": {
+                "image": {
+                  "true": "../console/background_xmas2020_widescreen",
+                  "false": ""
                 }
-            },
-            {
-                "Name": "fh_toggle_menu_image",
-                "Label": "Main Menu Class Images",
-                "Type": "Checkbox",
-                "Default": "true",
-                "Files": {
-                    "resource/ui/mainmenuoverride.res": {
-                        "TFCharacterImage": {
-                            "ypos": {
-                                "true": "-80",
-                                "false": "9999"
-                            }
-                        }
-                    }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_val_hud_style",
+        "Label": "HUD Style",
+        "Type": "ComboBox",
+        "Default": "0",
+        "Options": [
+          {
+            "Label": "Default",
+            "Value": "0",
+            "Files": {
+              "resource/ui/huditemeffectmeter.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "c-60",
+                  "ypos": "c120"
+                },
+                "ItemEffectMeterLabel": {
+                  "wide": "120"
+                },
+                "ItemEffectMeter": {
+                  "wide": "120"
                 }
-            },
-            {
-                "Name": "fh_toggle_transparent_viewmodels",
-                "Label": "Transparent Viewmodels",
-                "Type": "Checkbox",
-                "Default": "false",
-                "Files": {
-                    "scripts/hudlayout.res": {
-                        "TransparentViewmodel": {
-                            "visible": {
-                                "true": "1",
-                                "false": "0"
-                            },
-                            "enabled": {
-                                "true": "1",
-                                "false": "0"
-                            }
-                        }
-                    }
+              },
+              "resource/ui/huddemomancharge.res": {
+                "ChargeMeter": {
+                  "ypos": "c110"
                 }
-            },
-            {
-                "Name": "fh_toggle_background_stock",
-                "Label": "Default Backgrounds",
-                "Type": "Checkbox",
-                "Default": "false",
-                "Special": "StockBackgrounds",
-                "Files": {
-                    "resource/ui/mainmenuoverride.res": {
-                        "Background": {
-                            "if_halloween": {
-                                "image": {
-                                    "true": "../console/title_scream_fortress_2017_widescreen",
-                                    "false": ""
-                                }
-                            },
-                            "if_christmas": {
-                                "image": {
-                                    "true": "../console/background_xmas2020_widescreen",
-                                    "false": ""
-                                }
-                            }
-                        }
-                    }
+              },
+              "resource/ui/huddemomanpipes.res": {
+                "PipesPresentPanel": {
+                  "ypos": "c92"
                 }
-            },
-            {
-                "Name": "fh_val_hud_style",
-                "Label": "HUD Style",
-                "Type": "ComboBox",
-                "Default": "0",
-                "Options": [
-                    {
-                        "Label": "Default",
-                        "Value": "0",
-                        "Files": {
-                            "resource/ui/huditemeffectmeter.res": {
-                                "HudItemEffectMeter": {
-                                    "xpos": "c-60",
-                                    "ypos": "c120"
-                                },
-                                "ItemEffectMeterLabel": {
-                                    "wide": "120"
-                                },
-                                "ItemEffectMeter": {
-                                    "wide": "120"
-                                }
-                            },
-                            "resource/ui/huddemomancharge.res": {
-                                "ChargeMeter": {
-                                    "ypos": "c110"
-                                }
-                            },
-                            "resource/ui/huddemomanpipes.res": {
-                                "PipesPresentPanel": {
-                                    "ypos": "c92"
-                                }
-                            },
-                            "resource/ui/huditemeffectmeter_cleaver.res": {
-                                "HudItemEffectMeter": {
-                                    "ypos": "c110"
-                                }
-                            },
-                            "resource/ui/huditemeffectmeter_sodapopper.res": {
-                                "HudItemEffectMeter": {
-                                    "ypos": "c100"
-                                }
-                            },
-                            "resource/ui/huditemeffectmeter_killstreak.res": {
-                                "HudItemEffectMeter": {
-                                    "xpos": "2",
-                                    "ypos": "r28"
-                                }
-                            },
-                            "resource/ui/huddamageaccount.res": {
-                                "DamageAccountValue": {
-                                    "xpos": "c-120",
-                                    "ypos": "c70"
-                                }
-                            },
-                            "resource/ui/hudplayerclass.res": {
-                                "PlayerStatusClassImage": {
-                                    "xpos": "25"
-                                },
-                                "classmodelpanel": {
-                                    "ypos": "r200",
-                                    "tall": "200"
-                                }
-                            },
-                            "resource/ui/hudplayerhealth.res": {
-                                "HudPlayerHealth": {
-                                    "xpos": "c-190",
-                                    "ypos": "c68"
-                                }
-                            },
-                            "resource/ui/hudrocketpack.res": {
-                                "HudItemEffectMeter": {
-                                    "ypos": "c110"
-                                }
-                            },
-                            "scripts/hudlayout.res": {
-                                "HudWeaponAmmo": {
-                                    "xpos": "c90",
-                                    "ypos": "c93"
-                                },
-                                "HudMannVsMachineStatus": {
-                                    "ypos": "0"
-                                },
-                                "HudMedicCharge": {
-                                    "ypos": "c38"
-                                },
-                                "CHealthAccountPanel": {
-                                    "xpos": "c-180",
-                                    "ypos": "267"
-                                },
-                                "CSecondaryTargetID": {
-                                    "ypos": "355"
-                                },
-                                "DisguiseStatus": {
-                                    "xpos": "100",
-                                    "ypos": "r38"
-                                },
-                                "HudMenuSpyDisguise": {
-                                    "ypos": "c130"
-                                },
-                                "CMainTargetID": {
-                                    "ypos": "265"
-                                },
-                                "HudSpellMenu": {
-                                    "xpos": "c-210"
-                                },
-                                "HudAchievementTracker": {
-                                    "NormalY": "330",
-                                    "EngineerY": "330",
-                                    "tall": "130"
-                                }
-                            },
-                            "scripts/hudanimations_custom.txt": {
-                                "replace": [
-                                    "Blank",
-                                    "HudBlack"
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "Label": "Lowered",
-                        "Value": "1",
-                        "Files": {
-                            "resource/ui/huditemeffectmeter.res": {
-                                "HudItemEffectMeter": {
-                                    "xpos": "c-60",
-                                    "ypos": "r80"
-                                },
-                                "ItemEffectMeterLabel": {
-                                    "wide": "120"
-                                },
-                                "ItemEffectMeter": {
-                                    "wide": "120"
-                                }
-                            },
-                            "resource/ui/huddemomancharge.res": {
-                                "ChargeMeter": {
-                                    "ypos": "r60"
-                                }
-                            },
-                            "resource/ui/huddemomanpipes.res": {
-                                "PipesPresentPanel": {
-                                    "ypos": "r80"
-                                }
-                            },
-                            "resource/ui/huditemeffectmeter_cleaver.res": {
-                                "HudItemEffectMeter": {
-                                    "ypos": "r60"
-                                }
-                            },
-                            "resource/ui/huditemeffectmeter_sodapopper.res": {
-                                "HudItemEffectMeter": {
-                                    "ypos": "r70"
-                                }
-                            },
-                            "resource/ui/huditemeffectmeter_killstreak.res": {
-                                "HudItemEffectMeter": {
-                                    "xpos": "2",
-                                    "ypos": "r28"
-                                }
-                            },
-                            "resource/ui/huddamageaccount.res": {
-                                "DamageAccountValue": {
-                                    "xpos": "137",
-                                    "ypos": "r47"
-                                }
-                            },
-                            "resource/ui/hudplayerclass.res": {
-                                "PlayerStatusClassImage": {
-                                    "xpos": "25"
-                                },
-                                "classmodelpanel": {
-                                    "ypos": "r200",
-                                    "tall": "200"
-                                }
-                            },
-                            "resource/ui/hudplayerhealth.res": {
-                                "HudPlayerHealth": {
-                                    "xpos": "c-190",
-                                    "ypos": "r108"
-                                }
-                            },
-                            "resource/ui/hudrocketpack.res": {
-                                "HudItemEffectMeter": {
-                                    "ypos": "r60"
-                                }
-                            },
-                            "scripts/hudlayout.res": {
-                                "HudWeaponAmmo": {
-                                    "xpos": "c90",
-                                    "ypos": "r83"
-                                },
-                                "HudMannVsMachineStatus": {
-                                    "ypos": "-55"
-                                },
-                                "HudMedicCharge": {
-                                    "ypos": "c38"
-                                },
-                                "CHealthAccountPanel": {
-                                    "xpos": "c-180",
-                                    "ypos": "r150"
-                                },
-                                "CSecondaryTargetID": {
-                                    "ypos": "325"
-                                },
-                                "DisguiseStatus": {
-                                    "xpos": "100",
-                                    "ypos": "r38"
-                                },
-                                "HudMenuSpyDisguise": {
-                                    "ypos": "c60"
-                                },
-                                "CMainTargetID": {
-                                    "ypos": "265"
-                                },
-                                "HudSpellMenu": {
-                                    "xpos": "c-270"
-                                },
-                                "HudAchievementTracker": {
-                                    "NormalY": "330",
-                                    "EngineerY": "330",
-                                    "tall": "130"
-                                }
-                            },
-                            "scripts/hudanimations_custom.txt": {
-                                "replace": [
-                                    "Blank",
-                                    "HudBlack"
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "Label": "Alternate",
-                        "Value": "2",
-                        "Files": {
-                            "resource/ui/huditemeffectmeter.res": {
-                                "HudItemEffectMeter": {
-                                    "xpos": "r110",
-                                    "ypos": "r65"
-                                },
-                                "ItemEffectMeterLabel": {
-                                    "wide": "100"
-                                },
-                                "ItemEffectMeter": {
-                                    "wide": "100"
-                                }
-                            },
-                            "resource/ui/huddemomancharge.res": {
-                                "ChargeMeter": {
-                                    "ypos": "c110"
-                                }
-                            },
-                            "resource/ui/huddemomanpipes.res": {
-                                "PipesPresentPanel": {
-                                    "ypos": "c92"
-                                }
-                            },
-                            "resource/ui/huditemeffectmeter_cleaver.res": {
-                                "HudItemEffectMeter": {
-                                    "ypos": "r85"
-                                }
-                            },
-                            "resource/ui/huditemeffectmeter_sodapopper.res": {
-                                "HudItemEffectMeter": {
-                                    "ypos": "r75"
-                                }
-                            },
-                            "resource/ui/huditemeffectmeter_killstreak.res": {
-                                "HudItemEffectMeter": {
-                                    "xpos": "115",
-                                    "ypos": "r33"
-                                }
-                            },
-                            "resource/ui/huddamageaccount.res": {
-                                "DamageAccountValue": {
-                                    "xpos": "137",
-                                    "ypos": "r47"
-                                }
-                            },
-                            "resource/ui/hudplayerclass.res": {
-                                "PlayerStatusClassImage": {
-                                    "xpos": "r125"
-                                },
-                                "classmodelpanel": {
-                                    "ypos": "r230",
-                                    "tall": "180"
-                                }
-                            },
-                            "resource/ui/hudplayerhealth.res": {
-                                "HudPlayerHealth": {
-                                    "xpos": "10",
-                                    "ypos": "r75"
-                                }
-                            },
-                            "resource/ui/hudrocketpack.res": {
-                                "HudItemEffectMeter": {
-                                    "ypos": "r60"
-                                }
-                            },
-                            "scripts/hudlayout.res": {
-                                "HudWeaponAmmo": {
-                                    "xpos": "r110",
-                                    "ypos": "r50"
-                                },
-                                "HudMannVsMachineStatus": {
-                                    "ypos": "0"
-                                },
-                                "HudMedicCharge": {
-                                    "ypos": "c60"
-                                },
-                                "CHealthAccountPanel": {
-                                    "xpos": "113",
-                                    "ypos": "r90"
-                                },
-                                "CSecondaryTargetID": {
-                                    "ypos": "355"
-                                },
-                                "DisguiseStatus": {
-                                    "xpos": "115",
-                                    "ypos": "r62"
-                                },
-                                "HudMenuSpyDisguise": {
-                                    "ypos": "c130"
-                                },
-                                "CMainTargetID": {
-                                    "ypos": "r200"
-                                },
-                                "HudSpellMenu": {
-                                    "xpos": "c-210"
-                                },
-                                "HudAchievementTracker": {
-                                    "NormalY": "135",
-                                    "EngineerY": "9999",
-                                    "tall": "9999"
-                                }
-                            },
-                            "scripts/hudanimations_custom.txt": {
-                                "replace": [
-                                    "HudBlack",
-                                    "Blank"
-                                ]
-                            }
-                        }
-                    }
+              },
+              "resource/ui/huditemeffectmeter_cleaver.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c110"
+                }
+              },
+              "resource/ui/huditemeffectmeter_sodapopper.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c100"
+                }
+              },
+              "resource/ui/huditemeffectmeter_killstreak.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "2",
+                  "ypos": "r28"
+                }
+              },
+              "resource/ui/huddamageaccount.res": {
+                "DamageAccountValue": {
+                  "xpos": "c-120",
+                  "ypos": "c70"
+                }
+              },
+              "resource/ui/hudplayerclass.res": {
+                "PlayerStatusClassImage": {
+                  "xpos": "25"
+                },
+                "classmodelpanel": {
+                  "ypos": "r200",
+                  "tall": "200"
+                }
+              },
+              "resource/ui/hudplayerhealth.res": {
+                "HudPlayerHealth": {
+                  "xpos": "c-190",
+                  "ypos": "c68"
+                }
+              },
+              "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c110"
+                }
+              },
+              "scripts/hudlayout.res": {
+                "HudWeaponAmmo": {
+                  "xpos": "c90",
+                  "ypos": "c93"
+                },
+                "HudMannVsMachineStatus": {
+                  "ypos": "0"
+                },
+                "HudMedicCharge": {
+                  "ypos": "c38"
+                },
+                "CHealthAccountPanel": {
+                  "xpos": "c-180",
+                  "ypos": "267"
+                },
+                "CSecondaryTargetID": {
+                  "ypos": "355"
+                },
+                "DisguiseStatus": {
+                  "xpos": "100",
+                  "ypos": "r38"
+                },
+                "HudMenuSpyDisguise": {
+                  "ypos": "c130"
+                },
+                "CMainTargetID": {
+                  "ypos": "265"
+                },
+                "HudSpellMenu": {
+                  "xpos": "c-210"
+                },
+                "HudAchievementTracker": {
+                  "NormalY": "330",
+                  "EngineerY": "330",
+                  "tall": "130"
+                }
+              },
+              "scripts/hudanimations_custom.txt": {
+                "replace": [
+                  "Blank",
+                  "HudBlack"
                 ]
-            },
-            {
-                "Name": "fh_val_health_style",
-                "Label": "Health Style",
-                "Type": "ComboBox",
-                "Default": "0",
-                "Command": "HealthStyle",
-                "Options": [
-                    {
-                        "Label": "Default",
-                        "Value": "0",
-                        "Files": {
-                            "resource/ui/hudplayerhealth.res": {
-                                "PlayerStatusHealthBonusImage": {
-                                    "image": "test"
-                                }
-                            },
-                            "scripts/hudanimations_custom.txt": {
-                                "comment": [
-                                    "Animate PlayerStatusHealthValue",
-                                    "Animate AmmoInClip",
-                                    "Animate AmmoInReserve",
-                                    "Animate AmmoNoClip"
-                                ],
-                                "uncomment": [
-                                    "Animate HealthBG",
-                                    "Animate AmmoBG"
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "Label": "Colored Text",
-                        "Value": "1",
-                        "Files": {
-                            "resource/ui/hudplayerhealth.res": {
-                                "PlayerStatusHealthBonusImage": {
-                                    "image": ""
-                                }
-                            },
-                            "scripts/hudanimations_custom.txt": {
-                                "comment": [
-                                    "Animate HealthBG",
-                                    "Animate AmmoBG"
-                                ],
-                                "uncomment": [
-                                    "Animate PlayerStatusHealthValue",
-                                    "Animate AmmoInClip",
-                                    "Animate AmmoInReserve",
-                                    "Animate AmmoNoClip"
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "Label": "Cross",
-                        "Value": "2",
-                        "Files": {
-                            "resource/ui/hudplayerhealth.res": {
-                                "PlayerStatusHealthBonusImage": {
-                                    "image": "../hud/health_over_bg"
-                                }
-                            },
-                            "scripts/hudanimations_custom.txt": {
-                                "comment": [
-                                    "Animate HealthBG"
-                                ],
-                                "uncomment": [
-                                    "Animate AmmoBG",
-                                    "Animate PlayerStatusHealthValue",
-                                    "Animate AmmoInClip",
-                                    "Animate AmmoInReserve",
-                                    "Animate AmmoNoClip"
-                                ]
-                            }
-                        }
-                    }
-                ]
-            },
-            {
-                "Name": "fh_val_killfeed_rows",
-                "Label": "Killfeed Rows",
-                "Type": "IntegerUpDown",
-                "Default": "5",
-                "Minimum": "0",
-                "Maximum": "9",
-                "Increment": "1",
-                "Files": {
-                    "scripts/hudlayout.res": {
-                        "HudDeathNotice": {
-                            "MaxDeathNotices": "$value"
-                        }
-                    }
-                }
+              }
             }
+          },
+          {
+            "Label": "Lowered",
+            "Value": "1",
+            "Files": {
+              "resource/ui/huditemeffectmeter.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "c-60",
+                  "ypos": "r80"
+                },
+                "ItemEffectMeterLabel": {
+                  "wide": "120"
+                },
+                "ItemEffectMeter": {
+                  "wide": "120"
+                }
+              },
+              "resource/ui/huddemomancharge.res": {
+                "ChargeMeter": {
+                  "ypos": "r60"
+                }
+              },
+              "resource/ui/huddemomanpipes.res": {
+                "PipesPresentPanel": {
+                  "ypos": "r80"
+                }
+              },
+              "resource/ui/huditemeffectmeter_cleaver.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r60"
+                }
+              },
+              "resource/ui/huditemeffectmeter_sodapopper.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r70"
+                }
+              },
+              "resource/ui/huditemeffectmeter_killstreak.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "2",
+                  "ypos": "r28"
+                }
+              },
+              "resource/ui/huddamageaccount.res": {
+                "DamageAccountValue": {
+                  "xpos": "137",
+                  "ypos": "r47"
+                }
+              },
+              "resource/ui/hudplayerclass.res": {
+                "PlayerStatusClassImage": {
+                  "xpos": "25"
+                },
+                "classmodelpanel": {
+                  "ypos": "r200",
+                  "tall": "200"
+                }
+              },
+              "resource/ui/hudplayerhealth.res": {
+                "HudPlayerHealth": {
+                  "xpos": "c-190",
+                  "ypos": "r108"
+                }
+              },
+              "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r60"
+                }
+              },
+              "scripts/hudlayout.res": {
+                "HudWeaponAmmo": {
+                  "xpos": "c90",
+                  "ypos": "r83"
+                },
+                "HudMannVsMachineStatus": {
+                  "ypos": "-55"
+                },
+                "HudMedicCharge": {
+                  "ypos": "c38"
+                },
+                "CHealthAccountPanel": {
+                  "xpos": "c-180",
+                  "ypos": "r150"
+                },
+                "CSecondaryTargetID": {
+                  "ypos": "325"
+                },
+                "DisguiseStatus": {
+                  "xpos": "100",
+                  "ypos": "r38"
+                },
+                "HudMenuSpyDisguise": {
+                  "ypos": "c60"
+                },
+                "CMainTargetID": {
+                  "ypos": "265"
+                },
+                "HudSpellMenu": {
+                  "xpos": "c-270"
+                },
+                "HudAchievementTracker": {
+                  "NormalY": "330",
+                  "EngineerY": "330",
+                  "tall": "130"
+                }
+              },
+              "scripts/hudanimations_custom.txt": {
+                "replace": [
+                  "Blank",
+                  "HudBlack"
+                ]
+              }
+            }
+          },
+          {
+            "Label": "Alternate",
+            "Value": "2",
+            "Files": {
+              "resource/ui/huditemeffectmeter.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "r110",
+                  "ypos": "r65"
+                },
+                "ItemEffectMeterLabel": {
+                  "wide": "100"
+                },
+                "ItemEffectMeter": {
+                  "wide": "100"
+                }
+              },
+              "resource/ui/huddemomancharge.res": {
+                "ChargeMeter": {
+                  "ypos": "c110"
+                }
+              },
+              "resource/ui/huddemomanpipes.res": {
+                "PipesPresentPanel": {
+                  "ypos": "c92"
+                }
+              },
+              "resource/ui/huditemeffectmeter_cleaver.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r85"
+                }
+              },
+              "resource/ui/huditemeffectmeter_sodapopper.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r75"
+                }
+              },
+              "resource/ui/huditemeffectmeter_killstreak.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "115",
+                  "ypos": "r33"
+                }
+              },
+              "resource/ui/huddamageaccount.res": {
+                "DamageAccountValue": {
+                  "xpos": "137",
+                  "ypos": "r47"
+                }
+              },
+              "resource/ui/hudplayerclass.res": {
+                "PlayerStatusClassImage": {
+                  "xpos": "r125"
+                },
+                "classmodelpanel": {
+                  "ypos": "r230",
+                  "tall": "180"
+                }
+              },
+              "resource/ui/hudplayerhealth.res": {
+                "HudPlayerHealth": {
+                  "xpos": "10",
+                  "ypos": "r75"
+                }
+              },
+              "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r60"
+                }
+              },
+              "scripts/hudlayout.res": {
+                "HudWeaponAmmo": {
+                  "xpos": "r110",
+                  "ypos": "r50"
+                },
+                "HudMannVsMachineStatus": {
+                  "ypos": "0"
+                },
+                "HudMedicCharge": {
+                  "ypos": "c60"
+                },
+                "CHealthAccountPanel": {
+                  "xpos": "113",
+                  "ypos": "r90"
+                },
+                "CSecondaryTargetID": {
+                  "ypos": "355"
+                },
+                "DisguiseStatus": {
+                  "xpos": "115",
+                  "ypos": "r62"
+                },
+                "HudMenuSpyDisguise": {
+                  "ypos": "c130"
+                },
+                "CMainTargetID": {
+                  "ypos": "r200"
+                },
+                "HudSpellMenu": {
+                  "xpos": "c-210"
+                },
+                "HudAchievementTracker": {
+                  "NormalY": "135",
+                  "EngineerY": "9999",
+                  "tall": "9999"
+                }
+              },
+              "scripts/hudanimations_custom.txt": {
+                "replace": [
+                  "HudBlack",
+                  "Blank"
+                ]
+              }
+            }
+          }
         ]
-    }
+      },
+      {
+        "Name": "fh_val_health_style",
+        "Label": "Health Style",
+        "Type": "ComboBox",
+        "Default": "0",
+        "Command": "HealthStyle",
+        "Options": [
+          {
+            "Label": "Default",
+            "Value": "0",
+            "Files": {
+              "resource/ui/hudplayerhealth.res": {
+                "PlayerStatusHealthBonusImage": {
+                  "image": "test"
+                }
+              },
+              "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "Animate PlayerStatusHealthValue",
+                  "Animate AmmoInClip",
+                  "Animate AmmoInReserve",
+                  "Animate AmmoNoClip"
+                ],
+                "uncomment": [
+                  "Animate HealthBG",
+                  "Animate AmmoBG"
+                ]
+              }
+            }
+          },
+          {
+            "Label": "Colored Text",
+            "Value": "1",
+            "Files": {
+              "resource/ui/hudplayerhealth.res": {
+                "PlayerStatusHealthBonusImage": {
+                  "image": ""
+                }
+              },
+              "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "Animate HealthBG",
+                  "Animate AmmoBG"
+                ],
+                "uncomment": [
+                  "Animate PlayerStatusHealthValue",
+                  "Animate AmmoInClip",
+                  "Animate AmmoInReserve",
+                  "Animate AmmoNoClip"
+                ]
+              }
+            }
+          },
+          {
+            "Label": "Cross",
+            "Value": "2",
+            "Files": {
+              "resource/ui/hudplayerhealth.res": {
+                "PlayerStatusHealthBonusImage": {
+                  "image": "../hud/health_over_bg"
+                }
+              },
+              "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "Animate HealthBG"
+                ],
+                "uncomment": [
+                  "Animate AmmoBG",
+                  "Animate PlayerStatusHealthValue",
+                  "Animate AmmoInClip",
+                  "Animate AmmoInReserve",
+                  "Animate AmmoNoClip"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Name": "fh_val_killfeed_rows",
+        "Label": "Killfeed Rows",
+        "Type": "IntegerUpDown",
+        "Default": "5",
+        "Minimum": "0",
+        "Maximum": "9",
+        "Increment": "1",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "HudDeathNotice": {
+              "MaxDeathNotices": "$value"
+            }
+          }
+        }
+      }
+    ]
+  }
 }

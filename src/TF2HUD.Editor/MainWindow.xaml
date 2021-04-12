@@ -11,7 +11,7 @@
         FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px"
         Background="#2B2724">
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>

@@ -9,45 +9,39 @@ namespace TF2HUD.Editor.Classes
 {
     public class Json
     {
-        // The folder path to where the desired HUD .json info files are stored
-        public string FolderPath;
-
         // HUDs to manage
-        public HUD[] HUDs;
+        public HUD[] HUDList;
 
         public Json()
         {
-            FolderPath = "JSON";
-
-            var TempHUDs = new List<HUD>();
-            foreach (var HUDPath in Directory.EnumerateFiles(FolderPath))
+            var hudList = new List<HUD>();
+            foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
             {
-                // Extracts HUD name from the file path
-                var HUDArray = HUDPath.Split("\\");
-                var FileName = HUDArray[^1];
-                var FileInfo = FileName.Split(".");
-                var HUDName = FileInfo[0];
-                var Extension = FileInfo[^1];
-                if (Extension != "json") continue;
-                var json = new StreamReader(File.OpenRead(HUDPath), new UTF8Encoding(false)).ReadToEnd();
+                // Extract HUD information from the file path.
+                var fileName = jsonFile.Split("\\")[^1];
+                var fileInfo = fileName.Split(".");
+                var hudName = fileInfo[0];
+                var extension = fileInfo[^1];
+                if (extension != "json") continue;
+                var json = new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd();
 
-                // Pass the name and options to HUD.
-                TempHUDs.Add(new HUD(HUDName, JsonConvert.DeserializeObject<HudJson>(json)));
+                // Add the HUD object to the list.
+                hudList.Add(new HUD(hudName, JsonConvert.DeserializeObject<HudJson>(json)));
             }
 
-            HUDs = TempHUDs.ToArray();
+            HUDList = hudList.ToArray();
         }
 
         /// <summary>
-        ///     Retrieve the HUD object selected by the user.
+        ///     Find and retrieve a HUD object selected by the user.
         /// </summary>
-        /// <param name="HUDName">Name of the HUD the user wants to view.</param>
-        public HUD GetHUDByName(string HUDName)
+        /// <param name="name">Name of the HUD the user wants to view.</param>
+        public HUD GetHUDByName(string name)
         {
-            foreach (var HUDItem in HUDs)
-                if (string.Equals(HUDItem.Name, HUDName, StringComparison.InvariantCultureIgnoreCase))
-                    return HUDItem;
-            throw new Exception("Cannot find HUD " + HUDName + "!");
+            foreach (var hud in HUDList)
+                if (string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase))
+                    return hud;
+            throw new Exception($"Cannot find HUD {name}!");
         }
     }
 }

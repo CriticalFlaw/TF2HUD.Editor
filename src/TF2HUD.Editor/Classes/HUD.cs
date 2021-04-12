@@ -9,8 +9,8 @@ using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TF2HUD.Editor.JSON;
+using TF2HUD.Editor.Properties;
 using Xceed.Wpf.Toolkit;
-using MessageBox = System.Windows.MessageBox;
 
 namespace TF2HUD.Editor.Classes
 {
@@ -20,14 +20,16 @@ namespace TF2HUD.Editor.Classes
         private readonly string[] LayoutOptions;
 
         public string Background;
-        public Dictionary<string, Type> ConstrolList = new();
+        public Dictionary<string, Type> ControlList = new();
         public Dictionary<string, Controls[]> ControlOptions;
         private bool ControlsRendered;
-        public string CustomisationsFolder;
+        public string CustomizationsFolder;
         public string Default;
         public string EnabledFolder;
         private string[][] Layout;
+        public bool Maximize;
         public string Name;
+        public double Opacity;
         public HUDSettings Settings;
         public string UpdateUrl, GitHubUrl, HudsTfUrl, SteamUrl, IssueUrl;
 
@@ -36,6 +38,8 @@ namespace TF2HUD.Editor.Classes
             // Validate properties from JSON
             Name = name;
             Settings = new HUDSettings(Name);
+            Opacity = options.Opacity;
+            Maximize = options.Maximize;
 
             if (options.Links is not null)
             {
@@ -46,9 +50,9 @@ namespace TF2HUD.Editor.Classes
                 IssueUrl = options.Links.Issue ?? string.Empty;
             }
 
-            if (!string.IsNullOrWhiteSpace(options.CustomisationsFolder))
+            if (!string.IsNullOrWhiteSpace(options.CustomizationsFolder))
             {
-                CustomisationsFolder = options.CustomisationsFolder ?? string.Empty;
+                CustomizationsFolder = options.CustomizationsFolder ?? string.Empty;
                 EnabledFolder = options.EnabledFolder ?? string.Empty;
             }
 
@@ -169,7 +173,7 @@ namespace TF2HUD.Editor.Classes
                             charContainer.Children.Add(charLabel);
                             charContainer.Children.Add(charInput);
                             sectionContent.Children.Add(charContainer);
-                            ConstrolList.Add(charInput.Name, charInput.GetType());
+                            ControlList.Add(charInput.Name, charInput.GetType());
                             controlItem.Control = charInput;
                             break;
 
@@ -193,7 +197,7 @@ namespace TF2HUD.Editor.Classes
                             };
                             //lastMargin = checkBoxInput.Margin;
                             sectionContent.Children.Add(checkBoxInput);
-                            ConstrolList.Add(checkBoxInput.Name, checkBoxInput.GetType());
+                            ControlList.Add(checkBoxInput.Name, checkBoxInput.GetType());
                             controlItem.Control = checkBoxInput;
                             break;
 
@@ -219,8 +223,7 @@ namespace TF2HUD.Editor.Classes
 
                             try
                             {
-                                var userColor = Settings.GetSetting<Color>(id);
-                                colorInput.SelectedColor = userColor;
+                                colorInput.SelectedColor = Settings.GetSetting<Color>(id);
                             }
                             catch
                             {
@@ -231,13 +234,13 @@ namespace TF2HUD.Editor.Classes
                             {
                                 var input = sender as ColorPicker;
                                 Settings.SetSetting(input.Name,
-                                    Utilities.RgbaConverter(input.SelectedColor.ToString()));
+                                    Utilities.ConvertToRgba(input.SelectedColor.ToString()));
                             };
 
                             colorContainer.Children.Add(colorLabel);
                             colorContainer.Children.Add(colorInput);
                             sectionContent.Children.Add(colorContainer);
-                            ConstrolList.Add(colorInput.Name, colorInput.GetType());
+                            ControlList.Add(colorInput.Name, colorInput.GetType());
                             controlItem.Control = colorInput;
                             break;
 
@@ -262,7 +265,7 @@ namespace TF2HUD.Editor.Classes
                             var comboBoxInput = new ComboBox
                             {
                                 Name = id,
-                                Width = 150,
+                                Width = 150
                             };
                             foreach (var option in controlItem.Options)
                             {
@@ -270,7 +273,8 @@ namespace TF2HUD.Editor.Classes
                                 {
                                     Content = option.Label
                                 };
-                                if (string.Equals(controlItem.Type, "Crosshair", StringComparison.CurrentCultureIgnoreCase))
+                                if (string.Equals(controlItem.Type, "Crosshair",
+                                    StringComparison.CurrentCultureIgnoreCase))
                                 {
                                     comboBoxInput.Style = (Style) Application.Current.Resources["CrosshairBox"];
                                     item.Style = (Style) Application.Current.Resources["Crosshair"];
@@ -283,13 +287,9 @@ namespace TF2HUD.Editor.Classes
                             var containsLetters = Regex.IsMatch(setting, "\\D");
 
                             if (!containsLetters)
-                            {
                                 comboBoxInput.SelectedIndex = int.Parse(setting);
-                            }
                             else
-                            {
                                 comboBoxInput.SelectedValue = setting;
-                            }
 
                             comboBoxInput.SelectionChanged += (sender, e) =>
                             {
@@ -300,7 +300,7 @@ namespace TF2HUD.Editor.Classes
                             comboBoxContainer.Children.Add(comboBoxLabel);
                             comboBoxContainer.Children.Add(comboBoxInput);
                             sectionContent.Children.Add(comboBoxContainer);
-                            ConstrolList.Add(comboBoxInput.Name, comboBoxInput.GetType());
+                            ControlList.Add(comboBoxInput.Name, comboBoxInput.GetType());
                             controlItem.Control = comboBoxInput;
                             break;
 
@@ -336,7 +336,7 @@ namespace TF2HUD.Editor.Classes
                             integerContainer.Children.Add(integerLabel);
                             integerContainer.Children.Add(integerInput);
                             sectionContent.Children.Add(integerContainer);
-                            ConstrolList.Add(integerInput.Name, integerInput.GetType());
+                            ControlList.Add(integerInput.Name, integerInput.GetType());
                             controlItem.Control = integerInput;
                             break;
 
@@ -355,12 +355,12 @@ namespace TF2HUD.Editor.Classes
                     for (var i = 0; i < Layout.Length; i++)
                     for (var j = 0; j < Layout[i].Length; j++)
                     {
-                        // Allow index and grid area for grid coordinates
+                        // Allow index and grid area for grid coordinates.
                         if (groupBoxIndex.ToString() == Layout[i][j] ||
                             section == Layout[i][j] && !groupBoxItemEvaluated)
                         {
-                            // Don't set column or row if it has already been set
-                            // setting the column/row every time will break spans
+                            // Don't set column or row if it has already been set.
+                            // Setting the column/row every time will break spans.
                             if (Grid.GetColumn(sectionContainer) == 0) Grid.SetColumn(sectionContainer, j);
                             if (Grid.GetRow(sectionContainer) == 0) Grid.SetRow(sectionContainer, i);
 
@@ -419,8 +419,7 @@ namespace TF2HUD.Editor.Classes
                     for (var i = 0; i < ControlOptions[Section].Length; i++)
                     {
                         var controlItem = ControlOptions[Section][i];
-                        var control = controlItem.Control;
-                        switch (control)
+                        switch (controlItem.Control)
                         {
                             case CheckBox check:
                                 if (bool.TryParse(controlItem.Default, out var value))
@@ -432,7 +431,7 @@ namespace TF2HUD.Editor.Classes
                                 break;
 
                             case ColorPicker color:
-                                var colors = Array.ConvertAll(controlItem.Default.Split(' '), c => byte.Parse(c));
+                                var colors = Array.ConvertAll(controlItem.Default.Split(' '), byte.Parse);
                                 color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
                                 break;
 
@@ -467,13 +466,15 @@ namespace TF2HUD.Editor.Classes
                 var path = $"{MainWindow.HudPath}\\{Name}\\";
 
                 var userSettings = JsonConvert
-                    .DeserializeObject<UserJson>(File.ReadAllText($"{System.Windows.Forms.Application.LocalUserAppDataPath}\\settings.json")).Settings
+                    .DeserializeObject<UserJson>(
+                        File.ReadAllText($"{System.Windows.Forms.Application.LocalUserAppDataPath}\\settings.json"))
+                    .Settings
                     .Where(x => x.HUD == Name);
                 var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
                     .Controls.Values;
 
                 // If the developer defined customization folders for their HUD, then copy those files.
-                if (!string.IsNullOrWhiteSpace(CustomisationsFolder))
+                if (!string.IsNullOrWhiteSpace(CustomizationsFolder))
                     MoveCustomizationFiles(path, userSettings, hudSettings);
 
                 // This Dictionary contains folders/files/properties as they should be written to the hud
@@ -577,7 +578,7 @@ namespace TF2HUD.Editor.Classes
             try
             {
                 // Check if the customization folders are valid.
-                if (!Directory.Exists($"{path}\\{CustomisationsFolder}")) return true;
+                if (!Directory.Exists($"{path}\\{CustomizationsFolder}")) return true;
 
                 var controlFilter = new List<string>
                 {
@@ -594,7 +595,7 @@ namespace TF2HUD.Editor.Classes
                     var userSetting = userSettings.Where(x => x.Name == control.Name).First();
                     if (userSetting is null) continue; // File name not found, skipping.
 
-                    var custom = $"{path}{CustomisationsFolder}";
+                    var custom = $"{path}{CustomizationsFolder}";
                     var enabled = $"{path}{EnabledFolder}";
 
                     switch (control.Type.ToLowerInvariant())
@@ -606,7 +607,8 @@ namespace TF2HUD.Editor.Classes
                             custom += $"\\{fileName}.res";
                             enabled += $"\\{fileName}.res";
 
-                            if (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase)) // Move to enabled
+                            if (string.Equals(userSetting.Value, "true",
+                                StringComparison.CurrentCultureIgnoreCase)) // Move to enabled
                             {
                                 if (File.Exists(custom)) File.Move(custom, enabled);
                             }
@@ -701,7 +703,8 @@ namespace TF2HUD.Editor.Classes
                         }
                         else
                         {
-                            if (string.Equals(userSetting.Type, "ColorPicker", StringComparison.CurrentCultureIgnoreCase))
+                            if (string.Equals(userSetting.Type, "ColorPicker",
+                                StringComparison.CurrentCultureIgnoreCase))
                             {
                                 // If the color is supposed to have a pulse, set the pulse value in the schema.
                                 if (hudSetting.Pulse)
@@ -711,7 +714,7 @@ namespace TF2HUD.Editor.Classes
                                 }
 
                                 // If the color value is for an item rarity, update the dimmed and grayed values.
-                                foreach (var value in Utilities.itemRarities)
+                                foreach (var value in Utilities.ItemRarities)
                                 {
                                     if (!string.Equals(property.Key, value.Item1)) continue;
                                     hudElement[value.Item2] = Utilities.GetDimmedColor(userSetting.Value);
@@ -775,18 +778,18 @@ namespace TF2HUD.Editor.Classes
                                 {
                                     var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
-                                    foreach (var index in Utilities.GetStringIndexes(lines, value))
+                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
                                         lines[index] = valid
-                                            ? Utilities.CommentOutTextLine(lines[index])
-                                            : Utilities.UncommentOutTextLine(lines[index]);
+                                            ? Utilities.CommentTextLine(lines[index])
+                                            : Utilities.UncommentTextLine(lines[index]);
                                     File.WriteAllLines(filePath, lines);
                                 }
                                 else if (int.TryParse(userSetting.Value, out _))
                                 {
                                     var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
-                                    foreach (var index in Utilities.GetStringIndexes(lines, value))
-                                        lines[index] = Utilities.CommentOutTextLine(lines[index]);
+                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
+                                        lines[index] = Utilities.CommentTextLine(lines[index]);
                                     File.WriteAllLines(filePath, lines);
                                 }
 
@@ -806,18 +809,18 @@ namespace TF2HUD.Editor.Classes
                                 {
                                     var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
-                                    foreach (var index in Utilities.GetStringIndexes(lines, value))
+                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
                                         lines[index] = valid
-                                            ? Utilities.UncommentOutTextLine(lines[index])
-                                            : Utilities.CommentOutTextLine(lines[index]);
+                                            ? Utilities.UncommentTextLine(lines[index])
+                                            : Utilities.CommentTextLine(lines[index]);
                                     File.WriteAllLines(filePath, lines);
                                 }
                                 else if (int.TryParse(userSetting.Value, out _))
                                 {
                                     var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
-                                    foreach (var index in Utilities.GetStringIndexes(lines, value))
-                                        lines[index] = Utilities.UncommentOutTextLine(lines[index]);
+                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
+                                        lines[index] = Utilities.UncommentTextLine(lines[index]);
                                     File.WriteAllLines(filePath, lines);
                                 }
 
@@ -955,11 +958,14 @@ namespace TF2HUD.Editor.Classes
                                     // Animate statements can have an extra argument make sure to account for them
                                     if (current.GetType() == typeof(Animate))
                                     {
-                                        if (string.Equals(current.Interpolator, "pulse", StringComparison.CurrentCultureIgnoreCase))
+                                        if (string.Equals(current.Interpolator, "pulse",
+                                            StringComparison.CurrentCultureIgnoreCase))
                                             current.Frequency = animation["Frequency"];
 
-                                        if (string.Equals(current.Interpolator, "gain", StringComparison.CurrentCultureIgnoreCase) ||
-                                            string.Equals(current.Interpolator, "bias", StringComparison.CurrentCultureIgnoreCase))
+                                        if (string.Equals(current.Interpolator, "gain",
+                                                StringComparison.CurrentCultureIgnoreCase) ||
+                                            string.Equals(current.Interpolator, "bias",
+                                                StringComparison.CurrentCultureIgnoreCase))
                                             current.Bias = animation["Bias"];
                                     }
 
@@ -996,8 +1002,8 @@ namespace TF2HUD.Editor.Classes
                     }
                     else
                     {
-                        MessageBox.Show($"Could not recognise file extension '{extension}'",
-                            "Unrecognized file extension");
+                        MainWindow.ShowMessageBox(MessageBoxImage.Error,
+                            $"Could not recognize file extension '{extension}'");
                     }
                 }
             }
@@ -1006,6 +1012,8 @@ namespace TF2HUD.Editor.Classes
                 Console.WriteLine(e);
             }
         }
+
+        #region CUSTOM METHODS
 
         private void EnableStockBackgrounds(Controls hudSetting, Setting userSetting)
         {
@@ -1016,7 +1024,8 @@ namespace TF2HUD.Editor.Classes
             {
                 // Determine files using the files of the selected item's label or value
                 // Could cause issues if label and value are both numbers but numbered differently
-                hudSetting.Files = hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value).Files;
+                hudSetting.Files = hudSetting.Options
+                    .First(x => x.Label == userSetting.Value || x.Value == userSetting.Value).Files;
 
                 foreach (var option in hudSetting.Options)
                     if (option.Special is not null)
@@ -1030,7 +1039,103 @@ namespace TF2HUD.Editor.Classes
             if (hudSetting.Special is null) return;
 
             if (string.Equals(hudSetting.Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
-                custom.SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console", enable);
+                SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console", enable);
         }
+
+        /// <summary>
+        ///     Toggle default backgrounds by renaming their file extensions.
+        /// </summary>
+        /// <remarks>
+        ///     BUG: Need to check the scripts folder for chapterbackgrounds.txt - otherwise the only default background shown
+        ///     will be pl_upward.
+        /// </remarks>
+        public static bool SetStockBackgrounds(string path, bool enable = false)
+        {
+            try
+            {
+                // Set the file path to where the background images reside.
+                var directoryPath = new DirectoryInfo(path);
+
+                // Revert everything back to normal before changing the name extension.
+                foreach (var file in directoryPath.GetFiles())
+                {
+                    if (file.Name.EndsWith("bak"))
+                        File.Move(file.FullName, file.FullName.Replace("bak", "vtf"));
+                    if (file.Name.EndsWith("tmp"))
+                        File.Move(file.FullName, file.FullName.Replace("tmp", "vmt"));
+                    if (file.Name.EndsWith("temp"))
+                        File.Move(file.FullName, file.FullName.Replace("temp", "txt"));
+                }
+
+                // If we're not enabling stock background, then leave.
+                if (!enable) return true;
+
+                // Rename the file extensions so that the game does not use them.
+                foreach (var file in directoryPath.GetFiles())
+                {
+                    if (file.Name.EndsWith("vtf"))
+                        File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
+                    if (file.Name.EndsWith("vmt"))
+                        File.Move(file.FullName, file.FullName.Replace("vmt", "tmp"));
+                    if (file.Name.EndsWith("txt"))
+                        File.Move(file.FullName, file.FullName.Replace("txt", "temp"));
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_menu_background} {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Copy configuration file for transparent viewmodels into the HUD's cfg folder.
+        /// </summary>
+        /// <remarks>TODO: Implement this into the transparent viewmodels customization.</remarks>
+        public static bool CopyTransparentViewmodelCfg(string path, bool enable = false)
+        {
+            try
+            {
+                // Copy the config file required for this feature
+                if (!enable) return true;
+                if (!Directory.Exists(path + "\\cfg"))
+                    Directory.CreateDirectory(path + "\\cfg");
+                File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\hud.cfg", path + "\\cfg\\hud.cfg", true);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_transparent_vm} {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Generate a VTF background using an image provided by the user.
+        /// </summary>
+        /// <remarks>TODO: Implement this in version 2.1</remarks>
+        public static bool SetCustomBackground()
+        {
+            try
+            {
+                // Initialize the VTF converter, set the file paths and do the conversion. The resulting image will be named background_upward.vtf
+                var converter = new VTF(MainWindow.HudPath);
+                var output = string.Format(Resources.file_background, MainWindow.HudPath, MainWindow.HudSelection,
+                    "background_upward.vtf");
+                converter.Convert(Properties.Settings.Default.image_path, output);
+                File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MainWindow.ShowMessageBox(MessageBoxImage.Error,
+                    $"{Resources.error_seasonal_backgrounds} {ex.Message}");
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

@@ -9,6 +9,8 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using AutoUpdaterDotNET;
 using log4net;
 using log4net.Config;
@@ -35,28 +37,31 @@ namespace TF2HUD.Editor
             // Initialize the logger.
             var repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
-            Logger.Info("INITIALIZING...");
+            InitializeComponent();
 
-            // Setup HUDs
+            // Get the list of HUD JSONs.
             Json = new Json();
+            LbSelectHud.Items.Clear();
+            foreach (var hud in Json.HUDList) LbSelectHud.Items.Add(hud.Name);
 
             // Setup the GUI.
-            InitializeComponent();
-            SetupMenu();
-            SetBackground();
+            SetPageView();
+            SetPageBackground();
             SetupDirectory();
 
             // Check for updates.
+            Logger.Info("Checking for updates.");
             AutoUpdater.OpenDownloadPage = true;
             AutoUpdater.Start(Properties.Resources.app_update);
         }
 
         /// <summary>
-        ///     Downloads the latest version of a given HUD.
+        ///     Download the HUD using the provided URL.
         /// </summary>
         /// <param name="url">URL from which to download the HUD.</param>
         public static void DownloadHud(string url)
         {
+            Logger.Info($"Downloading from: {url}");
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -68,24 +73,12 @@ namespace TF2HUD.Editor
         /// <summary>
         ///     Check if Team Fortress 2 is currently running.
         /// </summary>
+        /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
         public static bool CheckGameStatus()
         {
-            if (!Process.GetProcessesByName("hl2").Any()) return true;
+            if (!Process.GetProcessesByName("hl2").Any()) return false;
             ShowMessageBox(MessageBoxImage.Warning, Properties.Resources.info_game_running);
-            return false;
-        }
-
-        /// <summary>
-        ///     Setup the main page and change to the previously selected HUD.
-        /// </summary>
-        public void SetupMenu()
-        {
-            // Restore the last selected HUD
-            SetPageView();
-
-            // Reload the HUD selection list.
-            LbSelectHud.Items.Clear();
-            foreach (var hud in Json.HUDs) LbSelectHud.Items.Add(hud.Name);
+            return true;
         }
 
         /// <summary>
@@ -96,8 +89,8 @@ namespace TF2HUD.Editor
         {
             if (!SearchRegistry() && !CheckUserPath() || userSet)
             {
-                // Setup the folder browser.
-                Logger.Info("Setting the tf/custom directory. Opening folder browser, asking the user.");
+                // Display a folder browser, ask the user to provide the tf/custom directory.
+                Logger.Info("Opening a folder browser to get the tf/custom directory from the user.");
                 using (var browser = new FolderBrowserDialog
                 {
                     Description = Properties.Resources.info_folder_browser,
@@ -105,7 +98,7 @@ namespace TF2HUD.Editor
                     ShowNewFolderButton = true
                 })
                 {
-                    // Loop until the user provides a directory with tf/custom, unless they cancel out.
+                    // Loop until the user provides a valid tf/custom directory, unless they cancel out.
                     while (!browser.SelectedPath.EndsWith("tf\\custom"))
                         if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
                             browser.SelectedPath.EndsWith("tf\\custom"))
@@ -113,7 +106,7 @@ namespace TF2HUD.Editor
                             Settings.Default.hud_directory = browser.SelectedPath;
                             Settings.Default.Save();
                             HudPath = Settings.Default.hud_directory;
-                            Logger.Info("Directory has been set to " + Settings.Default.hud_directory);
+                            Logger.Info("tf/custom directory has been set to: " + Settings.Default.hud_directory);
                         }
                         else
                         {
@@ -124,78 +117,80 @@ namespace TF2HUD.Editor
                 // Check one more time if a valid directory has been set.
                 if (!CheckUserPath())
                 {
-                    Logger.Error("Unable to set the tf/custom directory. Exiting.");
+                    Logger.Info("Unable to set the tf/custom directory. Exiting.");
                     ShowMessageBox(MessageBoxImage.Warning, Properties.Resources.error_app_directory);
                     Application.Current.Shutdown();
                 }
             }
 
             CleanDirectory();
-            SetFormControls();
+            SetPageControls();
         }
 
         /// <summary>
         ///     Cleans up the tf/custom and editor directories.
         /// </summary>
-        private void CleanDirectory()
+        private static void CleanDirectory()
         {
-            Logger.Info($"Cleaning-up {HudSelection} directories...");
-
-            // Clean the application directory
+            // Clean the application directory.
             if (File.Exists(Directory.GetCurrentDirectory() + "\\temp.zip"))
+            {
+                Logger.Info("Found a temp file from the previous download attempt. Removing.");
                 File.Delete(Directory.GetCurrentDirectory() + "\\temp.zip");
+            }
 
-            // Clean the tf/custom directory
+            // Clean the tf/custom directory.
             var hudDirectory = Directory.Exists(HudPath + $"\\{HudSelection}-master")
                 ? HudPath + $"\\{HudSelection}-master"
                 : string.Empty;
 
-            if (!string.IsNullOrEmpty(hudDirectory))
-            {
-                // Remove the previous backup, if found.
-                if (File.Exists(HudPath + $"\\{HudSelection}-backup.zip"))
-                    File.Delete(HudPath + $"\\{HudSelection}-backup.zip");
+            // If the tf/custom directory is not yet set, then exit.
+            if (string.IsNullOrEmpty(hudDirectory)) return;
 
-                // Create a backup of an existing HUD installation.
-                Logger.Info($"Found a {HudSelection} installation. Creating a back-up.");
-                ZipFile.CreateFromDirectory(hudDirectory, HudPath + $"\\{HudSelection}-backup.zip");
-                Directory.Delete(hudDirectory, true);
-                ShowMessageBox(MessageBoxImage.Information,
-                    string.Format(Properties.Resources.info_create_backup, HudSelection));
+            // If found, remove the existing backup file.
+            if (File.Exists(HudPath + $"\\{HudSelection}-backup.zip"))
+            {
+                Logger.Info("Found a backup file from the previous HUD installation. Removing.");
+                File.Delete(HudPath + $"\\{HudSelection}-backup.zip");
             }
 
-            Logger.Info("Cleaning-up HUD directories...Done!");
+            // Create a new backup of an existing HUD installation.
+            Logger.Info("Found an existing HUD installation. Creating a new backup.");
+            ZipFile.CreateFromDirectory(hudDirectory, HudPath + $"\\{HudSelection}-backup.zip");
+            Directory.Delete(hudDirectory, true);
+            ShowMessageBox(MessageBoxImage.Information,
+                string.Format(Properties.Resources.info_create_backup, HudSelection));
         }
 
         /// <summary>
         ///     Search registry for the Team Fortress 2 installation directory.
         /// </summary>
+        /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
         public static bool SearchRegistry()
         {
-            Logger.Info("Looking for the Team Fortress 2 directory...");
+            // Try to find the Steam library path in the registry.
             var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
             var registry = (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
                 "InstallPath", null);
-            if (!string.IsNullOrWhiteSpace(registry))
-            {
-                registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
-                if (Directory.Exists(registry))
-                {
-                    Settings.Default.hud_directory = registry;
-                    Settings.Default.Save();
-                    Logger.Info("Directory found at " + registry);
-                    return true;
-                }
-            }
 
-            Logger.Info("Directory not found. Continuing...");
-            return false;
+            if (string.IsNullOrWhiteSpace(registry)) return false;
+
+            // Found the Steam library path, now try to find the TF2 path.
+            registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
+
+            if (!Directory.Exists(registry)) return false;
+
+            Logger.Info("Found the TF2 path in the registry at: " + registry);
+            Settings.Default.hud_directory = registry;
+            Settings.Default.Save();
+            return true;
         }
 
         /// <summary>
         ///     Check if the currently selected HUD is installed in the tf/custom directory.
         /// </summary>
-        public bool CheckHudPath()
+        /// <returns>True if the selected HUD is in the tf/custom directory.</returns>
+        public static bool CheckHudPath()
         {
             return Directory.Exists(HudPath + "\\" + HudSelection);
         }
@@ -203,6 +198,7 @@ namespace TF2HUD.Editor
         /// <summary>
         ///     Check if the set tf/custom directory is valid.
         /// </summary>
+        /// <returns>True if the set tf/custom directory is valid.</returns>
         public static bool CheckUserPath()
         {
             return !string.IsNullOrWhiteSpace(HudPath) && HudPath.EndsWith("tf\\custom");
@@ -211,7 +207,7 @@ namespace TF2HUD.Editor
         /// <summary>
         ///     Update editor controls, such as labels and buttons.
         /// </summary>
-        public void SetFormControls()
+        public void SetPageControls()
         {
             // If the HUD Selection is visible, disable most control buttons.
             if (GbSelectHud.Visibility == Visibility.Visible)
@@ -220,7 +216,6 @@ namespace TF2HUD.Editor
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnReset.IsEnabled = false;
-
                 BtnSteam.IsEnabled = false;
                 BtnGitHub.IsEnabled = false;
                 BtnHuds.IsEnabled = false;
@@ -255,17 +250,88 @@ namespace TF2HUD.Editor
         }
 
         /// <summary>
-        ///     Display a message box and log the exception message.
+        ///     Display a message box with a message to the user and log it.
         /// </summary>
-        public static MessageBoxResult ShowMessageBox(MessageBoxImage type, string message, string exception = null,
+        public static MessageBoxResult ShowMessageBox(MessageBoxImage type, string message,
             MessageBoxButton buttons = MessageBoxButton.OK)
         {
-            if (!string.IsNullOrEmpty(exception)) Logger.Debug(exception);
-            return MessageBox.Show($"{message} {exception}", string.Empty, buttons, type);
+            if (type == MessageBoxImage.Error)
+                Logger.Error(message);
+            else
+                Logger.Info(message);
+
+            return MessageBox.Show(message, string.Empty, buttons, type);
+        }
+
+
+        /// <summary>
+        ///     Update the page view to the selected HUD.
+        /// </summary>
+        private void SetPageView()
+        {
+            try
+            {
+                // Display a list of available HUDs if a HUD selection has not been set.
+                GbSelectHud.Visibility = string.IsNullOrWhiteSpace(Settings.Default.hud_selected)
+                    ? Visibility.Visible
+                    : Visibility.Hidden;
+                EditorContainer.Children.Clear();
+
+                // If there's a HUD selection, generate the controls for that HUD's page.
+                if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
+                var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+                EditorContainer.Children.Add(selection.GetControls());
+
+                // Maximize the application window if a given HUD schema requests it.
+                Application.Current.MainWindow.WindowState =
+                    selection.Maximize ? WindowState.Maximized : WindowState.Normal;
+            }
+            catch (Exception e)
+            {
+                ShowMessageBox(MessageBoxImage.Error, e.Message);
+            }
         }
 
         /// <summary>
-        ///     Invokes HUD installation or setting the tf/custom directory, if not already set.
+        ///     Change the page background to a given color or image, if provided.
+        /// </summary>
+        private void SetPageBackground()
+        {
+            // Reset the application to the default background color.
+            if (GbSelectHud.Visibility == Visibility.Visible)
+            {
+                var converter = new BrushConverter();
+                MainGrid.Background = (Brush) converter.ConvertFromString("#2B2724");
+                return;
+            }
+
+            // If a HUD is selected, retrieve the set Background value if available.
+            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
+            var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+            if (selection.Background == null) return;
+
+            if (selection.Background.StartsWith("http"))
+            {
+                // The Background is a URL, attempt to download and load the image from the Internet.
+                MainGrid.Background = new ImageBrush
+                {
+                    Stretch = Stretch.UniformToFill,
+                    Opacity = selection.Opacity,
+                    ImageSource = new BitmapImage(new Uri(selection.Background, UriKind.RelativeOrAbsolute))
+                };
+            }
+            else
+            {
+                // The Background is an RGBA color code, change it to ARGB and set it as the background.
+                var colors = Array.ConvertAll(selection.Background.Split(' '), byte.Parse);
+                MainGrid.Background = new SolidColorBrush(Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
+            }
+        }
+
+        #region CLICK_EVENTS
+
+        /// <summary>
+        ///     Invoke HUD installation or setting the tf/custom directory, if not already set.
         /// </summary>
         private void BtnInstall_OnClick(object sender, RoutedEventArgs e)
         {
@@ -274,37 +340,33 @@ namespace TF2HUD.Editor
                 // Force the user to set a directory before installing.
                 if (!CheckUserPath())
                 {
-                    Logger.Info("Opening Directory Browser...");
                     SetupDirectory(true);
                     return;
                 }
 
-                // Check if Team Fortress 2 is running before proceeding.
-                if (!CheckGameStatus()) return;
+                // Stop the process if Team Fortress 2 is still running.
+                if (CheckGameStatus()) return;
 
                 var worker = new BackgroundWorker();
                 worker.DoWork += (_, _) =>
                 {
                     Dispatcher.Invoke(() =>
                     {
-                        // Step 1. Download the HUD
-                        Logger.Info($"Downloading the latest {Settings.Default.hud_selected}...");
+                        // Step 1. Retrieve the HUD object, then download and extract it into the tf/custom directory.
                         Json.GetHUDByName(Settings.Default.hud_selected).Update();
-
-                        // Step 2. Extract the HUD
-                        Logger.Info($"Extracting {HudSelection} to {HudPath}");
+                        Logger.Info($"Extracting {HudSelection} into {HudPath}");
                         ZipFile.ExtractToDirectory(Directory.GetCurrentDirectory() + "\\temp.zip", HudPath);
 
-                        // Step 3. Clear out tf/custom of other installed HUDs.
+                        // Step 2. Clear tf/custom directory of other installed HUDs.
                         foreach (var x in LbSelectHud.Items)
-                            if (Directory.Exists(HudPath + "\\" + x.ToString().ToLowerInvariant()))
-                                Directory.Delete(HudPath + "\\" + x.ToString().ToLowerInvariant(), true);
+                            if (Directory.Exists(HudPath + "\\" + x.ToString()?.ToLowerInvariant()))
+                                Directory.Delete(HudPath + "\\" + x.ToString()?.ToLowerInvariant(), true);
 
-                        // Step 4. Update the HUD name by removing the -master suffix.
+                        // Step 3. Remove the -master suffix from the downloaded HUD.
                         if (Directory.Exists(HudPath + $"\\{HudSelection}-master"))
                             Directory.Move(HudPath + $"\\{HudSelection}-master", HudPath + $"\\{HudSelection}");
 
-                        // Step 5. Clean up the directories and apply user settings.
+                        // Step 4. Clean up, check user settings and reload the page UI.
                         CleanDirectory();
 
                         if (!string.IsNullOrWhiteSpace(HudSelection))
@@ -315,7 +377,7 @@ namespace TF2HUD.Editor
                             EditorContainer.Children.Add(selection.GetControls());
                         }
 
-                        SetFormControls();
+                        SetPageControls();
                     });
                 };
                 worker.RunWorkerCompleted += (_, _) =>
@@ -329,12 +391,12 @@ namespace TF2HUD.Editor
             catch (Exception ex)
             {
                 ShowMessageBox(MessageBoxImage.Error,
-                    string.Format(Properties.Resources.error_app_install, HudSelection), ex.Message);
+                    $"{string.Format(Properties.Resources.error_app_install, HudSelection)} {ex.Message}");
             }
         }
 
         /// <summary>
-        ///     Invokes HUD deletion from the tf/custom directory.
+        ///     Invoke HUD deletion from the tf/custom directory.
         /// </summary>
         private void BtnUninstall_OnClick(object sender, RoutedEventArgs e)
         {
@@ -343,10 +405,10 @@ namespace TF2HUD.Editor
                 // Check if the HUD is installed in a valid directory.
                 if (!CheckHudPath()) return;
 
-                // Check if Team Fortress 2 is running before proceeding.
-                if (!CheckGameStatus()) return;
+                // Stop the process if Team Fortress 2 is still running.
+                if (CheckGameStatus()) return;
 
-                // Uninstall the HUD
+                // Remove the HUD from the tf/custom directory.
                 Logger.Info($"Uninstalling {HudSelection}...");
                 Directory.Delete(HudPath + $"\\{HudSelection}", true);
                 LblStatus.Content = $"Uninstalled {HudSelection} at " + DateTime.Now;
@@ -357,12 +419,12 @@ namespace TF2HUD.Editor
             catch (Exception ex)
             {
                 ShowMessageBox(MessageBoxImage.Error,
-                    string.Format(Properties.Resources.error_app_uninstall, HudSelection), ex.Message);
+                    $"{string.Format(Properties.Resources.error_app_uninstall, HudSelection)} {ex.Message}");
             }
         }
 
         /// <summary>
-        ///     Saves and applies user selected settings for the given HUD.
+        ///     Save and apply user settings to the HUD files.
         /// </summary>
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
@@ -380,18 +442,21 @@ namespace TF2HUD.Editor
             };
             worker.RunWorkerAsync();
             LblStatus.Content = "Settings Applied at " + DateTime.Now;
+            Logger.Info("Applying HUD Settings...Done!");
         }
 
         /// <summary>
-        ///     Resets settings of the selected HUD.
+        ///     Reset user settings for the selected HUD to default.
         /// </summary>
         private void BtnReset_OnClick(object sender, RoutedEventArgs e)
         {
-            // Reset settings of the selected HUD.
+            Logger.Info("Resetting HUD Settings...");
             var selection = Json.GetHUDByName(Settings.Default.hud_selected);
             selection.Reset();
             selection.Settings.SaveSettings();
+            selection.ApplyCustomization();
             LblStatus.Content = "Settings Reset at " + DateTime.Now;
+            Logger.Info("Resetting HUD Settings...Done!");
         }
 
         /// <summary>
@@ -403,15 +468,33 @@ namespace TF2HUD.Editor
         }
 
         /// <summary>
-        ///     Goes back to the HUD Selection view.
+        ///     Return to the HUD selection page.
         /// </summary>
         private void BtnSwitch_OnClick(object sender, RoutedEventArgs e)
         {
             LbSelectHud.UnselectAll();
             GbSelectHud.Visibility = Visibility.Visible;
             EditorContainer.Children.Clear();
-            SetFormControls();
-            SetBackground();
+            SetPageControls();
+            SetPageBackground();
+        }
+
+        private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
+            Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).SteamUrl);
+        }
+
+        private void BtnGitHub_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
+            Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).GitHubUrl);
+        }
+
+        private void BtnHuds_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
+            Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).HudsTfUrl);
         }
 
         /// <summary>
@@ -419,103 +502,20 @@ namespace TF2HUD.Editor
         /// </summary>
         private void lbSelectHud_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            // Break if the selection is invalid.
             if (LbSelectHud.SelectedIndex == -1) return;
+
             // Save the selected HUD.
-            Settings.Default.hud_selected = LbSelectHud.SelectedValue.ToString().ToLowerInvariant();
+            Settings.Default.hud_selected = LbSelectHud.SelectedValue.ToString()?.ToLowerInvariant();
             Settings.Default.Save();
             HudSelection = Settings.Default.hud_selected;
 
-            // Change the page view to the selected HUD.
+            // Change the page view and update the controls.
             SetPageView();
-            SetBackground();
-
-            // Update the control buttons.
-            SetFormControls();
+            SetPageBackground();
+            SetPageControls();
         }
 
-        /// <summary>
-        ///     Update the page view to the selected HUD.
-        /// </summary>
-        private void SetPageView()
-        {
-            try
-            {
-                GbSelectHud.Visibility = string.IsNullOrWhiteSpace(Settings.Default.hud_selected) ? Visibility.Visible : Visibility.Hidden;
-                EditorContainer.Children.Clear();
-                // Application.Current.MainWindow.WindowState = string.Equals(Settings.Default.hud_selected, "rayshud")
-                //     ? WindowState.Maximized
-                //     : WindowState.Normal;
-
-                if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
-                var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-                EditorContainer.Children.Clear();
-                EditorContainer.Children.Add(selection.GetControls());
-                // selection.Load();
-            }
-            catch (Exception error)
-            {
-                MessageBox.Show(error.ToString());
-            }
-        }
-
-        private void SetBackground()
-        {
-            if (GbSelectHud.Visibility == Visibility.Visible)
-            {
-                var converter = new System.Windows.Media.BrushConverter();
-                var brush = (System.Windows.Media.Brush)converter.ConvertFromString("#2B2724");
-                Application.Current.MainWindow.Background = brush;
-            }
-            else
-            {
-                if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
-                var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-                if (selection.Background == null) return;
-
-                if (selection.Background.StartsWith("http"))
-                {
-                    var brush = new System.Windows.Media.ImageBrush()
-                    {
-                        Stretch = System.Windows.Media.Stretch.UniformToFill,
-                        Opacity = 0.5
-                    };
-                    brush.ImageSource = new System.Windows.Media.Imaging.BitmapImage(new Uri(selection.Background, UriKind.RelativeOrAbsolute));
-                    Application.Current.MainWindow.Background = brush;
-                }
-                else
-                {
-                    var colors = Array.ConvertAll(selection.Background.Split(' '), c => byte.Parse(c));
-                    var brush = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
-                    Application.Current.MainWindow.Background = brush;
-                }
-            }
-        }
-
-        /// <summary>
-        ///     Link button to open the Steam Group page.
-        /// </summary>
-        private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
-            Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).SteamUrl);
-        }
-
-        /// <summary>
-        ///     Link button to open the GitHub repository page.
-        /// </summary>
-        private void BtnGitHub_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
-            Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).GitHubUrl);
-        }
-
-        /// <summary>
-        ///     Link button to open the HUDS.TF page.
-        /// </summary>
-        private void BtnHuds_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
-            Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).HudsTfUrl);
-        }
+        #endregion
     }
 }

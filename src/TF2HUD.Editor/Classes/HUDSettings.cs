@@ -4,89 +4,112 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Media;
-using TF2HUD.Editor.JSON;
 using Newtonsoft.Json;
+using TF2HUD.Editor.JSON;
 
 namespace TF2HUD.Editor.Classes
 {
     public class HUDSettings
     {
-        private static string FilePath = $"{Application.LocalUserAppDataPath}\\settings.json";
-        private static List<Setting> userSettings = File.Exists(HUDSettings.FilePath) ? JsonConvert.DeserializeObject<Dictionary<string, List<Setting>>>(File.ReadAllText(FilePath))["Settings"] : new List<Setting>();
+        private static readonly string UserFile = $"{Application.LocalUserAppDataPath}\\settings.json";
+
+        private static readonly List<Setting> UserSettings = File.Exists(UserFile)
+            ? JsonConvert.DeserializeObject<Dictionary<string, List<Setting>>>(File.ReadAllText(UserFile))?["Settings"]
+            : new List<Setting>();
 
         public string HUDName;
 
-        public HUDSettings(string Name)
+        public HUDSettings(string name)
         {
-            this.HUDName = Name;
+            HUDName = name;
 
-            // Write empty settings object to file as creating without Settings key causes a null
-            // reference if settings are not saved by next application start
-            if (!File.Exists(HUDSettings.FilePath)) File.WriteAllText(HUDSettings.FilePath, "{ \"Settings\": [] }");
+            // Write empty settings object to file as creating without Settings key causes a null reference if settings are not saved by next application start
+            if (!File.Exists(UserFile)) File.WriteAllText(UserFile, "{ \"Settings\": [] }");
         }
 
         /// <summary>
-        ///     Create new a setting
+        ///     Add a new setting to user settings.
         /// </summary>
-        public void AddSetting(string Name, Controls Options)
+        public void AddSetting(string name, Controls control)
         {
-            var setting = HUDSettings.userSettings.Where((x) => x.Name == Name).FirstOrDefault();
-            if (setting == null)
-            {
-                HUDSettings.userSettings.Add(new Setting
+            if (UserSettings.FirstOrDefault(x => x.Name == name) == null)
+                UserSettings.Add(new Setting
                 {
-                    HUD = this.HUDName,
-                    Name = Name,
-                    Type = Options.Type,
-                    Value = Options.Default
+                    HUD = HUDName,
+                    Name = name,
+                    Type = control.Type,
+                    Value = control.Default
                 });
-            }
         }
 
-        public Setting GetSetting(string Key)
+        /// <summary>
+        ///     Retrieve a specific user setting by name.
+        /// </summary>
+        /// <param name="name">Name of the setting to retrieve.</param>
+        public Setting GetSetting(string name)
         {
-            var setting = HUDSettings.userSettings.Where((x) => x.Name == Key).First();
-            return setting;
+            return UserSettings.First(x => x.Name == name);
         }
 
-        public dynamic GetSetting(string Key, bool returnVal)
+        /// <summary>
+        ///     Retrieve a specific user setting or just the value, by name.
+        /// </summary>
+        /// <param name="name">Name of the setting to retrieve.</param>
+        /// <param name="returnVal">
+        ///     Indicate if you want to retrieve just the setting value (true) or the whole setting object (false).
+        /// </param>
+        public dynamic GetSetting(string name, bool returnVal)
         {
-            var setting = HUDSettings.userSettings.Where((x) => x.Name == Key).First();
+            var setting = UserSettings.First(x => x.Name == name);
             return returnVal ? setting.Value : setting;
         }
 
-        public T GetSetting<T>(string Key, bool returnVal = false)
+        /// <summary>
+        ///     Retrieve a specific user setting or just the value, by name.
+        /// </summary>
+        /// <param name="name">Name of the setting to retrieve.</param>
+        public T GetSetting<T>(string name)
         {
-            var setting = HUDSettings.userSettings.Where((x) => x.Name == Key).First();
+            var setting = UserSettings.First(x => x.Name == name);
             var value = setting.Value;
 
             switch (typeof(T).Name)
             {
                 case "Boolean":
-                    bool evaluatedValue = (value is "1" or "True" or "true");
-                    return (T)(object)evaluatedValue;
+                    var evaluatedValue = value is "1" or "True" or "true";
+                    return (T) (object) evaluatedValue;
                 case "Color":
-                    var colors = Array.ConvertAll(value.Split(' '), c => byte.Parse(c));
-                    return (T)(object)Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                    var colors = Array.ConvertAll(value.Split(' '), byte.Parse);
+                    return (T) (object) Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
                 case "Int32":
-                    return (T)(object)int.Parse(value);
+                    return (T) (object) int.Parse(value);
                 case "String":
-                    return (T)(object)value.ToString();
+                    return (T) (object) value;
                 default:
                     throw new Exception($"Unexpected setting type {typeof(T).Name}!");
             }
         }
 
-        public void SetSetting(string Key, string Value)
+        /// <summary>
+        ///     Set a new user setting value.
+        /// </summary>
+        /// <param name="name">Name of the setting to update.</param>
+        /// <param name="value">New value for updating setting.</param>
+        public void SetSetting(string name, string value)
         {
-            HUDSettings.userSettings.Where((x) => x.Name == Key).First().Value = Value;
+            UserSettings.First(x => x.Name == name).Value = value;
         }
 
+        /// <summary>
+        ///     Save a user setting value to file.
+        /// </summary>
         public void SaveSettings()
         {
-            var SettingsContainer = new Dictionary<string, List<Setting>>();
-            SettingsContainer["Settings"] = HUDSettings.userSettings;
-            File.WriteAllText(HUDSettings.FilePath, JsonConvert.SerializeObject(SettingsContainer, Formatting.Indented));
+            var SettingsContainer = new Dictionary<string, List<Setting>>
+            {
+                ["Settings"] = UserSettings
+            };
+            File.WriteAllText(UserFile, JsonConvert.SerializeObject(SettingsContainer, Formatting.Indented));
         }
     }
 }

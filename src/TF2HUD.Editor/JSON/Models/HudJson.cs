@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Newtonsoft.Json.Linq;
 using System.Windows;
+using Newtonsoft.Json.Linq;
 
 namespace TF2HUD.Editor.JSON
 {
@@ -10,12 +10,14 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("Background")] public string Background;
         [JsonPropertyName("Controls")] public Dictionary<string, Controls[]> Controls;
 
-        [JsonPropertyName("CustomisationsFolder")]
-        public string CustomisationsFolder;
+        [JsonPropertyName("CustomizationsFolder")]
+        public string CustomizationsFolder;
 
         [JsonPropertyName("EnabledFolder")] public string EnabledFolder;
         [JsonPropertyName("Layout")] public string[] Layout;
         [JsonPropertyName("Links")] public Links Links;
+        [JsonPropertyName("Maximize")] public bool Maximize;
+        [JsonPropertyName("Opacity")] public double Opacity = 0.5;
     }
 
     public class Links
@@ -30,6 +32,8 @@ namespace TF2HUD.Editor.JSON
     public class Controls
     {
         [JsonPropertyName("ComboFiles")] public string[] ComboFiles;
+
+        public UIElement Control;
         [JsonPropertyName("Default")] public string Default = "0";
         [JsonPropertyName("FileName")] public string FileName;
         [JsonPropertyName("Files")] public JObject Files;
@@ -42,8 +46,6 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("Pulse")] public bool Pulse;
         [JsonPropertyName("Special")] public string Special;
         [JsonPropertyName("Type")] public string Type;
-
-        public UIElement Control;
     }
 
     public class Option

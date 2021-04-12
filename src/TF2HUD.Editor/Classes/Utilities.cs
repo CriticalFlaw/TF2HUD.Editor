@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
 using TF2HUD.Editor.JSON;
 
 namespace TF2HUD.Editor.Classes
 {
     public static class Utilities
     {
-        public static List<Tuple<string, string, string>> itemRarities = new()
+        public static List<Tuple<string, string, string>> ItemRarities = new()
         {
             new Tuple<string, string, string>("QualityColorNormal", "DimmQualityColorNormal",
                 "QualityColorNormal_GreyedOut"),
@@ -45,51 +44,56 @@ namespace TF2HUD.Editor.Classes
         };
 
         /// <summary>
-        ///     Clear all existing comment identifiers, then apply a fresh one.
+        ///     Add a comment tag (//) to the beginning of a text line.
         /// </summary>
-        public static string CommentOutTextLine(string value)
+        /// <param name="value">String value to which to add a comment tag.</param>
+        public static string CommentTextLine(string value)
         {
             return string.Concat("//", value.Replace("//", string.Empty));
         }
 
         /// <summary>
-        ///     Clear all existing comment identifiers, then apply a fresh one.
+        ///     Remove all comment tags (//) from a text line.
         /// </summary>
-        public static string UncommentOutTextLine(string value)
+        /// <param name="value">String value from which to remove a comment tag.</param>
+        public static string UncommentTextLine(string value)
         {
             return value.Replace("//", string.Empty);
         }
 
         /// <summary>
-        ///     Clear all existing comment identifiers, then apply a fresh one.
+        ///     Get a list of line numbers containing a given string.
         /// </summary>
-        public static List<int> GetStringIndexes(string[] lines, string text)
+        /// <param name="lines">An array of lines to loop through.</param>
+        /// <param name="value">String value to look for in the list of lines.</param>
+        public static List<int> GetLineNumbersContainingString(string[] lines, string value)
         {
+            // Loop through each line in the array, add any line number containing the value parameter to the list.
             var indexList = new List<int>();
             for (var x = 0; x < lines.Length; x++)
-                if (lines[x].Contains(text) || lines[x].Contains(text.Replace(" ", "\t")))
+                if (lines[x].Contains(value) || lines[x].Contains(value.Replace(" ", "\t")))
                     indexList.Add(x);
             return indexList;
         }
 
         /// <summary>
-        ///     Convert HEX code to an RGBA value.
+        ///     Convert a HEX color code to RGBA.
         /// </summary>
-        /// <param name="hex">HEX code of the color to be converted to RGBA.</param>
-        public static string RgbaConverter(string hex)
+        /// <param name="hex">HEX color code to be convert to RGBA.</param>
+        public static string ConvertToRgba(string hex)
         {
             var color = ColorTranslator.FromHtml(hex);
             return $"{color.R} {color.G} {color.B} {color.A}";
         }
 
         /// <summary>
-        ///     Get a pulsed color by reducing a given color channel by 50.
+        ///     Get a pulsed color by reducing a color channel value by 50.
         /// </summary>
-        /// <param name="rgba">RGBA color that will have its alpha value reduced.</param>
-        /// <param name="index">Index value for a color in the RGBA to "pulse".</param>
+        /// <param name="rgba">RGBA color code to process.</param>
         public static string GetPulsedColor(string rgba)
         {
-            var colors = Array.ConvertAll(rgba.Split(' '), x => int.Parse(x));
+            // Split the RGBA string into an array of integers.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
 
             // Apply the pulse change and return the color.
             colors[^1] = colors[^1] >= 50 ? colors[^1] - 50 : colors[^1];
@@ -97,12 +101,13 @@ namespace TF2HUD.Editor.Classes
         }
 
         /// <summary>
-        ///     Get a dimmed color by reducing the alpha channel to 100.
+        ///     Get a dimmed color by setting the alpha channel to 100.
         /// </summary>
-        /// <param name="rgba">RGBA color that will have its alpha value reduced.</param>
+        /// <param name="rgba">RGBA color code to process.</param>
         public static string GetDimmedColor(string rgba)
         {
-            var colors = Array.ConvertAll(rgba.Split(' '), x => int.Parse(x));
+            // Split the RGBA string into an array of integers.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
 
             // Return the color with a reduced alpha channel.
             return $"{colors[0]} {colors[1]} {colors[2]} 100";
@@ -111,10 +116,11 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Get a grayed color by reducing each color channel by 75%.
         /// </summary>
-        /// <param name="rgba">RGBA color that will have its alpha value reduced.</param>
+        /// <param name="rgba">RGBA color code to process.</param>
         public static string GetGrayedColor(string rgba)
         {
-            var colors = Array.ConvertAll(rgba.Split(' '), x => int.Parse(x));
+            // Split the RGBA string into an array of integers.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
 
             // Reduce each color channel (except alpha) by 75%, then return the color.
             for (var x = 0; x < colors.Length; x++)
@@ -122,52 +128,49 @@ namespace TF2HUD.Editor.Classes
             return $"{colors[0]} {colors[1]} {colors[2]} 255";
         }
 
+        /// <summary>
+        ///     Open the provided path in browser or Windows Explorer.
+        /// </summary>
+        /// <param name="url">URL link to open.</param>
         public static void OpenWebpage(string url)
         {
             Process.Start("explorer", url);
         }
 
-        public static void Merge(Dictionary<string, dynamic> Obj1, Dictionary<string, dynamic> Obj2)
+        /// <summary>
+        ///     Get the filename from the HUD schema control using a string value.
+        /// </summary>
+        /// <param name="control">Schema control to retrieve file names from.</param>
+        internal static dynamic GetFileNames(Controls control)
+        {
+            if (!string.IsNullOrWhiteSpace(control.FileName))
+                return control.FileName.Replace(".res", string.Empty);
+            return control.ComboFiles;
+        }
+
+        /// <summary>
+        ///     TODO: Add comment explaining this method.
+        /// </summary>
+        /// <param name="object1"></param>
+        /// <param name="object2"></param>
+        public static void Merge(Dictionary<string, dynamic> object1, Dictionary<string, dynamic> object2)
         {
             try
             {
-
-                foreach (var i in Obj1.Keys)
-                    if (Obj1[i].GetType() == typeof(Dictionary<string, dynamic>))
+                foreach (var key in object1.Keys)
+                    if (object1[key].GetType() == typeof(Dictionary<string, dynamic>))
                     {
-                        if (Obj2.ContainsKey(i) && Obj2[i].GetType() == typeof(Dictionary<string, dynamic>)) Merge(Obj1[i], Obj2[i]);
+                        if (object2.ContainsKey(key) && object2[key].GetType() == typeof(Dictionary<string, dynamic>))
+                            Merge(object1[key], object2[key]);
                     }
                     else
                     {
-                        if (Obj2.ContainsKey(i)) Obj1[i] = Obj2[i];
+                        if (object2.ContainsKey(key))
+                            object1[key] = object2[key];
                     }
 
-                foreach (var j in Obj2.Keys)
-                    if (!Obj1.ContainsKey(j))
-                        Obj1[j] = Obj2[j];
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> Obj,
-            IEnumerable<string> Keys)
-        {
-            try
-            {
-
-                var ObjectReference = Obj;
-                foreach (var Key in Keys)
-                {
-                    if (!ObjectReference.ContainsKey(Key))
-                        ObjectReference[Key] = new Dictionary<string, dynamic>();
-                    ObjectReference = ObjectReference[Key];
-                }
-
-                return ObjectReference;
+                foreach (var key in object2.Keys.Where(key => !object1.ContainsKey(key)))
+                    object1[key] = object2[key];
             }
             catch (Exception e)
             {
@@ -177,15 +180,31 @@ namespace TF2HUD.Editor.Classes
         }
 
         /// <summary>
-        ///     Retrieve the filename from the HUD schema control using a string value.
+        ///     TODO: Add comment explaining this method.
         /// </summary>
-        internal static dynamic GetFileNames(Controls control)
+        /// <param name="Obj"></param>
+        /// <param name="Keys"></param>
+        /// <returns></returns>
+        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> Obj,
+            IEnumerable<string> Keys)
         {
-            if (!string.IsNullOrWhiteSpace(control.FileName)) return control.FileName.Replace(".res", string.Empty);
+            try
+            {
+                var objectRef = Obj;
+                foreach (var Key in Keys)
+                {
+                    if (!objectRef.ContainsKey(Key))
+                        objectRef[Key] = new Dictionary<string, dynamic>();
+                    objectRef = objectRef[Key];
+                }
 
-            if (control.ComboFiles is not null) return control.ComboFiles;
-
-            return null;
+                return objectRef;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
