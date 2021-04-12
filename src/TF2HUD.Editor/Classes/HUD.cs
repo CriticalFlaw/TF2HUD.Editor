@@ -184,7 +184,12 @@ namespace TF2HUD.Editor.Classes
                             checkBoxInput.Checked += (sender, e) =>
                             {
                                 var input = sender as CheckBox;
-                                Settings.SetSetting(input.Name, input.IsChecked.ToString());
+                                Settings.SetSetting(input.Name, "True");
+                            };
+                            checkBoxInput.Unchecked += (sender, e) =>
+                            {
+                                var input = sender as CheckBox;
+                                Settings.SetSetting(input.Name, "False");
                             };
                             //lastMargin = checkBoxInput.Margin;
                             sectionContent.Children.Add(checkBoxInput);

@@ -220,6 +220,10 @@ namespace TF2HUD.Editor
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnReset.IsEnabled = false;
+
+                BtnSteam.IsEnabled = false;
+                BtnGitHub.IsEnabled = false;
+                BtnHuds.IsEnabled = false;
                 return;
             }
 
@@ -233,6 +237,10 @@ namespace TF2HUD.Editor
                 BtnSave.IsEnabled = isInstalled;
                 BtnReset.IsEnabled = isInstalled;
                 LblStatus.Content = $"{HudSelection} is {(!isInstalled ? "not " : "")}installed...";
+
+                BtnSteam.IsEnabled = true;
+                BtnGitHub.IsEnabled = true;
+                BtnHuds.IsEnabled = true;
             }
             else
             {
@@ -488,6 +496,7 @@ namespace TF2HUD.Editor
         /// </summary>
         private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
             Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).SteamUrl);
         }
 
@@ -496,6 +505,7 @@ namespace TF2HUD.Editor
         /// </summary>
         private void BtnGitHub_OnClick(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
             Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).GitHubUrl);
         }
 
@@ -504,6 +514,7 @@ namespace TF2HUD.Editor
         /// </summary>
         private void BtnHuds_OnClick(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
             Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).HudsTfUrl);
         }
     }

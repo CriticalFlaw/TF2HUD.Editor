@@ -19,7 +19,10 @@ namespace TF2HUD.Editor.Classes
         public HUDSettings(string Name)
         {
             this.HUDName = Name;
-            if (!File.Exists(HUDSettings.FilePath)) File.Create(HUDSettings.FilePath);
+
+            // Write empty settings object to file as creating without Settings key causes a null
+            // reference if settings are not saved by next application start
+            if (!File.Exists(HUDSettings.FilePath)) File.WriteAllText(HUDSettings.FilePath, "{ \"Settings\": [] }");
         }
 
         /// <summary>
