@@ -63,10 +63,7 @@ namespace TF2HUD.Editor.Classes
         /// </summary>
         public Grid GetControls()
         {
-            // SetupUserSettings();
-
             if (ControlsRendered)
-                // Load();
                 return Controls;
 
             var container = new Grid();
@@ -420,6 +417,11 @@ namespace TF2HUD.Editor.Classes
                         var control = controlItem.Control;
                         switch (control)
                         {
+                            case CheckBox check:
+                                if (bool.TryParse(controlItem.Default, out var value))
+                                    check.IsChecked = value;
+                                break;
+
                             case TextBox text:
                                 text.Text = controlItem.Default;
                                 break;
@@ -478,7 +480,7 @@ namespace TF2HUD.Editor.Classes
                 {
                     var user = Settings.GetSetting(control.Name);
                     if (user is not null)
-                        WriteToFile(path, control, user, hudFolders);
+                        WriteToFile(control, user, hudFolders);
                 }
 
                 void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
@@ -649,36 +651,15 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Write user selected options to HUD files.
         /// </summary>
-        /// <param name="path">Path to the HUD installation</param>
         /// <param name="hudSetting">Settings as defined for the HUD</param>
         /// <param name="userSetting">Settings as selected by the user</param>
         /// <param name="hudFolders">folders/files/properties Dictionary to write HUD properties to</param>
-        private void WriteToFile(string path, Controls hudSetting, Setting userSetting,
-            Dictionary<string, dynamic> hudFolders)
+        private void WriteToFile(Controls hudSetting, Setting userSetting, Dictionary<string, dynamic> hudFolders)
         {
             try
             {
-                var enableStockBG = string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase);
-
-                if (string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    // Determine files using the files of the selected item's label or value
-                    // Could cause issues if label and value are both numbers but numbered differently
-                    hudSetting.Files = hudSetting.Options.Where(x => x.Label == userSetting.Value || x.Value == userSetting.Value).First().Files;
-
-                    for (var x = 0; x < hudSetting.Options.Length; x++)
-                        if (hudSetting.Options[x].Special is not null)
-                        {
-                            hudSetting.Special = hudSetting.Options[x].Special;
-                            if (hudSetting.Options[x].Value == userSetting.Value)
-                                enableStockBG = true;
-                        }
-                }
-
-                if (hudSetting.Special is not null)
-                    if (string.Equals(hudSetting.Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
-                        custom.SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console",
-                            enableStockBG);
+                // Check for special case conditions, namely toggling stock backgrounds.
+                EnableStockBackgrounds(hudSetting, userSetting);
 
                 if (hudSetting.Files == null) return;
 
@@ -709,7 +690,7 @@ namespace TF2HUD.Editor.Classes
                             var currentObj = property.Value.ToObject<JObject>();
 
                             if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
-                                hudElement[property.Key] = currentObj[userSetting.Value];
+                                hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()];
                             else
                                 hudElement[property.Key] = CompileHudElement(currentObj, filePath);
                         }
@@ -1019,6 +1000,32 @@ namespace TF2HUD.Editor.Classes
             {
                 Console.WriteLine(e);
             }
+        }
+
+        private void EnableStockBackgrounds(Controls hudSetting, Setting userSetting)
+        {
+            // Check for special conditions, namely if we should enable stock backgrounds.
+            var enable = string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase);
+
+            if (string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
+            {
+                // Determine files using the files of the selected item's label or value
+                // Could cause issues if label and value are both numbers but numbered differently
+                hudSetting.Files = hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value).Files;
+
+                foreach (var option in hudSetting.Options)
+                    if (option.Special is not null)
+                    {
+                        hudSetting.Special = option.Special;
+                        if (option.Value == userSetting.Value)
+                            enable = true;
+                    }
+            }
+
+            if (hudSetting.Special is null) return;
+
+            if (string.Equals(hudSetting.Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
+                custom.SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console", enable);
         }
     }
 }

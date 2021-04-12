@@ -129,33 +129,51 @@ namespace TF2HUD.Editor.Classes
 
         public static void Merge(Dictionary<string, dynamic> Obj1, Dictionary<string, dynamic> Obj2)
         {
-            foreach (var i in Obj1.Keys)
-                if (Obj1[i].GetType() == typeof(Dictionary<string, dynamic>))
-                {
-                    if (Obj2.ContainsKey(i) && Obj2[i].GetType() == typeof(Dictionary<string, dynamic>)) Merge(Obj1[i], Obj2[i]);
-                }
-                else
-                {
-                    if (Obj2.ContainsKey(i)) Obj1[i] = Obj2[i];
-                }
+            try
+            {
 
-            foreach (var j in Obj2.Keys)
-                if (!Obj1.ContainsKey(j))
-                    Obj1[j] = Obj2[j];
+                foreach (var i in Obj1.Keys)
+                    if (Obj1[i].GetType() == typeof(Dictionary<string, dynamic>))
+                    {
+                        if (Obj2.ContainsKey(i) && Obj2[i].GetType() == typeof(Dictionary<string, dynamic>)) Merge(Obj1[i], Obj2[i]);
+                    }
+                    else
+                    {
+                        if (Obj2.ContainsKey(i)) Obj1[i] = Obj2[i];
+                    }
+
+                foreach (var j in Obj2.Keys)
+                    if (!Obj1.ContainsKey(j))
+                        Obj1[j] = Obj2[j];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> Obj,
             IEnumerable<string> Keys)
         {
-            var ObjectReference = Obj;
-            foreach (var Key in Keys)
+            try
             {
-                if (!ObjectReference.ContainsKey(Key))
-                    ObjectReference[Key] = new Dictionary<string, dynamic>();
-                ObjectReference = ObjectReference[Key];
-            }
 
-            return ObjectReference;
+                var ObjectReference = Obj;
+                foreach (var Key in Keys)
+                {
+                    if (!ObjectReference.ContainsKey(Key))
+                        ObjectReference[Key] = new Dictionary<string, dynamic>();
+                    ObjectReference = ObjectReference[Key];
+                }
+
+                return ObjectReference;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         /// <summary>
