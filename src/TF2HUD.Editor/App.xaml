@@ -66,7 +66,8 @@
         <Style x:Key="CrosshairBox" TargetType="ComboBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Height" Value="28" />
             <Setter Property="SelectedValuePath" Value="Content" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.otf #TF2Crosshairs" />
@@ -119,7 +120,8 @@
             <Setter Property="FontFamily" Value="../Resources/Icons.otf #Icons" />
             <Setter Property="Width" Value="50px" />
             <Setter Property="FontSize" Value="33px" />
-            <Setter Property="Foreground" Value="#EBE2CA" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="BorderThickness" Value="0" />
         </Style>
     </Application.Resources>
 </Application>

@@ -6,218 +6,217 @@ namespace TF2HUD.Editor.Classes
 {
     internal static class VDF
     {
-        public static Dictionary<string, dynamic> Parse(string Str, string OSTagDelimeter = "%")
+        public static Dictionary<string, dynamic> Parse(string text, string osTagDelimiter = "^")
         {
-            var i = 0;
-            char[] WhiteSpaceIgnore = {' ', '\t', '\r', '\n'};
+            var index = 0;
+            char[] ignoredCharacters = {' ', '\t', '\r', '\n'};
 
-            string Next(bool LookAhead = false)
+            string Next(bool lookAhead = false)
             {
-                var CurrentToken = "";
-                var j = i;
+                var currentToken = "";
+                var x = index;
 
-                if (j >= Str.Length - 1) return "EOF";
+                // Return EOF if we've reached the end of the text file.
+                if (x >= text.Length - 1) return "EOF";
 
-                while ((WhiteSpaceIgnore.Contains(Str[j]) || Str[j] == '/') && j <= Str.Length - 1)
+                // Discard any text that is preempted by a comment tag (//) until the next line.
+                while ((ignoredCharacters.Contains(text[x]) || text[x] == '/') && x <= text.Length - 1)
                 {
-                    if (Str[j] == '/')
+                    if (text[x] == '/')
                     {
-                        if (Str[j + 1] == '/')
-                            while (Str[j] != '\n')
-                                j++;
+                        if (text[x + 1] == '/')
+                            while (text[x] != '\n')
+                                x++;
                     }
                     else
                     {
-                        j++;
+                        x++;
                     }
 
-                    if (j >= Str.Length) return "EOF";
+                    if (x >= text.Length) return "EOF";
                 }
 
-                if (Str[j] == '"')
+                // If we encounter a quote, read the enclosed text until the next quotation mark.
+                if (text[x] == '"')
                 {
-                    // Read until next quote (ignore opening quote)
-                    j++;
-                    while (Str[j] != '"' && j < Str.Length)
+                    // Skip the opening quotation mark.
+                    x++;
+
+                    while (text[x] != '"' && x < text.Length)
                     {
-                        if (Str[j] == '\n') throw new Exception($"Unexpected end of line at position {j}");
-                        CurrentToken += Str[j];
-                        j++;
+                        if (text[x] == '\n') throw new Exception($"Unexpected end of line at position {x}");
+                        currentToken += text[x];
+                        x++;
                     }
 
-                    j++; // Skip over closing quote
+                    // Skip the closing quotation mark.
+                    x++;
                 }
                 else
                 {
-                    // Read until whitespace (or end of file)
-                    while (!WhiteSpaceIgnore.Contains(Str[j]) && j < Str.Length - 1)
+                    // Read the text until reaching whitespace or an end of the file.
+                    while (!ignoredCharacters.Contains(text[x]) && x < text.Length - 1)
                     {
-                        if (Str[j] == '"') throw new Exception($"Unexpected double quote at position {j}");
-                        CurrentToken += Str[j];
-                        j++;
+                        if (text[x] == '"') throw new Exception($"Unexpected double quote at position {x}");
+                        currentToken += text[x];
+                        x++;
                     }
                 }
 
-                if (!LookAhead) i = j;
+                if (!lookAhead) index = x;
 
-                //if (j > Str.Length)
-                //{
-                //	return "EOF";
-                //}
-
-                return CurrentToken;
+                return currentToken;
             }
 
             Dictionary<string, dynamic> ParseObject()
             {
-                Dictionary<string, dynamic> Obj = new();
+                Dictionary<string, dynamic> objectRef = new();
 
-                var CurrentToken = Next();
-                var NextToken = Next(true);
+                var currentToken = Next();
+                var nextToken = Next(true);
 
-                while (CurrentToken != "}" && NextToken != "EOF")
+                while (currentToken != "}" && nextToken != "EOF")
                 {
                     if (Next(true).StartsWith('['))
                     {
-                        // Object with OS Tag
-                        CurrentToken += $"{OSTagDelimeter}{Next()}";
+                        // Object with an OS tag
+                        currentToken += $"{osTagDelimiter}{Next()}";
                         Next(); // Skip over opening brace
-                        Obj[CurrentToken] = ParseObject();
+                        objectRef[currentToken] = ParseObject();
                     }
-                    else if (NextToken == "{")
+                    else if (nextToken == "{")
                     {
                         // Object
                         Next(); // Skip over opening brace
 
-                        if (Obj.TryGetValue(CurrentToken, out var Value))
+                        if (objectRef.TryGetValue(currentToken, out var value))
                         {
-                            if (Obj[CurrentToken].GetType().Name.Contains("List"))
+                            if (objectRef[currentToken].GetType() == typeof(List<dynamic>))
                             {
                                 // Object list exists
-                                Obj[CurrentToken].Add(ParseObject());
+                                objectRef[currentToken].Add(ParseObject());
                             }
                             else
                             {
                                 // Object already exists
-                                Obj[CurrentToken] = new List<dynamic>();
-                                Obj[CurrentToken].Add(Value);
-                                Obj[CurrentToken].Add(ParseObject());
+                                objectRef[currentToken] = new List<dynamic>();
+                                objectRef[currentToken].Add(value);
+                                objectRef[currentToken].Add(ParseObject());
                             }
                         }
                         else
                         {
-                            // Object doesnt exist
-                            Obj[CurrentToken] = ParseObject();
+                            // Object does not exist
+                            objectRef[currentToken] = ParseObject();
                         }
                     }
                     else
                     {
                         // Primitive
-
                         Next(); // Skip over value
 
-                        // Check primitive os tag
-                        if (Next(true).StartsWith('[')) CurrentToken += $"{OSTagDelimeter}{Next()}";
+                        // Check primitive OS tag
+                        if (Next(true).StartsWith('[')) currentToken += $"{osTagDelimiter}{Next()}";
 
-                        if (Obj.TryGetValue(CurrentToken, out var Value))
+                        if (objectRef.TryGetValue(currentToken, out var value))
                         {
                             // dynamic property exists
-                            if (Obj[CurrentToken].GetType().Name.Contains("List"))
+                            if (objectRef[currentToken].GetType() == typeof(List<dynamic>))
                             {
                                 // Array already exists
-                                Obj[CurrentToken].Add(NextToken);
+                                objectRef[currentToken].Add(nextToken);
                             }
                             else
                             {
                                 // Primitive type already exists
-                                Obj[CurrentToken] = new List<dynamic>();
-                                Obj[CurrentToken].Add(Value);
-                                Obj[CurrentToken].Add(NextToken);
+                                objectRef[currentToken] = new List<dynamic>();
+                                objectRef[currentToken].Add(value);
+                                objectRef[currentToken].Add(nextToken);
                             }
                         }
                         else
                         {
                             // Property doesn't exist
-                            Obj[CurrentToken] = NextToken;
+                            objectRef[currentToken] = nextToken;
                         }
                     }
 
-                    CurrentToken = Next();
-                    NextToken = Next(true);
+                    currentToken = Next();
+                    nextToken = Next(true);
                 }
 
-                return Obj;
+                return objectRef;
             }
 
             return ParseObject();
         }
 
-        public static string Stringify(Dictionary<string, dynamic> Obj, int Tabs = 0)
+        public static string Stringify(Dictionary<string, dynamic> obj, int tabs = 0)
         {
-            var Str = "";
-            var Tab = '\t';
-            var NewLine = "\r\n";
-            foreach (var Key in Obj.Keys)
-                if (Obj[Key].GetType() == typeof(List<dynamic>))
+            var stringValue = "";
+            const char tab = '\t';
+            const string newLine = "\r\n";
+
+            foreach (var key in obj.Keys)
+                if (obj[key].GetType() == typeof(List<dynamic>))
                 {
                     // Item has multiple instances
-                    foreach (var Item in Obj[Key])
-                        if (Item.GetType().Name.Contains("Dictionary"))
+                    foreach (var item in obj[key])
+                        if (item.GetType() == typeof(Dictionary<string, dynamic>))
                         {
-                            var KeyTokens = Key.Split('%');
-                            if (KeyTokens.Length > 1)
-                                // OS Tag
-                                Str += $"{new string(Tab, Tabs)}\"{Key}\" {KeyTokens[1]}{NewLine}";
+                            // Check for an OS tag.
+                            var keyTokens = key.Split('^');
+                            if (keyTokens.Length > 1)
+                                stringValue += $"{new string(tab, tabs)}\"{key}\" {keyTokens[1]}{newLine}";
                             else
-                                // No OS Tag
-                                Str += $"{new string(Tab, Tabs)}{Key}{NewLine}";
-                            Str += $"{new string(Tab, Tabs)}{{{NewLine}";
-                            Str += $"{Stringify(Item, Tabs + 1)}{new string(Tab, Tabs)}}}{NewLine}";
+                                stringValue += $"{new string(tab, tabs)}{key}{newLine}";
+
+                            stringValue += $"{new string(tab, tabs)}{{{newLine}";
+                            stringValue += $"{Stringify(item, tabs + 1)}{new string(tab, tabs)}}}{newLine}";
                         }
                         else
                         {
-                            var KeyTokens = Key.Split('%');
-                            if (KeyTokens.Length > 1)
-                                // OS Tag
-                                Str += $"{new string(Tab, Tabs)}\"{Key}\"\t\"{Item}\" {KeyTokens[1]}{NewLine}";
+                            // Check for an OS tag.
+                            var keyTokens = key.Split('^');
+                            if (keyTokens.Length > 1)
+                                stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{item}\" {keyTokens[1]}{newLine}";
                             else
-                                // No OS Tag
-                                Str += $"{new string(Tab, Tabs)}\"{Key}\"\t\"{Item}\"{NewLine}";
+                                stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{item}\"{newLine}";
                         }
                 }
                 else
                 {
                     // There is only one object object/value
-                    if (Obj[Key] is IDictionary<string, dynamic>)
+                    if (obj[key] is IDictionary<string, dynamic>)
                     {
-                        var KeyTokens = Key.Split('%');
-                        if (KeyTokens.Length > 1)
+                        // Check for an OS tag.
+                        var keyTokens = key.Split('^');
+                        if (keyTokens.Length > 1)
                         {
-                            Str += $"{new string(Tab, Tabs)}\"{KeyTokens[0]}\" {KeyTokens[1]}{NewLine}";
-                            Str += $"{new string(Tab, Tabs)}{{{NewLine}";
-                            Str += $"{Stringify(Obj[Key], Tabs + 1)}{new string(Tab, Tabs)}}}{NewLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{keyTokens[0]}\" {keyTokens[1]}{newLine}";
+                            stringValue += $"{new string(tab, tabs)}{{{newLine}";
+                            stringValue += $"{Stringify(obj[key], tabs + 1)}{new string(tab, tabs)}}}{newLine}";
                         }
                         else
                         {
-                            // No OS Tag
-                            Str += $"{new string(Tab, Tabs)}\"{Key}\"{NewLine}";
-                            Str += $"{new string(Tab, Tabs)}{{{NewLine}";
-                            Str += $"{Stringify(Obj[Key], Tabs + 1)}{new string(Tab, Tabs)}}}{NewLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{key}\"{newLine}";
+                            stringValue += $"{new string(tab, tabs)}{{{newLine}";
+                            stringValue += $"{Stringify(obj[key], tabs + 1)}{new string(tab, tabs)}}}{newLine}";
                         }
                     }
                     else
                     {
-                        var KeyTokens = Key.Split('%');
-                        if (KeyTokens.Length > 1)
-                            // OS Tag
-                            Str += $"{new string(Tab, Tabs)}\"{KeyTokens[0]}\"\t\"{Obj[Key]}\" {KeyTokens[1]}{NewLine}";
+                        // Check for an OS tag.
+                        var keyTokens = key.Split('^');
+                        if (keyTokens.Length > 1)
+                            stringValue +=
+                                $"{new string(tab, tabs)}\"{keyTokens[0]}\"\t\"{obj[key]}\" {keyTokens[1]}{newLine}";
                         else
-                            // No OS Tag
-                            Str += $"{new string(Tab, Tabs)}\"{Key}\"\t\"{Obj[Key]}\"{NewLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{obj[key]}\"{newLine}";
                     }
                 }
 
-            return Str;
+            return stringValue;
         }
     }
 }

@@ -1,6 +1,17 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudio
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio,visualstudiocode
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+*.code-workspace
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
 
 ### VisualStudio ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -368,4 +379,4 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 *.tlog
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudio
+# End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode

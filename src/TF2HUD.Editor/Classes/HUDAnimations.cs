@@ -38,7 +38,7 @@ using System.Text.RegularExpressions;
 //        stops another event that is current running at the specified time
 //
 //    StopAnimation <panel name> <variable> <start time>
-//        stops all animations refering to the specified variable in the specified panel
+//        stops all animations referring to the specified variable in the specified panel
 //
 //    StopPanelAnimations <panel name> <start time>
 //        stops all active animations operating on the specified panel
@@ -51,10 +51,11 @@ using System.Text.RegularExpressions;
 
 namespace TF2HUD.Editor.Classes
 {
+    #region MODEL
+
     internal class HUDAnimation
     {
         public string Type { get; set; }
-        public string OSTag { get; set; }
     }
 
     internal class Animate : HUDAnimation
@@ -120,276 +121,261 @@ namespace TF2HUD.Editor.Classes
         public string Delay { get; set; }
     }
 
+    #endregion
+
     internal static class HUDAnimations
     {
-        public static Dictionary<string, List<HUDAnimation>> Parse(string Str)
+        public static Dictionary<string, List<HUDAnimation>> Parse(string text)
         {
-            var i = 0;
-            char[] WhiteSpaceIgnore = {' ', '\t', '\r', '\n'};
+            var index = 0;
+            char[] ignoredCharacters = {' ', '\t', '\r', '\n'};
 
-            string Next(bool LookAhead = false)
+            string Next(bool lookAhead = false)
             {
-                var CurrentToken = "";
-                var j = i;
+                var currentToken = "";
+                var x = index;
 
-                if (j >= Str.Length - 1) return "EOF";
+                // Return EOF if we've reached the end of the text file.
+                if (x >= text.Length - 1) return "EOF";
 
-                while ((WhiteSpaceIgnore.Contains(Str[j]) || Str[j] == '/') && j < Str.Length - 1)
+                // Discard any text that is preempted by a comment tag (//) until the next line.
+                while ((ignoredCharacters.Contains(text[x]) || text[x] == '/') && x < text.Length - 1)
                 {
-                    if (Str[j] == '/')
+                    if (text[x] == '/')
                     {
-                        if (Str[j + 1] == '/')
-                            while (Str[j] != '\n' && j < Str.Length - 1)
-                                j++;
+                        if (text[x + 1] == '/')
+                            while (text[x] != '\n' && x < text.Length - 1)
+                                x++;
                     }
                     else
                     {
-                        j++;
+                        x++;
                     }
 
-                    if (j >= Str.Length) return "EOF";
+                    if (x >= text.Length) return "EOF";
                 }
 
-                if (Str[j] == '"')
+                // If we encounter a quote, read the enclosed text until the next quotation mark.
+                if (text[x] == '"')
                 {
-                    // Read until next quote (ignore opening quote)
-                    j++;
-                    while (Str[j] != '"' && j < Str.Length - 1)
+                    // Skip the opening quotation mark.
+                    x++;
+
+                    while (text[x] != '"' && x < text.Length - 1)
                     {
-                        if (Str[j] == '\n') throw new Exception($"Unexpected end of line at position {j}");
-                        CurrentToken += Str[j];
-                        j++;
+                        if (text[x] == '\n') throw new Exception($"Unexpected end of line at position {x}");
+                        currentToken += text[x];
+                        x++;
                     }
 
-                    j++; // Skip over closing quote
+                    // Skip the closing quotation mark.
+                    x++;
                 }
                 else
                 {
-                    // Read until whitespace (or end of file)
-                    while (j < Str.Length && !WhiteSpaceIgnore.Contains(Str[j]))
+                    // Read the text until reaching whitespace or an end of the file.
+                    while (x < text.Length && !ignoredCharacters.Contains(text[x]))
                     {
-                        if (Str[j] == '"') throw new Exception($"Unexpected double quote at position {j}");
-                        CurrentToken += Str[j];
-                        j++;
+                        if (text[x] == '"') throw new Exception($"Unexpected double quote at position {x}");
+                        currentToken += text[x];
+                        x++;
                     }
                 }
 
-                if (!LookAhead) i = j;
+                if (!lookAhead) index = x;
 
-                //if (j > Str.Length)
-                //{
-                //    return "EOF";
-                //}
-
-                return CurrentToken;
+                return currentToken;
             }
 
             Dictionary<string, List<HUDAnimation>> ParseFile()
             {
-                Dictionary<string, List<HUDAnimation>> Animations = new();
+                Dictionary<string, List<HUDAnimation>> animations = new();
 
-                var CurrentToken = Next();
+                var currentToken = Next();
 
-                // System.Diagnostics.Debugger.Break();
-
-                while (CurrentToken == "event")
+                while (string.Equals(currentToken, "event", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    var EventName = Next();
-                    Animations[EventName] = ParseEvent();
-                    CurrentToken = Next();
+                    var eventName = Next();
+                    animations[eventName] = ParseEvent();
+                    currentToken = Next();
                 }
 
-                return Animations;
+                return animations;
             }
 
             List<HUDAnimation> ParseEvent()
             {
-                List<HUDAnimation> Event = new();
-                var NextToken = Next();
-                if (NextToken == "{")
-                    // string NextToken = Next();
-                    while (NextToken != "}" && NextToken != "EOF")
+                List<HUDAnimation> events = new();
+                var nextToken = Next();
+
+                if (string.Equals(nextToken, "{"))
+                    while (nextToken != "}" && nextToken != "EOF")
                     {
-                        // NextToken is not a closing brace therefore it is the animation type
-                        // Pass the animation type to the animation
-                        NextToken = Next();
-                        if (NextToken != "}") Event.Add(ParseAnimation(NextToken));
+                        // NextToken is not a closing brace therefore it is the animation type.
+                        // Pass the animation type to the animation.
+                        nextToken = Next();
+                        if (nextToken != "}") events.Add(ParseAnimation(nextToken));
                     }
                 else
-                    throw new Exception($"Unexpected ${NextToken} at position {i}! Are you missing an opening brace?");
+                    throw new Exception(
+                        $"Unexpected ${nextToken} at position {index}! Are you missing an opening brace?");
 
-                return Event;
+                return events;
             }
 
-            void SetInterpolator(Animate Animation)
+            void SetInterpolator(Animate animation)
             {
-                var Interpolator = Next().ToLower();
-                if (Interpolator == "pulse")
+                var interpolator = Next().ToLower();
+                if (string.Equals(interpolator, "pulse", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    Animation.Interpolator = Interpolator;
-                    Animation.Frequency = Next();
+                    animation.Interpolator = interpolator;
+                    animation.Frequency = Next();
                 }
-                else if (new[] {"gain", "bias"}.Contains(Interpolator))
+                else if (new[] {"gain", "bias"}.Contains(interpolator))
                 {
-                    Animation.Interpolator = Interpolator[0].ToString().ToUpper() +
-                                             Interpolator.Substring(1, Interpolator.Length - 1);
-                    Animation.Bias = Next();
+                    animation.Interpolator = interpolator[0].ToString().ToUpper() + interpolator[1..];
+                    animation.Bias = Next();
                 }
                 else
                 {
-                    Animation.Interpolator = Interpolator;
+                    animation.Interpolator = interpolator;
                 }
             }
 
-
-            HUDAnimation ParseAnimation(string AnimationType)
+            HUDAnimation ParseAnimation(string type)
             {
-                dynamic Animation;
-                AnimationType = AnimationType.ToLower();
+                dynamic animation;
+                type = type.ToLower();
 
-                if (AnimationType == "animate")
+                switch (type)
                 {
-                    Animation = new Animate();
-                    Animation.Type = AnimationType;
-                    Animation.Element = Next();
-                    Animation.Property = Next();
-                    Animation.Value = Next();
-                    SetInterpolator(Animation);
-                    Animation.Delay = Next();
-                    Animation.Duration = Next();
-                }
-                else if (AnimationType == "runevent")
-                {
-                    Animation = new RunEvent();
-                    Animation.Type = AnimationType;
-                    Animation.Event = Next();
-                    Animation.Delay = Next();
-                }
-                else if (AnimationType == "stopevent")
-                {
-                    Animation = new StopEvent();
-                    Animation.Type = AnimationType;
-                    Animation.Event = Next();
-                    Animation.Delay = Next();
-                }
-                else if (AnimationType == "setvisible")
-                {
-                    Animation = new SetVisible();
-                    Animation.Type = AnimationType;
-                    Animation.Element = Next();
-                    Animation.Delay = Next();
-                    Animation.Duration = Next();
-                }
-                else if (AnimationType == "firecommand")
-                {
-                    Animation = new FireCommand();
-                    Animation.Type = AnimationType;
-                    Animation.Delay = Next();
-                    Animation.Command = Next();
-                }
-                else if (AnimationType == "runeventchild")
-                {
-                    Animation = new RunEventChild();
-                    Animation.Type = AnimationType;
-                    Animation.Element = Next();
-                    Animation.Event = Next();
-                    Animation.Delay = Next();
-                }
-                else if (AnimationType == "setinputenabled")
-                {
-                    Animation = new SetInputEnabled();
-                    Animation.Element = Next();
-                    Animation.Visible = int.Parse(Next());
-                    Animation.Delay = Next();
-                }
-                else if (AnimationType == "playsound")
-                {
-                    Animation = new PlaySound();
-                    Animation.Delay = Next();
-                    Animation.Sound = Next();
-                }
-                else if (AnimationType == "stoppanelanimations")
-                {
-                    Animation = new StopPanelAnimations();
-                    Animation.Element = Next();
-                    Animation.Delay = Next();
-                }
-                else
-                {
-                    Debug.WriteLine(Str.Substring(i - 25, 25));
-                    throw new Exception($"Unexpected {AnimationType} at position {i}");
+                    case "animate":
+                        animation = new Animate();
+                        animation.Type = type;
+                        animation.Element = Next();
+                        animation.Property = Next();
+                        animation.Value = Next();
+                        SetInterpolator(animation);
+                        animation.Delay = Next();
+                        animation.Duration = Next();
+                        break;
+                    case "runevent":
+                        animation = new RunEvent();
+                        animation.Type = type;
+                        animation.Event = Next();
+                        animation.Delay = Next();
+                        break;
+                    case "stopevent":
+                        animation = new StopEvent();
+                        animation.Type = type;
+                        animation.Event = Next();
+                        animation.Delay = Next();
+                        break;
+                    case "setvisible":
+                        animation = new SetVisible();
+                        animation.Type = type;
+                        animation.Element = Next();
+                        animation.Delay = Next();
+                        animation.Duration = Next();
+                        break;
+                    case "firecommand":
+                        animation = new FireCommand();
+                        animation.Type = type;
+                        animation.Delay = Next();
+                        animation.Command = Next();
+                        break;
+                    case "runeventchild":
+                        animation = new RunEventChild();
+                        animation.Type = type;
+                        animation.Element = Next();
+                        animation.Event = Next();
+                        animation.Delay = Next();
+                        break;
+                    case "setinputenabled":
+                        animation = new SetInputEnabled();
+                        animation.Element = Next();
+                        animation.Visible = int.Parse(Next());
+                        animation.Delay = Next();
+                        break;
+                    case "playsound":
+                        animation = new PlaySound();
+                        animation.Delay = Next();
+                        animation.Sound = Next();
+                        break;
+                    case "stoppanelanimations":
+                        animation = new StopPanelAnimations();
+                        animation.Element = Next();
+                        animation.Delay = Next();
+                        break;
+                    default:
+                        Debug.WriteLine(text.Substring(index - 25, 25));
+                        throw new Exception($"Unexpected {type} at position {index}");
                 }
 
-                if (Next(true).StartsWith('[')) Animation.OSTag = Next();
-
-                return Animation;
+                if (Next(true).StartsWith('[')) animation.OSTag = Next();
+                return animation;
             }
 
             return ParseFile();
         }
 
-        public static string Stringify(Dictionary<string, List<HUDAnimation>> Animations)
+        public static string Stringify(Dictionary<string, List<HUDAnimation>> animations)
         {
-            var Str = "";
-            var Tab = '\t';
-            var NewLine = "\r\n";
+            var stringValue = "";
+            const char tab = '\t';
+            const string newLine = "\r\n";
 
-            string FormatWhiteSpace(string Str)
+            static string FormatWhiteSpace(string text)
             {
-                return Regex.IsMatch(Str, "\\s") ? $"\"{Str}\"" : Str;
+                return Regex.IsMatch(text, "\\s") ? $"\"{text}\"" : text;
             }
 
-            string GetInterpolator(Animate Animation)
+            static string GetInterpolator(Animate animation)
             {
-                var Interpolator = Animation.Interpolator.ToLower();
-                switch (Interpolator)
+                return animation.Interpolator.ToLower() switch
                 {
-                    case "Pulse":
-                        return $"Pulse {Animation.Frequency}";
-                    case "Gain":
-                    case "Bias":
-                        return $"Gain {Animation.Bias}";
-                    default:
-                        return $"{Animation.Interpolator}";
-                }
+                    "Pulse" => $"Pulse {animation.Frequency}",
+                    "Gain" or "Bias" => $"Gain {animation.Bias}",
+                    _ => $"{animation.Interpolator}"
+                };
             }
 
-            foreach (var Event in Animations.Keys)
+            foreach (var key in animations.Keys)
             {
-                Str += $"event {Event}{NewLine}{{{NewLine}";
-                foreach (dynamic Execution in Animations[Event])
+                stringValue += $"event {key}{newLine}{{{newLine}";
+                foreach (dynamic animation in animations[key])
                 {
-                    Str += Tab;
-                    Type T = Execution.GetType();
+                    stringValue += tab;
+                    Type T = animation.GetType();
 
                     if (T == typeof(Animate))
-                        Str +=
-                            $"Animate {FormatWhiteSpace(Execution.Element)} {FormatWhiteSpace(Execution.Property)} {FormatWhiteSpace(Execution.Value)} {GetInterpolator(Execution)} {Execution.Delay} {Execution.Duration}";
+                        stringValue +=
+                            $"Animate {FormatWhiteSpace(animation.Element)} {FormatWhiteSpace(animation.Property)} {FormatWhiteSpace(animation.Value)} {GetInterpolator(animation)} {animation.Delay} {animation.Duration}";
                     else if (T == typeof(RunEvent) || T == typeof(StopEvent))
-                        Str += $"RunEvent {FormatWhiteSpace(Execution.Event)} {Execution.Delay}";
+                        stringValue += $"RunEvent {FormatWhiteSpace(animation.Event)} {animation.Delay}";
                     else if (T == typeof(SetVisible))
-                        Str +=
-                            $"SetVisible {FormatWhiteSpace(Execution.Element)} {Execution.Delay} {Execution.Duration}";
+                        stringValue +=
+                            $"SetVisible {FormatWhiteSpace(animation.Element)} {animation.Delay} {animation.Duration}";
                     else if (T == typeof(FireCommand))
-                        Str += $"FireCommand {Execution.Delay} {FormatWhiteSpace(Execution.Command)}";
+                        stringValue += $"FireCommand {animation.Delay} {FormatWhiteSpace(animation.Command)}";
                     else if (T == typeof(RunEventChild))
-                        Str +=
-                            $"RunEventChild {FormatWhiteSpace(Execution.Element)} {FormatWhiteSpace(Execution.Event)} {Execution.Delay}";
+                        stringValue +=
+                            $"RunEventChild {FormatWhiteSpace(animation.Element)} {FormatWhiteSpace(animation.Event)} {animation.Delay}";
                     else if (T == typeof(SetVisible))
-                        Str +=
-                            $"SetVisible {FormatWhiteSpace(Execution.Element)} {Execution.Visible} {Execution.Delay}";
+                        stringValue +=
+                            $"SetVisible {FormatWhiteSpace(animation.Element)} {animation.Visible} {animation.Delay}";
                     else if (T == typeof(PlaySound))
-                        Str += $"PlaySound {Execution.Delay} {FormatWhiteSpace(Execution.Sound)}";
+                        stringValue += $"PlaySound {animation.Delay} {FormatWhiteSpace(animation.Sound)}";
 
-                    if (Execution.OSTag != null) Str += " " + Execution.OSTag;
+                    if (animation.OSTag != null) stringValue += " " + animation.OSTag;
 
-                    Str += NewLine;
+                    stringValue += newLine;
                 }
 
-                Str += $"}}{NewLine}";
+                stringValue += $"}}{newLine}";
             }
 
-            return Str;
+            return stringValue;
         }
     }
 }

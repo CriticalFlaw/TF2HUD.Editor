@@ -1,120 +1,225 @@
 {
-  "Links": {
-    "Update": "https://github.com/cooolbros/budhud/archive/master.zip",
-    "GitHub": "https://github.com/rbjaxter/budhud",
-    "HudsTF": "https://huds.tf/site/s-budhud",
-    "Steam": "https://steamcommunity.com/groups/budhud",
-    "Issue": "https://github.com/rbjaxter/budhud/issues"
-  },
-  "CustomisationsFolder": "#customization",
-  "EnabledFolder": "#customization//_enabled",
-  "Controls": {
-    "General UI": [
-      {
-        "Name": "bh_player_hideclassmodel",
-        "Label": "Disable 3D Player Model",
-        "Type": "Checkbox",
-        "FileName": "bh_player_hideclassmodel.res",
-        "Default": "false"
-      },
-      {
-        "Name": "bh_chat_lowerleft",
-        "Label": "Chat Location",
-        "Type": "Checkbox",
-        "FileName": "bh_chat_lowerleft.res",
-        "Default": "false"
-      },
-      {
-        "Name": "bh_youtuber_select",
-        "Label": "Youtuber HUD",
-        "Type": "Select",
-        "Path": "#users"
-      },
-      {
-        "Name": "bh_player_transparentviewmodels",
-        "Label": "Transparent Viewmodels",
-        "Type": "Checkbox",
-        "FileName": "bh_player_transparentviewmodels.res",
-        "Default": "false"
-      }
-    ],
-    "Health and Ammo": [
-      {
-        "Name": "bh_player_largehealth",
-        "Label": "Larger Health & Ammo",
-        "Type": "Checkbox",
-        "FileName": "bh_player_largehealth.res",
-        "Default": "false"
-      },
-      {
-        "Name": "bh_player_healthcross_inset",
-        "Label": "Enable Player Health Cross",
-        "Type": "Checkbox",
-        "FileName": "bh_player_healthcross_inset.res",
-        "Default": "true"
-      }
-    ],
-    "TargetIDs": [
-      {
-        "Name": "bh_targetid_healthcross2",
-        "Label": "Health Cross",
-        "Type": "Checkbox",
-        "FileName": "bh_targetid_healthcross2.res",
-        "Default": "false"
-      },
-      {
-        "Name": "bh_targetid_largehealth",
-        "Label": "Large Health Size",
-        "Type": "Checkbox",
-        "FileName": "bh_targetid_largehealth.res",
-        "Default": "true"
-      }
-    ],
-    "Main Menu": [
-      {
-        "Name": "bh_menu_hidefriends",
-        "Label": "Hide Friends",
-        "Type": "Checkbox",
-        "FileName": "bh_menu_hidefriends",
-        "Default": "false"
-      },
-      {
-        "Name": "bh_menu_hidegif",
-        "Label": "Hide Menu GIF",
-        "Type": "Checkbox",
-        "FileName": "bh_menu_hidegif.res",
-        "Default": "false"
-      },
-      {
-        "Name": "bh_menu_hidemotd",
-        "Label": "Hide MOTD",
-        "Type": "Checkbox",
-        "FileName": "bh_menu_hidemotd.res",
-        "Default": "true"
-      },
-      {
-        "Name": "bh_menu_hidestats",
-        "Label": "Hide Stats",
-        "Type": "Checkbox",
-        "FileName": "bh_menu_hidestats.res",
-        "Default": "false"
-      }
-    ],
-    "Medic Customizations": [
-      {
-        "Name": "bh_uber_longchargemeter",
-        "Label": "Full Width Charge Meter",
-        "Type": "Checkbox",
-        "FileName": "bh_uber_longchargemeter.res",
-        "Default": "false"
-      },
-      {
-        "Name": "bh_uber_percentagenearcrosshair",
-        "Label": "Uber Percentage Near Crosshair",
-        "Type": "Checkbox",
-        "FileName": "bh_uber_percentagenearcrosshair.res",
-        "Default": "false"
-      }
-    ]
-  }
+	"Background": "https://i.imgur.com/aD1OxHy.png",
+	"Links": {
+		"Update": "https://github.com/rbjaxter/budhud/archive/master.zip",
+		"GitHub": "https://github.com/rbjaxter/budhud",
+		"HudsTF": "https://huds.tf/site/s-budhud",
+		"Steam": "https://steamcommunity.com/groups/budhud",
+		"Issue": "https://github.com/rbjaxter/budhud/issues"
+	},
+	"CustomizationsFolder": "#customization",
+	"EnabledFolder": "#customization//_enabled",
+	"Controls": {
+		"General UI": [
+			{
+				"Name": "bh_player_hideclassmodel",
+				"Label": "Disable 3D Player Model",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_player_hideclassmodel.res"
+			},
+			{
+				"Name": "bh_chat_lowerleft",
+				"Label": "Chat Location",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_chat_lowerleft.res"
+			},
+			{
+				"Name": "bh_youtuber_select",
+				"Label": "Youtuber HUD",
+				"Type": "Select",
+				"Path": "#users"
+			},
+			{
+				"Name": "bh_player_transparentviewmodels",
+				"Label": "Transparent Viewmodels",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_player_transparentviewmodels.res"
+			}
+		],
+		"Health and Ammo": [
+			{
+				"Name": "bh_player_largehealth",
+				"Label": "Larger Health & Ammo",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_player_largehealth.res"
+			},
+			{
+				"Name": "bh_player_healthcross_inset",
+				"Label": "Enable Player Health Cross",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_player_healthcross_inset.res"
+			}
+		],
+		"TargetIDs": [
+			{
+				"Name": "bh_targetid_healthcross2",
+				"Label": "Health Cross",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_targetid_healthcross2.res"
+			},
+			{
+				"Name": "bh_targetid_largehealth",
+				"Label": "Large Health Size",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_targetid_largehealth.res"
+			}
+		],
+		"Main Menu": [
+			{
+				"Name": "bh_menu_hidefriends",
+				"Label": "Hide Friends",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_menu_hidefriends.res"
+			},
+			{
+				"Name": "bh_menu_hidegif",
+				"Label": "Hide Menu GIF",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_menu_hidegif.res"
+			},
+			{
+				"Name": "bh_menu_hidestats",
+				"Label": "Hide Stats",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_menu_hidestats.res"
+			}
+		],
+		"Medic Customizations": [
+			{
+				"Name": "bh_uber_longchargemeter",
+				"Label": "Full Width Charge Meter",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_uber_longchargemeter.res"
+			},
+			{
+				"Name": "bh_uber_percentagenearcrosshair",
+				"Label": "Uber Percentage Near Crosshair",
+				"Type": "Checkbox",
+				"Value": "false",
+				"FileName": "bh_uber_percentagenearcrosshair.res"
+			}
+		],
+		"Health Colors": [
+			{
+				"Name": "bh_Health_Main",
+				"Label": "Normal",
+				"Type": "ColorPicker",
+				"Value": "255 255 255 255",
+				"Files": {
+					"#customization/_enabled/bh_colors.res": {
+						"Scheme": {
+							"Colors": {
+								"bh_Health_Main": "$value"
+							}
+						}
+					}
+				}
+			},
+			{
+				"Name": "bh_Health_Low",
+				"Label": "Low",
+				"Type": "ColorPicker",
+				"Value": "186 032 032 255",
+				"Files": {
+					"#customization/_enabled/bh_colors.res": {
+						"Scheme": {
+							"Colors": {
+								"bh_Health_Low": "$value"
+							}
+						}
+					}
+				}
+			}
+		],
+		"Ammo Colors": [
+			{
+				"Name": "bh_Ammo_Main",
+				"Label": "Normal",
+				"Type": "ColorPicker",
+				"Value": "255 255 255 255",
+				"Files": {
+					"#customization/_enabled/bh_colors.res": {
+						"Scheme": {
+							"Colors": {
+								"bh_Ammo_Main": "$value"
+							}
+						}
+					}
+				}
+			},
+			{
+				"Name": "bh_Ammo_Reserve",
+				"Label": "Reserve",
+				"Type": "ColorPicker",
+				"Value": "255 255 255 255",
+				"Files": {
+					"#customization/_enabled/bh_colors.res": {
+						"Scheme": {
+							"Colors": {
+								"bh_Ammo_Reserve": "$value"
+							}
+						}
+					}
+				}
+			},
+			{
+				"Name": "bh_Ammo_Low",
+				"Label": "Low",
+				"Type": "ColorPicker",
+				"Value": "186 032 032 255",
+				"Files": {
+					"#customization/_enabled/bh_colors.res": {
+						"Scheme": {
+							"Colors": {
+								"bh_Ammo_Low": "$value"
+							}
+						}
+					}
+				}
+			}
+		],
+		"Crosshair Colors": [
+			{
+				"Name": "bh_hud_crosshair_1",
+				"Label": "Normal",
+				"Type": "ColorPicker",
+				"Value": "255 255 255 255",
+				"Files": {
+					"#customization/_enabled/bh_colors.res": {
+						"Scheme": {
+							"Colors": {
+								"hud_crosshair_1": "$value"
+							}
+						}
+					}
+				}
+			},
+			{
+				"Name": "bh_hud_crosshair_1_flash",
+				"Label": "Flash",
+				"Type": "ColorPicker",
+				"Value": "240 134 049 255",
+				"Files": {
+					"#customization/_enabled/bh_colors.res": {
+						"Scheme": {
+							"Colors": {
+								"hud_crosshair_1_flash": "$value"
+							}
+						}
+					}
+				}
+			}
+		]
+	}
 }

@@ -8,18 +8,23 @@ namespace TF2HUD.Editor.Classes
 {
     internal class VTF
     {
-        private readonly string tf2Path;
+        private readonly string _tf2Path;
 
-        public VTF(string tf2Path)
+        public VTF(string path)
         {
-            this.tf2Path = tf2Path.Replace("\\tf\\custom", string.Empty);
+            _tf2Path = path.Replace("\\tf\\custom", string.Empty);
         }
 
+        /// <summary>
+        ///     Convert an image file into a VTF texture file to be used in-game.
+        /// </summary>
+        /// <param name="inFile">Path and file name of the image to be converted.</param>
+        /// <param name="outFile">Output path and file name for the VTF.</param>
         public void Convert(string inFile, string outFile)
         {
             // Resize image to square of larger proportional
             var image = new Bitmap(inFile);
-            var materialSrc = $"{tf2Path}\\tf\\materialsrc";
+            var materialSrc = $"{_tf2Path}\\tf\\materialsrc";
 
             // Create materialsrc (ensure it exists)
             Directory.CreateDirectory(materialSrc);
@@ -32,7 +37,7 @@ namespace TF2HUD.Editor.Classes
             VtexConvert(materialSrc, "temp");
 
             // Path to VTEX output file
-            var vtfOutput = $"{tf2Path}\\tf\\materials\\temp.vtf";
+            var vtfOutput = $"{_tf2Path}\\tf\\materials\\temp.vtf";
 
             // Create absolute path to output folder and make directory
             var pathInfo = outFile.Split('\\', '/');
@@ -54,6 +59,11 @@ namespace TF2HUD.Editor.Classes
             File.Delete(vtfOutput);
         }
 
+        /// <summary>
+        ///     Resize the image file so it can be saved into Targa file.
+        /// </summary>
+        /// <param name="image">Bitmap of the input image file.</param>
+        /// <returns>Bitmap of the resized image file.</returns>
         private static Bitmap ResizeImage(Bitmap image)
         {
             var power = 2;
@@ -70,11 +80,14 @@ namespace TF2HUD.Editor.Classes
         }
 
         /// <summary>
-        ///     https://developer.valvesoftware.com/wiki/Vtex_compile_parameters
+        ///     Use the Valve Texture Tool (Vtex) to convert a Targa file (tga) into a Valve Texture File (vtf).
         /// </summary>
+        /// <param name="folderPath">Input image file path.</param>
+        /// <param name="fileName">Name of the image to be converted.</param>
+        /// <remarks>See: https://developer.valvesoftware.com/wiki/Vtex_compile_parameters </remarks>
         private void VtexConvert(string folderPath, string fileName)
         {
-            // VTEX Args
+            // Set the VTEX Args
             File.WriteAllLines($"{folderPath}\\{fileName}.txt", new[]
             {
                 "pointsample 1",
@@ -82,16 +95,17 @@ namespace TF2HUD.Editor.Classes
                 "nomip 1"
             });
 
-            // VTEX CLI Args
+            // Set the VTEX CLI Args
             string[] args =
             {
                 $"\"{folderPath}\\{fileName}.tga\"",
                 "-nopause",
                 "-game",
-                $"\"{tf2Path}\\tf\\\""
+                $"\"{_tf2Path}\\tf\\\""
             };
 
-            Process.Start($"{tf2Path}\\bin\\vtex.exe", string.Join(" ", args)).WaitForExit();
+            // Call Vtex and pass the parameters.
+            Process.Start($"{_tf2Path}\\bin\\vtex.exe", string.Join(" ", args))?.WaitForExit();
         }
     }
 }

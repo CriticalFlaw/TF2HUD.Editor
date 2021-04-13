@@ -2,14 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TF2HUD.Editor.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="app_mod_date" Type="System.DateTime" Scope="User">
-      <Value Profile="(Default)">01/19/2021 18:19:00</Value>
-    </Setting>
     <Setting Name="image_path" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="hud_selected" Type="System.String" Scope="User">
-      <Value Profile="(Default)">budhud</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="hud_directory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

@@ -25,18 +25,6 @@ namespace TF2HUD.Editor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("01/19/2021 18:19:00")]
-        public global::System.DateTime app_mod_date {
-            get {
-                return ((global::System.DateTime)(this["app_mod_date"]));
-            }
-            set {
-                this["app_mod_date"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string image_path {
             get {
@@ -49,7 +37,7 @@ namespace TF2HUD.Editor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("budhud")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string hud_selected {
             get {
                 return ((string)(this["hud_selected"]));

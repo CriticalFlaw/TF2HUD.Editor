@@ -9,111 +9,134 @@ using System.Windows.Media;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TF2HUD.Editor.JSON;
+using TF2HUD.Editor.Properties;
 using Xceed.Wpf.Toolkit;
-using MessageBox = System.Windows.MessageBox;
 
 namespace TF2HUD.Editor.Classes
 {
     public class HUD
     {
-        private readonly Grid Controls = new();
-        private readonly string[] LayoutOptions;
-        public Dictionary<string, Type> ConstrolList = new();
+        private readonly Grid controls = new();
+        public readonly string[] LayoutOptions;
+        public string Background;
         public Dictionary<string, Controls[]> ControlOptions;
-        private bool ControlsRendered;
-        public string CustomisationsFolder;
-        public string Default;
-        public string EnabledFolder;
-        private string[][] Layout;
+
+        private readonly Dictionary<string, Type>
+            controlsList = new(); // TODO: This variable is populated but never used. Possibly remove?
+
+        public string CustomizationsFolder, EnabledFolder;
+        private bool isRendered;
+        private string[][] layout;
+        public bool Maximize;
+
         public string Name;
+        public double Opacity;
+        public HUDSettings Settings;
         public string UpdateUrl, GitHubUrl, HudsTfUrl, SteamUrl, IssueUrl;
 
-        public HUD(string name, HudJson options)
+        /// <summary>
+        ///     Initialize the HUD object with values from the JSON schema.
+        /// </summary>
+        /// <param name="name">Name of the HUD object.</param>
+        /// <param name="schema">Contents of the HUD's schema file.</param>
+        public HUD(string name, HudJson schema)
         {
-            // Validate properties from JSON
+            // Basic Schema Properties.
             Name = name;
-            if (options.Links is not null)
+            Settings = new HUDSettings(Name);
+            Opacity = schema.Opacity;
+            Maximize = schema.Maximize;
+            ControlOptions = schema.Controls;
+            LayoutOptions = schema.Layout;
+
+            // Download and Media Links.
+            if (schema.Links is not null)
             {
-                UpdateUrl = options.Links.Update ?? string.Empty;
-                GitHubUrl = options.Links.GitHub ?? string.Empty;
-                HudsTfUrl = options.Links.HudsTF ?? string.Empty;
-                SteamUrl = options.Links.Steam ?? string.Empty;
-                IssueUrl = options.Links.Issue ?? string.Empty;
+                UpdateUrl = schema.Links.Update ?? string.Empty;
+                GitHubUrl = schema.Links.GitHub ?? string.Empty;
+                HudsTfUrl = schema.Links.HudsTF ?? string.Empty;
+                SteamUrl = schema.Links.Steam ?? string.Empty;
+                IssueUrl = schema.Links.Issue ?? string.Empty;
             }
 
-            if (!string.IsNullOrWhiteSpace(options.CustomisationsFolder))
+            // Customization Folder Paths.
+            if (!string.IsNullOrWhiteSpace(schema.CustomizationsFolder))
             {
-                CustomisationsFolder = options.CustomisationsFolder ?? string.Empty;
-                EnabledFolder = options.EnabledFolder ?? string.Empty;
+                CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
+                EnabledFolder = schema.EnabledFolder ?? string.Empty;
             }
 
-            ControlOptions = options.Controls;
-            LayoutOptions = options.Layout;
+            // Custom Background Image.
+            if (schema.Background != null) Background = schema.Background;
         }
 
+        #region PAGE UI
+
         /// <summary>
-        ///     Generate the page layout using controls defined in the HUD's JSON.
+        ///     Generate the page layout using controls defined in the HUD schema.
         /// </summary>
         public Grid GetControls()
         {
-            if (ControlsRendered)
-            {
-                Load();
-                return Controls;
-            }
+            // Skip this process if the controls have already been rendered.
+            if (isRendered) return controls;
 
+            // Define the container that will hold the title and content.
             var container = new Grid();
-            var titleRowDefinition = new RowDefinition
+            var titleRow = new RowDefinition
             {
                 Height = GridLength.Auto
             };
-            var contentRowDefinition = new RowDefinition();
-            if (Layout != null) contentRowDefinition.Height = GridLength.Auto;
-            container.RowDefinitions.Add(titleRowDefinition);
-            container.RowDefinitions.Add(contentRowDefinition);
+            var contentRow = new RowDefinition();
+            if (layout != null) contentRow.Height = GridLength.Auto;
+            container.RowDefinitions.Add(titleRow);
+            container.RowDefinitions.Add(contentRow);
 
-            // Title
-            var pageTitle = new Label
+            // Define the title of the HUD displayed at the top of the page.
+            var title = new Label
             {
                 Content = Name,
                 FontSize = 35,
                 Margin = new Thickness(10, 10, 0, 0)
             };
-            Grid.SetRow(pageTitle, 0);
-            container.Children.Add(pageTitle);
+            Grid.SetRow(title, 0);
+            container.Children.Add(title);
 
-            // ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic
-            var sectionsContainer = new Grid
-            {
-                VerticalAlignment = VerticalAlignment.Top,
-                MaxWidth = 1270,
-                MaxHeight = 720
-            };
+            // NOTE: ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic for each section.
+            dynamic sectionsContainer;
 
-            if (LayoutOptions is null)
+            if (LayoutOptions != null)
             {
-                Layout = new string[4][];
-                Layout[0] = new[] {"0", "0", "0", "1", "1", "1"};
-                Layout[1] = new[] {"2", "2", "3", "4", "4", "4"};
-                Layout[2] = new[] {"5", "5", "5", "5", "4", "4"};
-                Layout[3] = new[] {"6", "6", "6", "6", "4", "4"};
+                // Splits Layout string[] into 2D Array using \s+
+                layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
+
+                sectionsContainer = new Grid
+                {
+                    VerticalAlignment = VerticalAlignment.Top,
+                    MaxWidth = 1270,
+                    MaxHeight = 720
+                };
+
+                // Assume that all row arrays are the same length, use column information from Layout[0].
+                for (var i = 0; i < layout[0].Length; i++)
+                    sectionsContainer.ColumnDefinitions.Add(new ColumnDefinition());
+                for (var i = 0; i < layout.Length; i++)
+                    sectionsContainer.RowDefinitions.Add(new RowDefinition());
             }
             else
             {
-                // Splits Layout string[] into 2D Array using \s+
-                Layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
+                sectionsContainer = new WrapPanel
+                {
+                    Margin = new Thickness(10)
+                };
             }
 
-            // Assume that all row arrays are the same length, use column information from Layout[0]
-            for (var i = 0; i < Layout[0].Length; i++)
-                sectionsContainer.ColumnDefinitions.Add(new ColumnDefinition());
-            for (var i = 0; i < Layout.Length; i++) sectionsContainer.RowDefinitions.Add(new RowDefinition());
             Grid.SetRow(sectionsContainer, 1);
 
             var lastMargin = new Thickness(10, 2, 0, 0);
             var lastTop = lastMargin.Top;
-
             var groupBoxIndex = 0;
+
+            // Generate each control section as defined in the schema.
             foreach (var section in ControlOptions.Keys)
             {
                 var sectionContainer = new GroupBox
@@ -124,56 +147,54 @@ namespace TF2HUD.Editor.Classes
                     VerticalAlignment = VerticalAlignment.Stretch
                 };
 
-                Panel sectionContent = new StackPanel();
-                if (Layout != null) sectionContent = new WrapPanel();
-                sectionContent.Margin = new Thickness(5);
+                Panel sectionContent = layout != null ? new WrapPanel() : new StackPanel();
+                sectionContent.Margin = new Thickness(3);
 
+                // Generate each individual control, add it to user settings.
                 foreach (var controlItem in ControlOptions[section])
                 {
                     var id = controlItem.Name;
                     var label = controlItem.Label;
+                    Settings.AddSetting(controlItem.Name, controlItem);
 
                     switch (controlItem.Type)
                     {
-                        case "Char":
-                            var charContainer = new WrapPanel
-                            {
-                                Margin = new Thickness(10, lastTop, 0, 0)
-                            };
-                            var charLabel = new Label
-                            {
-                                Content = label,
-                                Width = 60
-                            };
-                            var charInput = new TextBox
-                            {
-                                Name = id,
-                                Width = 60
-                            };
-                            charInput.PreviewTextInput += (_, e) => e.Handled = charInput.Text != "";
-                            charContainer.Children.Add(charLabel);
-                            charContainer.Children.Add(charInput);
-                            sectionContent.Children.Add(charContainer);
-                            ConstrolList.Add(charInput.Name, charInput.GetType());
-                            break;
-
                         case "Checkbox":
+                            // Create the Control.
                             var checkBoxInput = new CheckBox
                             {
                                 Name = id,
                                 Content = label,
                                 Margin = new Thickness(10, lastTop + 10, 0, 0),
-                                IsChecked = string.Equals(controlItem.Default, "true")
+                                IsChecked = Settings.GetSetting<bool>(controlItem.Name)
                             };
-                            //lastMargin = checkBoxInput.Margin;
+
+                            // Add Tooltip text, if available.
+                            checkBoxInput.ToolTip = controlItem.Tooltip;
+
+                            // Add Events.
+                            checkBoxInput.Checked += (sender, _) =>
+                            {
+                                var input = sender as CheckBox;
+                                Settings.SetSetting(input?.Name, "true");
+                            };
+                            checkBoxInput.Unchecked += (sender, _) =>
+                            {
+                                var input = sender as CheckBox;
+                                Settings.SetSetting(input?.Name, "false");
+                            };
+
+                            // Add to Page.
                             sectionContent.Children.Add(checkBoxInput);
-                            ConstrolList.Add(checkBoxInput.Name, checkBoxInput.GetType());
+                            controlsList.Add(checkBoxInput.Name, checkBoxInput.GetType());
+                            controlItem.Control = checkBoxInput;
                             break;
 
                         case "Color":
                         case "Colour":
                         case "ColorPicker":
                         case "ColourPicker":
+                            // Create the Control.
                             var colorContainer = new StackPanel
                             {
                                 Margin = new Thickness(10, lastTop, 0, 10)
@@ -189,20 +210,40 @@ namespace TF2HUD.Editor.Classes
                                 Name = id,
                                 Width = 125
                             };
+
+                            // Add Tooltip text, if available.
+                            colorInput.ToolTip = controlItem.Tooltip;
+
+                            // Attempt to bind the color from the settings.
                             try
                             {
-                                colorInput.SelectedColor =
-                                    (Color) new ColorConverter().ConvertFrom(controlItem.Default);
+                                colorInput.SelectedColor = Settings.GetSetting<Color>(id);
                             }
                             catch
                             {
                                 colorInput.SelectedColor = Color.FromArgb(255, 0, 255, 0);
                             }
 
+                            // Add Events.
+                            colorInput.SelectedColorChanged += (sender, _) =>
+                            {
+                                var input = sender as ColorPicker;
+                                Settings.SetSetting(input?.Name,
+                                    Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
+                            };
+                            colorInput.Closed += (sender, _) =>
+                            {
+                                var input = sender as ColorPicker;
+                                Settings.SetSetting(input?.Name,
+                                    Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
+                            };
+
+                            // Add to Page.
                             colorContainer.Children.Add(colorLabel);
                             colorContainer.Children.Add(colorInput);
                             sectionContent.Children.Add(colorContainer);
-                            ConstrolList.Add(colorInput.Name, colorInput.GetType());
+                            controlsList.Add(colorInput.Name, colorInput.GetType());
+                            controlItem.Control = colorInput;
                             break;
 
                         case "DropDown":
@@ -210,6 +251,10 @@ namespace TF2HUD.Editor.Classes
                         case "Select":
                         case "ComboBox":
                         case "Crosshair":
+                            // Do not create a ComboBox if there are no defined options.
+                            if (controlItem.Options is not {Length: > 0}) break;
+
+                            // Create the Control.
                             var comboBoxContainer = new StackPanel
                             {
                                 Margin = new Thickness(10, lastTop, 0, 10)
@@ -220,23 +265,24 @@ namespace TF2HUD.Editor.Classes
                                 Width = 150,
                                 FontSize = 16
                             };
-                            if (controlItem.Options == null) break;
-                            if (controlItem.Options.Length <= 0) break;
                             var comboBoxInput = new ComboBox
                             {
                                 Name = id,
-                                Width = 150,
-                                SelectedIndex = int.TryParse(controlItem.Default, out var index) ? index : 1
+                                Width = 150
                             };
-                            // TODO: Add the display value and actual value.
-                            //var OptionValue = option.Value;
+
+                            // Add Tooltip text, if available.
+                            comboBoxInput.ToolTip = controlItem.Tooltip;
+
+                            // Add items to the ComboBox.
                             foreach (var option in controlItem.Options)
                             {
                                 var item = new ComboBoxItem
                                 {
                                     Content = option.Label
                                 };
-                                if (string.Equals(controlItem.Type, "Crosshair"))
+                                if (string.Equals(controlItem.Type, "Crosshair",
+                                    StringComparison.CurrentCultureIgnoreCase))
                                 {
                                     comboBoxInput.Style = (Style) Application.Current.Resources["CrosshairBox"];
                                     item.Style = (Style) Application.Current.Resources["Crosshair"];
@@ -245,35 +291,35 @@ namespace TF2HUD.Editor.Classes
                                 comboBoxInput.Items.Add(item);
                             }
 
+                            // Set the selected value depending on the what's retrieved from the setting file.
+                            var setting = Settings.GetSetting<string>(controlItem.Name);
+                            if (!Regex.IsMatch(setting, "\\D"))
+                                comboBoxInput.SelectedIndex = int.Parse(setting);
+                            else
+                                comboBoxInput.SelectedValue = setting;
+
+                            // Add Events.
+                            comboBoxInput.SelectionChanged += (sender, _) =>
+                            {
+                                var input = sender as ComboBox;
+                                Settings.SetSetting(input?.Name, string.Equals(controlItem.Type, "Crosshair",
+                                    StringComparison.CurrentCultureIgnoreCase)
+                                    ? comboBoxInput.SelectedValue.ToString()
+                                    : comboBoxInput.SelectedIndex.ToString());
+                            };
+
+                            // Add to Page.
                             comboBoxContainer.Children.Add(comboBoxLabel);
                             comboBoxContainer.Children.Add(comboBoxInput);
                             sectionContent.Children.Add(comboBoxContainer);
-                            ConstrolList.Add(comboBoxInput.Name, comboBoxInput.GetType());
+                            controlsList.Add(comboBoxInput.Name, comboBoxInput.GetType());
+                            controlItem.Control = comboBoxInput;
                             break;
 
                         case "Number":
-                            var numberContainer = new WrapPanel
-                            {
-                                Margin = new Thickness(10, lastTop, 0, 0)
-                            };
-                            var numberLabel = new Label
-                            {
-                                Content = label,
-                                Width = 60
-                            };
-                            var numberInput = new TextBox
-                            {
-                                Name = id,
-                                Width = 60
-                            };
-                            numberInput.PreviewTextInput += (_, e) => { e.Handled = !Regex.IsMatch(e.Text, "\\d"); };
-                            numberContainer.Children.Add(numberLabel);
-                            numberContainer.Children.Add(numberInput);
-                            sectionContent.Children.Add(numberContainer);
-                            ConstrolList.Add(numberInput.Name, numberInput.GetType());
-                            break;
-
+                        case "Integer":
                         case "IntegerUpDown":
+                            // Create the Control.
                             var integerContainer = new StackPanel
                             {
                                 Margin = new Thickness(10, lastTop, 0, 10)
@@ -288,15 +334,28 @@ namespace TF2HUD.Editor.Classes
                             {
                                 Name = id,
                                 Width = 100,
-                                Value = int.TryParse(controlItem.Default, out index) ? index : 0,
+                                Value = Settings.GetSetting<int>(controlItem.Name),
                                 Minimum = controlItem.Minimum,
                                 Maximum = controlItem.Maximum,
                                 Increment = controlItem.Increment
                             };
+
+                            // Add Tooltip text, if available.
+                            integerInput.ToolTip = controlItem.Tooltip;
+
+                            // Add Events.
+                            integerInput.ValueChanged += (sender, _) =>
+                            {
+                                var input = sender as IntegerUpDown;
+                                Settings.SetSetting(input?.Name, input.Text);
+                            };
+
+                            // Add to Page.
                             integerContainer.Children.Add(integerLabel);
                             integerContainer.Children.Add(integerInput);
                             sectionContent.Children.Add(integerContainer);
-                            ConstrolList.Add(integerInput.Name, integerInput.GetType());
+                            controlsList.Add(integerInput.Name, integerInput.GetType());
+                            controlItem.Control = integerInput;
                             break;
 
                         default:
@@ -306,20 +365,20 @@ namespace TF2HUD.Editor.Classes
 
                 sectionContainer.Content = sectionContent;
 
-                if (Layout != null)
+                if (layout != null)
                 {
                     // Avoid evaluating unnecessarily
                     var groupBoxItemEvaluated = false;
 
-                    for (var i = 0; i < Layout.Length; i++)
-                    for (var j = 0; j < Layout[i].Length; j++)
+                    for (var i = 0; i < layout.Length; i++)
+                    for (var j = 0; j < layout[i].Length; j++)
                     {
-                        // Allow index and grid area for grid coordinates
-                        if (groupBoxIndex.ToString() == Layout[i][j] ||
-                            section == Layout[i][j] && !groupBoxItemEvaluated)
+                        // Allow index and grid area for grid coordinates.
+                        if (groupBoxIndex.ToString() == layout[i][j] ||
+                            section == layout[i][j] && !groupBoxItemEvaluated)
                         {
-                            // Don't set column or row if it has already been set
-                            // setting the column/row every time will break spans
+                            // Don't set column or row if it has already been set.
+                            // Setting the column/row every time will break spans.
                             if (Grid.GetColumn(sectionContainer) == 0) Grid.SetColumn(sectionContainer, j);
                             if (Grid.GetRow(sectionContainer) == 0) Grid.SetRow(sectionContainer, i);
 
@@ -327,15 +386,15 @@ namespace TF2HUD.Editor.Classes
                             // Counts the occurrences of the current item id/index
                             var columnSpan = 0;
                             // Iterate current row
-                            for (var index = 0; index < Layout[i].Length; index++)
-                                if (groupBoxIndex.ToString() == Layout[i][index] || section == Layout[i][index])
+                            for (var index = 0; index < layout[i].Length; index++)
+                                if (groupBoxIndex.ToString() == layout[i][index] || section == layout[i][index])
                                     columnSpan++;
                             Grid.SetColumnSpan(sectionContainer, columnSpan);
 
                             var rowSpan = 0;
-                            for (var TempRowIndex = 0; TempRowIndex < Layout.Length; TempRowIndex++)
-                                if (groupBoxIndex.ToString() == Layout[TempRowIndex][j] ||
-                                    section == Layout[TempRowIndex][j])
+                            for (var TempRowIndex = 0; TempRowIndex < layout.Length; TempRowIndex++)
+                                if (groupBoxIndex.ToString() == layout[TempRowIndex][j] ||
+                                    section == layout[TempRowIndex][j])
                                     rowSpan++;
                             Grid.SetRowSpan(sectionContainer, rowSpan);
 
@@ -353,14 +412,16 @@ namespace TF2HUD.Editor.Classes
             }
 
             container.Children.Add(sectionsContainer);
-            Controls.Children.Add(container);
+            controls.Children.Add(container);
 
-            ControlsRendered = true;
-            return Controls;
+            isRendered = true;
+            return controls;
         }
 
+        #endregion
+
         /// <summary>
-        ///     Call to download the latest version of a given HUD if a URL is defined.
+        ///     Call to download the HUD if a URL has been provided.
         /// </summary>
         public void Update()
         {
@@ -368,254 +429,79 @@ namespace TF2HUD.Editor.Classes
         }
 
         /// <summary>
-        ///     Save user-settings to a Json file.
-        /// </summary>
-        public void Save()
-        {
-            try
-            {
-                var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
-                for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
-                    if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
-                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
-                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is StackPanel
-                                stackPanel)
-                                switch ((Visual) VisualTreeHelper.GetChild(stackPanel, stackPanel.Children.Count - 1))
-                                {
-                                    case TextBox text:
-                                        UpdateJson(text.Name, text.Text);
-                                        break;
-
-                                    case ColorPicker color:
-                                        UpdateJson(color.Name, Utilities.RgbConverter(color.SelectedColor.ToString()));
-                                        break;
-
-                                    case ComboBox combo:
-                                        UpdateJson(combo.Name,
-                                            ((ComboBoxItem) combo.SelectedItem).Style ==
-                                            (Style) Application.Current.Resources["Crosshair"]
-                                                ? combo.SelectedValue.ToString()
-                                                : combo.SelectedIndex.ToString());
-                                        break;
-
-                                    case IntegerUpDown integer:
-                                        UpdateJson(integer.Name, integer.Text);
-                                        break;
-                                }
-                            else if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is CheckBox
-                                checkBox) UpdateJson(checkBox.Name, checkBox.IsChecked == true ? "true" : "false");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        ///     Load user-settings from a Json file.
-        /// </summary>
-        public void Load()
-        {
-            try
-            {
-                // TODO: If the json has a duplicate key, this process fails. The json will need to be validated before we get to this point.
-                var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
-                for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
-                    if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
-                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
-                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is StackPanel
-                                stackPanel)
-                            {
-                                var control =
-                                    (Visual) VisualTreeHelper.GetChild(stackPanel, stackPanel.Children.Count - 1);
-                                switch (control)
-                                {
-                                    case TextBox text:
-                                        text.Text = ReadFromJson(text.Name, control);
-                                        break;
-
-                                    case ColorPicker color:
-                                        color.SelectedColor = ReadFromJson(color.Name, control);
-                                        break;
-
-                                    case ComboBox combo:
-                                        if (((ComboBoxItem) combo.Items[0]).Style ==
-                                            (Style) Application.Current.Resources["Crosshair"])
-                                            combo.SelectedValue = ReadFromJson(combo.Name, control, true).ToString();
-                                        else
-                                            combo.SelectedIndex = ReadFromJson(combo.Name, control);
-                                        break;
-
-                                    case IntegerUpDown integer:
-                                        integer.Text = ReadFromJson(integer.Name, control);
-                                        break;
-                                }
-                            }
-                            else if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is CheckBox
-                                checkBox)
-                            {
-                                checkBox.IsChecked = ReadFromJson(checkBox.Name, checkBox);
-                            }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        /// <summary>
-        ///     Reset user-settings to the default as defined in the HUD's Json file.
+        ///     Reset user-settings to the default values defined in the HUD schema.
         /// </summary>
         public void Reset()
         {
             try
             {
-                var json = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
-                    .Controls;
-                var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
-                for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
-                    if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
-                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
-                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is StackPanel
-                                stackPanel)
-                            {
-                                var control =
-                                    (Visual) VisualTreeHelper.GetChild(stackPanel, stackPanel.Children.Count - 1);
-                                switch (control)
-                                {
-                                    case TextBox text:
-                                        text.Text = GetDefaultFromControls(text.Name, json);
-                                        break;
+                foreach (var section in ControlOptions.Keys)
+                    for (var x = 0; x < ControlOptions[section].Length; x++)
+                    {
+                        var controlItem = ControlOptions[section][x];
+                        switch (controlItem.Control)
+                        {
+                            case CheckBox check:
+                                if (bool.TryParse(controlItem.Value, out var value))
+                                    check.IsChecked = value;
+                                break;
 
-                                    case ColorPicker color:
-                                        var colors = Array.ConvertAll(
-                                            GetDefaultFromControls(color.Name, json).Split(' '), c => byte.Parse(c));
-                                        color.SelectedColor =
-                                            Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
-                                        break;
+                            case TextBox text:
+                                text.Text = controlItem.Value;
+                                break;
 
-                                    case ComboBox combo:
-                                        if (((ComboBoxItem) combo.Items[0]).Style ==
-                                            (Style) Application.Current.Resources["Crosshair"])
-                                            combo.SelectedValue = GetDefaultFromControls(combo.Name, json);
-                                        else
-                                            combo.SelectedIndex = int.Parse(GetDefaultFromControls(combo.Name, json));
-                                        break;
+                            case ColorPicker color:
+                                var colors = Array.ConvertAll(controlItem.Value.Split(' '), byte.Parse);
+                                color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                                break;
 
-                                    case IntegerUpDown integer:
-                                        integer.Text = GetDefaultFromControls(integer.Name, json);
-                                        break;
-                                }
-                            }
-                            else if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is CheckBox
-                                checkBox)
-                            {
-                                checkBox.IsChecked = Utilities.ParseBool(GetDefaultFromControls(checkBox.Name, json));
-                            }
+                            case ComboBox combo:
+                                if (((ComboBoxItem) combo.Items[0]).Style ==
+                                    (Style) Application.Current.Resources["Crosshair"])
+                                    combo.SelectedValue = controlItem.Value;
+                                else
+                                    combo.SelectedIndex = int.Parse(controlItem.Value);
+                                break;
+
+                            case IntegerUpDown integer:
+                                integer.Text = controlItem.Value;
+                                break;
+                        }
+                    }
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
                 throw;
             }
         }
 
         /// <summary>
-        ///     Retrieve the default value defined for a given control.
+        ///     Apply user selected customizations to the HUD files.
         /// </summary>
-        public string GetDefaultFromControls(string name, Dictionary<string, Controls[]> controls)
-        {
-            foreach (var collection in controls.Values)
-            foreach (var control in collection)
-                if (string.Equals(name, control.Name))
-                    return control.Default;
-            return null;
-        }
-
-        /// <summary>
-        ///     Save a value to the user-settings Json file.
-        /// </summary>
-        public bool UpdateJson(string key, string value)
+        public bool ApplyCustomizations()
         {
             try
             {
-                var json = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText("settings.json"));
-                json.Settings.Where(x => x.HUD == Name).First(x => x.Name == key).Value = value;
-                File.WriteAllText("settings.json", JsonConvert.SerializeObject(json, Formatting.Indented));
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return false;
-            }
-        }
-
-        /// <summary>
-        ///     Retrieve a value from the user-settings Json file.
-        /// </summary>
-        public dynamic ReadFromJson(string key, Visual control, bool returnVal = false)
-        {
-            try
-            {
-                var json = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText("settings.json"));
-                var value = json.Settings.Where(x => x.HUD == Name).First(x => x.Name == key).Value;
-                if (returnVal) return value;
-                switch (control)
-                {
-                    case CheckBox:
-                        return value == "true" || value == "1";
-
-                    case ColorPicker:
-                        var colors = Array.ConvertAll(value.Split(' '), c => byte.Parse(c));
-                        return Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
-                        ;
-
-                    case ComboBox:
-                        return int.Parse(value);
-
-                    default: //TextBox, IntegerUpDown
-                        return value;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return null;
-            }
-        }
-
-        /// <summary>
-        ///     Apply user-set customizations to the HUD files.
-        /// </summary>
-        public bool ApplyCustomization()
-        {
-            try
-            {
-                var path = $"{MainWindow.HudPath}\\{Name}\\";
-
-                // If the developer defined customization folders for their HUD, then copy those files.
-                if (!string.IsNullOrWhiteSpace(CustomisationsFolder)) return MoveCustomizationFiles(path);
-
-                var userSettings = JsonConvert
-                    .DeserializeObject<UserJson>(File.ReadAllText("settings.json")).Settings
-                    .Where(x => x.HUD == Name);
                 var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
                     .Controls.Values;
+
+                // If the developer defined customization folders for their HUD, then copy those files.
+                if (!string.IsNullOrWhiteSpace(CustomizationsFolder))
+                    MoveCustomizationFiles(hudSettings);
 
                 // This Dictionary contains folders/files/properties as they should be written to the hud
                 // the 'IterateFolder' and 'IterateHUDFileProperties' will write the properties to this
                 var hudFolders = new Dictionary<string, dynamic>();
 
-                foreach (var userSetting in userSettings)
-                foreach (var control in from hudSetting in hudSettings
-                    from control in hudSetting
-                    where string.Equals(control.Name, userSetting.Name)
-                    select control)
-                    WriteToFile(path, control, userSetting, hudFolders);
-
+                foreach (var group in hudSettings)
+                foreach (var control in group)
+                {
+                    var user = Settings.GetSetting(control.Name);
+                    if (user is not null)
+                        WriteToFile(control, user, hudFolders);
+                }
 
                 void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
                 {
@@ -650,12 +536,9 @@ namespace TF2HUD.Editor.Classes
                                         // Match pattern here, also ensure item is a HUD element
                                         if (Regex.IsMatch(key, pattern) &&
                                             obj[key].GetType() == typeof(Dictionary<string, dynamic>))
-                                        {
                                             // Initialise hudContainer and create inner Dictionary
                                             //  to contain elements specified
-                                            hudContainer = new Dictionary<string, dynamic>();
-                                            hudContainer[key] = folder[property];
-                                        }
+                                            hudContainer = new Dictionary<string, dynamic> {[key] = folder[property]};
 
                                         preventInfinite++;
                                     }
@@ -692,6 +575,7 @@ namespace TF2HUD.Editor.Classes
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
                 return false;
             }
@@ -700,38 +584,76 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Copy files used for folder-based customizations.
         /// </summary>
-        public bool MoveCustomizationFiles(string path)
+        public bool MoveCustomizationFiles(Dictionary<string, Controls[]>.ValueCollection hudSettings)
         {
             try
             {
-                // Check if the customization folders are valid.
-                if (Directory.Exists($"{path}\\{CustomisationsFolder}")) return true;
+                // Check if the customization folders exist.
+                var path = $"{MainWindow.HudPath}\\{Name}\\";
+                if (!Directory.Exists($"{path}\\{CustomizationsFolder}") &&
+                    !Directory.Exists($"{path}\\{EnabledFolder}")) return true;
 
-                var grid = (Grid) ((Grid) Controls.Children[^1]).Children[^1];
-                for (var x = 0; x < VisualTreeHelper.GetChildrenCount(grid); x++)
-                    if ((Visual) VisualTreeHelper.GetChild(grid, x) is GroupBox groupBox)
-                        for (var y = 0; y < VisualTreeHelper.GetChildrenCount((WrapPanel) groupBox.Content); y++)
-                            if ((Visual) VisualTreeHelper.GetChild((WrapPanel) groupBox.Content, y) is CheckBox checkBox
-                            )
+                // Get user's settings for the selected HUD.
+                var userSettings = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(HUDSettings.UserFile))
+                    ?.Settings.Where(x => x.HUD == Name);
+
+                foreach (var group in hudSettings)
+                foreach (var control in group)
+                {
+                    // Loop through every control on the page, find the matching user setting.
+                    var setting = userSettings.First(x => x.Name == control.Name);
+                    if (setting is null) continue; // User setting not found, skipping.
+
+                    var custom = $"{path}{CustomizationsFolder}";
+                    var enabled = $"{path}{EnabledFolder}";
+
+                    switch (control.Type.ToLowerInvariant())
+                    {
+                        case "checkbox":
+                            var fileName = Utilities.GetFileNames(control);
+                            if (fileName is null or not string) continue; // File name not found, skipping.
+
+                            custom += $"\\{fileName}.res";
+                            enabled += $"\\{fileName}.res";
+
+                            // If true, move the customization file into the enabled folder, otherwise move it back.
+                            if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
+                                if (File.Exists(custom)) File.Move(custom, enabled);
+                                else if (File.Exists(enabled)) File.Move(enabled, custom);
+                            break;
+
+                        case "combobox":
+                            var fileNames = Utilities.GetFileNames(control);
+                            if (fileNames is null or not string[]) continue; // File names not found, skipping.
+
+                            // Move every file assigned to this control back to the customization folder first.
+                            foreach (string file in fileNames)
                             {
-                                var custom = $"{path}{CustomisationsFolder}\\{checkBox.Name}.res";
-                                var enabled = $"{path}{EnabledFolder}\\{checkBox.Name}.res";
-                                if (checkBox.IsChecked == true) // Move to enabled
-                                {
-                                    if (File.Exists(custom)) File.Move(custom, enabled);
-                                }
-                                else // Move to customization folder
-                                {
-                                    if (File.Exists(enabled)) File.Move(enabled, custom);
-                                }
-
-                                break;
+                                var name = file.Replace(".res", string.Empty);
+                                if (File.Exists(enabled + $"\\{name}.res"))
+                                    File.Move(enabled + $"\\{name}.res", custom + $"\\{name}.res");
                             }
+
+                            // Only move the files for the control option selected by the user.
+                            if (!string.Equals(setting.Value, "0"))
+                            {
+                                var name = control.Options[int.Parse(setting.Value)].FileName;
+                                if (string.IsNullOrWhiteSpace(name)) break;
+
+                                name = name.Replace(".res", string.Empty);
+                                if (File.Exists(custom + $"\\{name}.res"))
+                                    File.Move(custom + $"\\{name}.res", enabled + $"\\{name}.res");
+                            }
+
+                            break;
+                    }
+                }
 
                 return true;
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
                 return false;
             }
@@ -740,66 +662,90 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Write user selected options to HUD files.
         /// </summary>
-        /// <param name="path">Path to the HUD installation</param>
         /// <param name="hudSetting">Settings as defined for the HUD</param>
         /// <param name="userSetting">Settings as selected by the user</param>
         /// <param name="hudFolders">folders/files/properties Dictionary to write HUD properties to</param>
-        private void WriteToFile(string path, Controls hudSetting, Setting userSetting,
-            Dictionary<string, dynamic> hudFolders)
+        private void WriteToFile(Controls hudSetting, Setting userSetting, Dictionary<string, dynamic> hudFolders)
         {
             try
             {
-                if (hudSetting.Files != null)
+                // Check for special cases like stock or custom backgrounds.
+                EnableStockBackgrounds(hudSetting, userSetting);
+
+                if (hudSetting.Files == null) return;
+
+                // TODO: Add comment explaining this method.
+                Dictionary<string, dynamic> CompileHudElement(JObject element, string filePath)
                 {
-                    Dictionary<string, dynamic> CompileHudElement(JObject element, string filePath)
-                    {
-                        var hudElement = new Dictionary<string, dynamic>();
-                        foreach (var property in element)
-                            if (property.Key == "replace")
+                    var hudElement = new Dictionary<string, dynamic>();
+                    foreach (var property in element)
+                        if (string.Equals(property.Key, "replace", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            var values = property.Value.ToArray();
+
+                            string find, replace;
+                            if (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
                             {
-                                var values = property.Value.ToArray();
-
-                                string find, replace;
-                                if (userSetting.Value == "true")
-                                {
-                                    find = values[0].ToString();
-                                    replace = values[1].ToString();
-                                }
-                                else
-                                {
-                                    find = values[1].ToString();
-                                    replace = values[0].ToString();
-                                }
-
-                                File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
-                            }
-                            else if (property.Value.GetType() == typeof(JObject))
-                            {
-                                var currentObj = property.Value.ToObject<JObject>();
-
-                                if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
-                                    hudElement[property.Key] = currentObj[userSetting.Value];
-                                else
-                                    hudElement[property.Key] = CompileHudElement(currentObj, filePath);
+                                find = values[0].ToString();
+                                replace = values[1].ToString();
                             }
                             else
                             {
-                                hudElement[property.Key] =
-                                    property.Value.ToString().Replace("$value", userSetting.Value);
+                                find = values[1].ToString();
+                                replace = values[0].ToString();
                             }
 
-                        return hudElement;
-                    }
+                            File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
+                        }
+                        else if (property.Value.GetType() == typeof(JObject))
+                        {
+                            var currentObj = property.Value.ToObject<JObject>();
 
-                    void WriteAnimationCustomizations(string filePath, JObject animationOptions)
-                    {
-                        // Don't read animations file unless the user requests a new event
-                        // the majority of the animation customisations are for enabling/disabling
-                        // events, which use the 'replace' keyword
-                        Dictionary<string, List<HUDAnimation>> animations = null;
+                            if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
+                                hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()];
+                            else
+                                hudElement[property.Key] = CompileHudElement(currentObj, filePath);
+                        }
+                        else
+                        {
+                            if (string.Equals(userSetting.Type, "ColorPicker",
+                                StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                // If the color is supposed to have a pulse, set the pulse value in the schema.
+                                if (hudSetting.Pulse)
+                                {
+                                    var pulseKey = property.Key + "Pulse";
+                                    hudElement[pulseKey] = Utilities.GetPulsedColor(userSetting.Value);
+                                }
 
-                        foreach (var animationOption in animationOptions)
-                            if (animationOption.Key == "replace")
+                                // If the color value is for an item rarity, update the dimmed and grayed values.
+                                foreach (var value in Utilities.ItemRarities)
+                                {
+                                    if (!string.Equals(property.Key, value.Item1)) continue;
+                                    hudElement[value.Item2] = Utilities.GetDimmedColor(userSetting.Value);
+                                    hudElement[value.Item3] = Utilities.GetGrayedColor(userSetting.Value);
+                                }
+                            }
+
+                            hudElement[property.Key] =
+                                property.Value.ToString().Replace("$value", userSetting.Value);
+                        }
+
+                    return hudElement;
+                }
+
+                // TODO: Add comment explaining this method.
+                void WriteAnimationCustomizations(string filePath, JObject animationOptions)
+                {
+                    // Don't read animations file unless the user requests a new event
+                    // the majority of the animation customisations are for enabling/disabling
+                    // events, which use the 'replace' keyword
+                    Dictionary<string, List<HUDAnimation>> animations = null;
+
+                    foreach (var animationOption in animationOptions)
+                        switch (animationOption.Key.ToLowerInvariant())
+                        {
+                            case "replace":
                             {
                                 // Example:
                                 // "replace": [
@@ -810,7 +756,7 @@ namespace TF2HUD.Editor.Classes
                                 var values = animationOption.Value.ToArray();
 
                                 string find, replace;
-                                if (userSetting.Value == "true")
+                                if (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
                                 {
                                     find = values[0].ToString();
                                     replace = values[1].ToString();
@@ -822,8 +768,71 @@ namespace TF2HUD.Editor.Classes
                                 }
 
                                 File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
+                                break;
                             }
-                            else
+                            case "comment":
+                            {
+                                // Example:
+                                // "comment": [
+                                //   "StopEvent",
+                                //   "StopEvent"
+                                // ]
+
+                                var values = animationOption.Value.ToArray();
+
+                                if (bool.TryParse(userSetting.Value, out var valid))
+                                {
+                                    var lines = File.ReadAllLines(filePath);
+                                    foreach (string value in values)
+                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
+                                        lines[index] = valid
+                                            ? Utilities.CommentTextLine(lines[index])
+                                            : Utilities.UncommentTextLine(lines[index]);
+                                    File.WriteAllLines(filePath, lines);
+                                }
+                                else if (int.TryParse(userSetting.Value, out _))
+                                {
+                                    var lines = File.ReadAllLines(filePath);
+                                    foreach (string value in values)
+                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
+                                        lines[index] = Utilities.CommentTextLine(lines[index]);
+                                    File.WriteAllLines(filePath, lines);
+                                }
+
+                                break;
+                            }
+                            case "uncomment":
+                            {
+                                // Example:
+                                // "uncomment": [
+                                //   "StopEvent",
+                                //   "StopEvent"
+                                // ]
+
+                                var values = animationOption.Value.ToArray();
+
+                                if (bool.TryParse(userSetting.Value, out var valid))
+                                {
+                                    var lines = File.ReadAllLines(filePath);
+                                    foreach (string value in values)
+                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
+                                        lines[index] = valid
+                                            ? Utilities.UncommentTextLine(lines[index])
+                                            : Utilities.CommentTextLine(lines[index]);
+                                    File.WriteAllLines(filePath, lines);
+                                }
+                                else if (int.TryParse(userSetting.Value, out _))
+                                {
+                                    var lines = File.ReadAllLines(filePath);
+                                    foreach (string value in values)
+                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
+                                        lines[index] = Utilities.UncommentTextLine(lines[index]);
+                                    File.WriteAllLines(filePath, lines);
+                                }
+
+                                break;
+                            }
+                            default:
                             {
                                 // animation
                                 // example:
@@ -839,7 +848,7 @@ namespace TF2HUD.Editor.Classes
                                 //   }
                                 // ]
 
-                                if (animations == null) animations = HUDAnimations.Parse(File.ReadAllText(filePath));
+                                animations ??= HUDAnimations.Parse(File.ReadAllText(filePath));
 
                                 // Create new event or animation statements could stack
                                 // over multiple 'apply customisations'
@@ -852,10 +861,10 @@ namespace TF2HUD.Editor.Classes
                                     // Create temporary variable to store current animation instead of adding directly in switch case
                                     // because there are conditional properties that might need to be added later
                                     //
-                                    // Initialize to dynamic so type checker doesnt return HUDAnimation
+                                    // Initialize to dynamic so type checker does not return HUDAnimation
                                     // for setting freq/gain/bias
                                     //
-                                    dynamic current = null;
+                                    dynamic current;
 
                                     switch (animation["Type"].ToString().ToLower())
                                     {
@@ -871,6 +880,7 @@ namespace TF2HUD.Editor.Classes
                                                 Duration = animation["Duration"]
                                             };
                                             break;
+
                                         case "runevent":
                                             current = new RunEvent
                                             {
@@ -879,6 +889,7 @@ namespace TF2HUD.Editor.Classes
                                                 Delay = animation["Delay"]
                                             };
                                             break;
+
                                         case "stopevent":
                                             current = new StopEvent
                                             {
@@ -887,6 +898,7 @@ namespace TF2HUD.Editor.Classes
                                                 Delay = animation["Delay"]
                                             };
                                             break;
+
                                         case "setvisible":
                                             current = new SetVisible
                                             {
@@ -896,6 +908,7 @@ namespace TF2HUD.Editor.Classes
                                                 Duration = animation["Duration"]
                                             };
                                             break;
+
                                         case "firecommand":
                                             current = new FireCommand
                                             {
@@ -904,6 +917,7 @@ namespace TF2HUD.Editor.Classes
                                                 Command = animation["Command"]
                                             };
                                             break;
+
                                         case "runeventchild":
                                             current = new RunEventChild
                                             {
@@ -913,6 +927,7 @@ namespace TF2HUD.Editor.Classes
                                                 Delay = animation["Delay"]
                                             };
                                             break;
+
                                         case "setinputenabled":
                                             current = new SetInputEnabled
                                             {
@@ -922,6 +937,7 @@ namespace TF2HUD.Editor.Classes
                                                 Delay = animation["Delay"]
                                             };
                                             break;
+
                                         case "playsound":
                                             current = new PlaySound
                                             {
@@ -930,6 +946,7 @@ namespace TF2HUD.Editor.Classes
                                                 Sound = animation["Sound"]
                                             };
                                             break;
+
                                         case "stoppanelanimations":
                                             current = new StopPanelAnimations
                                             {
@@ -938,6 +955,7 @@ namespace TF2HUD.Editor.Classes
                                                 Delay = animation["Delay"]
                                             };
                                             break;
+
                                         default:
                                             throw new Exception(
                                                 $"Unexpected animation type '{animation["Type"]}' in {animationOption.Key}!");
@@ -946,54 +964,190 @@ namespace TF2HUD.Editor.Classes
                                     // Animate statements can have an extra argument make sure to account for them
                                     if (current.GetType() == typeof(Animate))
                                     {
-                                        if (current.Interpolator.ToLower() == "pulse")
+                                        if (string.Equals(current.Interpolator, "pulse",
+                                            StringComparison.CurrentCultureIgnoreCase))
                                             current.Frequency = animation["Frequency"];
 
-                                        if (current.Interpolator.ToLower() == "gain" ||
-                                            current.Interpolator.ToLower() == "bias")
+                                        if (string.Equals(current.Interpolator, "gain",
+                                                StringComparison.CurrentCultureIgnoreCase) ||
+                                            string.Equals(current.Interpolator, "bias",
+                                                StringComparison.CurrentCultureIgnoreCase))
                                             current.Bias = animation["Bias"];
                                     }
 
                                     animations[animationOption.Key].Add(current);
                                 }
+
+                                break;
                             }
+                        }
 
-                        if (animations != null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
-                    }
+                    if (animations != null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
+                }
 
-                    string[] resFileExtensions = {"res", "vmt", "vdf"};
+                string[] resFileExtensions = {"res", "vmt", "vdf"};
 
-                    foreach (var filePath in hudSetting.Files)
+                foreach (var filePath in hudSetting.Files)
+                {
+                    var currentFilePath = MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key;
+                    var extension = filePath.Key.Split(".")[^1];
+
+                    if (resFileExtensions.Contains(extension))
                     {
-                        var currentFilePath = MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key;
-                        var extension = filePath.Key.Split(".")[^1];
-
-                        if (resFileExtensions.Contains(extension))
-                        {
-                            var hudFile = Utilities.CreateNestedObject(hudFolders, Regex.Split(filePath.Key, @"[\/]+"));
-                            Utilities.Merge(hudFile,
-                                CompileHudElement(filePath.Value.ToObject<JObject>(),
-                                    currentFilePath));
-                        }
-                        else if (extension == "txt")
-                        {
-                            // assume .txt is always an animation file
-                            // (may cause issues with mod_textures.txt but assume we are only editing hud files)
-                            WriteAnimationCustomizations(currentFilePath,
-                                filePath.Value.ToObject<JObject>());
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Could not recognise file extension '{extension}'",
-                                "Unrecognized file extension");
-                        }
+                        var hudFile = Utilities.CreateNestedObject(hudFolders, Regex.Split(filePath.Key, @"[\/]+"));
+                        Utilities.Merge(hudFile,
+                            CompileHudElement(filePath.Value.ToObject<JObject>(),
+                                currentFilePath));
+                    }
+                    else if (string.Equals(extension, "txt"))
+                    {
+                        // Assume .txt is always an animation file (may cause issues with mod_textures.txt but assume we are only editing hud files)
+                        WriteAnimationCustomizations(currentFilePath,
+                            filePath.Value.ToObject<JObject>());
+                    }
+                    else
+                    {
+                        MainWindow.ShowMessageBox(MessageBoxImage.Error,
+                            $"Could not recognize file extension '{extension}'");
                     }
                 }
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
             }
         }
+
+        #region CUSTOM SETTINGS
+
+        /// <summary>
+        ///     Called to check if the option enable default background images for a given HUD is enabled.
+        /// </summary>
+        /// <param name="hudSetting">HUD settings object</param>
+        /// <param name="userSetting">User settings object</param>
+        private void EnableStockBackgrounds(Controls hudSetting, Setting userSetting)
+        {
+            // Check for special conditions, namely if we should enable stock backgrounds.
+            var enable = string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase);
+
+            if (string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
+            {
+                // Determine files using the files of the selected item's label or value
+                // Could cause issues if label and value are both numbers but numbered differently
+                hudSetting.Files = hudSetting.Options
+                    .First(x => x.Label == userSetting.Value || x.Value == userSetting.Value).Files;
+
+                foreach (var option in hudSetting.Options)
+                    if (option.Special is not null)
+                    {
+                        hudSetting.Special = option.Special;
+                        if (option.Value == userSetting.Value)
+                            enable = true;
+                    }
+            }
+
+            if (hudSetting.Special is null) return;
+
+            if (string.Equals(hudSetting.Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
+                SetStockBackgrounds(MainWindow.HudPath + "\\" + Name, enable);
+        }
+
+        /// <summary>
+        ///     Toggle default backgrounds by renaming their file extensions.
+        /// </summary>
+        /// <remarks>
+        ///     BUG: Need to check the scripts folder for chapterbackgrounds.txt - otherwise only pl_upward will be shown.
+        /// </remarks>
+        public static bool SetStockBackgrounds(string path, bool enable = false)
+        {
+            try
+            {
+                // Revert everything back to normal before changing the name extension.
+                var directoryPath = new DirectoryInfo(path + "\\materials\\console");
+                foreach (var file in directoryPath.GetFiles())
+                {
+                    if (file.Name.EndsWith("bak"))
+                        File.Move(file.FullName, file.FullName.Replace("bak", "vtf"));
+                    if (file.Name.EndsWith("temp"))
+                        File.Move(file.FullName, file.FullName.Replace("temp", "vmt"));
+                }
+
+                // Do the same for the chapter backgrounds file as well.
+                var chapterBackgrounds = path + "\\scripts\\chapterbackgrounds.bak";
+                if (File.Exists(chapterBackgrounds))
+                    File.Move(chapterBackgrounds, chapterBackgrounds.Replace(".bak", ".txt"));
+
+                // If we're not enabling stock background, then skip this process.
+                if (!enable) return true;
+
+                // Rename the file extensions so that the game does not use them.
+                foreach (var file in directoryPath.GetFiles())
+                {
+                    if (file.Name.EndsWith("vtf"))
+                        File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
+                    if (file.Name.EndsWith("vmt"))
+                        File.Move(file.FullName, file.FullName.Replace("vmt", "temp"));
+                }
+
+                if (File.Exists(chapterBackgrounds.Replace(".bak", ".txt")))
+                    File.Move(chapterBackgrounds.Replace(".bak", ".txt"), chapterBackgrounds);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_menu_background} {e.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Copy configuration file for transparent viewmodels into the HUD's cfg folder.
+        /// </summary>
+        /// <remarks>TODO: Implement this into the transparent viewmodels customization.</remarks>
+        public static bool CopyTransparentViewmodelCfg(string path, bool enable = false)
+        {
+            try
+            {
+                // Copy the config file required for this feature
+                if (!enable) return true;
+                if (!Directory.Exists(path + "\\cfg"))
+                    Directory.CreateDirectory(path + "\\cfg");
+                File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\hud.cfg", path + "\\cfg\\hud.cfg", true);
+                return true;
+            }
+            catch (Exception e)
+            {
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_transparent_vm} {e.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        ///     Generate a VTF background using an image provided by the user.
+        /// </summary>
+        /// <remarks>TODO: Implement this in version 2.1</remarks>
+        public static bool SetCustomBackground()
+        {
+            try
+            {
+                // Initialize the VTF converter, set the file paths and do the conversion. The resulting image will be named background_upward.vtf
+                var converter = new VTF(MainWindow.HudPath);
+                var output = string.Format(Resources.file_background, MainWindow.HudPath, MainWindow.HudSelection,
+                    "background_upward.vtf");
+                converter.Convert(Properties.Settings.Default.image_path, output);
+                File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
+                return true;
+            }
+            catch (Exception e)
+            {
+                MainWindow.ShowMessageBox(MessageBoxImage.Error,
+                    $"{Resources.error_seasonal_backgrounds} {e.Message}");
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

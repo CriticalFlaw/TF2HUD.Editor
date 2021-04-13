@@ -129,140 +129,20 @@
   <data name="error_app_install" xml:space="preserve">
     <value>An error occurred while installing {0}.</value>
   </data>
-  <data name="error_app_load" xml:space="preserve">
-    <value>An error occurred while loading {0} settings.</value>
-  </data>
-  <data name="error_app_reset" xml:space="preserve">
-    <value>An error occurred while resetting {0} settings.</value>
-  </data>
-  <data name="error_app_save" xml:space="preserve">
-    <value>An error occurred while saving {0} settings.</value>
-  </data>
   <data name="error_app_uninstall" xml:space="preserve">
     <value>An error occurred while uninstalling {0}.</value>
-  </data>
-  <data name="error_chat_pos" xml:space="preserve">
-    <value>An error occurred while changing the chatbox position.</value>
-  </data>
-  <data name="error_colors" xml:space="preserve">
-    <value>An error occurred while updating the color values.</value>
-  </data>
-  <data name="error_color_text" xml:space="preserve">
-    <value>An error occurred while toggling health colors on text over panel or vice versa.</value>
-  </data>
-  <data name="error_damage_pos" xml:space="preserve">
-    <value>An error occurred while changing the damage position.</value>
-  </data>
-  <data name="error_disguise_image" xml:space="preserve">
-    <value>An error occurred while toggling the spy disguise image.</value>
-  </data>
-  <data name="error_fonts" xml:space="preserve">
-    <value>An error occurred while applying the font selection.</value>
-  </data>
-  <data name="error_health_style" xml:space="preserve">
-    <value>An error occurred while changing the health style.</value>
-  </data>
-  <data name="error_killfeed" xml:space="preserve">
-    <value>An error occurred while updating the killfeed row count.</value>
-  </data>
-  <data name="error_main_menu" xml:space="preserve">
-    <value>An error occurred while changing the main menu style.</value>
   </data>
   <data name="error_menu_background" xml:space="preserve">
     <value>An error occurred while changing the main menu backgrounds.</value>
   </data>
-  <data name="error_menu_class_image" xml:space="preserve">
-    <value>An error occurred while toggling the main menu class image.</value>
-  </data>
-  <data name="error_metal_pos" xml:space="preserve">
-    <value>An error occurred while changing the metal position.</value>
-  </data>
-  <data name="error_player_model_pos" xml:space="preserve">
-    <value>An error occurred while changing the player model position.</value>
-  </data>
-  <data name="error_scoreboard" xml:space="preserve">
-    <value>An error occurred while changing the scoreboard style.</value>
-  </data>
   <data name="error_seasonal_backgrounds" xml:space="preserve">
     <value>An error occurred while toggling seasonal backgrounds.</value>
-  </data>
-  <data name="error_stats_position" xml:space="preserve">
-    <value>An error occurred while changing the player stats position.</value>
-  </data>
-  <data name="error_team_select" xml:space="preserve">
-    <value>An error occurred while changing the team select style.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
     <value>An error occurred while toggling transparent viewmodels.</value>
   </data>
-  <data name="error_uber_animation" xml:space="preserve">
-    <value>An error occurred while changing the ÜberCharge style.</value>
-  </data>
-  <data name="error_xhair" xml:space="preserve">
-    <value>An error occurred while applying the crosshair selection.</value>
-  </data>
-  <data name="error_xhair_pulse" xml:space="preserve">
-    <value>An error occurred while toggling the crosshair pulse.</value>
-  </data>
   <data name="file_background" xml:space="preserve">
     <value>{0}\materials\console\{1}</value>
-  </data>
-  <data name="file_basechat" xml:space="preserve">
-    <value>{0}\resource\ui\basechat.res</value>
-  </data>
-  <data name="file_cfg" xml:space="preserve">
-    <value>{0}\cfg\hud.cfg</value>
-  </data>
-  <data name="file_chapterbackgrounds" xml:space="preserve">
-    <value>{0}\scripts\chapterbackgrounds.txt</value>
-  </data>
-  <data name="file_classselection" xml:space="preserve">
-    <value>{0}\resource\ui\classselection.res</value>
-  </data>
-  <data name="file_clientscheme" xml:space="preserve">
-    <value>{0}\resource\clientscheme.res</value>
-  </data>
-  <data name="file_clientscheme_colors" xml:space="preserve">
-    <value>{0}\resource\scheme\clientscheme_colors.res</value>
-  </data>
-  <data name="file_custom_mainmenu" xml:space="preserve">
-    <value>{0}\customizations\main_menu\mainmenuoverride.res</value>
-  </data>
-  <data name="file_custom_mainmenu_classic" xml:space="preserve">
-    <value>{0}\customizations\main_menu\mainmenuoverride-classic.res</value>
-  </data>
-  <data name="file_hudanimations" xml:space="preserve">
-    <value>{0}\scripts\hudanimations_custom.txt</value>
-  </data>
-  <data name="file_huddamageaccount" xml:space="preserve">
-    <value>{0}\resource\ui\huddamageaccount.res</value>
-  </data>
-  <data name="file_hudlayout" xml:space="preserve">
-    <value>{0}\scripts\hudlayout.res</value>
-  </data>
-  <data name="file_hudplayerclass" xml:space="preserve">
-    <value>{0}\resource\ui\hudplayerclass.res</value>
-  </data>
-  <data name="file_hudplayerhealth" xml:space="preserve">
-    <value>{0}\resource\ui\hudplayerhealth.res</value>
-  </data>
-  <data name="file_itemeffectmeter" xml:space="preserve">
-    <value>{0}\resource\ui\huditemeffectmeter{1}.res</value>
-  </data>
-  <data name="file_mainmenuoverride" xml:space="preserve">
-    <value>{0}\resource\ui\mainmenuoverride.res</value>
-  </data>
-  <data name="file_playerclass" xml:space="preserve">
-    <value>{0}\resource\ui\hudplayerclass.res</value>
-  </data>
-  <data name="file_playerhealth" xml:space="preserve">
-    <value>{0}\resource\ui\hudplayerhealth.res</value>
-  </data>
-  <data name="file_scoreboard" xml:space="preserve">
-    <value>{0}\resource\ui\scoreboard.res</value>
-  </data>
-  <data name="file_teammenu" xml:space="preserve">
-    <value>{0}\resource\ui\teammenu.res</value>
   </data>
   <data name="info_create_backup" xml:space="preserve">
     <value>An existing {0} folder has been found. To avoid conflicts, a backup has been created.</value>
@@ -284,8 +164,5 @@
   </data>
   <data name="path_console" xml:space="preserve">
     <value>{0}\materials\console\</value>
-  </data>
-  <data name="path_resource_ui" xml:space="preserve">
-    <value>{0}\resource\ui</value>
   </data>
 </root>

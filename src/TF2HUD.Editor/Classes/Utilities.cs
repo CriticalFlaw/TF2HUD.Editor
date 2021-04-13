@@ -3,191 +3,210 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
+using TF2HUD.Editor.JSON;
 
 namespace TF2HUD.Editor.Classes
 {
     public static class Utilities
     {
-        /// <summary>
-        ///     Get the line number of a given text value found in a string array.
-        /// </summary>
-        public static int FindIndex(string[] array, string value, int skip = 0)
+        public static List<Tuple<string, string, string>> ItemRarities = new()
         {
-            try
-            {
-                var list = array.Skip(skip);
-                var index = list.Select((v, i) => new {Index = i, Value = v}) // Pair up values and indexes
-                    .Where(p => p.Value.Contains(value)) // Do the filtering
-                    .Select(p => p.Index); // Keep the index and drop the value
-                return index.First() + skip;
-            }
-            catch
-            {
-                return 0;
-            }
-        }
+            new Tuple<string, string, string>("QualityColorNormal", "DimmQualityColorNormal",
+                "QualityColorNormal_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorUnique", "DimmQualityColorUnique",
+                "QualityColorUnique_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorStrange", "DimmQualityColorStrange",
+                "QualityColorStrange_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorVintage", "DimmQualityColorVintage",
+                "QualityColorVintage_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorHaunted", "DimmQualityColorHaunted",
+                "QualityColorHaunted_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorrarity1", "DimmQualityColorrarity1",
+                "QualityColorrarity1_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorCollectors", "DimmQualityColorCollectors",
+                "QualityColorCollectors_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorrarity4", "DimmQualityColorrarity4",
+                "QualityColorrarity4_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorCommunity", "DimmQualityColorCommunity",
+                "QualityColorCommunity_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorDeveloper", "DimmQualityColorDeveloper",
+                "QualityColorDeveloper_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityCommon", "DimmItemRarityCommon", "ItemRarityCommon_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityUncommon", "DimmItemRarityUncommon",
+                "ItemRarityUncommon_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityRare", "DimmItemRarityRare", "ItemRarityRare_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityMythical", "DimmItemRarityMythical",
+                "ItemRarityMythical_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityLegendary", "DimmItemRarityLegendary",
+                "ItemRarityLegendary_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityAncient", "DimmItemRarityAncient",
+                "ItemRarityAncient_GreyedOut")
+        };
 
         /// <summary>
-        ///     Clear all existing comment identifiers, then apply a fresh one.
+        ///     Add a comment tag (//) to the beginning of a text line.
         /// </summary>
-        public static string CommentOutTextLine(string value)
+        /// <param name="value">String value to which to add a comment tag.</param>
+        public static string CommentTextLine(string value)
         {
             return string.Concat("//", value.Replace("//", string.Empty));
         }
 
         /// <summary>
-        ///     Clear all existing comment identifiers, then apply a fresh one.
+        ///     Remove all comment tags (//) from a text line.
         /// </summary>
-        public static string[] CommentOutTextLineSuper(string[] lines, string start, string query, bool commentOut)
+        /// <param name="value">String value from which to remove a comment tag.</param>
+        public static string UncommentTextLine(string value)
         {
-            var index1 = FindIndex(lines, query, FindIndex(lines, start));
-            var index2 = FindIndex(lines, query, index1++);
-            lines[index1] = commentOut ? lines[index1].Replace("//", string.Empty) : CommentOutTextLine(lines[index1]);
-            lines[index2] = commentOut ? lines[index2].Replace("//", string.Empty) : CommentOutTextLine(lines[index2]);
-            return lines;
+            return value.Replace("//", string.Empty);
         }
 
         /// <summary>
-        ///     Convert  HEX code to an RGB value.
+        ///     Get a list of line numbers containing a given string.
         /// </summary>
-        /// <param name="hex">HEX code of the color to be converted to RGB.</param>
-        /// <param name="alpha">Flag the color as having a lower alpha value than normal.</param>
-        /// <param name="pulse">Flag the color as a pulse, slightly changing green channel.</param>
-        public static string RgbConverter(string hex, bool pulse = false)
+        /// <param name="lines">An array of lines to loop through.</param>
+        /// <param name="value">String value to look for in the list of lines.</param>
+        public static List<int> GetLineNumbersContainingString(string[] lines, string value)
+        {
+            // Loop through each line in the array, add any line number containing the value parameter to the list.
+            var indexList = new List<int>();
+            for (var x = 0; x < lines.Length; x++)
+                if (lines[x].Contains(value) || lines[x].Contains(value.Replace(" ", "\t")))
+                    indexList.Add(x);
+            return indexList;
+        }
+
+        /// <summary>
+        ///     Convert a HEX color code to RGBA.
+        /// </summary>
+        /// <param name="hex">HEX color code to be convert to RGBA.</param>
+        public static string ConvertToRgba(string hex)
         {
             var color = ColorTranslator.FromHtml(hex);
-            var pulseNew = pulse && color.G >= 50 ? color.G - 50 : color.G;
-            return $"{color.R} {pulseNew} {color.B} {color.A}";
+            return $"{color.R} {color.G} {color.B} {color.A}";
         }
 
         /// <summary>
-        ///     Convert an Enum name to a user-friendly string value.
+        ///     Get a pulsed color by reducing a color channel value by 50.
         /// </summary>
-        public static string GetStringValue(Enum value)
+        /// <param name="rgba">RGBA color code to process.</param>
+        public static string GetPulsedColor(string rgba)
         {
-            // Get the type, FieldInfo for this type and StringValue attributes
-            var type = value.GetType();
-            var fieldInfo = type.GetField(value.ToString());
-            var attributes =
-                fieldInfo.GetCustomAttributes(typeof(StringValueAttribute), false) as StringValueAttribute[];
+            // Split the RGBA string into an array of integers.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
 
-            // Return the first if there was a match, or enum value if no match
-            return attributes.Length > 0 ? attributes[0].StringValue : value.ToString();
+            // Apply the pulse change and return the color.
+            colors[^1] = colors[^1] >= 50 ? colors[^1] - 50 : colors[^1];
+            return $"{colors[0]} {colors[1]} {colors[2]} {colors[^1]}";
         }
 
+        /// <summary>
+        ///     Get a dimmed color by setting the alpha channel to 100.
+        /// </summary>
+        /// <param name="rgba">RGBA color code to process.</param>
+        public static string GetDimmedColor(string rgba)
+        {
+            // Split the RGBA string into an array of integers.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
+
+            // Return the color with a reduced alpha channel.
+            return $"{colors[0]} {colors[1]} {colors[2]} 100";
+        }
+
+        /// <summary>
+        ///     Get a grayed color by reducing each color channel by 75%.
+        /// </summary>
+        /// <param name="rgba">RGBA color code to process.</param>
+        public static string GetGrayedColor(string rgba)
+        {
+            // Split the RGBA string into an array of integers.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
+
+            // Reduce each color channel (except alpha) by 75%, then return the color.
+            for (var x = 0; x < colors.Length; x++)
+                colors[x] = Convert.ToInt32(colors[x] * 0.25);
+            return $"{colors[0]} {colors[1]} {colors[2]} 255";
+        }
+
+        /// <summary>
+        ///     Open the provided path in browser or Windows Explorer.
+        /// </summary>
+        /// <param name="url">URL link to open.</param>
         public static void OpenWebpage(string url)
+        {
+            Process.Start("explorer", url);
+        }
+
+        /// <summary>
+        ///     Get the filename from the HUD schema control using a string value.
+        /// </summary>
+        /// <param name="control">Schema control to retrieve file names from.</param>
+        internal static dynamic GetFileNames(Controls control)
+        {
+            if (!string.IsNullOrWhiteSpace(control.FileName))
+                return control.FileName.Replace(".res", string.Empty);
+            return control.ComboFiles;
+        }
+
+        /// <summary>
+        ///     TODO: Add comment explaining this method.
+        /// </summary>
+        /// <param name="object1"></param>
+        /// <param name="object2"></param>
+        public static void Merge(Dictionary<string, dynamic> object1, Dictionary<string, dynamic> object2)
         {
             try
             {
-                // Attempt to open the issue tracker, if that fails, try other methods.
-                Process.Start(url);
+                foreach (var key in object1.Keys)
+                    if (object1[key].GetType() == typeof(Dictionary<string, dynamic>))
+                    {
+                        if (object2.ContainsKey(key) && object2[key].GetType() == typeof(Dictionary<string, dynamic>))
+                            Merge(object1[key], object2[key]);
+                    }
+                    else
+                    {
+                        if (object2.ContainsKey(key))
+                            object1[key] = object2[key];
+                    }
+
+                foreach (var key in object2.Keys.Where(key => !object1.ContainsKey(key)))
+                    object1[key] = object2[key];
             }
-            catch
+            catch (Exception e)
             {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                {
-                    url = url.Replace("&", "^&");
-                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") {CreateNoWindow = true});
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                {
-                    Process.Start("xdg-open", url);
-                }
-                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
-                    Process.Start("open", url);
-                }
-                else
-                {
-                    throw;
-                }
+                MainWindow.Logger.Error(e);
+                Console.WriteLine(e);
+                throw;
             }
         }
 
         /// <summary>
-        ///     Convert string value to a boolean
+        ///     TODO: Add comment explaining this method.
         /// </summary>
-        public static bool ParseBool(string input)
+        /// <param name="obj"></param>
+        /// <param name="keys"></param>
+        /// <returns></returns>
+        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj,
+            IEnumerable<string> keys)
         {
-            return input.ToLower() switch
+            try
             {
-                "yes" or "1" or "true" => true,
-                _ => false
-            };
-        }
-
-        public static void Merge(Dictionary<string, dynamic> Obj1, Dictionary<string, dynamic> Obj2)
-        {
-            foreach (var i in Obj1.Keys)
-                if (Obj1[i].GetType().Name.Contains("Dictionary"))
+                var objectRef = obj;
+                foreach (var key in keys)
                 {
-                    if (Obj2.ContainsKey(i) && Obj2[i].GetType().Name.Contains("Dictionary")) Merge(Obj1[i], Obj2[i]);
-                }
-                else
-                {
-                    if (Obj2.ContainsKey(i)) Obj1[i] = Obj2[i];
+                    if (!objectRef.ContainsKey(key))
+                        objectRef[key] = new Dictionary<string, dynamic>();
+                    objectRef = objectRef[key];
                 }
 
-            foreach (var j in Obj2.Keys)
-                if (!Obj1.ContainsKey(j))
-                    Obj1[j] = Obj2[j];
-        }
-
-        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> Obj,
-            IEnumerable<string> Keys)
-        {
-            var ObjectReference = Obj;
-            foreach (var Key in Keys)
-            {
-                if (!ObjectReference.ContainsKey(Key))
-                    ObjectReference[Key] = new Dictionary<string, dynamic>();
-                ObjectReference = ObjectReference[Key];
+                return objectRef;
             }
-
-            return ObjectReference;
+            catch (Exception e)
+            {
+                MainWindow.Logger.Error(e);
+                Console.WriteLine(e);
+                throw;
+            }
         }
-    }
-
-    [AttributeUsage(AttributeTargets.All)]
-    public class StringValueAttribute : Attribute
-    {
-        public StringValueAttribute(string value)
-        {
-            StringValue = value;
-        }
-
-        public string StringValue { get; protected set; }
-    }
-
-    public class ItemColorList
-    {
-        public string Assassin = "#D32CE6";
-        public string Civilian = "#B0C3D9";
-        public string Collectors = "#AA0000";
-        public string Commando = "#8847FF";
-        public string Community = "#70B04A";
-        public string Elite = "#EB4B4B";
-        public string Freelance = "#5E98D9";
-        public string Genuine = "#4D7455";
-        public string Haunted = "#38F3AB";
-        public string Mercenary = "#4B69FF";
-        public string Normal = "#B2B2B2";
-        public string Strange = "#CF6A32";
-        public string Unique = "#FFD700";
-        public string Unusual = "#8650AC";
-        public string Valve = "#A50F79";
-        public string Vintage = "#476291";
-    }
-
-    /// <summary>
-    ///     List of possible positions for item effect meters.
-    /// </summary>
-    public enum Positions
-    {
-        Top,
-        Middle,
-        Bottom,
-        Default
     }
 }
