@@ -56,7 +56,6 @@ namespace TF2HUD.Editor.Classes
     internal class HUDAnimation
     {
         public string Type { get; set; }
-        public string OSTag { get; set; }
     }
 
     internal class Animate : HUDAnimation
@@ -131,7 +130,7 @@ namespace TF2HUD.Editor.Classes
             var index = 0;
             char[] ignoredCharacters = {' ', '\t', '\r', '\n'};
 
-            string Next(bool LookAhead = false)
+            string Next(bool lookAhead = false)
             {
                 var currentToken = "";
                 var x = index;
@@ -183,25 +182,25 @@ namespace TF2HUD.Editor.Classes
                     }
                 }
 
-                if (!LookAhead) index = x;
+                if (!lookAhead) index = x;
 
                 return currentToken;
             }
 
             Dictionary<string, List<HUDAnimation>> ParseFile()
             {
-                Dictionary<string, List<HUDAnimation>> Animations = new();
+                Dictionary<string, List<HUDAnimation>> animations = new();
 
                 var currentToken = Next();
 
                 while (string.Equals(currentToken, "event", StringComparison.CurrentCultureIgnoreCase))
                 {
                     var eventName = Next();
-                    Animations[eventName] = ParseEvent();
+                    animations[eventName] = ParseEvent();
                     currentToken = Next();
                 }
 
-                return Animations;
+                return animations;
             }
 
             List<HUDAnimation> ParseEvent()
@@ -224,97 +223,97 @@ namespace TF2HUD.Editor.Classes
                 return events;
             }
 
-            void SetInterpolator(Animate Animation)
+            void SetInterpolator(Animate animation)
             {
                 var interpolator = Next().ToLower();
                 if (string.Equals(interpolator, "pulse", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    Animation.Interpolator = interpolator;
-                    Animation.Frequency = Next();
+                    animation.Interpolator = interpolator;
+                    animation.Frequency = Next();
                 }
                 else if (new[] {"gain", "bias"}.Contains(interpolator))
                 {
-                    Animation.Interpolator = interpolator[0].ToString().ToUpper() + interpolator[1..];
-                    Animation.Bias = Next();
+                    animation.Interpolator = interpolator[0].ToString().ToUpper() + interpolator[1..];
+                    animation.Bias = Next();
                 }
                 else
                 {
-                    Animation.Interpolator = interpolator;
+                    animation.Interpolator = interpolator;
                 }
             }
 
             HUDAnimation ParseAnimation(string type)
             {
-                dynamic Animation;
+                dynamic animation;
                 type = type.ToLower();
 
                 switch (type)
                 {
                     case "animate":
-                        Animation = new Animate();
-                        Animation.Type = type;
-                        Animation.Element = Next();
-                        Animation.Property = Next();
-                        Animation.Value = Next();
-                        SetInterpolator(Animation);
-                        Animation.Delay = Next();
-                        Animation.Duration = Next();
+                        animation = new Animate();
+                        animation.Type = type;
+                        animation.Element = Next();
+                        animation.Property = Next();
+                        animation.Value = Next();
+                        SetInterpolator(animation);
+                        animation.Delay = Next();
+                        animation.Duration = Next();
                         break;
                     case "runevent":
-                        Animation = new RunEvent();
-                        Animation.Type = type;
-                        Animation.Event = Next();
-                        Animation.Delay = Next();
+                        animation = new RunEvent();
+                        animation.Type = type;
+                        animation.Event = Next();
+                        animation.Delay = Next();
                         break;
                     case "stopevent":
-                        Animation = new StopEvent();
-                        Animation.Type = type;
-                        Animation.Event = Next();
-                        Animation.Delay = Next();
+                        animation = new StopEvent();
+                        animation.Type = type;
+                        animation.Event = Next();
+                        animation.Delay = Next();
                         break;
                     case "setvisible":
-                        Animation = new SetVisible();
-                        Animation.Type = type;
-                        Animation.Element = Next();
-                        Animation.Delay = Next();
-                        Animation.Duration = Next();
+                        animation = new SetVisible();
+                        animation.Type = type;
+                        animation.Element = Next();
+                        animation.Delay = Next();
+                        animation.Duration = Next();
                         break;
                     case "firecommand":
-                        Animation = new FireCommand();
-                        Animation.Type = type;
-                        Animation.Delay = Next();
-                        Animation.Command = Next();
+                        animation = new FireCommand();
+                        animation.Type = type;
+                        animation.Delay = Next();
+                        animation.Command = Next();
                         break;
                     case "runeventchild":
-                        Animation = new RunEventChild();
-                        Animation.Type = type;
-                        Animation.Element = Next();
-                        Animation.Event = Next();
-                        Animation.Delay = Next();
+                        animation = new RunEventChild();
+                        animation.Type = type;
+                        animation.Element = Next();
+                        animation.Event = Next();
+                        animation.Delay = Next();
                         break;
                     case "setinputenabled":
-                        Animation = new SetInputEnabled();
-                        Animation.Element = Next();
-                        Animation.Visible = int.Parse(Next());
-                        Animation.Delay = Next();
+                        animation = new SetInputEnabled();
+                        animation.Element = Next();
+                        animation.Visible = int.Parse(Next());
+                        animation.Delay = Next();
                         break;
                     case "playsound":
-                        Animation = new PlaySound();
-                        Animation.Delay = Next();
-                        Animation.Sound = Next();
+                        animation = new PlaySound();
+                        animation.Delay = Next();
+                        animation.Sound = Next();
                         break;
                     case "stoppanelanimations":
-                        Animation = new StopPanelAnimations();
-                        Animation.Element = Next();
-                        Animation.Delay = Next();
+                        animation = new StopPanelAnimations();
+                        animation.Element = Next();
+                        animation.Delay = Next();
                         break;
                     default:
                         Debug.WriteLine(text.Substring(index - 25, 25));
                         throw new Exception($"Unexpected {type} at position {index}");
                 }
 
-                if (Next(true).StartsWith('[')) Animation.OSTag = Next();
-                return Animation;
+                if (Next(true).StartsWith('[')) animation.OSTag = Next();
+                return animation;
             }
 
             return ParseFile();

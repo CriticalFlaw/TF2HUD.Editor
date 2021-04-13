@@ -16,87 +16,98 @@ namespace TF2HUD.Editor.Classes
 {
     public class HUD
     {
-        private readonly Grid Controls = new();
-        private readonly string[] LayoutOptions;
-
+        private readonly Grid controls = new();
+        public readonly string[] LayoutOptions;
         public string Background;
-        public Dictionary<string, Type> ControlList = new();
         public Dictionary<string, Controls[]> ControlOptions;
-        private bool ControlsRendered;
-        public string CustomizationsFolder;
-        public string Default;
-        public string EnabledFolder;
-        private string[][] Layout;
+
+        private readonly Dictionary<string, Type>
+            controlsList = new(); // TODO: This variable is populated but never used. Possibly remove?
+
+        public string CustomizationsFolder, EnabledFolder;
+        private bool isRendered;
+        private string[][] layout;
         public bool Maximize;
+
         public string Name;
         public double Opacity;
         public HUDSettings Settings;
         public string UpdateUrl, GitHubUrl, HudsTfUrl, SteamUrl, IssueUrl;
 
-        public HUD(string name, HudJson options)
+        /// <summary>
+        ///     Initialize the HUD object with values from the JSON schema.
+        /// </summary>
+        /// <param name="name">Name of the HUD object.</param>
+        /// <param name="schema">Contents of the HUD's schema file.</param>
+        public HUD(string name, HudJson schema)
         {
-            // Validate properties from JSON
+            // Basic Schema Properties.
             Name = name;
             Settings = new HUDSettings(Name);
-            Opacity = options.Opacity;
-            Maximize = options.Maximize;
+            Opacity = schema.Opacity;
+            Maximize = schema.Maximize;
+            ControlOptions = schema.Controls;
+            LayoutOptions = schema.Layout;
 
-            if (options.Links is not null)
+            // Download and Media Links.
+            if (schema.Links is not null)
             {
-                UpdateUrl = options.Links.Update ?? string.Empty;
-                GitHubUrl = options.Links.GitHub ?? string.Empty;
-                HudsTfUrl = options.Links.HudsTF ?? string.Empty;
-                SteamUrl = options.Links.Steam ?? string.Empty;
-                IssueUrl = options.Links.Issue ?? string.Empty;
+                UpdateUrl = schema.Links.Update ?? string.Empty;
+                GitHubUrl = schema.Links.GitHub ?? string.Empty;
+                HudsTfUrl = schema.Links.HudsTF ?? string.Empty;
+                SteamUrl = schema.Links.Steam ?? string.Empty;
+                IssueUrl = schema.Links.Issue ?? string.Empty;
             }
 
-            if (!string.IsNullOrWhiteSpace(options.CustomizationsFolder))
+            // Customization Folder Paths.
+            if (!string.IsNullOrWhiteSpace(schema.CustomizationsFolder))
             {
-                CustomizationsFolder = options.CustomizationsFolder ?? string.Empty;
-                EnabledFolder = options.EnabledFolder ?? string.Empty;
+                CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
+                EnabledFolder = schema.EnabledFolder ?? string.Empty;
             }
 
-            ControlOptions = options.Controls;
-            LayoutOptions = options.Layout;
-
-            if (options.Background != null) Background = options.Background;
+            // Custom Background Image.
+            if (schema.Background != null) Background = schema.Background;
         }
 
+        #region PAGE UI
+
         /// <summary>
-        ///     Generate the page layout using controls defined in the HUD's JSON.
+        ///     Generate the page layout using controls defined in the HUD schema.
         /// </summary>
         public Grid GetControls()
         {
-            if (ControlsRendered)
-                return Controls;
+            // Skip this process if the controls have already been rendered.
+            if (isRendered) return controls;
 
+            // Define the container that will hold the title and content.
             var container = new Grid();
-            var titleRowDefinition = new RowDefinition
+            var titleRow = new RowDefinition
             {
                 Height = GridLength.Auto
             };
-            var contentRowDefinition = new RowDefinition();
-            if (Layout != null) contentRowDefinition.Height = GridLength.Auto;
-            container.RowDefinitions.Add(titleRowDefinition);
-            container.RowDefinitions.Add(contentRowDefinition);
+            var contentRow = new RowDefinition();
+            if (layout != null) contentRow.Height = GridLength.Auto;
+            container.RowDefinitions.Add(titleRow);
+            container.RowDefinitions.Add(contentRow);
 
-            // Title
-            var pageTitle = new Label
+            // Define the title of the HUD displayed at the top of the page.
+            var title = new Label
             {
                 Content = Name,
                 FontSize = 35,
                 Margin = new Thickness(10, 10, 0, 0)
             };
-            Grid.SetRow(pageTitle, 0);
-            container.Children.Add(pageTitle);
+            Grid.SetRow(title, 0);
+            container.Children.Add(title);
 
-            // ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic
+            // NOTE: ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic for each section.
             dynamic sectionsContainer;
 
             if (LayoutOptions != null)
             {
                 // Splits Layout string[] into 2D Array using \s+
-                Layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
+                layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
 
                 sectionsContainer = new Grid
                 {
@@ -105,10 +116,10 @@ namespace TF2HUD.Editor.Classes
                     MaxHeight = 720
                 };
 
-                // Assume that all row arrays are the same length, use column information from Layout[0]
-                for (var i = 0; i < Layout[0].Length; i++)
+                // Assume that all row arrays are the same length, use column information from Layout[0].
+                for (var i = 0; i < layout[0].Length; i++)
                     sectionsContainer.ColumnDefinitions.Add(new ColumnDefinition());
-                for (var i = 0; i < Layout.Length; i++)
+                for (var i = 0; i < layout.Length; i++)
                     sectionsContainer.RowDefinitions.Add(new RowDefinition());
             }
             else
@@ -119,13 +130,13 @@ namespace TF2HUD.Editor.Classes
                 };
             }
 
-
             Grid.SetRow(sectionsContainer, 1);
 
             var lastMargin = new Thickness(10, 2, 0, 0);
             var lastTop = lastMargin.Top;
-
             var groupBoxIndex = 0;
+
+            // Generate each control section as defined in the schema.
             foreach (var section in ControlOptions.Keys)
             {
                 var sectionContainer = new GroupBox
@@ -136,48 +147,20 @@ namespace TF2HUD.Editor.Classes
                     VerticalAlignment = VerticalAlignment.Stretch
                 };
 
-                Panel sectionContent = new StackPanel();
-                if (Layout != null) sectionContent = new WrapPanel();
+                Panel sectionContent = layout != null ? new WrapPanel() : new StackPanel();
                 sectionContent.Margin = new Thickness(3);
 
+                // Generate each individual control, add it to user settings.
                 foreach (var controlItem in ControlOptions[section])
                 {
                     var id = controlItem.Name;
                     var label = controlItem.Label;
-
                     Settings.AddSetting(controlItem.Name, controlItem);
 
                     switch (controlItem.Type)
                     {
-                        case "Char":
-                            var charContainer = new WrapPanel
-                            {
-                                Margin = new Thickness(10, lastTop, 0, 0)
-                            };
-                            var charLabel = new Label
-                            {
-                                Content = label,
-                                Width = 60
-                            };
-                            var charInput = new TextBox
-                            {
-                                Name = id,
-                                Width = 60
-                            };
-                            charInput.PreviewTextInput += (_, e) => e.Handled = charInput.Text != "";
-                            charInput.TextChanged += (sender, e) =>
-                            {
-                                var input = sender as TextBox;
-                                Settings.SetSetting(input.Name, input.Text);
-                            };
-                            charContainer.Children.Add(charLabel);
-                            charContainer.Children.Add(charInput);
-                            sectionContent.Children.Add(charContainer);
-                            ControlList.Add(charInput.Name, charInput.GetType());
-                            controlItem.Control = charInput;
-                            break;
-
                         case "Checkbox":
+                            // Create the Control.
                             var checkBoxInput = new CheckBox
                             {
                                 Name = id,
@@ -185,19 +168,25 @@ namespace TF2HUD.Editor.Classes
                                 Margin = new Thickness(10, lastTop + 10, 0, 0),
                                 IsChecked = Settings.GetSetting<bool>(controlItem.Name)
                             };
-                            checkBoxInput.Checked += (sender, e) =>
+
+                            // Add Tooltip text, if available.
+                            checkBoxInput.ToolTip = controlItem.Tooltip;
+
+                            // Add Events.
+                            checkBoxInput.Checked += (sender, _) =>
                             {
                                 var input = sender as CheckBox;
-                                Settings.SetSetting(input.Name, "True");
+                                Settings.SetSetting(input?.Name, "true");
                             };
-                            checkBoxInput.Unchecked += (sender, e) =>
+                            checkBoxInput.Unchecked += (sender, _) =>
                             {
                                 var input = sender as CheckBox;
-                                Settings.SetSetting(input.Name, "False");
+                                Settings.SetSetting(input?.Name, "false");
                             };
-                            //lastMargin = checkBoxInput.Margin;
+
+                            // Add to Page.
                             sectionContent.Children.Add(checkBoxInput);
-                            ControlList.Add(checkBoxInput.Name, checkBoxInput.GetType());
+                            controlsList.Add(checkBoxInput.Name, checkBoxInput.GetType());
                             controlItem.Control = checkBoxInput;
                             break;
 
@@ -205,6 +194,7 @@ namespace TF2HUD.Editor.Classes
                         case "Colour":
                         case "ColorPicker":
                         case "ColourPicker":
+                            // Create the Control.
                             var colorContainer = new StackPanel
                             {
                                 Margin = new Thickness(10, lastTop, 0, 10)
@@ -221,6 +211,10 @@ namespace TF2HUD.Editor.Classes
                                 Width = 125
                             };
 
+                            // Add Tooltip text, if available.
+                            colorInput.ToolTip = controlItem.Tooltip;
+
+                            // Attempt to bind the color from the settings.
                             try
                             {
                                 colorInput.SelectedColor = Settings.GetSetting<Color>(id);
@@ -230,17 +224,25 @@ namespace TF2HUD.Editor.Classes
                                 colorInput.SelectedColor = Color.FromArgb(255, 0, 255, 0);
                             }
 
-                            colorInput.Closed += (sender, e) =>
+                            // Add Events.
+                            colorInput.SelectedColorChanged += (sender, _) =>
                             {
                                 var input = sender as ColorPicker;
-                                Settings.SetSetting(input.Name,
-                                    Utilities.ConvertToRgba(input.SelectedColor.ToString()));
+                                Settings.SetSetting(input?.Name,
+                                    Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
+                            };
+                            colorInput.Closed += (sender, _) =>
+                            {
+                                var input = sender as ColorPicker;
+                                Settings.SetSetting(input?.Name,
+                                    Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
                             };
 
+                            // Add to Page.
                             colorContainer.Children.Add(colorLabel);
                             colorContainer.Children.Add(colorInput);
                             sectionContent.Children.Add(colorContainer);
-                            ControlList.Add(colorInput.Name, colorInput.GetType());
+                            controlsList.Add(colorInput.Name, colorInput.GetType());
                             controlItem.Control = colorInput;
                             break;
 
@@ -249,6 +251,10 @@ namespace TF2HUD.Editor.Classes
                         case "Select":
                         case "ComboBox":
                         case "Crosshair":
+                            // Do not create a ComboBox if there are no defined options.
+                            if (controlItem.Options is not {Length: > 0}) break;
+
+                            // Create the Control.
                             var comboBoxContainer = new StackPanel
                             {
                                 Margin = new Thickness(10, lastTop, 0, 10)
@@ -259,14 +265,16 @@ namespace TF2HUD.Editor.Classes
                                 Width = 150,
                                 FontSize = 16
                             };
-                            if (controlItem.Options == null) break;
-                            if (controlItem.Options.Length <= 0) break;
-
                             var comboBoxInput = new ComboBox
                             {
                                 Name = id,
                                 Width = 150
                             };
+
+                            // Add Tooltip text, if available.
+                            comboBoxInput.ToolTip = controlItem.Tooltip;
+
+                            // Add items to the ComboBox.
                             foreach (var option in controlItem.Options)
                             {
                                 var item = new ComboBoxItem
@@ -283,30 +291,35 @@ namespace TF2HUD.Editor.Classes
                                 comboBoxInput.Items.Add(item);
                             }
 
+                            // Set the selected value depending on the what's retrieved from the setting file.
                             var setting = Settings.GetSetting<string>(controlItem.Name);
-                            var containsLetters = Regex.IsMatch(setting, "\\D");
-
-                            if (!containsLetters)
+                            if (!Regex.IsMatch(setting, "\\D"))
                                 comboBoxInput.SelectedIndex = int.Parse(setting);
                             else
                                 comboBoxInput.SelectedValue = setting;
 
-                            comboBoxInput.SelectionChanged += (sender, e) =>
+                            // Add Events.
+                            comboBoxInput.SelectionChanged += (sender, _) =>
                             {
                                 var input = sender as ComboBox;
-                                Settings.SetSetting(input.Name, comboBoxInput.SelectedValue.ToString());
+                                Settings.SetSetting(input?.Name, string.Equals(controlItem.Type, "Crosshair",
+                                    StringComparison.CurrentCultureIgnoreCase)
+                                    ? comboBoxInput.SelectedValue.ToString()
+                                    : comboBoxInput.SelectedIndex.ToString());
                             };
 
+                            // Add to Page.
                             comboBoxContainer.Children.Add(comboBoxLabel);
                             comboBoxContainer.Children.Add(comboBoxInput);
                             sectionContent.Children.Add(comboBoxContainer);
-                            ControlList.Add(comboBoxInput.Name, comboBoxInput.GetType());
+                            controlsList.Add(comboBoxInput.Name, comboBoxInput.GetType());
                             controlItem.Control = comboBoxInput;
                             break;
 
                         case "Number":
                         case "Integer":
                         case "IntegerUpDown":
+                            // Create the Control.
                             var integerContainer = new StackPanel
                             {
                                 Margin = new Thickness(10, lastTop, 0, 10)
@@ -327,16 +340,21 @@ namespace TF2HUD.Editor.Classes
                                 Increment = controlItem.Increment
                             };
 
-                            integerInput.ValueChanged += (sender, e) =>
+                            // Add Tooltip text, if available.
+                            integerInput.ToolTip = controlItem.Tooltip;
+
+                            // Add Events.
+                            integerInput.ValueChanged += (sender, _) =>
                             {
                                 var input = sender as IntegerUpDown;
-                                Settings.SetSetting(input.Name, input.Text);
+                                Settings.SetSetting(input?.Name, input.Text);
                             };
 
+                            // Add to Page.
                             integerContainer.Children.Add(integerLabel);
                             integerContainer.Children.Add(integerInput);
                             sectionContent.Children.Add(integerContainer);
-                            ControlList.Add(integerInput.Name, integerInput.GetType());
+                            controlsList.Add(integerInput.Name, integerInput.GetType());
                             controlItem.Control = integerInput;
                             break;
 
@@ -347,17 +365,17 @@ namespace TF2HUD.Editor.Classes
 
                 sectionContainer.Content = sectionContent;
 
-                if (Layout != null)
+                if (layout != null)
                 {
                     // Avoid evaluating unnecessarily
                     var groupBoxItemEvaluated = false;
 
-                    for (var i = 0; i < Layout.Length; i++)
-                    for (var j = 0; j < Layout[i].Length; j++)
+                    for (var i = 0; i < layout.Length; i++)
+                    for (var j = 0; j < layout[i].Length; j++)
                     {
                         // Allow index and grid area for grid coordinates.
-                        if (groupBoxIndex.ToString() == Layout[i][j] ||
-                            section == Layout[i][j] && !groupBoxItemEvaluated)
+                        if (groupBoxIndex.ToString() == layout[i][j] ||
+                            section == layout[i][j] && !groupBoxItemEvaluated)
                         {
                             // Don't set column or row if it has already been set.
                             // Setting the column/row every time will break spans.
@@ -368,15 +386,15 @@ namespace TF2HUD.Editor.Classes
                             // Counts the occurrences of the current item id/index
                             var columnSpan = 0;
                             // Iterate current row
-                            for (var index = 0; index < Layout[i].Length; index++)
-                                if (groupBoxIndex.ToString() == Layout[i][index] || section == Layout[i][index])
+                            for (var index = 0; index < layout[i].Length; index++)
+                                if (groupBoxIndex.ToString() == layout[i][index] || section == layout[i][index])
                                     columnSpan++;
                             Grid.SetColumnSpan(sectionContainer, columnSpan);
 
                             var rowSpan = 0;
-                            for (var TempRowIndex = 0; TempRowIndex < Layout.Length; TempRowIndex++)
-                                if (groupBoxIndex.ToString() == Layout[TempRowIndex][j] ||
-                                    section == Layout[TempRowIndex][j])
+                            for (var TempRowIndex = 0; TempRowIndex < layout.Length; TempRowIndex++)
+                                if (groupBoxIndex.ToString() == layout[TempRowIndex][j] ||
+                                    section == layout[TempRowIndex][j])
                                     rowSpan++;
                             Grid.SetRowSpan(sectionContainer, rowSpan);
 
@@ -394,14 +412,16 @@ namespace TF2HUD.Editor.Classes
             }
 
             container.Children.Add(sectionsContainer);
-            Controls.Children.Add(container);
+            controls.Children.Add(container);
 
-            ControlsRendered = true;
-            return Controls;
+            isRendered = true;
+            return controls;
         }
 
+        #endregion
+
         /// <summary>
-        ///     Call to download the latest version of a given HUD if a URL is defined.
+        ///     Call to download the HUD if a URL has been provided.
         /// </summary>
         public void Update()
         {
@@ -409,73 +429,67 @@ namespace TF2HUD.Editor.Classes
         }
 
         /// <summary>
-        ///     Reset user-settings to the default as defined in the HUD's Json file.
+        ///     Reset user-settings to the default values defined in the HUD schema.
         /// </summary>
         public void Reset()
         {
             try
             {
-                foreach (var Section in ControlOptions.Keys)
-                    for (var i = 0; i < ControlOptions[Section].Length; i++)
+                foreach (var section in ControlOptions.Keys)
+                    for (var x = 0; x < ControlOptions[section].Length; x++)
                     {
-                        var controlItem = ControlOptions[Section][i];
+                        var controlItem = ControlOptions[section][x];
                         switch (controlItem.Control)
                         {
                             case CheckBox check:
-                                if (bool.TryParse(controlItem.Default, out var value))
+                                if (bool.TryParse(controlItem.Value, out var value))
                                     check.IsChecked = value;
                                 break;
 
                             case TextBox text:
-                                text.Text = controlItem.Default;
+                                text.Text = controlItem.Value;
                                 break;
 
                             case ColorPicker color:
-                                var colors = Array.ConvertAll(controlItem.Default.Split(' '), byte.Parse);
+                                var colors = Array.ConvertAll(controlItem.Value.Split(' '), byte.Parse);
                                 color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
                                 break;
 
                             case ComboBox combo:
                                 if (((ComboBoxItem) combo.Items[0]).Style ==
                                     (Style) Application.Current.Resources["Crosshair"])
-                                    combo.SelectedValue = controlItem.Default;
+                                    combo.SelectedValue = controlItem.Value;
                                 else
-                                    combo.SelectedIndex = int.Parse(controlItem.Default);
+                                    combo.SelectedIndex = int.Parse(controlItem.Value);
                                 break;
 
                             case IntegerUpDown integer:
-                                integer.Text = controlItem.Default;
+                                integer.Text = controlItem.Value;
                                 break;
                         }
                     }
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
                 throw;
             }
         }
 
         /// <summary>
-        ///     Apply user-set customizations to the HUD files.
+        ///     Apply user selected customizations to the HUD files.
         /// </summary>
-        public bool ApplyCustomization()
+        public bool ApplyCustomizations()
         {
             try
             {
-                var path = $"{MainWindow.HudPath}\\{Name}\\";
-
-                var userSettings = JsonConvert
-                    .DeserializeObject<UserJson>(
-                        File.ReadAllText($"{System.Windows.Forms.Application.LocalUserAppDataPath}\\settings.json"))
-                    .Settings
-                    .Where(x => x.HUD == Name);
                 var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
                     .Controls.Values;
 
                 // If the developer defined customization folders for their HUD, then copy those files.
                 if (!string.IsNullOrWhiteSpace(CustomizationsFolder))
-                    MoveCustomizationFiles(path, userSettings, hudSettings);
+                    MoveCustomizationFiles(hudSettings);
 
                 // This Dictionary contains folders/files/properties as they should be written to the hud
                 // the 'IterateFolder' and 'IterateHUDFileProperties' will write the properties to this
@@ -522,12 +536,9 @@ namespace TF2HUD.Editor.Classes
                                         // Match pattern here, also ensure item is a HUD element
                                         if (Regex.IsMatch(key, pattern) &&
                                             obj[key].GetType() == typeof(Dictionary<string, dynamic>))
-                                        {
                                             // Initialise hudContainer and create inner Dictionary
                                             //  to contain elements specified
-                                            hudContainer = new Dictionary<string, dynamic>();
-                                            hudContainer[key] = folder[property];
-                                        }
+                                            hudContainer = new Dictionary<string, dynamic> {[key] = folder[property]};
 
                                         preventInfinite++;
                                     }
@@ -564,6 +575,7 @@ namespace TF2HUD.Editor.Classes
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
                 return false;
             }
@@ -572,28 +584,25 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Copy files used for folder-based customizations.
         /// </summary>
-        public bool MoveCustomizationFiles(string path, IEnumerable<Setting> userSettings,
-            Dictionary<string, Controls[]>.ValueCollection hudSettings)
+        public bool MoveCustomizationFiles(Dictionary<string, Controls[]>.ValueCollection hudSettings)
         {
             try
             {
-                // Check if the customization folders are valid.
-                if (!Directory.Exists($"{path}\\{CustomizationsFolder}")) return true;
+                // Check if the customization folders exist.
+                var path = $"{MainWindow.HudPath}\\{Name}\\";
+                if (!Directory.Exists($"{path}\\{CustomizationsFolder}") &&
+                    !Directory.Exists($"{path}\\{EnabledFolder}")) return true;
 
-                var controlFilter = new List<string>
-                {
-                    "CheckBox",
-                    "ComboBox"
-                };
-                userSettings = userSettings.Where(x => x.HUD == Name).Where(z =>
-                    controlFilter.Contains(z.Type, StringComparer.CurrentCultureIgnoreCase));
+                // Get user's settings for the selected HUD.
+                var userSettings = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(HUDSettings.UserFile))
+                    ?.Settings.Where(x => x.HUD == Name);
 
                 foreach (var group in hudSettings)
-                foreach (var control in group.Where(x =>
-                    controlFilter.Contains(x.Type, StringComparer.CurrentCultureIgnoreCase)))
+                foreach (var control in group)
                 {
-                    var userSetting = userSettings.Where(x => x.Name == control.Name).First();
-                    if (userSetting is null) continue; // File name not found, skipping.
+                    // Loop through every control on the page, find the matching user setting.
+                    var setting = userSettings.First(x => x.Name == control.Name);
+                    if (setting is null) continue; // User setting not found, skipping.
 
                     var custom = $"{path}{CustomizationsFolder}";
                     var enabled = $"{path}{EnabledFolder}";
@@ -602,28 +611,22 @@ namespace TF2HUD.Editor.Classes
                     {
                         case "checkbox":
                             var fileName = Utilities.GetFileNames(control);
-                            if (fileName is null || fileName is not string) continue; // File name not found, skipping.
+                            if (fileName is null or not string) continue; // File name not found, skipping.
 
                             custom += $"\\{fileName}.res";
                             enabled += $"\\{fileName}.res";
 
-                            if (string.Equals(userSetting.Value, "true",
-                                StringComparison.CurrentCultureIgnoreCase)) // Move to enabled
-                            {
+                            // If true, move the customization file into the enabled folder, otherwise move it back.
+                            if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
                                 if (File.Exists(custom)) File.Move(custom, enabled);
-                            }
-                            else // Move to customization folder
-                            {
-                                if (File.Exists(enabled)) File.Move(enabled, custom);
-                            }
-
+                                else if (File.Exists(enabled)) File.Move(enabled, custom);
                             break;
 
                         case "combobox":
                             var fileNames = Utilities.GetFileNames(control);
-                            if (fileNames is null || fileNames is not string[])
-                                continue; // File name not found, skipping.
+                            if (fileNames is null or not string[]) continue; // File names not found, skipping.
 
+                            // Move every file assigned to this control back to the customization folder first.
                             foreach (string file in fileNames)
                             {
                                 var name = file.Replace(".res", string.Empty);
@@ -631,15 +634,15 @@ namespace TF2HUD.Editor.Classes
                                     File.Move(enabled + $"\\{name}.res", custom + $"\\{name}.res");
                             }
 
-                            if (!string.Equals(userSetting.Value, "0")) // Move to customization folder
+                            // Only move the files for the control option selected by the user.
+                            if (!string.Equals(setting.Value, "0"))
                             {
-                                var item = control.Options[int.Parse(userSetting.Value)];
-                                if (item.FileName is not null)
-                                {
-                                    var file = item.FileName.Replace(".res", string.Empty);
-                                    if (File.Exists(custom + $"\\{file}.res"))
-                                        File.Move(custom + $"\\{file}.res", enabled + $"\\{file}.res");
-                                }
+                                var name = control.Options[int.Parse(setting.Value)].FileName;
+                                if (string.IsNullOrWhiteSpace(name)) break;
+
+                                name = name.Replace(".res", string.Empty);
+                                if (File.Exists(custom + $"\\{name}.res"))
+                                    File.Move(custom + $"\\{name}.res", enabled + $"\\{name}.res");
                             }
 
                             break;
@@ -650,6 +653,7 @@ namespace TF2HUD.Editor.Classes
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
                 return false;
             }
@@ -665,11 +669,12 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
-                // Check for special case conditions, namely toggling stock backgrounds.
+                // Check for special cases like stock or custom backgrounds.
                 EnableStockBackgrounds(hudSetting, userSetting);
 
                 if (hudSetting.Files == null) return;
 
+                // TODO: Add comment explaining this method.
                 Dictionary<string, dynamic> CompileHudElement(JObject element, string filePath)
                 {
                     var hudElement = new Dictionary<string, dynamic>();
@@ -729,6 +734,7 @@ namespace TF2HUD.Editor.Classes
                     return hudElement;
                 }
 
+                // TODO: Add comment explaining this method.
                 void WriteAnimationCustomizations(string filePath, JObject animationOptions)
                 {
                     // Don't read animations file unless the user requests a new event
@@ -842,7 +848,7 @@ namespace TF2HUD.Editor.Classes
                                 //   }
                                 // ]
 
-                                if (animations == null) animations = HUDAnimations.Parse(File.ReadAllText(filePath));
+                                animations ??= HUDAnimations.Parse(File.ReadAllText(filePath));
 
                                 // Create new event or animation statements could stack
                                 // over multiple 'apply customisations'
@@ -855,10 +861,10 @@ namespace TF2HUD.Editor.Classes
                                     // Create temporary variable to store current animation instead of adding directly in switch case
                                     // because there are conditional properties that might need to be added later
                                     //
-                                    // Initialize to dynamic so type checker doesnt return HUDAnimation
+                                    // Initialize to dynamic so type checker does not return HUDAnimation
                                     // for setting freq/gain/bias
                                     //
-                                    dynamic current = null;
+                                    dynamic current;
 
                                     switch (animation["Type"].ToString().ToLower())
                                     {
@@ -995,8 +1001,7 @@ namespace TF2HUD.Editor.Classes
                     }
                     else if (string.Equals(extension, "txt"))
                     {
-                        // assume .txt is always an animation file
-                        // (may cause issues with mod_textures.txt but assume we are only editing hud files)
+                        // Assume .txt is always an animation file (may cause issues with mod_textures.txt but assume we are only editing hud files)
                         WriteAnimationCustomizations(currentFilePath,
                             filePath.Value.ToObject<JObject>());
                     }
@@ -1009,12 +1014,18 @@ namespace TF2HUD.Editor.Classes
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
             }
         }
 
-        #region CUSTOM METHODS
+        #region CUSTOM SETTINGS
 
+        /// <summary>
+        ///     Called to check if the option enable default background images for a given HUD is enabled.
+        /// </summary>
+        /// <param name="hudSetting">HUD settings object</param>
+        /// <param name="userSetting">User settings object</param>
         private void EnableStockBackgrounds(Controls hudSetting, Setting userSetting)
         {
             // Check for special conditions, namely if we should enable stock backgrounds.
@@ -1039,35 +1050,35 @@ namespace TF2HUD.Editor.Classes
             if (hudSetting.Special is null) return;
 
             if (string.Equals(hudSetting.Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
-                SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console", enable);
+                SetStockBackgrounds(MainWindow.HudPath + "\\" + Name, enable);
         }
 
         /// <summary>
         ///     Toggle default backgrounds by renaming their file extensions.
         /// </summary>
         /// <remarks>
-        ///     BUG: Need to check the scripts folder for chapterbackgrounds.txt - otherwise the only default background shown
-        ///     will be pl_upward.
+        ///     BUG: Need to check the scripts folder for chapterbackgrounds.txt - otherwise only pl_upward will be shown.
         /// </remarks>
         public static bool SetStockBackgrounds(string path, bool enable = false)
         {
             try
             {
-                // Set the file path to where the background images reside.
-                var directoryPath = new DirectoryInfo(path);
-
                 // Revert everything back to normal before changing the name extension.
+                var directoryPath = new DirectoryInfo(path + "\\materials\\console");
                 foreach (var file in directoryPath.GetFiles())
                 {
                     if (file.Name.EndsWith("bak"))
                         File.Move(file.FullName, file.FullName.Replace("bak", "vtf"));
-                    if (file.Name.EndsWith("tmp"))
-                        File.Move(file.FullName, file.FullName.Replace("tmp", "vmt"));
                     if (file.Name.EndsWith("temp"))
-                        File.Move(file.FullName, file.FullName.Replace("temp", "txt"));
+                        File.Move(file.FullName, file.FullName.Replace("temp", "vmt"));
                 }
 
-                // If we're not enabling stock background, then leave.
+                // Do the same for the chapter backgrounds file as well.
+                var chapterBackgrounds = path + "\\scripts\\chapterbackgrounds.bak";
+                if (File.Exists(chapterBackgrounds))
+                    File.Move(chapterBackgrounds, chapterBackgrounds.Replace(".bak", ".txt"));
+
+                // If we're not enabling stock background, then skip this process.
                 if (!enable) return true;
 
                 // Rename the file extensions so that the game does not use them.
@@ -1076,16 +1087,17 @@ namespace TF2HUD.Editor.Classes
                     if (file.Name.EndsWith("vtf"))
                         File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
                     if (file.Name.EndsWith("vmt"))
-                        File.Move(file.FullName, file.FullName.Replace("vmt", "tmp"));
-                    if (file.Name.EndsWith("txt"))
-                        File.Move(file.FullName, file.FullName.Replace("txt", "temp"));
+                        File.Move(file.FullName, file.FullName.Replace("vmt", "temp"));
                 }
+
+                if (File.Exists(chapterBackgrounds.Replace(".bak", ".txt")))
+                    File.Move(chapterBackgrounds.Replace(".bak", ".txt"), chapterBackgrounds);
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_menu_background} {ex.Message}");
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_menu_background} {e.Message}");
                 return false;
             }
         }
@@ -1105,9 +1117,9 @@ namespace TF2HUD.Editor.Classes
                 File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\hud.cfg", path + "\\cfg\\hud.cfg", true);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_transparent_vm} {ex.Message}");
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_transparent_vm} {e.Message}");
                 return false;
             }
         }
@@ -1128,10 +1140,10 @@ namespace TF2HUD.Editor.Classes
                 File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error,
-                    $"{Resources.error_seasonal_backgrounds} {ex.Message}");
+                    $"{Resources.error_seasonal_backgrounds} {e.Message}");
                 return false;
             }
         }

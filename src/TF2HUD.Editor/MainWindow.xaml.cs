@@ -286,9 +286,9 @@ namespace TF2HUD.Editor
                 Application.Current.MainWindow.WindowState =
                     selection.Maximize ? WindowState.Maximized : WindowState.Normal;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ShowMessageBox(MessageBoxImage.Error, e.Message);
+                ShowMessageBox(MessageBoxImage.Error, ex.Message);
             }
         }
 
@@ -437,7 +437,7 @@ namespace TF2HUD.Editor
                     if (string.IsNullOrWhiteSpace(HudSelection)) return;
                     var selection = Json.GetHUDByName(Settings.Default.hud_selected);
                     selection.Settings.SaveSettings();
-                    selection.ApplyCustomization();
+                    selection.ApplyCustomizations();
                 });
             };
             worker.RunWorkerAsync();
@@ -454,7 +454,7 @@ namespace TF2HUD.Editor
             var selection = Json.GetHUDByName(Settings.Default.hud_selected);
             selection.Reset();
             selection.Settings.SaveSettings();
-            selection.ApplyCustomization();
+            selection.ApplyCustomizations();
             LblStatus.Content = "Settings Reset at " + DateTime.Now;
             Logger.Info("Resetting HUD Settings...Done!");
         }

@@ -11,7 +11,7 @@ namespace TF2HUD.Editor.Classes
 {
     public class HUDSettings
     {
-        private static readonly string UserFile = $"{Application.LocalUserAppDataPath}\\settings.json";
+        public static readonly string UserFile = $"{Application.LocalUserAppDataPath}\\settings.json";
 
         private static readonly List<Setting> UserSettings = File.Exists(UserFile)
             ? JsonConvert.DeserializeObject<Dictionary<string, List<Setting>>>(File.ReadAllText(UserFile))?["Settings"]
@@ -38,7 +38,7 @@ namespace TF2HUD.Editor.Classes
                     HUD = HUDName,
                     Name = name,
                     Type = control.Type,
-                    Value = control.Default
+                    Value = control.Value
                 });
         }
 
@@ -105,11 +105,11 @@ namespace TF2HUD.Editor.Classes
         /// </summary>
         public void SaveSettings()
         {
-            var SettingsContainer = new Dictionary<string, List<Setting>>
+            var settings = new Dictionary<string, List<Setting>>
             {
                 ["Settings"] = UserSettings
             };
-            File.WriteAllText(UserFile, JsonConvert.SerializeObject(SettingsContainer, Formatting.Indented));
+            File.WriteAllText(UserFile, JsonConvert.SerializeObject(settings, Formatting.Indented));
         }
     }
 }

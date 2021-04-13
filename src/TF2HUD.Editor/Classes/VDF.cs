@@ -11,9 +11,9 @@ namespace TF2HUD.Editor.Classes
             var index = 0;
             char[] ignoredCharacters = {' ', '\t', '\r', '\n'};
 
-            string Next(bool LookAhead = false)
+            string Next(bool lookAhead = false)
             {
-                var CurrentToken = "";
+                var currentToken = "";
                 var x = index;
 
                 // Return EOF if we've reached the end of the text file.
@@ -45,7 +45,7 @@ namespace TF2HUD.Editor.Classes
                     while (text[x] != '"' && x < text.Length)
                     {
                         if (text[x] == '\n') throw new Exception($"Unexpected end of line at position {x}");
-                        CurrentToken += text[x];
+                        currentToken += text[x];
                         x++;
                     }
 
@@ -58,14 +58,14 @@ namespace TF2HUD.Editor.Classes
                     while (!ignoredCharacters.Contains(text[x]) && x < text.Length - 1)
                     {
                         if (text[x] == '"') throw new Exception($"Unexpected double quote at position {x}");
-                        CurrentToken += text[x];
+                        currentToken += text[x];
                         x++;
                     }
                 }
 
-                if (!LookAhead) index = x;
+                if (!lookAhead) index = x;
 
-                return CurrentToken;
+                return currentToken;
             }
 
             Dictionary<string, dynamic> ParseObject()
@@ -89,7 +89,7 @@ namespace TF2HUD.Editor.Classes
                         // Object
                         Next(); // Skip over opening brace
 
-                        if (objectRef.TryGetValue(currentToken, out var Value))
+                        if (objectRef.TryGetValue(currentToken, out var value))
                         {
                             if (objectRef[currentToken].GetType() == typeof(List<dynamic>))
                             {
@@ -100,7 +100,7 @@ namespace TF2HUD.Editor.Classes
                             {
                                 // Object already exists
                                 objectRef[currentToken] = new List<dynamic>();
-                                objectRef[currentToken].Add(Value);
+                                objectRef[currentToken].Add(value);
                                 objectRef[currentToken].Add(ParseObject());
                             }
                         }
@@ -118,7 +118,7 @@ namespace TF2HUD.Editor.Classes
                         // Check primitive OS tag
                         if (Next(true).StartsWith('[')) currentToken += $"{osTagDelimiter}{Next()}";
 
-                        if (objectRef.TryGetValue(currentToken, out var Value))
+                        if (objectRef.TryGetValue(currentToken, out var value))
                         {
                             // dynamic property exists
                             if (objectRef[currentToken].GetType() == typeof(List<dynamic>))
@@ -130,7 +130,7 @@ namespace TF2HUD.Editor.Classes
                             {
                                 // Primitive type already exists
                                 objectRef[currentToken] = new List<dynamic>();
-                                objectRef[currentToken].Add(Value);
+                                objectRef[currentToken].Add(value);
                                 objectRef[currentToken].Add(nextToken);
                             }
                         }
@@ -151,68 +151,68 @@ namespace TF2HUD.Editor.Classes
             return ParseObject();
         }
 
-        public static string Stringify(Dictionary<string, dynamic> Obj, int Tabs = 0)
+        public static string Stringify(Dictionary<string, dynamic> obj, int tabs = 0)
         {
             var stringValue = "";
             const char tab = '\t';
             const string newLine = "\r\n";
 
-            foreach (var Key in Obj.Keys)
-                if (Obj[Key].GetType() == typeof(List<dynamic>))
+            foreach (var key in obj.Keys)
+                if (obj[key].GetType() == typeof(List<dynamic>))
                 {
                     // Item has multiple instances
-                    foreach (var item in Obj[Key])
+                    foreach (var item in obj[key])
                         if (item.GetType() == typeof(Dictionary<string, dynamic>))
                         {
                             // Check for an OS tag.
-                            var KeyTokens = Key.Split('^');
-                            if (KeyTokens.Length > 1)
-                                stringValue += $"{new string(tab, Tabs)}\"{Key}\" {KeyTokens[1]}{newLine}";
+                            var keyTokens = key.Split('^');
+                            if (keyTokens.Length > 1)
+                                stringValue += $"{new string(tab, tabs)}\"{key}\" {keyTokens[1]}{newLine}";
                             else
-                                stringValue += $"{new string(tab, Tabs)}{Key}{newLine}";
+                                stringValue += $"{new string(tab, tabs)}{key}{newLine}";
 
-                            stringValue += $"{new string(tab, Tabs)}{{{newLine}";
-                            stringValue += $"{Stringify(item, Tabs + 1)}{new string(tab, Tabs)}}}{newLine}";
+                            stringValue += $"{new string(tab, tabs)}{{{newLine}";
+                            stringValue += $"{Stringify(item, tabs + 1)}{new string(tab, tabs)}}}{newLine}";
                         }
                         else
                         {
                             // Check for an OS tag.
-                            var KeyTokens = Key.Split('^');
-                            if (KeyTokens.Length > 1)
-                                stringValue += $"{new string(tab, Tabs)}\"{Key}\"\t\"{item}\" {KeyTokens[1]}{newLine}";
+                            var keyTokens = key.Split('^');
+                            if (keyTokens.Length > 1)
+                                stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{item}\" {keyTokens[1]}{newLine}";
                             else
-                                stringValue += $"{new string(tab, Tabs)}\"{Key}\"\t\"{item}\"{newLine}";
+                                stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{item}\"{newLine}";
                         }
                 }
                 else
                 {
                     // There is only one object object/value
-                    if (Obj[Key] is IDictionary<string, dynamic>)
+                    if (obj[key] is IDictionary<string, dynamic>)
                     {
                         // Check for an OS tag.
-                        var KeyTokens = Key.Split('^');
-                        if (KeyTokens.Length > 1)
+                        var keyTokens = key.Split('^');
+                        if (keyTokens.Length > 1)
                         {
-                            stringValue += $"{new string(tab, Tabs)}\"{KeyTokens[0]}\" {KeyTokens[1]}{newLine}";
-                            stringValue += $"{new string(tab, Tabs)}{{{newLine}";
-                            stringValue += $"{Stringify(Obj[Key], Tabs + 1)}{new string(tab, Tabs)}}}{newLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{keyTokens[0]}\" {keyTokens[1]}{newLine}";
+                            stringValue += $"{new string(tab, tabs)}{{{newLine}";
+                            stringValue += $"{Stringify(obj[key], tabs + 1)}{new string(tab, tabs)}}}{newLine}";
                         }
                         else
                         {
-                            stringValue += $"{new string(tab, Tabs)}\"{Key}\"{newLine}";
-                            stringValue += $"{new string(tab, Tabs)}{{{newLine}";
-                            stringValue += $"{Stringify(Obj[Key], Tabs + 1)}{new string(tab, Tabs)}}}{newLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{key}\"{newLine}";
+                            stringValue += $"{new string(tab, tabs)}{{{newLine}";
+                            stringValue += $"{Stringify(obj[key], tabs + 1)}{new string(tab, tabs)}}}{newLine}";
                         }
                     }
                     else
                     {
                         // Check for an OS tag.
-                        var KeyTokens = Key.Split('^');
-                        if (KeyTokens.Length > 1)
+                        var keyTokens = key.Split('^');
+                        if (keyTokens.Length > 1)
                             stringValue +=
-                                $"{new string(tab, Tabs)}\"{KeyTokens[0]}\"\t\"{Obj[Key]}\" {KeyTokens[1]}{newLine}";
+                                $"{new string(tab, tabs)}\"{keyTokens[0]}\"\t\"{obj[key]}\" {keyTokens[1]}{newLine}";
                         else
-                            stringValue += $"{new string(tab, Tabs)}\"{Key}\"\t\"{Obj[Key]}\"{newLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{obj[key]}\"{newLine}";
                     }
                 }
 

@@ -174,6 +174,7 @@ namespace TF2HUD.Editor.Classes
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e);
                 Console.WriteLine(e);
                 throw;
             }
@@ -182,26 +183,27 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     TODO: Add comment explaining this method.
         /// </summary>
-        /// <param name="Obj"></param>
-        /// <param name="Keys"></param>
+        /// <param name="obj"></param>
+        /// <param name="keys"></param>
         /// <returns></returns>
-        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> Obj,
-            IEnumerable<string> Keys)
+        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj,
+            IEnumerable<string> keys)
         {
             try
             {
-                var objectRef = Obj;
-                foreach (var Key in Keys)
+                var objectRef = obj;
+                foreach (var key in keys)
                 {
-                    if (!objectRef.ContainsKey(Key))
-                        objectRef[Key] = new Dictionary<string, dynamic>();
-                    objectRef = objectRef[Key];
+                    if (!objectRef.ContainsKey(key))
+                        objectRef[key] = new Dictionary<string, dynamic>();
+                    objectRef = objectRef[key];
                 }
 
                 return objectRef;
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e);
                 Console.WriteLine(e);
                 throw;
             }
