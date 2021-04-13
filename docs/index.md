@@ -6,7 +6,7 @@
 
 <!-- TITLE -->
 <p align="center">
-  <h2 align="center">HUD Editor for Team Fortress 2</h2>
+  <h1 align="center">HUD Editor for Team Fortress 2</h1>
   <p align="center">
     Install and customize your favorite custom Team Fortress 2 HUDs.
     <br />
@@ -58,7 +58,6 @@ To contribute to the project: fork this repository, make your changes then creat
 [docs-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml/badge.svg
 [docs-link]: https://www.criticalflaw.ca/TF2HUD.Editor/
 [json-link]: https://www.criticalflaw.ca/TF2HUD.Editor/json/
-[docs-link]: https://www.criticalflaw.ca/TF2HUD.Editor/
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [discuss-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/discussions
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
