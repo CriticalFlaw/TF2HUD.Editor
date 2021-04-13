@@ -5,7 +5,6 @@
 [![Docs][docs-shield]][docs-link]
 
 <!-- TITLE -->
-<br />
 <p align="center">
   <h2 align="center">HUD Editor for Team Fortress 2</h2>
   <p align="center">

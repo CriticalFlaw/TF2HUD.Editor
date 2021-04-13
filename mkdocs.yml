@@ -27,6 +27,6 @@ extra_css:
 extra:
     social:
         - icon: fontawesome/brands/github
-            link: https://github.com/CriticalFlaw/TF2HUD.Editor
+          link: https://github.com/CriticalFlaw/TF2HUD.Editor
         - icon: fontawesome/brands/twitter
-            link: https://twitter.com/CriticalFlaw_
+          link: https://twitter.com/CriticalFlaw_
