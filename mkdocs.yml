@@ -20,6 +20,7 @@ nav:
     - JSON Documentation:
         - Introduction: 'json/index.md'
 plugins:
+    - search
     - git-revision-date-localized:
         type: date
 extra_css:
