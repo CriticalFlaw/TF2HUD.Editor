@@ -59,10 +59,9 @@ To contribute to the project: fork this repository, make your changes then creat
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [license-shield]: https://img.shields.io/github/license/CriticalFlaw/TF2HUD.Editor
 [license-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/blob/master/.github/LICENSE
-[docs-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml/badge.svg
+[docs-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml/badge.svg?branch=master
 [docs-link]: https://www.criticalflaw.ca/TF2HUD.Editor/
 [json-link]: https://www.criticalflaw.ca/TF2HUD.Editor/json/
-[docs-link]: https://www.criticalflaw.ca/TF2HUD.Editor/
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [discuss-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/discussions
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
