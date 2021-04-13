@@ -1,9 +1,32 @@
-site_name: TF2 HUD Editor
+site_name: HUD Editor for Team Fortress 2
 site_author: criticalflaw
-theme: material
+theme:
+    language: en
+    name: material
+    logo: resources/logo.png
+    favicon: resources/logo.png
+    palette:
+        scheme: slate
+        primary: indigo
+        accent: amber
 repo_name: GitHub
-site_url: https://criticalflaw.ca/tf2hud-editor/docs
+site_url: https://www.criticalflaw.ca/hud-editor/
 repo_url: https://github.com/CriticalFlaw/TF2HUD.Editor/
 nav:
-    - About:
-        - Home: 'index.md'
+    - Home: 'index.md'
+    - Installation: 'install.md'
+    - Troubleshooting: 'troubleshoot.md'
+    - Customizations: 'customize.md'
+    - JSON Documentation:
+        - Introduction: 'json/index.md'
+plugins:
+    - git-revision-date-localized:
+        type: date
+extra_css:
+    - resources/teamfortress.css
+extra:
+    social:
+        - icon: fontawesome/brands/github
+            link: https://github.com/CriticalFlaw/TF2HUD.Editor
+        - icon: fontawesome/brands/twitter
+            link: https://twitter.com/CriticalFlaw_
