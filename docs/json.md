@@ -1,11 +1,9 @@
-Every HUD supported by the editor has a dedicated JSON schema file which defines the page layout and instructions for each customization option.
+Every HUD supported by the editor has a dedicated JSON schema file which defines the page layout and instructions for each customization option. This section will cover all the supported JSON objects and how they can be used to update and create schemas for other custom HUDs.
 
-This section will cover all the supported JSON objects and how they can be used to update and create schemas for other custom HUDs.
-
-Here is a [template file][json-template] you can use to get started. For refference, see the latest schema files for [budhud][json-budhud], [flawhud][json-flawhud] and [rayshud][json-rayshud].
+!!! note
+    Use this [template file][json-template] as a starting point. For refference, see schema files for [budhud][json-budhud], [flawhud][json-flawhud] and [rayshud][json-rayshud].
 
 !!! warning
-
     The name of the JSON file has to be the same name of the HUD's GitHub repository.
 
 ## Background
@@ -18,7 +16,7 @@ Optional. Defines the background of the HUD page. Can either be an ARGB color or
 
 ## Opacity
 
-Optional. Sets the opacity of the page background (see above). The value is a decimal between 0.0 and 1.0.
+Optional. Sets the page's background opacity. The value is a decimal between 0.0 and 1.0.
 
 ```
 "Opacity": 0.5
@@ -46,7 +44,7 @@ Optional. Defines the placement of each controls group in the order they are def
 
 ## Links
 
-Required. A list of links related to the HUD including the download link, issue tracker and repository. 
+Required. Contains links related to the HUD like the download link and git repository. 
 
 !!! warning
 
@@ -98,8 +96,7 @@ Required. Defines the name of the control for this customization option. This na
 "Name": "fh_color_health_buff"
 ```
 
-
-#### Label
+### Label
 
 Required. The label the user will see next to this control. Space is limited so save longer explanations for the Tooltip property.
 
@@ -110,6 +107,7 @@ Required. The label the user will see next to this control. Space is limited so 
 ### Type
 
 Required. Defines the type of control this will appear as on the page. Here are the currently supported types:
+
 * CheckBox.
 * Color, Colour, ColorPicker, ColourPicker.
 * DropDown, DropDownMenu, Select, ComboBox.

@@ -1,22 +1,21 @@
 This section is for common issues you may encounter and how to resolve them.
 
-If you encounter a bug or an issue not on this page, please [open a ticket on our issue tracker][issues-link].
+* For error or issues not on this page, please [open a ticket on our issue tracker][issues-link].
+* For questions not covered in this documentation, [post in the discussions forum][discuss-link].
 
-For questions not covered in the documentation, [post in the discussions forums][discuss-link].
+### The latest, downloaded release does not contain the executable.
+You most likely downloaded the source code instead of the editor. On the [releases][releases-link] page, be sure to download the file named **TF2HUD.Editor.zip** and extract it into a separate folder.
 
-#### The latest, downloaded release does not contain the executable.
-You most likely downloaded the source code instead of the editor. On the [releases][releases-link] page, be sure to download the file named **TF2HUD.Editor.zip** and extract it into a separate folder. The executable **TF2HUD.Editor.exe** will be found inside.
+### The editor does not launch after downloading and extracting it.
+Make sure to install [Microsoft .NET 5.0 Runtime][runtime-link] ([x64][runtime64-link] for 64-bit systems and [x86][runtime86-link] for 32-bit). If you just installed it and the editor still does not launch, then restart your computer.
 
-#### The editor does not launch after downloading and extracting it.
-Make sure to install [Microsoft .NET 5.0 Runtime][runtime-link]. [x64][runtime64-link] for 64-bit systems and [x86][runtime86-link] for 32-bit. If you just installed it and the editor still does not launch, then restart your computer.
+### My applied settings are not being shown in-game.
+To see your applied changes in-game, open the console and input `hud_reloadscheme`. This will refresh the HUD and will display your selected customizations.
 
-#### My applied settings are not being shown in-game.
-To see your applied changes in-game, open the console and input `hud_reloadscheme`. This will refresh the HUD and will display your selected customizations. **Note**: Certain settings may require the game to be restarted, this mainly applies to color and main menu changes.
+!!! note
+    Certain settings may require the game to be restarted, this mainly applies to color and main menu changes.
 
-#### The HUD I selected does not have a customization offered by another HUD.
-Each customization option is defined in the HUD's schema file (ex. `JSON/flawhud.json`) and are based on the customizations offered by the HUD's author. You can add your own customizations to a given HUD by following our [JSON Documentation][json-link], but if you go that route be sure to create a backup of the original json file, otherwise you risk the editor not working with that HUD anymore.
-
-#### I'm receiving an error when applying or resetting my settings.
+### I'm receiving an error when applying or resetting my settings.
 Majority of the errors you may encounter will be caused by having an outdated version of the HUD installed in your tf/custom directory. Each customization option has a set of instructions on what changes need to be applied and where. So if your HUD is very outdated, chances are that the editor will not what it is supposed to update and return an error. For best result, be sure you always have the latest version of both the HUD and the editor installed.
 
 <!-- MARKDOWN LINKS -->

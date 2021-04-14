@@ -18,6 +18,9 @@ nav:
     - Troubleshooting: 'troubleshoot.md'
     - How to Contribute: 'contribute.md'
     - JSON Customizations: 'json.md'
+markdown_extensions:
+    - admonition
+    - pymdownx.superfences
 plugins:
     - search
     - git-revision-date-localized:

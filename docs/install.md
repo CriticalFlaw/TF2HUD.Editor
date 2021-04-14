@@ -3,11 +3,10 @@
 3. Run the executable **TF2HUD.Editor.exe**
 
 ## How to Update
-The editor will check for updates every time it launches. If the local version number does not match the version in [this file][update-link], a message box will pop-up notifying you that a new version is available for download. It's highly advised to always use the latest version as it will include the latest fixes and have the best compatability with the supported HUDs.
+The editor checks for updates every time it launches. If the local version number does not match the version in [this file][update-link], a message box will pop-up notifying you that a new version is available for download. 
 
-## Links
-* [TF2 HUD Editor Releases][runtime-link]
-* [Microsoft .NET 5.0 Runtime](https://dotnet.microsoft.com/download/dotnet/5.0/runtime)
+!!! warning
+    Always update to the latest version as it will have the latest fixes and have the best compatability with supported HUDs.
 
 <!-- MARKDOWN LINKS -->
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
