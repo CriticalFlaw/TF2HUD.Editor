@@ -6,8 +6,12 @@ This section is for common issues you may encounter and how to resolve them.
 ### The latest, downloaded release does not contain the executable.
 You most likely downloaded the source code instead of the editor. On the [releases][releases-link] page, be sure to download the file named **TF2HUD.Editor.zip** and extract it into a separate folder.
 
+---
+
 ### The editor does not launch after downloading and extracting it.
 Make sure to install [Microsoft .NET 5.0 Runtime][runtime-link] ([x64][runtime64-link] for 64-bit systems and [x86][runtime86-link] for 32-bit). If you just installed it and the editor still does not launch, then restart your computer.
+
+---
 
 ### My applied settings are not being shown in-game.
 To see your applied changes in-game, open the console and input `hud_reloadscheme`. This will refresh the HUD and will display your selected customizations.
@@ -15,8 +19,10 @@ To see your applied changes in-game, open the console and input `hud_reloadschem
 !!! note
     Certain settings may require the game to be restarted, this mainly applies to color and main menu changes.
 
+---
+
 ### I'm receiving an error when applying or resetting my settings.
-Majority of the errors you may encounter will be caused by having an outdated version of the HUD installed in your tf/custom directory. Each customization option has a set of instructions on what changes need to be applied and where. So if your HUD is very outdated, chances are that the editor will not what it is supposed to update and return an error. For best result, be sure you always have the latest version of both the HUD and the editor installed.
+Most errors you'll encounter will be caused by an outdated version of the HUD being installed. An outdated HUD may not have the latest changes that the editor would expect and when that happens an error will be shown. For best result, make sure that both the HUD and the editor are on their latest versions.
 
 <!-- MARKDOWN LINKS -->
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues

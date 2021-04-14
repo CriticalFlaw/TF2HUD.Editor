@@ -1,12 +1,14 @@
+Follow these steps to install the HUD Editor on your computer.
+
 1. Download and install the [Microsoft .NET 5.0 Runtime][runtime-link]. ([x86][runtime86-link], [x64][runtime64-link])
 2. Download and extract the [latest version of the editor][releases-link].
 3. Run the executable **TF2HUD.Editor.exe**
 
 ## How to Update
-The editor checks for updates every time it launches. If the local version number does not match the version in [this file][update-link], a message box will pop-up notifying you that a new version is available for download. 
+The editor checks for updates every time it launches. If the local version does not match the version found [here][update-link], a message box will pop-up notifying you that a new version is available for download. 
 
 !!! warning
-    Always update to the latest version as it will have the latest fixes and have the best compatability with supported HUDs.
+    Always update to the newest version for the latest bug-fixes and best compatability with supported HUDs.
 
 <!-- MARKDOWN LINKS -->
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases

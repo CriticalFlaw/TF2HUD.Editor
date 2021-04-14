@@ -10,7 +10,7 @@
   <p align="center">
     Install and customize your favorite custom Team Fortress 2 HUDs.
     <br />
-    <a href="https://github.com/CriticalFlaw/TF2HUD.Editor#Installation">Installation</a>
+    <a href="https://www.criticalflaw.ca/TF2HUD.Editor/install/">Installation</a>
     ·
     <a href="https://www.criticalflaw.ca/TF2HUD.Editor/">Documentation</a>
     ·

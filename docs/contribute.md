@@ -10,7 +10,7 @@ Some of the ways you can contribute to the project include:
 To contribute code changes to the project:
 
 1. [Fork the repository][repo-link].
-2. Make your changes. For editing the code,use [Microsoft Visual Studio 2019][vs-link].
+2. Make your changes. For editing the code, use [Microsoft Visual Studio 2019][vs-link].
 3. Create a pull request so the changes can be reviewed.
 4. If approved, we'll merge the PR and credit you for your work.
 

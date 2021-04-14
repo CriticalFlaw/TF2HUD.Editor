@@ -1,16 +1,10 @@
-<!-- BADGES -->
-[![Stars][stars-shield]][stars-link]
-[![Issues][issues-shield]][issues-link]
-[![License][license-shield]][license-link]
-[![Docs][docs-shield]][docs-link]
-
 <!-- TITLE -->
 <p align="center">
   <h1 align="center">HUD Editor for Team Fortress 2</h1>
   <p align="center">
-    Install and customize your favorite custom Team Fortress 2 HUDs.
+    A tool for installing and customizing your favorite custom Team Fortress 2 HUDs.
     <br />
-    <a href="https://github.com/CriticalFlaw/TF2HUD.Editor#Installation">Installation</a>
+    <a href="https://www.criticalflaw.ca/TF2HUD.Editor/install/">Installation</a>
     ·
     <a href="https://www.criticalflaw.ca/TF2HUD.Editor/">Documentation</a>
     ·
@@ -37,6 +31,13 @@ If you need help, report a bug or ask a question related to the project...
 ### Credits
 
 * Code, Design and Documentation: [CriticalFlaw](https://github.com/CriticalFlaw) and [Revan](https://github.com/cooolbros)
+
+<!-- BADGES -->
+[![Stars][stars-shield]][stars-link]
+[![Issues][issues-shield]][issues-link]
+[![License][license-shield]][license-link]
+[![Docs][docs-shield]][docs-link]
+
 
 <!-- MARKDOWN LINKS -->[stars-shield]: https://img.shields.io/github/stars/CriticalFlaw/TF2HUD.Editor
 [stars-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/stargazers
