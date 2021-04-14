@@ -10,9 +10,9 @@
   <p align="center">
     Install and customize your favorite custom Team Fortress 2 HUDs.
     <br />
-    <a href="https://www.criticalflaw.ca/TF2HUD.Editor/install/">Installation</a>
+    <a href="https://www.editor.criticalflaw.ca//install/">Installation</a>
     ·
-    <a href="https://www.criticalflaw.ca/TF2HUD.Editor/">Documentation</a>
+    <a href="https://www.editor.criticalflaw.ca//">Documentation</a>
     ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/issues">Issue Tracker</a>
   </p>
@@ -58,8 +58,8 @@ Some of the ways you can contribute to the project include:
 [license-shield]: https://img.shields.io/github/license/CriticalFlaw/TF2HUD.Editor
 [license-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/blob/master/.github/LICENSE
 [docs-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml/badge.svg?branch=master
-[docs-link]: https://www.criticalflaw.ca/TF2HUD.Editor/
-[json-link]: https://www.criticalflaw.ca/TF2HUD.Editor/json/
+[docs-link]: https://www.editor.criticalflaw.ca/
+[json-link]: https://www.editor.criticalflaw.ca/json/base/
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [discuss-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/discussions
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases

@@ -6,16 +6,17 @@ Every HUD supported by the editor has a dedicated JSON schema file that defines 
 !!! warning
     The name of the JSON file must be the same as the name of the HUD's GitHub repository.
 
+---
 
 ## Required
 
 ### Links
 
-Contain links related to the HUD, like the download link and git repository.
+Contains links related to the HUD, like the download link and git repository.
 
 !!! warning
 
-    All except the HudsTF and Steam links must be provided.
+    All except links to HudsTF and Steam must be provided.
 
 ```
 "Links": {
@@ -33,7 +34,7 @@ Define groups of controls that will appear on the page, usually grouped by simil
 
 !!! info
 
-    Individual controls properties will be explained in the next section.
+    Individual control properties will be explained in the [next section][docs-controls].
 
 ```
 "Controls": {
@@ -47,7 +48,11 @@ Define groups of controls that will appear on the page, usually grouped by simil
 
 ### Layout
 
-Sets the placement of each control group in the order they are defined.
+Defines the placement of each control group in the order they are defined.
+
+!!! info
+
+    In the example below, the first control group (0) will be placed in the top left corner, then the next group (1) will be positioned veritically right underneath the first group.
 
 ```
 "Layout": [
@@ -57,17 +62,17 @@ Sets the placement of each control group in the order they are defined.
 ]
 ```
 
-## CustomizationsFolder
+### CustomizationsFolder
 
-Defines the path where all customization files are located. This path is relative to root of the HUD.
+Sets the path where all customization files are located. This path is relative to root of the HUD.
 
 ```
 "CustomizationsFolder": "#customizations"
 ```
 
-## EnabledFolder
+### EnabledFolder
 
-Defines the path where customization files should be moved to. This path is relative to root of the HUD.
+Sets the path where to move customization files to. This path is relative to root of the HUD.
 
 ```
 "EnabledFolder": "#customizations//_enabled"
@@ -79,6 +84,8 @@ Defines the background of the HUD page as an RGBA color or a URL link to an imag
 
 ```
 "Background": "https://imgur.com/V441OsM.png"
+or
+"Background": "30 30 30 255"
 ```
 
 ### Opacity
@@ -91,7 +98,7 @@ Sets the page's background opacity. The value is a decimal between 0.0 and 1.0.
 
 ### Maximize
 
-Boolean value that if true, will maximize the editor window when the page is opened.
+If true, the editor window will be maximized when the page is opened.
 
 ```
 "Maximize": false
@@ -102,3 +109,6 @@ Boolean value that if true, will maximize the editor window when the page is ope
 [json-flawhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/flawhud.json
 [json-rayshud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/rayshud.json
 [json-sample]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/docs/resources/sample.json
+[docs-controls]: https://www.editor.criticalflaw.ca/json/controls/
+[docs-files]: https://www.editor.criticalflaw.ca/json/files/
+[docs-special]: https://www.editor.criticalflaw.ca/json/special/
