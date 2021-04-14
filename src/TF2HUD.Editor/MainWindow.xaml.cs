@@ -144,6 +144,10 @@ namespace TF2HUD.Editor
                 ? HudPath + $"\\{HudSelection}-master"
                 : string.Empty;
 
+            hudDirectory = Directory.Exists(HudPath + $"\\{HudSelection}-main")
+                ? HudPath + $"\\{HudSelection}-main"
+                : string.Empty;
+
             // If the tf/custom directory is not yet set, then exit.
             if (string.IsNullOrEmpty(hudDirectory)) return;
 
@@ -365,6 +369,9 @@ namespace TF2HUD.Editor
                         // Step 3. Remove the -master suffix from the downloaded HUD.
                         if (Directory.Exists(HudPath + $"\\{HudSelection}-master"))
                             Directory.Move(HudPath + $"\\{HudSelection}-master", HudPath + $"\\{HudSelection}");
+
+                        if (Directory.Exists(HudPath + $"\\{HudSelection}-main"))
+                            Directory.Move(HudPath + $"\\{HudSelection}-main", HudPath + $"\\{HudSelection}");
 
                         // Step 4. Clean up, check user settings and reload the page UI.
                         CleanDirectory();

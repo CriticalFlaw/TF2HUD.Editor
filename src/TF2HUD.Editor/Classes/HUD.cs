@@ -20,10 +20,6 @@ namespace TF2HUD.Editor.Classes
         public readonly string[] LayoutOptions;
         public string Background;
         public Dictionary<string, Controls[]> ControlOptions;
-
-        private readonly Dictionary<string, Type>
-            controlsList = new(); // TODO: This variable is populated but never used. Possibly remove?
-
         public string CustomizationsFolder, EnabledFolder;
         private bool isRendered;
         private string[][] layout;
@@ -32,6 +28,7 @@ namespace TF2HUD.Editor.Classes
         public string Name;
         public double Opacity;
         public HUDSettings Settings;
+        private BackgroundManager HUDBackground;
         public string UpdateUrl, GitHubUrl, HudsTfUrl, SteamUrl, IssueUrl;
 
         /// <summary>
@@ -186,7 +183,6 @@ namespace TF2HUD.Editor.Classes
 
                             // Add to Page.
                             sectionContent.Children.Add(checkBoxInput);
-                            controlsList.Add(checkBoxInput.Name, checkBoxInput.GetType());
                             controlItem.Control = checkBoxInput;
                             break;
 
@@ -242,7 +238,6 @@ namespace TF2HUD.Editor.Classes
                             colorContainer.Children.Add(colorLabel);
                             colorContainer.Children.Add(colorInput);
                             sectionContent.Children.Add(colorContainer);
-                            controlsList.Add(colorInput.Name, colorInput.GetType());
                             controlItem.Control = colorInput;
                             break;
 
@@ -312,7 +307,6 @@ namespace TF2HUD.Editor.Classes
                             comboBoxContainer.Children.Add(comboBoxLabel);
                             comboBoxContainer.Children.Add(comboBoxInput);
                             sectionContent.Children.Add(comboBoxContainer);
-                            controlsList.Add(comboBoxInput.Name, comboBoxInput.GetType());
                             controlItem.Control = comboBoxInput;
                             break;
 
@@ -354,7 +348,6 @@ namespace TF2HUD.Editor.Classes
                             integerContainer.Children.Add(integerLabel);
                             integerContainer.Children.Add(integerInput);
                             sectionContent.Children.Add(integerContainer);
-                            controlsList.Add(integerInput.Name, integerInput.GetType());
                             controlItem.Control = integerInput;
                             break;
 
@@ -484,8 +477,15 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
-                var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
-                    .Controls.Values;
+                // HUD Background Image.
+                // Set the HUD Background image path when applying, because it's possible
+                // the user did not have their tf/custom folder set up when this HUD
+                // constructor was called
+                HUDBackground = new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\");
+
+                var hudSettings = ControlOptions.Values;
+                // var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
+                //     .Controls.Values;
 
                 // If the developer defined customization folders for their HUD, then copy those files.
                 if (!string.IsNullOrWhiteSpace(CustomizationsFolder))
@@ -498,9 +498,9 @@ namespace TF2HUD.Editor.Classes
                 foreach (var group in hudSettings)
                 foreach (var control in group)
                 {
-                    var user = Settings.GetSetting(control.Name);
-                    if (user is not null)
-                        WriteToFile(control, user, hudFolders);
+                    var userSetting = Settings.GetSetting(control.Name);
+                    if (userSetting is not null)
+                        WriteToFile(control, userSetting, hudFolders);
                 }
 
                 void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
@@ -570,6 +570,8 @@ namespace TF2HUD.Editor.Classes
                 // write hudFolders to the HUD once instead of each WriteToFile call reading and writing
                 var hudPath = MainWindow.HudPath + "\\" + Name;
                 IterateProperties(hudFolders, hudPath);
+
+                HUDBackground.Apply();
 
                 return true;
             }
@@ -669,12 +671,20 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
+                (JObject Files, string Special) = GetControlInfo(hudSetting,userSetting);
+
                 // Check for special cases like stock or custom backgrounds.
-                EnableStockBackgrounds(hudSetting, userSetting);
+                if (Special is not null)
+                {
+                    // Assume the value of any customization that references 'special' is a bool
+                    var enable = string.Equals(userSetting.Value, "True", StringComparison.CurrentCultureIgnoreCase);
+                    EvaluateSpecial(Special, hudSetting, userSetting, enable);
+                }
 
-                if (hudSetting.Files == null) return;
+                if (Files == null) return;
 
-                // TODO: Add comment explaining this method.
+                // Applies $value (and handles keywords where applicable) to provided HUD element
+                // JObject and returns a HUD element Dictionary, recursively
                 Dictionary<string, dynamic> CompileHudElement(JObject element, string filePath)
                 {
                     var hudElement = new Dictionary<string, dynamic>();
@@ -734,7 +744,26 @@ namespace TF2HUD.Editor.Classes
                     return hudElement;
                 }
 
-                // TODO: Add comment explaining this method.
+                // # Applies animation options to .txt file and handles keywords where applicable.
+                //
+                // This method takes a JObject of type <string, tuple | Animation> and applies
+                // each keyword to the provided .txt file
+                //
+                // keywords:
+                //     replace    takes a tuple of [true, false] values, evaluates $value and
+                //                replaces text in the file
+                //
+                //     comment    takes an array of strings, and adds two forward slashes before
+                //                each line that contains the any of the strings
+                //
+                //     uncomment  takes an array of strings, and removes te two forward slashes
+                //                before each line that contains the any of the strings
+                //
+                // If the JObject property does not match a keyword, it is assumed to be an event
+                // name and List of HUD Animations, in which case the method will parse the animation
+                // file and overwrite the provided event animations with the JObject property's event
+                // animations
+                //
                 void WriteAnimationCustomizations(string filePath, JObject animationOptions)
                 {
                     // Don't read animations file unless the user requests a new event
@@ -987,7 +1016,7 @@ namespace TF2HUD.Editor.Classes
 
                 string[] resFileExtensions = {"res", "vmt", "vdf"};
 
-                foreach (var filePath in hudSetting.Files)
+                foreach (var filePath in Files)
                 {
                     var currentFilePath = MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key;
                     var extension = filePath.Key.Split(".")[^1];
@@ -1019,38 +1048,32 @@ namespace TF2HUD.Editor.Classes
             }
         }
 
-        #region CUSTOM SETTINGS
-
-        /// <summary>
-        ///     Called to check if the option enable default background images for a given HUD is enabled.
-        /// </summary>
-        /// <param name="hudSetting">HUD settings object</param>
-        /// <param name="userSetting">User settings object</param>
-        private void EnableStockBackgrounds(Controls hudSetting, Setting userSetting)
+        private (JObject, string) GetControlInfo(Controls hudSetting, Setting userSetting)
         {
-            // Check for special conditions, namely if we should enable stock backgrounds.
-            var enable = string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase);
-
             if (string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
             {
                 // Determine files using the files of the selected item's label or value
                 // Could cause issues if label and value are both numbers but numbered differently
-                hudSetting.Files = hudSetting.Options
-                    .First(x => x.Label == userSetting.Value || x.Value == userSetting.Value).Files;
-
-                foreach (var option in hudSetting.Options)
-                    if (option.Special is not null)
-                    {
-                        hudSetting.Special = option.Special;
-                        if (option.Value == userSetting.Value)
-                            enable = true;
-                    }
+                var selected = hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value);
+                return (selected.Files, selected.Special);
             }
+            else
+            {
+                return (hudSetting.Files, hudSetting.Special);
+            }
+        }
 
-            if (hudSetting.Special is null) return;
+        #region CUSTOM SETTINGS
 
-            if (string.Equals(hudSetting.Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
-                SetStockBackgrounds(MainWindow.HudPath + "\\" + Name, enable);
+        private void EvaluateSpecial(string Special, Controls hudSetting, Setting userSetting, bool enable)
+        {
+            // Check for special conditions, namely if we should enable stock backgrounds.
+
+            if (string.Equals(Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
+                SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console", enable);
+
+            if (string.Equals(Special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase))
+                SetCustomBackground(userSetting.Value);
         }
 
         /// <summary>
@@ -1059,47 +1082,10 @@ namespace TF2HUD.Editor.Classes
         /// <remarks>
         ///     BUG: Need to check the scripts folder for chapterbackgrounds.txt - otherwise only pl_upward will be shown.
         /// </remarks>
-        public static bool SetStockBackgrounds(string path, bool enable = false)
+        public bool SetStockBackgrounds(string path, bool enable = false)
         {
-            try
-            {
-                // Revert everything back to normal before changing the name extension.
-                var directoryPath = new DirectoryInfo(path + "\\materials\\console");
-                foreach (var file in directoryPath.GetFiles())
-                {
-                    if (file.Name.EndsWith("bak"))
-                        File.Move(file.FullName, file.FullName.Replace("bak", "vtf"));
-                    if (file.Name.EndsWith("temp"))
-                        File.Move(file.FullName, file.FullName.Replace("temp", "vmt"));
-                }
-
-                // Do the same for the chapter backgrounds file as well.
-                var chapterBackgrounds = path + "\\scripts\\chapterbackgrounds.bak";
-                if (File.Exists(chapterBackgrounds))
-                    File.Move(chapterBackgrounds, chapterBackgrounds.Replace(".bak", ".txt"));
-
-                // If we're not enabling stock background, then skip this process.
-                if (!enable) return true;
-
-                // Rename the file extensions so that the game does not use them.
-                foreach (var file in directoryPath.GetFiles())
-                {
-                    if (file.Name.EndsWith("vtf"))
-                        File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
-                    if (file.Name.EndsWith("vmt"))
-                        File.Move(file.FullName, file.FullName.Replace("vmt", "temp"));
-                }
-
-                if (File.Exists(chapterBackgrounds.Replace(".bak", ".txt")))
-                    File.Move(chapterBackgrounds.Replace(".bak", ".txt"), chapterBackgrounds);
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_menu_background} {e.Message}");
-                return false;
-            }
+            HUDBackground.SetStockBackgrounds(enable);
+            return true;
         }
 
         /// <summary>
@@ -1127,25 +1113,10 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Generate a VTF background using an image provided by the user.
         /// </summary>
-        /// <remarks>TODO: Implement this in version 2.1</remarks>
-        public static bool SetCustomBackground()
+        public bool SetCustomBackground(string imagePath)
         {
-            try
-            {
-                // Initialize the VTF converter, set the file paths and do the conversion. The resulting image will be named background_upward.vtf
-                var converter = new VTF(MainWindow.HudPath);
-                var output = string.Format(Resources.file_background, MainWindow.HudPath, MainWindow.HudSelection,
-                    "background_upward.vtf");
-                converter.Convert(Properties.Settings.Default.image_path, output);
-                File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
-                return true;
-            }
-            catch (Exception e)
-            {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error,
-                    $"{Resources.error_seasonal_backgrounds} {e.Message}");
-                return false;
-            }
+            HUDBackground.SetCustomBackground(imagePath);
+            return true;
         }
 
         #endregion
