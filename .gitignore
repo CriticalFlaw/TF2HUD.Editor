@@ -379,4 +379,7 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 *.tlog
 
+# Ignore vscode
+.vscode/
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode
