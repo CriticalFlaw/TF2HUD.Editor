@@ -16,10 +16,8 @@ nav:
     - Home: 'index.md'
     - Installation: 'install.md'
     - Troubleshooting: 'troubleshoot.md'
-    - Customizations: 'customize.md'
-    - Contributing: 'contribute.md'
-    - JSON Documentation:
-        - Introduction: 'json/index.md'
+    - How to Contribute: 'contribute.md'
+    - JSON Customizations: 'json.md'
 plugins:
     - search
     - git-revision-date-localized:

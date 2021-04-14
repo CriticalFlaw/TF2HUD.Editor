@@ -1,1 +1,0 @@
-This section covers all the supported customization options. Not every customization option will be available for every supported HUD, it is up to the HUD author and whoever creates the JSON schema file to include a customization option.
