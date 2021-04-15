@@ -21,6 +21,7 @@ namespace TF2HUD.Editor.Classes
         public string Background;
         public Dictionary<string, Controls[]> ControlOptions;
         public string CustomizationsFolder, EnabledFolder;
+        private BackgroundManager HUDBackground;
         private bool isRendered;
         private string[][] layout;
         public bool Maximize;
@@ -28,8 +29,7 @@ namespace TF2HUD.Editor.Classes
         public string Name;
         public double Opacity;
         public HUDSettings Settings;
-        private BackgroundManager HUDBackground;
-        public string UpdateUrl, GitHubUrl, HudsTfUrl, SteamUrl, IssueUrl;
+        public string UpdateUrl, GitHubUrl, IssueUrl, HudsTfUrl, SteamUrl, DiscordUrl;
 
         /// <summary>
         ///     Initialize the HUD object with values from the JSON schema.
@@ -51,9 +51,10 @@ namespace TF2HUD.Editor.Classes
             {
                 UpdateUrl = schema.Links.Update ?? string.Empty;
                 GitHubUrl = schema.Links.GitHub ?? string.Empty;
+                IssueUrl = schema.Links.Issue ?? string.Empty;
                 HudsTfUrl = schema.Links.HudsTF ?? string.Empty;
                 SteamUrl = schema.Links.Steam ?? string.Empty;
-                IssueUrl = schema.Links.Issue ?? string.Empty;
+                DiscordUrl = schema.Links.Discord ?? string.Empty;
             }
 
             // Customization Folder Paths.
@@ -619,9 +620,16 @@ namespace TF2HUD.Editor.Classes
                             enabled += $"\\{fileName}.res";
 
                             // If true, move the customization file into the enabled folder, otherwise move it back.
-                            if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
-                                if (File.Exists(custom)) File.Move(custom, enabled);
-                                else if (File.Exists(enabled)) File.Move(enabled, custom);
+                            if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase)) 
+                            { 
+                                if (File.Exists(custom))
+                                    File.Move(custom, enabled);
+                            }
+                            else
+                            { 
+                                if (File.Exists(enabled))
+                                    File.Move(enabled, custom);
+                            }
                             break;
 
                         case "combobox":
@@ -671,13 +679,18 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
-                (JObject Files, string Special) = GetControlInfo(hudSetting,userSetting);
+                (var Files, var Special) = GetControlInfo(hudSetting, userSetting);
 
                 // Check for special cases like stock or custom backgrounds.
                 if (Special is not null)
                 {
                     // Assume the value of any customization that references 'special' is a bool
                     var enable = string.Equals(userSetting.Value, "True", StringComparison.CurrentCultureIgnoreCase);
+
+                    // If the control is a ComboBox, compare the user value against the default item index.
+                    if (string.Equals(userSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
+                        enable = !string.Equals(userSetting.Value, "0");
+
                     EvaluateSpecial(Special, hudSetting, userSetting, enable);
                 }
 
@@ -1054,13 +1067,12 @@ namespace TF2HUD.Editor.Classes
             {
                 // Determine files using the files of the selected item's label or value
                 // Could cause issues if label and value are both numbers but numbered differently
-                var selected = hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value);
+                var selected =
+                    hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value);
                 return (selected.Files, selected.Special);
             }
-            else
-            {
-                return (hudSetting.Files, hudSetting.Special);
-            }
+
+            return (hudSetting.Files, hudSetting.Special);
         }
 
         #region CUSTOM SETTINGS
@@ -1079,9 +1091,6 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Toggle default backgrounds by renaming their file extensions.
         /// </summary>
-        /// <remarks>
-        ///     BUG: Need to check the scripts folder for chapterbackgrounds.txt - otherwise only pl_upward will be shown.
-        /// </remarks>
         public bool SetStockBackgrounds(string path, bool enable = false)
         {
             HUDBackground.SetStockBackgrounds(enable);

@@ -22,6 +22,7 @@ namespace TF2HUD.Editor.JSON
 
     public class Links
     {
+        [JsonPropertyName("Discord")] public string Discord;
         [JsonPropertyName("GitHub")] public string GitHub;
         [JsonPropertyName("HudsTF")] public string HudsTF;
         [JsonPropertyName("Issue")] public string Issue;

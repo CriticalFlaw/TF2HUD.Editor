@@ -134,6 +134,7 @@ namespace TF2HUD.Editor.Classes
         /// <param name="url">URL link to open.</param>
         public static void OpenWebpage(string url)
         {
+            if (string.IsNullOrWhiteSpace(url)) return;
             Process.Start("explorer", url);
         }
 

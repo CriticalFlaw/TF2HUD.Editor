@@ -1,7 +1,7 @@
 This section is for common issues you may encounter and how to resolve them.
 
 * For error or issues not on this page, please [open a ticket on our issue tracker][issues-link].
-* For questions not covered in this documentation, [post in the discussions forum][discuss-link].
+* For questions not covered in this documentation, [post in our Discord server][discord-link].
 
 ---
 
@@ -28,7 +28,7 @@ Most errors you'll encounter will be caused by an outdated version of the HUD be
 
 <!-- MARKDOWN LINKS -->
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
-[discuss-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/discussions
+[discord-link]: https://discord.gg/hTdtK9vBhE
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
 [json-link]: https://www.editor.criticalflaw.ca/json/base/
 [runtime-link]: https://dotnet.microsoft.com/download/dotnet/5.0/runtime

@@ -10,14 +10,14 @@ theme:
         primary: amber
         accent: orange
 repo_name: GitHub
-site_url: https://www.criticalflaw.ca/hud-editor/
+site_url: https://www.editor.criticalflaw.ca/
 repo_url: https://github.com/CriticalFlaw/TF2HUD.Editor/
 nav:
     - Home: 'index.md'
     - Installation: 'install.md'
     - Troubleshooting: 'troubleshoot.md'
     - How to Contribute: 'contribute.md'
-    - JSON Documentation:
+    - Adding your HUD:
         - 1. Base Settings: 'json/base.md'
         - 2. Controls: 'json/controls.md'
         - 3. Menu Option: 'json/options.md'
@@ -36,3 +36,5 @@ extra:
           link: https://github.com/CriticalFlaw/TF2HUD.Editor
         - icon: fontawesome/brands/twitter
           link: https://twitter.com/CriticalFlaw_
+        - icon: fontawesome/brands/discord
+          link: https://discord.gg/hTdtK9vBhE

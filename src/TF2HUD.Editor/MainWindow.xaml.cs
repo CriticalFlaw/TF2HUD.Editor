@@ -220,9 +220,10 @@ namespace TF2HUD.Editor
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnReset.IsEnabled = false;
-                BtnSteam.IsEnabled = false;
                 BtnGitHub.IsEnabled = false;
                 BtnHuds.IsEnabled = false;
+                BtnDiscord.IsEnabled = false;
+                BtnSteam.IsEnabled = false;
                 return;
             }
 
@@ -236,10 +237,6 @@ namespace TF2HUD.Editor
                 BtnSave.IsEnabled = isInstalled;
                 BtnReset.IsEnabled = isInstalled;
                 LblStatus.Content = $"{HudSelection} is {(!isInstalled ? "not " : "")}installed...";
-
-                BtnSteam.IsEnabled = true;
-                BtnGitHub.IsEnabled = true;
-                BtnHuds.IsEnabled = true;
             }
             else
             {
@@ -289,6 +286,12 @@ namespace TF2HUD.Editor
                 // Maximize the application window if a given HUD schema requests it.
                 Application.Current.MainWindow.WindowState =
                     selection.Maximize ? WindowState.Maximized : WindowState.Normal;
+
+                // Disable the social media buttons if they don't have a link.
+                BtnGitHub.IsEnabled = !string.IsNullOrWhiteSpace(selection.GitHubUrl);
+                BtnHuds.IsEnabled = !string.IsNullOrWhiteSpace(selection.HudsTfUrl);
+                BtnDiscord.IsEnabled = !string.IsNullOrWhiteSpace(selection.DiscordUrl);
+                BtnSteam.IsEnabled = !string.IsNullOrWhiteSpace(selection.SteamUrl);
             }
             catch (Exception ex)
             {
@@ -467,14 +470,6 @@ namespace TF2HUD.Editor
         }
 
         /// <summary>
-        ///     Opens the issue tracker for the editor.
-        /// </summary>
-        private void BtnReportIssue_OnClick(object sender, RoutedEventArgs e)
-        {
-            Utilities.OpenWebpage(Properties.Resources.app_tracker);
-        }
-
-        /// <summary>
         ///     Return to the HUD selection page.
         /// </summary>
         private void BtnSwitch_OnClick(object sender, RoutedEventArgs e)
@@ -486,6 +481,21 @@ namespace TF2HUD.Editor
             SetPageBackground();
         }
 
+        /// <summary>
+        ///     Opens the issue tracker for the editor.
+        /// </summary>
+        private void BtnReportIssue_OnClick(object sender, RoutedEventArgs e)
+        {
+            Utilities.OpenWebpage(Properties.Resources.app_tracker);
+        }
+
+        /// <summary>
+        ///     Opens the project documentation site.
+        /// </summary>
+        private void BtnDocumentation_OnClick(object sender, RoutedEventArgs e)
+        {
+            Utilities.OpenWebpage(Properties.Resources.app_docs);
+        }
         private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
@@ -502,6 +512,12 @@ namespace TF2HUD.Editor
         {
             if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
             Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).HudsTfUrl);
+        }
+
+        private void BtnDiscord_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
+            Utilities.OpenWebpage(Json.GetHUDByName(Settings.Default.hud_selected).DiscordUrl);
         }
 
         /// <summary>

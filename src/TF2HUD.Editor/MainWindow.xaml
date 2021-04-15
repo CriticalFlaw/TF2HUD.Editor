@@ -40,35 +40,36 @@
                 </Grid.RowDefinitions>
                 <!-- Select a HUD Listbox -->
                 <ListBox x:Name="LbSelectHud" SelectionChanged="lbSelectHud_SelectionChanged" Grid.Column="0"
-                         Grid.Row="0" />
+                         FontSize="23" Grid.Row="0" />
                 <!-- TF2 HUD Editor and Version -->
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
-                    <StackPanel Margin="25">
-                        <Label Content="TF2 HUD Editor" Style="{StaticResource HeaderText}" Margin="0,0,0,15" />
+                    <StackPanel Margin="20">
+                        <Label Content="HUD Editor for Team Fortress 2" Style="{StaticResource HeaderText}"
+                               Margin="0,0,0,15" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Center">
-                            An editor for <Run Foreground="#70B04A" Text="installing" /> and
-                            <Run Foreground="#38F3AB" Text="customizing" /> Team Fortress 2 HUDs! This editor is open-source and code contributions towards new features, maintenance and bug fixes are welcome and encouraged. For questions, issues and suggestions - please contact me on Discord (
-                            <Run Foreground="#FFD700" Text="CriticalFlaw#0415" />) or Twitter (
-                            <Run Foreground="#FFD700" Text="@CriticalFlaw_" />). Thanks!
+                            A tool for <Run Foreground="#70B04A" Text="installing" /> and
+                            <Run Foreground="#38F3AB" Text="customizing" /> custom Team Fortress 2 HUDs. This project is open-source and contributions towards the code and documentation are welcomed and encouraged. For more information or help, check out the
+                            <Run Foreground="#FFD700" Text="documentation" /> and the
+                            <Run Foreground="#FFD700" Text="Discord server" /> linked below.
                         </TextBlock>
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,15" />
-                        <Label Content="Version 1.1" Style="{StaticResource HeaderText}" Margin="0,0,0,15" />
+                        <Label Content="Version 2.0" Style="{StaticResource HeaderText}" Margin="0,0,0,15" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-                            - Added option to import a custom main menu background (flawhud, Revan)
+                            - Implemented a JSON parser for creating page layouts and defining the customization options. (Thank you to Revan for creating the parser).
                             <LineBreak />
-                            - Added options to change the item quality and rarity colors (flawhud, rayshud)
+                            - Added support for budhud.
                             <LineBreak />
-                            - Fixed multiple cases of incorrect error messages being used.
+                            - Created documentation for this project:
+                            <Run Foreground="#CF6A32" Text="https://www.editor.criticalflaw.ca" />
                             <LineBreak />
-                            - Fixed the Set Directory button staying disabled when it shouldn't be.
+                            - Created a support Discord server:
+                            <Run Foreground="#CF6A32" Text="https://discord.gg/hTdtK9vBhE" />
                             <LineBreak />
-                            - Removed the redundant UberCharged color option (flawhud)
+                            - Updated the page layout for flawhud and rayshud.
                             <LineBreak />
-                            - Updated GUIs for both flawhud and rayshud.
+                            - User settings are now saved to AppData, so changes are carried over when updating the editor.
                             <LineBreak />
-                            - Updated the main window to be more responsive when resizing (Revan)
-                            <LineBreak />
-                            - Miscellaneous backend bug-fixes and improvements.
+                            - Cleaned up the codebase, improved logging and developer comments.
                             <LineBreak />
                         </TextBlock>
                     </StackPanel>
@@ -92,7 +93,7 @@
                     x:Name="BtnInstall"
                     Click="BtnInstall_OnClick"
                     Content="Install"
-                    Width="165"
+                    Width="155"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -100,7 +101,7 @@
                     x:Name="BtnUninstall"
                     Click="BtnUninstall_OnClick"
                     Content="Uninstall"
-                    Width="165"
+                    Width="155"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -108,7 +109,7 @@
                     x:Name="BtnSave"
                     Click="BtnSave_OnClick"
                     Content="Apply Changes"
-                    Width="165"
+                    Width="155"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -116,32 +117,33 @@
                     x:Name="BtnReset"
                     Click="BtnReset_OnClick"
                     Content="Reset to Default"
-                    Width="165"
-                    Height="40"
-                    Margin="5"
-                    Style="{StaticResource Button}" />
-                <Button
-                    x:Name="BtnReportIssue"
-                    Click="BtnReportIssue_OnClick"
-                    Content="Report Issue"
-                    Width="165"
+                    Width="155"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"
-                    Content="Switch HUD"
-                    Width="165"
+                    Content="Switch HUDs"
+                    Width="155"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
                 <Button
-                    x:Name="BtnSteam"
-                    Click="BtnSteam_OnClick"
-                    Content="X"
+                    x:Name="BtnReportIssue"
+                    Click="BtnReportIssue_OnClick"
+                    Content="x"
                     Margin="5"
-                    Background="#1B2838"
+                    ToolTip="Report an Issue"
+                    Background="#776B5F"
+                    Style="{StaticResource LinkButton}" />
+                <Button
+                    x:Name="BtnDocumentation"
+                    Click="BtnDocumentation_OnClick"
+                    Content="R"
+                    Margin="5"
+                    ToolTip="Read the Documentation"
+                    Background="#776B5F"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnGitHub"
@@ -157,6 +159,20 @@
                     Margin="5"
                     Background="#42A5F5"
                     FontFamily="../Resources/TF2Build.ttf #TF2 Build"
+                    Style="{StaticResource LinkButton}" />
+                <Button
+                    x:Name="BtnDiscord"
+                    Click="BtnDiscord_OnClick"
+                    Content="Z"
+                    Margin="5"
+                    Background="#7289da"
+                    Style="{StaticResource LinkButton}" />
+                <Button
+                    x:Name="BtnSteam"
+                    Click="BtnSteam_OnClick"
+                    Content="X"
+                    Margin="5"
+                    Background="#1B2838"
                     Style="{StaticResource LinkButton}" />
             </WrapPanel>
         </GroupBox>

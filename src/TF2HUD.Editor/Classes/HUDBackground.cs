@@ -1,32 +1,26 @@
-using System;
-using System.ComponentModel;
 using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Windows;
-using TF2HUD.Editor.Properties;
 
 namespace TF2HUD.Editor.Classes
 {
     /// <summary>
-    /// <para>Handles the options and priority of a HUD's custom background</para>
-    /// <code>this.BackgroundManager = new BackgroundManager();</code>
-    /// <code>this.BackgroundManager.SetStockBackgrounds();</code>
-    /// <code>this.BackgroundManager.SetCustomBackground("background.png");</code>
-    /// <code>this.BackgroundManager.Apply();</code>
-    /// <para>
-    /// In this example, we set stock backgrounds AND a custom background.
-    /// When calling the apply method, the BackgroundManager will override
-    /// the stock backgrounds with the custom background and apply changes
-    /// to the HUD
-    /// </para>
+    ///     <para>Handles the options and priority of a HUD's custom background</para>
+    ///     <code>this.BackgroundManager = new BackgroundManager();</code>
+    ///     <code>this.BackgroundManager.SetStockBackgrounds();</code>
+    ///     <code>this.BackgroundManager.SetCustomBackground("background.png");</code>
+    ///     <code>this.BackgroundManager.Apply();</code>
+    ///     <para>
+    ///         In this example, we set stock backgrounds AND a custom background.
+    ///         When calling the apply method, the BackgroundManager will override
+    ///         the stock backgrounds with the custom background and apply changes
+    ///         to the HUD
+    ///     </para>
     /// </summary>
-    class BackgroundManager
+    internal class BackgroundManager
     {
-        private string HUDFolderPath;
-        private bool useStockBackgrounds;
-        private bool useCustomBackground;
         private string customImagePath;
+        private readonly string HUDFolderPath;
+        private bool useCustomBackground;
+        private bool useStockBackgrounds;
 
         public BackgroundManager(string hudPath)
         {
@@ -52,10 +46,20 @@ namespace TF2HUD.Editor.Classes
             var directoryPath = new DirectoryInfo(path + "\\materials\\console");
             foreach (var file in directoryPath.GetFiles())
             {
+                var target = file.FullName;
                 if (file.Name.EndsWith("bak"))
-                    File.Move(file.FullName, file.FullName.Replace("bak", "vtf"));
+                {
+                    target = target.Replace("bak", "vtf");
+                    if (File.Exists(target)) File.Delete(target);
+                    File.Move(file.FullName, target);
+                }
+
                 if (file.Name.EndsWith("temp"))
-                    File.Move(file.FullName, file.FullName.Replace("temp", "vmt"));
+                {
+                    target = target.Replace("temp", "vmt");
+                    if (File.Exists(target)) File.Delete(target);
+                    File.Move(file.FullName, target);
+                }
             }
 
             // Do the same for the chapter backgrounds file as well.
@@ -69,10 +73,20 @@ namespace TF2HUD.Editor.Classes
             // Rename the file extensions so that the game does not use them.
             foreach (var file in directoryPath.GetFiles())
             {
+                var target = file.FullName;
                 if (file.Name.EndsWith("vtf"))
-                    File.Move(file.FullName, file.FullName.Replace("vtf", "bak"));
+                {
+                    target = target.Replace("vtf", "bak");
+                    if (File.Exists(target)) File.Delete(target);
+                    File.Move(file.FullName, target);
+                }
+
                 if (file.Name.EndsWith("vmt"))
-                    File.Move(file.FullName, file.FullName.Replace("vmt", "temp"));
+                {
+                    target = target.Replace("vmt", "temp");
+                    if (File.Exists(target)) File.Delete(target);
+                    File.Move(file.FullName, target);
+                }
             }
 
             if (File.Exists(chapterBackgrounds.Replace(".bak", ".txt")))

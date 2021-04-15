@@ -35,7 +35,7 @@ For more information on the project, check out the [documentation][docs-link].
 If you need help, report a bug or ask a question related to the project...
 * [Read the project documentation][docs-link].
 * [Open a ticket on our issue tracker][issues-link].
-* [Post in the discussions forums][discuss-link].
+* [Join our Discord Server][discord-link].
  
 ### How to Contribute
 
@@ -61,7 +61,7 @@ Some of the ways you can contribute to the project include:
 [docs-link]: https://www.editor.criticalflaw.ca/
 [json-link]: https://www.editor.criticalflaw.ca/json/base/
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
-[discuss-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/discussions
+[discord-link]: https://discord.gg/hTdtK9vBhE
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
 [sponsors-link]: https://github.com/sponsors/CriticalFlaw
 [runtime-link]: https://dotnet.microsoft.com/download/dotnet/5.0/runtime

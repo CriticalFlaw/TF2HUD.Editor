@@ -61,6 +61,15 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://www.editor.criticalflaw.ca/.
+        /// </summary>
+        internal static string app_docs {
+            get {
+                return ResourceManager.GetString("app_docs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://github.com/CriticalFlaw/TF2HUD.Editor/issues.
         /// </summary>
         internal static string app_tracker {
