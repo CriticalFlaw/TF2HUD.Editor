@@ -906,6 +906,41 @@
         }
       },
       {
+        "Name": "fh_toggle_lower_chat",
+        "Label": "Move Chat to the Bottom",
+        "Type": "Checkbox",
+        "ToolTip": "Changes the in-game chat position to be near the bottom.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/basechat.res": {
+            "HudChat": {
+              "ypos": {
+                "true": "r185",
+                "false": "25"
+              }
+            }
+          },
+          "scripts/hudlayout.res": {
+            "HudAchievementTracker": {
+              "NormalY": {
+                "true": "25",
+                "false": "330"
+              },
+              "EngineerY": {
+                "true": "25",
+                "false": "330"
+              }
+            },
+            "BuildingStatusAnchor": {
+              "ypos": {
+                "true": "c-130",
+                "false": "c-100"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_val_hud_style",
         "Label": "HUD Style",
         "Type": "ComboBox",
@@ -1010,11 +1045,6 @@
                 },
                 "HudSpellMenu": {
                   "xpos": "c-210"
-                },
-                "HudAchievementTracker": {
-                  "NormalY": "330",
-                  "EngineerY": "330",
-                  "tall": "130"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1123,11 +1153,6 @@
                 },
                 "HudSpellMenu": {
                   "xpos": "c-270"
-                },
-                "HudAchievementTracker": {
-                  "NormalY": "330",
-                  "EngineerY": "330",
-                  "tall": "130"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1236,11 +1261,6 @@
                 },
                 "HudSpellMenu": {
                   "xpos": "c-210"
-                },
-                "HudAchievementTracker": {
-                  "NormalY": "135",
-                  "EngineerY": "9999",
-                  "tall": "9999"
                 }
               },
               "scripts/hudanimations_custom.txt": {
