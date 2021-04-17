@@ -37,7 +37,7 @@
     <None Remove="Resources\favicon.ico" />
     <None Remove="Resources\Icons.otf" />
     <None Remove="Resources\TF2Build.ttf" />
-    <None Remove="Resources\TF2Crosshairs.otf" />
+    <None Remove="Resources\TF2Crosshairs.ttf" />
     <None Remove="Resources\TF2Secondary.ttf" />
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
@@ -54,13 +54,13 @@
 
   <ItemGroup>
     <Content Include="JSON\budhud.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="JSON\flawhud.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="JSON\rayshud.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\hud.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -77,7 +77,7 @@
     <Resource Include="Resources\TF2Build.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\TF2Crosshairs.otf">
+    <Resource Include="Resources\TF2Crosshairs.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\TF2Secondary.ttf">

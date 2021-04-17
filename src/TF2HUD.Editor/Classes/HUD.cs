@@ -246,7 +246,6 @@ namespace TF2HUD.Editor.Classes
                         case "DropDownMenu":
                         case "Select":
                         case "ComboBox":
-                        case "Crosshair":
                             // Do not create a ComboBox if there are no defined options.
                             if (controlItem.Options is not {Length: > 0}) break;
 
@@ -277,31 +276,22 @@ namespace TF2HUD.Editor.Classes
                                 {
                                     Content = option.Label
                                 };
-                                if (string.Equals(controlItem.Type, "Crosshair",
-                                    StringComparison.CurrentCultureIgnoreCase))
-                                {
-                                    comboBoxInput.Style = (Style) Application.Current.Resources["CrosshairBox"];
-                                    item.Style = (Style) Application.Current.Resources["Crosshair"];
-                                }
 
                                 comboBoxInput.Items.Add(item);
                             }
 
                             // Set the selected value depending on the what's retrieved from the setting file.
-                            var setting = Settings.GetSetting<string>(controlItem.Name);
-                            if (!Regex.IsMatch(setting, "\\D"))
-                                comboBoxInput.SelectedIndex = int.Parse(setting);
+                            var comboValue = Settings.GetSetting<string>(controlItem.Name);
+                            if (!Regex.IsMatch(comboValue, "\\D"))
+                                comboBoxInput.SelectedIndex = int.Parse(comboValue);
                             else
-                                comboBoxInput.SelectedValue = setting;
+                                comboBoxInput.SelectedValue = comboValue;
 
                             // Add Events.
                             comboBoxInput.SelectionChanged += (sender, _) =>
                             {
                                 var input = sender as ComboBox;
-                                Settings.SetSetting(input?.Name, string.Equals(controlItem.Type, "Crosshair",
-                                    StringComparison.CurrentCultureIgnoreCase)
-                                    ? comboBoxInput.SelectedValue.ToString()
-                                    : comboBoxInput.SelectedIndex.ToString());
+                                Settings.SetSetting(input?.Name, comboBoxInput.SelectedIndex.ToString());
                             };
 
                             // Add to Page.
@@ -350,6 +340,59 @@ namespace TF2HUD.Editor.Classes
                             integerContainer.Children.Add(integerInput);
                             sectionContent.Children.Add(integerContainer);
                             controlItem.Control = integerInput;
+                            break;
+
+                        case "Crosshair":
+                            // Create the Control.
+                            var xhairContainer = new StackPanel
+                            {
+                                Margin = new Thickness(10, lastTop, 0, 10)
+                            };
+                            var xhairLabel = new Label
+                            {
+                                Content = label,
+                                Width = 150,
+                                FontSize = 16
+                            };
+                            var xhairInput = new ComboBox
+                            {
+                                Name = id,
+                                Width = 150
+                            };
+
+                            // Add Tooltip text, if available.
+                            xhairInput.ToolTip = controlItem.Tooltip;
+
+                            // Add items to the ComboBox.
+                            foreach (var item in Utilities.CrosshairStyles.Select(option => new ComboBoxItem
+                            {
+                                Content = option,
+                                Style = (Style)Application.Current.Resources["Crosshair"]
+                            }))
+                            {
+                                xhairInput.Style = (Style)Application.Current.Resources["CrosshairBox"];
+                                xhairInput.Items.Add(item);
+                            }
+
+                            // Set the selected value depending on the what's retrieved from the setting file.
+                            var xhairValue = Settings.GetSetting<string>(controlItem.Name);
+                            if (!Regex.IsMatch(xhairValue, "\\D"))
+                                xhairInput.SelectedIndex = int.Parse(xhairValue);
+                            else
+                                xhairInput.SelectedValue = xhairValue;
+
+                            // Add Events.
+                            xhairInput.SelectionChanged += (sender, _) =>
+                            {
+                                var input = sender as ComboBox;
+                                Settings.SetSetting(input?.Name, xhairInput.SelectedValue.ToString());
+                            };
+
+                            // Add to Page.
+                            xhairContainer.Children.Add(xhairLabel);
+                            xhairContainer.Children.Add(xhairInput);
+                            sectionContent.Children.Add(xhairContainer);
+                            controlItem.Control = xhairInput;
                             break;
 
                         default:

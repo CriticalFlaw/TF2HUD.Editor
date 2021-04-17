@@ -60,7 +60,7 @@
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontSize" Value="30" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.otf #TF2Crosshairs" />
+            <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.ttf #TF2Crosshairs" />
         </Style>
 
         <Style x:Key="CrosshairBox" TargetType="ComboBox">
@@ -70,7 +70,7 @@
             <Setter Property="Height" Value="28" />
             <Setter Property="SelectedValuePath" Value="Content" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
-            <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.otf #TF2Crosshairs" />
+            <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.ttf #TF2Crosshairs" />
         </Style>
 
         <Style x:Key="HeaderText" TargetType="Label">
