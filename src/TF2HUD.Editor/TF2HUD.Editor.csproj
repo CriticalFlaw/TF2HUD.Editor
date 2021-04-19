@@ -31,13 +31,14 @@
 
   <ItemGroup>
     <None Remove="JSON\budhud.json" />
+    <None Remove="JSON\default.json" />
     <None Remove="JSON\flawhud.json" />
     <None Remove="JSON\rayshud.json" />
     <None Remove="log4net.config" />
     <None Remove="Resources\favicon.ico" />
-    <None Remove="Resources\Icons.otf" />
     <None Remove="Resources\TF2Build.ttf" />
     <None Remove="Resources\TF2Crosshairs.ttf" />
+    <None Remove="Resources\TF2Icons.ttf" />
     <None Remove="Resources\TF2Secondary.ttf" />
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
@@ -56,13 +57,13 @@
     <Content Include="JSON\budhud.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="JSON\default.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="JSON\flawhud.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="JSON\rayshud.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\hud.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="log4net.config">
@@ -71,13 +72,13 @@
     <Resource Include="Resources\favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons.otf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
     <Resource Include="Resources\TF2Build.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\TF2Crosshairs.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\TF2Icons.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\TF2Secondary.ttf">

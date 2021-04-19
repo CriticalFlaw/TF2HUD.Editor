@@ -59,6 +59,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontSize" Value="30" />
+            <Setter Property="Width" Value="125" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.ttf #TF2Crosshairs" />
         </Style>
@@ -66,8 +67,9 @@
         <Style x:Key="CrosshairBox" TargetType="ComboBox">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="FontSize" Value="25" />
+            <Setter Property="FontSize" Value="22" />
             <Setter Property="Height" Value="28" />
+            <Setter Property="Width" Value="125" />
             <Setter Property="SelectedValuePath" Value="Content" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.ttf #TF2Crosshairs" />
@@ -117,7 +119,7 @@
         <Style x:Key="LinkButton" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="FontFamily" Value="../Resources/Icons.otf #Icons" />
+            <Setter Property="FontFamily" Value="../Resources/TF2Icons.ttf #TF2Icons" />
             <Setter Property="Width" Value="50px" />
             <Setter Property="FontSize" Value="33px" />
             <Setter Property="Foreground" Value="#FFFFFF" />

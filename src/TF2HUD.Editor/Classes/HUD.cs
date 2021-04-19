@@ -351,13 +351,12 @@ namespace TF2HUD.Editor.Classes
                             var xhairLabel = new Label
                             {
                                 Content = label,
-                                Width = 150,
+                                Width = 125,
                                 FontSize = 16
                             };
                             var xhairInput = new ComboBox
                             {
-                                Name = id,
-                                Width = 150
+                                Name = id
                             };
 
                             // Add Tooltip text, if available.

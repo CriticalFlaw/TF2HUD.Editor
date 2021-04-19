@@ -1,0 +1,471 @@
+{
+  "Background": "https://wiki.teamfortress.com/w/images/f/fa/Background_2fort_widescreen_copy.png",
+  "Layout": [
+    "0 0 0 1",
+    "3 4 5 2"
+  ],
+  "Links": {
+    "Update": "https://github.com/CriticalFlaw/TF2HUD.Plus.git",
+    "GitHub": "https://github.com/CriticalFlaw/TF2HUD.Plus"
+  },
+  "Controls": {
+    "Item Quality": [
+      {
+        "Name": "tf2_color_normal",
+        "Label": "Normal",
+        "Type": "ColorPicker",
+        "Value": "178 178 178 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorNormal": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_unique",
+        "Label": "Unique",
+        "Type": "ColorPicker",
+        "Value": "255 215 0 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorUnique": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_strange",
+        "Label": "Strange",
+        "Type": "ColorPicker",
+        "Value": "207 106 50 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorStrange": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_vintage",
+        "Label": "Vintage",
+        "Type": "ColorPicker",
+        "Value": "71 98 145 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorVintage": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_haunted",
+        "Label": "Haunted",
+        "Type": "ColorPicker",
+        "Value": "56 243 171 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorHaunted": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_genuine",
+        "Label": "Genuine",
+        "Type": "ColorPicker",
+        "Value": "77 116 85 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorrarity1": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_collectors",
+        "Label": "Collectors",
+        "Type": "ColorPicker",
+        "Value": "170 0 0 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorCollectors": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_unusual",
+        "Label": "Unusual",
+        "Type": "ColorPicker",
+        "Value": "134 80 172 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorrarity4": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_community",
+        "Label": "Community",
+        "Type": "ColorPicker",
+        "Value": "112 176 74 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorCommunity": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_valve",
+        "Label": "Valve",
+        "Type": "ColorPicker",
+        "Value": "165 15 121 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorDeveloper": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Item Rarity": [
+      {
+        "Name": "tf2_color_civilian",
+        "Label": "Civilian",
+        "Type": "ColorPicker",
+        "Value": "176 195 217 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityCommon": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_freelance",
+        "Label": "Freelance",
+        "Type": "ColorPicker",
+        "Value": "94 152 217 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityUncommon": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_mercenary",
+        "Label": "Mercenary",
+        "Type": "ColorPicker",
+        "Value": "75 105 255 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityRare": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_commando",
+        "Label": "Commando",
+        "Type": "ColorPicker",
+        "Value": "136 71 255 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityMythical": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_assassin",
+        "Label": "Assassin",
+        "Type": "ColorPicker",
+        "Value": "211 44 230 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityLegendary": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_elite",
+        "Label": "Elite",
+        "Type": "ColorPicker",
+        "Value": "235 75 75 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityAncient": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Crosshair": [
+      {
+        "Name": "tf2_toggle_xhair_enable",
+        "Label": "Toggle the Crosshair",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair visibility.",
+        "Value": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_toggle_xhair_pulse",
+        "Label": "Toggle the Hitmarker",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair hitmarker.",
+        "Value": "true",
+        "Files": {
+          "scripts/hudanimations_custom.txt": {
+            "uncomment": [
+              "Animate CustomCrosshair"
+            ]
+          }
+        }
+      },
+      {
+        "Name": "tf2_val_xhair_style",
+        "Label": "Style",
+        "ToolTip": "Style of crosshair.",
+        "Type": "Crosshair",
+        "Value": "<",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_val_xhair_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "ToolTip": "Size of the crosshair.",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "font": "Size:$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_xhair_normal",
+        "Label": "Crosshair",
+        "Type": "ColorPicker",
+        "ToolTip": "Default crosshair color.",
+        "Value": "255 255 255 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_color_xhair_pulse",
+        "Label": "Hitmarker",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of crosshair when hitting another player.",
+        "Value": "255 0 0 255",
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Hitmarker": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Customizations": [
+      {
+        "Name": "tf2_toggle_disguise_image",
+        "Label": "Spy Disguise Image",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the spy silhouette seen while changing disguises.",
+        "Value": "true",
+        "Files": {
+          "scripts/hudanimations_custom.txt": {
+            "uncomment": [
+              "RunEvent HudSpyDisguiseChanged"
+            ]
+          }
+        }
+      },
+      {
+        "Name": "tf2_toggle_menu_image",
+        "Label": "Main Menu Class Images",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the character images seen on the main menu.",
+        "Value": "true",
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "TFCharacterImage": {
+              "ypos": {
+                "true": "-80",
+                "false": "9999"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_toggle_player_model",
+        "Label": "Hide Player Model",
+        "Type": "Checkbox",
+        "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/hudplayerclass.res": {
+            "PlayerStatusClassImage": {
+              "wide": {
+                "true": "0",
+                "false": "75"
+              },
+              "wide_minmode": {
+                "true": "0",
+                "false": "37"
+              }
+            },
+            "PlayerStatusClassImageBG": {
+              "wide": {
+                "true": "0",
+                "false": "100"
+              }
+            },
+            "classmodelpanelBG": {
+              "wide": {
+                "true": "0",
+                "false": "100"
+              }
+            },
+            "classmodelpanel": {
+              "wide": {
+                "true": "0",
+                "false": "100"
+              },
+              "wide_minmode": {
+                "true": "0",
+                "false": "52"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_toggle_transparent_viewmodels",
+        "Label": "Transparent Viewmodels",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle transparent viewmodels. (May required config changes)",
+        "Value": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "TransparentViewmodel": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf2_val_killfeed_rows",
+        "Label": "Killfeed Rows",
+        "Type": "IntegerUpDown",
+        "ToolTip": "Change the number of rows seen on the killfeed.",
+        "Value": "5",
+        "Minimum": "0",
+        "Maximum": "9",
+        "Increment": "1",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "HudDeathNotice": {
+              "MaxDeathNotices": "$value"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

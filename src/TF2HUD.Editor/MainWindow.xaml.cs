@@ -370,6 +370,7 @@ namespace TF2HUD.Editor
                                 Directory.Delete(HudPath + "\\" + x.ToString()?.ToLowerInvariant(), true);
 
                         // Step 3. Remove the -master suffix from the downloaded HUD.
+                        // TODO: Change the extracted file name to the schema name.
                         if (Directory.Exists(HudPath + $"\\{HudSelection}-master"))
                             Directory.Move(HudPath + $"\\{HudSelection}-master", HudPath + $"\\{HudSelection}");
 
