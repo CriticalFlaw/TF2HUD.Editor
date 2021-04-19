@@ -26,7 +26,8 @@
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
-                "Overheal": "$value"
+                "Overheal": "$value",
+                "PositiveValue": "$value"
               }
             }
           }
@@ -60,7 +61,8 @@
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
-                "LowHealth": "$value"
+                "LowHealth": "$value",
+                "NegativeValue": "$value"
               }
             }
           }
@@ -591,6 +593,29 @@
         }
       },
       {
+        "Name": "fh_toggle_player_model",
+        "Label": "Hide Player Model",
+        "Type": "Checkbox",
+        "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/hudplayerclass.res": {
+            "PlayerStatusClassImage": {
+              "ypos": {
+                "true": "9999",
+                "false": "r75"
+              }
+            },
+            "classmodelpanel": {
+              "wide": {
+                "true": "0",
+                "false": "100"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_val_hud_style",
         "Label": "HUD Style",
         "Type": "ComboBox",
@@ -988,14 +1013,14 @@
               },
               "scripts/hudanimations_custom.txt": {
                 "comment": [
-                  "Animate HealthBG"
-                ],
-                "uncomment": [
-                  "Animate AmmoBG",
+                  "Animate HealthBG",
                   "Animate PlayerStatusHealthValue",
                   "Animate AmmoInClip",
                   "Animate AmmoInReserve",
                   "Animate AmmoNoClip"
+                ],
+                "uncomment": [
+                  "Animate AmmoBG"
                 ]
               }
             }
