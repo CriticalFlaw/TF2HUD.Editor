@@ -155,9 +155,9 @@ namespace TF2HUD.Editor.Classes
                     var label = controlItem.Label;
                     Settings.AddSetting(controlItem.Name, controlItem);
 
-                    switch (controlItem.Type)
+                    switch (controlItem.Type.ToLowerInvariant())
                     {
-                        case "Checkbox":
+                        case "checkbox":
                             // Create the Control.
                             var checkBoxInput = new CheckBox
                             {
@@ -187,10 +187,10 @@ namespace TF2HUD.Editor.Classes
                             controlItem.Control = checkBoxInput;
                             break;
 
-                        case "Color":
-                        case "Colour":
-                        case "ColorPicker":
-                        case "ColourPicker":
+                        case "color":
+                        case "colour":
+                        case "colorpicker":
+                        case "colourpicker":
                             // Create the Control.
                             var colorContainer = new StackPanel
                             {
@@ -242,10 +242,10 @@ namespace TF2HUD.Editor.Classes
                             controlItem.Control = colorInput;
                             break;
 
-                        case "DropDown":
-                        case "DropDownMenu":
-                        case "Select":
-                        case "ComboBox":
+                        case "dropdown":
+                        case "dropdownmenu":
+                        case "select":
+                        case "combobox":
                             // Do not create a ComboBox if there are no defined options.
                             if (controlItem.Options is not {Length: > 0}) break;
 
@@ -301,9 +301,9 @@ namespace TF2HUD.Editor.Classes
                             controlItem.Control = comboBoxInput;
                             break;
 
-                        case "Number":
-                        case "Integer":
-                        case "IntegerUpDown":
+                        case "number":
+                        case "integer":
+                        case "integerupdown":
                             // Create the Control.
                             var integerContainer = new StackPanel
                             {
@@ -342,7 +342,8 @@ namespace TF2HUD.Editor.Classes
                             controlItem.Control = integerInput;
                             break;
 
-                        case "Crosshair":
+                        case "crosshair":
+                        case "customcrosshair":
                             // Create the Control.
                             var xhairContainer = new StackPanel
                             {
@@ -649,8 +650,8 @@ namespace TF2HUD.Editor.Classes
                     var setting = userSettings.First(x => x.Name == control.Name);
                     if (setting is null) continue; // User setting not found, skipping.
 
-                    var custom = $"{path}{CustomizationsFolder}";
-                    var enabled = $"{path}{EnabledFolder}";
+                    var custom = path + CustomizationsFolder;
+                    var enabled = path + EnabledFolder;
 
                     switch (control.Type.ToLowerInvariant())
                     {
@@ -658,31 +659,40 @@ namespace TF2HUD.Editor.Classes
                             var fileName = Utilities.GetFileNames(control);
                             if (fileName is null or not string) continue; // File name not found, skipping.
 
-                            custom += $"\\{fileName}.res";
-                            enabled += $"\\{fileName}.res";
+                            custom += $"\\{fileName}";
+                            enabled += $"\\{fileName}";
 
                             // If true, move the customization file into the enabled folder, otherwise move it back.
-                            if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase)) 
-                            { 
-                                if (File.Exists(custom))
-                                    File.Move(custom, enabled);
+                            if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                if (Directory.Exists(custom))
+                                    Directory.Move(custom, enabled);
+                                else if (File.Exists(custom + ".res"))
+                                    File.Move(custom + ".res", enabled + ".res");
                             }
                             else
-                            { 
-                                if (File.Exists(enabled))
-                                    File.Move(enabled, custom);
+                            {
+                                if (Directory.Exists(enabled))
+                                    Directory.Move(enabled, custom);
+                                else if (File.Exists(enabled + ".res"))
+                                    File.Move(enabled + ".res", custom + ".res");
                             }
                             break;
 
+                        case "dropdown":
+                        case "dropdownmenu":
+                        case "select":
                         case "combobox":
-                            var fileNames = Utilities.GetFileNames(control);
+                                var fileNames = Utilities.GetFileNames(control);
                             if (fileNames is null or not string[]) continue; // File names not found, skipping.
 
                             // Move every file assigned to this control back to the customization folder first.
                             foreach (string file in fileNames)
                             {
                                 var name = file.Replace(".res", string.Empty);
-                                if (File.Exists(enabled + $"\\{name}.res"))
+                                if (Directory.Exists(enabled + $"\\{name}"))
+                                    Directory.Move(enabled + $"\\{name}", custom + $"\\{name}");
+                                else if (File.Exists(enabled + $"\\{name}.res"))
                                     File.Move(enabled + $"\\{name}.res", custom + $"\\{name}.res");
                             }
 
@@ -693,7 +703,9 @@ namespace TF2HUD.Editor.Classes
                                 if (string.IsNullOrWhiteSpace(name)) break;
 
                                 name = name.Replace(".res", string.Empty);
-                                if (File.Exists(custom + $"\\{name}.res"))
+                                if (Directory.Exists(custom + $"\\{name}"))
+                                    Directory.Move(custom + $"\\{name}", enabled + $"\\{name}");
+                                else if (File.Exists(custom + $"\\{name}.res"))
                                     File.Move(custom + $"\\{name}.res", enabled + $"\\{name}.res");
                             }
 
