@@ -49,7 +49,7 @@ namespace TF2HUD.Editor
             SetPageBackground();
             SetupDirectory();
 
-            // Check for updates.
+            // Check for app updates.
             Logger.Info("Checking for updates.");
             AutoUpdater.OpenDownloadPage = true;
             AutoUpdater.Start(Properties.Resources.app_update);
@@ -74,10 +74,11 @@ namespace TF2HUD.Editor
         ///     Check if Team Fortress 2 is currently running.
         /// </summary>
         /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
-        public static bool CheckGameStatus()
+        public static bool CheckIsGameRunning(bool returnMessage = false)
         {
             if (!Process.GetProcessesByName("hl2").Any()) return false;
-            ShowMessageBox(MessageBoxImage.Warning, Properties.Resources.info_game_running);
+            if (returnMessage)
+                ShowMessageBox(MessageBoxImage.Warning, Properties.Resources.info_game_running);
             return true;
         }
 
@@ -352,7 +353,7 @@ namespace TF2HUD.Editor
                 }
 
                 // Stop the process if Team Fortress 2 is still running.
-                if (CheckGameStatus()) return;
+                if (CheckIsGameRunning(true)) return;
 
                 var worker = new BackgroundWorker();
                 worker.DoWork += (_, _) =>
@@ -417,7 +418,7 @@ namespace TF2HUD.Editor
                 if (!CheckHudPath()) return;
 
                 // Stop the process if Team Fortress 2 is still running.
-                if (CheckGameStatus()) return;
+                if (CheckIsGameRunning(true)) return;
 
                 // Remove the HUD from the tf/custom directory.
                 Logger.Info($"Uninstalling {HudSelection}...");
@@ -497,6 +498,15 @@ namespace TF2HUD.Editor
         {
             Utilities.OpenWebpage(Properties.Resources.app_docs);
         }
+
+        /// <summary>
+        ///     Updates the local schema files to the latest version.
+        /// </summary>
+        private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
+        {
+            LblStatus.Content = Json.Update() ? Properties.Resources.info_schema_update : Properties.Resources.info_schema_nothing;
+        }
+
         private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
@@ -541,5 +551,6 @@ namespace TF2HUD.Editor
         }
 
         #endregion
+
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using TF2HUD.Editor.Properties;
 
 namespace TF2HUD.Editor.Classes
 {
@@ -46,7 +45,7 @@ namespace TF2HUD.Editor.Classes
 
             // Make a backup of the existing background files.
             var hudBgPath =
-                new DirectoryInfo(string.Format(Resources.path_console, MainWindow.HudPath, MainWindow.HudSelection));
+                new DirectoryInfo($"{MainWindow.HudPath}{MainWindow.HudSelection}\\materials\\console\\");
             foreach (var file in hudBgPath.GetFiles())
                 File.Delete(file.FullName);
 

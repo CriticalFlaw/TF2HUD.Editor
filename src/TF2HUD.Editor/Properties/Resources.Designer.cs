@@ -70,6 +70,24 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{0}.
+        /// </summary>
+        internal static string app_json_file {
+            get {
+                return ResourceManager.GetString("app_json_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON.
+        /// </summary>
+        internal static string app_json_list {
+            get {
+                return ResourceManager.GetString("app_json_list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://github.com/CriticalFlaw/TF2HUD.Editor/issues.
         /// </summary>
         internal static string app_tracker {
@@ -142,15 +160,6 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}\materials\console\{1}.
-        /// </summary>
-        internal static string file_background {
-            get {
-                return ResourceManager.GetString("file_background", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An existing {0} folder has been found. To avoid conflicts, a backup has been created..
         /// </summary>
         internal static string info_create_backup {
@@ -196,20 +205,29 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No new schema updates. Please check back later..
+        /// </summary>
+        internal static string info_schema_nothing {
+            get {
+                return ResourceManager.GetString("info_schema_nothing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HUD schemas have been updated. Please restart the editor..
+        /// </summary>
+        internal static string info_schema_update {
+            get {
+                return ResourceManager.GetString("info_schema_update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} has been successfully uninstalled..
         /// </summary>
         internal static string info_uninstall_complete {
             get {
                 return ResourceManager.GetString("info_uninstall_complete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}\materials\console\.
-        /// </summary>
-        internal static string path_console {
-            get {
-                return ResourceManager.GetString("path_console", resourceCulture);
             }
         }
     }

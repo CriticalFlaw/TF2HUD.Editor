@@ -120,6 +120,12 @@
   <data name="app_docs" xml:space="preserve">
     <value>https://www.editor.criticalflaw.ca/</value>
   </data>
+  <data name="app_json_file" xml:space="preserve">
+    <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{0}</value>
+  </data>
+  <data name="app_json_list" xml:space="preserve">
+    <value>https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON</value>
+  </data>
   <data name="app_tracker" xml:space="preserve">
     <value>https://github.com/CriticalFlaw/TF2HUD.Editor/issues</value>
   </data>
@@ -144,9 +150,6 @@
   <data name="error_transparent_vm" xml:space="preserve">
     <value>An error occurred while toggling transparent viewmodels.</value>
   </data>
-  <data name="file_background" xml:space="preserve">
-    <value>{0}\materials\console\{1}</value>
-  </data>
   <data name="info_create_backup" xml:space="preserve">
     <value>An existing {0} folder has been found. To avoid conflicts, a backup has been created.</value>
   </data>
@@ -162,10 +165,13 @@
   <data name="info_install_complete" xml:space="preserve">
     <value>{0} has been successfully installed.</value>
   </data>
+  <data name="info_schema_nothing" xml:space="preserve">
+    <value>No new schema updates. Please check back later.</value>
+  </data>
+  <data name="info_schema_update" xml:space="preserve">
+    <value>HUD schemas have been updated. Please restart the editor.</value>
+  </data>
   <data name="info_uninstall_complete" xml:space="preserve">
     <value>{0} has been successfully uninstalled.</value>
-  </data>
-  <data name="path_console" xml:space="preserve">
-    <value>{0}\materials\console\</value>
   </data>
 </root>

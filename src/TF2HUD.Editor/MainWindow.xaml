@@ -93,7 +93,7 @@
                     x:Name="BtnInstall"
                     Click="BtnInstall_OnClick"
                     Content="Install"
-                    Width="155"
+                    Width="150"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -101,7 +101,7 @@
                     x:Name="BtnUninstall"
                     Click="BtnUninstall_OnClick"
                     Content="Uninstall"
-                    Width="155"
+                    Width="150"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -109,7 +109,7 @@
                     x:Name="BtnSave"
                     Click="BtnSave_OnClick"
                     Content="Apply Changes"
-                    Width="155"
+                    Width="150"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -117,7 +117,7 @@
                     x:Name="BtnReset"
                     Click="BtnReset_OnClick"
                     Content="Reset to Default"
-                    Width="155"
+                    Width="150"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -125,10 +125,18 @@
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"
                     Content="Switch HUDs"
-                    Width="155"
+                    Width="150"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
+                <Button
+                    x:Name="BtnRefresh"
+                    Click="BtnRefresh_OnClick"
+                    Content="."
+                    Margin="5"
+                    ToolTip="Refresh HUD Files"
+                    Background="#776B5F"
+                    Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnReportIssue"
                     Click="BtnReportIssue_OnClick"
