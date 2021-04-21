@@ -1,0 +1,298 @@
+{
+  "Background": "https://i.imgur.com/U4m1mOx.png",
+  "Maximize": true,
+  "Layout": [
+    "0 1 1 1 1 4",
+    "2 1 1 1 1 4",
+    "3 3 3 3 3 4",
+    "3 3 3 3 3 4"
+  ],
+  "Links": {
+	"Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
+    "GitHub": "https://github.com/Zeesastrous/ZeesHUD",
+    "Issue": "https://github.com/Zeesastrous/ZeesHUD/issues",
+    "HudsTF": "https://huds.tf/site/s-ZeesHUD--2774",
+    "Steam": "https://steamcommunity.com/groups/ZeesHUD"
+  },
+  "CustomizationsFolder": "#customizations",
+  "EnabledFolder": "#customizations//addons//_enabled",
+  "Controls": {
+	"HUD Layout": [
+		{
+			"Name": "zh_val_layout_style",
+			"Label": "Layout Style",
+			"Type": "ComboBox",
+			"Value": "0",
+			"ToolTip": "Layout of health, ammo, objective, meters, etc. in-game.",
+			"ComboFiles": [
+				"addons//health-ammo-style_ut//",
+				"addons//health-ammo-style_classic//"
+			],
+			"Options": [
+				{
+					"Label": "Default",
+					"Value": "0"
+				},
+				{
+					"Label": "Unreal Tournament (UT Mode)",
+					"Value": "1",
+					"FileName": "addons//health-ammo-style_ut//"
+				},
+				{
+					"Label": "Classic",
+					"Value": "2",
+					"FileName": "addons//health-ammo-style_classic//"
+				}
+			]
+		},
+		{
+			"Name": "zh_val_layout_font",
+			"Label": "Font",
+			"Type": "ComboBox",
+			"Value": "0",
+			"ToolTip": "Font used for Health, Ammo and Counters",
+			"ComboFiles": [
+				"addons//health-ammo_font_futura//"
+			],
+			"Options": [
+				{
+					"Label": "CIKANDEI (Default)",
+					"Value": "0"
+				},
+				{
+					"Label": "Futura Bold",
+					"Value": "1",
+					"FileName": "addons//health-ammo_font_futura//"
+				}
+			]
+		}
+    ],
+	"Health & Ammo Colors": [
+		{
+        "Name": "rh_color_health_normal",
+        "Label": "HP Normal",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health when normal.",
+        "Value": "255 255 255 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_health_normal_shadow",
+        "Label": "HP Normal Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health's shadow when normal.",
+        "Value": "0 0 0 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_health_buff",
+        "Label": "HP Overheal",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health when overhealed.",
+        "Value": "48 255 164 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text Buff": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_health_buff_shadow",
+        "Label": "HP Overheal Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health's shadow when overhealed.",
+        "Value": "9 71 49 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text Buff Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_health_low",
+        "Label": "HP Low",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health when low.",
+        "Value": "255 164 164 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text Low": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_health_low_shadow",
+        "Label": "HP Low Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health's shadow when low.",
+        "Value": "71 9 31 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text Low Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_ammo_clip",
+        "Label": "Ammo Clip",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "255 255 255 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_ammo_clip_shadow",
+        "Label": "Clip Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "0 0 0 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Clip Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_ammo_reserve",
+        "Label": "Ammo Reserve",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "255 255 255 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_ammo_reserve_shadow",
+        "Label": "Reserve Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "0 0 0 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Reserve Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_ammo_clip_low",
+        "Label": "Low Ammo Clip",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "255 164 164 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Clip Low": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_ammo_clip_shadow_low",
+        "Label": "Low Clip Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "71 9 31 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Clip Low Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_ammo_reserve_low",
+        "Label": "Low Ammo Reserve",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "255 164 164 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Reserve Low": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "rh_color_ammo_reserve_shadow_low",
+        "Label": "Low Reserve Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "71 9 31 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Reserve Low Shadow": "$value"
+              }
+            }
+          }
+        }
+      }
+	]
+	
+  }
+}
