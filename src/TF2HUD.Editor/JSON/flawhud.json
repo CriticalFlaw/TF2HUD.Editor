@@ -515,6 +515,7 @@
         "Label": "Transparent Viewmodels",
         "Type": "Checkbox",
         "ToolTip": "Toggle transparent viewmodels. (May required config changes)",
+        "Special": "TransparentViewmodels", 
         "Value": "false",
         "Files": {
           "scripts/hudlayout.res": {
@@ -1046,7 +1047,7 @@
       },
       {
         "Name": "fh_custom_background",
-        "Label": "Custom Background",
+        "Label": "Set Custom Background",
         "Type": "CustomBackground",
         "Special": "CustomBackground",
         "ToolTip": "Replace the main menu background with a custom image.",

@@ -101,7 +101,7 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Generate or remove a custom background.
         /// </summary>
-        public bool ApplyCustomBackground()
+        public string ApplyCustomBackground()
         {
             try
             {
@@ -110,12 +110,12 @@ namespace TF2HUD.Editor.Classes
                 var output = $"{HUDFolderPath}\\materials\\console\\background_upward.vtf";
                 converter.Convert(customImagePath, output);
                 File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
-                return true;
+                return customImagePath;
             }
             catch (Exception ex)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, ex.Message);
-                return false;
+                return null;
             }
         }
 

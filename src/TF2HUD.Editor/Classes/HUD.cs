@@ -397,69 +397,29 @@ namespace TF2HUD.Editor.Classes
                             
                         case "custombackground":
                             // Create the Control.
-                            var bgContainer = new StackPanel
-                            {
-                                Margin = new Thickness(10, lastTop, 0, 10)
-                            };
-                            var bgInput = new CheckBox()
+                            var bgInput = new Button()
                             {
                                 Name = id,
                                 Content = label,
+                                Height = 32,
                                 Margin = new Thickness(10, lastTop + 10, 0, 0),
-                                IsChecked = Settings.GetSetting<bool>(controlItem.Name)
-                            };
-                            var bgBrowse = new Button()
-                            {
-                                Content = "Browse",
-                                Width = 100,
-                                Height = 30,
-                                IsEnabled = false,
-                                Margin = new Thickness(10, lastTop + 10, 0, 0)
-                            };
-                            var bgClear = new Button()
-                            {
-                                Content = "Clear",
-                                Width = 100,
-                                Height = 30,
-                                IsEnabled = false,
-                                Margin = new Thickness(10, lastTop + 10, 0, 0)
+                                Padding = new Thickness(5, 2, 5, 0)
                             };
 
                             // Add Tooltip text, if available.
                             bgInput.ToolTip = controlItem.Tooltip;
 
                             // Add Events.
-                            bgInput.Checked += (sender, _) =>
+                            bgInput.Click += (sender, _) =>
                             {
-                                Settings.SetSetting(bgInput?.Name, "true");
-                                new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\").ApplyCustomBackground();
-                                //bgBrowse.IsEnabled = true;
-                                //bgClear.IsEnabled = true;
-                            };
-                            bgInput.Unchecked += (sender, _) =>
-                            {
-                                Settings.SetSetting(bgInput?.Name, "false");
-                                //bgBrowse.IsEnabled = false;
-                                //bgClear.IsEnabled = false;
-                            };
-                            bgBrowse.Click += (sender, _) =>
-                            {
-                                var imagePath = HUDBackground.GetFilePathFromUser();
-                                if (string.IsNullOrWhiteSpace(imagePath)) return;
-                            };
-                            bgClear.Click += (sender, _) =>
-                            {
-                                Settings.SetSetting(bgInput?.Name, string.Empty);
-                                bgInput.IsChecked = false;
-                                bgBrowse.IsEnabled = false;
-                                bgClear.IsEnabled = false;
+                                var result = MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.info_custom_background, MessageBoxButton.YesNo);
+                                if (result != MessageBoxResult.Yes) return;
+                                var imagePath = new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\").ApplyCustomBackground();
+                                Settings.SetSetting(bgInput?.Name, imagePath);
                             };
 
                             // Add to Page.
-                            bgContainer.Children.Add(bgInput);
-                            //bgContainer.Children.Add(bgBrowse);
-                            //bgContainer.Children.Add(bgClear);
-                            sectionContent.Children.Add(bgContainer);
+                            sectionContent.Children.Add(bgInput);
                             controlItem.Control = bgInput;
                             break;
 
@@ -1209,6 +1169,9 @@ namespace TF2HUD.Editor.Classes
 
             if (string.Equals(Special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase))
                 SetCustomBackground(userSetting.Value, enable);
+
+            if (string.Equals(Special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
+                CopyTransparentViewmodelAddon(enable);
         }
 
         /// <summary>
@@ -1232,16 +1195,13 @@ namespace TF2HUD.Editor.Classes
         /// <summary>
         ///     Copy configuration file for transparent viewmodels into the HUD's cfg folder.
         /// </summary>
-        /// <remarks>TODO: Implement this into the transparent viewmodels customization.</remarks>
-        public static bool CopyTransparentViewmodelCfg(string path, bool enable = false)
+        public static bool CopyTransparentViewmodelAddon(bool enable = false)
         {
             try
             {
                 // Copy the config file required for this feature
                 if (!enable) return true;
-                if (!Directory.Exists(path + "\\cfg"))
-                    Directory.CreateDirectory(path + "\\cfg");
-                File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\hud.cfg", path + "\\cfg\\hud.cfg", true);
+                File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk", MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
                 return true;
             }
             catch (Exception e)

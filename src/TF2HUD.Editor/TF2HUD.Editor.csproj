@@ -36,6 +36,7 @@
     <None Remove="JSON\rayshud.json" />
     <None Remove="log4net.config" />
     <None Remove="Resources\favicon.ico" />
+    <None Remove="Resources\mastercomfig-transparent-viewmodels-addon.vpk" />
     <None Remove="Resources\TF2Build.ttf" />
     <None Remove="Resources\TF2Crosshairs.ttf" />
     <None Remove="Resources\TF2Icons.ttf" />
@@ -67,6 +68,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\mastercomfig-transparent-viewmodels-addon.vpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\favicon.ico">
