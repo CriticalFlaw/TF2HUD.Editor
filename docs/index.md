@@ -1,6 +1,6 @@
 <!-- TITLE -->
+![image](https://user-images.githubusercontent.com/6818236/115637633-a0d9cd80-a2de-11eb-89f8-48373c34d740.png)
 <p align="center">
-  <h1 align="center">HUD Editor for Team Fortress 2</h1>
   <p align="center">
     A tool for installing and customizing your favorite custom Team Fortress 2 HUDs.
     <br />
