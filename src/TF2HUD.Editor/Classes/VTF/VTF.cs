@@ -45,7 +45,7 @@ namespace TF2HUD.Editor.Classes
 
             // Make a backup of the existing background files.
             var hudBgPath =
-                new DirectoryInfo($"{MainWindow.HudPath}{MainWindow.HudSelection}\\materials\\console\\");
+                new DirectoryInfo($"{MainWindow.HudPath}\\{MainWindow.HudSelection}\\materials\\console\\");
             foreach (var file in hudBgPath.GetFiles())
                 File.Delete(file.FullName);
 

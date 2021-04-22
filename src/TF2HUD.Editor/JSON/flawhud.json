@@ -1043,6 +1043,14 @@
             }
           }
         }
+      },
+      {
+        "Name": "fh_custom_background",
+        "Label": "Custom Background",
+        "Type": "CustomBackground",
+        "Special": "CustomBackground",
+        "ToolTip": "Replace the main menu background with a custom image.",
+        "Value": "false"
       }
     ]
   }

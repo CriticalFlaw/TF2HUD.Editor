@@ -367,10 +367,10 @@ namespace TF2HUD.Editor.Classes
                             foreach (var item in Utilities.CrosshairStyles.Select(option => new ComboBoxItem
                             {
                                 Content = option,
-                                Style = (Style)Application.Current.Resources["Crosshair"]
+                                Style = (Style) Application.Current.Resources["Crosshair"]
                             }))
                             {
-                                xhairInput.Style = (Style)Application.Current.Resources["CrosshairBox"];
+                                xhairInput.Style = (Style) Application.Current.Resources["CrosshairBox"];
                                 xhairInput.Items.Add(item);
                             }
 
@@ -393,6 +393,74 @@ namespace TF2HUD.Editor.Classes
                             xhairContainer.Children.Add(xhairInput);
                             sectionContent.Children.Add(xhairContainer);
                             controlItem.Control = xhairInput;
+                            break;
+                            
+                        case "custombackground":
+                            // Create the Control.
+                            var bgContainer = new StackPanel
+                            {
+                                Margin = new Thickness(10, lastTop, 0, 10)
+                            };
+                            var bgInput = new CheckBox()
+                            {
+                                Name = id,
+                                Content = label,
+                                Margin = new Thickness(10, lastTop + 10, 0, 0),
+                                IsChecked = Settings.GetSetting<bool>(controlItem.Name)
+                            };
+                            var bgBrowse = new Button()
+                            {
+                                Content = "Browse",
+                                Width = 100,
+                                Height = 30,
+                                IsEnabled = false,
+                                Margin = new Thickness(10, lastTop + 10, 0, 0)
+                            };
+                            var bgClear = new Button()
+                            {
+                                Content = "Clear",
+                                Width = 100,
+                                Height = 30,
+                                IsEnabled = false,
+                                Margin = new Thickness(10, lastTop + 10, 0, 0)
+                            };
+
+                            // Add Tooltip text, if available.
+                            bgInput.ToolTip = controlItem.Tooltip;
+
+                            // Add Events.
+                            bgInput.Checked += (sender, _) =>
+                            {
+                                Settings.SetSetting(bgInput?.Name, "true");
+                                new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\").ApplyCustomBackground();
+                                //bgBrowse.IsEnabled = true;
+                                //bgClear.IsEnabled = true;
+                            };
+                            bgInput.Unchecked += (sender, _) =>
+                            {
+                                Settings.SetSetting(bgInput?.Name, "false");
+                                //bgBrowse.IsEnabled = false;
+                                //bgClear.IsEnabled = false;
+                            };
+                            bgBrowse.Click += (sender, _) =>
+                            {
+                                var imagePath = HUDBackground.GetFilePathFromUser();
+                                if (string.IsNullOrWhiteSpace(imagePath)) return;
+                            };
+                            bgClear.Click += (sender, _) =>
+                            {
+                                Settings.SetSetting(bgInput?.Name, string.Empty);
+                                bgInput.IsChecked = false;
+                                bgBrowse.IsEnabled = false;
+                                bgClear.IsEnabled = false;
+                            };
+
+                            // Add to Page.
+                            bgContainer.Children.Add(bgInput);
+                            //bgContainer.Children.Add(bgBrowse);
+                            //bgContainer.Children.Add(bgClear);
+                            sectionContent.Children.Add(bgContainer);
+                            controlItem.Control = bgInput;
                             break;
 
                         default:
@@ -668,22 +736,23 @@ namespace TF2HUD.Editor.Classes
                                 if (Directory.Exists(custom))
                                     Directory.Move(custom, enabled);
                                 else if (File.Exists(custom + ".res"))
-                                    File.Move(custom + ".res", enabled + ".res");
+                                    File.Move(custom + ".res", enabled + ".res", true);
                             }
                             else
                             {
                                 if (Directory.Exists(enabled))
                                     Directory.Move(enabled, custom);
                                 else if (File.Exists(enabled + ".res"))
-                                    File.Move(enabled + ".res", custom + ".res");
+                                    File.Move(enabled + ".res", custom + ".res", true);
                             }
+
                             break;
 
                         case "dropdown":
                         case "dropdownmenu":
                         case "select":
                         case "combobox":
-                                var fileNames = Utilities.GetFileNames(control);
+                            var fileNames = Utilities.GetFileNames(control);
                             if (fileNames is null or not string[]) continue; // File names not found, skipping.
 
                             // Move every file assigned to this control back to the customization folder first.
@@ -693,7 +762,7 @@ namespace TF2HUD.Editor.Classes
                                 if (Directory.Exists(enabled + $"\\{name}"))
                                     Directory.Move(enabled + $"\\{name}", custom + $"\\{name}");
                                 else if (File.Exists(enabled + $"\\{name}.res"))
-                                    File.Move(enabled + $"\\{name}.res", custom + $"\\{name}.res");
+                                    File.Move(enabled + $"\\{name}.res", custom + $"\\{name}.res", true);
                             }
 
                             // Only move the files for the control option selected by the user.
@@ -706,7 +775,7 @@ namespace TF2HUD.Editor.Classes
                                 if (Directory.Exists(custom + $"\\{name}"))
                                     Directory.Move(custom + $"\\{name}", enabled + $"\\{name}");
                                 else if (File.Exists(custom + $"\\{name}.res"))
-                                    File.Move(custom + $"\\{name}.res", enabled + $"\\{name}.res");
+                                    File.Move(custom + $"\\{name}.res", enabled + $"\\{name}.res", true);
                             }
 
                             break;
@@ -733,7 +802,7 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
-                (var Files, var Special) = GetControlInfo(hudSetting, userSetting);
+                var (Files, Special) = GetControlInfo(hudSetting, userSetting);
 
                 // Check for special cases like stock or custom backgrounds.
                 if (Special is not null)
@@ -1139,15 +1208,24 @@ namespace TF2HUD.Editor.Classes
                 SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console", enable);
 
             if (string.Equals(Special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase))
-                SetCustomBackground(userSetting.Value);
+                SetCustomBackground(userSetting.Value, enable);
         }
 
         /// <summary>
         ///     Toggle default backgrounds by renaming their file extensions.
         /// </summary>
-        public bool SetStockBackgrounds(string path, bool enable = false)
+        public bool SetStockBackgrounds(string imagePath, bool enable)
         {
             HUDBackground.SetStockBackgrounds(enable);
+            return true;
+        }
+
+        /// <summary>
+        ///     Generate a VTF background using an image provided by the user.
+        /// </summary>
+        public bool SetCustomBackground(string imagePath, bool enable)
+        {
+            HUDBackground.SetCustomBackground(imagePath, enable);
             return true;
         }
 
@@ -1171,15 +1249,6 @@ namespace TF2HUD.Editor.Classes
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_transparent_vm} {e.Message}");
                 return false;
             }
-        }
-
-        /// <summary>
-        ///     Generate a VTF background using an image provided by the user.
-        /// </summary>
-        public bool SetCustomBackground(string imagePath)
-        {
-            HUDBackground.SetCustomBackground(imagePath);
-            return true;
         }
 
         #endregion
