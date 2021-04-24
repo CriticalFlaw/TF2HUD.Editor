@@ -1,0 +1,1333 @@
+{
+  "Background": "https://i.imgur.com/U4m1mOx.png",
+  "Maximize": true,
+  "Layout": [
+    "0 1 1 1 2 2",
+    "0 1 1 1 3 3",
+    "0 5 5 7 4 4",
+    "0 5 5 7 4 4"
+  ],
+  "Links": {
+	"Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
+    "GitHub": "https://github.com/Zeesastrous/ZeesHUD",
+    "Issue": "https://github.com/Zeesastrous/ZeesHUD/issues",
+    "HudsTF": "https://huds.tf/site/s-ZeesHUD--2774",
+    "Steam": "https://steamcommunity.com/groups/ZeesHUD"
+  },
+  "CustomizationsFolder": "#customizations//addons",
+  "EnabledFolder": "#customizations//addons//_enabled",
+  "Controls": {
+	"HUD Layout": [
+		{
+			"Name": "zh_val_layout_style",
+			"Label": "Layout Style",
+			"Type": "ComboBox",
+			"Value": "0",
+			"ToolTip": "Layout of health, ammo, objective, meters, etc. in-game.",
+			"ComboFiles": [
+				"health-ammo-style_ut",
+				"health-ammo-style_classic"
+			],
+			"Options": [
+				{
+					"Label": "Default",
+					"Value": "0"
+				},
+				{
+					"Label": "Unreal Tournament (UT Mode)",
+					"Value": "1",
+					"FileName": "health-ammo-style_ut"
+				},
+				{
+					"Label": "Classic",
+					"Value": "2",
+					"FileName": "health-ammo-style_classic"
+				}
+			]
+		},
+		{
+			"Name": "zh_val_layout_font",
+			"Label": "Font",
+			"Type": "ComboBox",
+			"Value": "0",
+			"ToolTip": "Font used for Health, Ammo and Counters",
+			"ComboFiles": [
+				"health-ammo_font_futura"
+			],
+			"Options": [
+				{
+					"Label": "CIKANDEI (Default)",
+					"Value": "0"
+				},
+				{
+					"Label": "Futura Bold",
+					"Value": "1",
+					"FileName": "health-ammo_font_futura"
+				}
+			]
+		},
+		{
+			"Name": "zh_accent_color",
+			"Label": "Accent Color",
+			"Type": "ColorPicker",
+			"ToolTip": "Main color for ZeesHUD. Also affects certain elements.",
+			"Value": "255 0 90 255",
+			"Files": {
+			  "#customizations/custom_colors.res": {
+				"Scheme": {
+				  "Colors": {
+					"ZeesMain": "$value"
+				  }
+				}
+			  }
+			}
+		},
+    ],
+	"Health & Ammo Colors": [
+		{
+        "Name": "zh_color_health_normal",
+        "Label": "HP Normal",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health when normal.",
+        "Value": "255 255 255 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_health_normal_shadow",
+        "Label": "HP Normal Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health's shadow when normal.",
+        "Value": "0 0 0 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_health_buff",
+        "Label": "HP Overheal",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health when overhealed.",
+        "Value": "48 255 164 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text Buff": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_health_buff_shadow",
+        "Label": "HP Overheal Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health's shadow when overhealed.",
+        "Value": "9 71 49 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text Buff Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_health_low",
+        "Label": "HP Low",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health when low.",
+        "Value": "255 164 164 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text Low": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_health_low_shadow",
+        "Label": "HP Low Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health's shadow when low.",
+        "Value": "71 9 31 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Text Low Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_ammo_clip",
+        "Label": "Ammo Clip",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "255 255 255 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_ammo_clip_shadow",
+        "Label": "Clip Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "0 0 0 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Clip Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_ammo_reserve",
+        "Label": "Ammo Reserve",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "255 255 255 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_ammo_reserve_shadow",
+        "Label": "Reserve Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "0 0 0 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Reserve Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_ammo_clip_low",
+        "Label": "Low Ammo Clip",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "255 164 164 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Clip Low": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_ammo_clip_shadow_low",
+        "Label": "Low Clip Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "71 9 31 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Clip Low Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_ammo_reserve_low",
+        "Label": "Low Ammo Reserve",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "255 164 164 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Reserve Low": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_ammo_reserve_shadow_low",
+        "Label": "Low Reserve Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player ammo.",
+        "Value": "71 9 31 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo Reserve Low Shadow": "$value"
+              }
+            }
+          }
+        }
+      }
+	],
+	"Crosshair": [
+      {
+        "Name": "zh_color_xhair_normal",
+        "Label": "Base Color",
+        "Type": "ColorPicker",
+        "ToolTip": "Default crosshair color.",
+        "Value": "255 255 255 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "zh_color_xhair_normal_onhit",
+        "Label": "Color On Hit",
+        "Type": "ColorPicker",
+        "ToolTip": "Default crosshair color on player hit.",
+        "Value": "242 0 0 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "CrosshairDamage": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "zh_val_xhair_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "ToolTip": "Size of the crosshair.",
+        "Files": {
+          "#customizations/crosshairs.res": {
+            "CustomCrosshair": {
+              "font": "Size:$value | Outline:OFF"
+            }
+          }
+        }
+      },
+      {
+        "Name": "zh_val_xhair_style",
+        "Label": "Style",
+        "Type": "Crosshair",
+        "ToolTip": "Style of crosshair.",
+        "Value": "<",
+        "Options": [
+          {
+            "Label": "!",
+            "Value": "!"
+          },
+          {
+            "Label": "#",
+            "Value": "#"
+          },
+          {
+            "Label": "$",
+            "Value": "$"
+          },
+          {
+            "Label": "%",
+            "Value": "%"
+          },
+          {
+            "Label": "'",
+            "Value": "'"
+          },
+          {
+            "Label": "(",
+            "Value": "("
+          },
+          {
+            "Label": ")",
+            "Value": ")"
+          },
+          {
+            "Label": "*",
+            "Value": "*"
+          },
+          {
+            "Label": "+",
+            "Value": "+"
+          },
+          {
+            "Label": ",",
+            "Value": ","
+          },
+          {
+            "Label": "-",
+            "Value": "-"
+          },
+          {
+            "Label": ".",
+            "Value": "."
+          },
+          {
+            "Label": "1",
+            "Value": "1"
+          },
+          {
+            "Label": "2",
+            "Value": "2"
+          },
+          {
+            "Label": "3",
+            "Value": "3"
+          },
+          {
+            "Label": "4",
+            "Value": "4"
+          },
+          {
+            "Label": "5",
+            "Value": "5"
+          },
+          {
+            "Label": "6",
+            "Value": "6"
+          },
+          {
+            "Label": "7",
+            "Value": "7"
+          },
+          {
+            "Label": "8",
+            "Value": "8"
+          },
+          {
+            "Label": "9",
+            "Value": "9"
+          },
+          {
+            "Label": ":",
+            "Value": ":"
+          },
+          {
+            "Label": ";",
+            "Value": ";"
+          },
+          {
+            "Label": "=",
+            "Value": "="
+          },
+          {
+            "Label": "<",
+            "Value": "<"
+          },
+          {
+            "Label": ">",
+            "Value": ">"
+          },
+          {
+            "Label": "?",
+            "Value": "?"
+          },
+          {
+            "Label": "@",
+            "Value": "@"
+          },
+          {
+            "Label": "|",
+            "Value": "|"
+          },
+          {
+            "Label": "}",
+            "Value": "}"
+          },
+          {
+            "Label": "`",
+            "Value": "`"
+          },
+          {
+            "Label": "_",
+            "Value": "_"
+          },
+          {
+            "Label": "^",
+            "Value": "^"
+          },
+          {
+            "Label": "]",
+            "Value": "]"
+          },
+          {
+            "Label": "[",
+            "Value": "["
+          },
+          {
+            "Label": "A",
+            "Value": "A"
+          },
+          {
+            "Label": "B",
+            "Value": "B"
+          },
+          {
+            "Label": "C",
+            "Value": "C"
+          },
+          {
+            "Label": "D",
+            "Value": "D"
+          },
+          {
+            "Label": "E",
+            "Value": "E"
+          },
+          {
+            "Label": "F",
+            "Value": "F"
+          },
+          {
+            "Label": "G",
+            "Value": "G"
+          },
+          {
+            "Label": "H",
+            "Value": "H"
+          },
+          {
+            "Label": "I",
+            "Value": "I"
+          },
+          {
+            "Label": "J",
+            "Value": "J"
+          },
+          {
+            "Label": "K",
+            "Value": "K"
+          },
+          {
+            "Label": "L",
+            "Value": "L"
+          },
+          {
+            "Label": "M",
+            "Value": "M"
+          },
+          {
+            "Label": "N",
+            "Value": "N"
+          },
+          {
+            "Label": "O",
+            "Value": "O"
+          },
+          {
+            "Label": "P",
+            "Value": "P"
+          },
+          {
+            "Label": "Q",
+            "Value": "Q"
+          },
+          {
+            "Label": "R",
+            "Value": "R"
+          },
+          {
+            "Label": "S",
+            "Value": "S"
+          },
+          {
+            "Label": "T",
+            "Value": "T"
+          },
+          {
+            "Label": "U",
+            "Value": "U"
+          },
+          {
+            "Label": "V",
+            "Value": "V"
+          },
+          {
+            "Label": "W",
+            "Value": "W"
+          },
+          {
+            "Label": "X",
+            "Value": "X"
+          },
+          {
+            "Label": "Y",
+            "Value": "Y"
+          },
+          {
+            "Label": "Z",
+            "Value": "Z"
+          },
+          {
+            "Label": "a",
+            "Value": "a"
+          },
+          {
+            "Label": "b",
+            "Value": "b"
+          },
+          {
+            "Label": "c",
+            "Value": "c"
+          },
+          {
+            "Label": "d",
+            "Value": "d"
+          },
+          {
+            "Label": "e",
+            "Value": "e"
+          },
+          {
+            "Label": "f",
+            "Value": "f"
+          },
+          {
+            "Label": "g",
+            "Value": "g"
+          },
+          {
+            "Label": "h",
+            "Value": "h"
+          },
+          {
+            "Label": "i",
+            "Value": "i"
+          },
+          {
+            "Label": "j",
+            "Value": "j"
+          },
+          {
+            "Label": "k",
+            "Value": "k"
+          },
+          {
+            "Label": "l",
+            "Value": "l"
+          },
+          {
+            "Label": "m",
+            "Value": "m"
+          },
+          {
+            "Label": "n",
+            "Value": "n"
+          },
+          {
+            "Label": "o",
+            "Value": "o"
+          },
+          {
+            "Label": "p",
+            "Value": "p"
+          },
+          {
+            "Label": "q",
+            "Value": "q"
+          },
+          {
+            "Label": "r",
+            "Value": "r"
+          },
+          {
+            "Label": "s",
+            "Value": "s"
+          },
+          {
+            "Label": "t",
+            "Value": "t"
+          },
+          {
+            "Label": "u",
+            "Value": "u"
+          },
+          {
+            "Label": "v",
+            "Value": "v"
+          },
+          {
+            "Label": "w",
+            "Value": "w"
+          },
+          {
+            "Label": "x",
+            "Value": "x"
+          },
+          {
+            "Label": "y",
+            "Value": "y"
+          },
+          {
+            "Label": "z",
+            "Value": "z"
+          }
+        ],
+        "Files": {
+          "#customizations/crosshairs.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "zh_toggle_xhair_enable",
+        "Label": "Enable",
+        "Type": "Checkbox",
+        "Value": "false",
+        "ToolTip": "Toggle crosshair visibility.",
+        "Files": {
+          "#customizations/crosshairs.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      }
+	],
+	"Hitmarker": [
+      {
+        "Name": "zh_color_xmark_normal",
+        "Label": "Base Color",
+        "Type": "ColorPicker",
+        "ToolTip": "Default hitmarker color.",
+        "Value": "255 0 90 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "zh_val_xmark_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "ToolTip": "Size of the hitmarker.",
+        "Files": {
+          "#customizations/hitmarker.res": {
+            "CustomCrosshair": {
+              "font": "Size:$value | Outline:OFF"
+            }
+          }
+        }
+      },
+      {
+        "Name": "zh_val_xmark_style",
+        "Label": "Style",
+        "Type": "Crosshair",
+        "ToolTip": "Style of hitmarker.",
+        "Value": "<",
+        "Options": [
+          {
+            "Label": "!",
+            "Value": "!"
+          },
+          {
+            "Label": "#",
+            "Value": "#"
+          },
+          {
+            "Label": "$",
+            "Value": "$"
+          },
+          {
+            "Label": "%",
+            "Value": "%"
+          },
+          {
+            "Label": "'",
+            "Value": "'"
+          },
+          {
+            "Label": "(",
+            "Value": "("
+          },
+          {
+            "Label": ")",
+            "Value": ")"
+          },
+          {
+            "Label": "*",
+            "Value": "*"
+          },
+          {
+            "Label": "+",
+            "Value": "+"
+          },
+          {
+            "Label": ",",
+            "Value": ","
+          },
+          {
+            "Label": "-",
+            "Value": "-"
+          },
+          {
+            "Label": ".",
+            "Value": "."
+          },
+          {
+            "Label": "1",
+            "Value": "1"
+          },
+          {
+            "Label": "2",
+            "Value": "2"
+          },
+          {
+            "Label": "3",
+            "Value": "3"
+          },
+          {
+            "Label": "4",
+            "Value": "4"
+          },
+          {
+            "Label": "5",
+            "Value": "5"
+          },
+          {
+            "Label": "6",
+            "Value": "6"
+          },
+          {
+            "Label": "7",
+            "Value": "7"
+          },
+          {
+            "Label": "8",
+            "Value": "8"
+          },
+          {
+            "Label": "9",
+            "Value": "9"
+          },
+          {
+            "Label": ":",
+            "Value": ":"
+          },
+          {
+            "Label": ";",
+            "Value": ";"
+          },
+          {
+            "Label": "=",
+            "Value": "="
+          },
+          {
+            "Label": "<",
+            "Value": "<"
+          },
+          {
+            "Label": ">",
+            "Value": ">"
+          },
+          {
+            "Label": "?",
+            "Value": "?"
+          },
+          {
+            "Label": "@",
+            "Value": "@"
+          },
+          {
+            "Label": "|",
+            "Value": "|"
+          },
+          {
+            "Label": "}",
+            "Value": "}"
+          },
+          {
+            "Label": "`",
+            "Value": "`"
+          },
+          {
+            "Label": "_",
+            "Value": "_"
+          },
+          {
+            "Label": "^",
+            "Value": "^"
+          },
+          {
+            "Label": "]",
+            "Value": "]"
+          },
+          {
+            "Label": "[",
+            "Value": "["
+          },
+          {
+            "Label": "A",
+            "Value": "A"
+          },
+          {
+            "Label": "B",
+            "Value": "B"
+          },
+          {
+            "Label": "C",
+            "Value": "C"
+          },
+          {
+            "Label": "D",
+            "Value": "D"
+          },
+          {
+            "Label": "E",
+            "Value": "E"
+          },
+          {
+            "Label": "F",
+            "Value": "F"
+          },
+          {
+            "Label": "G",
+            "Value": "G"
+          },
+          {
+            "Label": "H",
+            "Value": "H"
+          },
+          {
+            "Label": "I",
+            "Value": "I"
+          },
+          {
+            "Label": "J",
+            "Value": "J"
+          },
+          {
+            "Label": "K",
+            "Value": "K"
+          },
+          {
+            "Label": "L",
+            "Value": "L"
+          },
+          {
+            "Label": "M",
+            "Value": "M"
+          },
+          {
+            "Label": "N",
+            "Value": "N"
+          },
+          {
+            "Label": "O",
+            "Value": "O"
+          },
+          {
+            "Label": "P",
+            "Value": "P"
+          },
+          {
+            "Label": "Q",
+            "Value": "Q"
+          },
+          {
+            "Label": "R",
+            "Value": "R"
+          },
+          {
+            "Label": "S",
+            "Value": "S"
+          },
+          {
+            "Label": "T",
+            "Value": "T"
+          },
+          {
+            "Label": "U",
+            "Value": "U"
+          },
+          {
+            "Label": "V",
+            "Value": "V"
+          },
+          {
+            "Label": "W",
+            "Value": "W"
+          },
+          {
+            "Label": "X",
+            "Value": "X"
+          },
+          {
+            "Label": "Y",
+            "Value": "Y"
+          },
+          {
+            "Label": "Z",
+            "Value": "Z"
+          },
+          {
+            "Label": "a",
+            "Value": "a"
+          },
+          {
+            "Label": "b",
+            "Value": "b"
+          },
+          {
+            "Label": "c",
+            "Value": "c"
+          },
+          {
+            "Label": "d",
+            "Value": "d"
+          },
+          {
+            "Label": "e",
+            "Value": "e"
+          },
+          {
+            "Label": "f",
+            "Value": "f"
+          },
+          {
+            "Label": "g",
+            "Value": "g"
+          },
+          {
+            "Label": "h",
+            "Value": "h"
+          },
+          {
+            "Label": "i",
+            "Value": "i"
+          },
+          {
+            "Label": "j",
+            "Value": "j"
+          },
+          {
+            "Label": "k",
+            "Value": "k"
+          },
+          {
+            "Label": "l",
+            "Value": "l"
+          },
+          {
+            "Label": "m",
+            "Value": "m"
+          },
+          {
+            "Label": "n",
+            "Value": "n"
+          },
+          {
+            "Label": "o",
+            "Value": "o"
+          },
+          {
+            "Label": "p",
+            "Value": "p"
+          },
+          {
+            "Label": "q",
+            "Value": "q"
+          },
+          {
+            "Label": "r",
+            "Value": "r"
+          },
+          {
+            "Label": "s",
+            "Value": "s"
+          },
+          {
+            "Label": "t",
+            "Value": "t"
+          },
+          {
+            "Label": "u",
+            "Value": "u"
+          },
+          {
+            "Label": "v",
+            "Value": "v"
+          },
+          {
+            "Label": "w",
+            "Value": "w"
+          },
+          {
+            "Label": "x",
+            "Value": "x"
+          },
+          {
+            "Label": "y",
+            "Value": "y"
+          },
+          {
+            "Label": "z",
+            "Value": "z"
+          }
+        ],
+        "Files": {
+          "#customizations/hitmarker.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "zh_toggle_xmarker_enable",
+        "Label": "Enable",
+        "Type": "Checkbox",
+        "Value": "false",
+        "ToolTip": "Toggle hitmarker visibility.",
+        "Files": {
+          "#customizations/hitmarker.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      }
+	],
+	"Damage Numbers": [
+		{
+			"Name": "zh_dmgnum_size",
+			"Label": "Num. Size",
+			"Type": "IntegerUpDown",
+			"Value": "32",
+			"Minimum": "16",
+			"Maximum": "56",
+			"Increment": "4",
+			"ToolTip": "Size of the damage numbers that show up above players.",
+			"Files": {
+				"#customizations/damage_counter.res": {
+					"CDamageAccountPanel": {
+						"delta_item_font": "Damage ($value)"
+					}
+				}
+			}
+		},
+		{
+			"Name": "zh_dmgnum_size_crit",
+			"Label": "Size (Crit)",
+			"Type": "IntegerUpDown",
+			"Value": "48",
+			"Minimum": "16",
+			"Maximum": "56",
+			"Increment": "4",
+			"ToolTip": "Size of the damage numbers that show up above players, when damage is critical.",
+			"Files": {
+				"#customizations/damage_counter.res": {
+					"CDamageAccountPanel": {
+						"delta_item_font_big": "Damage ($value)"
+					}
+				}
+			}
+		},
+		{
+			"Name": "zh_toggle_centered_dmgnum",
+			"Label": "Centered DmgNum",
+			"Type": "Checkbox",
+			"Value": "true",
+			"ToolTip": "Toggle centered damage number visibility.",
+			"Files": {
+				"#customizations/damage_counter.res": {
+					"DamageAccountValue": {
+						"visible": {
+							"true": "1",
+							"false": "0"
+						},
+						"enabled": {
+							"true": "1",
+							"false": "0"
+						}
+					}
+				}
+			}
+		},
+		{
+			"Name": "zh_dmgnum_color_hurt",
+			"Label": "Hurt Color",
+			"Type": "ColorPicker",
+			"ToolTip": "Color of the damage number when hurt.",
+			"Value": "255 0 90 255",
+			"Files": {
+			  "#customizations/custom_colors.res": {
+				"Scheme": {
+				  "Colors": {
+					"Damage Hurt": "$value"
+				  }
+				}
+			  }
+			}
+		},
+		{
+			"Name": "zh_dmgnum_color_heal",
+			"Label": "Heal Color",
+			"Type": "ColorPicker",
+			"ToolTip": "Color of the damage number when heal.",
+			"Value": "0 255 214 255",
+			"Files": {
+			  "#customizations/custom_colors.res": {
+				"Scheme": {
+				  "Colors": {
+					"Damage Heal": "$value"
+				  }
+				}
+			  }
+			}
+		},
+		{
+			"Name": "zh_dmgnum_centered",
+			"Label": "Centered Color",
+			"Type": "ColorPicker",
+			"ToolTip": "Color of the damage number in the center.",
+			"Value": "255 255 255 255",
+			"Files": {
+			  "#customizations/custom_colors.res": {
+				"Scheme": {
+				  "Colors": {
+					"Damage Number": "$value"
+				  }
+				}
+			  }
+			}
+		},
+		{
+			"Name": "zh_dmgnum_centered_size",
+			"Label": "Centered Size",
+			"Type": "IntegerUpDown",
+			"Value": "12",
+			"Minimum": "8",
+			"Maximum": "16",
+			"Increment": "2",
+			"ToolTip": "Size of the damage numbers that show up above players.",
+			"Files": {
+				"#customizations/damage_counter.res": {
+					"DamageAccountValue": {
+						"font": "Damage ($value)"
+					}
+				}
+			}
+		}
+	],
+	"Addons":[
+		{
+			"Name": "zh_status_indicator",
+			"Label": "Health Status Indicators",
+			"Type": "Checkbox",
+			"Value": "true",
+			"ToolTip": "Small icons show up next to your crosshair if you're overhealed or on low health.",
+			"FileName": "health_status_indicators"
+		},
+		{
+			"Name": "zh_centered_meters",
+			"Label": "Centered Meters",
+			"Type": "Checkbox",
+			"Value": "false",
+			"ToolTip": "Centers the item meter above objectives.",
+			"FileName": "meters_centered"
+		},
+		{
+			"Name": "zh_centered_uber",
+			"Label": "Centered Uber",
+			"Type": "Checkbox",
+			"Value": "false",
+			"ToolTip": "Centers the uber meter around the crosshair.",
+			"FileName": "uber_centered"
+		},
+		{
+			"Name": "zh_centered_metal",
+			"Label": "Centered Metal count",
+			"Type": "Checkbox",
+			"Value": "false",
+			"ToolTip": "Centers the metal around the crosshair.",
+			"FileName": "metal_centered"
+		},
+		{
+			"Name": "zh_friendslist",
+			"Label": "Show Friends List",
+			"Type": "Checkbox",
+			"Value": "true",
+			"ToolTip": "Shows friends list in the main menu.",
+			"FileName": "mainmenu_enablefriends"
+		}
+	]
+  }
+}
