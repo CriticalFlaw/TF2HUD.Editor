@@ -92,9 +92,8 @@ namespace TF2HUD.Editor.Classes
             // Define the title of the HUD displayed at the top of the page.
             var title = new Label
             {
-                Content = Name,
-                FontSize = 35,
-                Margin = new Thickness(10, 10, 0, 0)
+                Style = (Style) Application.Current.Resources["PageTitle"],
+                Content = Name
             };
             Grid.SetRow(title, 0);
             container.Children.Add(title);
@@ -139,10 +138,7 @@ namespace TF2HUD.Editor.Classes
             {
                 var sectionContainer = new GroupBox
                 {
-                    Header = section,
-                    Margin = new Thickness(5),
-                    HorizontalAlignment = HorizontalAlignment.Stretch,
-                    VerticalAlignment = VerticalAlignment.Stretch
+                    Header = section
                 };
 
                 Panel sectionContent = layout != null ? new WrapPanel() : new StackPanel();
@@ -153,7 +149,8 @@ namespace TF2HUD.Editor.Classes
                 {
                     var id = controlItem.Name;
                     var label = controlItem.Label;
-                    Settings.AddSetting(controlItem.Name, controlItem);
+                    var tooltip = controlItem.Tooltip;
+                    Settings.AddSetting(id, controlItem);
 
                     switch (controlItem.Type.ToLowerInvariant())
                     {
@@ -163,12 +160,10 @@ namespace TF2HUD.Editor.Classes
                             {
                                 Name = id,
                                 Content = label,
-                                Margin = new Thickness(10, lastTop + 10, 0, 0),
-                                IsChecked = Settings.GetSetting<bool>(controlItem.Name)
+                                Margin = new Thickness(10, lastTop + 10, 30, 0),
+                                IsChecked = Settings.GetSetting<bool>(id),
+                                ToolTip = tooltip
                             };
-
-                            // Add Tooltip text, if available.
-                            checkBoxInput.ToolTip = controlItem.Tooltip;
 
                             // Add Events.
                             checkBoxInput.Checked += (sender, _) =>
@@ -199,17 +194,13 @@ namespace TF2HUD.Editor.Classes
                             var colorLabel = new Label
                             {
                                 Content = label,
-                                Width = 125,
-                                FontSize = 16
+                                Style = (Style) Application.Current.Resources["ColorPickerLabel"]
                             };
                             var colorInput = new ColorPicker
                             {
                                 Name = id,
-                                Width = 125
+                                ToolTip = tooltip
                             };
-
-                            // Add Tooltip text, if available.
-                            colorInput.ToolTip = controlItem.Tooltip;
 
                             // Attempt to bind the color from the settings.
                             try
@@ -257,17 +248,13 @@ namespace TF2HUD.Editor.Classes
                             var comboBoxLabel = new Label
                             {
                                 Content = label,
-                                Width = 150,
-                                FontSize = 16
+                                Style = (Style) Application.Current.Resources["ComboBoxLabel"]
                             };
                             var comboBoxInput = new ComboBox
                             {
                                 Name = id,
-                                Width = 150
+                                ToolTip = tooltip
                             };
-
-                            // Add Tooltip text, if available.
-                            comboBoxInput.ToolTip = controlItem.Tooltip;
 
                             // Add items to the ComboBox.
                             foreach (var option in controlItem.Options)
@@ -281,7 +268,7 @@ namespace TF2HUD.Editor.Classes
                             }
 
                             // Set the selected value depending on the what's retrieved from the setting file.
-                            var comboValue = Settings.GetSetting<string>(controlItem.Name);
+                            var comboValue = Settings.GetSetting<string>(id);
                             if (!Regex.IsMatch(comboValue, "\\D"))
                                 comboBoxInput.SelectedIndex = int.Parse(comboValue);
                             else
@@ -312,21 +299,17 @@ namespace TF2HUD.Editor.Classes
                             var integerLabel = new Label
                             {
                                 Content = label,
-                                Width = 100,
-                                FontSize = 16
+                                Style = (Style) Application.Current.Resources["IntegerUpDownLabel"]
                             };
                             var integerInput = new IntegerUpDown
                             {
                                 Name = id,
-                                Width = 100,
-                                Value = Settings.GetSetting<int>(controlItem.Name),
+                                Value = Settings.GetSetting<int>(id),
                                 Minimum = controlItem.Minimum,
                                 Maximum = controlItem.Maximum,
-                                Increment = controlItem.Increment
+                                Increment = controlItem.Increment,
+                                ToolTip = tooltip
                             };
-
-                            // Add Tooltip text, if available.
-                            integerInput.ToolTip = controlItem.Tooltip;
 
                             // Add Events.
                             integerInput.ValueChanged += (sender, _) =>
@@ -352,16 +335,13 @@ namespace TF2HUD.Editor.Classes
                             var xhairLabel = new Label
                             {
                                 Content = label,
-                                Width = 125,
-                                FontSize = 16
+                                Style = (Style) Application.Current.Resources["CrosshairLabel"]
                             };
                             var xhairInput = new ComboBox
                             {
-                                Name = id
+                                Name = id,
+                                ToolTip = tooltip
                             };
-
-                            // Add Tooltip text, if available.
-                            xhairInput.ToolTip = controlItem.Tooltip;
 
                             // Add items to the ComboBox.
                             foreach (var item in Utilities.CrosshairStyles.Select(option => new ComboBoxItem
@@ -375,7 +355,7 @@ namespace TF2HUD.Editor.Classes
                             }
 
                             // Set the selected value depending on the what's retrieved from the setting file.
-                            var xhairValue = Settings.GetSetting<string>(controlItem.Name);
+                            var xhairValue = Settings.GetSetting<string>(id);
                             if (!Regex.IsMatch(xhairValue, "\\D"))
                                 xhairInput.SelectedIndex = int.Parse(xhairValue);
                             else
@@ -394,28 +374,28 @@ namespace TF2HUD.Editor.Classes
                             sectionContent.Children.Add(xhairContainer);
                             controlItem.Control = xhairInput;
                             break;
-                            
+
                         case "custombackground":
                             // Create the Control.
-                            var bgInput = new Button()
+                            var bgInput = new Button
                             {
                                 Name = id,
                                 Content = label,
                                 Height = 32,
                                 Margin = new Thickness(10, lastTop + 10, 0, 0),
-                                Padding = new Thickness(5, 2, 5, 0)
+                                Padding = new Thickness(5, 2, 5, 0),
+                                ToolTip = tooltip
                             };
 
-                            // Add Tooltip text, if available.
-                            bgInput.ToolTip = controlItem.Tooltip;
-
                             // Add Events.
-                            bgInput.Click += (sender, _) =>
+                            bgInput.Click += (_, _) =>
                             {
-                                var result = MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.info_custom_background, MessageBoxButton.YesNo);
-                                if (result != MessageBoxResult.Yes) return;
-                                var imagePath = new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\").ApplyCustomBackground();
-                                Settings.SetSetting(bgInput?.Name, imagePath);
+                                if (MainWindow.ShowMessageBox(MessageBoxImage.Warning,
+                                        Resources.ask_custom_background, MessageBoxButton.YesNo) !=
+                                    MessageBoxResult.Yes) return;
+                                var imagePath = new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\")
+                                    .ApplyCustomBackground();
+                                Settings.SetSetting(bgInput.Name, imagePath);
                             };
 
                             // Add to Page.
@@ -472,6 +452,13 @@ namespace TF2HUD.Editor.Classes
                     }
                 }
 
+                var scrollViewer = new ScrollViewer
+                {
+                    VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                    Content = sectionContainer.Content,
+                    Background = new SolidColorBrush(Colors.Transparent)
+                };
+                sectionContainer.Content = scrollViewer;
                 sectionsContainer.Children.Add(sectionContainer);
                 groupBoxIndex++;
             }
@@ -774,7 +761,7 @@ namespace TF2HUD.Editor.Classes
                     if (string.Equals(userSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
                         enable = !string.Equals(userSetting.Value, "0");
 
-                    EvaluateSpecial(Special, hudSetting, userSetting, enable);
+                    EvaluateSpecial(Special, userSetting, enable);
                 }
 
                 if (Files == null) return;
@@ -1146,21 +1133,18 @@ namespace TF2HUD.Editor.Classes
 
         private (JObject, string) GetControlInfo(Controls hudSetting, Setting userSetting)
         {
-            if (string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
-            {
-                // Determine files using the files of the selected item's label or value
-                // Could cause issues if label and value are both numbers but numbered differently
-                var selected =
-                    hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value);
-                return (selected.Files, selected.Special);
-            }
-
-            return (hudSetting.Files, hudSetting.Special);
+            if (!string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
+                return (hudSetting.Files, hudSetting.Special);
+            // Determine files using the files of the selected item's label or value
+            // Could cause issues if label and value are both numbers but numbered differently
+            var selected =
+                hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value);
+            return (selected.Files, selected.Special);
         }
 
         #region CUSTOM SETTINGS
 
-        private void EvaluateSpecial(string Special, Controls hudSetting, Setting userSetting, bool enable)
+        private void EvaluateSpecial(string Special, Setting userSetting, bool enable)
         {
             // Check for special conditions, namely if we should enable stock backgrounds.
 
@@ -1201,7 +1185,9 @@ namespace TF2HUD.Editor.Classes
             {
                 // Copy the config file required for this feature
                 if (!enable) return true;
-                File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk", MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
+                File.Copy(
+                    Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk",
+                    MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
                 return true;
             }
             catch (Exception e)
