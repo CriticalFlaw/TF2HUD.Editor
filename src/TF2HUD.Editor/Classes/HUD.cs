@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -21,6 +22,7 @@ namespace TF2HUD.Editor.Classes
         public string Background;
         public Dictionary<string, Controls[]> ControlOptions;
         public string CustomizationsFolder, EnabledFolder;
+        public List<string> DirtyControls;
         private BackgroundManager HUDBackground;
         private bool isRendered;
         private string[][] layout;
@@ -45,6 +47,7 @@ namespace TF2HUD.Editor.Classes
             Maximize = schema.Maximize;
             ControlOptions = schema.Controls;
             LayoutOptions = schema.Layout;
+            DirtyControls = new List<string>();
 
             // Download and Media Links.
             if (schema.Links is not null)
@@ -170,16 +173,19 @@ namespace TF2HUD.Editor.Classes
                             {
                                 var input = sender as CheckBox;
                                 Settings.SetSetting(input?.Name, "true");
+                                CheckIsDirty(controlItem);
                             };
                             checkBoxInput.Unchecked += (sender, _) =>
                             {
                                 var input = sender as CheckBox;
                                 Settings.SetSetting(input?.Name, "false");
+                                CheckIsDirty(controlItem);
                             };
 
                             // Add to Page.
                             sectionContent.Children.Add(checkBoxInput);
                             controlItem.Control = checkBoxInput;
+
                             break;
 
                         case "color":
@@ -224,6 +230,7 @@ namespace TF2HUD.Editor.Classes
                                 var input = sender as ColorPicker;
                                 Settings.SetSetting(input?.Name,
                                     Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
+                                CheckIsDirty(controlItem);
                             };
 
                             // Add to Page.
@@ -231,6 +238,7 @@ namespace TF2HUD.Editor.Classes
                             colorContainer.Children.Add(colorInput);
                             sectionContent.Children.Add(colorContainer);
                             controlItem.Control = colorInput;
+
                             break;
 
                         case "dropdown":
@@ -279,6 +287,7 @@ namespace TF2HUD.Editor.Classes
                             {
                                 var input = sender as ComboBox;
                                 Settings.SetSetting(input?.Name, comboBoxInput.SelectedIndex.ToString());
+                                CheckIsDirty(controlItem);
                             };
 
                             // Add to Page.
@@ -286,6 +295,7 @@ namespace TF2HUD.Editor.Classes
                             comboBoxContainer.Children.Add(comboBoxInput);
                             sectionContent.Children.Add(comboBoxContainer);
                             controlItem.Control = comboBoxInput;
+
                             break;
 
                         case "number":
@@ -316,6 +326,7 @@ namespace TF2HUD.Editor.Classes
                             {
                                 var input = sender as IntegerUpDown;
                                 Settings.SetSetting(input?.Name, input.Text);
+                                CheckIsDirty(controlItem);
                             };
 
                             // Add to Page.
@@ -323,6 +334,7 @@ namespace TF2HUD.Editor.Classes
                             integerContainer.Children.Add(integerInput);
                             sectionContent.Children.Add(integerContainer);
                             controlItem.Control = integerInput;
+
                             break;
 
                         case "crosshair":
@@ -373,6 +385,7 @@ namespace TF2HUD.Editor.Classes
                             xhairContainer.Children.Add(xhairInput);
                             sectionContent.Children.Add(xhairContainer);
                             controlItem.Control = xhairInput;
+
                             break;
 
                         case "custombackground":
@@ -396,6 +409,7 @@ namespace TF2HUD.Editor.Classes
                                 var imagePath = new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\")
                                     .ApplyCustomBackground();
                                 Settings.SetSetting(bgInput.Name, imagePath);
+                                CheckIsDirty(controlItem);
                             };
 
                             // Add to Page.
@@ -1142,6 +1156,17 @@ namespace TF2HUD.Editor.Classes
             return (selected.Files, selected.Special);
         }
 
+        /// <summary>
+        ///     Check whether a control change requires a game restart.
+        /// </summary>
+        public void CheckIsDirty(Controls control)
+        {
+            if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value))
+                DirtyControls.Add(control.Label);
+            else
+                DirtyControls.Remove(control.Label);
+        }
+
         #region CUSTOM SETTINGS
 
         private void EvaluateSpecial(string Special, Setting userSetting, bool enable)
@@ -1184,7 +1209,7 @@ namespace TF2HUD.Editor.Classes
             try
             {
                 // Copy the config file required for this feature
-                if (!enable) return true;
+                if (!enable || Process.GetProcessesByName("hl2").Any()) return true;
                 File.Copy(
                     Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk",
                     MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
