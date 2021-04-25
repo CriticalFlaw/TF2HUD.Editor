@@ -106,6 +106,42 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This option will overwrite your current background, if you want to go back to the default you&apos;ll have to reinstall the HUD. Are you sure you want to continue?.
+        /// </summary>
+        internal static string ask_custom_background {
+            get {
+                return ResourceManager.GetString("ask_custom_background", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available..
+        /// </summary>
+        internal static string ask_folder_browser {
+            get {
+                return ResourceManager.GetString("ask_folder_browser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select the image you want to use as the new game background..
+        /// </summary>
+        internal static string ask_image_browser {
+            get {
+                return ResourceManager.GetString("ask_image_browser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to reset all customization options back to default?.
+        /// </summary>
+        internal static string ask_reset_options {
+            get {
+                return ResourceManager.GetString("ask_reset_options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The tf/custom directory must be set to use the editor..
         /// </summary>
         internal static string error_app_directory {
@@ -169,20 +205,11 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This option will overwrite your current background, if you want to go back to the default you&apos;ll have to reinstall the HUD. Are you sure you want to continue?.
+        ///   Looks up a localized string similar to Following changes require the game to be restarted:.
         /// </summary>
-        internal static string info_custom_background {
+        internal static string info_game_restart {
             get {
-                return ResourceManager.GetString("info_custom_background", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available..
-        /// </summary>
-        internal static string info_folder_browser {
-            get {
-                return ResourceManager.GetString("info_folder_browser", resourceCulture);
+                return ResourceManager.GetString("info_game_restart", resourceCulture);
             }
         }
         

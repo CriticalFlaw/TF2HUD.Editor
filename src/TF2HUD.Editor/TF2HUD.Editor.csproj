@@ -34,7 +34,9 @@
     <None Remove="JSON\default.json" />
     <None Remove="JSON\flawhud.json" />
     <None Remove="JSON\rayshud.json" />
+    <None Remove="JSON\zeeshud.json" />
     <None Remove="log4net.config" />
+    <None Remove="Resources\banner.png" />
     <None Remove="Resources\favicon.ico" />
     <None Remove="Resources\mastercomfig-transparent-viewmodels-addon.vpk" />
     <None Remove="Resources\TF2Build.ttf" />
@@ -67,8 +69,14 @@
     <Content Include="JSON\rayshud.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="JSON\zeeshud.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\banner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\mastercomfig-transparent-viewmodels-addon.vpk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -194,7 +194,6 @@ namespace TF2HUD.Editor.Classes
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="keys"></param>
-        /// <returns></returns>
         public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj,
             IEnumerable<string> keys)
         {

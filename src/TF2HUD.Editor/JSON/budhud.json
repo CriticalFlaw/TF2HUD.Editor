@@ -21,7 +21,7 @@
       },
       {
         "Name": "bh_chat_lowerleft",
-        "Label": "Chat Location",
+        "Label": "Move Chat to Bottom",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_chat_lowerleft.res"
@@ -31,6 +31,13 @@
         "Label": "Youtuber HUD",
         "Type": "Select",
         "Path": "#users"
+      },
+      {
+        "Name": "bh_player_teamindicator",
+        "Label": "Team Indicator",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_player_teamindicator.res"
       },
       {
         "Name": "bh_player_transparentviewmodels",
@@ -43,10 +50,17 @@
     "Health and Ammo": [
       {
         "Name": "bh_player_largehealth",
-        "Label": "Larger Health & Ammo",
+        "Label": "Larger Health",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_player_largehealth.res"
+      },
+      {
+        "Name": "bh_player_largeammo",
+        "Label": "Larger Ammo",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_player_largeammo.res"
       },
       {
         "Name": "bh_player_healthcross_inset",
@@ -54,6 +68,20 @@
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_player_healthcross_inset.res"
+      },
+      {
+        "Name": "bh_player_healthbox",
+        "Label": "Health Box",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_player_healthbox.res"
+      },
+      {
+        "Name": "bh_player_ammobox",
+        "Label": "Ammo Box",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_player_ammobox.res"
       }
     ],
     "TargetIDs": [
@@ -74,6 +102,13 @@
     ],
     "Main Menu": [
       {
+        "Name": "bh_menu_hidefavorites",
+        "Label": "Hide Favorites",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_menu_hidefavorites.res"
+      },
+      {
         "Name": "bh_menu_hidefriends",
         "Label": "Hide Friends",
         "Type": "Checkbox",
@@ -88,6 +123,13 @@
         "FileName": "bh_menu_hidegif.res"
       },
       {
+        "Name": "bh_menu_hidenews",
+        "Label": "Hide News",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_menu_hidenews.res"
+      },
+      {
         "Name": "bh_menu_hidestats",
         "Label": "Hide Stats",
         "Type": "Checkbox",
@@ -96,6 +138,13 @@
       }
     ],
     "Medic Customizations": [
+      {
+        "Name": "bh_uber_largeuberpercentage",
+        "Label": "Large Uber Percentage",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_uber_largeuberpercentage.res"
+      },
       {
         "Name": "bh_uber_longchargemeter",
         "Label": "Full Width Charge Meter",
@@ -117,6 +166,7 @@
         "Label": "Normal",
         "Type": "ColorPicker",
         "Value": "255 255 255 255",
+        "Restart": true,
         "Files": {
           "#customization/_enabled/bh_colors.res": {
             "Scheme": {
@@ -132,6 +182,7 @@
         "Label": "Low",
         "Type": "ColorPicker",
         "Value": "186 032 032 255",
+        "Restart": true,
         "Files": {
           "#customization/_enabled/bh_colors.res": {
             "Scheme": {
@@ -149,6 +200,7 @@
         "Label": "Normal",
         "Type": "ColorPicker",
         "Value": "255 255 255 255",
+        "Restart": true,
         "Files": {
           "#customization/_enabled/bh_colors.res": {
             "Scheme": {
@@ -164,6 +216,7 @@
         "Label": "Reserve",
         "Type": "ColorPicker",
         "Value": "255 255 255 255",
+        "Restart": true,
         "Files": {
           "#customization/_enabled/bh_colors.res": {
             "Scheme": {
@@ -179,6 +232,7 @@
         "Label": "Low",
         "Type": "ColorPicker",
         "Value": "186 032 032 255",
+        "Restart": true,
         "Files": {
           "#customization/_enabled/bh_colors.res": {
             "Scheme": {
@@ -190,12 +244,65 @@
         }
       }
     ],
-    "Crosshair Colors": [
+    "Crosshair": [
+      {
+        "Name": "bh_toggle_xhair_enable",
+        "Label": "Enable the Crosshair",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair feature.",
+        "Value": "false",
+        "Files": {
+          "#customization/_enabled/bh_crosshairs.res": {
+            "hud_crosshair_1": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_val_xhair_style",
+        "Label": "Style",
+        "ToolTip": "Style of crosshair.",
+        "Type": "Crosshair",
+        "Value": "F",
+        "Files": {
+          "#customization/_enabled/bh_crosshairs.res": {
+            "hud_crosshair_1": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_val_xhair_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "ToolTip": "Size of the crosshair.",
+        "Files": {
+          "#customization/_enabled/bh_crosshairs.res": {
+            "hud_crosshair_1": {
+              "font": "Crosshair: TF2Crosshairs | Size: $value | Outline: On"
+            }
+          }
+        }
+      },
       {
         "Name": "bh_hud_crosshair_1",
         "Label": "Normal",
         "Type": "ColorPicker",
         "Value": "255 255 255 255",
+        "Restart": true,
         "Files": {
           "#customization/_enabled/bh_colors.res": {
             "Scheme": {
@@ -211,6 +318,7 @@
         "Label": "Flash",
         "Type": "ColorPicker",
         "Value": "240 134 049 255",
+        "Restart": true,
         "Files": {
           "#customization/_enabled/bh_colors.res": {
             "Scheme": {

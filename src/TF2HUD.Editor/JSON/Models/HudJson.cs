@@ -43,7 +43,9 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("Minimum")] public int Minimum = 10;
         [JsonPropertyName("Name")] public string Name;
         [JsonPropertyName("Options")] public Option[] Options;
+        [JsonPropertyName("Preview")] public string Preview;
         [JsonPropertyName("Pulse")] public bool Pulse;
+        [JsonPropertyName("Restart")] public bool Restart;
         [JsonPropertyName("Special")] public string Special;
         [JsonPropertyName("Tooltip")] public string Tooltip;
         [JsonPropertyName("Type")] public string Type;
@@ -57,5 +59,12 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("Label")] public string Label;
         [JsonPropertyName("Special")] public string Special;
         [JsonPropertyName("Value")] public string Value;
+    }
+
+    public class GitJson
+    {
+        [JsonPropertyName("name")] public string Name;
+
+        [JsonPropertyName("size")] public int Size;
     }
 }

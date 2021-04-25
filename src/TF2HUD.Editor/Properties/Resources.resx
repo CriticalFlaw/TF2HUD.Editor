@@ -132,6 +132,18 @@
   <data name="app_update" xml:space="preserve">
     <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</value>
   </data>
+  <data name="ask_custom_background" xml:space="preserve">
+    <value>This option will overwrite your current background, if you want to go back to the default you'll have to reinstall the HUD. Are you sure you want to continue?</value>
+  </data>
+  <data name="ask_folder_browser" xml:space="preserve">
+    <value>Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available.</value>
+  </data>
+  <data name="ask_image_browser" xml:space="preserve">
+    <value>Please select the image you want to use as the new game background.</value>
+  </data>
+  <data name="ask_reset_options" xml:space="preserve">
+    <value>Are you sure you want to reset all customization options back to default?</value>
+  </data>
   <data name="error_app_directory" xml:space="preserve">
     <value>The tf/custom directory must be set to use the editor.</value>
   </data>
@@ -153,11 +165,8 @@
   <data name="info_create_backup" xml:space="preserve">
     <value>An existing {0} folder has been found. To avoid conflicts, a backup has been created.</value>
   </data>
-  <data name="info_custom_background" xml:space="preserve">
-    <value>This option will overwrite your current background, if you want to go back to the default you'll have to reinstall the HUD. Are you sure you want to continue?</value>
-  </data>
-  <data name="info_folder_browser" xml:space="preserve">
-    <value>Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available.</value>
+  <data name="info_game_restart" xml:space="preserve">
+    <value>Following changes require the game to be restarted:</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
     <value>Unable to continue because Team Fortress 2 is still running. Please close it and then try again.</value>

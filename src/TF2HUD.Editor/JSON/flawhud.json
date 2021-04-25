@@ -19,8 +19,9 @@
         "Name": "fh_color_health_buff",
         "Label": "Buffed Health",
         "Type": "ColorPicker",
-        "ToolTip": "Color of player's health, when buffed. (Restart required)",
+        "ToolTip": "Color of player's health, when buffed.",
         "Value": "0 170 127 255",
+        "Restart": true,
         "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
@@ -37,8 +38,9 @@
         "Name": "fh_color_ubercharge",
         "Label": "UberCharge",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the UberCharge meter. (Restart required)",
+        "ToolTip": "Color of the UberCharge meter.",
         "Value": "0 170 127 255",
+        "Restart": true,
         "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
@@ -54,8 +56,9 @@
         "Name": "fh_color_health_low",
         "Label": "Low Health",
         "Type": "ColorPicker",
-        "ToolTip": "Color of player's health when low. (Restart required)",
+        "ToolTip": "Color of player's health when low.",
         "Value": "190 20 20 255",
+        "Restart": true,
         "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
@@ -72,8 +75,9 @@
         "Name": "fh_color_ammo_low",
         "Label": "Low Ammo",
         "Type": "ColorPicker",
-        "ToolTip": "Color of player's ammo when low. (Restart required)",
+        "ToolTip": "Color of player's ammo when low.",
         "Value": "190 20 20 255",
+        "Restart": true,
         "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
@@ -89,8 +93,9 @@
         "Name": "fh_color_target_health",
         "Label": "Health Healed",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the health amount healed. (Restart required)",
+        "ToolTip": "Color of the health amount healed.",
         "Value": "0 170 127 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -105,8 +110,9 @@
         "Name": "fh_color_target_damage",
         "Label": "Damage Dealt",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the damage amount dealt to another player. (Restart required)",
+        "ToolTip": "Color of the damage amount dealt to another player.",
         "Value": "255 255 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -124,6 +130,7 @@
         "Label": "Normal",
         "Type": "ColorPicker",
         "Value": "178 178 178 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -139,6 +146,7 @@
         "Label": "Unique",
         "Type": "ColorPicker",
         "Value": "255 215 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -154,6 +162,7 @@
         "Label": "Strange",
         "Type": "ColorPicker",
         "Value": "207 106 50 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -169,6 +178,7 @@
         "Label": "Vintage",
         "Type": "ColorPicker",
         "Value": "71 98 145 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -184,6 +194,7 @@
         "Label": "Haunted",
         "Type": "ColorPicker",
         "Value": "56 243 171 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -199,6 +210,7 @@
         "Label": "Genuine",
         "Type": "ColorPicker",
         "Value": "77 116 85 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -214,6 +226,7 @@
         "Label": "Collectors",
         "Type": "ColorPicker",
         "Value": "170 0 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -229,6 +242,7 @@
         "Label": "Unusual",
         "Type": "ColorPicker",
         "Value": "134 80 172 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -244,6 +258,7 @@
         "Label": "Community",
         "Type": "ColorPicker",
         "Value": "112 176 74 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -259,6 +274,7 @@
         "Label": "Valve",
         "Type": "ColorPicker",
         "Value": "165 15 121 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -276,6 +292,7 @@
         "Label": "Civilian",
         "Type": "ColorPicker",
         "Value": "176 195 217 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -291,6 +308,7 @@
         "Label": "Freelance",
         "Type": "ColorPicker",
         "Value": "94 152 217 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -306,6 +324,7 @@
         "Label": "Mercenary",
         "Type": "ColorPicker",
         "Value": "75 105 255 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -321,6 +340,7 @@
         "Label": "Commando",
         "Type": "ColorPicker",
         "Value": "136 71 255 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -336,6 +356,7 @@
         "Label": "Assassin",
         "Type": "ColorPicker",
         "Value": "211 44 230 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -351,6 +372,7 @@
         "Label": "Elite",
         "Type": "ColorPicker",
         "Value": "235 75 75 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -365,9 +387,9 @@
     "Crosshair": [
       {
         "Name": "fh_toggle_xhair_enable",
-        "Label": "Toggle the Crosshair",
+        "Label": "Enable the Crosshair",
         "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair visibility.",
+        "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
         "Files": {
           "scripts/hudlayout.res": {
@@ -386,9 +408,9 @@
       },
       {
         "Name": "fh_toggle_xhair_pulse",
-        "Label": "Toggle the Hitmarker",
+        "Label": "Toggle Hitmarker",
         "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair hitmarker.",
+        "ToolTip": "Toggle hitmarker animation.",
         "Value": "true",
         "Files": {
           "scripts/hudanimations_custom.txt": {
@@ -436,6 +458,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Default crosshair color.",
         "Value": "242 242 242 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -452,6 +475,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Color of crosshair when hitting another player.",
         "Value": "255 0 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -468,8 +492,9 @@
         "Name": "fh_toggle_code_fonts",
         "Label": "Code Pro Fonts",
         "Type": "Checkbox",
-        "ToolTip": "Toggle to the Code Pro fonts instead of TF2 Build. (Restart required)",
+        "ToolTip": "Toggle to the Code Pro fonts instead of TF2 Build.",
         "Value": "false",
+        "Restart": true,
         "Files": {
           "resource/clientscheme.res": {
             "replace": [
@@ -514,8 +539,8 @@
         "Name": "fh_toggle_transparent_viewmodels",
         "Label": "Transparent Viewmodels",
         "Type": "Checkbox",
-        "ToolTip": "Toggle transparent viewmodels. (May required config changes)",
-        "Special": "TransparentViewmodels", 
+        "ToolTip": "Toggle transparent viewmodels.",
+        "Special": "TransparentViewmodels",
         "Value": "false",
         "Files": {
           "scripts/hudlayout.res": {
@@ -538,6 +563,7 @@
         "Type": "Checkbox",
         "ToolTip": "Toggle the default Team Fortress 2 backgrounds.",
         "Value": "false",
+        "Restart": true,
         "Special": "StockBackgrounds",
         "Files": {
           "resource/ui/mainmenuoverride.res": {
@@ -956,6 +982,8 @@
         "ToolTip": "Change to different health styles options.",
         "Value": "0",
         "Command": "HealthStyle",
+        "Preview":
+          "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
         "Options": [
           {
             "Label": "Default",
@@ -1051,7 +1079,8 @@
         "Type": "CustomBackground",
         "Special": "CustomBackground",
         "ToolTip": "Replace the main menu background with a custom image.",
-        "Value": "false"
+        "Value": "false",
+        "Restart": true
       }
     ]
   }
