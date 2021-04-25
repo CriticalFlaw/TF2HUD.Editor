@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TF2HUD.Editor.JSON;
@@ -101,6 +102,21 @@ namespace TF2HUD.Editor.Classes
             Grid.SetRow(title, 0);
             container.Children.Add(title);
 
+            // Create the preview modal
+            var preview = new ChildWindow
+            {
+                Style = (Style) Application.Current.Resources["PreviewPanel"]
+            };
+            preview.MouseDoubleClick += (_, _) => { preview.Close(); };
+
+            var image = new Image
+            {
+                Style = (Style) Application.Current.Resources["PreviewImage"]
+            };
+            preview.Content = image;
+
+            container.Children.Add(preview);
+
             // NOTE: ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic for each section.
             dynamic sectionsContainer;
 
@@ -186,6 +202,22 @@ namespace TF2HUD.Editor.Classes
                             sectionContent.Children.Add(checkBoxInput);
                             controlItem.Control = checkBoxInput;
 
+                            // Create a preview button if the control has a preview image.
+                            if (!string.IsNullOrWhiteSpace(controlItem.Preview))
+                            {
+                                var previewBtn = new Button
+                                {
+                                    Style = (Style) Application.Current.Resources["PreviewButton"]
+                                };
+                                previewBtn.Click += (_, _) =>
+                                {
+                                    preview.Caption = !string.IsNullOrWhiteSpace(tooltip) ? tooltip : id;
+                                    image.Source = new BitmapImage(new Uri(controlItem.Preview));
+                                    preview.Show();
+                                };
+                                sectionContent.Children.Add(previewBtn);
+                            }
+
                             break;
 
                         case "color":
@@ -238,6 +270,24 @@ namespace TF2HUD.Editor.Classes
                             colorContainer.Children.Add(colorInput);
                             sectionContent.Children.Add(colorContainer);
                             controlItem.Control = colorInput;
+
+                            // Create a preview button if the control has a preview image.
+                            if (!string.IsNullOrWhiteSpace(controlItem.Preview))
+                            {
+                                var previewBtn = new Button
+                                {
+                                    Style = (Style) Application.Current.Resources["PreviewButton"]
+                                };
+                                previewBtn.Click += (_, _) =>
+                                {
+                                    preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
+                                        ? tooltip
+                                        : id;
+                                    image.Source = new BitmapImage(new Uri(controlItem.Preview));
+                                    preview.Show();
+                                };
+                                sectionContent.Children.Add(previewBtn);
+                            }
 
                             break;
 
@@ -296,6 +346,24 @@ namespace TF2HUD.Editor.Classes
                             sectionContent.Children.Add(comboBoxContainer);
                             controlItem.Control = comboBoxInput;
 
+                            // Create a preview button if the control has a preview image.
+                            if (!string.IsNullOrWhiteSpace(controlItem.Preview))
+                            {
+                                var previewBtn = new Button
+                                {
+                                    Style = (Style) Application.Current.Resources["PreviewButton"]
+                                };
+                                previewBtn.Click += (_, _) =>
+                                {
+                                    preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
+                                        ? tooltip
+                                        : id;
+                                    image.Source = new BitmapImage(new Uri(controlItem.Preview));
+                                    preview.Show();
+                                };
+                                sectionContent.Children.Add(previewBtn);
+                            }
+
                             break;
 
                         case "number":
@@ -334,6 +402,24 @@ namespace TF2HUD.Editor.Classes
                             integerContainer.Children.Add(integerInput);
                             sectionContent.Children.Add(integerContainer);
                             controlItem.Control = integerInput;
+
+                            // Create a preview button if the control has a preview image.
+                            if (!string.IsNullOrWhiteSpace(controlItem.Preview))
+                            {
+                                var previewBtn = new Button
+                                {
+                                    Style = (Style) Application.Current.Resources["PreviewButton"]
+                                };
+                                previewBtn.Click += (_, _) =>
+                                {
+                                    preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
+                                        ? tooltip
+                                        : id;
+                                    image.Source = new BitmapImage(new Uri(controlItem.Preview));
+                                    preview.Show();
+                                };
+                                sectionContent.Children.Add(previewBtn);
+                            }
 
                             break;
 
@@ -385,6 +471,24 @@ namespace TF2HUD.Editor.Classes
                             xhairContainer.Children.Add(xhairInput);
                             sectionContent.Children.Add(xhairContainer);
                             controlItem.Control = xhairInput;
+
+                            // Create a preview button if the control has a preview image.
+                            if (!string.IsNullOrWhiteSpace(controlItem.Preview))
+                            {
+                                var previewBtn = new Button
+                                {
+                                    Style = (Style) Application.Current.Resources["PreviewButton"]
+                                };
+                                previewBtn.Click += (_, _) =>
+                                {
+                                    preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
+                                        ? tooltip
+                                        : id;
+                                    image.Source = new BitmapImage(new Uri(controlItem.Preview));
+                                    preview.Show();
+                                };
+                                sectionContent.Children.Add(previewBtn);
+                            }
 
                             break;
 
