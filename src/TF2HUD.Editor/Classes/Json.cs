@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TF2HUD.Editor.JSON;
 using TF2HUD.Editor.Properties;
@@ -116,6 +117,27 @@ namespace TF2HUD.Editor.Classes
                 // Skip this process is there was an error.
                 MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateAsync()
+        {
+            try
+            {
+                return (await Task.WhenAll(HUDList.Select(async (x) =>
+                {
+                    var Url = $"https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{x.Name}.json";
+                    MainWindow.Logger.Info($"Requesting {x.Name} from {Url}");
+                    var response = await Utilities.Fetch(Url);
+                    if (response == null) return false;
+                    var value = JsonConvert.DeserializeObject<HudJson>(response);
+                    File.WriteAllText($"JSON/{x.Name}.json", response);
+                    return !x.TestHUD(new HUD(x.Name, value));
+                }))).Contains(true);
+            }
+            catch (Exception e)
+            {
                 return false;
             }
         }
