@@ -60,7 +60,7 @@ namespace TF2HUD.Editor.Classes
                 // Get the local schema names and file sizes.
                 List<Tuple<string, int>> localFiles = new();
                 foreach (var file in new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")))
-                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length));
+                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int) file.Length));
                 if (localFiles.Count <= 0) return false;
 
                 // Setup the WebClient for download remote files.
@@ -74,7 +74,8 @@ namespace TF2HUD.Editor.Classes
 
                 // Get the remote schema names and file sizes.
                 List<Tuple<string, int>> remoteFiles = new();
-                foreach (var file in JsonConvert.DeserializeObject<List<GitJson>>(remoteList).Where(x => x.Name.EndsWith(".json")))
+                foreach (var file in JsonConvert.DeserializeObject<List<GitJson>>(remoteList)
+                    .Where(x => x.Name.EndsWith(".json")))
                     remoteFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), file.Size));
                 if (remoteFiles.Count <= 0) return false;
 

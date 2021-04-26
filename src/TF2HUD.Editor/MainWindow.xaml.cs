@@ -110,7 +110,7 @@ namespace TF2HUD.Editor
                 Logger.Info("Opening a folder browser to get the tf/custom directory from the user.");
                 using (var browser = new FolderBrowserDialog
                 {
-                    Description = Properties.Resources.info_folder_browser,
+                    Description = Properties.Resources.ask_folder_browser,
                     UseDescriptionForTitle = true,
                     ShowNewFolderButton = true
                 })
@@ -237,6 +237,7 @@ namespace TF2HUD.Editor
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnReset.IsEnabled = false;
+                BtnSwitch.IsEnabled = false;
                 BtnGitHub.IsEnabled = false;
                 BtnHuds.IsEnabled = false;
                 BtnDiscord.IsEnabled = false;
@@ -253,6 +254,7 @@ namespace TF2HUD.Editor
                 BtnUninstall.IsEnabled = isInstalled;
                 BtnSave.IsEnabled = isInstalled;
                 BtnReset.IsEnabled = isInstalled;
+                BtnSwitch.IsEnabled = true;
                 LblStatus.Content = $"{HudSelection} is {(!isInstalled ? "not " : "")}installed...";
             }
             else
@@ -263,6 +265,7 @@ namespace TF2HUD.Editor
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnReset.IsEnabled = false;
+                BtnSwitch.IsEnabled = true;
                 LblStatus.Content = "Directory is not set...";
             }
         }
@@ -456,6 +459,14 @@ namespace TF2HUD.Editor
         /// </summary>
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
+            var hudObject = Json.GetHUDByName(Settings.Default.hud_selected);
+            if (Process.GetProcessesByName("hl2").Any() && hudObject.DirtyControls.Count > 0)
+            {
+                var message = hudObject.DirtyControls.Aggregate(Properties.Resources.info_game_restart,
+                    (current, control) => current + $"\n - {control}");
+                if (ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
+            }
+
             Logger.Info("Applying HUD Settings...");
             var worker = new BackgroundWorker();
             worker.DoWork += (_, _) =>
@@ -466,6 +477,7 @@ namespace TF2HUD.Editor
                     var selection = Json.GetHUDByName(Settings.Default.hud_selected);
                     selection.Settings.SaveSettings();
                     selection.ApplyCustomizations();
+                    selection.DirtyControls.Clear();
                 });
             };
             worker.RunWorkerAsync();
@@ -478,11 +490,16 @@ namespace TF2HUD.Editor
         /// </summary>
         private void BtnReset_OnClick(object sender, RoutedEventArgs e)
         {
+            // Ask the user if they want to reset before doing so.
+            if (ShowMessageBox(MessageBoxImage.Question, Properties.Resources.ask_reset_options,
+                MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+
             Logger.Info("Resetting HUD Settings...");
             var selection = Json.GetHUDByName(Settings.Default.hud_selected);
             selection.Reset();
             selection.Settings.SaveSettings();
             selection.ApplyCustomizations();
+            selection.DirtyControls.Clear();
             LblStatus.Content = "Settings Reset at " + DateTime.Now;
             Logger.Info("Resetting HUD Settings...Done!");
         }
@@ -520,7 +537,9 @@ namespace TF2HUD.Editor
         /// </summary>
         private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
         {
-            LblStatus.Content = Json.Update() ? Properties.Resources.info_schema_update : Properties.Resources.info_schema_nothing;
+            LblStatus.Content = Json.Update()
+                ? Properties.Resources.info_schema_update
+                : Properties.Resources.info_schema_nothing;
         }
 
         private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
@@ -567,6 +586,5 @@ namespace TF2HUD.Editor
         }
 
         #endregion
-
     }
 }

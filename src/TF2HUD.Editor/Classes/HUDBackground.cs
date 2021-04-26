@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Forms;
+using TF2HUD.Editor.Properties;
 
 namespace TF2HUD.Editor.Classes
 {
@@ -105,11 +107,23 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
-                customImagePath = (string.IsNullOrWhiteSpace(customImagePath)) ? GetFilePathFromUser() : customImagePath;
+                // Check that the directory for the game backgrounds exists.
+                var bgPath = $"{HUDFolderPath}\\materials\\console";
+                if (!Directory.Exists(bgPath))
+                    Directory.CreateDirectory(bgPath);
+
+                // Get the image path from the user if it is not already set.
+                customImagePath = string.IsNullOrWhiteSpace(customImagePath) ? GetFilePathFromUser() : customImagePath;
+
+                // Initialize the VTF converter then convert the image file.
                 var converter = new VTF(MainWindow.HudPath.Replace("\\tf\\custom\\", string.Empty));
-                var output = $"{HUDFolderPath}\\materials\\console\\background_upward.vtf";
+                var output = $"{bgPath}\\background_upward.vtf";
                 converter.Convert(customImagePath, output);
+
+                // Copy the generated background file and chapterbackgrounds.txt to apply the changes.
                 File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
+                File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\chapterbackgrounds.txt",
+                    $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt", true);
                 return customImagePath;
             }
             catch (Exception ex)
@@ -123,11 +137,16 @@ namespace TF2HUD.Editor.Classes
         ///     Get the custom background image path from the user.
         /// </summary>
         /// <returns>String path to the new background image file.</returns>
-        public string GetFilePathFromUser()
+        public static string GetFilePathFromUser()
         {
-            using var browser = new System.Windows.Forms.OpenFileDialog();
+            using var browser = new OpenFileDialog
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png",
+                Title = Resources.ask_image_browser,
+                Multiselect = false
+            };
             browser.ShowDialog();
-            return (string.IsNullOrWhiteSpace(browser.FileName)) ? null : browser.FileName;
+            return string.IsNullOrWhiteSpace(browser.FileName) ? null : browser.FileName;
         }
     }
 }
