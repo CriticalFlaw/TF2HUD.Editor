@@ -353,6 +353,8 @@ namespace TF2HUD.Editor.Classes
                             $"Animate {FormatWhiteSpace(animation.Element)} {FormatWhiteSpace(animation.Property)} {FormatWhiteSpace(animation.Value)} {GetInterpolator(animation)} {animation.Delay} {animation.Duration}";
                     else if (T == typeof(RunEvent) || T == typeof(StopEvent))
                         stringValue += $"RunEvent {FormatWhiteSpace(animation.Event)} {animation.Delay}";
+                    else if (T == typeof(StopEvent))
+                        stringValue += $"StopEvent {FormatWhiteSpace(animation.Event)} {animation.Delay}";
                     else if (T == typeof(SetVisible))
                         stringValue +=
                             $"SetVisible {FormatWhiteSpace(animation.Element)} {animation.Delay} {animation.Duration}";

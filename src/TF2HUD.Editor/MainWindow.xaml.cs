@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -53,6 +54,21 @@ namespace TF2HUD.Editor
             Logger.Info("Checking for updates.");
             AutoUpdater.OpenDownloadPage = true;
             AutoUpdater.Start(Properties.Resources.app_update);
+
+            // Check for HUD updates.
+            Json.UpdateAsync().ContinueWith((Task<bool> restartRequired) =>
+            {
+                if (restartRequired.Result)
+                {
+                    var result = MessageBox.Show("Application restart required to update HUD schemas, would you like to restart now?", "Restart Required", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                    if(result == MessageBoxResult.Yes)
+                    {
+                        System.Diagnostics.Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
+                        Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
+                        Environment.Exit(0);
+                    }
+                }
+            });
         }
 
         /// <summary>

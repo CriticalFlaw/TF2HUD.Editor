@@ -507,13 +507,10 @@ namespace TF2HUD.Editor.Classes
                             // Add Events.
                             bgInput.Click += (_, _) =>
                             {
-                                if (MainWindow.ShowMessageBox(MessageBoxImage.Warning,
-                                        Resources.ask_custom_background, MessageBoxButton.YesNo) !=
-                                    MessageBoxResult.Yes) return;
-                                var imagePath = new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\")
-                                    .ApplyCustomBackground();
-                                Settings.SetSetting(bgInput.Name, imagePath);
-                                CheckIsDirty(controlItem);
+                                //if (MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.ask_custom_background, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                                //var imagePath = new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\").ApplyCustomBackground();
+                                //Settings.SetSetting(bgInput.Name, imagePath);
+                                //CheckIsDirty(controlItem);
                             };
 
                             // Add to Page.
@@ -537,8 +534,7 @@ namespace TF2HUD.Editor.Classes
                     for (var j = 0; j < layout[i].Length; j++)
                     {
                         // Allow index and grid area for grid coordinates.
-                        if (groupBoxIndex.ToString() == layout[i][j] ||
-                            section == layout[i][j] && !groupBoxItemEvaluated)
+                        if (groupBoxIndex.ToString() == layout[i][j] && !groupBoxItemEvaluated)
                         {
                             // Don't set column or row if it has already been set.
                             // Setting the column/row every time will break spans.
@@ -596,6 +592,291 @@ namespace TF2HUD.Editor.Classes
         public void Update()
         {
             if (UpdateUrl != null) MainWindow.DownloadHud(UpdateUrl);
+        }
+
+        public bool TestHUD(HUD hud)
+        {
+            // Test everything except controls and settings
+            // Complex fields require more testing
+
+            void LogChange(string prop, string before = "", string after= "")
+            {
+                string message = before.Length > 0 ? $" (\"{before}\" => \"{after}\")" : string.Empty;
+                MainWindow.Logger.Info($"{Name}: {prop} has changed{message}, HUD has been updated.");
+            }
+
+            bool CompareFiles(JObject obj1, JObject obj2, string path = "")
+            {
+                foreach (var x in obj1)
+                {
+                    if (!obj2.ContainsKey(x.Key))
+                    {
+                        return false;
+                    }
+                    else if (obj1[x.Key].Type == JTokenType.Object && obj2[x.Key].Type == JTokenType.Object)
+                    {
+                        if (!CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(), x.Key + "/"))
+                        {
+                            return false;
+                        }
+                    }
+                    else if (x.Value.Type == JTokenType.Array && obj2[x.Key].Type == JTokenType.Array)
+                    {
+                        var arr1 = obj1[x.Key].ToArray();
+                        var arr2 = obj2[x.Key].ToArray();
+                        if (arr1.Length != arr2.Length)
+                        {
+                            LogChange($"{path}{x.Key}", arr1.Length.ToString(), arr2.Length.ToString());
+                            return false;
+                        }
+                        for (var i = 0; i < arr1.Length; i++)
+                        {
+                            if (arr1[i].ToString() != arr2[i].ToString())
+                            {
+                                LogChange($"{path}{x.Key}/[{i}]", arr1[i].ToString(), arr2[i].ToString());
+                                return false;
+                            }
+                        }
+                    }
+                    else if (x.Value != x.Value)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            if (LayoutOptions != null && hud.LayoutOptions != null)
+            {
+                if (LayoutOptions.Length != hud.LayoutOptions.Length)
+                {
+                    LogChange("LayoutOptions.Length");
+                    return false;
+                }
+                for (var i = 0; i < LayoutOptions.Length; i++)
+                {
+                    if (LayoutOptions[i] != hud.LayoutOptions[i])
+                    {
+                        LogChange($"LayoutOptions[{i}]", LayoutOptions[i], hud.LayoutOptions[i]);
+                        return false;
+                    }
+                }
+            }
+
+            if (Background != hud.Background)
+            {
+                LogChange("Background", Background, hud.Background);
+                return false;
+            };
+
+            if (ControlOptions.Keys.Count != hud.ControlOptions.Keys.Count)
+            {
+                LogChange("ControlOptions.Keys.Count", ControlOptions.Keys.Count.ToString(), hud.ControlOptions.Keys.Count.ToString());
+                return false;
+            }
+            var keys1 = ControlOptions.Keys.ToArray();
+            var keys2 = hud.ControlOptions.Keys.ToArray();
+            for (var i = 0; i < keys1.Length; i++)
+            {
+                if (keys1[i] != keys2[i])
+                {
+                    LogChange($"GroupBox {keys1[i]}", keys1[i], keys2[i]);
+                    return false;
+                }
+            }
+
+            foreach (var key in ControlOptions.Keys)
+            {
+                if (ControlOptions[key].Length != hud.ControlOptions[key].Length)
+                {
+                    LogChange($"ControlOptions[{key}].Length", ControlOptions[key].Length.ToString(), hud.ControlOptions[key].Length.ToString());
+                    return false;
+                }
+                for (var i = 0; i < ControlOptions[key].Length; i++)
+                {
+                    if (ControlOptions[key][i].ComboFiles != hud.ControlOptions[key][i].ComboFiles)
+                    {
+                        if (ControlOptions[key][i].ComboFiles.Length != hud.ControlOptions[key][i].ComboFiles.Length)
+                        {
+                            LogChange($"ControlOptions[\"{key}\"][{i}].ComboFiles.Length", ControlOptions[key][i].ComboFiles.Length.ToString(), hud.ControlOptions[key][i].ComboFiles.Length.ToString());
+                            return false;
+                        }
+                        for (var j = 0; j < ControlOptions[key][i].ComboFiles.Length; j++)
+                        {
+                            if (ControlOptions[key][i].ComboFiles[j] != hud.ControlOptions[key][i].ComboFiles[j])
+                            {
+                                LogChange($"ControlOptions[\"{key}\"][{i}].ComboFiles[{j}]", ControlOptions[key][i].ComboFiles[j], hud.ControlOptions[key][i].ComboFiles[j]);
+                                return false;
+                            }
+                        }
+                    }
+                    if (ControlOptions[key][i].FileName != hud.ControlOptions[key][i].FileName)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].FileName", ControlOptions[key][i].FileName, hud.ControlOptions[key][i].FileName);
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Files != null && hud.ControlOptions[key][i].Files != null)
+                    {
+                        if (!CompareFiles(ControlOptions[key][i].Files, hud.ControlOptions[key][i].Files))
+                        {
+                            LogChange($"ControlOptions[{key}][{i}].Files");
+                            return false;
+                        }
+                    }
+                    if (ControlOptions[key][i].Increment != hud.ControlOptions[key][i].Increment)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Increment", ControlOptions[key][i].Increment.ToString(), hud.ControlOptions[key][i].Increment.ToString());
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Label != hud.ControlOptions[key][i].Label)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Label", ControlOptions[key][i].Label, hud.ControlOptions[key][i].Label);
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Maximum != hud.ControlOptions[key][i].Maximum)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Maximum", ControlOptions[key][i].Maximum.ToString(), hud.ControlOptions[key][i].Maximum.ToString());
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Minimum != hud.ControlOptions[key][i].Minimum)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Minimum", ControlOptions[key][i].Minimum.ToString(), hud.ControlOptions[key][i].Minimum.ToString());
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Name != hud.ControlOptions[key][i].Name)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Name", ControlOptions[key][i].Name, hud.ControlOptions[key][i].Name);
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Options != hud.ControlOptions[key][i].Options)
+                    {
+                        if (ControlOptions[key][i].Options.Length != hud.ControlOptions[key][i].Options.Length)
+                        {
+                            LogChange($"ControlOptions[\"{key}\"][{i}].Options.Length", ControlOptions[key][i].Options.Length.ToString(), hud.ControlOptions[key][i].Options.Length.ToString());
+                            return false;
+                        }
+                        for (var j = 0; j < ControlOptions[key][i].Options.Length; j++)
+                        {
+                            if (ControlOptions[key][i].Options[j].FileName != hud.ControlOptions[key][i].Options[j].FileName)
+                            {
+                                LogChange($"ControlOptions[{key}][{i}].Options[{j}].FileName", ControlOptions[key][i].Options[j].FileName, hud.ControlOptions[key][i].Options[j].FileName);
+                                return false;
+                            }
+                            if (ControlOptions[key][i].Options[j].Label != hud.ControlOptions[key][i].Options[j].Label)
+                            {
+                                LogChange($"ControlOptions[{key}][{i}].Options[{j}].Label", ControlOptions[key][i].Options[j].Label, hud.ControlOptions[key][i].Options[j].Label);
+                                return false;
+                            }
+                            if (ControlOptions[key][i].Options[j].Special != hud.ControlOptions[key][i].Options[j].Special)
+                            {
+                                LogChange($"ControlOptions[{key}][{i}].Options[{j}].Special", ControlOptions[key][i].Options[j].Special, hud.ControlOptions[key][i].Options[j].Special);
+                                return false;
+                            }
+                            if (ControlOptions[key][i].Options[j].Value != hud.ControlOptions[key][i].Options[j].Value)
+                            {
+                                LogChange($"ControlOptions[{key}][{i}].Options[{j}].Value", ControlOptions[key][i].Options[j].Value, hud.ControlOptions[key][i].Options[j].Value);
+                                return false;
+                            }
+                        }
+                    }
+                    if (ControlOptions[key][i].Preview != hud.ControlOptions[key][i].Preview)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Preview", ControlOptions[key][i].Preview.ToString(), hud.ControlOptions[key][i].Preview.ToString());
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Pulse != hud.ControlOptions[key][i].Pulse)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Pulse", ControlOptions[key][i].Pulse.ToString(), hud.ControlOptions[key][i].Pulse.ToString());
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Restart != hud.ControlOptions[key][i].Restart)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Restart", ControlOptions[key][i].Restart.ToString(), hud.ControlOptions[key][i].Restart.ToString());
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Special != hud.ControlOptions[key][i].Special)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Special", ControlOptions[key][i].Special, hud.ControlOptions[key][i].Special);
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Tooltip != hud.ControlOptions[key][i].Tooltip)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Tooltip", ControlOptions[key][i].Tooltip, hud.ControlOptions[key][i].Tooltip);
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Type != hud.ControlOptions[key][i].Type)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Type", ControlOptions[key][i].Type, hud.ControlOptions[key][i].Type);
+                        return false;
+                    }
+                    if (ControlOptions[key][i].Value != hud.ControlOptions[key][i].Value)
+                    {
+                        LogChange($"ControlOptions[\"{key}\"][{i}].Value", ControlOptions[key][i].Value, hud.ControlOptions[key][i].Value);
+                        return false;
+                    }
+                }
+            }
+
+            if (CustomizationsFolder != hud.CustomizationsFolder)
+            {
+                LogChange("CustomizationsFolder", CustomizationsFolder, hud.CustomizationsFolder);
+                return false;
+            }
+
+            if (EnabledFolder != hud.EnabledFolder)
+            {
+                LogChange("EnabledFolder", EnabledFolder, hud.EnabledFolder);
+                return false;
+            }
+
+            if (Maximize != hud.Maximize)
+            {
+                LogChange("Maximize", Maximize.ToString(), hud.Maximize.ToString());
+                return false;
+            }
+
+            if (Opacity != hud.Opacity)
+            {
+                LogChange("Opacity", Opacity.ToString(), hud.Opacity.ToString());
+                return false;
+            };
+            if (UpdateUrl != hud.UpdateUrl)
+            {
+                LogChange("UpdateUrl", UpdateUrl, hud.UpdateUrl);
+                return false;
+            }
+
+            if (GitHubUrl != hud.GitHubUrl)
+            {
+                LogChange("GitHubUrl", GitHubUrl, hud.GitHubUrl);
+                return false;
+            }
+
+            if (IssueUrl != hud.IssueUrl)
+            {
+                LogChange("IssueUrl", IssueUrl, hud.IssueUrl);
+                return false;
+            }
+
+            if (HudsTfUrl != hud.HudsTfUrl)
+            {
+                LogChange("HudsTfUrl", HudsTfUrl, hud.HudsTfUrl);
+                return false;
+            }
+
+            if (SteamUrl != hud.SteamUrl)
+            {
+                LogChange("SteamUrl", SteamUrl, hud.SteamUrl);
+                return false;
+            }
+
+            if (DiscordUrl != hud.DiscordUrl)
+            {
+                LogChange("DiscordUrl", DiscordUrl, hud.DiscordUrl);
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>

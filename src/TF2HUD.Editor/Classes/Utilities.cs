@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using TF2HUD.Editor.JSON;
 
 namespace TF2HUD.Editor.Classes
@@ -215,6 +217,17 @@ namespace TF2HUD.Editor.Classes
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public static async Task<string> Fetch(string URL)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(URL);
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Content.ReadAsStringAsync().Result;
+            }
+            return null;
         }
     }
 }
