@@ -380,24 +380,25 @@ namespace TF2HUD.Editor
                     Dispatcher.Invoke(() =>
                     {
                         // Step 1. Retrieve the HUD object, then download and extract it into the tf/custom directory.
+                        Logger.Info($"Downloading {HudSelection}...");
                         Json.GetHUDByName(Settings.Default.hud_selected).Update();
-                        Logger.Info($"Extracting {HudSelection} into {HudPath}");
-                        ZipFile.ExtractToDirectory(Directory.GetCurrentDirectory() + "\\temp.zip", HudPath);
 
                         // Step 2. Clear tf/custom directory of other installed HUDs.
                         foreach (var x in LbSelectHud.Items)
                             if (Directory.Exists(HudPath + "\\" + x.ToString()?.ToLowerInvariant()))
                                 Directory.Delete(HudPath + "\\" + x.ToString()?.ToLowerInvariant(), true);
 
-                        // Step 3. Remove the -master suffix from the downloaded HUD.
-                        // TODO: Change the extracted file name to the schema name.
-                        if (Directory.Exists(HudPath + $"\\{HudSelection}-master"))
-                            Directory.Move(HudPath + $"\\{HudSelection}-master", HudPath + $"\\{HudSelection}");
+                        // Step 3. Record the name of the HUD inside the downloaded folder.
+                        var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}\\temp.zip";
+                        using var archive = ZipFile.OpenRead(tempFile);
+                        var hudName = archive.Entries.FirstOrDefault(entry => entry.FullName.EndsWith("/", StringComparison.OrdinalIgnoreCase) && string.IsNullOrWhiteSpace(entry.Name));
 
-                        if (Directory.Exists(HudPath + $"\\{HudSelection}-main"))
-                            Directory.Move(HudPath + $"\\{HudSelection}-main", HudPath + $"\\{HudSelection}");
+                        // Step 4. Extract the downloaded HUD and rename it to match the schema.
+                        Logger.Info($"Extracting {HudSelection} into {HudPath}");
+                        ZipFile.ExtractToDirectory(tempFile, HudPath);
+                        Directory.Move($"{HudPath}\\{hudName}", $"{HudPath}\\{HudSelection}");
 
-                        // Step 4. Clean up, check user settings and reload the page UI.
+                        // Step 5. Clean up, check user settings and reload the page UI.
                         CleanDirectory();
 
                         if (!string.IsNullOrWhiteSpace(HudSelection))
