@@ -11,7 +11,7 @@
   "Controls": {
     "Item Quality": [
       {
-        "Name": "tf2_color_normal",
+        "Name": "tf_color_normal",
         "Label": "Normal",
         "Type": "ColorPicker",
         "Value": "178 178 178 255",
@@ -27,7 +27,7 @@
         }
       },
       {
-        "Name": "tf2_color_unique",
+        "Name": "tf_color_unique",
         "Label": "Unique",
         "Type": "ColorPicker",
         "Value": "255 215 0 255",
@@ -43,7 +43,7 @@
         }
       },
       {
-        "Name": "tf2_color_strange",
+        "Name": "tf_color_strange",
         "Label": "Strange",
         "Type": "ColorPicker",
         "Value": "207 106 50 255",
@@ -59,7 +59,7 @@
         }
       },
       {
-        "Name": "tf2_color_vintage",
+        "Name": "tf_color_vintage",
         "Label": "Vintage",
         "Type": "ColorPicker",
         "Value": "71 98 145 255",
@@ -75,7 +75,7 @@
         }
       },
       {
-        "Name": "tf2_color_haunted",
+        "Name": "tf_color_haunted",
         "Label": "Haunted",
         "Type": "ColorPicker",
         "Value": "56 243 171 255",
@@ -91,7 +91,7 @@
         }
       },
       {
-        "Name": "tf2_color_genuine",
+        "Name": "tf_color_genuine",
         "Label": "Genuine",
         "Type": "ColorPicker",
         "Value": "77 116 85 255",
@@ -107,7 +107,7 @@
         }
       },
       {
-        "Name": "tf2_color_collectors",
+        "Name": "tf_color_collectors",
         "Label": "Collectors",
         "Type": "ColorPicker",
         "Value": "170 0 0 255",
@@ -123,7 +123,7 @@
         }
       },
       {
-        "Name": "tf2_color_unusual",
+        "Name": "tf_color_unusual",
         "Label": "Unusual",
         "Type": "ColorPicker",
         "Value": "134 80 172 255",
@@ -139,7 +139,7 @@
         }
       },
       {
-        "Name": "tf2_color_community",
+        "Name": "tf_color_community",
         "Label": "Community",
         "Type": "ColorPicker",
         "Value": "112 176 74 255",
@@ -155,7 +155,7 @@
         }
       },
       {
-        "Name": "tf2_color_valve",
+        "Name": "tf_color_valve",
         "Label": "Valve",
         "Type": "ColorPicker",
         "Value": "165 15 121 255",
@@ -173,7 +173,7 @@
     ],
     "Item Rarity": [
       {
-        "Name": "tf2_color_civilian",
+        "Name": "tf_color_civilian",
         "Label": "Civilian",
         "Type": "ColorPicker",
         "Value": "176 195 217 255",
@@ -189,7 +189,7 @@
         }
       },
       {
-        "Name": "tf2_color_freelance",
+        "Name": "tf_color_freelance",
         "Label": "Freelance",
         "Type": "ColorPicker",
         "Value": "94 152 217 255",
@@ -205,7 +205,7 @@
         }
       },
       {
-        "Name": "tf2_color_mercenary",
+        "Name": "tf_color_mercenary",
         "Label": "Mercenary",
         "Type": "ColorPicker",
         "Value": "75 105 255 255",
@@ -221,7 +221,7 @@
         }
       },
       {
-        "Name": "tf2_color_commando",
+        "Name": "tf_color_commando",
         "Label": "Commando",
         "Type": "ColorPicker",
         "Value": "136 71 255 255",
@@ -237,7 +237,7 @@
         }
       },
       {
-        "Name": "tf2_color_assassin",
+        "Name": "tf_color_assassin",
         "Label": "Assassin",
         "Type": "ColorPicker",
         "Value": "211 44 230 255",
@@ -253,7 +253,7 @@
         }
       },
       {
-        "Name": "tf2_color_elite",
+        "Name": "tf_color_elite",
         "Label": "Elite",
         "Type": "ColorPicker",
         "Value": "235 75 75 255",
@@ -271,7 +271,7 @@
     ],
     "Crosshair": [
       {
-        "Name": "tf2_toggle_xhair_enable",
+        "Name": "tf_toggle_xhair_enable",
         "Label": "Enable the Crosshair",
         "Type": "Checkbox",
         "ToolTip": "Toggle crosshair feature.",
@@ -292,7 +292,7 @@
         }
       },
       {
-        "Name": "tf2_toggle_xhair_pulse",
+        "Name": "tf_toggle_xhair_pulse",
         "Label": "Toggle Hitmarker",
         "Type": "Checkbox",
         "ToolTip": "Toggle hitmarker animation.",
@@ -306,7 +306,7 @@
         }
       },
       {
-        "Name": "tf2_val_xhair_style",
+        "Name": "tf_val_xhair_style",
         "Label": "Style",
         "ToolTip": "Style of crosshair.",
         "Type": "Crosshair",
@@ -320,7 +320,7 @@
         }
       },
       {
-        "Name": "tf2_val_xhair_size",
+        "Name": "tf_val_xhair_size",
         "Label": "Size",
         "Type": "IntegerUpDown",
         "Value": "18",
@@ -337,7 +337,7 @@
         }
       },
       {
-        "Name": "tf2_color_xhair_normal",
+        "Name": "tf_color_xhair_normal",
         "Label": "Crosshair",
         "Type": "ColorPicker",
         "ToolTip": "Default crosshair color.",
@@ -354,7 +354,7 @@
         }
       },
       {
-        "Name": "tf2_color_xhair_pulse",
+        "Name": "tf_color_xhair_pulse",
         "Label": "Hitmarker",
         "Type": "ColorPicker",
         "ToolTip": "Color of crosshair when hitting another player.",
@@ -371,23 +371,9 @@
         }
       }
     ],
-    "Customizations": [
+    "Main Menu": [
       {
-        "Name": "tf2_toggle_disguise_image",
-        "Label": "Spy Disguise Image",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle the spy silhouette seen while changing disguises.",
-        "Value": "true",
-        "Files": {
-          "scripts/hudanimations_custom.txt": {
-            "uncomment": [
-              "RunEvent HudSpyDisguiseChanged"
-            ]
-          }
-        }
-      },
-      {
-        "Name": "tf2_toggle_menu_image",
+        "Name": "tf_toggle_menu_image",
         "Label": "Main Menu Class Images",
         "Type": "Checkbox",
         "ToolTip": "Toggle the character images seen on the main menu.",
@@ -405,29 +391,55 @@
         }
       },
       {
-        "Name": "tf2_toggle_player_model",
-        "Label": "Hide Player Model",
+        "Name": "fh_favorite_server",
+        "Label": "Favorite Server",
+        "Type": "HomeServer",
+        "ToolTip": "Set the path for the home server button.",
+        "Value": "138.197.133.71; password flawhud",
+        "Restart": true,
+        "Files": {
+          "resource/gamemenu.res": {
+            "GameMenu": {
+              "HomeServerButton": {
+                "command": "engine connect $value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf_custom_background",
+        "Label": "Set Custom Background",
+        "Type": "CustomBackground",
+        "Special": "CustomBackground",
+        "ToolTip": "Replace the main menu background with a custom image.",
+        "Value": "false",
+        "Restart": true
+      }
+    ],
+    "Gameplay": [
+      {
+        "Name": "tf_toggle_disguise_image",
+        "Label": "Spy Disguise Image",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the spy silhouette seen while changing disguises.",
+        "Value": "true",
+        "Files": {
+          "scripts/hudanimations_custom.txt": {
+            "uncomment": [
+              "RunEvent HudSpyDisguiseChanged"
+            ]
+          }
+        }
+      },
+      {
+        "Name": "tf_toggle_player_model",
+        "Label": "Hide 3D Player Model",
         "Type": "Checkbox",
         "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
         "Value": "false",
         "Files": {
           "resource/ui/hudplayerclass.res": {
-            "PlayerStatusClassImage": {
-              "wide": {
-                "true": "0",
-                "false": "75"
-              },
-              "wide_minmode": {
-                "true": "0",
-                "false": "37"
-              }
-            },
-            "PlayerStatusClassImageBG": {
-              "wide": {
-                "true": "0",
-                "false": "100"
-              }
-            },
             "classmodelpanelBG": {
               "wide": {
                 "true": "0",
@@ -448,7 +460,7 @@
         }
       },
       {
-        "Name": "tf2_toggle_transparent_viewmodels",
+        "Name": "tf_toggle_transparent_viewmodels",
         "Label": "Transparent Viewmodels",
         "Type": "Checkbox",
         "ToolTip": "Toggle transparent viewmodels.",
@@ -470,16 +482,45 @@
         }
       },
       {
-        "Name": "fh_custom_background",
-        "Label": "Set Custom Background",
-        "Type": "CustomBackground",
-        "Special": "CustomBackground",
-        "ToolTip": "Replace the main menu background with a custom image.",
+        "Name": "tf_larger_damage_numbers",
+        "Label": "Larger Damage Numbers",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle larger damage numbers.",
         "Value": "false",
-        "Restart": true
+        "Files": {
+          "resource/ui/huddamageaccount.res": {
+            "CDamageAccountPanel": {
+              "delta_item_font": {
+                "true": "HudFontMediumSmallBold",
+                "false": "HudFontSmall"
+              },
+              "delta_item_font_big": {
+                "true": "HudFontMediumBold",
+                "false": "HudFontMedium"
+              }
+            }
+          }
+        }
       },
       {
-        "Name": "tf2_val_killfeed_rows",
+        "Name": "tf_bold_health_value",
+        "Label": "Bold Player Health",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle bolded player health value.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/hudplayerhealth.res": {
+            "PlayerStatusHealthValue": {
+              "font": {
+                "true": "HudFontMediumSmallBold",
+                "false": "HudClassHealth"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf_val_killfeed_rows",
         "Label": "Killfeed Rows",
         "Type": "IntegerUpDown",
         "ToolTip": "Change the number of rows seen on the killfeed.",
@@ -495,6 +536,8 @@
           }
         }
       }
+    ],
+    "Other": [
     ]
   }
 }

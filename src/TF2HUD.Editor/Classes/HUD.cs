@@ -518,6 +518,38 @@ namespace TF2HUD.Editor.Classes
                             controlItem.Control = bgInput;
                             break;
 
+                        case "homeserver":
+                            // Create the Control.
+                            var serverContainer = new StackPanel
+                            {
+                                Margin = new Thickness(10, lastTop, 0, 10)
+                            };
+                            var serverLabel = new Label
+                            {
+                                Content = label,
+                                FontSize = 18
+                            };
+                            var serverInput = new TextBox()
+                            {
+                                Name = id,
+                                Text = controlItem.Value,
+                                ToolTip = tooltip
+                            };
+
+                            // Add Events.
+                            serverInput.LostFocus += (_, _) =>
+                            {
+                                Settings.SetSetting(serverInput.Name, serverInput.Text);
+                                CheckIsDirty(controlItem);
+                            };
+
+                            // Add to Page.
+                            serverContainer.Children.Add(serverLabel);
+                            serverContainer.Children.Add(serverInput);
+                            sectionContent.Children.Add(serverContainer);
+                            controlItem.Control = serverInput;
+                            break;
+
                         default:
                             throw new Exception($"Entered type {controlItem.Type} is invalid.");
                     }
@@ -1546,7 +1578,7 @@ namespace TF2HUD.Editor.Classes
         /// </summary>
         public void CheckIsDirty(Controls control)
         {
-            if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value))
+            if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value) && !DirtyControls.Contains(control.Label))
                 DirtyControls.Add(control.Label);
             else
                 DirtyControls.Remove(control.Label);
