@@ -518,36 +518,37 @@ namespace TF2HUD.Editor.Classes
                             controlItem.Control = bgInput;
                             break;
 
-                        case "homeserver":
+                        case "text":
+                        case "textbox":
                             // Create the Control.
-                            var serverContainer = new StackPanel
+                            var textContainer = new StackPanel
                             {
                                 Margin = new Thickness(10, lastTop, 0, 10)
                             };
-                            var serverLabel = new Label
+                            var textLabel = new Label
                             {
                                 Content = label,
                                 FontSize = 18
                             };
-                            var serverInput = new TextBox()
+                            var textInput = new TextBox()
                             {
                                 Name = id,
-                                Text = controlItem.Value,
+                                Text = controlItem.Value ?? string.Empty,
                                 ToolTip = tooltip
                             };
 
                             // Add Events.
-                            serverInput.LostFocus += (_, _) =>
+                            textInput.LostFocus += (_, _) =>
                             {
-                                Settings.SetSetting(serverInput.Name, serverInput.Text);
+                                Settings.SetSetting(textInput.Name, textInput.Text);
                                 CheckIsDirty(controlItem);
                             };
 
                             // Add to Page.
-                            serverContainer.Children.Add(serverLabel);
-                            serverContainer.Children.Add(serverInput);
-                            sectionContent.Children.Add(serverContainer);
-                            controlItem.Control = serverInput;
+                            textContainer.Children.Add(textLabel);
+                            textContainer.Children.Add(textInput);
+                            sectionContent.Children.Add(textContainer);
+                            controlItem.Control = textInput;
                             break;
 
                         default:

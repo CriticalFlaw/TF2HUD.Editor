@@ -1085,7 +1085,7 @@
       {
         "Name": "fh_favorite_server",
         "Label": "Favorite Server",
-        "Type": "HomeServer",
+        "Type": "TextBox",
         "ToolTip": "Set the path for the home server button.",
         "Value": "138.197.133.71; password flawhud",
         "Restart": true,
