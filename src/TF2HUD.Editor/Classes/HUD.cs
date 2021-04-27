@@ -1103,6 +1103,27 @@ namespace TF2HUD.Editor.Classes
                     switch (control.Type.ToLowerInvariant())
                     {
                         case "checkbox":
+                            if (control.RenameFile is not null)
+                            {
+                                if (control.RenameFile.OldName.EndsWith('/'))
+                                {
+                                    if (Directory.Exists(path + control.RenameFile.NewName))
+                                        Directory.Move(path + control.RenameFile.NewName,
+                                            path + control.RenameFile.OldName);
+
+                                    if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
+                                        Directory.Move(path + control.RenameFile.OldName,
+                                            path + control.RenameFile.NewName);
+                                }
+                                else
+                                {
+                                    if (File.Exists(path + control.RenameFile.NewName))
+                                        File.Move(path + control.RenameFile.NewName, path + control.RenameFile.OldName);
+
+                                    if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
+                                        File.Move(path + control.RenameFile.OldName, path + control.RenameFile.NewName);
+                                }
+                            }
                             var fileName = Utilities.GetFileNames(control);
                             if (fileName is null or not string) continue; // File name not found, skipping.
 
@@ -1131,6 +1152,25 @@ namespace TF2HUD.Editor.Classes
                         case "dropdownmenu":
                         case "select":
                         case "combobox":
+                            foreach (var option in control.Options.Where(x => x.RenameFile is not null))
+                                if (option.RenameFile.OldName.EndsWith('/'))
+                                {
+                                    if (Directory.Exists(path + option.RenameFile.NewName))
+                                        Directory.Move(path + option.RenameFile.NewName,
+                                            path + option.RenameFile.OldName);
+
+                                    if (string.Equals(option.Value, setting.Value))
+                                        Directory.Move(path + option.RenameFile.OldName,
+                                            path + option.RenameFile.NewName);
+                                }
+                                else
+                                {
+                                    if (File.Exists(path + option.RenameFile.NewName))
+                                        File.Move(path + option.RenameFile.NewName, path + option.RenameFile.OldName);
+
+                                    if (string.Equals(option.Value, setting.Value))
+                                        File.Move(path + option.RenameFile.OldName, path + option.RenameFile.NewName);
+                                }
                             var fileNames = Utilities.GetFileNames(control);
                             if (fileNames is null or not string[]) continue; // File names not found, skipping.
 

@@ -45,6 +45,7 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("Options")] public Option[] Options;
         [JsonPropertyName("Preview")] public string Preview;
         [JsonPropertyName("Pulse")] public bool Pulse;
+        [JsonPropertyName("RenameFile")] public RenameFile RenameFile;
         [JsonPropertyName("Restart")] public bool Restart;
         [JsonPropertyName("Special")] public string Special;
         [JsonPropertyName("Tooltip")] public string Tooltip;
@@ -52,11 +53,18 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("Value")] public string Value = "0";
     }
 
+    public class RenameFile
+    {
+        [JsonPropertyName("NewName")] public string NewName;
+        [JsonPropertyName("OldName")] public string OldName;
+    }
+
     public class Option
     {
         [JsonPropertyName("FileName")] public string FileName;
         [JsonPropertyName("Files")] public JObject Files;
         [JsonPropertyName("Label")] public string Label;
+        [JsonPropertyName("RenameFile")] public RenameFile RenameFile;
         [JsonPropertyName("Special")] public string Special;
         [JsonPropertyName("Value")] public string Value;
     }
