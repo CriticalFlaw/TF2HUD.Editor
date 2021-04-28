@@ -60,7 +60,7 @@ namespace TF2HUD.Editor.Classes
                 // Get the local schema names and file sizes.
                 List<Tuple<string, int>> localFiles = new();
                 foreach (var file in new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")))
-                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int) file.Length));
+                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length));
                 if (localFiles.Count <= 0) return false;
 
                 // Setup the WebClient for download remote files.
@@ -131,9 +131,16 @@ namespace TF2HUD.Editor.Classes
                     var Url = $"https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{x.Name}.json";
                     MainWindow.Logger.Info($"Requesting {x.Name} from {Url}");
                     var response = await Utilities.Fetch(Url);
-                    if (response == null) return false;
+                    if (response == null)
+                    {
+                        MainWindow.Logger.Info($"{x.Name}: Recieved HTTP error, unable to determine whether HUD has been updated!");
+                        return false;
+                    };
                     var value = JsonConvert.DeserializeObject<HudJson>(response);
+                    // Added if !DEBUG to test compare huds method
+# if !DEBUG
                     File.WriteAllText($"JSON/{x.Name}.json", response);
+# endif
                     return !x.TestHUD(new HUD(x.Name, value));
                 }))).Contains(true);
             }
