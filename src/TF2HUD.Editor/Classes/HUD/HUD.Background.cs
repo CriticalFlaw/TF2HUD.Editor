@@ -94,11 +94,14 @@ namespace TF2HUD.Editor.Classes
 
                         if (File.Exists($"{disabledFolder}\\{HUDImagePath}_widescreen.vtf"))
                             File.Copy($"{disabledFolder}\\{HUDImagePath}.vtf", $"{consoleFolder}\\background_upward_widescreen.vtf", true);
+
+                        File.Copy("Resources\\chapterbackgrounds.txt", $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt");
                     }
                     else if (useStockBackgrounds)
                     {
                         File.Delete($"{consoleFolder}\\background_upward.vtf");
                         File.Delete($"{consoleFolder}\\background_upward_widescreen.vtf");
+                        File.Delete($"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt");
                     }
                 }
             }

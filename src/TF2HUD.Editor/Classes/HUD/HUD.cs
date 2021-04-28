@@ -88,11 +88,11 @@ namespace TF2HUD.Editor.Classes
 
             void LogChange(string prop, string before = "", string after = "")
             {
-                string message = before.Length > 0 ? $" (\"{before}\" => \"{after}\")" : string.Empty;
+                string message = before != "" ? $" (\"{before}\" => \"{after}\")" : string.Empty;
                 MainWindow.Logger.Info($"{Name}: {prop} has changed{message}, HUD has been updated.");
             }
 
-            (bool, string) CompareTwo(object obj1, object obj2, string[] ignoreList)
+            bool Compare(object obj1, object obj2, string[] ignoreList)
             {
                 foreach (var field in obj1.GetType().GetFields())
                 {
@@ -101,43 +101,54 @@ namespace TF2HUD.Editor.Classes
 
                     if (field.FieldType == typeof(string[]))
                     {
-                        var arr1 = field.GetValue(obj1) as string[];
-                        var arr2 = field.GetValue(obj1) as string[];
+                        var arr1 = (string[])field.GetValue(obj1);
+                        var arr2 = (string[])field.GetValue(obj2);
 
-                        if (arr1 != null && arr2 != null)
+                        if (arr1 == null && arr2 != null)
                         {
-                            if (arr1.Length != arr2.Length)
+                            LogChange($"{field.Name}", "*not present*", $"{arr2}[{arr2.Length}]");
+                            return false;
+                        }
+
+                        if (arr1 != null && arr2 == null)
+                        {
+                            LogChange($"{field.Name}", $"{arr2}[{arr2.Length}]", "*not present*");
+                            return false;
+                        }
+
+                        if (arr1.Length != arr2.Length)
+                        {
+                            LogChange($"{field.Name}.Length", arr1.Length.ToString(), arr2.Length.ToString());
+                            return false;
+                        }
+
+                        for (var i = 0; i < arr1.Length; i++)
+                        {
+                            if (arr1[i] != arr2[i])
                             {
-                                LogChange($"{field.Name}.Length");
-                                return (false, "field.Name");
-                            }
-                            for (var i = 0; i < arr1.Length; i++)
-                            {
-                                if (arr1[i] != arr2[i])
-                                {
-                                    LogChange($"{field.Name}[{i}]", arr1[i], arr2[i]);
-                                    return (false, "");
-                                }
+                                LogChange($"{field.Name}[{i}]", arr1[i], arr2[i]);
+                                return false;
                             }
                         }
+
                     }
                     else if (field.FieldType == typeof(Dictionary<string, Controls[]>))
                     {
-                        var value1 = field.GetValue(obj1) as Dictionary<string, Controls[]>;
-                        var value2 = field.GetValue(obj2) as Dictionary<string, Controls[]>;
+                        var value1 = (Dictionary<string, Controls[]>)field.GetValue(obj1);
+                        var value2 = (Dictionary<string, Controls[]>)field.GetValue(obj2);
 
                         if (value1.Keys.Count != value2.Keys.Count)
                         {
                             LogChange($"{field.Name}.Keys.Count", value1.Keys.Count.ToString(), value2.Keys.Count.ToString());
-                            return (false, field.Name);
+                            return false;
                         }
 
                         for (var i = 0; i < value1.Keys.Count; i++)
                         {
                             if (value1.Keys.ElementAt(i) != value2.Keys.ElementAt(i))
                             {
-                                LogChange($"GroupBox {value1.Keys.ElementAt(i)}", value1.Keys.ElementAt(i), value2.Keys.ElementAt(i));
-                                return (false, value1.Keys.ElementAt(i));
+                                LogChange($"Controls[{i}].Header", value1.Keys.ElementAt(i), value2.Keys.ElementAt(i));
+                                return false;
                             }
                         }
 
@@ -146,101 +157,138 @@ namespace TF2HUD.Editor.Classes
                             if (value1[key].Length != value2[key].Length)
                             {
                                 LogChange($"{field.Name}[\"{key}\"].Length", value1[key].Length.ToString(), value2[key].Length.ToString());
-                                return (false, $"{field.Name}[\"{key}\"].Length");
+                                return false;
                             }
 
                             for (var i = 0; i < value1[key].Length; i++)
                             {
-                                var comparison = CompareTwo(value1[key][i], value2[key][i], new string[]
+                                var comparison = Compare(value1[key][i], value2[key][i], new string[]
                                 {
                                     "Control",
                                     "Value"
                                 });
-                                if (!comparison.Item1)
+                                if (!comparison)
                                 {
-                                    return (false, comparison.Item2);
+                                    return false;
                                 }
                             }
                         }
                     }
                     else if (field.FieldType == typeof(JObject))
                     {
-                        var comparison = CompareFiles(field.GetValue(obj1) as JObject, field.GetValue(obj2) as JObject);
+                        var comparison = CompareFiles((JObject)field.GetValue(obj1), (JObject)field.GetValue(obj2), $"{field.Name}.Files => ");
 
-                        if (!comparison.Item1)
+                        if (!comparison)
                         {
-                            return (false, comparison.Item2);
+                            return false;
+                        }
+                    }
+                    else if (field.FieldType == typeof(Option[]))
+                    {
+                        var arr1 = (Option[])field.GetValue(obj1);
+                        var arr2 = (Option[])field.GetValue(obj2);
+
+                        if (arr1 == null && arr2 != null)
+                        {
+                            LogChange($"{field.Name}", "*not present*", $"{arr2}[{arr2.Length}]");
+                            return false;
+                        }
+
+                        if (arr1 != null && arr2 == null)
+                        {
+                            LogChange($"{field.Name}", $"{arr1}[{arr1.Length}]", "*not present*");
+                            return false;
+                        }
+
+                        if (arr1.Length != arr2.Length)
+                        {
+                            LogChange($"{field.Name}.Length", arr1.Length.ToString(), arr2.Length.ToString());
+                            return false;
+                        }
+
+                        for (var i = 0; i < arr1.Length; i++)
+                        {
+                            var comparison = Compare(arr1[i], arr2[i], new string[] { });
+                            if (!comparison)
+                            {
+                                return false;
+                            }
                         }
                     }
                     else if (field.GetValue(obj1).ToString() != field.GetValue(obj2).ToString())
                     {
                         LogChange(field.Name, field.GetValue(obj1).ToString(), field.GetValue(obj2).ToString());
-                        return (false, field.Name);
+                        return false;
                     }
                 }
-                return (true, "");
+                return true;
             }
 
-            (bool, string) CompareFiles(JObject obj1, JObject obj2, string path = "")
+            bool CompareFiles(JObject obj1, JObject obj2, string path = "")
             {
                 if (obj1 == null && obj2 == null)
                 {
-                    return (true, "");
+                    return true;
                 }
+
                 foreach (var x in obj1)
                 {
                     if (!obj2.ContainsKey(x.Key))
                     {
                         LogChange($"{path}{x.Key}", x.Key, "*not present*");
-                        return (false, x.Key);
+                        return false;
                     }
                 }
+
                 foreach (var x in obj2)
                 {
                     if (!obj1.ContainsKey(x.Key))
                     {
                         LogChange($"{path}{x.Key}", "*not present*", x.Key);
-                        return (false, x.Key);
+                        return false;
                     }
                 }
+
                 foreach (var x in obj1)
                 {
                     if (obj1[x.Key].Type == JTokenType.Object && obj2[x.Key].Type == JTokenType.Object)
                     {
-                        var comparison = CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(), x.Key + "/");
-                        if (!comparison.Item1)
+                        var comparison = CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(), $"{path}/{x.Key}");
+                        if (!comparison)
                         {
-                            return (false, comparison.Item2);
+                            return false;
                         }
                     }
                     else if (x.Value.Type == JTokenType.Array && obj2[x.Key].Type == JTokenType.Array)
                     {
                         var arr1 = obj1[x.Key].ToArray();
                         var arr2 = obj2[x.Key].ToArray();
+
                         if (arr1.Length != arr2.Length)
                         {
-                            LogChange($"{path}{x.Key}", arr1.Length.ToString(), arr2.Length.ToString());
-                            return (false, $"{path}{x.Key}");
+                            LogChange($"{path}{x.Key}.Length", arr1.Length.ToString(), arr2.Length.ToString());
+                            return false;
                         }
+
                         for (var i = 0; i < arr1.Length; i++)
                         {
                             if (arr1[i].ToString() != arr2[i].ToString())
                             {
                                 LogChange($"{path}{x.Key}/[{i}]", arr1[i].ToString(), arr2[i].ToString());
-                                return (false, $"{x.Key}.Length");
+                                return false;
                             }
                         }
                     }
                     else if (x.Value.ToString() != obj2[x.Key].ToString())
                     {
                         LogChange(x.Key, x.Value.ToString(), obj2[x.Key].ToString());
-                        return (false, x.Key);
+                        return false;
                     }
                 }
-                return (true, "");
+                return true;
             }
 
-            var (equal, fieldChanged) = CompareTwo(this, hud, new string[]
+            var equal = Compare(this, hud, new string[]
             {
                 "controls",
                 "DirtyControls",
