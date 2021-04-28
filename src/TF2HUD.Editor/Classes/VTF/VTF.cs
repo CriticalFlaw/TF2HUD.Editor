@@ -29,7 +29,7 @@ namespace TF2HUD.Editor.Classes
             Directory.CreateDirectory(materialSrc);
 
             // Save image as .tga (cast using TGASharpLib)
-            var tgaSquareImage = (TGA) ResizeImage(image);
+            var tgaSquareImage = (TGA)ResizeImage(image);
             tgaSquareImage.Save($"{materialSrc}\\temp.tga");
 
             // Convert using VTEX
@@ -104,7 +104,15 @@ namespace TF2HUD.Editor.Classes
             };
 
             // Call Vtex and pass the parameters.
-            Process.Start($"{_tf2Path}\\bin\\vtex.exe", string.Join(" ", args))?.WaitForExit();
+            var processInfo = new ProcessStartInfo($"{_tf2Path}\\bin\\vtex.exe")
+            {
+                Arguments = string.Join(" ", args),
+                UseShellExecute = true
+            };
+
+            var process = Process.Start(processInfo);
+            process.WaitForExit();
+            process.Close();
         }
     }
 }

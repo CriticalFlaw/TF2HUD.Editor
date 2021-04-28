@@ -22,9 +22,11 @@ namespace TF2HUD.Editor.Classes
     internal class BackgroundManager
     {
         private readonly string HUDFolderPath;
-        private string customImagePath;
-        private bool useCustomBackground;
         private bool useStockBackgrounds;
+        private bool useHUDBackground;
+        private string HUDImagePath;
+        private bool useCustomBackground;
+        private string customImagePath;
 
         public BackgroundManager(string hudPath)
         {
@@ -33,13 +35,25 @@ namespace TF2HUD.Editor.Classes
 
         public void SetStockBackgrounds(bool enable)
         {
-            useStockBackgrounds = enable;
+            MainWindow.Logger.Info($"BackgroundManager: Setting stock backgrounds");
+            useStockBackgrounds = true;
         }
 
-        public void SetCustomBackground(string imagePath, bool enable)
+        public void SetHUDBackground(string imagePath)
         {
-            useCustomBackground = enable;
-            customImagePath = imagePath;
+            MainWindow.Logger.Info($"BackgroundManager: Setting HUD Background to {imagePath}");
+            useHUDBackground = true;
+            HUDImagePath = imagePath;
+        }
+
+        public void SetCustomBackground(string imagePath)
+        {
+            if (imagePath != "")
+            {
+                MainWindow.Logger.Info($"BackgroundManager: Setting custom Background to {imagePath}");
+                useCustomBackground = true;
+                customImagePath = imagePath;
+            }
         }
 
         public void Apply()
@@ -47,106 +61,51 @@ namespace TF2HUD.Editor.Classes
             try
             {
                 var path = HUDFolderPath;
+                var consoleFolder = path + "materials\\console\\";
+                var disabledFolder = consoleFolder + "TF2HUD.Editor.DisabledBackgrounds";
 
-                // Revert everything back to normal before changing the name extension.
-                var directoryPath = new DirectoryInfo(path + "\\materials\\console");
-                foreach (var file in directoryPath.GetFiles())
+                Directory.CreateDirectory(consoleFolder);
+
+                if (!Directory.Exists(disabledFolder))
                 {
-                    var target = file.FullName;
-                    if (file.Name.EndsWith("bak"))
+                    Directory.CreateDirectory(disabledFolder);
+                    foreach (var filePath in Directory.GetFiles(consoleFolder))
                     {
-                        target = target.Replace("bak", "vtf");
-                        File.Move(file.FullName, target, true);
-                    }
-
-                    if (file.Name.EndsWith("temp"))
-                    {
-                        target = target.Replace("temp", "vmt");
-                        File.Move(file.FullName, target, true);
+                        File.Move(filePath, $"{disabledFolder}\\{filePath.Split("\\")[^1]}", true);
                     }
                 }
 
-                // Do the same for the chapter backgrounds file as well.
-                var chapterBackgrounds = path + "\\scripts\\chapterbackgrounds.bak";
-                if (File.Exists(chapterBackgrounds))
-                    File.Move(chapterBackgrounds, chapterBackgrounds.Replace(".bak", ".txt"), true);
-
-                // If we're not enabling stock background, then skip this process.
-                if (!useStockBackgrounds) return;
-
-                // Rename the file extensions so that the game does not use them.
-                foreach (var file in directoryPath.GetFiles())
+                if (useCustomBackground && customImagePath != "")
                 {
-                    var target = file.FullName;
-                    if (file.Name.EndsWith("vtf"))
-                    {
-                        target = target.Replace("vtf", "bak");
-                        File.Move(file.FullName, target, true);
-                    }
+                    var converter = new VTF(MainWindow.HudPath.Replace("\\tf\\custom\\", string.Empty));
 
-                    if (file.Name.EndsWith("vmt"))
+                    var output = $"{consoleFolder}\\background_upward.vtf";
+                    converter.Convert(customImagePath, output);
+
+                    File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
+                    File.Copy("Resources\\chapterbackgrounds.txt", $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt", true);
+                }
+                else
+                {
+                    if (useHUDBackground)
                     {
-                        target = target.Replace("vmt", "temp");
-                        File.Move(file.FullName, target, true);
+                        if (File.Exists($"{disabledFolder}\\{HUDImagePath}.vtf"))
+                            File.Copy($"{disabledFolder}\\{HUDImagePath}.vtf", $"{consoleFolder}\\background_upward.vtf", true);
+
+                        if (File.Exists($"{disabledFolder}\\{HUDImagePath}_widescreen.vtf"))
+                            File.Copy($"{disabledFolder}\\{HUDImagePath}.vtf", $"{consoleFolder}\\background_upward_widescreen.vtf", true);
+                    }
+                    else if (useStockBackgrounds)
+                    {
+                        File.Delete($"{consoleFolder}\\background_upward.vtf");
+                        File.Delete($"{consoleFolder}\\background_upward_widescreen.vtf");
                     }
                 }
-
-                if (File.Exists(chapterBackgrounds.Replace(".bak", ".txt")))
-                    File.Move(chapterBackgrounds.Replace(".bak", ".txt"), chapterBackgrounds, true);
             }
             catch (Exception ex)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, ex.Message);
             }
-        }
-
-        /// <summary>
-        ///     Generate or remove a custom background.
-        /// </summary>
-        public string ApplyCustomBackground()
-        {
-            try
-            {
-                // Check that the directory for the game backgrounds exists.
-                var bgPath = $"{HUDFolderPath}\\materials\\console";
-                if (!Directory.Exists(bgPath))
-                    Directory.CreateDirectory(bgPath);
-
-                // Get the image path from the user if it is not already set.
-                customImagePath = string.IsNullOrWhiteSpace(customImagePath) ? GetFilePathFromUser() : customImagePath;
-
-                // Initialize the VTF converter then convert the image file.
-                var converter = new VTF(MainWindow.HudPath.Replace("\\tf\\custom\\", string.Empty));
-                var output = $"{bgPath}\\background_upward.vtf";
-                converter.Convert(customImagePath, output);
-
-                // Copy the generated background file and chapterbackgrounds.txt to apply the changes.
-                File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
-                File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\chapterbackgrounds.txt",
-                    $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt", true);
-                return customImagePath;
-            }
-            catch (Exception ex)
-            {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, ex.Message);
-                return null;
-            }
-        }
-
-        /// <summary>
-        ///     Get the custom background image path from the user.
-        /// </summary>
-        /// <returns>String path to the new background image file.</returns>
-        public static string GetFilePathFromUser()
-        {
-            using var browser = new OpenFileDialog
-            {
-                Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png",
-                Title = Resources.ask_image_browser,
-                Multiselect = false
-            };
-            browser.ShowDialog();
-            return string.IsNullOrWhiteSpace(browser.FileName) ? null : browser.FileName;
         }
     }
 }

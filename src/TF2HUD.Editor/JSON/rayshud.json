@@ -77,7 +77,7 @@
         "Name": "rh_color_uber_bar",
         "Label": "Charging",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the ÜberCharge when charging.",
+        "ToolTip": "Color of the ï¿½berCharge when charging.",
         "Value": "235 226 202 255",
         "Restart": true,
         "Files": {
@@ -94,7 +94,7 @@
         "Name": "rh_color_uber_full",
         "Label": "Charged Solid",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the ÜberCharge when full.",
+        "ToolTip": "Color of the ï¿½berCharge when full.",
         "Value": "255 50 25 255",
         "Restart": true,
         "Files": {
@@ -111,7 +111,7 @@
         "Name": "rh_color_uber_flash1",
         "Label": "Charged Flash 1",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the ÜberCharge when flash style is enabled.",
+        "ToolTip": "Color of the ï¿½berCharge when flash style is enabled.",
         "Value": "255 165 0 255",
         "Restart": true,
         "Files": {
@@ -128,7 +128,7 @@
         "Name": "rh_color_uber_flash2",
         "Label": "Charged Flash 2",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the ÜberCharge when flash style is enabled.",
+        "ToolTip": "Color of the ï¿½berCharge when flash style is enabled.",
         "Value": "255 69 0 255",
         "Restart": true,
         "Files": {
@@ -840,34 +840,18 @@
           {
             "Label": "Modern",
             "Value": "0",
-            "Files": {
-              "materials/console/background_upward.vmt": {
-                "UnlitGeneric": {
-                  "$baseTexture": "console/background_modern"
-                }
-              },
-              "materials/console/background_upward_widescreen.vmt": {
-                "UnlitGeneric": {
-                  "$baseTexture": "console/background_modern_widescreen"
-                }
-              }
-            }
+            "Special":"HUDBackground",
+            "SpecialParameters": [
+                "background_modern"
+            ]
           },
           {
             "Label": "Classic",
             "Value": "1",
-            "Files": {
-              "materials/console/background_upward.vmt": {
-                "UnlitGeneric": {
-                  "$baseTexture": "console/background_classic"
-                }
-              },
-              "materials/console/background_upward_widescreen.vmt": {
-                "UnlitGeneric": {
-                  "$baseTexture": "console/background_classic_widescreen"
-                }
-              }
-            }
+            "Special": "HUDBackground",
+            "SpecialParameters": [
+                "background_classic"
+            ]
           },
           {
             "Label": "Default",
@@ -892,6 +876,15 @@
             }
           }
         }
+      },
+      {
+        "Name": "rh_custom_background",
+        "Label": "Set Custom Background",
+        "Type": "CustomBackground",
+        "Special": "CustomBackground",
+        "ToolTip": "Replace the main menu background with a custom image.",
+        "Value": "",
+        "Restart": true
       }
     ]
   }

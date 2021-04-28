@@ -61,7 +61,7 @@ namespace TF2HUD.Editor
                 if (restartRequired.Result)
                 {
                     var result = MessageBox.Show("Application restart required to update HUD schemas, would you like to restart now?", "Restart Required", MessageBoxButton.YesNo, MessageBoxImage.Information);
-                    if(result == MessageBoxResult.Yes)
+                    if (result == MessageBoxResult.Yes)
                     {
                         System.Diagnostics.Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                         Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
@@ -191,7 +191,7 @@ namespace TF2HUD.Editor
         {
             // Try to find the Steam library path in the registry.
             var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-            var registry = (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
+            var registry = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
                 "InstallPath", null);
 
             if (string.IsNullOrWhiteSpace(registry)) return false;
@@ -328,7 +328,7 @@ namespace TF2HUD.Editor
             if (GbSelectHud.Visibility == Visibility.Visible)
             {
                 var converter = new BrushConverter();
-                MainGrid.Background = (Brush) converter.ConvertFromString("#2B2724");
+                MainGrid.Background = (Brush)converter.ConvertFromString("#2B2724");
                 return;
             }
 

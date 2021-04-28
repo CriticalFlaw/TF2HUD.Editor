@@ -437,28 +437,105 @@ namespace TF2HUD.Editor.Classes
                             break;
 
                         case "custombackground":
+
+                            var bgContainer = new Grid
+                            {
+                                Margin = new Thickness(10, lastTop + 10, 0, 0),
+                                ToolTip = tooltip
+                            };
+
+                            bgContainer.ColumnDefinitions.Add(new ColumnDefinition());
+                            bgContainer.ColumnDefinitions.Add(new ColumnDefinition());
+                            bgContainer.RowDefinitions.Add(new RowDefinition());
+                            bgContainer.RowDefinitions.Add(new RowDefinition());
+                            bgContainer.RowDefinitions.Add(new RowDefinition());
+
+                            var bgLabel = new Label
+                            {
+                                Content = controlItem.Label
+                            };
+                            Grid.SetColumn(bgLabel, 0);
+                            Grid.SetColumnSpan(bgLabel, 2);
+                            Grid.SetRow(bgLabel, 0);
+
                             // Create the Control.
                             var bgInput = new Button
                             {
                                 Name = id,
-                                Content = label,
+                                Content = "Browse",
+                                // Width = 100,
                                 Height = 32,
-                                Margin = new Thickness(10, lastTop + 10, 0, 0),
                                 Padding = new Thickness(5, 2, 5, 0),
-                                ToolTip = tooltip
+                                HorizontalAlignment = HorizontalAlignment.Stretch
                             };
+
+                            Grid.SetColumn(bgInput, 0);
+                            Grid.SetRow(bgInput, 1);
+
+                            var clearInput = new Button
+                            {
+                                Content = "Reset",
+                                // Width = 100,
+                                Height = 32,
+                                Padding = new Thickness(5, 2, 5, 0),
+                                HorizontalAlignment = HorizontalAlignment.Stretch
+                            };
+
+                            Grid.SetColumn(clearInput, 1);
+                            Grid.SetRow(clearInput, 1);
+
+                            // Add preview image
+                            var bgImage = new Image
+                            {
+                                Width = 200,
+                                HorizontalAlignment = HorizontalAlignment.Left,
+                                VerticalAlignment = VerticalAlignment.Top
+                            };
+
+                            Grid.SetColumn(bgImage, 0);
+                            Grid.SetColumnSpan(bgImage, 2);
+                            Grid.SetRow(bgImage, 2);
 
                             // Add Events.
                             bgInput.Click += (_, _) =>
                             {
-                                //if (MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.ask_custom_background, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
-                                //var imagePath = new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\").ApplyCustomBackground();
-                                //Settings.SetSetting(bgInput.Name, imagePath);
-                                //CheckIsDirty(controlItem);
+                                using (var fbd = new System.Windows.Forms.OpenFileDialog())
+                                {
+                                    fbd.ShowDialog();
+                                    if (string.IsNullOrWhiteSpace(fbd.FileName)) return;
+                                    var path = $"{System.Windows.Forms.Application.LocalUserAppDataPath}\\Images\\{fbd.FileName.Split('\\')[^1]}";
+
+                                    bgImage.Source = new BitmapImage(new Uri(fbd.FileName));
+
+                                    Settings.SetSetting(controlItem.Name, path);
+
+                                    MainWindow.Logger.Info($"Copying {fbd.FileName} to {path}");
+
+                                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+                                    File.Copy(fbd.FileName, path, true);
+                                }
+                                CheckIsDirty(controlItem);
                             };
 
+                            clearInput.Click += (_, _) =>
+                            {
+                                bgImage.Source = null;
+                                Settings.SetSetting(controlItem.Name, "");
+                            };
+
+                            var imageSource = Settings.GetSetting<string>(controlItem.Name);
+
+                            if (imageSource != "")
+                            {
+                                bgImage.Source = new BitmapImage(new Uri(imageSource));
+                            }
+
                             // Add to Page.
-                            sectionContent.Children.Add(bgInput);
+                            bgContainer.Children.Add(bgLabel);
+                            bgContainer.Children.Add(bgInput);
+                            bgContainer.Children.Add(clearInput);
+                            bgContainer.Children.Add(bgImage);
+                            sectionContent.Children.Add(bgContainer);
                             controlItem.Control = bgInput;
                             break;
 

@@ -278,7 +278,7 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
-                var (Files, Special) = GetControlInfo(hudSetting, userSetting);
+                var (Files, Special, SpecialParameters) = GetControlInfo(hudSetting, userSetting);
 
                 // Check for special cases like stock or custom backgrounds.
                 if (Special is not null)
@@ -290,7 +290,7 @@ namespace TF2HUD.Editor.Classes
                     if (string.Equals(userSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
                         enable = !string.Equals(userSetting.Value, "0");
 
-                    EvaluateSpecial(Special, userSetting, enable);
+                    EvaluateSpecial(Special, userSetting, enable, SpecialParameters);
                 }
 
                 if (Files == null) return;
@@ -660,47 +660,32 @@ namespace TF2HUD.Editor.Classes
             }
         }
 
-        private (JObject, string) GetControlInfo(Controls hudSetting, Setting userSetting)
+        private (JObject, string, string[]) GetControlInfo(Controls hudSetting, Setting userSetting)
         {
             if (!string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
-                return (hudSetting.Files, hudSetting.Special);
+                return (hudSetting.Files, hudSetting.Special, hudSetting.SpecialParameters);
             // Determine files using the files of the selected item's label or value
             // Could cause issues if label and value are both numbers but numbered differently
             var selected =
                 hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value);
-            return (selected.Files, selected.Special);
+            return (selected.Files, selected.Special, selected.SpecialParameters);
         }
 
-        private void EvaluateSpecial(string Special, Setting userSetting, bool enable)
+        private void EvaluateSpecial(string Special, Setting userSetting, bool enable, string[] parameters)
         {
             // Check for special conditions, namely if we should enable stock backgrounds.
 
             if (string.Equals(Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
-                SetStockBackgrounds(MainWindow.HudPath + "\\" + Name + "\\materials\\console", enable);
+                HUDBackground.SetStockBackgrounds(enable);
+
+            if (string.Equals(Special, "HUDBackground", StringComparison.CurrentCultureIgnoreCase))
+                HUDBackground.SetHUDBackground(parameters[0]);
 
             if (string.Equals(Special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase))
-                SetCustomBackground(userSetting.Value, enable);
+                HUDBackground.SetCustomBackground(userSetting.Value);
 
             if (string.Equals(Special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
                 CopyTransparentViewmodelAddon(enable);
-        }
-
-        /// <summary>
-        ///     Toggle default backgrounds by renaming their file extensions.
-        /// </summary>
-        public bool SetStockBackgrounds(string imagePath, bool enable)
-        {
-            HUDBackground.SetStockBackgrounds(enable);
-            return true;
-        }
-
-        /// <summary>
-        ///     Generate a VTF background using an image provided by the user.
-        /// </summary>
-        public bool SetCustomBackground(string imagePath, bool enable)
-        {
-            HUDBackground.SetCustomBackground(imagePath, enable);
-            return true;
         }
 
         /// <summary>
