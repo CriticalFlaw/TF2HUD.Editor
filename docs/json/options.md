@@ -1,4 +1,4 @@
-This section is for defining individual items in a ComboBox or DropDown menu. As such, only refer to this section if your control is of type `DropDown`, `DropDownMenu`, `Select` or `Crosshair`.
+This section covers individual options available in a list-type controls like `DropDown`, `DropDownMenu` or `Select`. Below is an example of a list control with options for enabling specific animations based on the option selected.
 
 ```
 "Name": "rh_val_uber_animation",
@@ -43,23 +43,30 @@ This section is for defining individual items in a ComboBox or DropDown menu. As
 
 ### Label
 
-Text for the option that is displayed on screen.
+**Required**. Sets the name of the option as it will be shown on screen.
 
 ```
 "Label": "Broesel"
 ```
 
+---
+
 ### Value
 
-The underlying value of this option, that will be used by the editor.
+**Required**. Sets the underlying value for this option that will be used by the editor.
 
 ```
 "Value": "1"
 ```
 
+---
+
 ### Files
 
-A list of files, each with specific instructions on which element property needs to be updated and with which values. The path to each file is relative to the root of the HUD and each nested object within the file path has to match what's in the HUD file, otherwise the editor will not be able to apply the changes. For more information on this property, [see here][docs-files].
+**Optional**. Defines a list of files that will need to be updated if the given option is selected, where each file path is relative to the root of the HUD.
+
+!!! warning
+    Each nested object within the file path has to match the contents of the HUD file, otherwise the editor will not be able to apply the changes.
 
 ```
 "Files": {
@@ -69,9 +76,6 @@ A list of files, each with specific instructions on which element property needs
 			"ypos": "c120"
 		},
 		"ItemEffectMeterLabel": {
-			"wide": "120"
-		},
-		"ItemEffectMeter": {
 			"wide": "120"
 		}
 	},
@@ -84,32 +88,41 @@ A list of files, each with specific instructions on which element property needs
 }
 ```
 
+---
+
 ### FileName
 
-Name of the file, found in `CustomizationsFolder` that will need to be moved to `EnabledFolder` if this option is selected.
+**Optional**. Name of the file or folder that will be moved from `CustomizationsFolder` to `EnabledFolder` if this option is selected.
 
-!!! note
-    Only add this property if you want a customization file to be moved for this option. 
+!!! warning
+    Do not use this property in conjuction with **Files** or **Special**. Only use one of the three separately.
 
 ```
 "FileName": "hudplayerhealth-broesel.res"
 ```
 
+---
+
 ### Special
 
-Special case property for commands that otherwise cannot be defined in the schema file. For more information on this property, [see here][docs-special].
+**Optional**. Special case property for customizations that otherwise cannot be through the schema. For more information, see [this section][docs-special].
 
-!!! note
-    Only add this property if you want to use a special command that's available [here][docs-special].
+!!! warning
+    Do not use this property in conjuction with **Files** or **FileName**. Only use one of the three separately.
 	
 ```
 "Special": "StockBackgrounds"
 ```
 
+---
+
+### SpecialParameters
+
+**Optional**. 
+	
+```
+"SpecialParameters": ""
+```
+
 <!-- MARKDOWN LINKS -->
-[json-budhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/budhud.json
-[json-flawhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/flawhud.json
-[json-rayshud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/rayshud.json
-[json-sample]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/docs/resources/sample.json
-[docs-files]: https://www.editor.criticalflaw.ca/json/files/
 [docs-special]: https://www.editor.criticalflaw.ca/json/special/

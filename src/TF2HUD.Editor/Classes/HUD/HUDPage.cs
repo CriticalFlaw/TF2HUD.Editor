@@ -441,6 +441,7 @@ namespace HUDEditor.Classes
 
                             break;
 
+                        case "background":
                         case "custombackground":
 
                             var bgContainer = new Grid

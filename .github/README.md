@@ -12,9 +12,9 @@
   <p align="center">
     Install and customize your favorite custom Team Fortress 2 HUDs.
     <br />
-    <a href="https://www.editor.criticalflaw.ca//install/">Installation</a>
+    <a href="https://www.editor.criticalflaw.ca/">Documentation</a>
     ·
-    <a href="https://www.editor.criticalflaw.ca//">Documentation</a>
+    <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases">Releases</a>
     ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/issues">Issue Tracker</a>
   </p>
@@ -24,7 +24,7 @@
 
 ### Installation
 
-1. Download and install the [Microsoft .NET 5.0 Runtime][runtime-link]. ([x86][runtime86-link], [x64][runtime64-link])
+1. Download and install the [Microsoft .NET 5.0 Runtime][runtime-link] for desktop apps.
 2. Download and extract the [latest version of the editor][releases-link].
 3. Run the executable **TF2HUD.Editor.exe**
 
@@ -44,9 +44,9 @@ If you need help, report a bug or ask a question related to the project...
 This project is open-source and contributions towards the code and documentation are welcomed and encouraged.
 
 Some of the ways you can contribute to the project include:
-* Code changes towards new features, enhancements and bug fixes, for on-going tasks see our [Issue Tracker][issues-link].
-* Adding support for custom HUDs by creating JSON schema files, for details read the [JSON Documentation][json-link].
-* Maintaining, expanding and improving this documentation to help to other users.
+* Code changes towards new features, enhancements and bug fixes. For on-going tasks, see our [issue tracker][issues-link].
+* Adding support for custom HUDs by creating schema files. For instructions, refer to [this section of the documentation][json-link].
+* Maintaining, expanding and improving the [documentation][docs-link] to help to other users.
 * Sponsor this project through [GitHub Sponsors][sponsors-link].
 
 ### Credits
@@ -61,7 +61,7 @@ Some of the ways you can contribute to the project include:
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [license-shield]: https://img.shields.io/github/license/CriticalFlaw/TF2HUD.Editor?style=flat-square
 [license-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/blob/master/.github/LICENSE
-[docs-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml/badge.svg?branch=master&style=flat-square
+[docs-shield]: https://readthedocs.org/projects/tf2hudeditor/badge/?version=latest&style=flat-square
 [docs-link]: https://www.editor.criticalflaw.ca/
 [json-link]: https://www.editor.criticalflaw.ca/json/base/
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
@@ -71,5 +71,3 @@ Some of the ways you can contribute to the project include:
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
 [sponsors-link]: https://github.com/sponsors/CriticalFlaw
 [runtime-link]: https://dotnet.microsoft.com/download/dotnet/5.0/runtime
-[runtime86-link]: https://download.visualstudio.microsoft.com/download/pr/c089205d-4f58-4f8d-ad84-c92eaf2f3411/5cd3f9b3bd089c09df14dbbfb64124a4/windowsdesktop-runtime-5.0.5-win-x86.exe
-[runtime64-link]: https://download.visualstudio.microsoft.com/download/pr/c1ef0b3f-9663-4fc5-85eb-4a9cadacdb87/52b890f91e6bd4350d29d2482038df1c/windowsdesktop-runtime-5.0.5-win-x64.exe

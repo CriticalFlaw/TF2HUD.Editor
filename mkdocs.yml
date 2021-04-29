@@ -5,10 +5,19 @@ theme:
     name: material
     logo: resources/logo.png
     favicon: resources/logo.png
+    features:
+        - navigation.expand
     palette:
-        scheme: slate
-        primary: amber
-        accent: orange
+		primary: indigo
+		accent: orange
+		- scheme: default
+		  toggle:
+			icon: material/toggle-switch-off-outline
+			name: Switch to dark mode
+		- scheme: slate
+		  toggle:
+			icon: material/toggle-switch
+			name: Switch to light mode
 repo_name: GitHub
 site_url: https://www.editor.criticalflaw.ca/
 repo_url: https://github.com/CriticalFlaw/TF2HUD.Editor/
@@ -17,10 +26,16 @@ nav:
     - Installation: 'install.md'
     - Troubleshooting: 'troubleshoot.md'
     - How to Contribute: 'contribute.md'
-    - Adding your HUD:
-        - 1. Base Settings: 'json/base.md'
-        - 2. Controls: 'json/controls.md'
-        - 3. Menu Option: 'json/options.md'
+    - Adding your HUD: 
+        - 0. Introduction: 'json/intro.md'
+        - 1. Main Settings: 'json/base.md'
+        - 2. User Controls: 'json/controls.md'
+        - 3. List Options: 'json/options.md'
+hide:
+  - toc
+google_analytics:
+  - G-Q532RTS1WC
+  - auto
 markdown_extensions:
     - admonition
     - pymdownx.superfences

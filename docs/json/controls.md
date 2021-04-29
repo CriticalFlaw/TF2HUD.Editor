@@ -1,4 +1,4 @@
-This section is for individual controls that will be displayed on the form, grouped with other controls of similar theme or purpose. Each control will contain instructions on the change that will need to be applied to the HUD's files if enabled.
+This section covers the controls that are displayed on the HUD page, grouped with other controls of similar purpose. This will include properties only available to specific types of controls.
 
 ```
 "Crosshair":
@@ -69,132 +69,199 @@ This section is for individual controls that will be displayed on the form, grou
 ]
 ```
 
----
-
-## Required
-
 ### Name
 
-Name of the control. This name must be unique, have no spaces and give an idea as to what this control will do.
+**Required**. Name of the control. This name must be unique, have no spaces and suggest the control's purpose.
 
 !!! note
-    To avoid potential conflicts, prefix each control name with an abbreviation for the HUD. Foe example, budhud is bh, flawhud is fh etc.
+    To avoid conflicts, prefix each name with an abbreviation for the HUD. Example; budhud is bh, flawhud is fh.
 
 ```
 "Name": "fh_color_health_buff"
 ```
 
+---
+
 ### Label
 
-Text that will be displayed near the control. This space is limited so save longer explanations for the `Tooltip` property.
+**Required**. Text displayed near the control. This space is limited, so save longer explanations for the [Tooltip](https://www.editor.criticalflaw.ca/json/controls/#tooltip) property.
 
 ```
 "Label": "Buffed Health"
 ```
 
+---
+
 ### Type
 
-Defines the type of control this will appear as on the page. Here are the currently supported types:
+**Required**. Defines the type of control this will appear as on the page. Below are the supported types:
 
-* `CheckBox` - A toggle, the customization option will either be enabled or disabled depending on the state of this control.
-* `Color`, `Colour`, `ColorPicker` and `ColourPicker` - A color picker will open letting the user to select an RGBA color.
-* `DropDown`, `DropDownMenu`, `Select` and `ComboBox` - A list of options, capable of holding multiple customizations in one control but can be a bit complex to implement.
-* `Number`, `Integer`, `IntegerUpDown` - A number counter that can be changed to any value between a set minimum and maximum. Typically would be used for crosshair sizes and number of rows on the killfeed to display.
+* **CheckBox** - Toggling this will either enable or disablee the customization option attached to this control.
+* **ColorPicker** - Opens a color picker for the user to select an RGBA color. Can also use **Color**, **Colour** or **ColourPicker**.
+* **ComboBox** - Contains a list of [options](https://www.editor.criticalflaw.ca/json/controls/#options), each with their own customization instructions. Can also use **DropDown**, **DropDownMenu** or **Select**.
+* **IntegerUpDown** - An integer counter ranging between set minimum and maximum values. Commonly to be used for crosshair sizes and number of rows on the killfeed. Can also use **Number** or **Integer**.
+* **Crosshair** - TODO. Can also use **CustomCrosshair**.
+* **Background** - TODO. Can also use **CustomBackground**.
+* **TextBox** - TODO. Can also use **Text**.
 
-```
-"Type": "ColorPicker"
-```
+---
 
 ### Value
 
-Required. The default value for that control. The value has to be compatible with the control type defined earlier. Examples of the values for each control type are:
+**Required**. Default value for the control, compatible with the selected control [type](https://www.editor.criticalflaw.ca/json/controls/#type). Allowed values per type are listed below:
 
-* true, false - CheckBox
-* RGBA Color Code - Color, Colour, ColorPicker, ColourPicker.
-* Selected Item Number - DropDown, DropDownMenu, Select, ComboBox, Crosshair.
-* Selected Number - Number, Integer, IntegerUpDown.
+* **CheckBox** - true, false.
+* **ColorPicker** - RGBA color code, **30 30 30 200**.
+* **ComboBox** - Integer value of the option selected.
+* **IntegerUpDown** - Integer value within the set range.
+* **Crosshair** - Integer value of the option selected.
+* **Background** - Not required.
+* **TextBox** - Not required.
 
-```
-"Value": "0 170 127 255"
-```
-
-## Optional
+---
 
 ### Tooltip
 
-The text that will display when you hover the mouse over control.
+**Optional**. Text that shown when the user hovers their mouse over control.
 
 ```
 "Tooltip": "Color of player's health, when buffed."
 ```
 
+---
+
+### Restart
+
+**Optional**. If true, the editor will tell the user that the game must be restarted for this customization to apply.
+
+```
+"Restart": false
+```
+
+---
+
+### Preview
+
+**Optional**. Sets the image that previews the effect of this customization option. If a valid image is supplied, a question mark button will appear near the control that will open a modal with the linked image when pressed.
+
+```
+"Preview": "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
+```
+
+---
+
 ### Special
 
-Special case property for commands that otherwise cannot be defined in the schema file. For more information on this property, [see here][docs-special].
+**Optional**. Special case property for customizations that otherwise cannot be through the schema. For more information, see [this section][docs-special].
 
 ```
 "Special": "StockBackgrounds"
 ```
 
+---
+
+### SpecialParameters
+
+**Optional**. TODO
+
+```
+"SpecialParameters": ""
+```
+
+---
+
+### Files
+
+**Optional**. Defines a list of files that will need to be updated if the given option is selected, where each file path is relative to the root of the HUD.
+
+!!! warning
+    Each nested object within the file path has to match the contents of the HUD file, otherwise the editor will not be able to apply the changes.
+
+---
+
 ### FileName
 
-Name of the file, found in `CustomizationsFolder` that will need to be moved to `EnabledFolder` if this option is selected.
+**Optional**. Name of the file or folder that will be moved from `CustomizationsFolder` to `EnabledFolder` if this option is selected.
 
 ```
 "FileName": "hudplayerhealth-broesel.res"
 ```
 
-### Files
+---
 
-Defines the list of files with nested instructions of where and what needs to be changed in a HUD file for the customization to work.
+### RenameFile
 
-!!! note
-    For details on the how each controls gives instructions to the editor, check out the [Files section here][docs-files].
+**Optional**. TODO
 
-## ComboBox Only
+```
+"RenameFile": ""
+```
+
+---
 
 ### ComboFiles
 
-Lists all the files that will be handled by this control, this is used for returning everything back to normal if the user does not make a selection.
+**Optional, ComboBox Only**. Lists all the files that will be handled by this control, this is used for returning everything back to normal if the user does not make a selection.
+
+```
+"ComboFiles": [
+	"hudplayerhealth-broesel.res",
+	"hudplayerhealth-cross.res"
+],
+```
+
+---
 
 ### Options
 
-Lists all the selectable options in the menu. Each one will typically have a label, value and instructions on how to apply a customization.
+**Optional, ComboBox Only**. Lists all the options on the list. For information on how each option is defined, [see here][docs-options].
 
-!!! note
-    For details on the how each ComboBox option is defined, check out the [Options section here][docs-options].
+```
+...
+"Type": "ComboBox",
+"Value": "0",
+"Options": [
+	{
+		"Label": "Flash",
+		"Value": "0",
+		...
+```
 
-## ColorPicker Only
+---
 
 ### Pulse
 
-If true, a new color entry in the client scheme will be created where the color has a reduced alpha, mimicking a pulse effect.
+**Optional, ColorPicker Only**. If true, the color will have a new entry in the client scheme with a reduced alpha.
 
 ```
 "Pulse": true
 ```
 
-## IntegerUpDown Only
+---
 
 ### Minimum
 
-Sets the minimum value that this control can go down to.
+**Optional, IntegerUpDown Only**. Sets the minimum value that the integer counter can go down to.
 
 ```
 "Minimum": 10
 ```
 
+---
+
 ### Maximum
 
-Sets the maximum value that this control can go up to.
+**Optional, IntegerUpDown Only**. Sets the maximum value that the integer counter can go down to.
 
 ```
 "Maximum": 30
 ```
 
+---
+
 ### Increment
 
-Sets the number by which the control value will go up or down by.
+**Optional, IntegerUpDown Only**. Sets the number by which the integer counter value will change.
 
 ```
 "Increment": 2

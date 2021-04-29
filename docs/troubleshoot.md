@@ -1,7 +1,7 @@
 This section is for common issues you may encounter and how to resolve them.
 
-* For error or issues not on this page, please [open a ticket on our issue tracker][issues-link].
-* For questions not covered in this documentation, [post in our Discord server][discord-link].
+* For issues not on this page, please [open a ticket on our issue tracker][issues-link].
+* For questions not covered in the documentation, [visit our Discord server][discord-link].
 
 ---
 
@@ -11,26 +11,24 @@ You most likely downloaded the source code instead of the editor. On the [releas
 ---
 
 ### The editor does not launch after downloading and extracting it.
-Make sure to install [Microsoft .NET 5.0 Runtime][runtime-link] ([x64][runtime64-link] for 64-bit systems and [x86][runtime86-link] for 32-bit). If you just installed it and the editor still does not launch, then restart your computer.
+Make sure to install the version of [Microsoft .NET 5.0 Runtime][runtime-link] inteded for running **desktop apps**. If you just installed it and the editor still does not launch, then restart your system.
 
 ---
 
-### My applied settings are not being shown in-game.
-To see your selected changes in-game, open the console and input `hud_reloadscheme`. This will refresh the HUD and will display your selected customizations.
+### Customization changes are not being shown in-game.
+To see your selected changes in-game, open the console and input `hud_reloadscheme`. This will refresh the HUD with your selected customizations.
 
 !!! note
-    Certain settings may require the game to be restarted, this mainly applies to color and main menu changes.
+    Certain settings may require the game to be restarted, this mainly applies to color and main menu changes. If the game is running, a message will display notifying you that a game restart is required.
 
 ---
 
-### I'm getting an error when applying or resetting HUD settings.
-Most errors you'll encounter will be caused by an outdated version of the HUD being installed. An outdated HUD may not have the latest changes that the editor would expect and when that happens, an error is returned. Make sure that both the HUD and the editor are on their latest versions.
+### Error when applying or resetting HUD customizations.
+Most errors you'll encounter will be caused by an outdated version of the HUD being installed. An outdated HUD may not have the latest changes that the editor would expect and when that happens, an error is returned. Best thing to do is reinstall the HUD through the editor and reapply the customizations.
+
 
 <!-- MARKDOWN LINKS -->
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [discord-link]: https://discord.gg/hTdtK9vBhE
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
-[json-link]: https://www.editor.criticalflaw.ca/json/base/
 [runtime-link]: https://dotnet.microsoft.com/download/dotnet/5.0/runtime
-[runtime86-link]: https://download.visualstudio.microsoft.com/download/pr/c089205d-4f58-4f8d-ad84-c92eaf2f3411/5cd3f9b3bd089c09df14dbbfb64124a4/windowsdesktop-runtime-5.0.5-win-x86.exe
-[runtime64-link]: https://download.visualstudio.microsoft.com/download/pr/c1ef0b3f-9663-4fc5-85eb-4a9cadacdb87/52b890f91e6bd4350d29d2482038df1c/windowsdesktop-runtime-5.0.5-win-x64.exe

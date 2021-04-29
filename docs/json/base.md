@@ -1,40 +1,33 @@
-Every HUD supported by the editor has a dedicated JSON schema file that defines the page layout and instructions for each customization option. This section will cover all the supported JSON objects and how they can be used to update and create schemas for other custom HUDs.
-
-!!! note
-    Use this [sample file][json-sample] as a starting point. For refference, see schema files for [budhud][json-budhud], [flawhud][json-flawhud] and [rayshud][json-rayshud].
-
-!!! warning
-    The name of the JSON file must be the same as the name of the HUD's GitHub repository.
+This section covers the base settings like the page layout, path of customization folders, and links to Download, GitHub, HUDS.TF and more.
 
 ---
 
-## Required
-
 ### Links
 
-Contains links related to the HUD, like the download link and git repository.
+**Required**. Contains links related to the HUD, such as the download link and social media sites.
 
 !!! warning
-
-    All except links to HudsTF and Steam must be provided.
+    The **Update** link is used for downloading the HUD, so unlike the rest it must be provided!
 
 ```
 "Links": {
 	"Update": "https://github.com/raysfire/rayshud/archive/master.zip",
-	"GitHub": "https://github.com/raysfire/rayshud",
 	"Issue": "https://github.com/raysfire/rayshud/issues",
+	"GitHub": "https://github.com/raysfire/rayshud",
 	"HudsTF": "https://huds.tf/site/s-rayshud--377",
-	"Steam": "https://steamcommunity.com/groups/rayshud"
+	"Steam": "https://steamcommunity.com/groups/rayshud",
+	"Discord": "https://discord.gg/hTdtK9vBhE"
 }
 ```
 
+---
+
 ### Controls
 
-Define groups of controls that will appear on the page, usually grouped by similar purpose.
+**Required**. Contains controls that will appear on the page, grouped by similar purpose.
 
 !!! info
-
-    Individual control properties will be explained in the [next section][docs-controls].
+    Individual control properties and options are covered in the [next section][docs-controls].
 
 ```
 "Controls": {
@@ -44,15 +37,14 @@ Define groups of controls that will appear on the page, usually grouped by simil
 			...
 ```
 
-## Optional
+---
 
 ### Layout
 
-Defines the placement of each control group in the order they are defined.
+**Optional**. Defines the placement of each control group in the order they are defined in [Controls](https://www.editor.criticalflaw.ca/json/base/#controls).
 
 !!! info
-
-    In the example below, the first control group (0) will be placed in the top left corner, then the next group (1) will be positioned veritically right underneath the first group.
+    In the example below, the first control group (0) will be placed in the top left corner. The next group (1) will be positioned veritically right underneath the first group.
 
 ```
 "Layout": [
@@ -62,25 +54,31 @@ Defines the placement of each control group in the order they are defined.
 ]
 ```
 
+---
+
 ### CustomizationsFolder
 
-Sets the path where all customization files are located. This path is relative to root of the HUD.
+**Optional**. Sets the path where all customization files are located, relative to the root of the HUD.
 
 ```
 "CustomizationsFolder": "#customizations"
 ```
 
+---
+
 ### EnabledFolder
 
-Sets the path where to move customization files to. This path is relative to root of the HUD.
+**Optional**. Sets the path where to move customization files to, relative to the root of the HUD.
 
 ```
 "EnabledFolder": "#customizations//_enabled"
 ```
 
+---
+
 ### Background
 
-Defines the background of the HUD page as an RGBA color or a URL link to an image that will be downloaded when the page is opened.
+**Optional**. Sets the background of the HUD page as an RGBA color or a link to an image.
 
 ```
 "Background": "https://imgur.com/V441OsM.png"
@@ -88,17 +86,21 @@ or
 "Background": "30 30 30 255"
 ```
 
+---
+
 ### Opacity
 
-Sets the page's background opacity. The value is a decimal between 0.0 and 1.0.
+**Optional**. Sets the page's background opacity. The value is a decimal between 0.0 and 1.0.
 
 ```
 "Opacity": 0.5
 ```
 
+---
+
 ### Maximize
 
-If true, the editor window will be maximized when the page is opened.
+**Optional**. If true, the editor window will be maximized when the HUD page is opened.
 
 ```
 "Maximize": false
