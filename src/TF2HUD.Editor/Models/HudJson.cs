@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using System.Windows;
 using Newtonsoft.Json.Linq;
 
-namespace TF2HUD.Editor.JSON
+namespace HUDEditor.Models
 {
     public class HudJson
     {
@@ -43,11 +43,24 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("Minimum")] public int Minimum = 10;
         [JsonPropertyName("Name")] public string Name;
         [JsonPropertyName("Options")] public Option[] Options;
+        [JsonPropertyName("Preview")] public string Preview;
         [JsonPropertyName("Pulse")] public bool Pulse;
+        [JsonPropertyName("RenameFile")] public RenameFile RenameFile;
+        [JsonPropertyName("Restart")] public bool Restart;
         [JsonPropertyName("Special")] public string Special;
+
+        [JsonPropertyName("SpecialParameters")]
+        public string[] SpecialParameters;
+
         [JsonPropertyName("Tooltip")] public string Tooltip;
         [JsonPropertyName("Type")] public string Type;
         [JsonPropertyName("Value")] public string Value = "0";
+    }
+
+    public class RenameFile
+    {
+        [JsonPropertyName("NewName")] public string NewName;
+        [JsonPropertyName("OldName")] public string OldName;
     }
 
     public class Option
@@ -55,7 +68,19 @@ namespace TF2HUD.Editor.JSON
         [JsonPropertyName("FileName")] public string FileName;
         [JsonPropertyName("Files")] public JObject Files;
         [JsonPropertyName("Label")] public string Label;
+        [JsonPropertyName("RenameFile")] public RenameFile RenameFile;
         [JsonPropertyName("Special")] public string Special;
+
+        [JsonPropertyName("SpecialParameters")]
+        public string[] SpecialParameters;
+
         [JsonPropertyName("Value")] public string Value;
+    }
+
+    public class GitJson
+    {
+        [JsonPropertyName("name")] public string Name;
+
+        [JsonPropertyName("size")] public int Size;
     }
 }

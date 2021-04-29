@@ -2,9 +2,8 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using TF2HUD.Editor.Properties;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     internal class VTF
     {
@@ -46,7 +45,7 @@ namespace TF2HUD.Editor.Classes
 
             // Make a backup of the existing background files.
             var hudBgPath =
-                new DirectoryInfo(string.Format(Resources.path_console, MainWindow.HudPath, MainWindow.HudSelection));
+                new DirectoryInfo($"{MainWindow.HudPath}\\{MainWindow.HudSelection}\\materials\\console\\");
             foreach (var file in hudBgPath.GetFiles())
                 File.Delete(file.FullName);
 
@@ -105,7 +104,15 @@ namespace TF2HUD.Editor.Classes
             };
 
             // Call Vtex and pass the parameters.
-            Process.Start($"{_tf2Path}\\bin\\vtex.exe", string.Join(" ", args))?.WaitForExit();
+            var processInfo = new ProcessStartInfo($"{_tf2Path}\\bin\\vtex.exe")
+            {
+                Arguments = string.Join(" ", args),
+                UseShellExecute = true
+            };
+
+            var process = Process.Start(processInfo);
+            process.WaitForExit();
+            process.Close();
         }
     }
 }

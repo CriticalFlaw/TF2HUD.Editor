@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TF2HUD.Editor.Properties {
+namespace HUDEditor.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TF2HUD.Editor.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TF2HUD.Editor.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HUDEditor.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,6 +70,24 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{0}.
+        /// </summary>
+        internal static string app_json_file {
+            get {
+                return ResourceManager.GetString("app_json_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON.
+        /// </summary>
+        internal static string app_json_list {
+            get {
+                return ResourceManager.GetString("app_json_list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://github.com/CriticalFlaw/TF2HUD.Editor/issues.
         /// </summary>
         internal static string app_tracker {
@@ -84,6 +102,24 @@ namespace TF2HUD.Editor.Properties {
         internal static string app_update {
             get {
                 return ResourceManager.GetString("app_update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available..
+        /// </summary>
+        internal static string ask_folder_browser {
+            get {
+                return ResourceManager.GetString("ask_folder_browser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to reset all customization options back to default?.
+        /// </summary>
+        internal static string ask_reset_options {
+            get {
+                return ResourceManager.GetString("ask_reset_options", resourceCulture);
             }
         }
         
@@ -115,38 +151,11 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while changing the main menu backgrounds..
-        /// </summary>
-        internal static string error_menu_background {
-            get {
-                return ResourceManager.GetString("error_menu_background", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while toggling seasonal backgrounds..
-        /// </summary>
-        internal static string error_seasonal_backgrounds {
-            get {
-                return ResourceManager.GetString("error_seasonal_backgrounds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An error occurred while toggling transparent viewmodels..
         /// </summary>
         internal static string error_transparent_vm {
             get {
                 return ResourceManager.GetString("error_transparent_vm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}\materials\console\{1}.
-        /// </summary>
-        internal static string file_background {
-            get {
-                return ResourceManager.GetString("file_background", resourceCulture);
             }
         }
         
@@ -160,20 +169,11 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This option will overwrite your current background, if you want to go back to the default you&apos;ll have to reinstall the HUD. Are you sure you want to continue?.
+        ///   Looks up a localized string similar to Following changes require the game to be restarted:.
         /// </summary>
-        internal static string info_custom_background {
+        internal static string info_game_restart {
             get {
-                return ResourceManager.GetString("info_custom_background", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available..
-        /// </summary>
-        internal static string info_folder_browser {
-            get {
-                return ResourceManager.GetString("info_folder_browser", resourceCulture);
+                return ResourceManager.GetString("info_game_restart", resourceCulture);
             }
         }
         
@@ -196,20 +196,29 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No new schema updates. Please check back later..
+        /// </summary>
+        internal static string info_schema_nothing {
+            get {
+                return ResourceManager.GetString("info_schema_nothing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HUD schemas have been updated. Please restart the editor..
+        /// </summary>
+        internal static string info_schema_update {
+            get {
+                return ResourceManager.GetString("info_schema_update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} has been successfully uninstalled..
         /// </summary>
         internal static string info_uninstall_complete {
             get {
                 return ResourceManager.GetString("info_uninstall_complete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}\materials\console\.
-        /// </summary>
-        internal static string path_console {
-            get {
-                return ResourceManager.GetString("path_console", resourceCulture);
             }
         }
     }

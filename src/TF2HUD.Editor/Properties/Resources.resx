@@ -120,11 +120,23 @@
   <data name="app_docs" xml:space="preserve">
     <value>https://www.editor.criticalflaw.ca/</value>
   </data>
+  <data name="app_json_file" xml:space="preserve">
+    <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{0}</value>
+  </data>
+  <data name="app_json_list" xml:space="preserve">
+    <value>https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON</value>
+  </data>
   <data name="app_tracker" xml:space="preserve">
     <value>https://github.com/CriticalFlaw/TF2HUD.Editor/issues</value>
   </data>
   <data name="app_update" xml:space="preserve">
     <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</value>
+  </data>
+  <data name="ask_folder_browser" xml:space="preserve">
+    <value>Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available.</value>
+  </data>
+  <data name="ask_reset_options" xml:space="preserve">
+    <value>Are you sure you want to reset all customization options back to default?</value>
   </data>
   <data name="error_app_directory" xml:space="preserve">
     <value>The tf/custom directory must be set to use the editor.</value>
@@ -135,26 +147,14 @@
   <data name="error_app_uninstall" xml:space="preserve">
     <value>An error occurred while uninstalling {0}.</value>
   </data>
-  <data name="error_menu_background" xml:space="preserve">
-    <value>An error occurred while changing the main menu backgrounds.</value>
-  </data>
-  <data name="error_seasonal_backgrounds" xml:space="preserve">
-    <value>An error occurred while toggling seasonal backgrounds.</value>
-  </data>
   <data name="error_transparent_vm" xml:space="preserve">
     <value>An error occurred while toggling transparent viewmodels.</value>
-  </data>
-  <data name="file_background" xml:space="preserve">
-    <value>{0}\materials\console\{1}</value>
   </data>
   <data name="info_create_backup" xml:space="preserve">
     <value>An existing {0} folder has been found. To avoid conflicts, a backup has been created.</value>
   </data>
-  <data name="info_custom_background" xml:space="preserve">
-    <value>This option will overwrite your current background, if you want to go back to the default you'll have to reinstall the HUD. Are you sure you want to continue?</value>
-  </data>
-  <data name="info_folder_browser" xml:space="preserve">
-    <value>Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available.</value>
+  <data name="info_game_restart" xml:space="preserve">
+    <value>Following changes require the game to be restarted:</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
     <value>Unable to continue because Team Fortress 2 is still running. Please close it and then try again.</value>
@@ -162,10 +162,13 @@
   <data name="info_install_complete" xml:space="preserve">
     <value>{0} has been successfully installed.</value>
   </data>
+  <data name="info_schema_nothing" xml:space="preserve">
+    <value>No new schema updates. Please check back later.</value>
+  </data>
+  <data name="info_schema_update" xml:space="preserve">
+    <value>HUD schemas have been updated. Please restart the editor.</value>
+  </data>
   <data name="info_uninstall_complete" xml:space="preserve">
     <value>{0} has been successfully uninstalled.</value>
-  </data>
-  <data name="path_console" xml:space="preserve">
-    <value>{0}\materials\console\</value>
   </data>
 </root>

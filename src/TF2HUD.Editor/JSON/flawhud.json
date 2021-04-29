@@ -1,9 +1,9 @@
 {
   "Background": "https://imgur.com/V441OsM.png",
   "Layout": [
-    "0 0 0 4",
-    "1 2 3 4",
-    "1 2 3 4"
+    "0 0 3 3",
+    "1 2 4 5",
+    "1 2 4 5"
   ],
   "Links": {
     "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
@@ -19,14 +19,16 @@
         "Name": "fh_color_health_buff",
         "Label": "Buffed Health",
         "Type": "ColorPicker",
-        "ToolTip": "Color of player's health, when buffed. (Restart required)",
+        "ToolTip": "Color of player's health, when buffed.",
         "Value": "0 170 127 255",
+        "Restart": true,
         "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
-                "Overheal": "$value"
+                "Overheal": "$value",
+                "PositiveValue": "$value"
               }
             }
           }
@@ -36,8 +38,9 @@
         "Name": "fh_color_ubercharge",
         "Label": "UberCharge",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the UberCharge meter. (Restart required)",
+        "ToolTip": "Color of the UberCharge meter.",
         "Value": "0 170 127 255",
+        "Restart": true,
         "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
@@ -53,14 +56,16 @@
         "Name": "fh_color_health_low",
         "Label": "Low Health",
         "Type": "ColorPicker",
-        "ToolTip": "Color of player's health when low. (Restart required)",
+        "ToolTip": "Color of player's health when low.",
         "Value": "190 20 20 255",
+        "Restart": true,
         "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
-                "LowHealth": "$value"
+                "LowHealth": "$value",
+                "NegativeValue": "$value"
               }
             }
           }
@@ -70,8 +75,9 @@
         "Name": "fh_color_ammo_low",
         "Label": "Low Ammo",
         "Type": "ColorPicker",
-        "ToolTip": "Color of player's ammo when low. (Restart required)",
+        "ToolTip": "Color of player's ammo when low.",
         "Value": "190 20 20 255",
+        "Restart": true,
         "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
@@ -87,8 +93,9 @@
         "Name": "fh_color_target_health",
         "Label": "Health Healed",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the health amount healed. (Restart required)",
+        "ToolTip": "Color of the health amount healed.",
         "Value": "0 170 127 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -103,8 +110,9 @@
         "Name": "fh_color_target_damage",
         "Label": "Damage Dealt",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the damage amount dealt to another player. (Restart required)",
+        "ToolTip": "Color of the damage amount dealt to another player.",
         "Value": "255 255 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -122,6 +130,7 @@
         "Label": "Normal",
         "Type": "ColorPicker",
         "Value": "178 178 178 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -137,6 +146,7 @@
         "Label": "Unique",
         "Type": "ColorPicker",
         "Value": "255 215 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -152,6 +162,7 @@
         "Label": "Strange",
         "Type": "ColorPicker",
         "Value": "207 106 50 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -167,6 +178,7 @@
         "Label": "Vintage",
         "Type": "ColorPicker",
         "Value": "71 98 145 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -182,6 +194,7 @@
         "Label": "Haunted",
         "Type": "ColorPicker",
         "Value": "56 243 171 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -197,6 +210,7 @@
         "Label": "Genuine",
         "Type": "ColorPicker",
         "Value": "77 116 85 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -212,6 +226,7 @@
         "Label": "Collectors",
         "Type": "ColorPicker",
         "Value": "170 0 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -227,6 +242,7 @@
         "Label": "Unusual",
         "Type": "ColorPicker",
         "Value": "134 80 172 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -242,6 +258,7 @@
         "Label": "Community",
         "Type": "ColorPicker",
         "Value": "112 176 74 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -257,6 +274,7 @@
         "Label": "Valve",
         "Type": "ColorPicker",
         "Value": "165 15 121 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -274,6 +292,7 @@
         "Label": "Civilian",
         "Type": "ColorPicker",
         "Value": "176 195 217 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -289,6 +308,7 @@
         "Label": "Freelance",
         "Type": "ColorPicker",
         "Value": "94 152 217 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -304,6 +324,7 @@
         "Label": "Mercenary",
         "Type": "ColorPicker",
         "Value": "75 105 255 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -319,6 +340,7 @@
         "Label": "Commando",
         "Type": "ColorPicker",
         "Value": "136 71 255 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -334,6 +356,7 @@
         "Label": "Assassin",
         "Type": "ColorPicker",
         "Value": "211 44 230 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -349,6 +372,7 @@
         "Label": "Elite",
         "Type": "ColorPicker",
         "Value": "235 75 75 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -362,397 +386,11 @@
     ],
     "Crosshair": [
       {
-        "Name": "fh_toggle_xhair_enable",
-        "Label": "Toggle the Crosshair",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair visibility.",
-        "Value": "false",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "visible": {
-                "true": "1",
-                "false": "0"
-              },
-              "enabled": {
-                "true": "1",
-                "false": "0"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "fh_toggle_xhair_pulse",
-        "Label": "Toggle the Hitmarker",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair hitmarker.",
-        "Value": "true",
-        "Files": {
-          "scripts/hudanimations_custom.txt": {
-            "uncomment": [
-              "StopEvent HitMarker",
-              "RunEvent HitMarker"
-            ]
-          }
-        }
-      },
-      {
         "Name": "fh_val_xhair_style",
         "Label": "Style",
         "ToolTip": "Style of crosshair.",
         "Type": "Crosshair",
         "Value": "<",
-        "Options": [
-          {
-            "Label": "!",
-            "Value": "!"
-          },
-          {
-            "Label": "#",
-            "Value": "#"
-          },
-          {
-            "Label": "$",
-            "Value": "$"
-          },
-          {
-            "Label": "%",
-            "Value": "%"
-          },
-          {
-            "Label": "'",
-            "Value": "'"
-          },
-          {
-            "Label": "(",
-            "Value": "("
-          },
-          {
-            "Label": ")",
-            "Value": ")"
-          },
-          {
-            "Label": "*",
-            "Value": "*"
-          },
-          {
-            "Label": "+",
-            "Value": "+"
-          },
-          {
-            "Label": ",",
-            "Value": ","
-          },
-          {
-            "Label": "-",
-            "Value": "-"
-          },
-          {
-            "Label": ".",
-            "Value": "."
-          },
-          {
-            "Label": "1",
-            "Value": "1"
-          },
-          {
-            "Label": "2",
-            "Value": "2"
-          },
-          {
-            "Label": "3",
-            "Value": "3"
-          },
-          {
-            "Label": "4",
-            "Value": "4"
-          },
-          {
-            "Label": "5",
-            "Value": "5"
-          },
-          {
-            "Label": "6",
-            "Value": "6"
-          },
-          {
-            "Label": "7",
-            "Value": "7"
-          },
-          {
-            "Label": "8",
-            "Value": "8"
-          },
-          {
-            "Label": "9",
-            "Value": "9"
-          },
-          {
-            "Label": ":",
-            "Value": ":"
-          },
-          {
-            "Label": ";",
-            "Value": ";"
-          },
-          {
-            "Label": "=",
-            "Value": "="
-          },
-          {
-            "Label": "<",
-            "Value": "<"
-          },
-          {
-            "Label": ">",
-            "Value": ">"
-          },
-          {
-            "Label": "?",
-            "Value": "?"
-          },
-          {
-            "Label": "@",
-            "Value": "@"
-          },
-          {
-            "Label": "|",
-            "Value": "|"
-          },
-          {
-            "Label": "}",
-            "Value": "}"
-          },
-          {
-            "Label": "`",
-            "Value": "`"
-          },
-          {
-            "Label": "_",
-            "Value": "_"
-          },
-          {
-            "Label": "^",
-            "Value": "^"
-          },
-          {
-            "Label": "]",
-            "Value": "]"
-          },
-          {
-            "Label": "[",
-            "Value": "["
-          },
-          {
-            "Label": "A",
-            "Value": "A"
-          },
-          {
-            "Label": "B",
-            "Value": "B"
-          },
-          {
-            "Label": "C",
-            "Value": "C"
-          },
-          {
-            "Label": "D",
-            "Value": "D"
-          },
-          {
-            "Label": "E",
-            "Value": "E"
-          },
-          {
-            "Label": "F",
-            "Value": "F"
-          },
-          {
-            "Label": "G",
-            "Value": "G"
-          },
-          {
-            "Label": "H",
-            "Value": "H"
-          },
-          {
-            "Label": "I",
-            "Value": "I"
-          },
-          {
-            "Label": "J",
-            "Value": "J"
-          },
-          {
-            "Label": "K",
-            "Value": "K"
-          },
-          {
-            "Label": "L",
-            "Value": "L"
-          },
-          {
-            "Label": "M",
-            "Value": "M"
-          },
-          {
-            "Label": "N",
-            "Value": "N"
-          },
-          {
-            "Label": "O",
-            "Value": "O"
-          },
-          {
-            "Label": "P",
-            "Value": "P"
-          },
-          {
-            "Label": "Q",
-            "Value": "Q"
-          },
-          {
-            "Label": "R",
-            "Value": "R"
-          },
-          {
-            "Label": "S",
-            "Value": "S"
-          },
-          {
-            "Label": "T",
-            "Value": "T"
-          },
-          {
-            "Label": "U",
-            "Value": "U"
-          },
-          {
-            "Label": "V",
-            "Value": "V"
-          },
-          {
-            "Label": "W",
-            "Value": "W"
-          },
-          {
-            "Label": "X",
-            "Value": "X"
-          },
-          {
-            "Label": "Y",
-            "Value": "Y"
-          },
-          {
-            "Label": "Z",
-            "Value": "Z"
-          },
-          {
-            "Label": "a",
-            "Value": "a"
-          },
-          {
-            "Label": "b",
-            "Value": "b"
-          },
-          {
-            "Label": "c",
-            "Value": "c"
-          },
-          {
-            "Label": "d",
-            "Value": "d"
-          },
-          {
-            "Label": "e",
-            "Value": "e"
-          },
-          {
-            "Label": "f",
-            "Value": "f"
-          },
-          {
-            "Label": "g",
-            "Value": "g"
-          },
-          {
-            "Label": "h",
-            "Value": "h"
-          },
-          {
-            "Label": "i",
-            "Value": "i"
-          },
-          {
-            "Label": "j",
-            "Value": "j"
-          },
-          {
-            "Label": "k",
-            "Value": "k"
-          },
-          {
-            "Label": "l",
-            "Value": "l"
-          },
-          {
-            "Label": "m",
-            "Value": "m"
-          },
-          {
-            "Label": "n",
-            "Value": "n"
-          },
-          {
-            "Label": "o",
-            "Value": "o"
-          },
-          {
-            "Label": "p",
-            "Value": "p"
-          },
-          {
-            "Label": "q",
-            "Value": "q"
-          },
-          {
-            "Label": "r",
-            "Value": "r"
-          },
-          {
-            "Label": "s",
-            "Value": "s"
-          },
-          {
-            "Label": "t",
-            "Value": "t"
-          },
-          {
-            "Label": "u",
-            "Value": "u"
-          },
-          {
-            "Label": "v",
-            "Value": "v"
-          },
-          {
-            "Label": "w",
-            "Value": "w"
-          },
-          {
-            "Label": "x",
-            "Value": "x"
-          },
-          {
-            "Label": "y",
-            "Value": "y"
-          },
-          {
-            "Label": "z",
-            "Value": "z"
-          }
-        ],
         "Files": {
           "scripts/hudlayout.res": {
             "CustomCrosshair": {
@@ -784,6 +422,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Default crosshair color.",
         "Value": "242 242 242 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -800,6 +439,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Color of crosshair when hitting another player.",
         "Value": "255 0 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -809,6 +449,42 @@
             }
           }
         }
+      },
+      {
+        "Name": "fh_toggle_xhair_enable",
+        "Label": "Enable the Crosshair",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair feature.",
+        "Value": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_xhair_pulse",
+        "Label": "Toggle Hitmarker",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle hitmarker animation.",
+        "Value": "true",
+        "Files": {
+          "scripts/hudanimations_custom.txt": {
+            "uncomment": [
+              "StopEvent HitMarker",
+              "RunEvent HitMarker"
+            ]
+          }
+        }
       }
     ],
     "Customizations": [
@@ -816,8 +492,9 @@
         "Name": "fh_toggle_code_fonts",
         "Label": "Code Pro Fonts",
         "Type": "Checkbox",
-        "ToolTip": "Toggle to the Code Pro fonts instead of TF2 Build. (Restart required)",
+        "ToolTip": "Toggle to the Code Pro fonts instead of TF2 Build.",
         "Value": "false",
+        "Restart": true,
         "Files": {
           "resource/clientscheme.res": {
             "replace": [
@@ -842,27 +519,11 @@
         }
       },
       {
-        "Name": "fh_toggle_menu_image",
-        "Label": "Main Menu Class Images",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle the character images seen on the main menu.",
-        "Value": "true",
-        "Files": {
-          "resource/ui/mainmenuoverride.res": {
-            "TFCharacterImage": {
-              "ypos": {
-                "true": "-80",
-                "false": "9999"
-              }
-            }
-          }
-        }
-      },
-      {
         "Name": "fh_toggle_transparent_viewmodels",
         "Label": "Transparent Viewmodels",
         "Type": "Checkbox",
-        "ToolTip": "Toggle transparent viewmodels. (May required config changes)",
+        "ToolTip": "Toggle transparent viewmodels.",
+        "Special": "TransparentViewmodels",
         "Value": "false",
         "Files": {
           "scripts/hudlayout.res": {
@@ -880,26 +541,58 @@
         }
       },
       {
-        "Name": "fh_toggle_background_stock",
-        "Label": "Default Backgrounds",
+        "Name": "fh_toggle_lower_chat",
+        "Label": "Move Chat to the Bottom",
         "Type": "Checkbox",
-        "ToolTip": "Toggle the default Team Fortress 2 backgrounds.",
+        "ToolTip": "Changes the in-game chat position to be near the bottom.",
         "Value": "false",
-        "Special": "StockBackgrounds",
         "Files": {
-          "resource/ui/mainmenuoverride.res": {
-            "Background": {
-              "if_halloween": {
-                "image": {
-                  "true": "../console/title_scream_fortress_2017_widescreen",
-                  "false": ""
-                }
+          "resource/ui/basechat.res": {
+            "HudChat": {
+              "ypos": {
+                "true": "r185",
+                "false": "25"
+              }
+            }
+          },
+          "scripts/hudlayout.res": {
+            "HudAchievementTracker": {
+              "NormalY": {
+                "true": "25",
+                "false": "330"
               },
-              "if_christmas": {
-                "image": {
-                  "true": "../console/background_xmas2020_widescreen",
-                  "false": ""
-                }
+              "EngineerY": {
+                "true": "25",
+                "false": "330"
+              }
+            },
+            "BuildingStatusAnchor": {
+              "ypos": {
+                "true": "c-130",
+                "false": "c-100"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_player_model",
+        "Label": "Hide Player Model",
+        "Type": "Checkbox",
+        "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/hudplayerclass.res": {
+            "PlayerStatusClassImage": {
+              "ypos": {
+                "true": "9999",
+                "false": "r75"
+              }
+            },
+            "classmodelpanel": {
+              "wide": {
+                "true": "0",
+                "false": "100"
               }
             }
           }
@@ -1010,11 +703,6 @@
                 },
                 "HudSpellMenu": {
                   "xpos": "c-210"
-                },
-                "HudAchievementTracker": {
-                  "NormalY": "330",
-                  "EngineerY": "330",
-                  "tall": "130"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1123,11 +811,6 @@
                 },
                 "HudSpellMenu": {
                   "xpos": "c-270"
-                },
-                "HudAchievementTracker": {
-                  "NormalY": "330",
-                  "EngineerY": "330",
-                  "tall": "130"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1236,11 +919,6 @@
                 },
                 "HudSpellMenu": {
                   "xpos": "c-210"
-                },
-                "HudAchievementTracker": {
-                  "NormalY": "135",
-                  "EngineerY": "9999",
-                  "tall": "9999"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1260,6 +938,8 @@
         "ToolTip": "Change to different health styles options.",
         "Value": "0",
         "Command": "HealthStyle",
+        "Preview":
+          "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
         "Options": [
           {
             "Label": "Default",
@@ -1318,14 +998,14 @@
               },
               "scripts/hudanimations_custom.txt": {
                 "comment": [
-                  "Animate HealthBG"
-                ],
-                "uncomment": [
-                  "Animate AmmoBG",
+                  "Animate HealthBG",
                   "Animate PlayerStatusHealthValue",
                   "Animate AmmoInClip",
                   "Animate AmmoInReserve",
                   "Animate AmmoNoClip"
+                ],
+                "uncomment": [
+                  "Animate AmmoBG"
                 ]
               }
             }
@@ -1345,6 +1025,77 @@
           "scripts/hudlayout.res": {
             "HudDeathNotice": {
               "MaxDeathNotices": "$value"
+            }
+          }
+        }
+      }
+    ],
+    "Main Menu": [
+      {
+        "Name": "fh_toggle_menu_image",
+        "Label": "Main Menu Class Images",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the character images seen on the main menu.",
+        "Value": "true",
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "TFCharacterImage": {
+              "ypos": {
+                "true": "-80",
+                "false": "9999"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_background_stock",
+        "Label": "Default Backgrounds",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the default Team Fortress 2 backgrounds.",
+        "Value": "false",
+        "Restart": true,
+        "Special": "StockBackgrounds",
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "Background": {
+              "if_halloween": {
+                "image": {
+                  "true": "../console/title_scream_fortress_2017_widescreen",
+                  "false": ""
+                }
+              },
+              "if_christmas": {
+                "image": {
+                  "true": "../console/background_xmas2020_widescreen",
+                  "false": ""
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_custom_background",
+        "Label": "Set Custom Background",
+        "Type": "CustomBackground",
+        "Special": "CustomBackground",
+        "ToolTip": "Replace the main menu background with a custom image.",
+        "Restart": true
+      },
+      {
+        "Name": "fh_favorite_server",
+        "Label": "Favorite Server",
+        "Type": "TextBox",
+        "ToolTip": "Set the path for the home server button.",
+        "Value": "138.197.133.71; password flawhud",
+        "Restart": true,
+        "Files": {
+          "resource/gamemenu.res": {
+            "GameMenu": {
+              "HomeServerButton": {
+                "command": "engine connect $value"
+              }
             }
           }
         }

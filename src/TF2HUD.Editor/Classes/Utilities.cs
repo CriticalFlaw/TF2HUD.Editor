@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using TF2HUD.Editor.JSON;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Windows;
+using HUDEditor.Models;
+using HUDEditor.Properties;
+using Microsoft.Win32;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     public static class Utilities
     {
@@ -41,6 +48,14 @@ namespace TF2HUD.Editor.Classes
                 "ItemRarityLegendary_GreyedOut"),
             new Tuple<string, string, string>("ItemRarityAncient", "DimmItemRarityAncient",
                 "ItemRarityAncient_GreyedOut")
+        };
+
+        public static List<string> CrosshairStyles = new()
+        {
+            "!", "#", "$", "%", "'", "(", ")", "*", "+", ",", ".", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":",
+            ";", "=", "<", ">", "?", "@", "|", "}", "`", "_", "^", "]", "[", "A", "B", "C", "D", "E", "F", "G", "H",
+            "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c",
+            "d", "e", "f", "g", "h", "i", "j", "k", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
         };
 
         /// <summary>
@@ -186,7 +201,6 @@ namespace TF2HUD.Editor.Classes
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="keys"></param>
-        /// <returns></returns>
         public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj,
             IEnumerable<string> keys)
         {
@@ -208,6 +222,73 @@ namespace TF2HUD.Editor.Classes
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public static async Task<string> Fetch(string URL)
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync(URL);
+            return response.IsSuccessStatusCode ? response.Content.ReadAsStringAsync().Result : null;
+        }
+
+        /// <summary>
+        ///     Download the HUD using the provided URL.
+        /// </summary>
+        /// <param name="url">URL from which to download the HUD.</param>
+        public static void DownloadHud(string url)
+        {
+            MainWindow.Logger.Info($"Downloading from: {url}");
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            var client = new WebClient();
+            client.DownloadFile(url, "temp.zip");
+            client.Dispose();
+        }
+
+        /// <summary>
+        ///     Check if Team Fortress 2 is currently running.
+        /// </summary>
+        /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
+        public static bool CheckIsGameRunning(bool returnMessage = false)
+        {
+            if (!Process.GetProcessesByName("hl2").Any()) return false;
+            if (returnMessage)
+                MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.info_game_running);
+            return true;
+        }
+
+        /// <summary>
+        ///     Search registry for the Team Fortress 2 installation directory.
+        /// </summary>
+        /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
+        public static bool SearchRegistry()
+        {
+            // Try to find the Steam library path in the registry.
+            var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
+            var registry = (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
+                "InstallPath", null);
+
+            if (string.IsNullOrWhiteSpace(registry)) return false;
+
+            // Found the Steam library path, now try to find the TF2 path.
+            registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
+
+            if (!Directory.Exists(registry)) return false;
+
+            MainWindow.Logger.Info("Found the TF2 path in the registry at: " + registry);
+            Settings.Default.hud_directory = registry;
+            Settings.Default.Save();
+            return true;
+        }
+
+        /// <summary>
+        ///     Check if the set tf/custom directory is valid.
+        /// </summary>
+        /// <returns>True if the set tf/custom directory is valid.</returns>
+        public static bool CheckUserPath(string hudPath)
+        {
+            return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf\\custom");
         }
     }
 }

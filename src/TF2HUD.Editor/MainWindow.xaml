@@ -1,4 +1,4 @@
-﻿<Window x:Class="TF2HUD.Editor.MainWindow"
+﻿<Window x:Class="HUDEditor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -44,33 +44,30 @@
                 <!-- TF2 HUD Editor and Version -->
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
                     <StackPanel Margin="20">
-                        <Label Content="HUD Editor for Team Fortress 2" Style="{StaticResource HeaderText}"
-                               Margin="0,0,0,15" />
+                        <Image Source="Resources/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Center">
-                            A tool for <Run Foreground="#70B04A" Text="installing" /> and
-                            <Run Foreground="#38F3AB" Text="customizing" /> custom Team Fortress 2 HUDs. This project is open-source and contributions towards the code and documentation are welcomed and encouraged. For more information or help, check out the
-                            <Run Foreground="#FFD700" Text="documentation" /> and the
-                            <Run Foreground="#FFD700" Text="Discord server" /> linked below.
+                            <Run Foreground="#70B04A" Text="Install" /> and
+                            <Run Foreground="#38F3AB" Text="customize" /> your favorite Team Fortress 2 HUDs! For additional information and support, check out the
+                            <Run Foreground="#FFD700" Text="documentation" /> linked below.
                         </TextBlock>
-                        <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,15" />
-                        <Label Content="Version 2.0" Style="{StaticResource HeaderText}" Margin="0,0,0,15" />
+                        <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
+                        <Label Content="Version 2.1" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-                            - Implemented a JSON parser for creating page layouts and defining the customization options. (Thank you to Revan for creating the parser).
+                            - Added support for zeeshud and the default Team Fortress 2 HUD.
                             <LineBreak />
-                            - Added support for budhud.
+                            - Added the ability to import a custom main menu background image.
                             <LineBreak />
-                            - Created documentation for this project:
-                            <Run Foreground="#CF6A32" Text="https://www.editor.criticalflaw.ca" />
+                            - Added the ability to update HUD schemas without updating the editor.
                             <LineBreak />
-                            - Created a support Discord server:
-                            <Run Foreground="#CF6A32" Text="https://discord.gg/hTdtK9vBhE" />
+                            - Added a scroller for controls that may not fit on screen in lower resolutions.
                             <LineBreak />
-                            - Updated the page layout for flawhud and rayshud.
+                            - Added a preview image modal for customization options that offer it.
                             <LineBreak />
-                            - User settings are now saved to AppData, so changes are carried over when updating the editor.
+                            - <Run Foreground="#2C81FD" Text="flawhud" />: Fixed the health cross option not working properly.
                             <LineBreak />
-                            - Cleaned up the codebase, improved logging and developer comments.
+                            - <Run Foreground="#2C81FD" Text="flawhud" />: Added options to move down chat and hide the 3D player model.
                             <LineBreak />
+                            - <Run Foreground="#17FD35" Text="budhud" />: Added additional customization options.
                         </TextBlock>
                     </StackPanel>
                 </ScrollViewer>
@@ -93,7 +90,7 @@
                     x:Name="BtnInstall"
                     Click="BtnInstall_OnClick"
                     Content="Install"
-                    Width="155"
+                    Width="150"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -101,7 +98,7 @@
                     x:Name="BtnUninstall"
                     Click="BtnUninstall_OnClick"
                     Content="Uninstall"
-                    Width="155"
+                    Width="150"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -109,7 +106,7 @@
                     x:Name="BtnSave"
                     Click="BtnSave_OnClick"
                     Content="Apply Changes"
-                    Width="155"
+                    Width="150"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -117,7 +114,7 @@
                     x:Name="BtnReset"
                     Click="BtnReset_OnClick"
                     Content="Reset to Default"
-                    Width="155"
+                    Width="150"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
@@ -125,10 +122,18 @@
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"
                     Content="Switch HUDs"
-                    Width="155"
+                    Width="150"
                     Height="40"
                     Margin="5"
                     Style="{StaticResource Button}" />
+                <Button
+                    x:Name="BtnRefresh"
+                    Click="BtnRefresh_OnClick"
+                    Content="."
+                    Margin="5"
+                    ToolTip="Refresh HUD Files"
+                    Background="#776B5F"
+                    Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnReportIssue"
                     Click="BtnReportIssue_OnClick"
@@ -140,7 +145,7 @@
                 <Button
                     x:Name="BtnDocumentation"
                     Click="BtnDocumentation_OnClick"
-                    Content="R"
+                    Content="z"
                     Margin="5"
                     ToolTip="Read the Documentation"
                     Background="#776B5F"

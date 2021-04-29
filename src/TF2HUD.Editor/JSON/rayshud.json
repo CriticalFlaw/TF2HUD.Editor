@@ -1,11 +1,9 @@
 {
   "Background": "https://imgur.com/UIHWxBv.png",
-  "Maximize": true,
   "Layout": [
-    "0 0 0 0 1 1",
-    "5 2 2 2 6 6",
-    "5 3 3 3 6 6",
-    "5 4 4 4 6 6"
+    "0 0 1 1 6 6",
+    "2 2 3 3 6 6",
+    "5 5 4 4 6 6"
   ],
   "Links": {
     "Update": "https://github.com/raysfire/rayshud/archive/master.zip",
@@ -19,6 +17,74 @@
   "EnabledFolder": "#customizations//_enabled",
   "Controls": {
     "UberCharge": [
+      {
+        "Name": "rh_color_uber_bar",
+        "Label": "Charging",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of the ï¿½berCharge when charging.",
+        "Value": "235 226 202 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Uber Bar Color": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_color_uber_full",
+        "Label": "Charged Solid",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of the ï¿½berCharge when full.",
+        "Value": "255 50 25 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Solid Color Uber": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_color_uber_flash1",
+        "Label": "Charged Flash 1",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of the ï¿½berCharge when flash style is enabled.",
+        "Value": "255 165 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Flashing Uber Color1": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_color_uber_flash2",
+        "Label": "Charged Flash 2",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of the ï¿½berCharge when flash style is enabled.",
+        "Value": "255 69 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Flashing Uber Color2": "$value"
+              }
+            }
+          }
+        }
+      },
       {
         "Name": "rh_val_uber_animation",
         "Label": "Uber Style",
@@ -72,70 +138,6 @@
             }
           }
         ]
-      },
-      {
-        "Name": "rh_color_uber_bar",
-        "Label": "Charging",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of the ÜberCharge when charging. (Restart required)",
-        "Value": "235 226 202 255",
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "Uber Bar Color": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "rh_color_uber_full",
-        "Label": "Charged Solid",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of the ÜberCharge when full. (Restart required)",
-        "Value": "255 50 25 255",
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "Solid Color Uber": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "rh_color_uber_flash1",
-        "Label": "Charged Flash 1",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of the ÜberCharge when flash style is enabled. (Restart required)",
-        "Value": "255 165 0 255",
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "Flashing Uber Color1": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "rh_color_uber_flash2",
-        "Label": "Charged Flash 2",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of the ÜberCharge when flash style is enabled. (Restart required)",
-        "Value": "255 69 0 255",
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "Flashing Uber Color2": "$value"
-              }
-            }
-          }
-        }
       }
     ],
     "Crosshair": [
@@ -145,6 +147,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Default crosshair color.",
         "Value": "242 242 242 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -161,6 +164,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Color of crosshair when hitting another player.",
         "Value": "255 0 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -189,375 +193,11 @@
         }
       },
       {
-        "Name": "rh_val_xhair_style",
-        "Label": "Style",
-        "Type": "Crosshair",
-        "ToolTip": "Style of crosshair.",
-        "Value": "<",
-        "Options": [
-          {
-            "Label": "!",
-            "Value": "!"
-          },
-          {
-            "Label": "#",
-            "Value": "#"
-          },
-          {
-            "Label": "$",
-            "Value": "$"
-          },
-          {
-            "Label": "%",
-            "Value": "%"
-          },
-          {
-            "Label": "'",
-            "Value": "'"
-          },
-          {
-            "Label": "(",
-            "Value": "("
-          },
-          {
-            "Label": ")",
-            "Value": ")"
-          },
-          {
-            "Label": "*",
-            "Value": "*"
-          },
-          {
-            "Label": "+",
-            "Value": "+"
-          },
-          {
-            "Label": ",",
-            "Value": ","
-          },
-          {
-            "Label": "-",
-            "Value": "-"
-          },
-          {
-            "Label": ".",
-            "Value": "."
-          },
-          {
-            "Label": "1",
-            "Value": "1"
-          },
-          {
-            "Label": "2",
-            "Value": "2"
-          },
-          {
-            "Label": "3",
-            "Value": "3"
-          },
-          {
-            "Label": "4",
-            "Value": "4"
-          },
-          {
-            "Label": "5",
-            "Value": "5"
-          },
-          {
-            "Label": "6",
-            "Value": "6"
-          },
-          {
-            "Label": "7",
-            "Value": "7"
-          },
-          {
-            "Label": "8",
-            "Value": "8"
-          },
-          {
-            "Label": "9",
-            "Value": "9"
-          },
-          {
-            "Label": ":",
-            "Value": ":"
-          },
-          {
-            "Label": ";",
-            "Value": ";"
-          },
-          {
-            "Label": "=",
-            "Value": "="
-          },
-          {
-            "Label": "<",
-            "Value": "<"
-          },
-          {
-            "Label": ">",
-            "Value": ">"
-          },
-          {
-            "Label": "?",
-            "Value": "?"
-          },
-          {
-            "Label": "@",
-            "Value": "@"
-          },
-          {
-            "Label": "|",
-            "Value": "|"
-          },
-          {
-            "Label": "}",
-            "Value": "}"
-          },
-          {
-            "Label": "`",
-            "Value": "`"
-          },
-          {
-            "Label": "_",
-            "Value": "_"
-          },
-          {
-            "Label": "^",
-            "Value": "^"
-          },
-          {
-            "Label": "]",
-            "Value": "]"
-          },
-          {
-            "Label": "[",
-            "Value": "["
-          },
-          {
-            "Label": "A",
-            "Value": "A"
-          },
-          {
-            "Label": "B",
-            "Value": "B"
-          },
-          {
-            "Label": "C",
-            "Value": "C"
-          },
-          {
-            "Label": "D",
-            "Value": "D"
-          },
-          {
-            "Label": "E",
-            "Value": "E"
-          },
-          {
-            "Label": "F",
-            "Value": "F"
-          },
-          {
-            "Label": "G",
-            "Value": "G"
-          },
-          {
-            "Label": "H",
-            "Value": "H"
-          },
-          {
-            "Label": "I",
-            "Value": "I"
-          },
-          {
-            "Label": "J",
-            "Value": "J"
-          },
-          {
-            "Label": "K",
-            "Value": "K"
-          },
-          {
-            "Label": "L",
-            "Value": "L"
-          },
-          {
-            "Label": "M",
-            "Value": "M"
-          },
-          {
-            "Label": "N",
-            "Value": "N"
-          },
-          {
-            "Label": "O",
-            "Value": "O"
-          },
-          {
-            "Label": "P",
-            "Value": "P"
-          },
-          {
-            "Label": "Q",
-            "Value": "Q"
-          },
-          {
-            "Label": "R",
-            "Value": "R"
-          },
-          {
-            "Label": "S",
-            "Value": "S"
-          },
-          {
-            "Label": "T",
-            "Value": "T"
-          },
-          {
-            "Label": "U",
-            "Value": "U"
-          },
-          {
-            "Label": "V",
-            "Value": "V"
-          },
-          {
-            "Label": "W",
-            "Value": "W"
-          },
-          {
-            "Label": "X",
-            "Value": "X"
-          },
-          {
-            "Label": "Y",
-            "Value": "Y"
-          },
-          {
-            "Label": "Z",
-            "Value": "Z"
-          },
-          {
-            "Label": "a",
-            "Value": "a"
-          },
-          {
-            "Label": "b",
-            "Value": "b"
-          },
-          {
-            "Label": "c",
-            "Value": "c"
-          },
-          {
-            "Label": "d",
-            "Value": "d"
-          },
-          {
-            "Label": "e",
-            "Value": "e"
-          },
-          {
-            "Label": "f",
-            "Value": "f"
-          },
-          {
-            "Label": "g",
-            "Value": "g"
-          },
-          {
-            "Label": "h",
-            "Value": "h"
-          },
-          {
-            "Label": "i",
-            "Value": "i"
-          },
-          {
-            "Label": "j",
-            "Value": "j"
-          },
-          {
-            "Label": "k",
-            "Value": "k"
-          },
-          {
-            "Label": "l",
-            "Value": "l"
-          },
-          {
-            "Label": "m",
-            "Value": "m"
-          },
-          {
-            "Label": "n",
-            "Value": "n"
-          },
-          {
-            "Label": "o",
-            "Value": "o"
-          },
-          {
-            "Label": "p",
-            "Value": "p"
-          },
-          {
-            "Label": "q",
-            "Value": "q"
-          },
-          {
-            "Label": "r",
-            "Value": "r"
-          },
-          {
-            "Label": "s",
-            "Value": "s"
-          },
-          {
-            "Label": "t",
-            "Value": "t"
-          },
-          {
-            "Label": "u",
-            "Value": "u"
-          },
-          {
-            "Label": "v",
-            "Value": "v"
-          },
-          {
-            "Label": "w",
-            "Value": "w"
-          },
-          {
-            "Label": "x",
-            "Value": "x"
-          },
-          {
-            "Label": "y",
-            "Value": "y"
-          },
-          {
-            "Label": "z",
-            "Value": "z"
-          }
-        ],
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "labelText": "$value"
-            }
-          }
-        }
-      },
-      {
         "Name": "rh_toggle_xhair_enable",
-        "Label": "Enable",
+        "Label": "Enable the Crosshair",
         "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
-        "ToolTip": "Toggle crosshair visibility.",
         "Files": {
           "scripts/hudlayout.res": {
             "CustomCrosshair": {
@@ -575,10 +215,10 @@
       },
       {
         "Name": "rh_toggle_xhair_pulse",
-        "Label": "Hitmarker",
+        "Label": "Toggle Hitmarker",
         "Type": "Checkbox",
+        "ToolTip": "Toggle hitmarker animation.",
         "Value": "true",
-        "ToolTip": "Toggle crosshair hitmarker.",
         "Files": {
           "scripts/hudanimations_custom.txt": {
             "uncomment": [
@@ -587,9 +227,74 @@
             ]
           }
         }
+      },
+      {
+        "Name": "rh_val_xhair_style",
+        "Label": "Style",
+        "Type": "Crosshair",
+        "ToolTip": "Style of crosshair.",
+        "Value": "<",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
+          }
+        }
       }
     ],
     "Health": [
+      {
+        "Name": "rh_color_health_normal",
+        "Label": "Health Normal",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health when normal.",
+        "Value": "235 226 202 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Normal": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_color_health_buff",
+        "Label": "Health Buffed",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health when buffed.",
+        "Value": "48 255 48 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Buff": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_color_health_low",
+        "Label": "Health Low",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player health when low.",
+        "Value": "255 153 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Hurt": "$value"
+              }
+            }
+          }
+        }
+      },
       {
         "Name": "rh_val_health_style",
         "Label": "Health Style",
@@ -616,54 +321,6 @@
             "FileName": "hudplayerhealth-cross.res"
           }
         ]
-      },
-      {
-        "Name": "rh_color_health_normal",
-        "Label": "Health Normal",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of player health when normal.",
-        "Value": "235 226 202 255",
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "Health Normal": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "rh_color_health_buff",
-        "Label": "Health Buffed",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of player health when buffed.",
-        "Value": "48 255 48 255",
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "Health Buff": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "rh_color_health_low",
-        "Label": "Health Low",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of player health when low.",
-        "Value": "255 153 0 255",
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "Health Hurt": "$value"
-              }
-            }
-          }
-        }
       }
     ],
     "Ammo": [
@@ -673,6 +330,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Color of the ammo clip when normal.",
         "Value": "48 255 48 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -689,6 +347,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Color of the ammo clip when low.",
         "Value": "255 42 130 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -705,6 +364,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Color of the ammo reserve when normal.",
         "Value": "72 255 255 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -721,6 +381,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Color of the ammo reserve when low.",
         "Value": "255 128 28 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -738,6 +399,7 @@
         "Label": "Normal",
         "Type": "ColorPicker",
         "Value": "178 178 178 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -753,6 +415,7 @@
         "Label": "Unique",
         "Type": "ColorPicker",
         "Value": "255 215 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -768,6 +431,7 @@
         "Label": "Strange",
         "Type": "ColorPicker",
         "Value": "207 106 50 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -783,6 +447,7 @@
         "Label": "Vintage",
         "Type": "ColorPicker",
         "Value": "71 98 145 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -798,6 +463,7 @@
         "Label": "Haunted",
         "Type": "ColorPicker",
         "Value": "56 243 171 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -813,6 +479,7 @@
         "Label": "Genuine",
         "Type": "ColorPicker",
         "Value": "77 116 85 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -828,6 +495,7 @@
         "Label": "Collectors",
         "Type": "ColorPicker",
         "Value": "170 0 0 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -843,6 +511,7 @@
         "Label": "Unusual",
         "Type": "ColorPicker",
         "Value": "134 80 172 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -858,6 +527,7 @@
         "Label": "Community",
         "Type": "ColorPicker",
         "Value": "112 176 74 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -873,6 +543,7 @@
         "Label": "Valve",
         "Type": "ColorPicker",
         "Value": "165 15 121 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -890,6 +561,7 @@
         "Label": "Civilian",
         "Type": "ColorPicker",
         "Value": "176 195 217 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -905,6 +577,7 @@
         "Label": "Freelance",
         "Type": "ColorPicker",
         "Value": "94 152 217 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -920,6 +593,7 @@
         "Label": "Mercenary",
         "Type": "ColorPicker",
         "Value": "75 105 255 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -935,6 +609,7 @@
         "Label": "Commando",
         "Type": "ColorPicker",
         "Value": "136 71 255 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -950,6 +625,7 @@
         "Label": "Assassin",
         "Type": "ColorPicker",
         "Value": "211 44 230 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -965,6 +641,7 @@
         "Label": "Elite",
         "Type": "ColorPicker",
         "Value": "235 75 75 255",
+        "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -982,7 +659,8 @@
         "Label": "Classic Main Menu Style",
         "Type": "Checkbox",
         "Value": "false",
-        "ToolTip": "Toggle to the classic rayshud main menu style. (Restart required)",
+        "Restart": true,
+        "ToolTip": "Toggle to the classic rayshud main menu style.",
         "FileName": "mainmenuoverride-classic.res"
       },
       {
@@ -1014,6 +692,7 @@
         "Type": "Checkbox",
         "ToolTip": "Toggle the character images seen on the main menu.",
         "Value": "false",
+        "Restart": true,
         "Files": {
           "resource/ui/mainmenuoverride.res": {
             "TFCharacterImage": {
@@ -1112,7 +791,8 @@
         "Name": "rh_toggle_transparent_viewmodels",
         "Label": "Transparent Viewmodels",
         "Type": "Checkbox",
-        "ToolTip": "Toggle transparent viewmodels. (May required config changes)",
+        "ToolTip": "Toggle transparent viewmodels.",
+        "Special": "TransparentViewmodels",
         "Value": "false",
         "Files": {
           "scripts/hudlayout.res": {
@@ -1151,40 +831,25 @@
         "Name": "rh_val_main_menu_bg",
         "Label": "Menu Background",
         "Type": "ComboBox",
-        "ToolTip": "Change the style of background image shown on the main menu. (Restart required)",
+        "ToolTip": "Change the style of background image shown on the main menu.",
         "Value": "0",
+        "Restart": true,
         "Options": [
           {
             "Label": "Modern",
             "Value": "0",
-            "Files": {
-              "materials/console/background_upward.vmt": {
-                "UnlitGeneric": {
-                  "$baseTexture": "console/background_modern"
-                }
-              },
-              "materials/console/background_upward_widescreen.vmt": {
-                "UnlitGeneric": {
-                  "$baseTexture": "console/background_modern_widescreen"
-                }
-              }
-            }
+            "Special": "HUDBackground",
+            "SpecialParameters": [
+              "background_modern"
+            ]
           },
           {
             "Label": "Classic",
             "Value": "1",
-            "Files": {
-              "materials/console/background_upward.vmt": {
-                "UnlitGeneric": {
-                  "$baseTexture": "console/background_classic"
-                }
-              },
-              "materials/console/background_upward_widescreen.vmt": {
-                "UnlitGeneric": {
-                  "$baseTexture": "console/background_classic_widescreen"
-                }
-              }
-            }
+            "Special": "HUDBackground",
+            "SpecialParameters": [
+              "background_classic"
+            ]
           },
           {
             "Label": "Default",
@@ -1209,6 +874,14 @@
             }
           }
         }
+      },
+      {
+        "Name": "rh_custom_background",
+        "Label": "Set Custom Background",
+        "Type": "CustomBackground",
+        "Special": "CustomBackground",
+        "ToolTip": "Replace the main menu background with a custom image.",
+        "Restart": true
       }
     ]
   }

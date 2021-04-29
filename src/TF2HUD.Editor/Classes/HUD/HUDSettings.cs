@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Media;
+using HUDEditor.Models;
 using Newtonsoft.Json;
-using TF2HUD.Editor.JSON;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     public class HUDSettings
     {

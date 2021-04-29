@@ -3,126 +3,45 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using HUDEditor.Models;
 
-// sample animation script
-//
-//
-// commands:
-//    Animate <panel name> <variable> <target value> <interpolator> <start time> <duration>
-//        variables:
-//            FgColor
-//            BgColor
-//            Position
-//            Size
-//            Blur        (hud panels only)
-//            TextColor    (hud panels only)
-//            Ammo2Color    (hud panels only)
-//            Alpha        (hud weapon selection only)
-//            SelectionAlpha  (hud weapon selection only)
-//            TextScan    (hud weapon selection only)
-//
-//        interpolator:
-//            Linear
-//            Accel - starts moving slow, ends fast
-//            Deaccel - starts moving fast, ends slow
-//            Spline - simple ease in/out curve
-//            Pulse - < freq > over the duration, the value is pulsed (cosine) freq times ending at the dest value (assuming freq is integral)
-//            Flicker - < randomness factor 0.0 to 1.0 > over duration, each frame if random # is less than factor, use end value, otherwise use prev value
-//            Gain - < bias > Lower bias values bias towards 0.5 and higher bias values bias away from it.
-//            Bias - < bias > Lower values bias the curve towards 0 and higher values bias it towards 1.
-//
-//    RunEvent <event name> <start time>
-//        starts another even running at the specified time
-//
-//    StopEvent <event name> <start time>
-//        stops another event that is current running at the specified time
-//
-//    StopAnimation <panel name> <variable> <start time>
-//        stops all animations referring to the specified variable in the specified panel
-//
-//    StopPanelAnimations <panel name> <start time>
-//        stops all active animations operating on the specified panel
-//
-//  SetFont <panel name> <fontparameter> <fontname from scheme> <set time>
-//
-//    SetTexture <panel name> <textureidname> <texturefilename> <set time>
-//
-//  SetString <panel name> <string varname> <stringvalue> <set time>
-
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
-    #region MODEL
-
-    internal class HUDAnimation
-    {
-        public string Type { get; set; }
-    }
-
-    internal class Animate : HUDAnimation
-    {
-        public string Element { get; set; }
-        public string Property { get; set; }
-        public string Value { get; set; }
-        public string Interpolator { get; set; }
-        public string Frequency { get; set; }
-        public string Bias { get; set; }
-        public string Delay { get; set; }
-        public string Duration { get; set; }
-    }
-
-    internal class RunEvent : HUDAnimation
-    {
-        public string Event { get; set; }
-        public string Delay { get; set; }
-    }
-
-    internal class StopEvent : HUDAnimation
-    {
-        public string Event { get; set; }
-        public string Delay { get; set; }
-    }
-
-    internal class SetVisible : HUDAnimation
-    {
-        public string Element { get; set; }
-        public string Delay { get; set; }
-        public string Duration { get; set; }
-    }
-
-    internal class FireCommand : HUDAnimation
-    {
-        public string Delay { get; set; }
-        public string Command { get; set; }
-    }
-
-    internal class RunEventChild : HUDAnimation
-    {
-        public string Element { get; set; }
-        public string Event { get; set; }
-        public string Delay { get; set; }
-    }
-
-    internal class SetInputEnabled : HUDAnimation
-    {
-        public string Element { get; set; }
-        public int Visible { get; set; }
-        public string Delay { get; set; }
-    }
-
-    internal class PlaySound : HUDAnimation
-    {
-        public string Delay { get; set; }
-        public string Sound { get; set; }
-    }
-
-    internal class StopPanelAnimations : HUDAnimation
-    {
-        public string Element { get; set; }
-        public string Delay { get; set; }
-    }
-
-    #endregion
-
+    /// <summary>
+    ///     Sample Animation Script
+    ///     Commands:
+    ///     Animate (panel name) (variable) (target value) (interpolator) (start time) (duration)
+    ///     Variables:
+    ///     FgColor
+    ///     BgColor
+    ///     Position
+    ///     Size
+    ///     Blur        (HUD panels only)
+    ///     TextColor    (HUD panels only)
+    ///     Ammo2Color    (HUD panels only)
+    ///     Alpha        (HUD weapon selection only)
+    ///     SelectionAlpha  (HUD weapon selection only)
+    ///     TextScan    (HUD weapon selection only)
+    ///     Interpolator:
+    ///     Linear
+    ///     Accel - starts moving slow, ends fast
+    ///     Deaccel - starts moving fast, ends slow
+    ///     Spline - simple ease in/out curve
+    ///     Pulse - ( freq ) over the duration, the value is pulsed (cosine) freq times ending at the dest value (assuming freq
+    ///     is integral)
+    ///     Flicker - ( randomness factor 0.0 to 1.0 ) over duration, each frame if random # is less than factor, use end
+    ///     value, otherwise use prev value
+    ///     Gain - ( bias ) Lower bias values bias towards 0.5 and higher bias values bias away from it.
+    ///     Bias - ( bias ) Lower values bias the curve towards 0 and higher values bias it towards 1.
+    ///     RunEvent (event name) (start time) - starts another even running at the specified time
+    ///     StopEvent (event name) (start time) - stops another event that is current running at the specified time
+    ///     StopAnimation (panel name) (variable) (start time) - stops all animations referring to the specified variable in
+    ///     the specified panel
+    ///     StopPanelAnimations (panel name) (start time) - stops all active animations operating on the specified panel
+    ///     SetFont (panel name) (fontparameter) (fontname from scheme) (set time)
+    ///     SetTexture (panel name) (textureidname) (texturefilename) (set time)
+    ///     SetString (panel name) (string varname) (stringvalue) (set time)
+    /// </summary>
     internal static class HUDAnimations
     {
         public static Dictionary<string, List<HUDAnimation>> Parse(string text)
@@ -353,6 +272,8 @@ namespace TF2HUD.Editor.Classes
                             $"Animate {FormatWhiteSpace(animation.Element)} {FormatWhiteSpace(animation.Property)} {FormatWhiteSpace(animation.Value)} {GetInterpolator(animation)} {animation.Delay} {animation.Duration}";
                     else if (T == typeof(RunEvent) || T == typeof(StopEvent))
                         stringValue += $"RunEvent {FormatWhiteSpace(animation.Event)} {animation.Delay}";
+                    else if (T == typeof(StopEvent))
+                        stringValue += $"StopEvent {FormatWhiteSpace(animation.Event)} {animation.Delay}";
                     else if (T == typeof(SetVisible))
                         stringValue +=
                             $"SetVisible {FormatWhiteSpace(animation.Element)} {animation.Delay} {animation.Duration}";

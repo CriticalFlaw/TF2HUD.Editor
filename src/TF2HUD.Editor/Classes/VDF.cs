@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     internal static class VDF
     {

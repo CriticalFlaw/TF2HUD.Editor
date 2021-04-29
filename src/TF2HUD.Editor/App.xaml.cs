@@ -4,7 +4,7 @@ using System.Windows;
 using log4net;
 using log4net.Config;
 
-namespace TF2HUD.Editor
+namespace HUDEditor
 {
     /// <summary>
     ///     Interaction logic for App.xaml
