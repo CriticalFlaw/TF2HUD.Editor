@@ -89,6 +89,8 @@ namespace TF2HUD.Editor.Classes
                 {
                     if (useHUDBackground)
                     {
+                        // Copy enabled background to console folder
+
                         if (File.Exists($"{disabledFolder}\\{HUDImagePath}.vtf"))
                             File.Copy($"{disabledFolder}\\{HUDImagePath}.vtf", $"{consoleFolder}\\background_upward.vtf", true);
 
@@ -99,9 +101,20 @@ namespace TF2HUD.Editor.Classes
                     }
                     else if (useStockBackgrounds)
                     {
+                        // Delete custom background
+
                         File.Delete($"{consoleFolder}\\background_upward.vtf");
                         File.Delete($"{consoleFolder}\\background_upward_widescreen.vtf");
                         File.Delete($"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt");
+                    }
+                    else
+                    {
+                        // Restore console folder
+
+                        foreach (var filePath in Directory.GetFiles(disabledFolder))
+                        {
+                            File.Move(filePath, $"{consoleFolder}\\{filePath.Split("\\")[^1]}", true);
+                        }
                     }
                 }
             }
