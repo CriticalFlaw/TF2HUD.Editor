@@ -5,16 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using TF2HUD.Editor.JSON;
-using TF2HUD.Editor.Properties;
-using Xceed.Wpf.Toolkit;
+using HUDEditor.Models;
+using HUDEditor.Properties;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     public partial class HUD
     {
@@ -29,7 +25,7 @@ namespace TF2HUD.Editor.Classes
                 // Set the HUD Background image path when applying, because it's possible
                 // the user did not have their tf/custom folder set up when this HUD
                 // constructor was called
-                HUDBackground = new BackgroundManager($"{MainWindow.HudPath}\\{Name}\\");
+                HUDBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\");
 
                 var hudSettings = ControlOptions.Values;
                 // var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
@@ -51,7 +47,7 @@ namespace TF2HUD.Editor.Classes
                             WriteToFile(control, userSetting, hudFolders);
                     }
 
-                void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
+                static void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
                 {
                     foreach (var property in folder.Keys)
                         if (folder[property].GetType() == typeof(Dictionary<string, dynamic>))
@@ -74,7 +70,7 @@ namespace TF2HUD.Editor.Classes
 
                                     // Initialize to null to check whether matching element has been found
                                     Dictionary<string, dynamic> hudContainer = null;
-                                    var pattern = @"(Resource/UI/)*.res";
+                                    const string pattern = "(Resource/UI/)*.res";
 
                                     int preventInfinite = 0, len = obj.Keys.Count;
                                     while (hudContainer == null && preventInfinite < len)
@@ -498,109 +494,72 @@ namespace TF2HUD.Editor.Classes
                                     foreach (var _animation in animationOption.Value.ToArray())
                                     {
                                         var animation = _animation.ToObject<Dictionary<string, dynamic>>();
-
-                                        // Create temporary variable to store current animation instead of adding directly in switch case
-                                        // because there are conditional properties that might need to be added later
-                                        //
-                                        // Initialize to dynamic so type checker does not return HUDAnimation
-                                        // for setting freq/gain/bias
-                                        //
-                                        dynamic current;
-
-                                        switch (animation["Type"].ToString().ToLower())
+                                        dynamic current = (dynamic)animation["Type"].ToString().ToLower() switch
                                         {
-                                            case "animate":
-                                                current = new Animate
-                                                {
-                                                    Type = "Animate",
-                                                    Element = animation["Element"],
-                                                    Property = animation["Property"],
-                                                    Value = animation["Value"],
-                                                    Interpolator = animation["Interpolator"],
-                                                    Delay = animation["Delay"],
-                                                    Duration = animation["Duration"]
-                                                };
-                                                break;
-
-                                            case "runevent":
-                                                current = new RunEvent
-                                                {
-                                                    Type = "RunEvent",
-                                                    Event = animation["Event"],
-                                                    Delay = animation["Delay"]
-                                                };
-                                                break;
-
-                                            case "stopevent":
-                                                current = new StopEvent
-                                                {
-                                                    Type = "StopEvent",
-                                                    Event = animation["Event"],
-                                                    Delay = animation["Delay"]
-                                                };
-                                                break;
-
-                                            case "setvisible":
-                                                current = new SetVisible
-                                                {
-                                                    Type = "StopEvent",
-                                                    Element = animation["Element"],
-                                                    Delay = animation["Delay"],
-                                                    Duration = animation["Duration"]
-                                                };
-                                                break;
-
-                                            case "firecommand":
-                                                current = new FireCommand
-                                                {
-                                                    Type = "FireCommand",
-                                                    Delay = animation["Delay"],
-                                                    Command = animation["Command"]
-                                                };
-                                                break;
-
-                                            case "runeventchild":
-                                                current = new RunEventChild
-                                                {
-                                                    Type = "RunEventChild",
-                                                    Element = animation["Element"],
-                                                    Event = animation["Event"],
-                                                    Delay = animation["Delay"]
-                                                };
-                                                break;
-
-                                            case "setinputenabled":
-                                                current = new SetInputEnabled
-                                                {
-                                                    Type = "SetInputEnabled",
-                                                    Element = animation["Element"],
-                                                    Visible = animation["Visible"],
-                                                    Delay = animation["Delay"]
-                                                };
-                                                break;
-
-                                            case "playsound":
-                                                current = new PlaySound
-                                                {
-                                                    Type = "PlaySound",
-                                                    Delay = animation["Delay"],
-                                                    Sound = animation["Sound"]
-                                                };
-                                                break;
-
-                                            case "stoppanelanimations":
-                                                current = new StopPanelAnimations
-                                                {
-                                                    Type = "StopPanelAnimations",
-                                                    Element = animation["Element"],
-                                                    Delay = animation["Delay"]
-                                                };
-                                                break;
-
-                                            default:
-                                                throw new Exception(
-                                                    $"Unexpected animation type '{animation["Type"]}' in {animationOption.Key}!");
-                                        }
+                                            "animate" => new Animate
+                                            {
+                                                Type = "Animate",
+                                                Element = animation["Element"],
+                                                Property = animation["Property"],
+                                                Value = animation["Value"],
+                                                Interpolator = animation["Interpolator"],
+                                                Delay = animation["Delay"],
+                                                Duration = animation["Duration"]
+                                            },
+                                            "runevent" => new RunEvent
+                                            {
+                                                Type = "RunEvent",
+                                                Event = animation["Event"],
+                                                Delay = animation["Delay"]
+                                            },
+                                            "stopevent" => new StopEvent
+                                            {
+                                                Type = "StopEvent",
+                                                Event = animation["Event"],
+                                                Delay = animation["Delay"]
+                                            },
+                                            "setvisible" => new SetVisible
+                                            {
+                                                Type = "StopEvent",
+                                                Element = animation["Element"],
+                                                Delay = animation["Delay"],
+                                                Duration = animation["Duration"]
+                                            },
+                                            "firecommand" => new FireCommand
+                                            {
+                                                Type = "FireCommand",
+                                                Delay = animation["Delay"],
+                                                Command = animation["Command"]
+                                            },
+                                            "runeventchild" => new RunEventChild
+                                            {
+                                                Type = "RunEventChild",
+                                                Element = animation["Element"],
+                                                Event = animation["Event"],
+                                                Delay = animation["Delay"]
+                                            },
+                                            "setinputenabled" => new SetInputEnabled
+                                            {
+                                                Type = "SetInputEnabled",
+                                                Element = animation["Element"],
+                                                Visible = animation["Visible"],
+                                                Delay = animation["Delay"]
+                                            },
+                                            "playsound" => new PlaySound
+                                            {
+                                                Type = "PlaySound",
+                                                Delay = animation["Delay"],
+                                                Sound = animation["Sound"]
+                                            },
+                                            "stoppanelanimations" => new StopPanelAnimations
+                                            {
+                                                Type = "StopPanelAnimations",
+                                                Element = animation["Element"],
+                                                Delay = animation["Delay"]
+                                            },
+                                            _ => throw new Exception(
+                                              $"Unexpected animation type '{animation["Type"]}' in {animationOption.Key}!"),
+                                        };
 
                                         // Animate statements can have an extra argument make sure to account for them
                                         if (current.GetType() == typeof(Animate))
@@ -660,7 +619,7 @@ namespace TF2HUD.Editor.Classes
             }
         }
 
-        private (JObject, string, string[]) GetControlInfo(Controls hudSetting, Setting userSetting)
+        private static (JObject, string, string[]) GetControlInfo(Controls hudSetting, Setting userSetting)
         {
             if (!string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
                 return (hudSetting.Files, hudSetting.Special, hudSetting.SpecialParameters);

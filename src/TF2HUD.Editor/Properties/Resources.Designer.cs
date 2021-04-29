@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TF2HUD.Editor.Properties {
+namespace HUDEditor.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace TF2HUD.Editor.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TF2HUD.Editor.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HUDEditor.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -106,29 +106,11 @@ namespace TF2HUD.Editor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This option will overwrite your current background, if you want to go back to the default you&apos;ll have to reinstall the HUD. Are you sure you want to continue?.
-        /// </summary>
-        internal static string ask_custom_background {
-            get {
-                return ResourceManager.GetString("ask_custom_background", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available..
         /// </summary>
         internal static string ask_folder_browser {
             get {
                 return ResourceManager.GetString("ask_folder_browser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please select the image you want to use as the new game background..
-        /// </summary>
-        internal static string ask_image_browser {
-            get {
-                return ResourceManager.GetString("ask_image_browser", resourceCulture);
             }
         }
         
@@ -165,24 +147,6 @@ namespace TF2HUD.Editor.Properties {
         internal static string error_app_uninstall {
             get {
                 return ResourceManager.GetString("error_app_uninstall", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while changing the main menu backgrounds..
-        /// </summary>
-        internal static string error_menu_background {
-            get {
-                return ResourceManager.GetString("error_menu_background", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while toggling seasonal backgrounds..
-        /// </summary>
-        internal static string error_seasonal_backgrounds {
-            get {
-                return ResourceManager.GetString("error_seasonal_backgrounds", resourceCulture);
             }
         }
         

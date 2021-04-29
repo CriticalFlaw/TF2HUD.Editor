@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,13 +6,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using TF2HUD.Editor.JSON;
-using TF2HUD.Editor.Properties;
+using HUDEditor.Models;
 using Xceed.Wpf.Toolkit;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     public partial class HUD
     {
@@ -123,7 +118,7 @@ namespace TF2HUD.Editor.Classes
                             {
                                 Name = id,
                                 Content = label,
-                                Margin = new Thickness(10, lastTop + 10, 30, 0),
+                                Margin = new Thickness(10, lastTop + 10, 50, 0),
                                 IsChecked = Settings.GetSetting<bool>(id),
                                 ToolTip = tooltip
                             };
@@ -440,7 +435,7 @@ namespace TF2HUD.Editor.Classes
 
                             var bgContainer = new Grid
                             {
-                                Margin = new Thickness(10, lastTop + 10, 0, 0),
+                                Margin = new Thickness(10, lastTop + 5, 0, 0),
                                 ToolTip = tooltip
                             };
 
@@ -452,7 +447,8 @@ namespace TF2HUD.Editor.Classes
 
                             var bgLabel = new Label
                             {
-                                Content = controlItem.Label
+                                Content = controlItem.Label,
+                                FontSize = 18
                             };
                             Grid.SetColumn(bgLabel, 0);
                             Grid.SetColumnSpan(bgLabel, 2);
@@ -489,7 +485,8 @@ namespace TF2HUD.Editor.Classes
                             {
                                 Width = 200,
                                 HorizontalAlignment = HorizontalAlignment.Left,
-                                VerticalAlignment = VerticalAlignment.Top
+                                VerticalAlignment = VerticalAlignment.Top,
+                                Margin = new Thickness(0, 10, 0,0)
                             };
 
                             Grid.SetColumn(bgImage, 0);
@@ -525,9 +522,10 @@ namespace TF2HUD.Editor.Classes
 
                             var imageSource = Settings.GetSetting<string>(controlItem.Name);
 
-                            if (imageSource != "")
+                            if (!string.IsNullOrWhiteSpace(imageSource))
                             {
-                                bgImage.Source = new BitmapImage(new Uri(imageSource));
+                                if (Uri.TryCreate(imageSource, UriKind.Absolute, out var path))
+                                bgImage.Source = new BitmapImage(path);
                             }
 
                             // Add to Page.
@@ -551,9 +549,10 @@ namespace TF2HUD.Editor.Classes
                                 Content = label,
                                 FontSize = 18
                             };
-                            var textInput = new TextBox()
+                            var textInput = new TextBox
                             {
                                 Name = id,
+                                Width = 270,
                                 Text = controlItem.Value ?? string.Empty,
                                 ToolTip = tooltip
                             };

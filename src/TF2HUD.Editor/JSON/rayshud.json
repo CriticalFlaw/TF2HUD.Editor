@@ -1,11 +1,9 @@
 {
   "Background": "https://imgur.com/UIHWxBv.png",
-  "Maximize": true,
   "Layout": [
-    "0 0 0 0 1 1",
-    "5 2 2 2 6 6",
-    "5 3 3 3 6 6",
-    "5 4 4 4 6 6"
+    "0 0 1 1 6 6",
+    "2 2 3 3 6 6",
+    "5 5 4 4 6 6"
   ],
   "Links": {
     "Update": "https://github.com/raysfire/rayshud/archive/master.zip",
@@ -19,60 +17,6 @@
   "EnabledFolder": "#customizations//_enabled",
   "Controls": {
     "UberCharge": [
-      {
-        "Name": "rh_val_uber_animation",
-        "Label": "Uber Style",
-        "Type": "ComboBox",
-        "ToolTip": "Change the style of UberCharge's color scheme.",
-        "Value": "0",
-        "Options": [
-          {
-            "Label": "Flash",
-            "Value": "0",
-            "Files": {
-              "scripts/hudanimations_custom.txt": {
-                "comment": [
-                  "RunEvent HudMedicSolidColorCharge",
-                  "RunEvent HudMedicRainbowCharged"
-                ],
-                "uncomment": [
-                  "RunEvent HudMedicOrangePulseCharge"
-                ]
-              }
-            }
-          },
-          {
-            "Label": "Solid",
-            "Value": "1",
-            "Files": {
-              "scripts/hudanimations_custom.txt": {
-                "comment": [
-                  "RunEvent HudMedicOrangePulseCharge",
-                  "RunEvent HudMedicRainbowCharged"
-                ],
-                "uncomment": [
-                  "RunEvent HudMedicSolidColorCharge"
-                ]
-              }
-            }
-          },
-          {
-            "Label": "Rainbow",
-            "Value": "2",
-            "Files": {
-              "scripts/hudanimations_custom.txt": {
-                "comment": [
-                  "RunEvent HudMedicSolidColorCharge",
-                  "RunEvent HudMedicOrangePulseCharge"
-                ],
-                "uncomment": [
-                  "RunEvent HudMedicRainbowCharged"
-                ]
-              }
-            }
-          }
-        ]
-      },
       {
         "Name": "rh_color_uber_bar",
         "Label": "Charging",
@@ -140,6 +84,60 @@
             }
           }
         }
+      },
+      {
+        "Name": "rh_val_uber_animation",
+        "Label": "Uber Style",
+        "Type": "ComboBox",
+        "ToolTip": "Change the style of UberCharge's color scheme.",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "Flash",
+            "Value": "0",
+            "Files": {
+              "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "RunEvent HudMedicSolidColorCharge",
+                  "RunEvent HudMedicRainbowCharged"
+                ],
+                "uncomment": [
+                  "RunEvent HudMedicOrangePulseCharge"
+                ]
+              }
+            }
+          },
+          {
+            "Label": "Solid",
+            "Value": "1",
+            "Files": {
+              "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "RunEvent HudMedicOrangePulseCharge",
+                  "RunEvent HudMedicRainbowCharged"
+                ],
+                "uncomment": [
+                  "RunEvent HudMedicSolidColorCharge"
+                ]
+              }
+            }
+          },
+          {
+            "Label": "Rainbow",
+            "Value": "2",
+            "Files": {
+              "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "RunEvent HudMedicSolidColorCharge",
+                  "RunEvent HudMedicOrangePulseCharge"
+                ],
+                "uncomment": [
+                  "RunEvent HudMedicRainbowCharged"
+                ]
+              }
+            }
+          }
+        ]
       }
     ],
     "Crosshair": [
@@ -195,20 +193,6 @@
         }
       },
       {
-        "Name": "rh_val_xhair_style",
-        "Label": "Style",
-        "Type": "Crosshair",
-        "ToolTip": "Style of crosshair.",
-        "Value": "<",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "labelText": "$value"
-            }
-          }
-        }
-      },
-      {
         "Name": "rh_toggle_xhair_enable",
         "Label": "Enable the Crosshair",
         "Type": "Checkbox",
@@ -241,6 +225,20 @@
               "StopEvent HitMarker",
               "RunEvent HitMarker"
             ]
+          }
+        }
+      },
+      {
+        "Name": "rh_val_xhair_style",
+        "Label": "Style",
+        "Type": "Crosshair",
+        "ToolTip": "Style of crosshair.",
+        "Value": "<",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
           }
         }
       }
@@ -883,7 +881,6 @@
         "Type": "CustomBackground",
         "Special": "CustomBackground",
         "ToolTip": "Replace the main menu background with a custom image.",
-        "Value": "",
         "Restart": true
       }
     ]

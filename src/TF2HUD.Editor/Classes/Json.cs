@@ -6,10 +6,10 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using TF2HUD.Editor.JSON;
-using TF2HUD.Editor.Properties;
+using HUDEditor.Models;
+using HUDEditor.Properties;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     public class Json
     {
@@ -104,7 +104,7 @@ namespace TF2HUD.Editor.Classes
                     client.DownloadFile(string.Format(Resources.app_json_file, fileName), fileName);
                     client.Dispose();
 
-                    // Move the fresh file into the JSON folder, overwritting the previous version.
+                    // Move the fresh file into the JSON folder, overwriting the previous version.
                     if (File.Exists(fileName))
                         File.Move(fileName, $"JSON/{fileName}", true);
 
@@ -126,26 +126,28 @@ namespace TF2HUD.Editor.Classes
         {
             try
             {
-                return (await Task.WhenAll(HUDList.Select(async (x) =>
+                return (await Task.WhenAll(HUDList.Select(async x =>
                 {
-                    var Url = $"https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{x.Name}.json";
-                    MainWindow.Logger.Info($"Requesting {x.Name} from {Url}");
-                    var response = await Utilities.Fetch(Url);
+                    var url = string.Format(Resources.app_json_file, $"{x.Name}.json");
+                    MainWindow.Logger.Info($"Requesting {x.Name} from {url}");
+                    var response = await Utilities.Fetch(url).ConfigureAwait(false);
                     if (response == null)
                     {
-                        MainWindow.Logger.Info($"{x.Name}: Recieved HTTP error, unable to determine whether HUD has been updated!");
+                        MainWindow.Logger.Info($"{x.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
                         return false;
-                    };
+                    }
                     var value = JsonConvert.DeserializeObject<HudJson>(response);
-                    // Added if !DEBUG to test compare huds method
+                    // Added if !DEBUG to test compare HUDs method
 # if !DEBUG
                     File.WriteAllText($"JSON/{x.Name}.json", response);
 # endif
                     return !x.TestHUD(new HUD(x.Name, value));
-                }))).Contains(true);
+                })).ConfigureAwait(false)).Contains(true);
             }
             catch (Exception e)
             {
+                MainWindow.Logger.Error(e.Message);
+                Console.WriteLine(e);
                 return false;
             }
         }

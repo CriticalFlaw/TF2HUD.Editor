@@ -1,9 +1,9 @@
 {
   "Background": "https://imgur.com/V441OsM.png",
   "Layout": [
-    "0 0 0 4",
-    "1 2 3 4",
-    "1 2 3 4"
+    "0 0 3 3",
+    "1 2 4 5",
+    "1 2 4 5"
   ],
   "Links": {
     "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
@@ -519,23 +519,6 @@
         }
       },
       {
-        "Name": "fh_toggle_menu_image",
-        "Label": "Main Menu Class Images",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle the character images seen on the main menu.",
-        "Value": "true",
-        "Files": {
-          "resource/ui/mainmenuoverride.res": {
-            "TFCharacterImage": {
-              "ypos": {
-                "true": "-80",
-                "false": "9999"
-              }
-            }
-          }
-        }
-      },
-      {
         "Name": "fh_toggle_transparent_viewmodels",
         "Label": "Transparent Viewmodels",
         "Type": "Checkbox",
@@ -552,33 +535,6 @@
               "enabled": {
                 "true": "1",
                 "false": "0"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "fh_toggle_background_stock",
-        "Label": "Default Backgrounds",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle the default Team Fortress 2 backgrounds.",
-        "Value": "false",
-        "Restart": true,
-        "Special": "StockBackgrounds",
-        "Files": {
-          "resource/ui/mainmenuoverride.res": {
-            "Background": {
-              "if_halloween": {
-                "image": {
-                  "true": "../console/title_scream_fortress_2017_widescreen",
-                  "false": ""
-                }
-              },
-              "if_christmas": {
-                "image": {
-                  "true": "../console/background_xmas2020_widescreen",
-                  "false": ""
-                }
               }
             }
           }
@@ -982,8 +938,7 @@
         "ToolTip": "Change to different health styles options.",
         "Value": "0",
         "Command": "HealthStyle",
-        "Preview":
-          "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
+        "Preview": "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
         "Options": [
           {
             "Label": "Default",
@@ -1072,6 +1027,52 @@
             }
           }
         }
+      }
+    ],
+    "Main Menu": [
+      {
+        "Name": "fh_toggle_menu_image",
+        "Label": "Main Menu Class Images",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the character images seen on the main menu.",
+        "Value": "true",
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "TFCharacterImage": {
+              "ypos": {
+                "true": "-80",
+                "false": "9999"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_background_stock",
+        "Label": "Default Backgrounds",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the default Team Fortress 2 backgrounds.",
+        "Value": "false",
+        "Restart": true,
+        "Special": "StockBackgrounds",
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "Background": {
+              "if_halloween": {
+                "image": {
+                  "true": "../console/title_scream_fortress_2017_widescreen",
+                  "false": ""
+                }
+              },
+              "if_christmas": {
+                "image": {
+                  "true": "../console/background_xmas2020_widescreen",
+                  "false": ""
+                }
+              }
+            }
+          }
+        }
       },
       {
         "Name": "fh_custom_background",
@@ -1079,7 +1080,6 @@
         "Type": "CustomBackground",
         "Special": "CustomBackground",
         "ToolTip": "Replace the main menu background with a custom image.",
-        "Value": "",
         "Restart": true
       },
       {

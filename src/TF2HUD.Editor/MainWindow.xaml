@@ -1,4 +1,4 @@
-﻿<Window x:Class="TF2HUD.Editor.MainWindow"
+﻿<Window x:Class="HUDEditor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -142,7 +142,7 @@
                 <Button
                     x:Name="BtnDocumentation"
                     Click="BtnDocumentation_OnClick"
-                    Content="R"
+                    Content="z"
                     Margin="5"
                     ToolTip="Read the Documentation"
                     Background="#776B5F"

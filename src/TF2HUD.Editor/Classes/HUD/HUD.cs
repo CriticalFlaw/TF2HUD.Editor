@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using TF2HUD.Editor.JSON;
-using TF2HUD.Editor.Properties;
+using HUDEditor.Models;
 using Xceed.Wpf.Toolkit;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     public partial class HUD
     {
@@ -24,7 +18,7 @@ namespace TF2HUD.Editor.Classes
         public Dictionary<string, Controls[]> ControlOptions;
         public string CustomizationsFolder, EnabledFolder;
         public List<string> DirtyControls;
-        private BackgroundManager HUDBackground;
+        private HUDBackground HUDBackground;
         private bool isRendered;
         private string[][] layout;
         public bool Maximize;
@@ -77,7 +71,7 @@ namespace TF2HUD.Editor.Classes
         /// </summary>
         public void Update()
         {
-            if (UpdateUrl != null) MainWindow.DownloadHud(UpdateUrl);
+            if (UpdateUrl != null) Utilities.DownloadHud(UpdateUrl);
         }
 
         public bool TestHUD(HUD hud)
@@ -88,7 +82,7 @@ namespace TF2HUD.Editor.Classes
 
             void LogChange(string prop, string before = "", string after = "")
             {
-                string message = before != "" ? $" (\"{before}\" => \"{after}\")" : string.Empty;
+                var message = (!string.IsNullOrWhiteSpace(before) ? $" (\"{before}\" => \"{after}\")" : string.Empty);
                 MainWindow.Logger.Info($"{Name}: {prop} has changed{message}, HUD has been updated.");
             }
 
@@ -112,7 +106,7 @@ namespace TF2HUD.Editor.Classes
 
                         if (arr1 != null && arr2 == null)
                         {
-                            LogChange($"{field.Name}", $"{arr2}[{arr2.Length}]", "*not present*");
+                            LogChange($"{field.Name}", $"Argument 2 [{arr2.Length}]", "*not present*");
                             return false;
                         }
 
@@ -124,11 +118,9 @@ namespace TF2HUD.Editor.Classes
 
                         for (var i = 0; i < arr1.Length; i++)
                         {
-                            if (arr1[i] != arr2[i])
-                            {
-                                LogChange($"{field.Name}[{i}]", arr1[i], arr2[i]);
-                                return false;
-                            }
+                            if (arr1[i] == arr2[i]) continue;
+                            LogChange($"{field.Name}[{i}]", arr1[i], arr2[i]);
+                            return false;
                         }
 
                     }
@@ -145,11 +137,9 @@ namespace TF2HUD.Editor.Classes
 
                         for (var i = 0; i < value1.Keys.Count; i++)
                         {
-                            if (value1.Keys.ElementAt(i) != value2.Keys.ElementAt(i))
-                            {
-                                LogChange($"Controls[{i}].Header", value1.Keys.ElementAt(i), value2.Keys.ElementAt(i));
-                                return false;
-                            }
+                            if (value1.Keys.ElementAt(i) == value2.Keys.ElementAt(i)) continue;
+                            LogChange($"Controls[{i}].Header", value1.Keys.ElementAt(i), value2.Keys.ElementAt(i));
+                            return false;
                         }
 
                         foreach (var key in value1.Keys)
@@ -162,7 +152,7 @@ namespace TF2HUD.Editor.Classes
 
                             for (var i = 0; i < value1[key].Length; i++)
                             {
-                                var comparison = Compare(value1[key][i], value2[key][i], new string[]
+                                var comparison = Compare(value1[key][i], value2[key][i], new []
                                 {
                                     "Control",
                                     "Value"
@@ -233,20 +223,16 @@ namespace TF2HUD.Editor.Classes
 
                 foreach (var x in obj1)
                 {
-                    if (!obj2.ContainsKey(x.Key))
-                    {
-                        LogChange($"{path}{x.Key}", x.Key, "*not present*");
-                        return false;
-                    }
+                    if (obj2.ContainsKey(x.Key)) continue;
+                    LogChange($"{path}{x.Key}", x.Key, "*not present*");
+                    return false;
                 }
 
                 foreach (var x in obj2)
                 {
-                    if (!obj1.ContainsKey(x.Key))
-                    {
-                        LogChange($"{path}{x.Key}", "*not present*", x.Key);
-                        return false;
-                    }
+                    if (obj1.ContainsKey(x.Key)) continue;
+                    LogChange($"{path}{x.Key}", "*not present*", x.Key);
+                    return false;
                 }
 
                 foreach (var x in obj1)
@@ -272,11 +258,9 @@ namespace TF2HUD.Editor.Classes
 
                         for (var i = 0; i < arr1.Length; i++)
                         {
-                            if (arr1[i].ToString() != arr2[i].ToString())
-                            {
-                                LogChange($"{path}{x.Key}/[{i}]", arr1[i].ToString(), arr2[i].ToString());
-                                return false;
-                            }
+                            if (arr1[i].ToString() == arr2[i].ToString()) continue;
+                            LogChange($"{path}{x.Key}/[{i}]", arr1[i].ToString(), arr2[i].ToString());
+                            return false;
                         }
                     }
                     else if (x.Value.ToString() != obj2[x.Key].ToString())
@@ -288,7 +272,7 @@ namespace TF2HUD.Editor.Classes
                 return true;
             }
 
-            var equal = Compare(this, hud, new string[]
+            var equal = Compare(this, hud, new []
             {
                 "controls",
                 "DirtyControls",

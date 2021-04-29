@@ -132,14 +132,8 @@
   <data name="app_update" xml:space="preserve">
     <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</value>
   </data>
-  <data name="ask_custom_background" xml:space="preserve">
-    <value>This option will overwrite your current background, if you want to go back to the default you'll have to reinstall the HUD. Are you sure you want to continue?</value>
-  </data>
   <data name="ask_folder_browser" xml:space="preserve">
     <value>Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available.</value>
-  </data>
-  <data name="ask_image_browser" xml:space="preserve">
-    <value>Please select the image you want to use as the new game background.</value>
   </data>
   <data name="ask_reset_options" xml:space="preserve">
     <value>Are you sure you want to reset all customization options back to default?</value>
@@ -152,12 +146,6 @@
   </data>
   <data name="error_app_uninstall" xml:space="preserve">
     <value>An error occurred while uninstalling {0}.</value>
-  </data>
-  <data name="error_menu_background" xml:space="preserve">
-    <value>An error occurred while changing the main menu backgrounds.</value>
-  </data>
-  <data name="error_seasonal_backgrounds" xml:space="preserve">
-    <value>An error occurred while toggling seasonal backgrounds.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
     <value>An error occurred while toggling transparent viewmodels.</value>

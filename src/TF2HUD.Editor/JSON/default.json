@@ -413,7 +413,6 @@
         "Type": "CustomBackground",
         "Special": "CustomBackground",
         "ToolTip": "Replace the main menu background with a custom image.",
-        "Value": "",
         "Restart": true
       }
     ],
@@ -443,7 +442,7 @@
             "classmodelpanelBG": {
               "wide": {
                 "true": "0",
-                "false": "100"
+                "false": "109"
               }
             },
             "classmodelpanel": {
@@ -482,29 +481,8 @@
         }
       },
       {
-        "Name": "tf_larger_damage_numbers",
-        "Label": "Larger Damage Numbers",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle larger damage numbers.",
-        "Value": "false",
-        "Files": {
-          "resource/ui/huddamageaccount.res": {
-            "CDamageAccountPanel": {
-              "delta_item_font": {
-                "true": "HudFontMediumSmallBold",
-                "false": "HudFontSmall"
-              },
-              "delta_item_font_big": {
-                "true": "HudFontMediumBold",
-                "false": "HudFontMedium"
-              }
-            }
-          }
-        }
-      },
-      {
         "Name": "tf_bold_health_value",
-        "Label": "Bold Player Health",
+        "Label": "Bold Player Health Font",
         "Type": "Checkbox",
         "ToolTip": "Toggle bolded player health value.",
         "Value": "false",
@@ -537,7 +515,65 @@
         }
       }
     ],
-    "Other": [
+    "Damage Value": [
+      {
+        "Name": "tf_show_damage_numbers",
+        "Label": "Display Near Health",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle displaying the damage number near the player's health.",
+        "Value": "true",
+        "Files": {
+          "resource/ui/huddamageaccount.res": {
+            "DamageAccountValue": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf_larger_damage_numbers",
+        "Label": "Use Larger Font",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle larger damage numbers.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/huddamageaccount.res": {
+            "CDamageAccountPanel": {
+              "delta_item_font": {
+                "true": "HudFontMediumSmallBold",
+                "false": "HudFontSmall"
+              },
+              "delta_item_font_big": {
+                "true": "HudFontMediumBold",
+                "false": "HudFontMedium"
+              }
+            },
+            "DamageAccountValue": {
+              "font": {
+                "true": "HudFontMediumBold",
+                "false": "HudFontMedium"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf_damage_color",
+        "Label": "Active Color",
+        "Type": "ColorPicker",
+        "Value": "255 255 0 255",
+        "Restart": false,
+        "Files": {
+          "resource/ui/huddamageaccount.res": {
+            "DamageAccountValue": {
+              "fgcolor": "$value"
+            }
+          }
+        }
+      }
     ]
   }
 }

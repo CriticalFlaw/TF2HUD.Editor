@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace TF2HUD.Editor.JSON
+namespace HUDEditor.Models
 {
     public class UserJson
     {

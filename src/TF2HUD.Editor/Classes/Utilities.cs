@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using TF2HUD.Editor.JSON;
+using System.Windows;
+using HUDEditor.Models;
+using HUDEditor.Properties;
+using Microsoft.Win32;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     public static class Utilities
     {
@@ -223,11 +228,67 @@ namespace TF2HUD.Editor.Classes
         {
             var client = new HttpClient();
             var response = await client.GetAsync(URL);
-            if (response.IsSuccessStatusCode)
-            {
-                return response.Content.ReadAsStringAsync().Result;
-            }
-            return null;
+            return response.IsSuccessStatusCode ? response.Content.ReadAsStringAsync().Result : null;
+        }
+
+        /// <summary>
+        ///     Download the HUD using the provided URL.
+        /// </summary>
+        /// <param name="url">URL from which to download the HUD.</param>
+        public static void DownloadHud(string url)
+        {
+            MainWindow.Logger.Info($"Downloading from: {url}");
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            var client = new WebClient();
+            client.DownloadFile(url, "temp.zip");
+            client.Dispose();
+        }
+
+        /// <summary>
+        ///     Check if Team Fortress 2 is currently running.
+        /// </summary>
+        /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
+        public static bool CheckIsGameRunning(bool returnMessage = false)
+        {
+            if (!Process.GetProcessesByName("hl2").Any()) return false;
+            if (returnMessage)
+                MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.info_game_running);
+            return true;
+        }
+
+        /// <summary>
+        ///     Search registry for the Team Fortress 2 installation directory.
+        /// </summary>
+        /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
+        public static bool SearchRegistry()
+        {
+            // Try to find the Steam library path in the registry.
+            var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
+            var registry = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
+                "InstallPath", null);
+
+            if (string.IsNullOrWhiteSpace(registry)) return false;
+
+            // Found the Steam library path, now try to find the TF2 path.
+            registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
+
+            if (!Directory.Exists(registry)) return false;
+
+            MainWindow.Logger.Info("Found the TF2 path in the registry at: " + registry);
+            Settings.Default.hud_directory = registry;
+            Settings.Default.Save();
+            return true;
+        }
+
+        /// <summary>
+        ///     Check if the set tf/custom directory is valid.
+        /// </summary>
+        /// <returns>True if the set tf/custom directory is valid.</returns>
+        public static bool CheckUserPath(string hudPath)
+        {
+            return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf\\custom");
         }
     }
 }

@@ -1,11 +1,8 @@
 {
   "Background": "https://i.imgur.com/U4m1mOx.png",
-  "Maximize": true,
   "Layout": [
-    "0 1 1 1 2 2",
-    "0 1 1 1 3 3",
-    "0 5 5 7 4 4",
-    "0 5 5 7 4 4"
+    "0 1 1 1 4 4",
+    "5 5 2 2 3 3"
   ],
   "Links": {
     "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
@@ -1292,7 +1289,7 @@
         "Name": "zh_status_indicator",
         "Label": "Health Status Indicators",
         "Type": "Checkbox",
-        "Value": "true",
+        "Value": "false",
         "ToolTip": "Small icons show up next to your crosshair if you're overhealed or on low health.",
         "FileName": "health_status_indicators"
       },

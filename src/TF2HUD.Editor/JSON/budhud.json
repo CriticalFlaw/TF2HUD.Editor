@@ -1,5 +1,11 @@
 {
   "Background": "https://i.imgur.com/aD1OxHy.png",
+  "Layout": [
+    "0 1 2 3",
+    "0 1 2 3",
+    "4 5 6 6",
+    "4 7 7 7"
+  ],
   "Links": {
     "Update": "https://github.com/rbjaxter/budhud/archive/master.zip",
     "GitHub": "https://github.com/rbjaxter/budhud",
@@ -42,7 +48,7 @@
       },
       {
         "Name": "bh_youtuber_select",
-        "Label": "Community Profile",
+        "Label": "YouTuber Profile",
         "Type": "ComboBox",
         "ToolTip": "Change to HUD style used by community members.",
         "Value": "0",
@@ -139,22 +145,6 @@
         "FileName": "bh_player_ammobox.res"
       }
     ],
-    "TargetIDs": [
-      {
-        "Name": "bh_targetid_healthcross2",
-        "Label": "Health Cross",
-        "Type": "Checkbox",
-        "Value": "false",
-        "FileName": "bh_targetid_healthcross2.res"
-      },
-      {
-        "Name": "bh_targetid_largehealth",
-        "Label": "Large Health Size",
-        "Type": "Checkbox",
-        "Value": "false",
-        "FileName": "bh_targetid_largehealth.res"
-      }
-    ],
     "Main Menu": [
       {
         "Name": "bh_menu_hidefavorites",
@@ -179,7 +169,7 @@
       },
       {
         "Name": "bh_menu_hidenews",
-        "Label": "Hide News",
+        "Label": "Hide News Panel",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_menu_hidenews.res"
@@ -190,6 +180,22 @@
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_menu_hidestats.res"
+      }
+    ],
+    "TargetIDs": [
+      {
+        "Name": "bh_targetid_healthcross2",
+        "Label": "Health Cross",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_targetid_healthcross2.res"
+      },
+      {
+        "Name": "bh_targetid_largehealth",
+        "Label": "Large Health Size",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_targetid_largehealth.res"
       }
     ],
     "Medic Customizations": [
@@ -209,7 +215,7 @@
       },
       {
         "Name": "bh_uber_percentagenearcrosshair",
-        "Label": "Uber Percentage Near Crosshair",
+        "Label": "Uber Percent Near xHair",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_uber_percentagenearcrosshair.res"
@@ -330,7 +336,7 @@
         "Files": {
           "#customization/_enabled/bh_crosshairs.res": {
             "hud_crosshair_1": {
-              "labelText": "$value"
+              "labeltext": "$value"
             }
           }
         }

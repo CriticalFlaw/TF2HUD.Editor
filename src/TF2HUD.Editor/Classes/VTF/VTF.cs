@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     internal class VTF
     {

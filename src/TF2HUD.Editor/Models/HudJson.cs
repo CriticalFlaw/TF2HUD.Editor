@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using System.Windows;
 using Newtonsoft.Json.Linq;
 
-namespace TF2HUD.Editor.JSON
+namespace HUDEditor.Models
 {
     public class HudJson
     {

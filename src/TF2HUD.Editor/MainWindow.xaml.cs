@@ -4,9 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -15,13 +13,12 @@ using System.Windows.Media.Imaging;
 using AutoUpdaterDotNET;
 using log4net;
 using log4net.Config;
-using Microsoft.Win32;
-using TF2HUD.Editor.Classes;
-using TF2HUD.Editor.Properties;
+using HUDEditor.Classes;
+using HUDEditor.Properties;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
-namespace TF2HUD.Editor
+namespace HUDEditor
 {
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
@@ -56,46 +53,17 @@ namespace TF2HUD.Editor
             AutoUpdater.Start(Properties.Resources.app_update);
 
             // Check for HUD updates.
-            Json.UpdateAsync().ContinueWith((Task<bool> restartRequired) =>
+            Json.UpdateAsync().ContinueWith(restartRequired =>
             {
-                if (restartRequired.Result)
-                {
-                    var result = MessageBox.Show("Application restart required to update HUD schemas, would you like to restart now?", "Restart Required", MessageBoxButton.YesNo, MessageBoxImage.Information);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        System.Diagnostics.Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
-                        Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
-                        Environment.Exit(0);
-                    }
-                }
+                if (!restartRequired.Result) return;
+
+                var result = MessageBox.Show("Application restart required to update HUD schemas, would you like to restart now?", "Restart Required", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result != MessageBoxResult.Yes) return;
+
+                Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
+                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
+                Environment.Exit(0);
             });
-        }
-
-        /// <summary>
-        ///     Download the HUD using the provided URL.
-        /// </summary>
-        /// <param name="url">URL from which to download the HUD.</param>
-        public static void DownloadHud(string url)
-        {
-            Logger.Info($"Downloading from: {url}");
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            var client = new WebClient();
-            client.DownloadFile(url, "temp.zip");
-            client.Dispose();
-        }
-
-        /// <summary>
-        ///     Check if Team Fortress 2 is currently running.
-        /// </summary>
-        /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
-        public static bool CheckIsGameRunning(bool returnMessage = false)
-        {
-            if (!Process.GetProcessesByName("hl2").Any()) return false;
-            if (returnMessage)
-                ShowMessageBox(MessageBoxImage.Warning, Properties.Resources.info_game_running);
-            return true;
         }
 
         /// <summary>
@@ -104,7 +72,7 @@ namespace TF2HUD.Editor
         /// <param name="userSet">Flags the process as being user initiated, skip right to the folder browser.</param>
         public void SetupDirectory(bool userSet = false)
         {
-            if (!SearchRegistry() && !CheckUserPath() || userSet)
+            if (!Utilities.SearchRegistry() && !Utilities.CheckUserPath(HudPath) || userSet)
             {
                 // Display a folder browser, ask the user to provide the tf/custom directory.
                 Logger.Info("Opening a folder browser to get the tf/custom directory from the user.");
@@ -132,7 +100,7 @@ namespace TF2HUD.Editor
                 }
 
                 // Check one more time if a valid directory has been set.
-                if (!CheckUserPath())
+                if (!Utilities.CheckUserPath(HudPath))
                 {
                     Logger.Info("Unable to set the tf/custom directory. Exiting.");
                     ShowMessageBox(MessageBoxImage.Warning, Properties.Resources.error_app_directory);
@@ -157,13 +125,11 @@ namespace TF2HUD.Editor
             }
 
             // Clean the tf/custom directory.
-            var hudDirectory = Directory.Exists(HudPath + $"\\{HudSelection}-master")
-                ? HudPath + $"\\{HudSelection}-master"
-                : string.Empty;
-
-            hudDirectory = Directory.Exists(HudPath + $"\\{HudSelection}-main")
-                ? HudPath + $"\\{HudSelection}-main"
-                : string.Empty;
+            var hudDirectory = string.Empty;
+            if (Directory.Exists(HudPath + $"\\{HudSelection}-master"))
+                hudDirectory = HudPath + $"\\{HudSelection}-master";
+            else if (Directory.Exists(HudPath + $"\\{HudSelection}-main"))
+                hudDirectory = HudPath + $"\\{HudSelection}-main";
 
             // If the tf/custom directory is not yet set, then exit.
             if (string.IsNullOrEmpty(hudDirectory)) return;
@@ -183,47 +149,7 @@ namespace TF2HUD.Editor
                 string.Format(Properties.Resources.info_create_backup, HudSelection));
         }
 
-        /// <summary>
-        ///     Search registry for the Team Fortress 2 installation directory.
-        /// </summary>
-        /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
-        public static bool SearchRegistry()
-        {
-            // Try to find the Steam library path in the registry.
-            var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-            var registry = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
-                "InstallPath", null);
-
-            if (string.IsNullOrWhiteSpace(registry)) return false;
-
-            // Found the Steam library path, now try to find the TF2 path.
-            registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
-
-            if (!Directory.Exists(registry)) return false;
-
-            Logger.Info("Found the TF2 path in the registry at: " + registry);
-            Settings.Default.hud_directory = registry;
-            Settings.Default.Save();
-            return true;
-        }
-
-        /// <summary>
-        ///     Check if the currently selected HUD is installed in the tf/custom directory.
-        /// </summary>
-        /// <returns>True if the selected HUD is in the tf/custom directory.</returns>
-        public static bool CheckHudPath()
-        {
-            return Directory.Exists(HudPath + "\\" + HudSelection);
-        }
-
-        /// <summary>
-        ///     Check if the set tf/custom directory is valid.
-        /// </summary>
-        /// <returns>True if the set tf/custom directory is valid.</returns>
-        public static bool CheckUserPath()
-        {
-            return !string.IsNullOrWhiteSpace(HudPath) && HudPath.EndsWith("tf\\custom");
-        }
+        #region PAGE_EVENTS
 
         /// <summary>
         ///     Update editor controls, such as labels and buttons.
@@ -245,10 +171,10 @@ namespace TF2HUD.Editor
                 return;
             }
 
-            if (Directory.Exists(HudPath) && CheckUserPath())
+            if (Directory.Exists(HudPath) && Utilities.CheckUserPath(HudPath))
             {
                 // The selected HUD is installed in a valid directory.
-                var isInstalled = CheckHudPath();
+                var isInstalled = Directory.Exists(HudPath + "\\" + HudSelection);
                 BtnInstall.IsEnabled = true;
                 BtnInstall.Content = isInstalled ? "Reinstall" : "Install";
                 BtnUninstall.IsEnabled = isInstalled;
@@ -355,6 +281,8 @@ namespace TF2HUD.Editor
             }
         }
 
+        #endregion
+
         #region CLICK_EVENTS
 
         /// <summary>
@@ -365,14 +293,14 @@ namespace TF2HUD.Editor
             try
             {
                 // Force the user to set a directory before installing.
-                if (!CheckUserPath())
+                if (Utilities.CheckUserPath(HudPath))
                 {
                     SetupDirectory(true);
                     return;
                 }
 
                 // Stop the process if Team Fortress 2 is still running.
-                if (CheckIsGameRunning(true)) return;
+                if (Utilities.CheckIsGameRunning(true)) return;
 
                 var worker = new BackgroundWorker();
                 worker.DoWork += (_, _) =>
@@ -435,10 +363,10 @@ namespace TF2HUD.Editor
             try
             {
                 // Check if the HUD is installed in a valid directory.
-                if (!CheckHudPath()) return;
+                if (!Directory.Exists(HudPath + "\\" + HudSelection)) return;
 
                 // Stop the process if Team Fortress 2 is still running.
-                if (CheckIsGameRunning(true)) return;
+                if (Utilities.CheckIsGameRunning(true)) return;
 
                 // Remove the HUD from the tf/custom directory.
                 Logger.Info($"Uninstalling {HudSelection}...");

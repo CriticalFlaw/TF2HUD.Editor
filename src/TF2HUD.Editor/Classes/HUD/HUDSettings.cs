@@ -5,9 +5,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Media;
 using Newtonsoft.Json;
-using TF2HUD.Editor.JSON;
+using HUDEditor.Models;
 
-namespace TF2HUD.Editor.Classes
+namespace HUDEditor.Classes
 {
     public class HUDSettings
     {
