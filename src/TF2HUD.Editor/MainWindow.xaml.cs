@@ -11,10 +11,10 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using AutoUpdaterDotNET;
-using log4net;
-using log4net.Config;
 using HUDEditor.Classes;
 using HUDEditor.Properties;
+using log4net;
+using log4net.Config;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
@@ -57,7 +57,10 @@ namespace HUDEditor
             {
                 if (!restartRequired.Result) return;
 
-                var result = MessageBox.Show("Application restart required to update HUD schemas, would you like to restart now?", "Restart Required", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                var result =
+                    MessageBox.Show(
+                        "Application restart required to update HUD schemas, would you like to restart now?",
+                        "Restart Required", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result != MessageBoxResult.Yes) return;
 
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
@@ -254,7 +257,7 @@ namespace HUDEditor
             if (GbSelectHud.Visibility == Visibility.Visible)
             {
                 var converter = new BrushConverter();
-                MainGrid.Background = (Brush)converter.ConvertFromString("#2B2724");
+                MainGrid.Background = (Brush) converter.ConvertFromString("#2B2724");
                 return;
             }
 
@@ -319,7 +322,9 @@ namespace HUDEditor
                         // Step 3. Record the name of the HUD inside the downloaded folder.
                         var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}\\temp.zip";
                         using var archive = ZipFile.OpenRead(tempFile);
-                        var hudName = archive.Entries.FirstOrDefault(entry => entry.FullName.EndsWith("/", StringComparison.OrdinalIgnoreCase) && string.IsNullOrWhiteSpace(entry.Name));
+                        var hudName = archive.Entries.FirstOrDefault(entry =>
+                            entry.FullName.EndsWith("/", StringComparison.OrdinalIgnoreCase) &&
+                            string.IsNullOrWhiteSpace(entry.Name));
 
                         // Step 4. Extract the downloaded HUD and rename it to match the schema.
                         Logger.Info($"Extracting {HudSelection} into {HudPath}");

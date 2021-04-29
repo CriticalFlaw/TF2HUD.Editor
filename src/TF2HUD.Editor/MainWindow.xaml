@@ -47,9 +47,8 @@
                         <Image Source="Resources/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Center">
                             <Run Foreground="#70B04A" Text="Install" /> and
-                            <Run Foreground="#38F3AB" Text="customize" /> your favorite Team Fortress 2 HUDs! For additional information and support, check out our
-                            <Run Foreground="#FFD700" Text="documentation" /> and
-                            <Run Foreground="#FFD700" Text="Discord server" /> linked below.
+                            <Run Foreground="#38F3AB" Text="customize" /> your favorite Team Fortress 2 HUDs! For additional information and support, check out the
+                            <Run Foreground="#FFD700" Text="documentation" /> linked below.
                         </TextBlock>
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
                         <Label Content="Version 2.1" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
@@ -59,6 +58,10 @@
                             - Added the ability to import a custom main menu background image.
                             <LineBreak />
                             - Added the ability to update HUD schemas without updating the editor.
+                            <LineBreak />
+                            - Added a scroller for controls that may not fit on screen in lower resolutions.
+                            <LineBreak />
+                            - Added a preview image modal for customization options that offer it.
                             <LineBreak />
                             - <Run Foreground="#2C81FD" Text="flawhud" />: Fixed the health cross option not working properly.
                             <LineBreak />

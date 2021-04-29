@@ -386,42 +386,6 @@
     ],
     "Crosshair": [
       {
-        "Name": "fh_toggle_xhair_enable",
-        "Label": "Enable the Crosshair",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair feature.",
-        "Value": "false",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "visible": {
-                "true": "1",
-                "false": "0"
-              },
-              "enabled": {
-                "true": "1",
-                "false": "0"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "fh_toggle_xhair_pulse",
-        "Label": "Toggle Hitmarker",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle hitmarker animation.",
-        "Value": "true",
-        "Files": {
-          "scripts/hudanimations_custom.txt": {
-            "uncomment": [
-              "StopEvent HitMarker",
-              "RunEvent HitMarker"
-            ]
-          }
-        }
-      },
-      {
         "Name": "fh_val_xhair_style",
         "Label": "Style",
         "ToolTip": "Style of crosshair.",
@@ -483,6 +447,42 @@
                 "CrosshairDamage": "$value"
               }
             }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_xhair_enable",
+        "Label": "Enable the Crosshair",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair feature.",
+        "Value": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_xhair_pulse",
+        "Label": "Toggle Hitmarker",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle hitmarker animation.",
+        "Value": "true",
+        "Files": {
+          "scripts/hudanimations_custom.txt": {
+            "uncomment": [
+              "StopEvent HitMarker",
+              "RunEvent HitMarker"
+            ]
           }
         }
       }
@@ -938,7 +938,8 @@
         "ToolTip": "Change to different health styles options.",
         "Value": "0",
         "Command": "HealthStyle",
-        "Preview": "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
+        "Preview":
+          "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
         "Options": [
           {
             "Label": "Default",

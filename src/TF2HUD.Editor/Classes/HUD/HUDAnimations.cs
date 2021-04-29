@@ -8,35 +8,35 @@ using HUDEditor.Models;
 namespace HUDEditor.Classes
 {
     /// <summary>
-    /// Sample Animation Script
-    ///
-    /// Commands:
+    ///     Sample Animation Script
+    ///     Commands:
     ///     Animate (panel name) (variable) (target value) (interpolator) (start time) (duration)
     ///     Variables:
-    ///         FgColor
-    ///         BgColor
-    ///         Position
-    ///         Size
-    ///         Blur        (HUD panels only)
-    ///         TextColor    (HUD panels only)
-    ///         Ammo2Color    (HUD panels only)
-    ///         Alpha        (HUD weapon selection only)
-    ///         SelectionAlpha  (HUD weapon selection only)
-    ///         TextScan    (HUD weapon selection only)
-    ///
+    ///     FgColor
+    ///     BgColor
+    ///     Position
+    ///     Size
+    ///     Blur        (HUD panels only)
+    ///     TextColor    (HUD panels only)
+    ///     Ammo2Color    (HUD panels only)
+    ///     Alpha        (HUD weapon selection only)
+    ///     SelectionAlpha  (HUD weapon selection only)
+    ///     TextScan    (HUD weapon selection only)
     ///     Interpolator:
-    ///         Linear
-    ///         Accel - starts moving slow, ends fast
-    ///         Deaccel - starts moving fast, ends slow
-    ///         Spline - simple ease in/out curve
-    ///         Pulse - ( freq ) over the duration, the value is pulsed (cosine) freq times ending at the dest value (assuming freq is integral)
-    ///         Flicker - ( randomness factor 0.0 to 1.0 ) over duration, each frame if random # is less than factor, use end value, otherwise use prev value
-    ///         Gain - ( bias ) Lower bias values bias towards 0.5 and higher bias values bias away from it.
-    ///         Bias - ( bias ) Lower values bias the curve towards 0 and higher values bias it towards 1.
-    ///
+    ///     Linear
+    ///     Accel - starts moving slow, ends fast
+    ///     Deaccel - starts moving fast, ends slow
+    ///     Spline - simple ease in/out curve
+    ///     Pulse - ( freq ) over the duration, the value is pulsed (cosine) freq times ending at the dest value (assuming freq
+    ///     is integral)
+    ///     Flicker - ( randomness factor 0.0 to 1.0 ) over duration, each frame if random # is less than factor, use end
+    ///     value, otherwise use prev value
+    ///     Gain - ( bias ) Lower bias values bias towards 0.5 and higher bias values bias away from it.
+    ///     Bias - ( bias ) Lower values bias the curve towards 0 and higher values bias it towards 1.
     ///     RunEvent (event name) (start time) - starts another even running at the specified time
     ///     StopEvent (event name) (start time) - stops another event that is current running at the specified time
-    ///     StopAnimation (panel name) (variable) (start time) - stops all animations referring to the specified variable in the specified panel
+    ///     StopAnimation (panel name) (variable) (start time) - stops all animations referring to the specified variable in
+    ///     the specified panel
     ///     StopPanelAnimations (panel name) (start time) - stops all active animations operating on the specified panel
     ///     SetFont (panel name) (fontparameter) (fontname from scheme) (set time)
     ///     SetTexture (panel name) (textureidname) (texturefilename) (set time)

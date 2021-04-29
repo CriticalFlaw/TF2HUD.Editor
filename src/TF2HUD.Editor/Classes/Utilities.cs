@@ -266,7 +266,7 @@ namespace HUDEditor.Classes
         {
             // Try to find the Steam library path in the registry.
             var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-            var registry = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
+            var registry = (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
                 "InstallPath", null);
 
             if (string.IsNullOrWhiteSpace(registry)) return false;

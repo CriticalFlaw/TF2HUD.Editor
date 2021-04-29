@@ -5,9 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using HUDEditor.Models;
 using HUDEditor.Properties;
+using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {
@@ -60,7 +60,7 @@ namespace HUDEditor.Classes
                 // Get the local schema names and file sizes.
                 List<Tuple<string, int>> localFiles = new();
                 foreach (var file in new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")))
-                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length));
+                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int) file.Length));
                 if (localFiles.Count <= 0) return false;
 
                 // Setup the WebClient for download remote files.
@@ -133,9 +133,11 @@ namespace HUDEditor.Classes
                     var response = await Utilities.Fetch(url).ConfigureAwait(false);
                     if (response == null)
                     {
-                        MainWindow.Logger.Info($"{x.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
+                        MainWindow.Logger.Info(
+                            $"{x.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
                         return false;
                     }
+
                     var value = JsonConvert.DeserializeObject<HudJson>(response);
                     // Added if !DEBUG to test compare HUDs method
 # if !DEBUG

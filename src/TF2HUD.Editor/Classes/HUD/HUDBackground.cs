@@ -20,11 +20,11 @@ namespace HUDEditor.Classes
     internal class HUDBackground
     {
         private readonly string HUDFolderPath;
-        private bool useStockBackgrounds;
-        private bool useHUDBackground;
+        private string customImagePath;
         private string HUDImagePath;
         private bool useCustomBackground;
-        private string customImagePath;
+        private bool useHUDBackground;
+        private bool useStockBackgrounds;
 
         public HUDBackground(string hudPath)
         {
@@ -62,25 +62,26 @@ namespace HUDEditor.Classes
                 Directory.CreateDirectory(consoleFolder);
 
                 if (!Directory.Exists(disabledFolder))
-                {
                     Directory.CreateDirectory(disabledFolder);
-                    foreach (var filePath in Directory.GetFiles(consoleFolder))
-                    {
-                        File.Move(filePath, $"{disabledFolder}\\{filePath.Split("\\")[^1]}", true);
-                    }
-                }
 
                 if (useCustomBackground && !string.IsNullOrWhiteSpace(customImagePath))
                 {
+                    // Check that the supplied image path is valid
+                    if (!Uri.TryCreate(customImagePath, UriKind.Absolute, out _)) return;
+
+                    // Move all existing files to the disabled folder.
+                    foreach (var filePath in Directory.GetFiles(consoleFolder))
+                        File.Move(filePath, $"{disabledFolder}\\{filePath.Split("\\")[^1]}", true);
+
+                    // Convert the provided image into a VTF format.
                     var converter = new VTF(MainWindow.HudPath.Replace("\\tf\\custom\\", string.Empty));
-
                     var output = $"{consoleFolder}\\background_upward.vtf";
-
-                    if (!Uri.TryCreate(customImagePath, UriKind.Absolute, out var path)) return; 
                     converter.Convert(customImagePath, output);
 
+                    // Copy the generated file to the backgrounds folder.
                     File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
-                    File.Copy("Resources\\chapterbackgrounds.txt", $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt", true);
+                    File.Copy("Resources\\chapterbackgrounds.txt", $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt",
+                        true);
                 }
                 else
                 {
@@ -88,25 +89,37 @@ namespace HUDEditor.Classes
                     {
                         // Copy enabled background to console folder
                         if (File.Exists($"{disabledFolder}\\{HUDImagePath}.vtf"))
-                            File.Copy($"{disabledFolder}\\{HUDImagePath}.vtf", $"{consoleFolder}\\background_upward.vtf", true);
+                            File.Copy($"{disabledFolder}\\{HUDImagePath}.vtf",
+                                $"{consoleFolder}\\background_upward.vtf", true);
 
                         if (File.Exists($"{disabledFolder}\\{HUDImagePath}_widescreen.vtf"))
-                            File.Copy($"{disabledFolder}\\{HUDImagePath}.vtf", $"{consoleFolder}\\background_upward_widescreen.vtf", true);
+                            File.Copy($"{disabledFolder}\\{HUDImagePath}.vtf",
+                                $"{consoleFolder}\\background_upward_widescreen.vtf", true);
 
-                        File.Copy("Resources\\chapterbackgrounds.txt", $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt");
+                        File.Copy("Resources\\chapterbackgrounds.txt",
+                            $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt");
                     }
                     else if (useStockBackgrounds)
                     {
-                        // Delete custom background
-                        File.Delete($"{consoleFolder}\\background_upward.vtf");
-                        File.Delete($"{consoleFolder}\\background_upward_widescreen.vtf");
-                        File.Delete($"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt");
+                        foreach (var filePath in Directory.GetFiles(consoleFolder))
+                            if (filePath.EndsWith(".vtf"))
+                                File.Move(filePath, filePath.Replace(".vtf", ".bak"), true);
+                            else if (filePath.EndsWith(".vmt"))
+                                File.Move(filePath, filePath.Replace(".vmt", ".temp"), true);
                     }
                     else
                     {
                         // Restore console folder
+                        if (!Directory.Exists(disabledFolder)) return;
                         foreach (var filePath in Directory.GetFiles(disabledFolder))
                             File.Move(filePath, $"{consoleFolder}\\{filePath.Split("\\")[^1]}", true);
+                        Directory.Delete(disabledFolder);
+
+                        foreach (var filePath in Directory.GetFiles(consoleFolder))
+                            if (filePath.EndsWith(".bak"))
+                                File.Move(filePath, filePath.Replace(".bak", ".vtf"), true);
+                            else if (filePath.EndsWith(".temp"))
+                                File.Move(filePath, filePath.Replace(".temp", ".vmt"), true);
                     }
                 }
             }

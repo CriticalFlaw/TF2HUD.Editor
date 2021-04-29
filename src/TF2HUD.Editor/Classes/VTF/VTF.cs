@@ -29,7 +29,7 @@ namespace HUDEditor.Classes
             Directory.CreateDirectory(materialSrc);
 
             // Save image as .tga (cast using TGASharpLib)
-            var tgaSquareImage = (TGA)ResizeImage(image);
+            var tgaSquareImage = (TGA) ResizeImage(image);
             tgaSquareImage.Save($"{materialSrc}\\temp.tga");
 
             // Convert using VTEX

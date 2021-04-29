@@ -4,8 +4,8 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Newtonsoft.Json.Linq;
 using HUDEditor.Models;
+using Newtonsoft.Json.Linq;
 using Xceed.Wpf.Toolkit;
 
 namespace HUDEditor.Classes
@@ -82,7 +82,7 @@ namespace HUDEditor.Classes
 
             void LogChange(string prop, string before = "", string after = "")
             {
-                var message = (!string.IsNullOrWhiteSpace(before) ? $" (\"{before}\" => \"{after}\")" : string.Empty);
+                var message = !string.IsNullOrWhiteSpace(before) ? $" (\"{before}\" => \"{after}\")" : string.Empty;
                 MainWindow.Logger.Info($"{Name}: {prop} has changed{message}, HUD has been updated.");
             }
 
@@ -95,8 +95,8 @@ namespace HUDEditor.Classes
 
                     if (field.FieldType == typeof(string[]))
                     {
-                        var arr1 = (string[])field.GetValue(obj1);
-                        var arr2 = (string[])field.GetValue(obj2);
+                        var arr1 = (string[]) field.GetValue(obj1);
+                        var arr2 = (string[]) field.GetValue(obj2);
 
                         if (arr1 == null && arr2 != null)
                         {
@@ -122,16 +122,16 @@ namespace HUDEditor.Classes
                             LogChange($"{field.Name}[{i}]", arr1[i], arr2[i]);
                             return false;
                         }
-
                     }
                     else if (field.FieldType == typeof(Dictionary<string, Controls[]>))
                     {
-                        var value1 = (Dictionary<string, Controls[]>)field.GetValue(obj1);
-                        var value2 = (Dictionary<string, Controls[]>)field.GetValue(obj2);
+                        var value1 = (Dictionary<string, Controls[]>) field.GetValue(obj1);
+                        var value2 = (Dictionary<string, Controls[]>) field.GetValue(obj2);
 
                         if (value1.Keys.Count != value2.Keys.Count)
                         {
-                            LogChange($"{field.Name}.Keys.Count", value1.Keys.Count.ToString(), value2.Keys.Count.ToString());
+                            LogChange($"{field.Name}.Keys.Count", value1.Keys.Count.ToString(),
+                                value2.Keys.Count.ToString());
                             return false;
                         }
 
@@ -146,37 +146,33 @@ namespace HUDEditor.Classes
                         {
                             if (value1[key].Length != value2[key].Length)
                             {
-                                LogChange($"{field.Name}[\"{key}\"].Length", value1[key].Length.ToString(), value2[key].Length.ToString());
+                                LogChange($"{field.Name}[\"{key}\"].Length", value1[key].Length.ToString(),
+                                    value2[key].Length.ToString());
                                 return false;
                             }
 
                             for (var i = 0; i < value1[key].Length; i++)
                             {
-                                var comparison = Compare(value1[key][i], value2[key][i], new []
+                                var comparison = Compare(value1[key][i], value2[key][i], new[]
                                 {
                                     "Control",
                                     "Value"
                                 });
-                                if (!comparison)
-                                {
-                                    return false;
-                                }
+                                if (!comparison) return false;
                             }
                         }
                     }
                     else if (field.FieldType == typeof(JObject))
                     {
-                        var comparison = CompareFiles((JObject)field.GetValue(obj1), (JObject)field.GetValue(obj2), $"{field.Name}.Files => ");
+                        var comparison = CompareFiles((JObject) field.GetValue(obj1), (JObject) field.GetValue(obj2),
+                            $"{field.Name}.Files => ");
 
-                        if (!comparison)
-                        {
-                            return false;
-                        }
+                        if (!comparison) return false;
                     }
                     else if (field.FieldType == typeof(Option[]))
                     {
-                        var arr1 = (Option[])field.GetValue(obj1);
-                        var arr2 = (Option[])field.GetValue(obj2);
+                        var arr1 = (Option[]) field.GetValue(obj1);
+                        var arr2 = (Option[]) field.GetValue(obj2);
 
                         if (arr1 == null && arr2 != null)
                         {
@@ -199,10 +195,7 @@ namespace HUDEditor.Classes
                         for (var i = 0; i < arr1.Length; i++)
                         {
                             var comparison = Compare(arr1[i], arr2[i], new string[] { });
-                            if (!comparison)
-                            {
-                                return false;
-                            }
+                            if (!comparison) return false;
                         }
                     }
                     else if (field.GetValue(obj1).ToString() != field.GetValue(obj2).ToString())
@@ -211,15 +204,13 @@ namespace HUDEditor.Classes
                         return false;
                     }
                 }
+
                 return true;
             }
 
             bool CompareFiles(JObject obj1, JObject obj2, string path = "")
             {
-                if (obj1 == null && obj2 == null)
-                {
-                    return true;
-                }
+                if (obj1 == null && obj2 == null) return true;
 
                 foreach (var x in obj1)
                 {
@@ -236,14 +227,11 @@ namespace HUDEditor.Classes
                 }
 
                 foreach (var x in obj1)
-                {
                     if (obj1[x.Key].Type == JTokenType.Object && obj2[x.Key].Type == JTokenType.Object)
                     {
-                        var comparison = CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(), $"{path}/{x.Key}");
-                        if (!comparison)
-                        {
-                            return false;
-                        }
+                        var comparison = CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(),
+                            $"{path}/{x.Key}");
+                        if (!comparison) return false;
                     }
                     else if (x.Value.Type == JTokenType.Array && obj2[x.Key].Type == JTokenType.Array)
                     {
@@ -268,11 +256,11 @@ namespace HUDEditor.Classes
                         LogChange(x.Key, x.Value.ToString(), obj2[x.Key].ToString());
                         return false;
                     }
-                }
+
                 return true;
             }
 
-            var equal = Compare(this, hud, new []
+            var equal = Compare(this, hud, new[]
             {
                 "controls",
                 "DirtyControls",
@@ -280,10 +268,7 @@ namespace HUDEditor.Classes
                 "Settings"
             });
 
-            if (equal)
-            {
-                MainWindow.Logger.Info($"{Name}: no fields changed, HUD has not been updated.");
-            }
+            if (equal) MainWindow.Logger.Info($"{Name}: no fields changed, HUD has not been updated.");
 
             return equal;
         }
@@ -316,8 +301,8 @@ namespace HUDEditor.Classes
                                 break;
 
                             case ComboBox combo:
-                                if (((ComboBoxItem)combo.Items[0]).Style ==
-                                    (Style)Application.Current.Resources["Crosshair"])
+                                if (((ComboBoxItem) combo.Items[0]).Style ==
+                                    (Style) Application.Current.Resources["Crosshair"])
                                     combo.SelectedValue = controlItem.Value;
                                 else
                                     combo.SelectedIndex = int.Parse(controlItem.Value);

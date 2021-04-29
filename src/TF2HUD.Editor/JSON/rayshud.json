@@ -838,9 +838,9 @@
           {
             "Label": "Modern",
             "Value": "0",
-            "Special":"HUDBackground",
+            "Special": "HUDBackground",
             "SpecialParameters": [
-                "background_modern"
+              "background_modern"
             ]
           },
           {
@@ -848,7 +848,7 @@
             "Value": "1",
             "Special": "HUDBackground",
             "SpecialParameters": [
-                "background_classic"
+              "background_classic"
             ]
           },
           {

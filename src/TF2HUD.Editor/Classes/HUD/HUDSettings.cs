@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Media;
-using Newtonsoft.Json;
 using HUDEditor.Models;
+using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {

@@ -8,12 +8,12 @@
     <StartupObject>HUDEditor.App</StartupObject>
     <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
     <Authors>Igor Nikitin, Peter Wobcke</Authors>
-    <Company></Company>
+    <Company>CriticalFlaw</Company>
     <Copyright>Igor Nikitin</Copyright>
     <PackageProjectUrl>https://www.editor.criticalflaw.ca/</PackageProjectUrl>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0.0</Version>
+    <FileVersion>2.1.0.0</FileVersion>
+    <Version>2.1.0</Version>
     <RepositoryUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
