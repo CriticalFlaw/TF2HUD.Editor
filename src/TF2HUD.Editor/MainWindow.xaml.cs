@@ -63,6 +63,7 @@ namespace HUDEditor
                         "Restart Required", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result != MessageBoxResult.Yes) return;
 
+                Json.Update(true);
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                 Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
                 Environment.Exit(0);

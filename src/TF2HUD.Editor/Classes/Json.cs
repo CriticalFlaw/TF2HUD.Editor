@@ -51,7 +51,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Synchronize the local HUD schema files with the latest versions on GitHub.
         /// </summary>
-        public static bool Update()
+        public static bool Update(bool force = false)
         {
             try
             {
@@ -82,21 +82,24 @@ namespace HUDEditor.Classes
                 // Compare the local and remote files.
                 foreach (var (remoteName, remoteSize) in remoteFiles)
                 {
-                    var downloadFile = true;
-                    MainWindow.Logger.Info($"{remoteName}: Checking ...");
-                    foreach (var (localName, localSize) in localFiles)
-                        if (string.Equals(remoteName, localName))
-                        {
-                            // The remote file is found locally. Check if the file size has noticeably changed.
-                            downloadFile = !Enumerable.Range(remoteSize - 100, remoteSize + 100).Contains(localSize);
-                            break;
-                        }
-
-                    // If the remote file is not found locally, or the size difference is too great - download the latest version.
-                    if (!downloadFile)
+                    if (!force)
                     {
-                        MainWindow.Logger.Info($"{remoteName}: No updates...");
-                        continue;
+                        var downloadFile = true;
+                        MainWindow.Logger.Info($"{remoteName}: Checking ...");
+                        foreach (var (localName, localSize) in localFiles)
+                            if (string.Equals(remoteName, localName))
+                            {
+                                // The remote file is found locally. Check if the file size has noticeably changed.
+                                downloadFile = !Enumerable.Range(remoteSize - 100, remoteSize + 100).Contains(localSize);
+                                break;
+                            }
+
+                        // If the remote file is not found locally, or the size difference is too great - download the latest version.
+                        if (!downloadFile)
+                        {
+                            MainWindow.Logger.Info($"{remoteName}: No updates...");
+                            continue;
+                        }
                     }
 
                     var fileName = $"{remoteName}.json";
@@ -130,7 +133,7 @@ namespace HUDEditor.Classes
                 {
                     var url = string.Format(Resources.app_json_file, $"{x.Name}.json");
                     MainWindow.Logger.Info($"Requesting {x.Name} from {url}");
-                    var response = await Utilities.Fetch(url).ConfigureAwait(false);
+                    var response = await Utilities.Fetch(url);
                     if (response == null)
                     {
                         MainWindow.Logger.Info(
@@ -144,7 +147,7 @@ namespace HUDEditor.Classes
                     File.WriteAllText($"JSON/{x.Name}.json", response);
 # endif
                     return !x.TestHUD(new HUD(x.Name, value));
-                })).ConfigureAwait(false)).Contains(true);
+                }))).Contains(true);
             }
             catch (Exception e)
             {
