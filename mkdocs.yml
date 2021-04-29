@@ -8,13 +8,15 @@ theme:
     features:
         - navigation.expand
     palette:
-		primary: indigo
-		accent: orange
-		- scheme: default
+        - scheme: default
+		  primary: indigo
+		  accent: orange
 		  toggle:
 			icon: material/toggle-switch-off-outline
 			name: Switch to dark mode
-		- scheme: slate
+        - scheme: slate
+		  primary: indigo
+		  accent: orange
 		  toggle:
 			icon: material/toggle-switch
 			name: Switch to light mode
