@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using System.Windows.Media;
 using HUDEditor.Models;
 using Newtonsoft.Json;
@@ -11,7 +10,11 @@ namespace HUDEditor.Classes
 {
     public class HUDSettings
     {
-        public static readonly string UserFile = $"{Application.LocalUserAppDataPath}\\settings.json";
+        public static readonly string UserFile = System.Threading.Tasks.Task.Run(() =>
+        {
+            Directory.CreateDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor");
+            return $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\settings.json";
+        }).Result;
 
         private static readonly List<Setting> UserSettings = File.Exists(UserFile)
             ? JsonConvert.DeserializeObject<Dictionary<string, List<Setting>>>(File.ReadAllText(UserFile))?["Settings"]
