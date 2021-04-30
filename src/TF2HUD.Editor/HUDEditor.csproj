@@ -11,7 +11,7 @@
     <Company>CriticalFlaw</Company>
     <Copyright>Igor Nikitin</Copyright>
     <PackageProjectUrl>https://www.editor.criticalflaw.ca/</PackageProjectUrl>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
     <FileVersion>2.1.0.0</FileVersion>
     <Version>2.1.0</Version>
     <RepositoryUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</RepositoryUrl>
@@ -63,6 +63,28 @@
     <Content Include="Resources\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Resources\banner.png" />
+    <Content Remove="Resources\favicon.ico" />
+    <Content Remove="Resources\logo.png" />
+    <Content Remove="Resources\TF2Build.ttf" />
+    <Content Remove="Resources\TF2Crosshairs.ttf" />
+    <Content Remove="Resources\TF2Icons.ttf" />
+    <Content Remove="Resources\TF2Secondary.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\banner.png" />
+    <Resource Include="Resources\favicon.ico" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\TF2Build.ttf" />
+    <Resource Include="Resources\TF2Crosshairs.ttf" />
+    <Resource Include="Resources\TF2Icons.ttf" />
+    <Resource Include="Resources\TF2Secondary.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

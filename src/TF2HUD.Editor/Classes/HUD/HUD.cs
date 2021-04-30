@@ -106,7 +106,7 @@ namespace HUDEditor.Classes
 
                         if (arr1 != null && arr2 == null)
                         {
-                            LogChange($"{field.Name}", $"Argument 2 [0]", "*not present*");
+                            LogChange($"{field.Name}", "Argument 2 [0]", "*not present*");
                             return false;
                         }
 

@@ -8,7 +8,7 @@ theme:
     features:
         - navigation.expand
     palette:
-        scheme: default
+        scheme: slate
         primary: indigo
         accent: orange
 repo_name: GitHub
@@ -20,18 +20,20 @@ nav:
     - Troubleshooting: 'troubleshoot.md'
     - How to Contribute: 'contribute.md'
     - Adding your HUD: 
-        - 0. Introduction: 'json/intro.md'
-        - 1. Main Settings: 'json/base.md'
-        - 2. User Controls: 'json/controls.md'
-        - 3. List Options: 'json/options.md'
+        - Introduction: 'json/intro.md'
+        - Main Settings: 'json/base.md'
+        - User Controls: 'json/controls.md'
+        - List Options: 'json/options.md'
 hide:
-  - toc
+    - toc
 google_analytics:
-  - G-Q532RTS1WC
-  - auto
+    - G-Q532RTS1WC
+    - auto
 markdown_extensions:
     - admonition
     - pymdownx.superfences
+    - toc:
+        toc_depth: 0
 plugins:
     - search
     - git-revision-date-localized:

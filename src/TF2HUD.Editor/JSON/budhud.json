@@ -125,7 +125,7 @@
       },
       {
         "Name": "bh_player_healthcross_inset",
-        "Label": "Enable Player Health Cross",
+        "Label": "Enable Health Cross",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_player_healthcross_inset.res"

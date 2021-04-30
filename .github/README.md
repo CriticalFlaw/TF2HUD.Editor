@@ -45,8 +45,8 @@ This project is open-source and contributions towards the code and documentation
 
 Some of the ways you can contribute to the project include:
 * Code changes towards new features, enhancements and bug fixes. For on-going tasks, see our [issue tracker][issues-link].
-* Adding support for custom HUDs by creating schema files. For instructions, refer to [this section of the documentation][json-link].
-* Maintaining, expanding and improving the [documentation][docs-link] to help to other users.
+* Adding support for custom HUDs by creating schema files. Refer to [this section of the documentation][json-link].
+* Maintaining, expanding and improving the documentation to help to other users.
 * Sponsor this project through [GitHub Sponsors][sponsors-link].
 
 ### Credits

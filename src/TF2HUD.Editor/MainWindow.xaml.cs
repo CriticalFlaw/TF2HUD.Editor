@@ -112,45 +112,7 @@ namespace HUDEditor
                 }
             }
 
-            CleanDirectory();
             SetPageControls();
-        }
-
-        /// <summary>
-        ///     Cleans up the tf/custom and editor directories.
-        /// </summary>
-        private static void CleanDirectory()
-        {
-            // Clean the application directory.
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\temp.zip"))
-            {
-                Logger.Info("Found a temp file from the previous download attempt. Removing.");
-                File.Delete(Directory.GetCurrentDirectory() + "\\temp.zip");
-            }
-
-            // Clean the tf/custom directory.
-            var hudDirectory = string.Empty;
-            if (Directory.Exists(HudPath + $"\\{HudSelection}-master"))
-                hudDirectory = HudPath + $"\\{HudSelection}-master";
-            else if (Directory.Exists(HudPath + $"\\{HudSelection}-main"))
-                hudDirectory = HudPath + $"\\{HudSelection}-main";
-
-            // If the tf/custom directory is not yet set, then exit.
-            if (string.IsNullOrEmpty(hudDirectory)) return;
-
-            // If found, remove the existing backup file.
-            if (File.Exists(HudPath + $"\\{HudSelection}-backup.zip"))
-            {
-                Logger.Info("Found a backup file from the previous HUD installation. Removing.");
-                File.Delete(HudPath + $"\\{HudSelection}-backup.zip");
-            }
-
-            // Create a new backup of an existing HUD installation.
-            Logger.Info("Found an existing HUD installation. Creating a new backup.");
-            ZipFile.CreateFromDirectory(hudDirectory, HudPath + $"\\{HudSelection}-backup.zip");
-            Directory.Delete(hudDirectory, true);
-            ShowMessageBox(MessageBoxImage.Information,
-                string.Format(Properties.Resources.info_create_backup, HudSelection));
         }
 
         #region PAGE_EVENTS
@@ -160,6 +122,10 @@ namespace HUDEditor
         /// </summary>
         public void SetPageControls()
         {
+            // Clean the application directory.
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\temp.zip"))
+                File.Delete(Directory.GetCurrentDirectory() + "\\temp.zip");
+
             // If the HUD Selection is visible, disable most control buttons.
             if (GbSelectHud.Visibility == Visibility.Visible)
             {
@@ -297,7 +263,7 @@ namespace HUDEditor
             try
             {
                 // Force the user to set a directory before installing.
-                if (Utilities.CheckUserPath(HudPath))
+                if (!Utilities.CheckUserPath(HudPath))
                 {
                     SetupDirectory(true);
                     return;
@@ -332,22 +298,17 @@ namespace HUDEditor
                         ZipFile.ExtractToDirectory(tempFile, HudPath);
                         Directory.Move($"{HudPath}\\{hudName}", $"{HudPath}\\{HudSelection}");
 
-                        // Step 5. Clean up, check user settings and reload the page UI.
-                        CleanDirectory();
 
-                        if (!string.IsNullOrWhiteSpace(HudSelection))
-                        {
-                            var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-                            selection.Settings.SaveSettings();
-                            EditorContainer.Children.Clear();
-                            EditorContainer.Children.Add(selection.GetControls());
-                        }
-
-                        SetPageControls();
+                        if (string.IsNullOrWhiteSpace(HudSelection)) return;
+                        var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+                        selection.Settings.SaveSettings();
+                        EditorContainer.Children.Clear();
+                        EditorContainer.Children.Add(selection.GetControls());
                     });
                 };
                 worker.RunWorkerCompleted += (_, _) =>
                 {
+                    SetPageControls();
                     LblStatus.Content = "Installation finished at " + DateTime.Now;
                     ShowMessageBox(MessageBoxImage.Information,
                         string.Format(Properties.Resources.info_install_complete, HudSelection));

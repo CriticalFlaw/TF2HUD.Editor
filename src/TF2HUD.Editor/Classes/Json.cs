@@ -90,7 +90,8 @@ namespace HUDEditor.Classes
                             if (string.Equals(remoteName, localName))
                             {
                                 // The remote file is found locally. Check if the file size has noticeably changed.
-                                downloadFile = !Enumerable.Range(remoteSize - 100, remoteSize + 100).Contains(localSize);
+                                downloadFile = !Enumerable.Range(remoteSize - 100, remoteSize + 100)
+                                    .Contains(localSize);
                                 break;
                             }
 

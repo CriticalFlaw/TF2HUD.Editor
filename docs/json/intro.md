@@ -3,7 +3,7 @@ Every HUD supported by the editor has a dedicated schema file that defines the p
 !!! note
     Use this sample [schema file][json-sample] as a starting point. For refference, also see schemas for [budhud][json-budhud], [flawhud][json-flawhud] and [rayshud][json-rayshud].
 
-## Table of Contents
+### Table of Contents
 
 1. [Main][docs-main] - Base settings like the HUD page layout, path of customization folders, links to download, GitHub, HUDS.TF and more.
 2. [Controls][docs-controls] - Individual controls that will be displayed on the form and carry instructions for where and how to apply customizations.
