@@ -8,9 +8,18 @@ theme:
     features:
         - navigation.expand
     palette:
-        scheme: slate
-        primary: indigo
-        accent: orange
+        - scheme: default
+          primary: indigo
+          accent: amber
+          toggle:
+            icon: material/toggle-switch-off-outline
+            name: Switch to dark mode
+        - scheme: slate
+          primary: amber
+          accent: orange
+          toggle:
+            icon: material/toggle-switch
+            name: Switch to light mode
 repo_name: GitHub
 site_url: https://www.editor.criticalflaw.ca/
 repo_url: https://github.com/CriticalFlaw/TF2HUD.Editor/
