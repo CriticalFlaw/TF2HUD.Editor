@@ -42,7 +42,7 @@ jobs:
       run: nuget restore src/TF2HUD.Editor.sln
 
     - name: Build App
-      run: msbuild src/TF2HUD.Editor.sln /p:Configuration=Debug /p:Platform=x64 /p:UseSharedCompilation=false
+      run: msbuild src/TF2HUD.Editor.sln /p:Configuration=Debug /p:Platform="Any CPU"
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
