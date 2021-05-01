@@ -162,10 +162,10 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 ### SpecialParameters
 
-**Optional**. TODO
+**Optional**. This parameter is required when using the special command `HUDBackground`, see [Custom Backgrounds][docs-backgrounds]
 
 ```
-"SpecialParameters": ""
+"SpecialParameters": []
 ```
 
 ---
@@ -275,3 +275,4 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 [docs-files]: https://www.editor.criticalflaw.ca/json/files/
 [docs-special]: https://www.editor.criticalflaw.ca/json/special/
 [docs-options]: https://www.editor.criticalflaw.ca/json/options/
+[docs-backgrounds]: https://www.editor.criticalflaw.ca/json/backgrounds/

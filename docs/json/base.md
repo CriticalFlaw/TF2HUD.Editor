@@ -43,16 +43,34 @@ This section covers the base settings like the page layout, path of customizatio
 
 **Optional**. Defines the placement of each control group in the order they are defined in [Controls](https://www.editor.criticalflaw.ca/json/base/#controls).
 
-!!! info
-    In the example below, the first control group (0) will be placed in the top left corner. The next group (1) will be positioned veritically right underneath the first group.
+Each number corresponds to its control group box index, 0 based. The group box will be positioned at the first occurence of its index horizontally and vertically, and will expand it's width and height to the count of occurences of its index.
 
-```
+In the example below, the first control group (0) will be placed in the top left corner. The next group (1) will be positioned vertically right underneath the first group.
+
+```json
 "Layout": [
 	"0 0 0 4",
 	"1 2 3 4",
 	"1 2 3 4"
 ]
 ```
+
+This will result in the following layout, with 2 large boxes (0 and 4), and 3 smaller boxes (1, 2 and 3):
+
+```
++-0------------+-4--+
+|              |    |
+|-1--+-2--+-3--|    |
+|    |    |    |    |
+|    |    |    |    |
++----+----+----+----+
+```
+
+The width and height of all group boxes will expand fractionally to 100%. a column of `"0 0 1 2"` will have the widths 50%, 25%, 25%
+
+
+!!! note
+    If no Layout is provided, the editor will automatically wrap control group boxes. Providing a Layout is not essential
 
 ---
 

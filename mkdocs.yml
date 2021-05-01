@@ -28,11 +28,12 @@ nav:
     - Installation: 'install.md'
     - Troubleshooting: 'troubleshoot.md'
     - How to Contribute: 'contribute.md'
-    - Adding your HUD: 
+    - Adding your HUD:
         - Introduction: 'json/intro.md'
         - Main Settings: 'json/base.md'
         - User Controls: 'json/controls.md'
         - List Options: 'json/options.md'
+        - Custom Backgrounds: 'json/backgrounds.md'
 hide:
     - toc
 google_analytics:
