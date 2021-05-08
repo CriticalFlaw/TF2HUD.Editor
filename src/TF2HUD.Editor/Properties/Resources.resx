@@ -166,7 +166,7 @@
     <value>No new schema updates. Please check back later.</value>
   </data>
   <data name="info_schema_update" xml:space="preserve">
-    <value>HUD schemas have been updated. Please restart the editor.</value>
+    <value>There's a new schema update available. Would you like to restart now to apply the new changes?</value>
   </data>
   <data name="info_uninstall_complete" xml:space="preserve">
     <value>{0} has been successfully uninstalled.</value>

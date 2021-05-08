@@ -205,7 +205,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HUD schemas have been updated. Please restart the editor..
+        ///   Looks up a localized string similar to There&apos;s a new schema update available. Would you like to restart now to apply the new changes?.
         /// </summary>
         internal static string info_schema_update {
             get {

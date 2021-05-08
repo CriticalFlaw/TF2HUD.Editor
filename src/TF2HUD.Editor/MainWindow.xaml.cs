@@ -51,23 +51,6 @@ namespace HUDEditor
             Logger.Info("Checking for updates.");
             AutoUpdater.OpenDownloadPage = true;
             AutoUpdater.Start(Properties.Resources.app_update);
-
-            // Check for HUD updates.
-            Json.UpdateAsync().ContinueWith(restartRequired =>
-            {
-                if (!restartRequired.Result) return;
-
-                var result =
-                    MessageBox.Show(
-                        "Application restart required to update HUD schemas, would you like to restart now?",
-                        "Restart Required", MessageBoxButton.YesNo, MessageBoxImage.Information);
-                if (result != MessageBoxResult.Yes) return;
-
-                Json.Update(true);
-                Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
-                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
-                Environment.Exit(0);
-            });
         }
 
         /// <summary>
@@ -433,9 +416,26 @@ namespace HUDEditor
         /// </summary>
         private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
         {
-            LblStatus.Content = Json.Update()
-                ? Properties.Resources.info_schema_update
-                : Properties.Resources.info_schema_nothing;
+            // Check for HUD updates.
+            Json.UpdateAsync().ContinueWith(restartRequired =>
+            {
+                if (!restartRequired.Result)
+                {
+                    MessageBox.Show(Properties.Resources.info_schema_nothing, "No Updates Found.", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                var result =
+                    MessageBox.Show(
+                        Properties.Resources.info_schema_update,
+                        "Restart Required", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result != MessageBoxResult.Yes) return;
+
+                Json.Update(true);
+                Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
+                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
+                Environment.Exit(0);
+            });
         }
 
         private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
