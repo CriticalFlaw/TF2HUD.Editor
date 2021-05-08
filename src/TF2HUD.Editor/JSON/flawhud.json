@@ -20,7 +20,7 @@
         "Label": "Buffed Health",
         "Type": "ColorPicker",
         "ToolTip": "Color of player's health, when buffed.",
-        "Value": "0 170 127 255",
+        "Value": "0 170 127 225",
         "Restart": true,
         "Pulse": true,
         "Files": {
@@ -57,7 +57,7 @@
         "Label": "Low Health",
         "Type": "ColorPicker",
         "ToolTip": "Color of player's health when low.",
-        "Value": "190 20 20 255",
+        "Value": "190 20 20 225",
         "Restart": true,
         "Pulse": true,
         "Files": {
@@ -76,7 +76,7 @@
         "Label": "Low Ammo",
         "Type": "ColorPicker",
         "ToolTip": "Color of player's ammo when low.",
-        "Value": "190 20 20 255",
+        "Value": "190 20 20 225",
         "Restart": true,
         "Pulse": true,
         "Files": {
@@ -938,8 +938,7 @@
         "ToolTip": "Change to different health styles options.",
         "Value": "0",
         "Command": "HealthStyle",
-        "Preview":
-          "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
+        "Preview": "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
         "Options": [
           {
             "Label": "Default",
@@ -1042,6 +1041,24 @@
             "TFCharacterImage": {
               "ypos": {
                 "true": "-80",
+                "false": "9999"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_links",
+        "Label": "Display Server Links",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the server and social media buttons shown on the side.",
+        "Restart": true, 
+        "Value": "true",
+        "Files": {
+          "resource/links.res": {
+            "BGPanel": {
+              "ypos": {
+                "true": "175",
                 "false": "9999"
               }
             }
