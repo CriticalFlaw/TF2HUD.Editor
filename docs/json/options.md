@@ -109,7 +109,7 @@ This section covers individual options available in a list-type controls like `D
 
 !!! warning
     Do not use this property in conjuction with **Files** or **FileName**. Only use one of the three separately.
-	
+
 ```
 "Special": "StockBackgrounds"
 ```
@@ -118,10 +118,10 @@ This section covers individual options available in a list-type controls like `D
 
 ### SpecialParameters
 
-**Optional**. 
-	
+**Optional**.
+
 ```
-"SpecialParameters": ""
+"SpecialParameters": []
 ```
 
 <!-- MARKDOWN LINKS -->

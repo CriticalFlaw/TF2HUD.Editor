@@ -66,7 +66,7 @@ This will result in the following layout, with 2 large boxes (0 and 4), and 3 sm
 +----+----+----+----+
 ```
 
-The width and height of all group boxes will expand fractionally to 100%. a column of `"0 0 1 2"` will have the widths 50%, 25%, 25%
+The width and height of all group boxes will expand fractionally to 100%. a row of `"0 0 1 2"` will have the widths 50%, 25%, 25%
 
 
 !!! note
