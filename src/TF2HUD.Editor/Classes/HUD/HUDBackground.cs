@@ -97,7 +97,7 @@ namespace HUDEditor.Classes
                                 $"{consoleFolder}\\background_upward_widescreen.vtf", true);
 
                         File.Copy("Resources\\chapterbackgrounds.txt",
-                            $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt");
+                            $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt", true);
                     }
                     else if (useStockBackgrounds)
                     {
