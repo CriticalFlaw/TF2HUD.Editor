@@ -44,8 +44,7 @@ namespace HUDEditor.Classes
             Directory.CreateDirectory(string.Join("\\", pathInfo));
 
             // Make a backup of the existing background files.
-            var hudBgPath =
-                new DirectoryInfo($"{MainWindow.HudPath}\\{MainWindow.HudSelection}\\materials\\console\\");
+            var hudBgPath = new DirectoryInfo($"{MainWindow.HudPath}\\{MainWindow.HudSelection}\\materials\\console\\");
             foreach (var file in hudBgPath.GetFiles())
                 File.Delete(file.FullName);
 

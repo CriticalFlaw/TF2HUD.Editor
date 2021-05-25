@@ -289,15 +289,18 @@ namespace HUDEditor.Classes
                             case CheckBox check:
                                 if (bool.TryParse(controlItem.Value, out var value))
                                     check.IsChecked = value;
+                                MainWindow.Logger.Info($"Reset {controlItem.Name} to {value}");
                                 break;
 
                             case TextBox text:
                                 text.Text = controlItem.Value;
+                                MainWindow.Logger.Info($"Reset {controlItem.Name} to \"{controlItem.Value}\"");
                                 break;
 
                             case ColorPicker color:
                                 var colors = Array.ConvertAll(controlItem.Value.Split(' '), byte.Parse);
                                 color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                                MainWindow.Logger.Info($"Reset {controlItem.Name} to {color.SelectedColor}");
                                 break;
 
                             case ComboBox combo:
@@ -306,6 +309,7 @@ namespace HUDEditor.Classes
                                     combo.SelectedValue = controlItem.Value;
                                 else
                                     combo.SelectedIndex = int.Parse(controlItem.Value);
+                                MainWindow.Logger.Info($"Reset {controlItem.Name} to \"{controlItem.Value}\"");
                                 break;
 
                             case IntegerUpDown integer:

@@ -209,8 +209,7 @@ namespace HUDEditor.Classes
                         // Check for an OS tag.
                         var keyTokens = key.Split('^');
                         if (keyTokens.Length > 1)
-                            stringValue +=
-                                $"{new string(tab, tabs)}\"{keyTokens[0]}\"\t\"{obj[key]}\" {keyTokens[1]}{newLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{keyTokens[0]}\"\t\"{obj[key]}\" {keyTokens[1]}{newLine}";
                         else
                             stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{obj[key]}\"{newLine}";
                     }

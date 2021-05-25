@@ -28,8 +28,7 @@ namespace HUDEditor.Classes
                 HUDBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\");
 
                 var hudSettings = ControlOptions.Values;
-                // var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json"))
-                //     .Controls.Values;
+                // var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json")).Controls.Values;
 
                 // If the developer defined customization folders for their HUD, then copy those files.
                 if (!string.IsNullOrWhiteSpace(CustomizationsFolder))
@@ -42,9 +41,9 @@ namespace HUDEditor.Classes
                 foreach (var group in hudSettings)
                 foreach (var control in group)
                 {
-                    var userSetting = Settings.GetSetting(control.Name);
-                    if (userSetting is not null)
-                        WriteToFile(control, userSetting, hudFolders);
+                    var setting = Settings.GetSetting(control.Name);
+                    if (setting is null) continue;
+                    WriteToFile(control, setting, hudFolders);
                 }
 
                 static void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
@@ -276,6 +275,7 @@ namespace HUDEditor.Classes
         {
             try
             {
+                MainWindow.Logger.Info($"Applying: {userSetting.Name}");
                 var (Files, Special, SpecialParameters) = GetControlInfo(hudSetting, userSetting);
 
                 // Check for special cases like stock or custom backgrounds.
@@ -315,6 +315,7 @@ namespace HUDEditor.Classes
                                 replace = values[0].ToString();
                             }
 
+                            MainWindow.Logger.Info($"Replace value \"{find}\" with \"{replace}\".");
                             File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
                         }
                         else if (property.Value.GetType() == typeof(JObject))
@@ -322,9 +323,15 @@ namespace HUDEditor.Classes
                             var currentObj = property.Value.ToObject<JObject>();
 
                             if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
+                            {
                                 hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()];
+                                MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
+                            }
                             else
+                            {
+                                MainWindow.Logger.Info(property.Key);
                                 hudElement[property.Key] = CompileHudElement(currentObj, filePath);
+                            }
                         }
                         else
                         {
@@ -347,8 +354,8 @@ namespace HUDEditor.Classes
                                 }
                             }
 
-                            hudElement[property.Key] =
-                                property.Value.ToString().Replace("$value", userSetting.Value);
+                            hudElement[property.Key] = property.Value.ToString().Replace("$value", userSetting.Value);
+                            MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
                         }
 
                     return hudElement;
@@ -380,6 +387,7 @@ namespace HUDEditor.Classes
                     // the majority of the animation customisations are for enabling/disabling
                     // events, which use the 'replace' keyword
                     Dictionary<string, List<HUDAnimation>> animations = null;
+                    MainWindow.Logger.Info($"Processing: {filePath}");
 
                     foreach (var animationOption in animationOptions)
                         switch (animationOption.Key.ToLowerInvariant())
@@ -425,8 +433,8 @@ namespace HUDEditor.Classes
                                     foreach (string value in values)
                                     foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
                                         lines[index] = valid
-                                            ? Utilities.CommentTextLine(lines[index])
-                                            : Utilities.UncommentTextLine(lines[index]);
+                                            ? Utilities.CommentTextLine(lines, index)
+                                            : Utilities.UncommentTextLine(lines, index);
                                     File.WriteAllLines(filePath, lines);
                                 }
                                 else if (int.TryParse(userSetting.Value, out _))
@@ -434,7 +442,7 @@ namespace HUDEditor.Classes
                                     var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
                                     foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
-                                        lines[index] = Utilities.CommentTextLine(lines[index]);
+                                        lines[index] = Utilities.CommentTextLine(lines, index);
                                     File.WriteAllLines(filePath, lines);
                                 }
 
@@ -456,8 +464,8 @@ namespace HUDEditor.Classes
                                     foreach (string value in values)
                                     foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
                                         lines[index] = valid
-                                            ? Utilities.UncommentTextLine(lines[index])
-                                            : Utilities.CommentTextLine(lines[index]);
+                                            ? Utilities.UncommentTextLine(lines, index)
+                                            : Utilities.CommentTextLine(lines, index);
                                     File.WriteAllLines(filePath, lines);
                                 }
                                 else if (int.TryParse(userSetting.Value, out _))
@@ -465,7 +473,7 @@ namespace HUDEditor.Classes
                                     var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
                                     foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
-                                        lines[index] = Utilities.UncommentTextLine(lines[index]);
+                                        lines[index] = Utilities.UncommentTextLine(lines, index);
                                     File.WriteAllLines(filePath, lines);
                                 }
 
@@ -597,21 +605,16 @@ namespace HUDEditor.Classes
                     if (resFileExtensions.Contains(extension))
                     {
                         var hudFile = Utilities.CreateNestedObject(hudFolders, Regex.Split(filePath.Key, @"[\/]+"));
-                        Utilities.Merge(hudFile,
-                            CompileHudElement(filePath.Value.ToObject<JObject>(),
-                                currentFilePath));
+                        MainWindow.Logger.Info($"Go to => {filePath.Key}");
+                        Utilities.Merge(hudFile, CompileHudElement(filePath.Value.ToObject<JObject>(), currentFilePath));
                     }
                     else if (string.Equals(extension, "txt"))
                     {
                         // Assume .txt is always an animation file (may cause issues with mod_textures.txt but assume we are only editing hud files)
-                        WriteAnimationCustomizations(currentFilePath,
-                            filePath.Value.ToObject<JObject>());
+                        WriteAnimationCustomizations(currentFilePath, filePath.Value.ToObject<JObject>());
                     }
                     else
-                    {
-                        MainWindow.ShowMessageBox(MessageBoxImage.Error,
-                            $"Could not recognize file extension '{extension}'");
-                    }
+                        MainWindow.ShowMessageBox(MessageBoxImage.Error, $"Could not recognize file extension '{extension}'");
                 }
             }
             catch (Exception e)
@@ -627,24 +630,21 @@ namespace HUDEditor.Classes
                 return (hudSetting.Files, hudSetting.Special, hudSetting.SpecialParameters);
             // Determine files using the files of the selected item's label or value
             // Could cause issues if label and value are both numbers but numbered differently
-            var selected =
-                hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value);
+            var selected = hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value);
             return (selected.Files, selected.Special, selected.SpecialParameters);
         }
 
         private void EvaluateSpecial(string Special, Setting userSetting, bool enable, string[] parameters)
         {
             // Check for special conditions, namely if we should enable stock backgrounds.
-
             if (string.Equals(Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
                 HUDBackground.SetStockBackgrounds(enable);
 
             if (string.Equals(Special, "HUDBackground", StringComparison.CurrentCultureIgnoreCase))
                 HUDBackground.SetHUDBackground(parameters[0]);
 
-            if (string.Equals(Special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase))
-                if (Uri.TryCreate(userSetting.Value, UriKind.Absolute, out _))
-                    HUDBackground.SetCustomBackground(userSetting.Value);
+            if (string.Equals(Special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase) && Uri.TryCreate(userSetting.Value, UriKind.Absolute, out _))
+                HUDBackground.SetCustomBackground(userSetting.Value);
 
             if (string.Equals(Special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
                 CopyTransparentViewmodelAddon(enable);
@@ -659,9 +659,8 @@ namespace HUDEditor.Classes
             {
                 // Copy the config file required for this feature
                 if (!enable || Process.GetProcessesByName("hl2").Any()) return true;
-                File.Copy(
-                    Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk",
-                    MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
+                MainWindow.Logger.Info($"Copying mastercomfig-transparent-viewmodels-addon.vpk to {MainWindow.HudPath}");
+                File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk", MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
                 return true;
             }
             catch (Exception e)

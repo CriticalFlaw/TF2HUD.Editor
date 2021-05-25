@@ -61,19 +61,23 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Add a comment tag (//) to the beginning of a text line.
         /// </summary>
-        /// <param name="value">String value to which to add a comment tag.</param>
-        public static string CommentTextLine(string value)
+        /// <param name="lines">Text lines from a file to process.</param>
+        /// <param name="index">Line number to which to add a comment tag.</param>
+        public static string CommentTextLine(string[] lines, int index)
         {
-            return string.Concat("//", value.Replace("//", string.Empty));
+            MainWindow.Logger.Info($"Commenting line: {index}");
+            return string.Concat("//", lines[index].Replace("//", string.Empty));
         }
 
         /// <summary>
         ///     Remove all comment tags (//) from a text line.
         /// </summary>
-        /// <param name="value">String value from which to remove a comment tag.</param>
-        public static string UncommentTextLine(string value)
+        /// <param name="lines">Text lines from a file to process.</param>
+        /// <param name="index">Line number from which to remove a comment tag.</param>
+        public static string UncommentTextLine(string[] lines, int index)
         {
-            return value.Replace("//", string.Empty);
+            MainWindow.Logger.Info($"Uncommenting line: {index}");
+            return lines[index].Replace("//", string.Empty);
         }
 
         /// <summary>
@@ -98,6 +102,7 @@ namespace HUDEditor.Classes
         public static string ConvertToRgba(string hex)
         {
             var color = ColorTranslator.FromHtml(hex);
+            MainWindow.Logger.Info($"Converting {hex} to {color}.");
             return $"{color.R} {color.G} {color.B} {color.A}";
         }
 
@@ -150,6 +155,7 @@ namespace HUDEditor.Classes
         public static void OpenWebpage(string url)
         {
             if (string.IsNullOrWhiteSpace(url)) return;
+            MainWindow.Logger.Info($"Opening URL: {url}");
             Process.Start("explorer", url);
         }
 
@@ -276,7 +282,7 @@ namespace HUDEditor.Classes
 
             if (!Directory.Exists(registry)) return false;
 
-            MainWindow.Logger.Info("Found the TF2 path in the registry at: " + registry);
+            MainWindow.Logger.Info("tf/custom directory found in the registry: " + registry);
             Settings.Default.hud_directory = registry;
             Settings.Default.Save();
             return true;

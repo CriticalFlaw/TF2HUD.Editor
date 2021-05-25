@@ -113,6 +113,7 @@ namespace HUDEditor.Classes
                 ["Settings"] = UserSettings
             };
             File.WriteAllText(UserFile, JsonConvert.SerializeObject(settings, Formatting.Indented));
+            MainWindow.Logger.Info($"Saved user settings to: {UserFile}");
         }
     }
 }

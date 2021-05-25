@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using HUDEditor.Models;
 using HUDEditor.Properties;
 using Newtonsoft.Json;
@@ -45,7 +46,8 @@ namespace HUDEditor.Classes
             foreach (var hud in HUDList)
                 if (string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase))
                     return hud;
-            throw new Exception($"Cannot find HUD {name}!");
+            MainWindow.ShowMessageBox(MessageBoxImage.Error, $"Cannot find HUD {name}!");
+            return null;
         }
 
         /// <summary>

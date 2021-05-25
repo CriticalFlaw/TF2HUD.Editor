@@ -150,6 +150,7 @@ namespace HUDEditor.Classes
                             // Add to Page.
                             sectionContent.Children.Add(checkBoxInput);
                             controlItem.Control = checkBoxInput;
+                            MainWindow.Logger.Info($"Added checkbox to the page ({checkBoxInput.Name}).");
 
                             // Create a preview button if the control has a preview image.
                             if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -165,6 +166,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
+                                MainWindow.Logger.Info($"{checkBoxInput.Name} - Added preview: {controlItem.Preview}.");
                             }
 
                             break;
@@ -219,6 +221,7 @@ namespace HUDEditor.Classes
                             colorContainer.Children.Add(colorInput);
                             sectionContent.Children.Add(colorContainer);
                             controlItem.Control = colorInput;
+                            MainWindow.Logger.Info($"Added color picker to the page ({colorInput.Name}).");
 
                             // Create a preview button if the control has a preview image.
                             if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -236,6 +239,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
+                                MainWindow.Logger.Info($"{colorInput.Name} - Added preview: {controlItem.Preview}.");
                             }
 
                             break;
@@ -294,6 +298,7 @@ namespace HUDEditor.Classes
                             comboBoxContainer.Children.Add(comboBoxInput);
                             sectionContent.Children.Add(comboBoxContainer);
                             controlItem.Control = comboBoxInput;
+                            MainWindow.Logger.Info($"Added combo-box to the page ({comboBoxInput.Name}).");
 
                             // Create a preview button if the control has a preview image.
                             if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -311,6 +316,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
+                                MainWindow.Logger.Info($"{comboBoxInput.Name} - Added preview: {controlItem.Preview}.");
                             }
 
                             break;
@@ -351,6 +357,7 @@ namespace HUDEditor.Classes
                             integerContainer.Children.Add(integerInput);
                             sectionContent.Children.Add(integerContainer);
                             controlItem.Control = integerInput;
+                            MainWindow.Logger.Info($"Added num. counter to the page ({integerInput.Name}).");
 
                             // Create a preview button if the control has a preview image.
                             if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -368,6 +375,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
+                                MainWindow.Logger.Info($"{integerInput.Name} - Added preview: {controlItem.Preview}.");
                             }
 
                             break;
@@ -420,6 +428,7 @@ namespace HUDEditor.Classes
                             xhairContainer.Children.Add(xhairInput);
                             sectionContent.Children.Add(xhairContainer);
                             controlItem.Control = xhairInput;
+                            MainWindow.Logger.Info($"Added xhair picker to the page ({xhairInput.Name}).");
 
                             // Create a preview button if the control has a preview image.
                             if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -437,6 +446,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
+                                MainWindow.Logger.Info($"{xhairInput.Name} - Added preview: {controlItem.Preview}.");
                             }
 
                             break;
@@ -546,6 +556,7 @@ namespace HUDEditor.Classes
                             bgContainer.Children.Add(bgImage);
                             sectionContent.Children.Add(bgContainer);
                             controlItem.Control = bgInput;
+                            MainWindow.Logger.Info($"Added background selector to the page ({bgInput.Name}).");
                             break;
 
                         case "text":
@@ -580,6 +591,7 @@ namespace HUDEditor.Classes
                             textContainer.Children.Add(textInput);
                             sectionContent.Children.Add(textContainer);
                             controlItem.Control = textInput;
+                            MainWindow.Logger.Info($"Added textbox to the page ({textInput.Name}).");
                             break;
 
                         default:
@@ -630,13 +642,12 @@ namespace HUDEditor.Classes
                     }
                 }
 
-                var scrollViewer = new ScrollViewer
+                sectionContainer.Content = new ScrollViewer
                 {
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                     Content = sectionContainer.Content,
                     Background = new SolidColorBrush(Colors.Transparent)
                 };
-                sectionContainer.Content = scrollViewer;
                 sectionsContainer.Children.Add(sectionContainer);
                 groupBoxIndex++;
             }
