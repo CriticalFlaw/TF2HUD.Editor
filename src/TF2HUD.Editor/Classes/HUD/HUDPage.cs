@@ -77,7 +77,7 @@ namespace HUDEditor.Classes
                 sectionsContainer = new Grid
                 {
                     VerticalAlignment = VerticalAlignment.Top,
-                    MaxWidth = 1270,
+                    MaxWidth = 1280,
                     MaxHeight = 720
                 };
 
