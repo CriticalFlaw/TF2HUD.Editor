@@ -33,6 +33,8 @@ nav:
         - Main Settings: 'json/base.md'
         - User Controls: 'json/controls.md'
         - List Options: 'json/options.md'
+        - HUD Files: 'json/files.md'
+        - HUD Animations: 'json/animations.md'
         - Custom Backgrounds: 'json/backgrounds.md'
 hide:
     - toc

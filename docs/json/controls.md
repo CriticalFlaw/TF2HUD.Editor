@@ -174,6 +174,8 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional**. Defines a list of files that will need to be updated if the given option is selected, where each file path is relative to the root of the HUD.
 
+For in depth documentation on File editing, see [this section][docs-files].
+
 !!! warning
     Each nested object within the file path has to match the contents of the HUD file, otherwise the editor will not be able to apply the changes.
 
@@ -275,4 +277,5 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 [docs-files]: https://www.editor.criticalflaw.ca/json/files/
 [docs-special]: https://www.editor.criticalflaw.ca/json/special/
 [docs-options]: https://www.editor.criticalflaw.ca/json/options/
+[docs-animations]: https://www.editor.criticalflaw.ca/json/animations/
 [docs-backgrounds]: https://www.editor.criticalflaw.ca/json/backgrounds/

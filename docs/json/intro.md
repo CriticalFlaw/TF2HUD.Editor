@@ -1,4 +1,4 @@
-Every HUD supported by the editor has a dedicated schema file that defines the page layout and instructions for each customization option. This section will act as a refference guide for the structure of said schema file, what control options are available and things to keep in mind as you're building the schema for your custom HUD.
+Every HUD supported by the editor has a dedicated schema file that defines the page layout and instructions for each customization option. This section will act as a reference guide for the structure of said schema file, what control options are available and things to keep in mind as you're building the schema for your custom HUD.
 
 !!! note
     Use this sample [schema file][json-sample] as a starting point. For reference, also see schemas for [budhud][json-budhud], [flawhud][json-flawhud] and [rayshud][json-rayshud].

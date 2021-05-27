@@ -57,7 +57,7 @@ In the example below, the first control group (0) will be placed in the top left
 
 This will result in the following layout, with 2 large boxes (0 and 4), and 3 smaller boxes (1, 2 and 3):
 
-```json
+```
 +-0------------+-4--+
 |              |    |
 |-1--+-2--+-3--|    |

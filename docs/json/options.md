@@ -68,6 +68,8 @@ This section covers individual options available in a list-type controls like `D
 !!! warning
     Each nested object within the file path has to match the contents of the HUD file, otherwise the editor will not be able to apply the changes.
 
+For in depth documentation on File editing, see [this section][docs-files].
+
 ```json
 "Files": {
 	"resource/ui/huditemeffectmeter.res": {
@@ -126,3 +128,4 @@ This section covers individual options available in a list-type controls like `D
 
 <!-- MARKDOWN LINKS -->
 [docs-special]: https://www.editor.criticalflaw.ca/json/special/
+[docs-files]: https://www.editor.criticalflaw.ca/json/files/
