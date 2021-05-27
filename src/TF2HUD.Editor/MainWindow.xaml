@@ -170,7 +170,7 @@
                     Click="BtnDiscord_OnClick"
                     Content="Z"
                     Margin="5"
-                    Background="#7289da"
+                    Background="#5865F2"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnSteam"
