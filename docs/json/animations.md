@@ -27,7 +27,7 @@ The bias parameter of a HUD animation with the interpolators `Gain` and `Bias` c
   "scripts/hudanimations_examplehud.txt": {
     "HudHealthBonusPulse": [
       {
-        // Animate	PlayerStatusHealthBonusImage 	Alpha		"255"		Linear 0.0 0.2
+        // Animate	PlayerStatusHealthBonusImage 	Alpha		255		Linear 0.0 0.2
         "Type": "Animate",
         "Element": "PlayerStatusHealthBonusImage",
         "Property": "Alpha",
@@ -37,7 +37,7 @@ The bias parameter of a HUD animation with the interpolators `Gain` and `Bias` c
         "Duration": "0.2"
       },
       {
-        // Animate	PlayerStatusHealthBonusImage 	Alpha		"0"			Linear 0.2 0.4
+        // Animate	PlayerStatusHealthBonusImage 	Alpha		0			Linear 0.2 0.4
         "Type": "Animate",
         "Element": "PlayerStatusHealthBonusImage",
         "Property": "Alpha",

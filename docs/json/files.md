@@ -3,7 +3,9 @@ The `Files` property defines a list of instructions made up of HUD elements and 
 The files property can contain 0 or more file paths relative to the root of the HUD. Each file path can be seperated by slash (/), backslash (\\) or double backslash (\\\\).
 
 !!! note
-    Files that have the extensions `.res`, `.vmt` and `.vdf` are treated as HUD files, files that have the `.txt` extension are treated as HUD Animations files (see [HUD Animations][docs-animations]).
+    Files that have the extensions `.res`, `.vmt` and `.vdf` are treated as HUD files, files that have the `.txt` extension are treated as HUD Animations files.
+
+For HUD animations, see [HUD Animations][docs-animations].
 
 If the file does not exist, TF2HUD.Editor will create it with the values specified. If it does, the editor will merge the values specified with the already existing HUD values.
 
@@ -14,7 +16,7 @@ Containing header element:
 ```json
 "Files": {
   "resource/ui/hudplayerhealth.res": {
-    // "Resource/UI/HudPlayerHealth.res" is not present
+    // Resource/UI/HudPlayerHealth.res is not present
     "PlayerStatusHealthValue": {
         "fgcolor": "$value"
     }
