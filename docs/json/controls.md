@@ -1,6 +1,6 @@
 This section covers the controls that are displayed on the HUD page, grouped with other controls of similar purpose. This will include properties only available to specific types of controls.
 
-```
+```json
 "Crosshair":
 [
 	{
@@ -76,7 +76,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 !!! note
     To avoid conflicts, prefix each name with an abbreviation for the HUD. Example; budhud is bh, flawhud is fh.
 
-```
+```json
 "Name": "fh_color_health_buff"
 ```
 
@@ -86,7 +86,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Required**. Text displayed near the control. This space is limited, so save longer explanations for the [Tooltip](https://www.editor.criticalflaw.ca/json/controls/#tooltip) property.
 
-```
+```json
 "Label": "Buffed Health"
 ```
 
@@ -124,7 +124,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional**. Text that shown when the user hovers their mouse over control.
 
-```
+```json
 "Tooltip": "Color of player's health, when buffed."
 ```
 
@@ -134,7 +134,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional**. If true, the editor will tell the user that the game must be restarted for this customization to apply.
 
-```
+```json
 "Restart": false
 ```
 
@@ -144,7 +144,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional**. Sets the image that previews the effect of this customization option. If a valid image is supplied, a question mark button will appear near the control that will open a modal with the linked image when pressed.
 
-```
+```json
 "Preview": "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
 ```
 
@@ -154,7 +154,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional**. Special case property for customizations that otherwise cannot be through the schema. For more information, see [this section][docs-special].
 
-```
+```json
 "Special": "StockBackgrounds"
 ```
 
@@ -164,7 +164,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional**. This parameter is required when using the special command `HUDBackground`, see [Custom Backgrounds][docs-backgrounds]
 
-```
+```json
 "SpecialParameters": []
 ```
 
@@ -183,7 +183,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional**. Name of the file or folder that will be moved from `CustomizationsFolder` to `EnabledFolder` if this option is selected.
 
-```
+```json
 "FileName": "hudplayerhealth-broesel.res"
 ```
 
@@ -193,7 +193,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional**. TODO
 
-```
+```json
 "RenameFile": ""
 ```
 
@@ -203,7 +203,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional, ComboBox Only**. Lists all the files that will be handled by this control, this is used for returning everything back to normal if the user does not make a selection.
 
-```
+```json
 "ComboFiles": [
 	"hudplayerhealth-broesel.res",
 	"hudplayerhealth-cross.res"
@@ -216,7 +216,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional, ComboBox Only**. Lists all the options on the list. For information on how each option is defined, [see here][docs-options].
 
-```
+```json
 ...
 "Type": "ComboBox",
 "Value": "0",
@@ -233,7 +233,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional, ColorPicker Only**. If true, the color will have a new entry in the client scheme with a reduced alpha.
 
-```
+```json
 "Pulse": true
 ```
 
@@ -243,7 +243,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional, IntegerUpDown Only**. Sets the minimum value that the integer counter can go down to.
 
-```
+```json
 "Minimum": 10
 ```
 
@@ -253,7 +253,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional, IntegerUpDown Only**. Sets the maximum value that the integer counter can go down to.
 
-```
+```json
 "Maximum": 30
 ```
 
@@ -263,7 +263,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Optional, IntegerUpDown Only**. Sets the number by which the integer counter value will change.
 
-```
+```json
 "Increment": 2
 ```
 

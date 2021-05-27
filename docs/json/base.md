@@ -29,7 +29,7 @@ This section covers the base settings like the page layout, path of customizatio
 !!! info
     Individual control properties and options are covered in the [next section][docs-controls].
 
-```
+```json
 "Controls": {
 	"UberCharge": [
 		{
@@ -78,7 +78,7 @@ The width and height of all group boxes will expand fractionally to 100%. a row 
 
 **Optional**. Sets the path where all customization files are located, relative to the root of the HUD.
 
-```
+```json
 "CustomizationsFolder": "#customizations"
 ```
 
@@ -88,7 +88,7 @@ The width and height of all group boxes will expand fractionally to 100%. a row 
 
 **Optional**. Sets the path where to move customization files to, relative to the root of the HUD.
 
-```
+```json
 "EnabledFolder": "#customizations//_enabled"
 ```
 
@@ -98,7 +98,7 @@ The width and height of all group boxes will expand fractionally to 100%. a row 
 
 **Optional**. Sets the background of the HUD page as an RGBA color or a link to an image.
 
-```
+```json
 "Background": "https://imgur.com/V441OsM.png"
 or
 "Background": "30 30 30 255"
@@ -110,7 +110,7 @@ or
 
 **Optional**. Sets the page's background opacity. The value is a decimal between 0.0 and 1.0.
 
-```
+```json
 "Opacity": 0.5
 ```
 
@@ -120,7 +120,7 @@ or
 
 **Optional**. If true, the editor window will be maximized when the HUD page is opened.
 
-```
+```json
 "Maximize": false
 ```
 

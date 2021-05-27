@@ -1,6 +1,6 @@
 This section covers individual options available in a list-type controls like `DropDown`, `DropDownMenu` or `Select`. Below is an example of a list control with options for enabling specific animations based on the option selected.
 
-```
+```json
 "Name": "rh_val_uber_animation",
 "Label": "Uber Style",
 "Type": "ComboBox",
@@ -45,7 +45,7 @@ This section covers individual options available in a list-type controls like `D
 
 **Required**. Sets the name of the option as it will be shown on screen.
 
-```
+```json
 "Label": "Broesel"
 ```
 
@@ -55,7 +55,7 @@ This section covers individual options available in a list-type controls like `D
 
 **Required**. Sets the underlying value for this option that will be used by the editor.
 
-```
+```json
 "Value": "1"
 ```
 
@@ -68,7 +68,7 @@ This section covers individual options available in a list-type controls like `D
 !!! warning
     Each nested object within the file path has to match the contents of the HUD file, otherwise the editor will not be able to apply the changes.
 
-```
+```json
 "Files": {
 	"resource/ui/huditemeffectmeter.res": {
 		"HudItemEffectMeter": {
@@ -97,7 +97,7 @@ This section covers individual options available in a list-type controls like `D
 !!! warning
     Do not use this property in conjuction with **Files** or **Special**. Only use one of the three separately.
 
-```
+```json
 "FileName": "hudplayerhealth-broesel.res"
 ```
 
@@ -110,7 +110,7 @@ This section covers individual options available in a list-type controls like `D
 !!! warning
     Do not use this property in conjuction with **Files** or **FileName**. Only use one of the three separately.
 
-```
+```json
 "Special": "StockBackgrounds"
 ```
 
@@ -120,7 +120,7 @@ This section covers individual options available in a list-type controls like `D
 
 **Optional**.
 
-```
+```json
 "SpecialParameters": []
 ```
 
