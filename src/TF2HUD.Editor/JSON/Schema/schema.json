@@ -102,6 +102,9 @@
                   "type": "string"
                 }
               },
+              "Value": {
+                "type": "string"
+              },
               "Files": {
                 "type": "object"
               },

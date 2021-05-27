@@ -1,9 +1,10 @@
 {
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
   "Background": "https://i.imgur.com/U4m1mOx.png",
   "Layout": [
     "0 1 1 1 4 4",
     "5 5 2 2 3 3",
-	"6 6 7 7 7 7"
+    "6 6 7 7 7 7"
   ],
   "Links": {
     "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
@@ -43,7 +44,7 @@
           }
         ]
       },
-	  {
+      {
         "Name": "zh_showimages",
         "Label": "Hide IMGs",
         "Type": "Checkbox",
@@ -1294,7 +1295,6 @@
       }
     ],
     "Addons": [
-      
       {
         "Name": "zh_centered_meters",
         "Label": "Centered Meters",
@@ -1328,17 +1328,16 @@
         "FileName": "mainmenu_enablefriends"
       }
     ],
-	"Health Status Indicators": [
-	
-		{
+    "Health Status Indicators": [
+      {
         "Name": "zh_status_indicator",
         "Label": "Enable Indicators",
         "Type": "Checkbox",
         "Value": "false",
         "ToolTip": "Small icons show up next to your crosshair if you're overhealed or on low health.",
         "FileName": "health_status_indicators"
-		},
-		{
+      },
+      {
         "Name": "zh_indic_low",
         "Label": "Low HP Color",
         "Type": "ColorPicker",
@@ -1349,12 +1348,12 @@
             "Scheme": {
               "Colors": {
                 "Indicator Low": "$value"
-				}
-			  }
-			}
-          }	
-		},
-		{
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "zh_indic_ovh",
         "Label": "Overheal Color",
         "Type": "ColorPicker",
@@ -1365,11 +1364,11 @@
             "Scheme": {
               "Colors": {
                 "Indicator Ovh": "$value"
-				}
-			  }
-			}
-          }	
-		}
-	]
+              }
+            }
+          }
+        }
+      }
+    ]
   }
 }

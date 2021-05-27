@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
   "Background": "https://i.imgur.com/aD1OxHy.png",
   "Layout": [
     "0 1 2 3",
