@@ -295,7 +295,10 @@ namespace HUDEditor.Classes
 
                 // Applies $value (and handles keywords where applicable) to provided HUD element
                 // JObject and returns a HUD element Dictionary, recursively
-                Dictionary<string, dynamic> CompileHudElement(JObject element, string filePath)
+                Dictionary<string, dynamic> CompileHudElement(JObject element,
+                    string absolutePath, string relativePath,
+                    Dictionary<string, dynamic> hudFile, Dictionary<string, dynamic> hudElementRef,
+                    string objectPath)
                 {
                     var hudElement = new Dictionary<string, dynamic>();
                     foreach (var property in element)
@@ -316,7 +319,7 @@ namespace HUDEditor.Classes
                             }
 
                             MainWindow.Logger.Info($"Replace value \"{find}\" with \"{replace}\".");
-                            File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
+                            File.WriteAllText(absolutePath, File.ReadAllText(absolutePath).Replace(find, replace));
                         }
                         else if (property.Value.GetType() == typeof(JObject))
                         {
@@ -330,7 +333,15 @@ namespace HUDEditor.Classes
                             else
                             {
                                 MainWindow.Logger.Info(property.Key);
-                                hudElement[property.Key] = CompileHudElement(currentObj, filePath);
+                                Dictionary<string, dynamic> newhudElementRef;
+                                if (hudElementRef.ContainsKey(property.Key))
+                                    newhudElementRef = hudElementRef[property.Key];
+                                else
+                                    newhudElementRef = new Dictionary<string, dynamic>();
+                                hudElement[property.Key] = CompileHudElement(currentObj,
+                                absolutePath, relativePath,
+                                hudFile, newhudElementRef,
+                                $"{objectPath}{property.Key}/");
                             }
                         }
                         else
@@ -353,6 +364,10 @@ namespace HUDEditor.Classes
                                     hudElement[value.Item3] = Utilities.GetGrayedColor(userSetting.Value);
                                 }
                             }
+
+                            // Check for already existing keys and warn user
+                            if (hudElementRef.ContainsKey(property.Key))
+                                MainWindow.Logger.Warn($"{relativePath} => {objectPath} already contains key {property.Key}!");
 
                             hudElement[property.Key] = property.Value.ToString().Replace("$value", userSetting.Value);
                             MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
@@ -599,19 +614,23 @@ namespace HUDEditor.Classes
 
                 foreach (var filePath in Files)
                 {
-                    var currentFilePath = MainWindow.HudPath + "\\" + Name + "\\" + filePath.Key;
+                    var relativePath = string.Join('/', Regex.Split(filePath.Key, @"[\/]+"));
+                    var absolutePath = MainWindow.HudPath + "\\" + Name + "\\" + string.Join('\\', relativePath.Split('/'));
                     var extension = filePath.Key.Split(".")[^1];
 
                     if (resFileExtensions.Contains(extension))
                     {
-                        var hudFile = Utilities.CreateNestedObject(hudFolders, Regex.Split(filePath.Key, @"[\/]+"));
-                        MainWindow.Logger.Info($"Go to => {filePath.Key}");
-                        Utilities.Merge(hudFile, CompileHudElement(filePath.Value.ToObject<JObject>(), currentFilePath));
+                        var hudFile = Utilities.CreateNestedObject(hudFolders, relativePath.Split('/'));
+                        MainWindow.Logger.Info($"Go to => {relativePath}");
+
+                        Utilities.Merge(hudFile, CompileHudElement(filePath.Value.ToObject<JObject>(),
+                        absolutePath, relativePath,
+                        hudFile, hudFile, ""));
                     }
                     else if (string.Equals(extension, "txt"))
                     {
                         // Assume .txt is always an animation file (may cause issues with mod_textures.txt but assume we are only editing hud files)
-                        WriteAnimationCustomizations(currentFilePath, filePath.Value.ToObject<JObject>());
+                        WriteAnimationCustomizations(absolutePath, filePath.Value.ToObject<JObject>());
                     }
                     else
                         MainWindow.ShowMessageBox(MessageBoxImage.Error, $"Could not recognize file extension '{extension}'");
