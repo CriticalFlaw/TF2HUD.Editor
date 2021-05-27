@@ -49,7 +49,7 @@
         "Type": "Checkbox",
         "Value": "false",
         "ToolTip": "Hides decorative images around the HUD.",
-        "FileName": "display_images"
+        "FileName": "disable_images"
       },
       {
         "Name": "zh_val_layout_font",
