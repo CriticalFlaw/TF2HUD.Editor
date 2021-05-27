@@ -1,0 +1,166 @@
+{
+  "title": "TF2 HUD Editor JSON Schema",
+  "properties": {
+    "Background": {
+      "type": "string",
+      "pattern": "(^https?:\/\/.*$)|(^\\d{1,3} \\d{1,3} \\d{1,3} \\d{1,3}$)"
+    },
+    "Layout": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Links": {
+      "type": "object",
+      "properties": {
+        "Update": {
+          "type": "string",
+          "pattern": "^https?:\/\/.*$"
+        },
+        "Issue": {
+          "type": "string",
+          "pattern": "^https?:\/\/.*$"
+        },
+        "GitHub": {
+          "type": "string",
+          "pattern": "^https?:\/\/.*$"
+        },
+        "HudsTF": {
+          "type": "string",
+          "pattern": "^https?:\/\/.*$"
+        },
+        "Steam": {
+          "type": "string",
+          "pattern": "^https?:\/\/.*$"
+        },
+        "Discord": {
+          "type": "string",
+          "pattern": "^https?:\/\/.*$"
+        }
+      },
+      "required": [
+        "Update"
+      ]
+    },
+    "Controls": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-zA-Z\\d]*$": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "string"
+              },
+              "Label": {
+                "type": "string"
+              },
+              "Type": {
+                "type": "string",
+                "enum": [
+                  "Background",
+                  "CheckBox",
+                  "Checkbox",
+                  "Color",
+                  "ColorPicker",
+                  "Colour",
+                  "ColourPicker",
+                  "ComboBox",
+                  "Crosshair",
+                  "CustomBackground",
+                  "CustomCrosshair",
+                  "DropDown",
+                  "DropDownMenu",
+                  "Integer",
+                  "IntegerUpDown",
+                  "Number",
+                  "Select",
+                  "Text",
+                  "TextBox"
+                ]
+              },
+              "ToolTip": {
+                "type": "string"
+              },
+              "Preview": {
+                "type": "string"
+              },
+              "Special": {
+                "type": "string",
+                "enum": [
+                  "CustomBackground",
+                  "HUDBackground",
+                  "StockBackgrounds",
+                  "TransparentViewmodels"
+                ]
+              },
+              "SpecialParameters": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "Files": {
+                "type": "object"
+              },
+              "FileName": {
+                "type": "string"
+              },
+              "RenameFile": {
+                "type": "string"
+              },
+              "ComboFiles": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "Restart": {
+                "type": "boolean"
+              },
+              "Options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "#ref": "#/properties/Controls/patternProperties/^[a-zA-Z\\d]*$"
+                }
+              },
+              "Pulse": {
+                "type": "boolean"
+              },
+              "Minimum": {
+                "type": [
+                  "integer",
+                  "string"
+                ]
+              },
+              "Maximum": {
+                "type": [
+                  "integer",
+                  "string"
+                ]
+              },
+              "Increment": {
+                "type": [
+                  "integer",
+                  "string"
+                ]
+              }
+            },
+            "required": [
+              "Name",
+              "Label",
+              "Value"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "Links",
+    "Controls"
+  ]
+}
