@@ -2,7 +2,8 @@
   "Background": "https://i.imgur.com/U4m1mOx.png",
   "Layout": [
     "0 1 1 1 4 4",
-    "5 5 2 2 3 3"
+    "5 5 2 2 3 3",
+	"6 6 7 7 7 7"
   ],
   "Links": {
     "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
@@ -41,6 +42,14 @@
             "FileName": "health-ammo-style_classic"
           }
         ]
+      },
+	  {
+        "Name": "zh_showimages",
+        "Label": "Hide IMGs",
+        "Type": "Checkbox",
+        "Value": "false",
+        "ToolTip": "Hides decorative images around the HUD.",
+        "FileName": "display_images"
       },
       {
         "Name": "zh_val_layout_font",
@@ -1285,14 +1294,7 @@
       }
     ],
     "Addons": [
-      {
-        "Name": "zh_status_indicator",
-        "Label": "Health Status Indicators",
-        "Type": "Checkbox",
-        "Value": "false",
-        "ToolTip": "Small icons show up next to your crosshair if you're overhealed or on low health.",
-        "FileName": "health_status_indicators"
-      },
+      
       {
         "Name": "zh_centered_meters",
         "Label": "Centered Meters",
@@ -1325,6 +1327,49 @@
         "ToolTip": "Shows friends list in the main menu.",
         "FileName": "mainmenu_enablefriends"
       }
-    ]
+    ],
+	"Health Status Indicators": [
+	
+		{
+        "Name": "zh_status_indicator",
+        "Label": "Enable Indicators",
+        "Type": "Checkbox",
+        "Value": "false",
+        "ToolTip": "Small icons show up next to your crosshair if you're overhealed or on low health.",
+        "FileName": "health_status_indicators"
+		},
+		{
+        "Name": "zh_indic_low",
+        "Label": "Low HP Color",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of the indicator that shows if you're low on Health.",
+        "Value": "255 0 90 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Indicator Low": "$value"
+				}
+			  }
+			}
+          }	
+		},
+		{
+        "Name": "zh_indic_ovh",
+        "Label": "Overheal Color",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of the indicator that shows if you're being overhealed.",
+        "Value": "0 255 214 255",
+        "Files": {
+          "#customizations/custom_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Indicator Ovh": "$value"
+				}
+			  }
+			}
+          }	
+		}
+	]
   }
 }
