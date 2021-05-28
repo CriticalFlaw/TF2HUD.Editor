@@ -133,6 +133,9 @@
               "Pulse": {
                 "type": "boolean"
               },
+              "Shadows": {
+                "type": "boolean"
+              },
               "Minimum": {
                 "type": [
                   "integer",

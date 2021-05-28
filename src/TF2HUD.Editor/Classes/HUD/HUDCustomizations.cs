@@ -355,6 +355,12 @@ namespace HUDEditor.Classes
                                     var pulseKey = property.Key + "Pulse";
                                     hudElement[pulseKey] = Utilities.GetPulsedColor(userSetting.Value);
                                 }
+                                // If the color is supposed to have a pulse, set the pulse value in the schema.
+                                else if (hudSetting.Shadow)
+                                {
+                                    var pulseKey = property.Key + "Shadow";
+                                    hudElement[pulseKey] = Utilities.GetShadowColor(userSetting.Value);
+                                }
 
                                 // If the color value is for an item rarity, update the dimmed and grayed values.
                                 foreach (var value in Utilities.ItemRarities)

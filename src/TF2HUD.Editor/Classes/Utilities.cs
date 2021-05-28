@@ -121,6 +121,21 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
+        ///     Get a darkened color by reducing each color channel by 40%.
+        /// </summary>
+        /// <param name="rgba">RGBA color code to process.</param>
+        public static string GetShadowColor(string rgba)
+        {
+            // Split the RGBA string into an array of integers.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
+
+            // Reduce each color channel (except alpha) by 40%, then return the color.
+            for (var x = 0; x < colors.Length; x++)
+                colors[x] = Convert.ToInt32(colors[x] * 0.60);
+            return $"{colors[0]} {colors[1]} {colors[2]} 255";
+        }
+
+        /// <summary>
         ///     Get a dimmed color by setting the alpha channel to 100.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>

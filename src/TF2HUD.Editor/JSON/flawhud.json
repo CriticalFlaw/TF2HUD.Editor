@@ -21,9 +21,9 @@
         "Label": "Buffed Health",
         "Type": "ColorPicker",
         "ToolTip": "Color of player's health, when buffed.",
-        "Value": "0 170 127 225",
+        "Value": "0 170 127 255",
         "Restart": true,
-        "Pulse": true,
+        "Shadow": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -58,9 +58,9 @@
         "Label": "Low Health",
         "Type": "ColorPicker",
         "ToolTip": "Color of player's health when low.",
-        "Value": "190 20 20 225",
+        "Value": "190 20 20 255",
         "Restart": true,
-        "Pulse": true,
+        "Shadow": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -77,9 +77,9 @@
         "Label": "Low Ammo",
         "Type": "ColorPicker",
         "ToolTip": "Color of player's ammo when low.",
-        "Value": "190 20 20 225",
+        "Value": "190 20 20 255",
         "Restart": true,
-        "Pulse": true,
+        "Shadow": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {

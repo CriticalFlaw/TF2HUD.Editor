@@ -241,6 +241,16 @@ For in depth documentation on File editing, see [this section][docs-files].
 
 ---
 
+### Shadow
+
+**Optional, ColorPicker Only**. If true, the color will have a new entry in the client scheme where each color channel is darkened by 40%.
+
+```json
+"Shadow": true
+```
+
+---
+
 ### Minimum
 
 **Optional, IntegerUpDown Only**. Sets the minimum value that the integer counter can go down to.

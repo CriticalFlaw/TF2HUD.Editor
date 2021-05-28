@@ -880,6 +880,7 @@
         "Name": "rh_custom_background",
         "Label": "Set Custom Background",
         "Type": "CustomBackground",
+        "Value": "0",
         "Special": "CustomBackground",
         "ToolTip": "Replace the main menu background with a custom image.",
         "Restart": true

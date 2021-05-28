@@ -45,6 +45,7 @@ namespace HUDEditor.Models
         [JsonPropertyName("Options")] public Option[] Options;
         [JsonPropertyName("Preview")] public string Preview;
         [JsonPropertyName("Pulse")] public bool Pulse;
+        [JsonPropertyName("Shadow")] public bool Shadow;
         [JsonPropertyName("RenameFile")] public RenameFile RenameFile;
         [JsonPropertyName("Restart")] public bool Restart;
         [JsonPropertyName("Special")] public string Special;
