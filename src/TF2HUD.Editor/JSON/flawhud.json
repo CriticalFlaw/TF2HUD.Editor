@@ -14,6 +14,8 @@
     "Steam": "https://steamcommunity.com/groups/FlawHUD",
     "Discord": "https://discord.gg/hTdtK9vBhE"
   },
+  "CustomizationsFolder": "resource//ui//#customizations",
+  "EnabledFolder": "resource//ui//#customizations//_enabled",
   "Controls": {
     "Colors": [
       {
@@ -600,6 +602,45 @@
         }
       },
       {
+        "Name": "fh_toggle_fullscreen_scoreboard",
+        "Label": "Fullscreen Scoreboard",
+        "Type": "Checkbox",
+        "ToolTip": "Expands the scoreboard to fill the whole screen. Requires a restart to apply font changes.",
+        "Value": "false",
+        "Restart": true,
+        "FileName": "scoreboard-full.res",
+        "Files": {
+          "resource/scheme/clientscheme_fonts.res": {
+            "Scheme": {
+              "Fonts": {
+                "Default": {
+                  "1": {
+                    "tall": {
+                      "true": "20",
+                      "false": "10"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "resource/scheme/clientscheme_fonts_pro.res": {
+            "Scheme": {
+              "Fonts": {
+                "Default": {
+                  "1": {
+                    "tall": {
+                      "true": "20",
+                      "false": "10"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_val_hud_style",
         "Label": "HUD Style",
         "Type": "ComboBox",
@@ -952,7 +993,8 @@
               },
               "scripts/hudanimations_custom.txt": {
                 "comment": [
-                  "Animate PlayerStatusHealthValue",
+                  "Animate PlayerHealthValue",
+                  "Animate PlayerHealthShadow",
                   "Animate AmmoInClip",
                   "Animate AmmoInReserve",
                   "Animate AmmoNoClip"
@@ -979,7 +1021,8 @@
                   "Animate AmmoBG"
                 ],
                 "uncomment": [
-                  "Animate PlayerStatusHealthValue",
+                  "Animate PlayerHealthValue",
+                  "Animate PlayerHealthShadow",
                   "Animate AmmoInClip",
                   "Animate AmmoInReserve",
                   "Animate AmmoNoClip"
@@ -999,7 +1042,8 @@
               "scripts/hudanimations_custom.txt": {
                 "comment": [
                   "Animate HealthBG",
-                  "Animate PlayerStatusHealthValue",
+                  "Animate PlayerHealthValue",
+                  "Animate PlayerHealthShadow",
                   "Animate AmmoInClip",
                   "Animate AmmoInReserve",
                   "Animate AmmoNoClip"
@@ -1059,7 +1103,7 @@
           "resource/links.res": {
             "BGPanel": {
               "ypos": {
-                "true": "175",
+                "true": "205",
                 "false": "9999"
               }
             }
