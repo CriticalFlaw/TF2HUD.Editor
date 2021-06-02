@@ -133,10 +133,13 @@ namespace HUDEditor.Classes
         {
             try
             {
-                // Check if the customization folders exist.
+                // Check if the customization folder exist.
                 var path = $"{MainWindow.HudPath}\\{Name}\\";
-                if (!Directory.Exists($"{path}\\{CustomizationsFolder}") &&
-                    !Directory.Exists($"{path}\\{EnabledFolder}")) return true;
+                if (!Directory.Exists($"{path}\\{CustomizationsFolder}")) return true;
+
+                // Check if the "enabled" folder exists. If not, create it.
+                if (!Directory.Exists($"{path}\\{EnabledFolder}"))
+                    Directory.CreateDirectory($"{path}\\{EnabledFolder}");
 
                 // Get user's settings for the selected HUD.
                 var userSettings = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(HUDSettings.UserFile))
