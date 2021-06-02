@@ -146,7 +146,7 @@ namespace HUDEditor.Classes
                 foreach (var control in group)
                 {
                     // Loop through every control on the page, find the matching user setting.
-                    var setting = userSettings.First(x => x.Name == control.Name);
+                    var setting = userSettings.FirstOrDefault(x => x.Name == control.Name);
                     if (setting is null) continue; // User setting not found, skipping.
 
                     var custom = path + CustomizationsFolder;

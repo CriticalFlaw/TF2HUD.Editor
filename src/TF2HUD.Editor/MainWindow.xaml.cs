@@ -282,7 +282,8 @@ namespace HUDEditor
                                 Directory.Delete(HudPath + "\\" + x.ToString()?.ToLowerInvariant(), true);
 
                         // Step 3. Record the name of the HUD inside the downloaded folder.
-                        var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}\\temp.zip";
+                        var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";
+                        if (!File.Exists(tempFile)) tempFile = "temp.zip";
                         using var archive = ZipFile.OpenRead(tempFile);
                         var hudName = archive.Entries.FirstOrDefault(entry =>
                             entry.FullName.EndsWith("/", StringComparison.OrdinalIgnoreCase) &&
@@ -307,6 +308,8 @@ namespace HUDEditor
                     LblStatus.Content = "Installation finished at " + DateTime.Now;
                     ShowMessageBox(MessageBoxImage.Information,
                         string.Format(Properties.Resources.info_install_complete, HudSelection));
+                    Json.GetHUDByName(Settings.Default.hud_selected).ApplyCustomizations();
+                    LblStatus.Content = $"Settings Applied at {DateTime.Now}";
                 };
                 worker.RunWorkerAsync();
             }
