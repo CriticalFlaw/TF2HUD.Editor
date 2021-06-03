@@ -304,12 +304,12 @@ namespace HUDEditor
                 };
                 worker.RunWorkerCompleted += (_, _) =>
                 {
-                    SetPageControls();
                     LblStatus.Content = "Installation finished at " + DateTime.Now;
                     ShowMessageBox(MessageBoxImage.Information,
                         string.Format(Properties.Resources.info_install_complete, HudSelection));
                     Json.GetHUDByName(Settings.Default.hud_selected).ApplyCustomizations();
                     LblStatus.Content = $"Settings Applied at {DateTime.Now}";
+                    SetPageControls();
                 };
                 worker.RunWorkerAsync();
             }
