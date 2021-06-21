@@ -109,6 +109,31 @@ namespace HUDEditor.Classes
                     Header = section
                 };
 
+                var sectionContentContainer = new Grid();
+
+                sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition());
+                sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto});
+
+                var resetInput = new Button
+                {
+                    Style = (Style)Application.Current.Resources["PreviewButton"],
+                    Content = ".",
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    VerticalAlignment = VerticalAlignment.Top
+                };
+
+                Grid.SetColumn(resetInput, 1);
+
+                resetInput.Click += (_, _) =>
+                {
+                    ResetSection(section);
+                    Settings.SaveSettings();
+                    ApplyCustomizations();
+                    DirtyControls.Clear();
+                };
+
+                sectionContentContainer.Children.Add(resetInput);
+
                 Panel sectionContent = layout != null ? new WrapPanel() : new StackPanel();
                 sectionContent.Margin = new Thickness(3);
 
@@ -599,39 +624,6 @@ namespace HUDEditor.Classes
                     }
                 }
 
-                // Add a button to reset controls in this group.
-                var resetContainer = new StackPanel()
-                {
-                    Margin = new Thickness(10, lastMargin.Top, 0, 0),
-                    HorizontalAlignment = HorizontalAlignment.Stretch
-                };
-
-                //resetContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                //resetContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                //resetContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
-                //resetContainer.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
-                var resetInput = new Button
-                {
-                    Style = (Style)Application.Current.Resources["PreviewButton"],
-                    Content = ".",
-                    //HorizontalAlignment = HorizontalAlignment.Right
-                };
-
-                resetInput.Click += (_, _) =>
-                {
-                    ResetSection(section);
-                    Settings.SaveSettings();
-                    ApplyCustomizations();
-                    DirtyControls.Clear();
-                };
-
-                //Grid.SetColumn(resetInput, 2);
-                //Grid.SetRow(resetInput, 0);
-
-                resetContainer.Children.Add(resetInput);
-                sectionContent.Children.Add(resetContainer);
-
                 sectionContainer.Content = sectionContent;
 
                 if (layout != null)
@@ -675,12 +667,19 @@ namespace HUDEditor.Classes
                     }
                 }
 
-                sectionContainer.Content = new ScrollViewer
+                var scrollViewer = new ScrollViewer
                 {
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                     Content = sectionContainer.Content,
-                    Background = new SolidColorBrush(Colors.Transparent)
+                    // Background = new SolidColorBrush(Colors.Transparent)
+                    Background = Brushes.Red
                 };
+
+                Grid.SetRow(scrollViewer, 0);
+
+                sectionContentContainer.Children.Add(scrollViewer);
+
+                sectionContainer.Content = sectionContentContainer;
                 sectionsContainer.Children.Add(sectionContainer);
                 groupBoxIndex++;
             }
