@@ -274,49 +274,63 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
+        ///     Reset all user-settings to the default values defined in the HUD schema.
+        /// </summary>
+        public void ResetAll()
+        {
+            foreach (var section in ControlOptions.Keys)
+                for (var x = 0; x < ControlOptions[section].Length; x++)
+                    ResetControl(ControlOptions[section][x]);
+        }
+
+        /// <summary>
+        ///     Reset selected group of user-settings to the default values defined in the HUD schema.
+        /// </summary>
+        public void ResetSection(string selection)
+        { 
+            foreach (var section in ControlOptions[selection])
+                ResetControl(section);
+        }
+
+        /// <summary>
         ///     Reset user-settings to the default values defined in the HUD schema.
         /// </summary>
-        public void Reset()
+        public void ResetControl(Controls control)
         {
             try
             {
-                foreach (var section in ControlOptions.Keys)
-                    for (var x = 0; x < ControlOptions[section].Length; x++)
-                    {
-                        var controlItem = ControlOptions[section][x];
-                        switch (controlItem.Control)
-                        {
-                            case CheckBox check:
-                                if (bool.TryParse(controlItem.Value, out var value))
-                                    check.IsChecked = value;
-                                MainWindow.Logger.Info($"Reset {controlItem.Name} to {value}");
-                                break;
+                switch (control.Control)
+                {
+                    case CheckBox check:
+                        if (bool.TryParse(control.Value, out var value))
+                            check.IsChecked = value;
+                        MainWindow.Logger.Info($"Reset {control.Name} to {value}");
+                        break;
 
-                            case TextBox text:
-                                text.Text = controlItem.Value;
-                                MainWindow.Logger.Info($"Reset {controlItem.Name} to \"{controlItem.Value}\"");
-                                break;
+                    case TextBox text:
+                        text.Text = control.Value;
+                        MainWindow.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                        break;
 
-                            case ColorPicker color:
-                                var colors = Array.ConvertAll(controlItem.Value.Split(' '), byte.Parse);
-                                color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
-                                MainWindow.Logger.Info($"Reset {controlItem.Name} to {color.SelectedColor}");
-                                break;
+                    case ColorPicker color:
+                        var colors = Array.ConvertAll(control.Value.Split(' '), byte.Parse);
+                        color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                        MainWindow.Logger.Info($"Reset {control.Name} to {color.SelectedColor}");
+                        break;
 
-                            case ComboBox combo:
-                                if (((ComboBoxItem) combo.Items[0]).Style ==
-                                    (Style) Application.Current.Resources["Crosshair"])
-                                    combo.SelectedValue = controlItem.Value;
-                                else
-                                    combo.SelectedIndex = int.Parse(controlItem.Value);
-                                MainWindow.Logger.Info($"Reset {controlItem.Name} to \"{controlItem.Value}\"");
-                                break;
+                    case ComboBox combo:
+                        if (((ComboBoxItem)combo.Items[0]).Style ==
+                            (Style)Application.Current.Resources["Crosshair"])
+                            combo.SelectedValue = control.Value;
+                        else
+                            combo.SelectedIndex = int.Parse(control.Value);
+                        MainWindow.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                        break;
 
-                            case IntegerUpDown integer:
-                                integer.Text = controlItem.Value;
-                                break;
-                        }
-                    }
+                    case IntegerUpDown integer:
+                        integer.Text = control.Value;
+                        break;
+                }
             }
             catch (Exception e)
             {

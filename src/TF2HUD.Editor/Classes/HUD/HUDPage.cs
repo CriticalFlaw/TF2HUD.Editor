@@ -599,6 +599,39 @@ namespace HUDEditor.Classes
                     }
                 }
 
+                // Add a button to reset controls in this group.
+                var resetContainer = new StackPanel()
+                {
+                    Margin = new Thickness(10, lastMargin.Top, 0, 0),
+                    HorizontalAlignment = HorizontalAlignment.Stretch
+                };
+
+                //resetContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                //resetContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                //resetContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                //resetContainer.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+                var resetInput = new Button
+                {
+                    Style = (Style)Application.Current.Resources["PreviewButton"],
+                    Content = ".",
+                    //HorizontalAlignment = HorizontalAlignment.Right
+                };
+
+                resetInput.Click += (_, _) =>
+                {
+                    ResetSection(section);
+                    Settings.SaveSettings();
+                    ApplyCustomizations();
+                    DirtyControls.Clear();
+                };
+
+                //Grid.SetColumn(resetInput, 2);
+                //Grid.SetRow(resetInput, 0);
+
+                resetContainer.Children.Add(resetInput);
+                sectionContent.Children.Add(resetContainer);
+
                 sectionContainer.Content = sectionContent;
 
                 if (layout != null)

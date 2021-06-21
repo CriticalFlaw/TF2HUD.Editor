@@ -390,7 +390,7 @@ namespace HUDEditor
 
             Logger.Info("Start resetting settings.");
             var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-            selection.Reset();
+            selection.ResetAll();
             selection.Settings.SaveSettings();
             selection.ApplyCustomizations();
             selection.DirtyControls.Clear();
