@@ -492,22 +492,6 @@
     ],
     "Customizations": [
       {
-        "Name": "fh_toggle_code_fonts",
-        "Label": "Code Pro Fonts",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle to the Code Pro fonts instead of TF2 Build.",
-        "Value": "false",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "replace": [
-              "clientscheme_fonts.res",
-              "clientscheme_fonts_pro.res"
-            ]
-          }
-        }
-      },
-      {
         "Name": "fh_toggle_disguise_image",
         "Label": "Spy Disguise Image",
         "Type": "Checkbox",
@@ -1075,6 +1059,22 @@
       }
     ],
     "Main Menu": [
+      {
+        "Name": "fh_toggle_code_fonts",
+        "Label": "Code Pro Fonts",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle to the Code Pro fonts instead of TF2 Build.",
+        "Value": "false",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "replace": [
+              "clientscheme_fonts.res",
+              "clientscheme_fonts_pro.res"
+            ]
+          }
+        }
+      },
       {
         "Name": "fh_toggle_menu_image",
         "Label": "Main Menu Class Images",

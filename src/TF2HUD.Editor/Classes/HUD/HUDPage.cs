@@ -110,22 +110,22 @@ namespace HUDEditor.Classes
                 };
 
                 var sectionContentContainer = new Grid();
-
                 sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition());
                 sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto});
 
+                // Create the reset button for each control section.
                 var resetInput = new Button
                 {
                     Style = (Style)Application.Current.Resources["PreviewButton"],
-                    Content = ".",
                     HorizontalAlignment = HorizontalAlignment.Right,
-                    VerticalAlignment = VerticalAlignment.Top
+                    Content = "."
                 };
 
                 Grid.SetColumn(resetInput, 1);
 
                 resetInput.Click += (_, _) =>
                 {
+                    if (!MainWindow.CheckHudInstallation()) return;
                     ResetSection(section);
                     Settings.SaveSettings();
                     ApplyCustomizations();
@@ -153,7 +153,7 @@ namespace HUDEditor.Classes
                             {
                                 Name = id,
                                 Content = label,
-                                Margin = new Thickness(10, lastTop + 10, 50, 0),
+                                Margin = new Thickness(10, lastTop + 10, 30, 0),
                                 IsChecked = Settings.GetSetting<bool>(id),
                                 ToolTip = tooltip
                             };
@@ -182,7 +182,9 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"]
+                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Margin = new Thickness(0, lastTop, 0, 0),
+                                    VerticalAlignment = VerticalAlignment.Bottom
                                 };
                                 previewBtn.Click += (_, _) =>
                                 {
@@ -253,7 +255,8 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"]
+                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Margin = new Thickness(5, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
                                 {
@@ -279,7 +282,7 @@ namespace HUDEditor.Classes
                             // Create the Control.
                             var comboBoxContainer = new StackPanel
                             {
-                                Margin = new Thickness(10, lastTop, 0, 10)
+                                Margin = new Thickness(10, lastTop, 0, 5)
                             };
                             var comboBoxLabel = new Label
                             {
@@ -330,7 +333,8 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"]
+                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Margin = new Thickness(0, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
                                 {
@@ -389,7 +393,8 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"]
+                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Margin = new Thickness(0, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
                                 {
@@ -460,7 +465,8 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"]
+                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Margin = new Thickness(0, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
                                 {
@@ -671,14 +677,11 @@ namespace HUDEditor.Classes
                 {
                     VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                     Content = sectionContainer.Content,
-                    // Background = new SolidColorBrush(Colors.Transparent)
-                    Background = Brushes.Red
+                    Background = new SolidColorBrush(Colors.Transparent)
                 };
 
                 Grid.SetRow(scrollViewer, 0);
-
                 sectionContentContainer.Children.Add(scrollViewer);
-
                 sectionContainer.Content = sectionContentContainer;
                 sectionsContainer.Children.Add(sectionContainer);
                 groupBoxIndex++;

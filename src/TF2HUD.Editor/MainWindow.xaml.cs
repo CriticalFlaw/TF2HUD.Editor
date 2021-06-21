@@ -135,7 +135,7 @@ namespace HUDEditor
             if (Directory.Exists(HudPath) && Utilities.CheckUserPath(HudPath))
             {
                 // The selected HUD is installed in a valid directory.
-                var isInstalled = Directory.Exists(HudPath + "\\" + HudSelection);
+                var isInstalled = CheckHudInstallation();
                 BtnInstall.IsEnabled = true;
                 BtnInstall.Content = isInstalled ? "Reinstall" : "Install";
                 BtnUninstall.IsEnabled = isInstalled;
@@ -245,6 +245,15 @@ namespace HUDEditor
             }
         }
 
+        /// <summary>
+        ///     Check if the selected hud is installed in tf/custom.
+        /// </summary>
+        /// <returns>True if the selected hud is installed.</returns>
+        public static bool CheckHudInstallation()
+        {
+            return Directory.Exists(HudPath + "\\" + HudSelection);
+        }
+
         #endregion
 
         #region CLICK_EVENTS
@@ -328,7 +337,7 @@ namespace HUDEditor
             try
             {
                 // Check if the HUD is installed in a valid directory.
-                if (!Directory.Exists(HudPath + "\\" + HudSelection)) return;
+                if (!CheckHudInstallation()) return;
 
                 // Stop the process if Team Fortress 2 is still running.
                 if (Utilities.CheckIsGameRunning(true)) return;
