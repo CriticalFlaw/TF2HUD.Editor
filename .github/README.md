@@ -16,6 +16,8 @@
     ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases">Releases</a>
     ·
+    <a href="https://www.editor.criticalflaw.ca/install/screenshots/">Screenshots</a>
+    ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/issues">Issue Tracker</a>
   </p>
 </p>
@@ -31,6 +33,10 @@
 ### Documentation
 
 For more information on the project, check out the [documentation][docs-link].
+
+### Screenshots
+
+[Click here to view screenshots of the editor and select HUD customization options][screenshots-link].
 
 ### Help/Support
 
@@ -64,6 +70,7 @@ Some of the ways you can contribute to the project include:
 [docs-shield]: https://readthedocs.org/projects/tf2hudeditor/badge/?version=latest&style=flat-square
 [docs-link]: https://www.editor.criticalflaw.ca/
 [json-link]: https://www.editor.criticalflaw.ca/json/base/
+[screenshots-link]: https://www.editor.criticalflaw.ca/screenshots/
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [discord-shield]: https://img.shields.io/badge/Discord-criticalflaw-7289da.svg?style=flat-square&logo=discord
 [discord-link]: https://discord.gg/hTdtK9vBhE
