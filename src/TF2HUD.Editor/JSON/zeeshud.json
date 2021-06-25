@@ -2,9 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
   "Background": "https://i.imgur.com/U4m1mOx.png",
   "Layout": [
-    "0 1 1 1 4 4",
-    "5 5 2 2 3 3",
-    "6 6 7 7 7 7"
+    "0 0 4 4 1 1",
+    "5 5 2 2 1 1",
+    "6 6 3 3 1 1"
   ],
   "Links": {
     "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
@@ -43,14 +43,6 @@
             "FileName": "health-ammo-style_classic"
           }
         ]
-      },
-      {
-        "Name": "zh_showimages",
-        "Label": "Hide IMGs",
-        "Type": "Checkbox",
-        "Value": "false",
-        "ToolTip": "Hides decorative images around the HUD.",
-        "FileName": "disable_images"
       },
       {
         "Name": "zh_val_layout_font",
@@ -792,356 +784,6 @@
         "Type": "Crosshair",
         "ToolTip": "Style of hitmarker.",
         "Value": "<",
-        "Options": [
-          {
-            "Label": "!",
-            "Value": "!"
-          },
-          {
-            "Label": "#",
-            "Value": "#"
-          },
-          {
-            "Label": "$",
-            "Value": "$"
-          },
-          {
-            "Label": "%",
-            "Value": "%"
-          },
-          {
-            "Label": "'",
-            "Value": "'"
-          },
-          {
-            "Label": "(",
-            "Value": "("
-          },
-          {
-            "Label": ")",
-            "Value": ")"
-          },
-          {
-            "Label": "*",
-            "Value": "*"
-          },
-          {
-            "Label": "+",
-            "Value": "+"
-          },
-          {
-            "Label": ",",
-            "Value": ","
-          },
-          {
-            "Label": "-",
-            "Value": "-"
-          },
-          {
-            "Label": ".",
-            "Value": "."
-          },
-          {
-            "Label": "1",
-            "Value": "1"
-          },
-          {
-            "Label": "2",
-            "Value": "2"
-          },
-          {
-            "Label": "3",
-            "Value": "3"
-          },
-          {
-            "Label": "4",
-            "Value": "4"
-          },
-          {
-            "Label": "5",
-            "Value": "5"
-          },
-          {
-            "Label": "6",
-            "Value": "6"
-          },
-          {
-            "Label": "7",
-            "Value": "7"
-          },
-          {
-            "Label": "8",
-            "Value": "8"
-          },
-          {
-            "Label": "9",
-            "Value": "9"
-          },
-          {
-            "Label": ":",
-            "Value": ":"
-          },
-          {
-            "Label": ";",
-            "Value": ";"
-          },
-          {
-            "Label": "=",
-            "Value": "="
-          },
-          {
-            "Label": "<",
-            "Value": "<"
-          },
-          {
-            "Label": ">",
-            "Value": ">"
-          },
-          {
-            "Label": "?",
-            "Value": "?"
-          },
-          {
-            "Label": "@",
-            "Value": "@"
-          },
-          {
-            "Label": "|",
-            "Value": "|"
-          },
-          {
-            "Label": "}",
-            "Value": "}"
-          },
-          {
-            "Label": "`",
-            "Value": "`"
-          },
-          {
-            "Label": "_",
-            "Value": "_"
-          },
-          {
-            "Label": "^",
-            "Value": "^"
-          },
-          {
-            "Label": "]",
-            "Value": "]"
-          },
-          {
-            "Label": "[",
-            "Value": "["
-          },
-          {
-            "Label": "A",
-            "Value": "A"
-          },
-          {
-            "Label": "B",
-            "Value": "B"
-          },
-          {
-            "Label": "C",
-            "Value": "C"
-          },
-          {
-            "Label": "D",
-            "Value": "D"
-          },
-          {
-            "Label": "E",
-            "Value": "E"
-          },
-          {
-            "Label": "F",
-            "Value": "F"
-          },
-          {
-            "Label": "G",
-            "Value": "G"
-          },
-          {
-            "Label": "H",
-            "Value": "H"
-          },
-          {
-            "Label": "I",
-            "Value": "I"
-          },
-          {
-            "Label": "J",
-            "Value": "J"
-          },
-          {
-            "Label": "K",
-            "Value": "K"
-          },
-          {
-            "Label": "L",
-            "Value": "L"
-          },
-          {
-            "Label": "M",
-            "Value": "M"
-          },
-          {
-            "Label": "N",
-            "Value": "N"
-          },
-          {
-            "Label": "O",
-            "Value": "O"
-          },
-          {
-            "Label": "P",
-            "Value": "P"
-          },
-          {
-            "Label": "Q",
-            "Value": "Q"
-          },
-          {
-            "Label": "R",
-            "Value": "R"
-          },
-          {
-            "Label": "S",
-            "Value": "S"
-          },
-          {
-            "Label": "T",
-            "Value": "T"
-          },
-          {
-            "Label": "U",
-            "Value": "U"
-          },
-          {
-            "Label": "V",
-            "Value": "V"
-          },
-          {
-            "Label": "W",
-            "Value": "W"
-          },
-          {
-            "Label": "X",
-            "Value": "X"
-          },
-          {
-            "Label": "Y",
-            "Value": "Y"
-          },
-          {
-            "Label": "Z",
-            "Value": "Z"
-          },
-          {
-            "Label": "a",
-            "Value": "a"
-          },
-          {
-            "Label": "b",
-            "Value": "b"
-          },
-          {
-            "Label": "c",
-            "Value": "c"
-          },
-          {
-            "Label": "d",
-            "Value": "d"
-          },
-          {
-            "Label": "e",
-            "Value": "e"
-          },
-          {
-            "Label": "f",
-            "Value": "f"
-          },
-          {
-            "Label": "g",
-            "Value": "g"
-          },
-          {
-            "Label": "h",
-            "Value": "h"
-          },
-          {
-            "Label": "i",
-            "Value": "i"
-          },
-          {
-            "Label": "j",
-            "Value": "j"
-          },
-          {
-            "Label": "k",
-            "Value": "k"
-          },
-          {
-            "Label": "l",
-            "Value": "l"
-          },
-          {
-            "Label": "m",
-            "Value": "m"
-          },
-          {
-            "Label": "n",
-            "Value": "n"
-          },
-          {
-            "Label": "o",
-            "Value": "o"
-          },
-          {
-            "Label": "p",
-            "Value": "p"
-          },
-          {
-            "Label": "q",
-            "Value": "q"
-          },
-          {
-            "Label": "r",
-            "Value": "r"
-          },
-          {
-            "Label": "s",
-            "Value": "s"
-          },
-          {
-            "Label": "t",
-            "Value": "t"
-          },
-          {
-            "Label": "u",
-            "Value": "u"
-          },
-          {
-            "Label": "v",
-            "Value": "v"
-          },
-          {
-            "Label": "w",
-            "Value": "w"
-          },
-          {
-            "Label": "x",
-            "Value": "x"
-          },
-          {
-            "Label": "y",
-            "Value": "y"
-          },
-          {
-            "Label": "z",
-            "Value": "z"
-          }
-        ],
         "Files": {
           "#customizations/hitmarker.res": {
             "CustomCrosshair": {
@@ -1296,14 +938,6 @@
     ],
     "Addons": [
       {
-        "Name": "zh_centered_meters",
-        "Label": "Centered Meters",
-        "Type": "Checkbox",
-        "Value": "false",
-        "ToolTip": "Centers the item meter above objectives.",
-        "FileName": "meters_centered"
-      },
-      {
         "Name": "zh_centered_uber",
         "Label": "Centered Uber",
         "Type": "Checkbox",
@@ -1312,31 +946,39 @@
         "FileName": "uber_centered"
       },
       {
-        "Name": "zh_centered_metal",
-        "Label": "Centered Metal count",
-        "Type": "Checkbox",
-        "Value": "false",
-        "ToolTip": "Centers the metal around the crosshair.",
-        "FileName": "metal_centered"
-      },
-      {
         "Name": "zh_friendslist",
         "Label": "Show Friends List",
         "Type": "Checkbox",
         "Value": "true",
         "ToolTip": "Shows friends list in the main menu.",
         "FileName": "mainmenu_enablefriends"
+      },
+      {
+        "Name": "zh_centered_meters",
+        "Label": "Centered Meters",
+        "Type": "Checkbox",
+        "Value": "false",
+        "ToolTip": "Centers the item meter above objectives.",
+        "FileName": "meters_centered"
+      },
+      {
+        "Name": "zh_showimages",
+        "Label": "Hide IMGs",
+        "Type": "Checkbox",
+        "Value": "false",
+        "ToolTip": "Hides decorative images around the HUD.",
+        "FileName": "disable_images"
+      },
+      {
+        "Name": "zh_centered_metal",
+        "Label": "Centered Metal count",
+        "Type": "Checkbox",
+        "Value": "false",
+        "ToolTip": "Centers the metal around the crosshair.",
+        "FileName": "metal_centered"
       }
     ],
     "Health Status Indicators": [
-      {
-        "Name": "zh_status_indicator",
-        "Label": "Enable Indicators",
-        "Type": "Checkbox",
-        "Value": "false",
-        "ToolTip": "Small icons show up next to your crosshair if you're overhealed or on low health.",
-        "FileName": "health_status_indicators"
-      },
       {
         "Name": "zh_indic_low",
         "Label": "Low HP Color",
@@ -1368,6 +1010,14 @@
             }
           }
         }
+      },
+      {
+        "Name": "zh_status_indicator",
+        "Label": "Enable Indicators",
+        "Type": "Checkbox",
+        "Value": "false",
+        "ToolTip": "Small icons show up next to your crosshair if you're overhealed or on low health.",
+        "FileName": "health_status_indicators"
       }
     ]
   }

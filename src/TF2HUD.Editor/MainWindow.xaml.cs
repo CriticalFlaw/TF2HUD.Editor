@@ -180,16 +180,15 @@ namespace HUDEditor
         {
             try
             {
+                var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+
                 // Display a list of available HUDs if a HUD selection has not been set.
-                GbSelectHud.Visibility = string.IsNullOrWhiteSpace(Settings.Default.hud_selected)
-                    ? Visibility.Visible
-                    : Visibility.Hidden;
+                GbSelectHud.Visibility = (selection is null) ? Visibility.Visible : Visibility.Hidden;
                 EditorContainer.Children.Clear();
 
                 // If there's a HUD selection, generate the controls for that HUD's page.
-                if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
-                Logger.Info($"Changing page view to: {Settings.Default.hud_selected}.");
-                var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+                if (selection is null) return;
+                Logger.Info($"Changing page view to: {selection.Name}.");
                 EditorContainer.Children.Add(selection.GetControls());
 
                 // Maximize the application window if a given HUD schema requests it.
@@ -222,9 +221,8 @@ namespace HUDEditor
             }
 
             // If a HUD is selected, retrieve the set Background value if available.
-            if (string.IsNullOrWhiteSpace(Settings.Default.hud_selected)) return;
             var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-            if (selection.Background == null) return;
+            if (selection?.Background == null) return;
 
             Logger.Info($"Changing background to: {selection.Background}");
             if (selection.Background.StartsWith("http"))
@@ -418,6 +416,18 @@ namespace HUDEditor
             EditorContainer.Children.Clear();
             SetPageControls();
             SetPageBackground();
+        }
+
+        private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
+        {
+            Logger.Info("Attempting to change the 'tf/custom' directory.");
+            var previousPath = HudPath;
+            SetupDirectory(true);
+
+            if (HudPath.Equals(previousPath) || !Utilities.CheckUserPath(HudPath))
+                ShowMessageBox(MessageBoxImage.Error, Properties.Resources.info_path_incorrect);
+            else
+                ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_path_correct);
         }
 
         /// <summary>

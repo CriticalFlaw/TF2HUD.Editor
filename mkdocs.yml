@@ -26,6 +26,7 @@ repo_url: https://github.com/CriticalFlaw/TF2HUD.Editor/
 nav:
     - Home: 'index.md'
     - Installation: 'install.md'
+    - Screenshots: 'screenshots.md'
     - Troubleshooting: 'troubleshoot.md'
     - How to Contribute: 'contribute.md'
     - Adding your HUD:

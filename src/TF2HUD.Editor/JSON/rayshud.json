@@ -177,6 +177,20 @@
         }
       },
       {
+        "Name": "rh_val_xhair_style",
+        "Label": "Style",
+        "Type": "Crosshair",
+        "ToolTip": "Style of crosshair.",
+        "Value": "<",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
         "Name": "rh_val_xhair_size",
         "Label": "Size",
         "Type": "IntegerUpDown",
@@ -226,20 +240,6 @@
               "StopEvent HitMarker",
               "RunEvent HitMarker"
             ]
-          }
-        }
-      },
-      {
-        "Name": "rh_val_xhair_style",
-        "Label": "Style",
-        "Type": "Crosshair",
-        "ToolTip": "Style of crosshair.",
-        "Value": "<",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "labelText": "$value"
-            }
           }
         }
       }

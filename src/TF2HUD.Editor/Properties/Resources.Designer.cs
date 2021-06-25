@@ -196,6 +196,24 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A new tf/custom directory has been set..
+        /// </summary>
+        internal static string info_path_correct {
+            get {
+                return ResourceManager.GetString("info_path_correct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You either selected the same directory or your selection did not end with tf/custom. Please try again..
+        /// </summary>
+        internal static string info_path_incorrect {
+            get {
+                return ResourceManager.GetString("info_path_incorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No new schema updates. Please check back later..
         /// </summary>
         internal static string info_schema_nothing {

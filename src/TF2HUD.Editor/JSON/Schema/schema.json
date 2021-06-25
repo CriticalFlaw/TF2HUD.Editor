@@ -112,7 +112,18 @@
                 "type": "string"
               },
               "RenameFile": {
-                "type": "string"
+                "type": "object",
+                "properties": {
+                  "NewName": {
+                    "type": "string"
+                  },
+                  "OldName": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "Update"
+                ]
               },
               "ComboFiles": {
                 "type": "array",

@@ -90,78 +90,61 @@
                     x:Name="BtnInstall"
                     Click="BtnInstall_OnClick"
                     Content="Install"
-                    Width="150"
-                    Height="40"
-                    Margin="5"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnUninstall"
                     Click="BtnUninstall_OnClick"
                     Content="Uninstall"
-                    Width="150"
-                    Height="40"
-                    Margin="5"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnSave"
                     Click="BtnSave_OnClick"
                     Content="Apply Changes"
-                    Width="150"
-                    Height="40"
-                    Margin="5"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnReset"
                     Click="BtnReset_OnClick"
                     Content="Reset to Default"
-                    Width="150"
-                    Height="40"
-                    Margin="5"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"
                     Content="Switch HUDs"
-                    Width="150"
-                    Height="40"
-                    Margin="5"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnRefresh"
                     Click="BtnRefresh_OnClick"
                     Content="."
-                    Margin="5"
-                    ToolTip="Refresh HUD Files"
-                    Background="#776B5F"
+                    ToolTip="Refresh HUD Schemas"
+                    Style="{StaticResource LinkButton}" />
+                <Button
+                    x:Name="BtnSetDirectory"
+                    Click="BtnSetDirectory_OnClick"
+                    Content="r"
+                    ToolTip="Change HUD Path"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnReportIssue"
                     Click="BtnReportIssue_OnClick"
                     Content="x"
-                    Margin="5"
                     ToolTip="Report an Issue"
-                    Background="#776B5F"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnDocumentation"
                     Click="BtnDocumentation_OnClick"
                     Content="z"
-                    Margin="5"
                     ToolTip="Read the Documentation"
-                    Background="#776B5F"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnGitHub"
                     Click="BtnGitHub_OnClick"
                     Content="Y"
-                    Margin="5"
                     Background="#171a21"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnHuds"
                     Click="BtnHuds_OnClick"
                     Content="H"
-                    Margin="5"
                     Background="#42A5F5"
                     FontFamily="../Resources/TF2Build.ttf #TF2 Build"
                     Style="{StaticResource LinkButton}" />
@@ -169,14 +152,12 @@
                     x:Name="BtnDiscord"
                     Click="BtnDiscord_OnClick"
                     Content="Z"
-                    Margin="5"
                     Background="#5865F2"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnSteam"
                     Click="BtnSteam_OnClick"
                     Content="X"
-                    Margin="5"
                     Background="#1B2838"
                     Style="{StaticResource LinkButton}" />
             </WrapPanel>
