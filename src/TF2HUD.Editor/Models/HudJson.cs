@@ -9,10 +9,7 @@ namespace HUDEditor.Models
     {
         [JsonPropertyName("Background")] public string Background;
         [JsonPropertyName("Controls")] public Dictionary<string, Controls[]> Controls;
-
-        [JsonPropertyName("CustomizationsFolder")]
-        public string CustomizationsFolder;
-
+        [JsonPropertyName("CustomizationsFolder")] public string CustomizationsFolder;
         [JsonPropertyName("EnabledFolder")] public string EnabledFolder;
         [JsonPropertyName("Layout")] public string[] Layout;
         [JsonPropertyName("Links")] public Links Links;
@@ -33,7 +30,6 @@ namespace HUDEditor.Models
     public class Controls
     {
         [JsonPropertyName("ComboFiles")] public string[] ComboFiles;
-
         public UIElement Control;
         [JsonPropertyName("FileName")] public string FileName;
         [JsonPropertyName("Files")] public JObject Files;
@@ -45,14 +41,11 @@ namespace HUDEditor.Models
         [JsonPropertyName("Options")] public Option[] Options;
         [JsonPropertyName("Preview")] public string Preview;
         [JsonPropertyName("Pulse")] public bool Pulse;
-        [JsonPropertyName("Shadow")] public bool Shadow;
         [JsonPropertyName("RenameFile")] public RenameFile RenameFile;
         [JsonPropertyName("Restart")] public bool Restart;
+        [JsonPropertyName("Shadow")] public bool Shadow;
         [JsonPropertyName("Special")] public string Special;
-
-        [JsonPropertyName("SpecialParameters")]
-        public string[] SpecialParameters;
-
+        [JsonPropertyName("SpecialParameters")] public string[] SpecialParameters;
         [JsonPropertyName("Tooltip")] public string Tooltip;
         [JsonPropertyName("Type")] public string Type;
         [JsonPropertyName("Value")] public string Value = "0";
@@ -71,17 +64,13 @@ namespace HUDEditor.Models
         [JsonPropertyName("Label")] public string Label;
         [JsonPropertyName("RenameFile")] public RenameFile RenameFile;
         [JsonPropertyName("Special")] public string Special;
-
-        [JsonPropertyName("SpecialParameters")]
-        public string[] SpecialParameters;
-
+        [JsonPropertyName("SpecialParameters")] public string[] SpecialParameters;
         [JsonPropertyName("Value")] public string Value;
     }
 
     public class GitJson
     {
         [JsonPropertyName("name")] public string Name;
-
         [JsonPropertyName("size")] public int Size;
     }
 }

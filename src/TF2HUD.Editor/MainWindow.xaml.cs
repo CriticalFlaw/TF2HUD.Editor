@@ -48,6 +48,7 @@ namespace HUDEditor
                 list += $" - {hud.Name}";
                 LbSelectHud.Items.Add(hud.Name);
             }
+
             Logger.Info(list);
 
             // Setup the GUI.
@@ -155,6 +156,7 @@ namespace HUDEditor
                 BtnSwitch.IsEnabled = true;
                 LblStatus.Content = "tf/custom directory is not set!";
             }
+
             Logger.Info(LblStatus.Content);
         }
 
@@ -183,7 +185,7 @@ namespace HUDEditor
                 var selection = Json.GetHUDByName(Settings.Default.hud_selected);
 
                 // Display a list of available HUDs if a HUD selection has not been set.
-                GbSelectHud.Visibility = (selection is null) ? Visibility.Visible : Visibility.Hidden;
+                GbSelectHud.Visibility = selection is null ? Visibility.Visible : Visibility.Hidden;
                 EditorContainer.Children.Clear();
 
                 // If there's a HUD selection, generate the controls for that HUD's page.
@@ -457,11 +459,13 @@ namespace HUDEditor
             {
                 if (!restartRequired.Result)
                 {
-                    MessageBox.Show(Properties.Resources.info_schema_nothing, "No Updates Found.", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(Properties.Resources.info_schema_nothing, "No Updates Found.", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
                     return;
                 }
 
-                if (MessageBox.Show(Properties.Resources.info_schema_update, "Restart Required", MessageBoxButton.YesNo, MessageBoxImage.Information) != MessageBoxResult.Yes) return;
+                if (MessageBox.Show(Properties.Resources.info_schema_update, "Restart Required", MessageBoxButton.YesNo,
+                    MessageBoxImage.Information) != MessageBoxResult.Yes) return;
 
                 Json.Update(true);
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);

@@ -324,6 +324,17 @@ namespace HUDEditor.Classes
                             MainWindow.Logger.Info($"Replace value \"{find}\" with \"{replace}\".");
                             File.WriteAllText(absolutePath, File.ReadAllText(absolutePath).Replace(find, replace));
                         }
+                        else if (string.Equals(property.Key, "#base", StringComparison.OrdinalIgnoreCase))
+                        {
+                            var values = property.Value.ToArray();
+                            var baseOutput =
+                                string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase)
+                                    ? "#base " + values[0].First
+                                    : "#base " + values[1].Last;
+
+                            MainWindow.Logger.Info($"Writing [{baseOutput}] to file.");
+                            File.WriteAllText(absolutePath, baseOutput);
+                        }
                         else if (property.Value.GetType() == typeof(JObject))
                         {
                             var currentObj = property.Value.ToObject<JObject>();
@@ -342,9 +353,9 @@ namespace HUDEditor.Classes
                                 else
                                     newhudElementRef = new Dictionary<string, dynamic>();
                                 hudElement[property.Key] = CompileHudElement(currentObj,
-                                absolutePath, relativePath,
-                                hudFile, newhudElementRef,
-                                $"{objectPath}{property.Key}/");
+                                    absolutePath, relativePath,
+                                    hudFile, newhudElementRef,
+                                    $"{objectPath}{property.Key}/");
                             }
                         }
                         else
@@ -633,8 +644,8 @@ namespace HUDEditor.Classes
                         MainWindow.Logger.Info($"Go to => {relativePath}");
 
                         Utilities.Merge(hudFile, CompileHudElement(filePath.Value.ToObject<JObject>(),
-                        absolutePath, relativePath,
-                        hudFile, hudFile, ""));
+                            absolutePath, relativePath,
+                            hudFile, hudFile, ""));
                     }
                     else if (string.Equals(extension, "txt"))
                     {
@@ -642,7 +653,9 @@ namespace HUDEditor.Classes
                         WriteAnimationCustomizations(absolutePath, filePath.Value.ToObject<JObject>());
                     }
                     else
+                    {
                         MainWindow.ShowMessageBox(MessageBoxImage.Error, $"Could not recognize file extension '{extension}'");
+                    }
                 }
             }
             catch (Exception e)
@@ -671,7 +684,8 @@ namespace HUDEditor.Classes
             if (string.Equals(Special, "HUDBackground", StringComparison.CurrentCultureIgnoreCase))
                 HUDBackground.SetHUDBackground(parameters[0]);
 
-            if (string.Equals(Special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase) && Uri.TryCreate(userSetting.Value, UriKind.Absolute, out _))
+            if (string.Equals(Special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase) &&
+                Uri.TryCreate(userSetting.Value, UriKind.Absolute, out _))
                 HUDBackground.SetCustomBackground(userSetting.Value);
 
             if (string.Equals(Special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))

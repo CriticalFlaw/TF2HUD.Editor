@@ -111,12 +111,12 @@ namespace HUDEditor.Classes
 
                 var sectionContentContainer = new Grid();
                 sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition());
-                sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Auto});
+                sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition {Width = GridLength.Auto});
 
                 // Create the reset button for each control section.
                 var resetInput = new Button
                 {
-                    Style = (Style)Application.Current.Resources["PreviewButton"],
+                    Style = (Style) Application.Current.Resources["PreviewButton"],
                     HorizontalAlignment = HorizontalAlignment.Right,
                     Content = "."
                 };

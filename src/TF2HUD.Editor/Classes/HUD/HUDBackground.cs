@@ -112,7 +112,6 @@ namespace HUDEditor.Classes
                     else if (useStockBackgrounds)
                     {
                         foreach (var filePath in Directory.GetFiles(consoleFolder))
-                        {
                             if (filePath.EndsWith(".vtf"))
                             {
                                 MainWindow.Logger.Info($"Disabling {filePath} (.VTF => .BAK)");
@@ -123,7 +122,6 @@ namespace HUDEditor.Classes
                                 MainWindow.Logger.Info($"Disabling {filePath} (.VMT => .TEMP)");
                                 File.Move(filePath, filePath.Replace(".vmt", ".temp"), true);
                             }
-                        }
                     }
                     else
                     {
@@ -134,10 +132,10 @@ namespace HUDEditor.Classes
                             MainWindow.Logger.Info($"Copying {filePath} to {consoleFolder}");
                             File.Move(filePath, $"{consoleFolder}\\{filePath.Split("\\")[^1]}", true);
                         }
+
                         Directory.Delete(disabledFolder);
 
                         foreach (var filePath in Directory.GetFiles(consoleFolder))
-                        {
                             if (filePath.EndsWith(".bak"))
                             {
                                 MainWindow.Logger.Info($"Enabling {filePath} (.BAK => .VTF)");
@@ -148,7 +146,6 @@ namespace HUDEditor.Classes
                                 MainWindow.Logger.Info($"Enabling {filePath} (.TEMP => .VMT)");
                                 File.Move(filePath, filePath.Replace(".temp", ".vmt"), true);
                             }
-                        }
                     }
                 }
             }

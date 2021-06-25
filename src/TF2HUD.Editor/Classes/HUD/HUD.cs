@@ -287,7 +287,7 @@ namespace HUDEditor.Classes
         ///     Reset selected group of user-settings to the default values defined in the HUD schema.
         /// </summary>
         public void ResetSection(string selection)
-        { 
+        {
             foreach (var section in ControlOptions[selection])
                 ResetControl(section);
         }
@@ -319,8 +319,8 @@ namespace HUDEditor.Classes
                         break;
 
                     case ComboBox combo:
-                        if (((ComboBoxItem)combo.Items[0]).Style ==
-                            (Style)Application.Current.Resources["Crosshair"])
+                        if (((ComboBoxItem) combo.Items[0]).Style ==
+                            (Style) Application.Current.Resources["Crosshair"])
                             combo.SelectedValue = control.Value;
                         else
                             combo.SelectedIndex = int.Parse(control.Value);
