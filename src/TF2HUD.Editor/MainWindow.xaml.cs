@@ -1,10 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -29,6 +32,7 @@ namespace HUDEditor
         public static string HudPath = Settings.Default.hud_directory;
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         public Json Json;
+        private List<Border> HUDThumbnails = new();
 
         public MainWindow()
         {
@@ -41,13 +45,42 @@ namespace HUDEditor
 
             // Get the list of HUD JSONs.
             Json = new Json();
-            LbSelectHud.Items.Clear();
             var list = "Loading list of HUDs";
+
+            var client = new System.Net.Http.HttpClient();
+
             foreach (var hud in Json.HUDList)
             {
                 list += $" - {hud.Name}";
-                LbSelectHud.Items.Add(hud.Name);
+
+                var border = new Border();
+                border.MouseEnter += (_, _) => border.BorderBrush = Brushes.Black;
+                border.MouseLeave += (_, _) => border.BorderBrush = Brushes.LightGray;
+                border.MouseUp += (_, _) => Json.SetHUDByName(hud.Name);
+
+                var hudIconContainer = new StackPanel();
+
+                var thumbnailImage = new Image();
+                if (hud.Thumbnail != null) thumbnailImage.Source = new BitmapImage(new Uri(hud.Thumbnail));
+
+                // Prevents image from looking grainy when resized
+                RenderOptions.SetBitmapScalingMode(thumbnailImage, BitmapScalingMode.Fant);
+
+                hudIconContainer.Children.Add(thumbnailImage);
+                hudIconContainer.Children.Add(new System.Windows.Controls.Label {Content = hud.Name});
+
+                border.Child = hudIconContainer;
+
+                // Automatically assign columns and rows
+                // Grid.SetColumn(border, GridSelectHUD.Children.Count % 2);
+                // int d = GridSelectHUD.Children.Count / 2;
+                // Grid.SetRow(border, d);
+
+                GridSelectHUD.Children.Add(border);
+                HUDThumbnails.Add(border);
             }
+
+            Json.SelectionChanged += gridSelectHud_SelectionChanged;
 
             Logger.Info(list);
 
@@ -258,6 +291,17 @@ namespace HUDEditor
 
         #region CLICK_EVENTS
 
+        private void TbSearchBox_TextChanged(object sender, RoutedEventArgs e)
+        {
+            var searchText = SearchBox.Text.ToLower();
+            foreach (var border in HUDThumbnails)
+            {
+                StackPanel borderChild = (StackPanel)border.Child;
+                System.Windows.Controls.Label hudLabel = (System.Windows.Controls.Label)borderChild.Children[^1];
+                border.Visibility = hudLabel.Content.ToString().ToLower().Contains(searchText) ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
         /// <summary>
         ///     Invoke HUD installation or setting the tf/custom directory, if not already set.
         /// </summary>
@@ -286,9 +330,9 @@ namespace HUDEditor
 
                         // Step 2. Clear tf/custom directory of other installed HUDs.
                         Logger.Info("Preparing directories for extraction.");
-                        foreach (var x in LbSelectHud.Items)
-                            if (Directory.Exists(HudPath + "\\" + x.ToString()?.ToLowerInvariant()))
-                                Directory.Delete(HudPath + "\\" + x.ToString()?.ToLowerInvariant(), true);
+                        foreach (var x in Json.HUDList)
+                            if (Directory.Exists(HudPath + "\\" + x.Name.ToString()?.ToLowerInvariant()))
+                                Directory.Delete(HudPath + "\\" + x.Name.ToString()?.ToLowerInvariant(), true);
 
                         // Step 3. Record the name of the HUD inside the downloaded folder.
                         var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";
@@ -413,7 +457,6 @@ namespace HUDEditor
         private void BtnSwitch_OnClick(object sender, RoutedEventArgs e)
         {
             Logger.Info("Changing page view to: main menu.");
-            LbSelectHud.UnselectAll();
             GbSelectHud.Visibility = Visibility.Visible;
             EditorContainer.Children.Clear();
             SetPageControls();
@@ -501,13 +544,10 @@ namespace HUDEditor
         /// <summary>
         ///     Save the selected HUD then update the page view and controls.
         /// </summary>
-        private void lbSelectHud_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void gridSelectHud_SelectionChanged(object sender, HUD hud)
         {
-            // Break if the selection is invalid.
-            if (LbSelectHud.SelectedIndex == -1) return;
-
             // Save the selected HUD.
-            Settings.Default.hud_selected = LbSelectHud.SelectedValue.ToString()?.ToLowerInvariant();
+            Settings.Default.hud_selected = hud.Name;
             Settings.Default.Save();
             HudSelection = Settings.Default.hud_selected;
 

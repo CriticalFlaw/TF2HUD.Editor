@@ -7,6 +7,7 @@ namespace HUDEditor.Models
 {
     public class HudJson
     {
+        [JsonPropertyName("Thumbnail")] public string Thumbnail;
         [JsonPropertyName("Background")] public string Background;
         [JsonPropertyName("Controls")] public Dictionary<string, Controls[]> Controls;
         [JsonPropertyName("CustomizationsFolder")] public string CustomizationsFolder;

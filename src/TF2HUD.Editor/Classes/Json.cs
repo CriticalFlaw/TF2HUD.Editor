@@ -17,6 +17,8 @@ namespace HUDEditor.Classes
         // HUDs to manage
         public HUD[] HUDList;
 
+        public event EventHandler<HUD> SelectionChanged;
+
         public Json()
         {
             var hudList = new List<HUD>();
@@ -35,6 +37,11 @@ namespace HUDEditor.Classes
             }
 
             HUDList = hudList.ToArray();
+        }
+
+        public void SetHUDByName(string name)
+        {
+            SelectionChanged.Invoke(this, GetHUDByName(name));
         }
 
         /// <summary>

@@ -14,6 +14,7 @@ namespace HUDEditor.Classes
     {
         private readonly Grid controls = new();
         public readonly string[] LayoutOptions;
+        public string Thumbnail;
         public string Background;
         public Dictionary<string, Controls[]> ControlOptions;
         public string CustomizationsFolder, EnabledFolder;
@@ -61,6 +62,9 @@ namespace HUDEditor.Classes
                 CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
                 EnabledFolder = schema.EnabledFolder ?? string.Empty;
             }
+
+            // Thumbnail.
+            if (schema.Thumbnail != null) Thumbnail = schema.Thumbnail;
 
             // Custom Background Image.
             if (schema.Background != null) Background = schema.Background;

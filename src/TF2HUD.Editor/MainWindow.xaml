@@ -28,21 +28,58 @@
             VerticalAlignment="Stretch"
             Grid.Column="0" Grid.Row="0"
             Margin="10,10,10,5"
-            Padding="20">
+            Padding="10">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="6*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <!-- Select a HUD Listbox -->
-                <ListBox x:Name="LbSelectHud" SelectionChanged="lbSelectHud_SelectionChanged" Grid.Column="0"
-                         FontSize="23" Grid.Row="0" />
+                <!-- Select a HUD Grid -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid HorizontalAlignment="Stretch" Margin="0,0,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Search" Grid.Column="0" />
+                        <TextBox Name="SearchBox" Grid.Column="1" TextChanged="TbSearchBox_TextChanged" />
+                    </Grid>
+                    <ScrollViewer Background="#FFFFFF" Grid.Row="1">
+                        <WrapPanel x:Name="GridSelectHUD" HorizontalAlignment="Center">
+                            <WrapPanel.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="#FFFFFF" />
+                                    <Setter Property="BorderBrush" Value="LightGray" />
+                                    <Setter Property="BorderThickness" Value="1" />
+                                    <Setter Property="Width" Value="220" />
+                                    <Setter Property="Margin" Value="5" />
+                                    <Setter Property="Padding" Value="5" />
+                                    <Setter Property="Cursor" Value="Hand" />
+                                </Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Height" Value="118" />
+                                    <Setter Property="Stretch" Value="UniformToFill" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                </Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Foreground" Value="#000000" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+
+                                </Style>
+                            </WrapPanel.Resources>
+                        </WrapPanel>
+                    </ScrollViewer>
+                </Grid>
                 <!-- TF2 HUD Editor and Version -->
-                <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1">
                     <StackPanel Margin="20">
                         <Image Source="Resources/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Center">
@@ -52,7 +89,7 @@
                         </TextBlock>
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
                         <Label Content="Version 2.1" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
-                        <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
+                        <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Left">
                             - Added support for zeeshud and the default Team Fortress 2 HUD.
                             <LineBreak />
                             - Added the ability to import a custom main menu background image.
