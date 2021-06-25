@@ -414,7 +414,7 @@
         "Files": {
           "scripts/hudlayout.res": {
             "CustomCrosshair": {
-              "font": "Size:$value | Outline:OFF"
+              "font": "Size: $value | Outline:{$fh_val_xhair_outline ? ON : OFF}"
             }
           }
         }
@@ -488,6 +488,12 @@
             ]
           }
         }
+      },
+      {
+        "Name": "fh_val_xhair_outline",
+        "Label": "Crosshair Outline",
+        "Type": "Checkbox",
+        "Value": "false"
       }
     ],
     "Customizations": [
