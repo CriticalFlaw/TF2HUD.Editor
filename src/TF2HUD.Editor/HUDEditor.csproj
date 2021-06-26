@@ -29,6 +29,7 @@
     <None Remove="JSON\budhud.json" />
     <None Remove="JSON\default.json" />
     <None Remove="JSON\flawhud.json" />
+    <None Remove="JSON\hypnotize-hud.json" />
     <None Remove="JSON\rayshud.json" />
     <None Remove="JSON\zeeshud.json" />
     <None Remove="log4net.config" />
