@@ -126,7 +126,7 @@
                   }
                 },
                 "required": [
-                  "Update"
+                  "Restart"
                 ]
               },
               "ComboFiles": {
