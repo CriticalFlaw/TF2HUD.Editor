@@ -1,0 +1,795 @@
+{
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Thumbnail": "https://huds.tf/site/xthreads_attach.php/4200_1624480708_80df6422/a6733dd158e1b299cae03b753e28aa73/th0oGZT.png",
+  "Background": "8 7 12 255",
+  "Layout": [
+    "0 1 1",
+    "0 2 2",
+    "4 3 3"
+  ],
+  "Links": {
+    "Update": "https://github.com/Hypnootize/hexhud/archive/refs/heads/master.zip",
+    "GitHub": "https://github.com/Hypnootize/hexhud",
+    "HudsTF": "https://huds.tf/site/s-HExHUD--3435",
+    "Issue": "https://github.com/Hypnootize/hexhud/issues"
+  },
+  "CustomizationsFolder": "customizations",
+  "EnabledFolder": "customizations",
+  "Controls": {
+    "General": [
+      {
+        "Name": "hex_toggle_scoreboard",
+        "Label": "Full Stats Scoreboard",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/scoreboards.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/scoreboard_full.res",
+                "false": "../resource/ui/scoreboard_short.res"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hex_toggle_streamer_mode",
+        "Label": "Streamer Mode",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Restart": true,
+        "RenameFile": {
+          "OldName": "customizations/#streamermode_/",
+          "NewName": "customizations/#streamermode/",
+          "Restart": true
+        }
+      },
+      {
+        "Name": "hex_toggle_transparent_viewmodels",
+        "Label": "Transparent Viewmodel",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/transparent viewmodels.res": {
+            "#base": [
+              {
+                "true": "../scripts/transparent_viewmodels.res",
+                "false": "../scripts/transparent_viewmodels_off.res"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hex_toggle_friends_list",
+        "Label": "Friends List",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "Short",
+            "Value": "0",
+            "Files": {
+              "customizations/friends list.res": {
+                "#base": "../resource/ui/mainmenu_friendlist_small.res"
+              }
+            }
+          },
+          {
+            "Label": "Extended",
+            "Value": "1",
+            "Files": {
+              "customizations/friends list.res": {
+                "#base": "../resource/ui/mainmenu_friendlist_extended.res"
+              }
+            }
+          },
+          {
+            "Label": "Disabled",
+            "Value": "2",
+            "Files": {
+              "customizations/friends list.res": {
+                "#base": "../resource/ui/scoreboard_disabled.res"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Name": "hex_toggle_spectator_bars",
+        "Label": "Spectator Bars",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "1920x1080",
+            "Value": "0",
+            "Files": {
+              "customizations/spectator bars.res": {
+                "#base": "../resource/ui/spectatortournament_1920x1080.res"
+              }
+            }
+          },
+          {
+            "Label": "1690x900",
+            "Value": "1",
+            "Files": {
+              "customizations/spectator bars.res": {
+                "#base": "../resource/ui/spectatortournament_1600x900.res"
+              }
+            }
+          },
+          {
+            "Label": "1366x768",
+            "Value": "2",
+            "Files": {
+              "customizations/spectator bars.res": {
+                "#base": "../resource/ui/spectatortournament_1366x768.res"
+              }
+            }
+          },
+          {
+            "Label": "1280x720",
+            "Value": "3",
+            "Files": {
+              "customizations/spectator bars.res": {
+                "#base": "../resource/ui/spectatortournament_1280x720.res"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Name": "hex_toggle_font",
+        "Label": "Font",
+        "Type": "ComboBox",
+        "ToolTip": "Change to different font options.",
+        "Value": "3",
+        "Restart": true,
+        "Options": [
+          {
+            "Label": "Avenir",
+            "Value": "0",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/avenir.res"
+              }
+            }
+          },
+          {
+            "Label": "Cerbetica",
+            "Value": "1",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/cerbetica.res"
+              }
+            }
+          },
+          {
+            "Label": "Lato",
+            "Value": "2",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/lato.res"
+              }
+            }
+          },
+          {
+            "Label": "Lexend",
+            "Value": "3",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/lexend.res"
+              }
+            }
+          },
+          {
+            "Label": "Neutra",
+            "Value": "4",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/neutra.res"
+              }
+            }
+          },
+          {
+            "Label": "Product",
+            "Value": "5",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/product.res"
+              }
+            }
+          },
+          {
+            "Label": "Product Bold",
+            "Value": "6",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/product_bold.res"
+              }
+            }
+          },
+          {
+            "Label": "Quake",
+            "Value": "7",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/quake.res"
+              }
+            }
+          },
+          {
+            "Label": "Renogare",
+            "Value": "8",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/renogare.res"
+              }
+            }
+          },
+          {
+            "Label": "Roboto",
+            "Value": "9",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/roboto.res"
+              }
+            }
+          },
+          {
+            "Label": "Rubik",
+            "Value": "10",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/rubik.res"
+              }
+            }
+          },
+          {
+            "Label": "Surface",
+            "Value": "11",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/surface.res"
+              }
+            }
+          },
+          {
+            "Label": "TF2",
+            "Value": "12",
+            "Files": {
+              "customizations/alternative fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/tf2.res"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Name": "hex_toggle_damage",
+        "Label": "Damage Value Size",
+        "Type": "ComboBox",
+        "Value": "2",
+        "Options": [
+          {
+            "Label": "Small, Shadow",
+            "Value": "0",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_small_shadow.res"
+              }
+            }
+          },
+          {
+            "Label": "Small, Outline",
+            "Value": "1",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_small_outline.res"
+              }
+            }
+          },
+          {
+            "Label": "Medium, Shadow",
+            "Value": "2",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_medium_shadow.res"
+              }
+            }
+          },
+          {
+            "Label": "Medium, Outline",
+            "Value": "3",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_medium_outline.res"
+              }
+            }
+          },
+          {
+            "Label": "Big, Shadow",
+            "Value": "4",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_big_shadow.res"
+              }
+            }
+          },
+          {
+            "Label": "Big, Outline",
+            "Value": "5",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_big_outline.res"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "Health": [
+      {
+        "Name": "hex_color_health_number",
+        "Label": "Health Normal",
+        "Type": "ColorPicker",
+        "Value": "230 235 240 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Numbers": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_health_buff",
+        "Label": "Health Buff",
+        "Type": "ColorPicker",
+        "Value": "22 162 134 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Buff": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_health_low",
+        "Label": "Health Hurt",
+        "Type": "ColorPicker",
+        "Value": "250 100 100 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Hurt": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_health_buff_target",
+        "Label": "Health Target Buff",
+        "Type": "ColorPicker",
+        "Value": "22 162 134 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Target Buff": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_health_low_target",
+        "Label": "Health Target Hurt",
+        "Type": "ColorPicker",
+        "Value": "250 100 100 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Target Hurt": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_health_gain",
+        "Label": "Health Gained",
+        "Type": "ColorPicker",
+        "Value": "22 162 134 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Gained": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_health_loss",
+        "Label": "Health Lost",
+        "Type": "ColorPicker",
+        "Value": "250 100 100 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Lost": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_toggle_health_style",
+        "Label": "Health Style",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "Colored Shadow",
+            "Value": "0",
+            "Files": {
+              "customizations/health style.res": {
+                "#base": "../resource/ui/hudplayerhealth_shadow.res"
+              }
+            }
+          },
+          {
+            "Label": "Minimal",
+            "Value": "1",
+            "Files": {
+              "customizations/health style.res": {
+                "#base": "../resource/ui/hudplayerhealth_minimal.res"
+              }
+            }
+          },
+          {
+            "Label": "Box",
+            "Value": "2",
+            "Files": {
+              "customizations/health style.res": {
+                "#base": "../resource/ui/hudplayerhealth_box.res"
+              }
+            }
+          },
+          {
+            "Label": "Cross",
+            "Value": "3",
+            "Files": {
+              "customizations/health style.res": {
+                "#base": "../resource/ui/hudplayerhealth_cross.res"
+              }
+            }
+          },
+          {
+            "Label": "Team Color Cross",
+            "Value": "4",
+            "Files": {
+              "customizations/health style.res": {
+                "#base": "../resource/ui/hudplayerhealth_cross_tc.res"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "Ammo": [
+      {
+        "Name": "hex_color_ammo_clip",
+        "Label": "Ammo In Clip",
+        "Type": "ColorPicker",
+        "Value": "230 235 240 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_ammo_reserve",
+        "Label": "Ammo Reserve",
+        "Type": "ColorPicker",
+        "Value": "230 235 240 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_ammo_no_clip",
+        "Label": "Ammo No Clip",
+        "Type": "ColorPicker",
+        "Value": "230 235 240 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo No Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_ammo_low_clip",
+        "Label": "Low In Clip",
+        "Type": "ColorPicker",
+        "Value": "250 100 100 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Clip Low": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_ammo_low_reserve",
+        "Label": "Low Reserve",
+        "Type": "ColorPicker",
+        "Value": "250 100 100 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Reserve Low": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_ammo_low_no_clip",
+        "Label": "Low No Clip",
+        "Type": "ColorPicker",
+        "Value": "250 100 100 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo No Clip Low": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Crosshair": [
+      {
+        "Name": "hex_val_xhair_style",
+        "Label": "Style",
+        "ToolTip": "Style of crosshair.",
+        "Type": "Crosshair",
+        "Value": "A",
+        "Files": {
+          "customizations/crosshairs and hitmarker.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            },
+            "CustomCrosshairBlurShadow": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_crosshair",
+        "Label": "Normal",
+        "Type": "ColorPicker",
+        "Value": "230 235 240 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_crosshair_pulse",
+        "Label": "Pulse",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair Pulse": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_crosshair_hitmarker",
+        "Label": "Hitmarker",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "HitMarker": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_val_xhair_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "Files": {
+          "customizations/crosshairs and hitmarker.res": {
+            "CustomCrosshair": {
+              "font": "Size:$value | Outline:{$hex_val_xhair_outline ? ON : OFF}"
+            },
+            "CustomCrosshairBlurShadow": {
+              "font": "Size:$value | Blur:ON"
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_toggle_hitmarker_event",
+        "Label": "Toggle Hitmarker",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "customizations/crosshairs and hitmarker animation.txt": {
+            "uncomment": [
+              "Animate \t\"Hitmarker\""
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hex_toggle_xhair_enable",
+        "Label": "Enable",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "customizations/crosshairs and hitmarker.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_val_xhair_outline",
+        "Label": "Outline",
+        "Type": "Checkbox",
+        "Value": "false"
+      },
+      {
+        "Name": "hex_toggle_xhair_blur_enable",
+        "Label": "Blur",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "customizations/crosshairs and hitmarker.res": {
+            "CustomCrosshairBlurShadow": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_toggle_crosshair_event",
+        "Label": "Toggle Pulse",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "customizations/crosshairs and hitmarker animation.txt": {
+            "uncomment": [
+              "Animate \t\"CustomCrosshair\""
+            ]
+          }
+        }
+      }
+    ],
+    "UberCharge": [
+      {
+        "Name": "hex_color_ubercharge",
+        "Label": "Full Uber",
+        "Type": "ColorPicker",
+        "Value": "230 235 240 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ubercharge": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_ubercharge_pulse",
+        "Label": "Full Uber Pulse",
+        "Type": "ColorPicker",
+        "Value": "22 162 134 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ubercharge Full": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_heal_number",
+        "Label": "Heal Numbers",
+        "Type": "ColorPicker",
+        "Value": "22 162 134 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Heal Numbers": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hex_color_last_damage",
+        "Label": "Damage Done",
+        "Type": "ColorPicker",
+        "Value": "230 235 240 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Last Damage Done": "$value"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
