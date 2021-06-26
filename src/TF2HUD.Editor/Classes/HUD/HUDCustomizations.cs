@@ -326,14 +326,17 @@ namespace HUDEditor.Classes
                         }
                         else if (string.Equals(property.Key, "#base", StringComparison.OrdinalIgnoreCase))
                         {
-                            var values = property.Value.ToArray();
-                            var baseOutput =
-                                string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase)
-                                    ? "#base " + values[0].First
-                                    : "#base " + values[1].Last;
+                            var output = "";
+                            if (property.Value.ToString().Contains("true"))
+                            {
+                                output = property.Value.ToArray().Aggregate(output, (current, value) => current + (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase)
+                                        ? "#base " + value.First.First() + "\n"
+                                        : "#base " + value.Last.First() + "\n"));
+                            }
+                            else
+                                output += "#base " + property.Value + "\n";
 
-                            MainWindow.Logger.Info($"Writing [{baseOutput}] to file.");
-                            File.WriteAllText(absolutePath, baseOutput);
+                            File.WriteAllText(absolutePath, output);
                         }
                         else if (property.Value.GetType() == typeof(JObject))
                         {
