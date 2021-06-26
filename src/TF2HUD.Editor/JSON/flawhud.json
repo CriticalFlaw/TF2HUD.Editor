@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
   "Thumbnail": "https://user-images.githubusercontent.com/6818236/123499065-fba2e480-d601-11eb-96e4-e0879c7b2fbd.png",
-  "Background": "https://imgur.com/V441OsM.png",
+  "Background": "https://user-images.githubusercontent.com/6818236/123523046-34d56600-d68f-11eb-8838-fbf112c45ea7.png",
   "Layout": [
     "0 0 3 3",
     "1 2 4 5",
@@ -10,7 +10,6 @@
   "Links": {
     "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
     "GitHub": "https://github.com/CriticalFlaw/FlawHUD",
-    "Issue": "https://github.com/CriticalFlaw/FlawHUD/issues",
     "HudsTF": "https://huds.tf/site/s-FlawHUD",
     "Steam": "https://steamcommunity.com/groups/FlawHUD",
     "Discord": "https://discord.gg/hTdtK9vBhE"
@@ -456,7 +455,7 @@
       },
       {
         "Name": "fh_toggle_xhair_enable",
-        "Label": "Enable the Crosshair",
+        "Label": "Toggle Crosshair",
         "Type": "Checkbox",
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
@@ -1111,6 +1110,24 @@
             "BGPanel": {
               "ypos": {
                 "true": "205",
+                "false": "9999"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_supporters",
+        "Label": "Display Supporters",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the supporters panel seen at the bottom of the main menu.",
+        "Restart": true,
+        "Value": "true",
+        "Files": {
+          "resource/support.res": {
+            "SupportersPanel": {
+              "ypos": {
+                "true": "r17",
                 "false": "9999"
               }
             }

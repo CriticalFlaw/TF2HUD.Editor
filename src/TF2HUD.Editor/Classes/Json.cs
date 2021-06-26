@@ -41,7 +41,7 @@ namespace HUDEditor.Classes
 
         public void SetHUDByName(string name)
         {
-            SelectionChanged.Invoke(this, GetHUDByName(name));
+            SelectionChanged?.Invoke(this, GetHUDByName(name));
         }
 
         /// <summary>

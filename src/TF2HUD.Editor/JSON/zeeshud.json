@@ -10,7 +10,6 @@
   "Links": {
     "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
     "GitHub": "https://github.com/Zeesastrous/ZeesHUD",
-    "Issue": "https://github.com/Zeesastrous/ZeesHUD/issues",
     "HudsTF": "https://huds.tf/site/s-ZeesHUD--2774",
     "Steam": "https://steamcommunity.com/groups/ZeesHUD"
   },
@@ -725,7 +724,7 @@
       },
       {
         "Name": "zh_toggle_xhair_enable",
-        "Label": "Enable",
+        "Label": "Enable Crosshair",
         "Type": "Checkbox",
         "Value": "false",
         "ToolTip": "Toggle crosshair visibility.",
@@ -795,7 +794,7 @@
       },
       {
         "Name": "zh_toggle_xmarker_enable",
-        "Label": "Enable",
+        "Label": "Enable Hitmarker",
         "Type": "Checkbox",
         "Value": "false",
         "ToolTip": "Toggle hitmarker visibility.",

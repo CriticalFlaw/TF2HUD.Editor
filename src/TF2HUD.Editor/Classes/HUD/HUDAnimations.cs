@@ -67,9 +67,7 @@ namespace HUDEditor.Classes
                                 x++;
                     }
                     else
-                    {
                         x++;
-                    }
 
                     if (x >= text.Length) return "EOF";
                 }
@@ -109,7 +107,6 @@ namespace HUDEditor.Classes
             Dictionary<string, List<HUDAnimation>> ParseFile()
             {
                 Dictionary<string, List<HUDAnimation>> animations = new();
-
                 var currentToken = Next();
 
                 while (string.Equals(currentToken, "event", StringComparison.CurrentCultureIgnoreCase))
@@ -118,7 +115,6 @@ namespace HUDEditor.Classes
                     animations[eventName] = ParseEvent();
                     currentToken = Next();
                 }
-
                 return animations;
             }
 
@@ -136,9 +132,7 @@ namespace HUDEditor.Classes
                         if (nextToken != "}") events.Add(ParseAnimation(nextToken));
                     }
                 else
-                    throw new Exception(
-                        $"Unexpected ${nextToken} at position {index}! Are you missing an opening brace?");
-
+                    throw new Exception($"Unexpected ${nextToken} at position {index}! Are you missing an opening brace?");
                 return events;
             }
 

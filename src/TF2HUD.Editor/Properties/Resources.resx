@@ -132,14 +132,8 @@
   <data name="app_update" xml:space="preserve">
     <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</value>
   </data>
-  <data name="ask_folder_browser" xml:space="preserve">
-    <value>Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available.</value>
-  </data>
-  <data name="ask_reset_options" xml:space="preserve">
-    <value>Are you sure you want to reset all customization options back to default?</value>
-  </data>
   <data name="error_app_directory" xml:space="preserve">
-    <value>The tf/custom directory must be set to use the editor.</value>
+    <value>A tf/custom directory must be set in order to use this editor.</value>
   </data>
   <data name="error_app_install" xml:space="preserve">
     <value>An error occurred while installing {0}.</value>
@@ -150,31 +144,37 @@
   <data name="error_transparent_vm" xml:space="preserve">
     <value>An error occurred while toggling transparent viewmodels.</value>
   </data>
-  <data name="info_create_backup" xml:space="preserve">
-    <value>An existing {0} folder has been found. To avoid conflicts, a backup has been created.</value>
-  </data>
   <data name="info_game_restart" xml:space="preserve">
-    <value>Following changes require the game to be restarted:</value>
+    <value>The following changes require the game to be restarted:</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
-    <value>Unable to continue because Team Fortress 2 is still running. Please close it and then try again.</value>
+    <value>Unable to continue because Team Fortress 2 is still running. Please close the game then try again.</value>
   </data>
-  <data name="info_install_complete" xml:space="preserve">
+  <data name="info_hud_backup" xml:space="preserve">
+    <value>An existing {0} installation has been found. To avoid conflicts, a backup has been created.</value>
+  </data>
+  <data name="info_hud_install" xml:space="preserve">
     <value>{0} has been successfully installed.</value>
   </data>
-  <data name="info_path_correct" xml:space="preserve">
-    <value>A new tf/custom directory has been set.</value>
+  <data name="info_hud_reset" xml:space="preserve">
+    <value>Are you sure you want to reset all customization options back their defaults?</value>
   </data>
-  <data name="info_path_incorrect" xml:space="preserve">
+  <data name="info_hud_uninstall" xml:space="preserve">
+    <value>{0} has been successfully uninstalled.</value>
+  </data>
+  <data name="info_path_browser" xml:space="preserve">
+    <value>Please select your tf/custom directory. If a valid directory is not provided, multiple editor options will be unavailable.</value>
+  </data>
+  <data name="info_path_invalid" xml:space="preserve">
     <value>You either selected the same directory or your selection did not end with tf/custom. Please try again.</value>
   </data>
+  <data name="info_path_valid" xml:space="preserve">
+    <value>A new tf/custom directory has been set. You may continue using the editor.</value>
+  </data>
   <data name="info_schema_nothing" xml:space="preserve">
-    <value>No new schema updates. Please check back later.</value>
+    <value>No new HUD schema updates. Please check back later.</value>
   </data>
   <data name="info_schema_update" xml:space="preserve">
-    <value>There's a new schema update available. Would you like to restart now to apply the new changes?</value>
-  </data>
-  <data name="info_uninstall_complete" xml:space="preserve">
-    <value>{0} has been successfully uninstalled.</value>
+    <value>There's a new HUD schema update available. Would you like to restart now to apply the new changes?</value>
   </data>
 </root>

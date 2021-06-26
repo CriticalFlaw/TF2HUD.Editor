@@ -7,27 +7,25 @@ using System.Windows.Media;
 using HUDEditor.Models;
 using Newtonsoft.Json.Linq;
 using Xceed.Wpf.Toolkit;
+using static HUDEditor.MainWindow;
 
 namespace HUDEditor.Classes
 {
     public partial class HUD
     {
         private readonly Grid controls = new();
-        public readonly string[] LayoutOptions;
-        public string Thumbnail;
-        public string Background;
-        public Dictionary<string, Controls[]> ControlOptions;
-        public string CustomizationsFolder, EnabledFolder;
-        public List<string> DirtyControls;
-        private HUDBackground HUDBackground;
+        private HUDBackground hudBackground;
         private bool isRendered;
         private string[][] layout;
-        public bool Maximize;
+        public readonly string[] LayoutOptions;
+        public Dictionary<string, Controls[]> ControlOptions;
+        public List<string> DirtyControls;
 
-        public string Name;
-        public double Opacity;
+        public string Name, UpdateUrl, GitHubUrl, IssueUrl, HudsTfUrl, SteamUrl, DiscordUrl;
+        public string Thumbnail, Background, CustomizationsFolder, EnabledFolder;
         public HUDSettings Settings;
-        public string UpdateUrl, GitHubUrl, IssueUrl, HudsTfUrl, SteamUrl, DiscordUrl;
+        public double Opacity;
+        public bool Maximize;
 
         /// <summary>
         ///     Initialize the HUD object with values from the JSON schema.
@@ -44,30 +42,23 @@ namespace HUDEditor.Classes
             ControlOptions = schema.Controls;
             LayoutOptions = schema.Layout;
             DirtyControls = new List<string>();
+            Thumbnail = schema.Thumbnail;
+            Background = schema.Background;
 
             // Download and Media Links.
             if (schema.Links is not null)
             {
                 UpdateUrl = schema.Links.Update ?? string.Empty;
                 GitHubUrl = schema.Links.GitHub ?? string.Empty;
-                IssueUrl = schema.Links.Issue ?? string.Empty;
                 HudsTfUrl = schema.Links.HudsTF ?? string.Empty;
                 SteamUrl = schema.Links.Steam ?? string.Empty;
                 DiscordUrl = schema.Links.Discord ?? string.Empty;
             }
 
             // Customization Folder Paths.
-            if (!string.IsNullOrWhiteSpace(schema.CustomizationsFolder))
-            {
-                CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
-                EnabledFolder = schema.EnabledFolder ?? string.Empty;
-            }
-
-            // Thumbnail.
-            if (schema.Thumbnail != null) Thumbnail = schema.Thumbnail;
-
-            // Custom Background Image.
-            if (schema.Background != null) Background = schema.Background;
+            if (string.IsNullOrWhiteSpace(schema.CustomizationsFolder)) return;
+            CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
+            EnabledFolder = schema.EnabledFolder ?? string.Empty;
         }
 
         /// <summary>
@@ -78,16 +69,17 @@ namespace HUDEditor.Classes
             if (UpdateUrl != null) Utilities.DownloadHud(UpdateUrl);
         }
 
+        /// <summary>
+        /// Test everything except controls and settings. Complex fields require more testing.
+        /// </summary>
+        /// <param name="hud"></param>
+        /// <returns></returns>
         public bool TestHUD(HUD hud)
         {
-            // Test everything except controls and settings
-            // Complex fields require more testing
-            // Always compare breadth first
-
             void LogChange(string prop, string before = "", string after = "")
             {
                 var message = !string.IsNullOrWhiteSpace(before) ? $" (\"{before}\" => \"{after}\")" : string.Empty;
-                MainWindow.Logger.Info($"{Name}: {prop} has changed{message}, HUD has been updated.");
+                Logger.Info($"{Name}: {prop} has changed{message}, HUD has been updated.");
             }
 
             bool Compare(object obj1, object obj2, string[] ignoreList)
@@ -134,8 +126,7 @@ namespace HUDEditor.Classes
 
                         if (value1.Keys.Count != value2.Keys.Count)
                         {
-                            LogChange($"{field.Name}.Keys.Count", value1.Keys.Count.ToString(),
-                                value2.Keys.Count.ToString());
+                            LogChange($"{field.Name}.Keys.Count", value1.Keys.Count.ToString(), value2.Keys.Count.ToString());
                             return false;
                         }
 
@@ -150,8 +141,7 @@ namespace HUDEditor.Classes
                         {
                             if (value1[key].Length != value2[key].Length)
                             {
-                                LogChange($"{field.Name}[\"{key}\"].Length", value1[key].Length.ToString(),
-                                    value2[key].Length.ToString());
+                                LogChange($"{field.Name}[\"{key}\"].Length", value1[key].Length.ToString(), value2[key].Length.ToString());
                                 return false;
                             }
 
@@ -168,10 +158,7 @@ namespace HUDEditor.Classes
                     }
                     else if (field.FieldType == typeof(JObject))
                     {
-                        var comparison = CompareFiles((JObject) field.GetValue(obj1), (JObject) field.GetValue(obj2),
-                            $"{field.Name}.Files => ");
-
-                        if (!comparison) return false;
+                        if (!CompareFiles((JObject)field.GetValue(obj1), (JObject)field.GetValue(obj2), $"{field.Name}.Files => ")) return false;
                     }
                     else if (field.FieldType == typeof(Option[]))
                     {
@@ -196,19 +183,15 @@ namespace HUDEditor.Classes
                             return false;
                         }
 
-                        for (var i = 0; i < arr1.Length; i++)
-                        {
-                            var comparison = Compare(arr1[i], arr2[i], new string[] { });
-                            if (!comparison) return false;
-                        }
+                        if (arr1.Select((t, i) => Compare(t, arr2[i], new string[] { })).Any(comparison => !comparison))
+                            return false;
                     }
-                    else if (field.GetValue(obj1).ToString() != field.GetValue(obj2).ToString())
+                    else if (field.GetValue(obj1)?.ToString() != field.GetValue(obj2)?.ToString())
                     {
-                        LogChange(field.Name, field.GetValue(obj1).ToString(), field.GetValue(obj2).ToString());
+                        LogChange(field.Name, field.GetValue(obj1)?.ToString(), field.GetValue(obj2)?.ToString());
                         return false;
                     }
                 }
-
                 return true;
             }
 
@@ -233,9 +216,7 @@ namespace HUDEditor.Classes
                 foreach (var x in obj1)
                     if (obj1[x.Key].Type == JTokenType.Object && obj2[x.Key].Type == JTokenType.Object)
                     {
-                        var comparison = CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(),
-                            $"{path}/{x.Key}");
-                        if (!comparison) return false;
+                        if (!CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(), $"{path}/{x.Key}")) return false;
                     }
                     else if (x.Value.Type == JTokenType.Array && obj2[x.Key].Type == JTokenType.Array)
                     {
@@ -272,7 +253,7 @@ namespace HUDEditor.Classes
                 "Settings"
             });
 
-            if (equal) MainWindow.Logger.Info($"{Name}: no fields changed, HUD has not been updated.");
+            if (equal) Logger.Info($"{Name}: no fields changed, HUD has not been updated.");
 
             return equal;
         }
@@ -308,27 +289,26 @@ namespace HUDEditor.Classes
                     case CheckBox check:
                         if (bool.TryParse(control.Value, out var value))
                             check.IsChecked = value;
-                        MainWindow.Logger.Info($"Reset {control.Name} to {value}");
+                        Logger.Info($"Reset {control.Name} to {value}");
                         break;
 
                     case TextBox text:
                         text.Text = control.Value;
-                        MainWindow.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                        Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                         break;
 
                     case ColorPicker color:
                         var colors = Array.ConvertAll(control.Value.Split(' '), byte.Parse);
                         color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
-                        MainWindow.Logger.Info($"Reset {control.Name} to {color.SelectedColor}");
+                        Logger.Info($"Reset {control.Name} to {color.SelectedColor}");
                         break;
 
                     case ComboBox combo:
-                        if (((ComboBoxItem) combo.Items[0]).Style ==
-                            (Style) Application.Current.Resources["Crosshair"])
+                        if (((ComboBoxItem) combo.Items[0]).Style == (Style) Application.Current.Resources["Crosshair"])
                             combo.SelectedValue = control.Value;
                         else
                             combo.SelectedIndex = int.Parse(control.Value);
-                        MainWindow.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                        Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                         break;
 
                     case IntegerUpDown integer:
@@ -338,7 +318,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e.Message);
+                Logger.Error(e.Message);
                 Console.WriteLine(e);
                 throw;
             }

@@ -23,9 +23,8 @@ namespace HUDEditor.Classes
             {
                 // HUD Background Image.
                 // Set the HUD Background image path when applying, because it's possible
-                // the user did not have their tf/custom folder set up when this HUD
-                // constructor was called
-                HUDBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\");
+                // the user did not have their tf/custom folder set up when this HUD constructor was called.
+                hudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\");
 
                 var hudSettings = ControlOptions.Values;
                 // var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json")).Controls.Values;
@@ -34,8 +33,8 @@ namespace HUDEditor.Classes
                 if (!string.IsNullOrWhiteSpace(CustomizationsFolder))
                     MoveCustomizationFiles(hudSettings);
 
-                // This Dictionary contains folders/files/properties as they should be written to the hud
-                // the 'IterateFolder' and 'IterateHUDFileProperties' will write the properties to this
+                // This Dictionary contains folders/files/properties as they should be written to the hud.
+                // 'IterateFolder' and 'IterateHUDFileProperties' will write the properties to this.
                 var hudFolders = new Dictionary<string, dynamic>();
 
                 foreach (var group in hudSettings)
@@ -113,9 +112,7 @@ namespace HUDEditor.Classes
                 // write hudFolders to the HUD once instead of each WriteToFile call reading and writing
                 var hudPath = MainWindow.HudPath + "\\" + Name;
                 IterateProperties(hudFolders, hudPath);
-
-                HUDBackground.Apply();
-
+                hudBackground.Apply();
                 return true;
             }
             catch (Exception e)
@@ -279,10 +276,10 @@ namespace HUDEditor.Classes
             try
             {
                 MainWindow.Logger.Info($"Applying: {userSetting.Name}");
-                var (Files, Special, SpecialParameters) = GetControlInfo(hudSetting, userSetting);
+                var (files, special, specialParameters) = GetControlInfo(hudSetting, userSetting);
 
                 // Check for special cases like stock or custom backgrounds.
-                if (Special is not null)
+                if (special is not null)
                 {
                     // Assume the value of any customization that references 'special' is a bool
                     var enable = string.Equals(userSetting.Value, "True", StringComparison.CurrentCultureIgnoreCase);
@@ -291,16 +288,15 @@ namespace HUDEditor.Classes
                     if (string.Equals(userSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
                         enable = !string.Equals(userSetting.Value, "0");
 
-                    EvaluateSpecial(Special, userSetting, enable, SpecialParameters);
+                    EvaluateSpecial(special, userSetting, enable, specialParameters);
                 }
 
-                if (Files == null) return;
+                if (files == null) return;
 
                 // Applies $value (and handles keywords where applicable) to provided HUD element
                 // JObject and returns a HUD element Dictionary, recursively
                 Dictionary<string, dynamic> CompileHudElement(JObject element,
-                    string absolutePath, string relativePath,
-                    Dictionary<string, dynamic> hudFile, Dictionary<string, dynamic> hudElementRef,
+                    string absolutePath, string relativePath, Dictionary<string, dynamic> hudElementRef,
                     string objectPath)
                 {
                     var hudElement = new Dictionary<string, dynamic>();
@@ -338,7 +334,7 @@ namespace HUDEditor.Classes
 
                             File.WriteAllText(absolutePath, output);
                         }
-                        else if (property.Value.GetType() == typeof(JObject))
+                        else if (property.Value?.GetType() == typeof(JObject))
                         {
                             var currentObj = property.Value.ToObject<JObject>();
 
@@ -350,14 +346,11 @@ namespace HUDEditor.Classes
                             else
                             {
                                 MainWindow.Logger.Info(property.Key);
-                                Dictionary<string, dynamic> newhudElementRef;
-                                if (hudElementRef.ContainsKey(property.Key))
-                                    newhudElementRef = hudElementRef[property.Key];
-                                else
-                                    newhudElementRef = new Dictionary<string, dynamic>();
+                                var newhudElementRef = hudElementRef.ContainsKey(property.Key)
+                                    ? (Dictionary<string, dynamic>) hudElementRef[property.Key]
+                                    : new Dictionary<string, dynamic>();
                                 hudElement[property.Key] = CompileHudElement(currentObj,
-                                    absolutePath, relativePath,
-                                    hudFile, newhudElementRef,
+                                    absolutePath, relativePath, newhudElementRef,
                                     $"{objectPath}{property.Key}/");
                             }
                         }
@@ -380,11 +373,11 @@ namespace HUDEditor.Classes
                                 }
 
                                 // If the color value is for an item rarity, update the dimmed and grayed values.
-                                foreach (var value in Utilities.ItemRarities)
+                                foreach (var (item1, item2, item3) in Utilities.ItemRarities)
                                 {
-                                    if (!string.Equals(property.Key, value.Item1)) continue;
-                                    hudElement[value.Item2] = Utilities.GetDimmedColor(userSetting.Value);
-                                    hudElement[value.Item3] = Utilities.GetGrayedColor(userSetting.Value);
+                                    if (!string.Equals(property.Key, item1)) continue;
+                                    hudElement[item2] = Utilities.GetDimmedColor(userSetting.Value);
+                                    hudElement[item3] = Utilities.GetGrayedColor(userSetting.Value);
                                 }
                             }
 
@@ -396,23 +389,21 @@ namespace HUDEditor.Classes
                             {
                                 var result = "";
                                 // Match ternary statement ($word, question mark, word, colon, then word)
-                                // all with 0 or more whitespace inbetween
+                                // all with 0 or more whitespace in-between.
                                 // example: "$value ? ON : OFF"
                                 if (Regex.IsMatch(input, "^\\$\\w+\\s*\\?\\s*\\w+\\s*:\\s*\\w+$"))
                                 {
                                     var tokens = Regex.Matches(input, "\\w+");
-                                    bool checkBoxChecked;
-                                    if (tokens[0].Value == "value")
-                                        checkBoxChecked = string.Equals(userSetting.Value, "True", StringComparison.CurrentCultureIgnoreCase);
-                                    else
-                                        checkBoxChecked = Settings.GetSetting<bool>(tokens[0].Value);
+                                    var checkBoxChecked = tokens[0].Value == "value"
+                                        ? string.Equals(userSetting.Value, "True", StringComparison.CurrentCultureIgnoreCase)
+                                        : Settings.GetSetting<bool>(tokens[0].Value);
                                     return checkBoxChecked ? tokens[1].Value : tokens[2].Value;
                                 }
                                 else
                                 {
-                                    // Iterate through matches and evalute expressions wrapped in curly braces
+                                    // Iterate through matches and evaluate expressions wrapped in curly braces
                                     // example: Size: $value | Outline:{$fh_val_xhair_outline ? ON : OFF}
-                                    int index = 0;
+                                    var index = 0;
                                     foreach (Match match in Regex.Matches(input, "{.+?}"))
                                     {
                                         result += input[index..match.Index];
@@ -571,10 +562,10 @@ namespace HUDEditor.Classes
                                 // over multiple 'apply customisations'
                                 animations[animationOption.Key] = new List<HUDAnimation>();
 
-                                foreach (var _animation in animationOption.Value.ToArray())
+                                foreach (var option in animationOption.Value.ToArray())
                                 {
-                                    var animation = _animation.ToObject<Dictionary<string, dynamic>>();
-                                    dynamic current = animation["Type"].ToString().ToLower() switch
+                                    var animation = option.ToObject<Dictionary<string, dynamic>>();
+                                    dynamic current = animation?["Type"].ToString().ToLower() switch
                                     {
                                         "animate" => new Animate
                                         {
@@ -638,7 +629,7 @@ namespace HUDEditor.Classes
                                             Delay = animation["Delay"]
                                         },
                                         _ => throw new Exception(
-                                            $"Unexpected animation type '{animation["Type"]}' in {animationOption.Key}!")
+                                            $"Unexpected animation type '{animation?["Type"]}' in {animationOption.Key}!")
                                     };
 
                                     // Animate statements can have an extra argument make sure to account for them
@@ -667,7 +658,7 @@ namespace HUDEditor.Classes
 
                 string[] resFileExtensions = {"res", "vmt", "vdf"};
 
-                foreach (var filePath in Files)
+                foreach (var filePath in files)
                 {
                     var relativePath = string.Join('/', Regex.Split(filePath.Key, @"[\/]+"));
                     var absolutePath = MainWindow.HudPath + "\\" + Name + "\\" + string.Join('\\', relativePath.Split('/'));
@@ -678,14 +669,13 @@ namespace HUDEditor.Classes
                         var hudFile = Utilities.CreateNestedObject(hudFolders, relativePath.Split('/'));
                         MainWindow.Logger.Info($"Go to => {relativePath}");
 
-                        Utilities.Merge(hudFile, CompileHudElement(filePath.Value.ToObject<JObject>(),
-                            absolutePath, relativePath,
-                            hudFile, hudFile, ""));
+                        Utilities.Merge(hudFile, CompileHudElement(filePath.Value?.ToObject<JObject>(),
+                            absolutePath, relativePath, hudFile, ""));
                     }
                     else if (string.Equals(extension, "txt"))
                     {
                         // Assume .txt is always an animation file (may cause issues with mod_textures.txt but assume we are only editing hud files)
-                        WriteAnimationCustomizations(absolutePath, filePath.Value.ToObject<JObject>());
+                        WriteAnimationCustomizations(absolutePath, filePath.Value?.ToObject<JObject>());
                     }
                     else
                     {
@@ -710,20 +700,20 @@ namespace HUDEditor.Classes
             return (selected.Files, selected.Special, selected.SpecialParameters);
         }
 
-        private void EvaluateSpecial(string Special, Setting userSetting, bool enable, string[] parameters)
+        private void EvaluateSpecial(string special, Setting userSetting, bool enable, string[] parameters)
         {
             // Check for special conditions, namely if we should enable stock backgrounds.
-            if (string.Equals(Special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
-                HUDBackground.SetStockBackgrounds(enable);
+            if (string.Equals(special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
+                hudBackground.SetStockBackgrounds(enable);
 
-            if (string.Equals(Special, "HUDBackground", StringComparison.CurrentCultureIgnoreCase))
-                HUDBackground.SetHUDBackground(parameters[0]);
+            if (string.Equals(special, "HUDBackground", StringComparison.CurrentCultureIgnoreCase))
+                hudBackground.SetHUDBackground(parameters[0]);
 
-            if (string.Equals(Special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase) &&
+            if (string.Equals(special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase) &&
                 Uri.TryCreate(userSetting.Value, UriKind.Absolute, out _))
-                HUDBackground.SetCustomBackground(userSetting.Value);
+                hudBackground.SetCustomBackground(userSetting.Value);
 
-            if (string.Equals(Special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
+            if (string.Equals(special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
                 CopyTransparentViewmodelAddon(enable);
         }
 

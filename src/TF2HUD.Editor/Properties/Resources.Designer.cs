@@ -106,25 +106,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select your tf/custom directory. If a valid directory is not provided, the options to use the editor will not be available..
-        /// </summary>
-        internal static string ask_folder_browser {
-            get {
-                return ResourceManager.GetString("ask_folder_browser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to reset all customization options back to default?.
-        /// </summary>
-        internal static string ask_reset_options {
-            get {
-                return ResourceManager.GetString("ask_reset_options", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The tf/custom directory must be set to use the editor..
+        ///   Looks up a localized string similar to A tf/custom directory must be set in order to use this editor..
         /// </summary>
         internal static string error_app_directory {
             get {
@@ -160,16 +142,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An existing {0} folder has been found. To avoid conflicts, a backup has been created..
-        /// </summary>
-        internal static string info_create_backup {
-            get {
-                return ResourceManager.GetString("info_create_backup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Following changes require the game to be restarted:.
+        ///   Looks up a localized string similar to The following changes require the game to be restarted:.
         /// </summary>
         internal static string info_game_restart {
             get {
@@ -178,7 +151,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to continue because Team Fortress 2 is still running. Please close it and then try again..
+        ///   Looks up a localized string similar to Unable to continue because Team Fortress 2 is still running. Please close the game then try again..
         /// </summary>
         internal static string info_game_running {
             get {
@@ -187,34 +160,70 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} has been successfully installed..
+        ///   Looks up a localized string similar to An existing {0} installation has been found. To avoid conflicts, a backup has been created..
         /// </summary>
-        internal static string info_install_complete {
+        internal static string info_hud_backup {
             get {
-                return ResourceManager.GetString("info_install_complete", resourceCulture);
+                return ResourceManager.GetString("info_hud_backup", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A new tf/custom directory has been set..
+        ///   Looks up a localized string similar to {0} has been successfully installed..
         /// </summary>
-        internal static string info_path_correct {
+        internal static string info_hud_install {
             get {
-                return ResourceManager.GetString("info_path_correct", resourceCulture);
+                return ResourceManager.GetString("info_hud_install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to reset all customization options back their defaults?.
+        /// </summary>
+        internal static string info_hud_reset {
+            get {
+                return ResourceManager.GetString("info_hud_reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} has been successfully uninstalled..
+        /// </summary>
+        internal static string info_hud_uninstall {
+            get {
+                return ResourceManager.GetString("info_hud_uninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select your tf/custom directory. If a valid directory is not provided, multiple editor options will be unavailable..
+        /// </summary>
+        internal static string info_path_browser {
+            get {
+                return ResourceManager.GetString("info_path_browser", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to You either selected the same directory or your selection did not end with tf/custom. Please try again..
         /// </summary>
-        internal static string info_path_incorrect {
+        internal static string info_path_invalid {
             get {
-                return ResourceManager.GetString("info_path_incorrect", resourceCulture);
+                return ResourceManager.GetString("info_path_invalid", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No new schema updates. Please check back later..
+        ///   Looks up a localized string similar to A new tf/custom directory has been set. You may continue using the editor..
+        /// </summary>
+        internal static string info_path_valid {
+            get {
+                return ResourceManager.GetString("info_path_valid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No new HUD schema updates. Please check back later..
         /// </summary>
         internal static string info_schema_nothing {
             get {
@@ -223,20 +232,11 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There&apos;s a new schema update available. Would you like to restart now to apply the new changes?.
+        ///   Looks up a localized string similar to There&apos;s a new HUD schema update available. Would you like to restart now to apply the new changes?.
         /// </summary>
         internal static string info_schema_update {
             get {
                 return ResourceManager.GetString("info_schema_update", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} has been successfully uninstalled..
-        /// </summary>
-        internal static string info_uninstall_complete {
-            get {
-                return ResourceManager.GetString("info_uninstall_complete", resourceCulture);
             }
         }
     }

@@ -10,8 +10,7 @@
   "Links": {
     "Update": "https://github.com/Hypnootize/hexhud/archive/refs/heads/master.zip",
     "GitHub": "https://github.com/Hypnootize/hexhud",
-    "HudsTF": "https://huds.tf/site/s-HExHUD--3435",
-    "Issue": "https://github.com/Hypnootize/hexhud/issues"
+    "HudsTF": "https://huds.tf/site/s-HExHUD--3435"
   },
   "CustomizationsFolder": "customizations",
   "EnabledFolder": "customizations",
@@ -665,21 +664,8 @@
         }
       },
       {
-        "Name": "hex_toggle_hitmarker_event",
-        "Label": "Toggle Hitmarker",
-        "Type": "Checkbox",
-        "Value": "false",
-        "Files": {
-          "customizations/crosshairs and hitmarker animation.txt": {
-            "uncomment": [
-              "Animate \t\"Hitmarker\""
-            ]
-          }
-        }
-      },
-      {
         "Name": "hex_toggle_xhair_enable",
-        "Label": "Enable",
+        "Label": "Toggle Crosshair",
         "Type": "Checkbox",
         "Value": "false",
         "Files": {
@@ -716,8 +702,21 @@
         }
       },
       {
+        "Name": "hex_toggle_hitmarker_event",
+        "Label": "Hitmarker",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "customizations/crosshairs and hitmarker animation.txt": {
+            "uncomment": [
+              "Animate \t\"Hitmarker\""
+            ]
+          }
+        }
+      },
+      {
         "Name": "hex_toggle_crosshair_event",
-        "Label": "Toggle Pulse",
+        "Label": "Pulse",
         "Type": "Checkbox",
         "Value": "false",
         "Files": {

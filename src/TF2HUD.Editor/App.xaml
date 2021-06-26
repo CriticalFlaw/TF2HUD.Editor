@@ -281,5 +281,27 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style x:Key="HudListBorder" TargetType="Border">
+            <Setter Property="Background" Value="#FFFFFF" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Width" Value="220" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+
+        <Style x:Key="HudListImage" TargetType="Image">
+            <Setter Property="Height" Value="118" />
+            <Setter Property="Stretch" Value="UniformToFill" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="HudListLabel" TargetType="Label">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>

@@ -48,63 +48,42 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Content="Search" Grid.Column="0" />
-                        <TextBox Name="SearchBox" Grid.Column="1" TextChanged="TbSearchBox_TextChanged" />
+                        <Label Content="Search:" Grid.Column="0" />
+                        <TextBox Name="SearchBox" TextChanged="TbSearchBox_TextChanged" Foreground="WhiteSmoke"
+                                 Background="#2B2724" BorderThickness="1" Grid.ColumnSpan="2" Grid.Column="0"
+                                 Margin="78,0,10,0" />
                     </Grid>
-                    <ScrollViewer Background="#FFFFFF" Grid.Row="1">
-                        <WrapPanel x:Name="GridSelectHUD" HorizontalAlignment="Center">
-                            <WrapPanel.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="Background" Value="#FFFFFF" />
-                                    <Setter Property="BorderBrush" Value="LightGray" />
-                                    <Setter Property="BorderThickness" Value="1" />
-                                    <Setter Property="Width" Value="220" />
-                                    <Setter Property="Margin" Value="5" />
-                                    <Setter Property="Padding" Value="5" />
-                                    <Setter Property="Cursor" Value="Hand" />
-                                </Style>
-                                <Style TargetType="Image">
-                                    <Setter Property="Height" Value="118" />
-                                    <Setter Property="Stretch" Value="UniformToFill" />
-                                    <Setter Property="HorizontalAlignment" Value="Center" />
-                                    <Setter Property="VerticalAlignment" Value="Center" />
-                                </Style>
-                                <Style TargetType="Label">
-                                    <Setter Property="Foreground" Value="#000000" />
-                                    <Setter Property="HorizontalAlignment" Value="Center" />
-
-                                </Style>
-                            </WrapPanel.Resources>
-                        </WrapPanel>
+                    <ScrollViewer Background="#2B2724" Grid.Row="1" Margin="0,10,0,0">
+                        <WrapPanel x:Name="GridSelectHud" HorizontalAlignment="Center" />
                     </ScrollViewer>
                 </Grid>
                 <!-- TF2 HUD Editor and Version -->
-                <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0">
                     <StackPanel Margin="20">
                         <Image Source="Resources/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
-                        <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Center">
+                        <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Center">
                             <Run Foreground="#70B04A" Text="Install" /> and
                             <Run Foreground="#38F3AB" Text="customize" /> your favorite Team Fortress 2 HUDs! For additional information and support, check out the
                             <Run Foreground="#FFD700" Text="documentation" /> linked below.
                         </TextBlock>
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-                        <Label Content="Version 2.1" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
-                        <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Left">
-                            - Added support for zeeshud and the default Team Fortress 2 HUD.
+                        <Label Content="Version 2.2" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
+                        <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
+                            - Added support for hypnotize-hud and HExHUD.
                             <LineBreak />
-                            - Added the ability to import a custom main menu background image.
+                            - Added the ability to change the set tf/custom directory.
                             <LineBreak />
-                            - Added the ability to update HUD schemas without updating the editor.
+                            - Added the ability to only reset controls in a given group.
                             <LineBreak />
-                            - Added a scroller for controls that may not fit on screen in lower resolutions.
+                            - Fixed not applying customizations made before the HUD is installed.
                             <LineBreak />
-                            - Added a preview image modal for customization options that offer it.
+                            - HUD updates are now initiated on-demand via a refresh button.
                             <LineBreak />
-                            - <Run Foreground="#2C81FD" Text="flawhud" />: Fixed the health cross option not working properly.
+                            - Improved the look and functionality of main menu HUD list.
                             <LineBreak />
-                            - <Run Foreground="#2C81FD" Text="flawhud" />: Added options to move down chat and hide the 3D player model.
+                            - <Run Foreground="#91493b" Text="default" />: Added an option to enable Streamer Mode.
                             <LineBreak />
-                            - <Run Foreground="#17FD35" Text="budhud" />: Added additional customization options.
+                            - <Run Foreground="#FF015B" Text="zeeshud" />: Updated to the latest version.
                         </TextBlock>
                     </StackPanel>
                 </ScrollViewer>

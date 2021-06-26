@@ -10,7 +10,6 @@
   "Links": {
     "Update": "https://github.com/raysfire/rayshud/archive/master.zip",
     "GitHub": "https://github.com/raysfire/rayshud",
-    "Issue": "https://github.com/raysfire/rayshud/issues",
     "HudsTF": "https://huds.tf/site/s-rayshud--377",
     "Steam": "https://steamcommunity.com/groups/rayshud",
     "Discord": "https://discord.gg/hTdtK9vBhE"
@@ -210,7 +209,7 @@
       },
       {
         "Name": "rh_toggle_xhair_enable",
-        "Label": "Enable the Crosshair",
+        "Label": "Toggle Crosshair",
         "Type": "Checkbox",
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
@@ -662,7 +661,7 @@
         "Type": "Checkbox",
         "Value": "false",
         "Restart": true,
-        "ToolTip": "Toggle to the classic rayshud main menu style.",
+        "ToolTip": "Toggle to the classic main menu style.",
         "FileName": "mainmenuoverride-classic.res"
       },
       {
