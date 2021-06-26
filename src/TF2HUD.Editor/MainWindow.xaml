@@ -49,7 +49,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Label Content="Search" Grid.Column="0" />
-                        <TextBox Name="SearchBox" Grid.Column="1" TextChanged="TbSearchBox_TextChanged" />
+                        <TextBox Name="SearchBox" VerticalContentAlignment="Center" Grid.Column="1" TextChanged="TbSearchBox_TextChanged" />
                     </Grid>
                     <ScrollViewer Background="#FFFFFF" Grid.Row="1">
                         <WrapPanel x:Name="GridSelectHUD" HorizontalAlignment="Center">
@@ -72,7 +72,6 @@
                                 <Style TargetType="Label">
                                     <Setter Property="Foreground" Value="#000000" />
                                     <Setter Property="HorizontalAlignment" Value="Center" />
-
                                 </Style>
                             </WrapPanel.Resources>
                         </WrapPanel>

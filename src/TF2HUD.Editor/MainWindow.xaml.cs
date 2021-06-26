@@ -32,7 +32,7 @@ namespace HUDEditor
         public static string HudPath = Settings.Default.hud_directory;
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         public Json Json;
-        private List<Border> HUDThumbnails = new();
+        private List<(HUD, Border)> HudThumbnails = new();
 
         public MainWindow()
         {
@@ -77,7 +77,7 @@ namespace HUDEditor
                 // Grid.SetRow(border, d);
 
                 GridSelectHUD.Children.Add(border);
-                HUDThumbnails.Add(border);
+                HudThumbnails.Add((hud, border));
             }
 
             Json.SelectionChanged += gridSelectHud_SelectionChanged;
@@ -294,11 +294,25 @@ namespace HUDEditor
         private void TbSearchBox_TextChanged(object sender, RoutedEventArgs e)
         {
             var searchText = SearchBox.Text.ToLower();
-            foreach (var border in HUDThumbnails)
+            foreach (var (hud, border) in HudThumbnails)
             {
-                StackPanel borderChild = (StackPanel)border.Child;
-                System.Windows.Controls.Label hudLabel = (System.Windows.Controls.Label)borderChild.Children[^1];
-                border.Visibility = hudLabel.Content.ToString().ToLower().Contains(searchText) ? Visibility.Visible : Visibility.Collapsed;
+                var visibility = Visibility.Collapsed;
+
+                // Include github/hud.ts url so that the user can search by author.
+                var searches = new string[]
+                {
+                    hud.Name,
+                    hud.GitHubUrl,
+                    hud.HudsTfUrl,
+                };
+
+                var i = 0;
+                while (visibility == Visibility.Collapsed && i < searches.Length)
+                {
+                    if (searches[i].ToLower().Contains(searchText)) visibility = Visibility.Visible;
+                    i++;
+                }
+                border.Visibility = visibility;
             }
         }
 
