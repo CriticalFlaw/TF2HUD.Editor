@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
-  "Thumbnail": "https://huds.tf/site/xthreads_attach.php/264_1536361393_c810b64b/90675440a2153bb5c95ecd6f3888a9f6/%D1%80%D0%B3%D0%B2.jpg",
+  "Thumbnail": "https://user-images.githubusercontent.com/6818236/123499065-fba2e480-d601-11eb-96e4-e0879c7b2fbd.png",
   "Background": "https://imgur.com/V441OsM.png",
   "Layout": [
     "0 0 3 3",

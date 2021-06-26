@@ -1,5 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Thumbnail": "https://user-images.githubusercontent.com/6818236/123499254-686aae80-d603-11eb-9559-b41befaba00f.png",
   "Background": "https://wiki.teamfortress.com/w/images/f/fa/Background_2fort_widescreen_copy.png",
   "Layout": [
     "0 0 0 1",
