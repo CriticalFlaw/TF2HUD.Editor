@@ -15,7 +15,7 @@
     ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases">Releases</a>
     ·
-    <a href="https://www.editor.criticalflaw.ca/install/screenshots/">Screenshots</a>
+    <a href="https://www.editor.criticalflaw.ca/screenshots/">Screenshots</a>
     ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/issues">Issue Tracker</a>
   </p>

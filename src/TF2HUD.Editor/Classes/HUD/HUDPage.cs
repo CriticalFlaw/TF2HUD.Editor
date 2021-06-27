@@ -118,17 +118,23 @@ namespace HUDEditor.Classes
                 {
                     Style = (Style) Application.Current.Resources["PreviewButton"],
                     HorizontalAlignment = HorizontalAlignment.Right,
-                    Content = "."
+                    Content = ".",
+                    Opacity = 0.4
                 };
+
+                resetInput.MouseEnter += (_, _) => resetInput.Opacity = 1;
+                resetInput.MouseLeave += (_, _) => resetInput.Opacity = 0.4;
 
                 Grid.SetColumn(resetInput, 1);
 
                 resetInput.Click += (_, _) =>
                 {
-                    if (!MainWindow.CheckHudInstallation()) return;
                     ResetSection(section);
                     Settings.SaveSettings();
-                    ApplyCustomizations();
+                    if (!MainWindow.CheckHudInstallation())
+                    {
+                        ApplyCustomizations();
+                    }
                     DirtyControls.Clear();
                 };
 

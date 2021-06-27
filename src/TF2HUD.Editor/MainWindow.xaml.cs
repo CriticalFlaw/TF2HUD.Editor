@@ -31,7 +31,7 @@ namespace HUDEditor
         public static string HudPath = Settings.Default.hud_directory;
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         public Json Json;
-        private readonly List<Border> HudThumbnails = new();
+        private List<(HUD, Border)> HudThumbnails = new();
 
         public MainWindow()
         {
@@ -76,8 +76,8 @@ namespace HUDEditor
                 // int d = GridSelectHUD.Children.Count / 2;
                 // Grid.SetRow(border, d);
 
-                GridSelectHud.Children.Add(border);
-                HudThumbnails.Add(border);
+                GridSelectHUD.Children.Add(border);
+                HudThumbnails.Add((hud, border));
             }
 
             Json.SelectionChanged += gridSelectHud_SelectionChanged;
@@ -295,13 +295,25 @@ namespace HUDEditor
         private void TbSearchBox_TextChanged(object sender, RoutedEventArgs e)
         {
             var searchText = SearchBox.Text.ToLower();
-            foreach (var border in HudThumbnails)
+            foreach (var (hud, border) in HudThumbnails)
             {
-                var borderChild = (StackPanel) border.Child;
-                var hudLabel = (Label) borderChild.Children[^1];
-                border.Visibility = hudLabel.Content.ToString().ToLower().Contains(searchText)
-                    ? Visibility.Visible
-                    : Visibility.Collapsed;
+                var visibility = Visibility.Collapsed;
+
+                // Include github/hud.ts url so that the user can search by author.
+                var searches = new string[]
+                {
+                    hud.Name,
+                    hud.GitHubUrl,
+                    hud.HudsTfUrl,
+                };
+
+                var i = 0;
+                while (visibility == Visibility.Collapsed && i < searches.Length)
+                {
+                    if (searches[i].ToLower().Contains(searchText)) visibility = Visibility.Visible;
+                    i++;
+                }
+                border.Visibility = visibility;
             }
         }
 
