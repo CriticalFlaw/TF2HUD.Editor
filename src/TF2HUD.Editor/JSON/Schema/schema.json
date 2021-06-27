@@ -22,10 +22,6 @@
           "type": "string",
           "pattern": "^https?:\/\/.*$"
         },
-        "Issue": {
-          "type": "string",
-          "pattern": "^https?:\/\/.*$"
-        },
         "GitHub": {
           "type": "string",
           "pattern": "^https?:\/\/.*$"

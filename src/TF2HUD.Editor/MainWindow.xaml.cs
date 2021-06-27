@@ -1,13 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -19,6 +17,7 @@ using HUDEditor.Properties;
 using log4net;
 using log4net.Config;
 using Application = System.Windows.Application;
+using Label = System.Windows.Controls.Label;
 using MessageBox = System.Windows.MessageBox;
 
 namespace HUDEditor
@@ -47,8 +46,6 @@ namespace HUDEditor
             Json = new Json();
             var list = "Loading list of HUDs";
 
-            var client = new System.Net.Http.HttpClient();
-
             foreach (var hud in Json.HUDList)
             {
                 list += $" - {hud.Name}";
@@ -57,17 +54,20 @@ namespace HUDEditor
                 border.MouseEnter += (_, _) => border.BorderBrush = Brushes.Black;
                 border.MouseLeave += (_, _) => border.BorderBrush = Brushes.LightGray;
                 border.MouseUp += (_, _) => Json.SetHUDByName(hud.Name);
+                border.Style = (Style) Application.Current.Resources["HudListBorder"];
 
                 var hudIconContainer = new StackPanel();
 
                 var thumbnailImage = new Image();
                 if (hud.Thumbnail != null) thumbnailImage.Source = new BitmapImage(new Uri(hud.Thumbnail));
+                thumbnailImage.Style = (Style) Application.Current.Resources["HudListImage"];
 
                 // Prevents image from looking grainy when resized
                 RenderOptions.SetBitmapScalingMode(thumbnailImage, BitmapScalingMode.Fant);
 
                 hudIconContainer.Children.Add(thumbnailImage);
-                hudIconContainer.Children.Add(new System.Windows.Controls.Label {Content = hud.Name});
+                hudIconContainer.Children.Add(new Label
+                    {Content = hud.Name, Style = (Style) Application.Current.Resources["HudListLabel"]});
 
                 border.Child = hudIconContainer;
 
@@ -107,7 +107,7 @@ namespace HUDEditor
                 Logger.Info("tf/custom directory is not set. Asking the user...");
                 using (var browser = new FolderBrowserDialog
                 {
-                    Description = Properties.Resources.ask_folder_browser,
+                    Description = Properties.Resources.info_path_browser,
                     UseDescriptionForTitle = true,
                     ShowNewFolderButton = true
                 })
@@ -154,6 +154,7 @@ namespace HUDEditor
             // If the HUD Selection is visible, disable most control buttons.
             if (GbSelectHud.Visibility == Visibility.Visible)
             {
+                LblStatus.Content = string.Empty;
                 BtnInstall.IsEnabled = false;
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
@@ -345,8 +346,8 @@ namespace HUDEditor
                         // Step 2. Clear tf/custom directory of other installed HUDs.
                         Logger.Info("Preparing directories for extraction.");
                         foreach (var x in Json.HUDList)
-                            if (Directory.Exists(HudPath + "\\" + x.Name.ToString()?.ToLowerInvariant()))
-                                Directory.Delete(HudPath + "\\" + x.Name.ToString()?.ToLowerInvariant(), true);
+                            if (Directory.Exists(HudPath + "\\" + x.Name?.ToLowerInvariant()))
+                                Directory.Delete(HudPath + "\\" + x.Name?.ToLowerInvariant(), true);
 
                         // Step 3. Record the name of the HUD inside the downloaded folder.
                         var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";
@@ -373,7 +374,7 @@ namespace HUDEditor
                 {
                     LblStatus.Content = "Installation finished at " + DateTime.Now;
                     ShowMessageBox(MessageBoxImage.Information,
-                        string.Format(Properties.Resources.info_install_complete, HudSelection));
+                        string.Format(Properties.Resources.info_hud_install, HudSelection));
                     Json.GetHUDByName(Settings.Default.hud_selected).ApplyCustomizations();
                     LblStatus.Content = $"Settings Applied at {DateTime.Now}";
                     SetPageControls();
@@ -406,7 +407,7 @@ namespace HUDEditor
                 Directory.Delete(HudPath + $"\\{HudSelection}", true);
                 SetupDirectory();
                 ShowMessageBox(MessageBoxImage.Information,
-                    string.Format(Properties.Resources.info_uninstall_complete, HudSelection));
+                    string.Format(Properties.Resources.info_hud_uninstall, HudSelection));
             }
             catch (Exception ex)
             {
@@ -452,7 +453,7 @@ namespace HUDEditor
         private void BtnReset_OnClick(object sender, RoutedEventArgs e)
         {
             // Ask the user if they want to reset before doing so.
-            if (ShowMessageBox(MessageBoxImage.Question, Properties.Resources.ask_reset_options,
+            if (ShowMessageBox(MessageBoxImage.Question, Properties.Resources.info_hud_reset,
                 MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
             Logger.Info("Start resetting settings.");
@@ -484,9 +485,9 @@ namespace HUDEditor
             SetupDirectory(true);
 
             if (HudPath.Equals(previousPath) || !Utilities.CheckUserPath(HudPath))
-                ShowMessageBox(MessageBoxImage.Error, Properties.Resources.info_path_incorrect);
+                ShowMessageBox(MessageBoxImage.Error, Properties.Resources.info_path_invalid);
             else
-                ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_path_correct);
+                ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_path_valid);
         }
 
         /// <summary>

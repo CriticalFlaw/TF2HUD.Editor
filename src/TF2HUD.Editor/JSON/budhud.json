@@ -11,7 +11,6 @@
   "Links": {
     "Update": "https://github.com/rbjaxter/budhud/archive/master.zip",
     "GitHub": "https://github.com/rbjaxter/budhud",
-    "Issue": "https://github.com/rbjaxter/budhud/issues",
     "HudsTF": "https://huds.tf/site/s-budhud",
     "Steam": "https://steamcommunity.com/groups/budhud",
     "Discord": "https://discord.com/invite/TkxNKU2"
@@ -127,7 +126,7 @@
       },
       {
         "Name": "bh_player_healthcross_inset",
-        "Label": "Enable Health Cross",
+        "Label": "Health Cross",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_player_healthcross_inset.res"

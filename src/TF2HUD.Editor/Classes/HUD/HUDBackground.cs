@@ -13,8 +13,7 @@ namespace HUDEditor.Classes
     ///     <para>
     ///         In this example, we set stock backgrounds AND a custom background.
     ///         When calling the apply method, the BackgroundManager will override
-    ///         the stock backgrounds with the custom background and apply changes
-    ///         to the HUD
+    ///         the stock backgrounds with the custom background and apply changes to the HUD.
     ///     </para>
     /// </summary>
     internal class HUDBackground
@@ -86,8 +85,7 @@ namespace HUDEditor.Classes
                     // Copy the generated file to the backgrounds folder.
                     MainWindow.Logger.Info($"Copying {output} to {HUDFolderPath}");
                     File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
-                    File.Copy("Resources\\chapterbackgrounds.txt", $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt",
-                        true);
+                    File.Copy("Resources\\chapterbackgrounds.txt", $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt", true);
                 }
                 else
                 {

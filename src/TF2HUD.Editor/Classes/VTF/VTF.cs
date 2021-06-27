@@ -110,8 +110,8 @@ namespace HUDEditor.Classes
             };
 
             var process = Process.Start(processInfo);
-            process.WaitForExit();
-            process.Close();
+            process?.WaitForExit();
+            process?.Close();
         }
     }
 }

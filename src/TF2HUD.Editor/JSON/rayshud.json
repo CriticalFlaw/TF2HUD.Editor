@@ -10,7 +10,6 @@
   "Links": {
     "Update": "https://github.com/raysfire/rayshud/archive/master.zip",
     "GitHub": "https://github.com/raysfire/rayshud",
-    "Issue": "https://github.com/raysfire/rayshud/issues",
     "HudsTF": "https://huds.tf/site/s-rayshud--377",
     "Steam": "https://steamcommunity.com/groups/rayshud",
     "Discord": "https://discord.gg/hTdtK9vBhE"
@@ -143,37 +142,40 @@
       }
     ],
     "Crosshair": [
+
       {
-        "Name": "rh_color_xhair_normal",
-        "Label": "Base Color",
-        "Type": "ColorPicker",
-        "ToolTip": "Default crosshair color.",
-        "Value": "242 242 242 255",
-        "Restart": true,
+        "Name": "rh_toggle_xhair_enable",
+        "Label": "Toggle Crosshair",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair feature.",
+        "Value": "false",
         "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "Crosshair": "$value"
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
               }
             }
           }
         }
       },
       {
-        "Name": "rh_color_xhair_pulse",
-        "Label": "Hitmarker Color",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of crosshair when hitting another player.",
-        "Value": "255 0 0 255",
-        "Restart": true,
+        "Name": "rh_toggle_xhair_pulse",
+        "Label": "Hitmarker",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle hitmarker animation.",
+        "Value": "true",
         "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "CrosshairDamage": "$value"
-              }
-            }
+          "scripts/hudanimations_custom.txt": {
+            "uncomment": [
+              "StopEvent HitMarker",
+              "RunEvent HitMarker"
+            ]
           }
         }
       },
@@ -209,38 +211,36 @@
         }
       },
       {
-        "Name": "rh_toggle_xhair_enable",
-        "Label": "Enable the Crosshair",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair feature.",
-        "Value": "false",
+        "Name": "rh_color_xhair_normal",
+        "Label": "Base Color",
+        "Type": "ColorPicker",
+        "ToolTip": "Default crosshair color.",
+        "Value": "242 242 242 255",
+        "Restart": true,
         "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "visible": {
-                "true": "1",
-                "false": "0"
-              },
-              "enabled": {
-                "true": "1",
-                "false": "0"
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair": "$value"
               }
             }
           }
         }
       },
       {
-        "Name": "rh_toggle_xhair_pulse",
-        "Label": "Toggle Hitmarker",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle hitmarker animation.",
-        "Value": "true",
+        "Name": "rh_color_xhair_pulse",
+        "Label": "Hitmarker Color",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of crosshair when hitting another player.",
+        "Value": "255 0 0 255",
+        "Restart": true,
         "Files": {
-          "scripts/hudanimations_custom.txt": {
-            "uncomment": [
-              "StopEvent HitMarker",
-              "RunEvent HitMarker"
-            ]
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "CrosshairDamage": "$value"
+              }
+            }
           }
         }
       }
@@ -662,7 +662,7 @@
         "Type": "Checkbox",
         "Value": "false",
         "Restart": true,
-        "ToolTip": "Toggle to the classic rayshud main menu style.",
+        "ToolTip": "Toggle to the classic main menu style.",
         "FileName": "mainmenuoverride-classic.res"
       },
       {

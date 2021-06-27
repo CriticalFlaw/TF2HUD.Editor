@@ -383,7 +383,7 @@ namespace HUDEditor.Classes
                             integerInput.ValueChanged += (sender, _) =>
                             {
                                 var input = sender as IntegerUpDown;
-                                Settings.SetSetting(input?.Name, input.Text);
+                                Settings.SetSetting(input?.Name, input?.Text);
                                 CheckIsDirty(controlItem);
                             };
 
@@ -664,10 +664,11 @@ namespace HUDEditor.Classes
                             Grid.SetColumnSpan(sectionContainer, columnSpan);
 
                             var rowSpan = 0;
-                            for (var TempRowIndex = 0; TempRowIndex < layout.Length; TempRowIndex++)
-                                if (groupBoxIndex.ToString() == layout[TempRowIndex][j] ||
-                                    section == layout[TempRowIndex][j])
+                            foreach (var sections in layout)
+                                if (groupBoxIndex.ToString() == sections[j] ||
+                                    section == sections[j])
                                     rowSpan++;
+
                             Grid.SetRowSpan(sectionContainer, rowSpan);
 
                             // Break parent loop

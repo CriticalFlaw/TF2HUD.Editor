@@ -217,11 +217,6 @@ namespace HUDEditor.Classes
             }
         }
 
-        /// <summary>
-        ///     TODO: Add comment explaining this method.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="keys"></param>
         public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj,
             IEnumerable<string> keys)
         {
@@ -245,10 +240,10 @@ namespace HUDEditor.Classes
             }
         }
 
-        public static async Task<string> Fetch(string URL)
+        public static async Task<string> Fetch(string url)
         {
             var client = new HttpClient();
-            var response = await client.GetAsync(URL);
+            var response = await client.GetAsync(url);
             return response.IsSuccessStatusCode ? response.Content.ReadAsStringAsync().Result : null;
         }
 
