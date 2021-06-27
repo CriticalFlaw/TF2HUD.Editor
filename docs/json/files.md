@@ -9,6 +9,22 @@ For more information on HUD animations, see [HUD Animations][docs-animations].
 
 If the file does not exist, TF2HUD.Editor will create it with the values specified. If it does, the editor will merge the values specified with the already existing HUD values.
 
+The value of the current control can be used for or inside a HUD element value by using the `$value` keyword. Values of other controls can be accessed using a dollar sign and the ID of the control
+
+```json
+{
+  "Files": {
+    "resource/clientscheme.res": {
+      "Scheme":{
+        "Colors": {
+          "Health Colour": "$value"
+        }
+      }
+    }
+  }
+}
+```
+
 For HUD files that have a header element that matches their file name (such as `"Resource/UI/HudMedicCharge.res"`), the editor will apply the values specified inside the header element, for other files (such as clientscheme files), the object will need to specify the absolute desired location of the value.
 
 Containing header element:
@@ -62,7 +78,7 @@ Special Keys also do not care about the structure of the HUD elements, and will 
 
 #### Replace
 
-The `Replace` special key is for use with the CheckBox control (see [Controls][docs-controls]). It takes a list that contains 2 strings of text and replaces raw text in the file based on the value of the CheckBox
+The `replace` special key is for use with the CheckBox control (see [Controls][docs-controls]). It takes a list that contains 2 strings of text and replaces raw text in the file based on the value of the CheckBox
 
 If the checkbox is checked, the editor will replace all occurences of the first item in the list with the second item. if the CheckBox is unchecked, the editor will replace all occurences of the second item in the list with the first item.
 
@@ -77,7 +93,7 @@ If the checkbox is checked, the editor will replace all occurences of the first 
 }
 ```
 
-Always ensure you `replace` usage is as greedy as possible, for example the following code will leak text and break the HUD:
+Always ensure your `replace` usage is as greedy as possible, for example the following code will leak text and break the HUD:
 
 ```json
 {
@@ -101,7 +117,7 @@ Unlike Special Keys, HUD element keywords work within the structure of a HUD fil
 
 #### True/False
 
-The true/false object will evaluate the value of the CheckBox control and return the value that matches the setting of the CheckBox control,
+The true/false object will evaluate the value of the CheckBox control and return the value that matches the setting of the CheckBox control.
 
 ```json
 {
@@ -117,12 +133,59 @@ The true/false object will evaluate the value of the CheckBox control and return
     }
   }
 }
+```
 
+Assuming the CheckBox is checked, this will result in the following
+
+```
+  "Crosshair"
+  {
+    ...
+    "visible"    "1"
+    ...
+  }
+```
+
+#### True/False (Ternary)
+
+Currently, you can evaluate the value of a CheckBox using a ternary expression wrapped in curly braces.
+
+```json
+{
+  "Files":{
+    "scripts/hudlayout.res": {
+        "Crosshair": {
+            "visible": "{$value ? 1 : 0}"
+        }
+    }
+  }
+}
+```
+
+The ternary statement can also be used inline with other values
+
+```json
+{
+  "scripts/hudlayout.res": {
+    "Crosshair": {
+      "font": "Crosshair Size $value | Outline {$my_hud_enable_crosshair_outline ? ON : OFF}"
+    }
+  }
+}
+```
+
+When compiled, this will result in the following
+
+```
+  "Crosshair"
+  {
+    "font"      "Crosshair Size 32 | Outline ON"
+  }
 ```
 
 ## Operating System Tags
 
-Operating System Tags can be represents by putting a `^` and then the tag in the property name
+Operating System Tags can be represents by putting a `^` followed by the tag in the property name
 
 ```json
   ...
