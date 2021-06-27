@@ -30,8 +30,8 @@ namespace HUDEditor
         public static string HudSelection = Settings.Default.hud_selected;
         public static string HudPath = Settings.Default.hud_directory;
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+        private readonly List<(HUD, Border)> HudThumbnails = new();
         public Json Json;
-        private List<(HUD, Border)> HudThumbnails = new();
 
         public MainWindow()
         {
@@ -76,7 +76,7 @@ namespace HUDEditor
                 // int d = GridSelectHUD.Children.Count / 2;
                 // Grid.SetRow(border, d);
 
-                GridSelectHUD.Children.Add(border);
+                GridSelectHud.Children.Add(border);
                 HudThumbnails.Add((hud, border));
             }
 
@@ -300,11 +300,11 @@ namespace HUDEditor
                 var visibility = Visibility.Collapsed;
 
                 // Include github/hud.ts url so that the user can search by author.
-                var searches = new string[]
+                var searches = new[]
                 {
                     hud.Name,
                     hud.GitHubUrl,
-                    hud.HudsTfUrl,
+                    hud.HudsTfUrl
                 };
 
                 var i = 0;
@@ -313,6 +313,7 @@ namespace HUDEditor
                     if (searches[i].ToLower().Contains(searchText)) visibility = Visibility.Visible;
                     i++;
                 }
+
                 border.Visibility = visibility;
             }
         }
