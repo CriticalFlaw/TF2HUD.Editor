@@ -4,9 +4,14 @@
 
 ### VisualStudioCode ###
 .vscode/*
+!.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
+!.vscode/extensions.json
 *.code-workspace
+
+# Local History for Visual Studio Code
+.history/
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
@@ -106,6 +111,7 @@ StyleCopReport.xml
 *.tmp_proj
 *_wpftmp.csproj
 *.log
+*.tlog
 *.vspscc
 *.vssscc
 .builds
@@ -158,7 +164,9 @@ _TeamCity*
 !.axoCover/settings.json
 
 # Coverlet is a free, cross platform Code Coverage Tool
-coverage*[.json, .xml, .info]
+coverage*.json
+coverage*.xml
+coverage*.info
 
 # Visual Studio code coverage results
 *.coverage
@@ -218,6 +226,9 @@ PublishScripts/
 # NuGet v3's project.json files produces more ignorable files
 *.nuget.props
 *.nuget.targets
+
+# Nuget personal access tokens and Credentials
+nuget.config
 
 # Microsoft Azure Build Output
 csx/
@@ -375,11 +386,22 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+# VS Code files for those working on multiple tools
+
+# Local History for Visual Studio Code
+
+# Windows Installer files from build outputs
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
-*.tlog
-
-# Ignore vscode
-.vscode/
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode
