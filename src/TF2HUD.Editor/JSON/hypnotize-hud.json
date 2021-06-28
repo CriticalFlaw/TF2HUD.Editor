@@ -38,8 +38,8 @@
         "Type": "CheckBox",
         "Value": "false",
         "RenameFile": {
-          "NewName": "customizations/streamermode_/",
-          "OldName": "customizations/streamermode/",
+          "OldName": "customizations/streamermode_/",
+          "NewName": "customizations/streamermode/",
           "Restart": true
         }
       },
