@@ -1117,24 +1117,6 @@
         }
       },
       {
-        "Name": "fh_toggle_supporters",
-        "Label": "Display Supporters",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle the supporters panel seen at the bottom of the main menu.",
-        "Restart": true,
-        "Value": "true",
-        "Files": {
-          "resource/support.res": {
-            "SupportersPanel": {
-              "ypos": {
-                "true": "r17",
-                "false": "9999"
-              }
-            }
-          }
-        }
-      },
-      {
         "Name": "fh_toggle_background_stock",
         "Label": "Default Backgrounds",
         "Type": "Checkbox",
