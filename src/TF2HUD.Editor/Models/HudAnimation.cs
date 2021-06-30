@@ -3,6 +3,7 @@
     internal class HUDAnimation
     {
         public string Type { get; set; }
+        public string OSTag { get; set; }
     }
 
     internal class Animate : HUDAnimation
@@ -52,7 +53,7 @@
     internal class SetInputEnabled : HUDAnimation
     {
         public string Element { get; set; }
-        public int Visible { get; set; }
+        public string Visible { get; set; }
         public string Delay { get; set; }
     }
 

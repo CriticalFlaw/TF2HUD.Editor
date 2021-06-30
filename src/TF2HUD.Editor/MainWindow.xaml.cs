@@ -299,7 +299,7 @@ namespace HUDEditor
             {
                 var visibility = Visibility.Collapsed;
 
-                // Include github/hud.ts url so that the user can search by author.
+                // Include github/hud.tf url so that the user can search by author.
                 var searches = new[]
                 {
                     hud.Name,
