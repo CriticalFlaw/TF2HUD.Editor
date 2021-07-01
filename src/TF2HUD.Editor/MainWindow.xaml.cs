@@ -227,6 +227,12 @@ namespace HUDEditor
                 Logger.Info($"Changing page view to: {selection.Name}.");
                 EditorContainer.Children.Add(selection.GetControls());
 
+                selection.PresetChanged += (object sender, Classes.HUDSettingsPreset Preset) =>
+                {
+                    EditorContainer.Children.Clear();
+                    EditorContainer.Children.Add(selection.GetControls());
+                };
+
                 // Maximize the application window if a given HUD schema requests it.
                 Application.Current.MainWindow.WindowState =
                     selection.Maximize ? WindowState.Maximized : WindowState.Normal;

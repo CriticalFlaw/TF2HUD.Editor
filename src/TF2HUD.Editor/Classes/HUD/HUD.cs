@@ -13,7 +13,7 @@ namespace HUDEditor.Classes
 {
     public partial class HUD
     {
-        private readonly Grid controls = new();
+        private Grid controls = new();
         private HUDBackground hudBackground;
         private bool isRendered;
         private string[][] layout;
@@ -26,6 +26,8 @@ namespace HUDEditor.Classes
         public HUDSettings Settings;
         public double Opacity;
         public bool Maximize;
+
+        public event EventHandler<Classes.HUDSettingsPreset> PresetChanged;
 
         /// <summary>
         ///     Initialize the HUD object with values from the JSON schema.
