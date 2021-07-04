@@ -51,7 +51,7 @@
         "Name": "bh_youtuber_select",
         "Label": "YouTuber Profile",
         "Type": "ComboBox",
-        "ToolTip": "Change to HUD style used by community members.",
+        "ToolTip": "Change to a HUD style used by community members.",
         "Value": "0",
         "Options": [
           {
@@ -59,7 +59,7 @@
             "Value": "0"
           },
           {
-            "Label": "Dane",
+            "Label": "Uncle Dane",
             "Value": "1",
             "RenameFile": {
               "OldName": "#users/dane_/",
@@ -67,7 +67,7 @@
             }
           },
           {
-            "Label": "Jayhyunpae",
+            "Label": "jayhyunpae",
             "Value": "2",
             "RenameFile": {
               "OldName": "#users/jayhyunpae_/",
@@ -75,7 +75,7 @@
             }
           },
           {
-            "Label": "Ly Dee",
+            "Label": "ly_dee",
             "Value": "3",
             "RenameFile": {
               "OldName": "#users/ly_dee_/",
@@ -83,7 +83,7 @@
             }
           },
           {
-            "Label": "TOTH",
+            "Label": "TotH",
             "Value": "4",
             "RenameFile": {
               "OldName": "#users/toth_/",
@@ -144,16 +144,49 @@
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_player_ammobox.res"
+      },
+	  {
+        "Name": "bh_size_healthammomain",
+        "Label": "Health / Main Ammo Size",
+        "Type": "TextBox",
+		"Value": "40",
+        "Restart": true,
+        "Files": {
+          "_budhud/resource/clientscheme_lato.res": {
+            "Scheme": {
+              "Fonts": {
+			    "bh_Font_HealthAmmoMain": {
+			      "1": {
+				    "tall": "$value"
+				  }
+				}
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "bh_size_ammoreserve",
+        "Label": "Ammo Reserve Size",
+        "Type": "TextBox",
+		"Value": "24",
+        "Restart": true,
+        "Files": {
+          "_budhud/resource/clientscheme_lato.res": {
+            "Scheme": {
+              "Fonts": {
+			    "bh_Font_AmmoReserve": {
+				  "1": {
+				    "tall": "$value"
+				  }
+				}
+              }
+            }
+          }
+        }
       }
     ],
     "Main Menu": [
-      {
-        "Name": "bh_menu_hidefavorites",
-        "Label": "Hide Favorites",
-        "Type": "Checkbox",
-        "Value": "false",
-        "FileName": "bh_menu_hidefavorites.res"
-      },
       {
         "Name": "bh_menu_hidefriends",
         "Label": "Hide Friends",
@@ -177,10 +210,17 @@
       },
       {
         "Name": "bh_menu_hidestats",
-        "Label": "Hide Stats",
+        "Label": "Hide Matchmaking Stats",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_menu_hidestats.res"
+      },
+	  {
+        "Name": "bh_menu_hidefavorites",
+        "Label": "Hide Server Favorites",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_menu_hidefavorites.res"
       }
     ],
     "TargetIDs": [
@@ -230,7 +270,7 @@
         "Value": "255 255 255 255",
         "Restart": true,
         "Files": {
-          "#customization/_enabled/bh_colors.res": {
+          "_budhud/resource/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
                 "bh_Health_Main": "$value"
@@ -246,7 +286,7 @@
         "Value": "186 032 032 255",
         "Restart": true,
         "Files": {
-          "#customization/_enabled/bh_colors.res": {
+          "_budhud/resource/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
                 "bh_Health_Low": "$value"
@@ -264,7 +304,7 @@
         "Value": "255 255 255 255",
         "Restart": true,
         "Files": {
-          "#customization/_enabled/bh_colors.res": {
+          "_budhud/resource/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
                 "bh_Ammo_Main": "$value"
@@ -280,7 +320,7 @@
         "Value": "255 255 255 255",
         "Restart": true,
         "Files": {
-          "#customization/_enabled/bh_colors.res": {
+          "_budhud/resource/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
                 "bh_Ammo_Reserve": "$value"
@@ -296,7 +336,7 @@
         "Value": "186 032 032 255",
         "Restart": true,
         "Files": {
-          "#customization/_enabled/bh_colors.res": {
+          "_budhud/resource/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
                 "bh_Ammo_Low": "$value"
@@ -366,7 +406,7 @@
         "Value": "255 255 255 255",
         "Restart": true,
         "Files": {
-          "#customization/_enabled/bh_colors.res": {
+          "_budhud/resource/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
                 "hud_crosshair_1": "$value"
@@ -382,7 +422,7 @@
         "Value": "240 134 049 255",
         "Restart": true,
         "Files": {
-          "#customization/_enabled/bh_colors.res": {
+          "_budhud/resource/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
                 "hud_crosshair_1_flash": "$value"
