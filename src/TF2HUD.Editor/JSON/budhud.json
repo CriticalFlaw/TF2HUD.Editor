@@ -145,41 +145,41 @@
         "Value": "false",
         "FileName": "bh_player_ammobox.res"
       },
-	  {
+      {
         "Name": "bh_size_healthammomain",
         "Label": "Health / Main Ammo Size",
         "Type": "TextBox",
-		"Value": "40",
+        "Value": "40",
         "Restart": true,
         "Files": {
           "_budhud/resource/clientscheme_lato.res": {
             "Scheme": {
               "Fonts": {
-			    "bh_Font_HealthAmmoMain": {
-			      "1": {
-				    "tall": "$value"
-				  }
-				}
+                "bh_Font_HealthAmmoMain": {
+                  "1": {
+                    "tall": "$value"
+                  }
+                }
               }
             }
           }
         }
       },
-	  {
+      {
         "Name": "bh_size_ammoreserve",
         "Label": "Ammo Reserve Size",
         "Type": "TextBox",
-		"Value": "24",
+        "Value": "24",
         "Restart": true,
         "Files": {
           "_budhud/resource/clientscheme_lato.res": {
             "Scheme": {
               "Fonts": {
-			    "bh_Font_AmmoReserve": {
-				  "1": {
-				    "tall": "$value"
-				  }
-				}
+                "bh_Font_AmmoReserve": {
+                  "1": {
+                    "tall": "$value"
+                  }
+                }
               }
             }
           }
@@ -215,7 +215,7 @@
         "Value": "false",
         "FileName": "bh_menu_hidestats.res"
       },
-	  {
+      {
         "Name": "bh_menu_hidefavorites",
         "Label": "Hide Server Favorites",
         "Type": "Checkbox",
