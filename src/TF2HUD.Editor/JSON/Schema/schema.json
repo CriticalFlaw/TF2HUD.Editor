@@ -147,6 +147,9 @@
               "Shadows": {
                 "type": "boolean"
               },
+              "Width": {
+                "type": "integer"
+              },
               "Minimum": {
                 "type": [
                   "integer",

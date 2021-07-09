@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using HUDEditor.Classes;
 
 namespace HUDEditor.Models
 {
     public class UserJson
     {
-        [JsonPropertyName("Presets")] public Dictionary<string, Classes.HUDSettingsPreset> Presets { get; set; } = new();
+        [JsonPropertyName("Presets")] public Dictionary<string, HUDSettingsPreset> Presets { get; set; } = new();
         [JsonPropertyName("Settings")] public List<Setting> Settings { get; set; } = new();
     }
 
@@ -15,6 +16,6 @@ namespace HUDEditor.Models
         [JsonPropertyName("Name")] public string Name { get; set; }
         [JsonPropertyName("Type")] public string Type { get; set; }
         [JsonPropertyName("Value")] public string Value { get; set; }
-        [JsonPropertyName("Preset")] public Classes.HUDSettingsPreset Preset { get; set; }
+        [JsonPropertyName("Preset")] public HUDSettingsPreset Preset { get; set; }
     }
 }

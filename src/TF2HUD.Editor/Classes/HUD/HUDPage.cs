@@ -35,7 +35,7 @@ namespace HUDEditor.Classes
             var container = new Grid();
 
             var titleContainer = new Grid {VerticalAlignment = VerticalAlignment.Center};
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
                 titleContainer.ColumnDefinitions.Add(new ColumnDefinition());
 
             var titleRow = new RowDefinition {Height = GridLength.Auto};
@@ -62,7 +62,7 @@ namespace HUDEditor.Classes
                 VerticalAlignment = VerticalAlignment.Center
             };
 
-            foreach (var preset in Enum.GetValues<Classes.HUDSettingsPreset>())
+            foreach (var preset in Enum.GetValues<HUDSettingsPreset>())
             {
                 var presetButton = new Button
                 {
@@ -72,7 +72,7 @@ namespace HUDEditor.Classes
                     FontSize = 25,
                     Width = 35,
                     Height = 35,
-                    Margin = new Thickness(1),
+                    Margin = new Thickness(1)
                 };
 
                 if (Settings.Preset == preset)
@@ -89,7 +89,7 @@ namespace HUDEditor.Classes
                     MainWindow.Logger.Info($"Changed preset for {Name} to HUDSettingsPreset.{Settings.Preset}");
 
                     isRendered = false;
-                    controls = new();
+                    controls = new Grid();
                     PresetChanged.Invoke(this, Settings.Preset);
                 };
                 presetsContainer.Children.Add(presetButton);
@@ -180,10 +180,7 @@ namespace HUDEditor.Classes
                 {
                     ResetSection(section);
                     Settings.SaveSettings();
-                    if (!MainWindow.CheckHudInstallation())
-                    {
-                        ApplyCustomizations();
-                    }
+                    if (!MainWindow.CheckHudInstallation()) ApplyCustomizations();
                     DirtyControls.Clear();
                 };
 
@@ -198,6 +195,7 @@ namespace HUDEditor.Classes
                     var id = controlItem.Name;
                     var label = controlItem.Label;
                     var tooltip = controlItem.Tooltip;
+                    var width = controlItem.Width;
                     Settings.AddSetting(id, controlItem);
 
                     switch (controlItem.Type.ToLowerInvariant())
@@ -212,6 +210,10 @@ namespace HUDEditor.Classes
                                 IsChecked = Settings.GetSetting<bool>(id),
                                 ToolTip = tooltip
                             };
+
+                            // Override the control width, if set.
+                            if (controlItem.Width > 0)
+                                checkBoxInput.Width = controlItem.Width;
 
                             // Add Events.
                             checkBoxInput.Checked += (sender, _) =>
@@ -272,6 +274,13 @@ namespace HUDEditor.Classes
                                 Name = id,
                                 ToolTip = tooltip
                             };
+
+                            // Override the control width, if set.
+                            if (controlItem.Width > 0)
+                            {
+                                colorLabel.Width = controlItem.Width;
+                                colorInput.Width = controlItem.Width;
+                            }
 
                             // Attempt to bind the color from the settings.
                             try
@@ -347,8 +356,16 @@ namespace HUDEditor.Classes
                             var comboBoxInput = new ComboBox
                             {
                                 Name = id,
-                                ToolTip = tooltip
+                                ToolTip = tooltip,
+                                Width = 150
                             };
+
+                            // Override the control width, if set.
+                            if (controlItem.Width > 0)
+                            {
+                                comboBoxLabel.Width = controlItem.Width;
+                                comboBoxInput.Width = controlItem.Width;
+                            }
 
                             // Add items to the ComboBox.
                             foreach (var option in controlItem.Options)
@@ -427,6 +444,13 @@ namespace HUDEditor.Classes
                                 Increment = controlItem.Increment,
                                 ToolTip = tooltip
                             };
+
+                            // Override the control width, if set.
+                            if (controlItem.Width > 0)
+                            {
+                                integerLabel.Width = controlItem.Width;
+                                integerInput.Width = controlItem.Width;
+                            }
 
                             // Add Events.
                             integerInput.ValueChanged += (sender, _) =>
@@ -664,6 +688,13 @@ namespace HUDEditor.Classes
                                 Text = Settings.GetSetting<string>(controlItem.Name) ?? string.Empty,
                                 ToolTip = tooltip
                             };
+
+                            // Override the control width, if set.
+                            if (controlItem.Width > 0)
+                            {
+                                textLabel.Width = controlItem.Width;
+                                textInput.Width = controlItem.Width;
+                            }
 
                             // Add Events.
                             textInput.LostFocus += (_, _) =>

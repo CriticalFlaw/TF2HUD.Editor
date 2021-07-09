@@ -227,7 +227,7 @@ namespace HUDEditor
                 Logger.Info($"Changing page view to: {selection.Name}.");
                 EditorContainer.Children.Add(selection.GetControls());
 
-                selection.PresetChanged += (object sender, Classes.HUDSettingsPreset Preset) =>
+                selection.PresetChanged += (sender, Preset) =>
                 {
                     EditorContainer.Children.Clear();
                     EditorContainer.Children.Add(selection.GetControls());
