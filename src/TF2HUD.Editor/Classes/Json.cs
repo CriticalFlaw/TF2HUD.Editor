@@ -53,7 +53,7 @@ namespace HUDEditor.Classes
             foreach (var hud in HUDList)
                 if (string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase))
                     return hud;
-            MainWindow.ShowMessageBox(MessageBoxImage.Error, $"Cannot find HUD {name}!");
+            MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_hud_not_found), name));
             return null;
         }
 

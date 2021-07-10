@@ -117,139 +117,115 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="app_docs" xml:space="preserve">
-    <value>https://www.editor.criticalflaw.ca/</value>
-  </data>
-  <data name="app_json_file" xml:space="preserve">
-    <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{0}</value>
-  </data>
-  <data name="app_json_list" xml:space="preserve">
-    <value>https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON</value>
-  </data>
-  <data name="app_tracker" xml:space="preserve">
-    <value>https://github.com/CriticalFlaw/TF2HUD.Editor/issues</value>
-  </data>
-  <data name="app_update" xml:space="preserve">
-    <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</value>
-  </data>
   <data name="error_app_directory" xml:space="preserve">
-    <value>A tf/custom directory must be set in order to use this editor.</value>
+    <value>Un répertoire tf/custom doit être défini pour utiliser cet éditeur.</value>
   </data>
   <data name="error_app_install" xml:space="preserve">
-    <value>An error occurred while installing {0}.</value>
+    <value>Une erreur s'est produite lors de l'installation de {0}.</value>
   </data>
   <data name="error_app_uninstall" xml:space="preserve">
-    <value>An error occurred while uninstalling {0}.</value>
-  </data>
-  <data name="error_hud_not_found" xml:space="preserve">
-    <value>Cannot find HUD {0}!</value>
+    <value>Une erreur s'est produite lors de la désinstallation de {0}.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
-    <value>An error occurred while toggling transparent viewmodels.</value>
-  </data>
-  <data name="error_unknown_extension" xml:space="preserve">
-    <value>Could not recognize file extension '{0}'.</value>
+    <value>Une erreur s'est produite lors du basculement des modèles de vue transparents.</value>
   </data>
   <data name="info_game_restart" xml:space="preserve">
-    <value>The following changes require the game to be restarted:</value>
+    <value>Les modifications suivantes nécessitent le redémarrage du jeu :</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
-    <value>Unable to continue because Team Fortress 2 is still running. Please close the game then try again.</value>
+    <value>Impossible de continuer car Team Fortress 2 est toujours en cours d'exécution. Veuillez fermer le jeu puis réessayer.</value>
   </data>
   <data name="info_header_no_updates" xml:space="preserve">
-    <value>No Updates Found.</value>
+    <value>Aucune mise à jour trouvée.</value>
   </data>
   <data name="info_header_restart_required" xml:space="preserve">
-    <value>Restart Required.</value>
+    <value>Redémarrage requis.</value>
   </data>
   <data name="info_hud_backup" xml:space="preserve">
-    <value>An existing {0} installation has been found. To avoid conflicts, a backup has been created.</value>
+    <value>Une installation {0} existante a été trouvée. Pour éviter les conflits, une sauvegarde a été créée.</value>
   </data>
   <data name="info_hud_install" xml:space="preserve">
-    <value>{0} has been successfully installed.</value>
+    <value>{0} a été installé avec succès.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
-    <value>Are you sure you want to reset all customization options back their defaults?</value>
+    <value>Voulez-vous vraiment réinitialiser toutes les options de personnalisation à leurs valeurs par défaut ?</value>
   </data>
   <data name="info_hud_uninstall" xml:space="preserve">
-    <value>{0} has been successfully uninstalled.</value>
+    <value>{0} a été désinstallé avec succès.</value>
   </data>
   <data name="info_path_browser" xml:space="preserve">
-    <value>Please select your tf/custom directory. If a valid directory is not provided, multiple editor options will be unavailable.</value>
+    <value>Veuillez sélectionner votre répertoire tf/custom. Si un répertoire valide n'est pas fourni, plusieurs options d'éditeur ne seront pas disponibles.</value>
   </data>
   <data name="info_path_invalid" xml:space="preserve">
-    <value>You either selected the same directory or your selection did not end with tf/custom. Please try again.</value>
+    <value>Soit vous avez sélectionné le même répertoire, soit votre sélection ne s'est pas terminée par tf/custom. Veuillez réessayer.</value>
   </data>
   <data name="info_path_valid" xml:space="preserve">
-    <value>A new tf/custom directory has been set. You may continue using the editor.</value>
+    <value>Un nouveau répertoire tf/custom a été défini. Vous pouvez continuer à utiliser l'éditeur.</value>
   </data>
   <data name="info_schema_nothing" xml:space="preserve">
-    <value>No new HUD schema updates. Please check back later.</value>
+    <value>Aucune nouvelle mise à jour du schéma HUD. Veuillez vérifier plus tard.</value>
   </data>
   <data name="info_schema_update" xml:space="preserve">
-    <value>There's a new HUD schema update available. Would you like to restart now to apply the new changes?</value>
+    <value>Une nouvelle mise à jour du schéma HUD est disponible. Souhaitez-vous redémarrer maintenant pour appliquer les nouvelles modifications ?</value>
   </data>
   <data name="status_applied" xml:space="preserve">
-    <value>Settings Applied at {0}.</value>
+    <value>Paramètres appliqués à {0}.</value>
   </data>
   <data name="status_install" xml:space="preserve">
-    <value>Installation finished at {0}.</value>
+    <value>Installation terminée à {0}.</value>
   </data>
   <data name="status_isInstalled" xml:space="preserve">
-    <value>{0} is installed!</value>
+    <value>{0} est installé !</value>
   </data>
   <data name="status_isNotInstalled" xml:space="preserve">
-    <value>{0} is not installed!</value>
+    <value>{0} n'est pas installé !</value>
   </data>
   <data name="status_pathNotSet" xml:space="preserve">
-    <value>tf/custom directory is not set!</value>
+    <value>Le répertoire tf/custom n'est pas défini !</value>
   </data>
   <data name="status_reset" xml:space="preserve">
-    <value>Settings Reset at {0}.</value>
+    <value>Réinitialisation des paramètres à {0}.</value>
   </data>
   <data name="tooltip_docs" xml:space="preserve">
-    <value>Read the Documentation</value>
+    <value>Lire la documentation</value>
   </data>
   <data name="tooltip_path" xml:space="preserve">
-    <value>Change HUD Path</value>
+    <value>Changer le chemin du HUD</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Refresh HUD Schemas</value>
+    <value>Actualiser les schémas HUD</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
-    <value>Report an Issue</value>
+    <value>Signaler un problème</value>
   </data>
   <data name="ui_apply" xml:space="preserve">
-    <value>Apply Changes</value>
+    <value>Appliquer les modifications</value>
   </data>
   <data name="ui_directrory" xml:space="preserve">
-    <value>Set Directory</value>
+    <value>Définir le répertoire</value>
   </data>
   <data name="ui_install" xml:space="preserve">
-    <value>Install</value>
-  </data>
-  <data name="ui_options" xml:space="preserve">
-    <value>Options</value>
+    <value>Installer</value>
   </data>
   <data name="ui_reinstall" xml:space="preserve">
-    <value>Reinstall</value>
+    <value>Réinstaller</value>
   </data>
   <data name="ui_reset" xml:space="preserve">
-    <value>Reset to Default</value>
+    <value>Réinitialiser par défaut</value>
   </data>
   <data name="ui_search" xml:space="preserve">
-    <value>Search:</value>
+    <value>Rechercher:</value>
   </data>
   <data name="ui_select_hud" xml:space="preserve">
-    <value>Select a HUD</value>
+    <value>Sélectionnez un HUD</value>
   </data>
   <data name="ui_switch" xml:space="preserve">
-    <value>Switch HUDs</value>
+    <value>Changer de HUD</value>
   </data>
   <data name="ui_title" xml:space="preserve">
-    <value>TF2 HUD Editor</value>
+    <value>Éditeur TF2 HUD</value>
   </data>
   <data name="ui_uninstall" xml:space="preserve">
-    <value>Uninstall</value>
+    <value>Désinstaller</value>
   </data>
 </root>

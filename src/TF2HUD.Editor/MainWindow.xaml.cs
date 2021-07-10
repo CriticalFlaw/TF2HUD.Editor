@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -56,8 +57,6 @@ namespace HUDEditor
                 border.MouseUp += (_, _) => Json.SetHUDByName(hud.Name);
                 border.Style = (Style) Application.Current.Resources["HudListBorder"];
 
-                var hudIconContainer = new StackPanel();
-
                 var thumbnailImage = new Image();
                 if (hud.Thumbnail != null) thumbnailImage.Source = new BitmapImage(new Uri(hud.Thumbnail));
                 thumbnailImage.Style = (Style) Application.Current.Resources["HudListImage"];
@@ -65,6 +64,7 @@ namespace HUDEditor
                 // Prevents image from looking grainy when resized
                 RenderOptions.SetBitmapScalingMode(thumbnailImage, BitmapScalingMode.Fant);
 
+                var hudIconContainer = new StackPanel();
                 hudIconContainer.Children.Add(thumbnailImage);
                 hudIconContainer.Children.Add(new Label
                     {Content = hud.Name, Style = (Style) Application.Current.Resources["HudListLabel"]});
@@ -114,6 +114,7 @@ namespace HUDEditor
                 {
                     // Loop until the user provides a valid tf/custom directory, unless they cancel out.
                     while (!browser.SelectedPath.EndsWith("tf\\custom"))
+                    {
                         if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
                             browser.SelectedPath.EndsWith("tf\\custom"))
                         {
@@ -126,13 +127,14 @@ namespace HUDEditor
                         {
                             break;
                         }
+                    }
                 }
 
                 // Check one more time if a valid directory has been set.
                 if (!Utilities.CheckUserPath(HudPath))
                 {
                     Logger.Info("tf/custom directory still not set. Exiting...");
-                    ShowMessageBox(MessageBoxImage.Warning, Properties.Resources.error_app_directory);
+                    ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString(Properties.Resources.error_app_directory));
                     Application.Current.Shutdown();
                 }
             }
@@ -172,23 +174,25 @@ namespace HUDEditor
                 // The selected HUD is installed in a valid directory.
                 var isInstalled = CheckHudInstallation();
                 BtnInstall.IsEnabled = true;
-                BtnInstall.Content = isInstalled ? "Reinstall" : "Install";
+                BtnInstall.Content = Utilities.GetLocalizedString(isInstalled ? "ui_uninstall" : "ui_install");
                 BtnUninstall.IsEnabled = isInstalled;
                 BtnSave.IsEnabled = isInstalled;
                 BtnReset.IsEnabled = isInstalled;
                 BtnSwitch.IsEnabled = true;
-                LblStatus.Content = $"{HudSelection} is {(!isInstalled ? "not " : "")}installed!";
+                LblStatus.Content = string.Format(isInstalled
+                    ? Properties.Resources.status_isInstalled
+                    : Properties.Resources.status_isNotInstalled, HudSelection);
             }
             else
             {
                 // The selected HUD is not installed in a valid directory.
-                BtnInstall.Content = "Set Directory";
+                BtnInstall.Content = Utilities.GetLocalizedString(Properties.Resources.ui_directrory);
                 BtnInstall.IsEnabled = true;
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnReset.IsEnabled = false;
                 BtnSwitch.IsEnabled = true;
-                LblStatus.Content = "tf/custom directory is not set!";
+                LblStatus.Content = Properties.Resources.status_pathNotSet;
             }
 
             Logger.Info(LblStatus.Content);
@@ -379,19 +383,16 @@ namespace HUDEditor
                 };
                 worker.RunWorkerCompleted += (_, _) =>
                 {
-                    LblStatus.Content = "Installation finished at " + DateTime.Now;
-                    ShowMessageBox(MessageBoxImage.Information,
-                        string.Format(Properties.Resources.info_hud_install, HudSelection));
+                    LblStatus.Content = string.Format(Properties.Resources.status_install, DateTime.Now);
                     Json.GetHUDByName(Settings.Default.hud_selected).ApplyCustomizations();
-                    LblStatus.Content = $"Settings Applied at {DateTime.Now}";
+                    LblStatus.Content = string.Format(Properties.Resources.status_applied, DateTime.Now);
                     SetPageControls();
                 };
                 worker.RunWorkerAsync();
             }
             catch (Exception ex)
             {
-                ShowMessageBox(MessageBoxImage.Error,
-                    $"{string.Format(Properties.Resources.error_app_install, HudSelection)} {ex.Message}");
+                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_app_install), HudSelection)} {ex.Message}");
             }
         }
 
@@ -413,13 +414,10 @@ namespace HUDEditor
                 Logger.Info($"Removing {HudSelection} from: {HudPath}");
                 Directory.Delete(HudPath + $"\\{HudSelection}", true);
                 SetupDirectory();
-                ShowMessageBox(MessageBoxImage.Information,
-                    string.Format(Properties.Resources.info_hud_uninstall, HudSelection));
             }
             catch (Exception ex)
             {
-                ShowMessageBox(MessageBoxImage.Error,
-                    $"{string.Format(Properties.Resources.error_app_uninstall, HudSelection)} {ex.Message}");
+                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_app_uninstall), HudSelection)} {ex.Message}");
             }
         }
 
@@ -451,7 +449,7 @@ namespace HUDEditor
                 });
             };
             worker.RunWorkerAsync();
-            LblStatus.Content = $"Settings Applied at {DateTime.Now}";
+            LblStatus.Content = string.Format(Properties.Resources.status_applied, DateTime.Now);
         }
 
         /// <summary>
@@ -469,7 +467,7 @@ namespace HUDEditor
             selection.Settings.SaveSettings();
             selection.ApplyCustomizations();
             selection.DirtyControls.Clear();
-            LblStatus.Content = $"Settings Reset at {DateTime.Now}";
+            LblStatus.Content = string.Format(Properties.Resources.status_reset, DateTime.Now);
             Logger.Info("Done resetting settings.");
         }
 
@@ -493,8 +491,6 @@ namespace HUDEditor
 
             if (HudPath.Equals(previousPath) || !Utilities.CheckUserPath(HudPath))
                 ShowMessageBox(MessageBoxImage.Error, Properties.Resources.info_path_invalid);
-            else
-                ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_path_valid);
         }
 
         /// <summary>
@@ -524,12 +520,12 @@ namespace HUDEditor
             {
                 if (!restartRequired.Result)
                 {
-                    MessageBox.Show(Properties.Resources.info_schema_nothing, "No Updates Found.", MessageBoxButton.OK,
+                    MessageBox.Show(Properties.Resources.info_schema_nothing, Utilities.GetLocalizedString(Properties.Resources.info_header_no_updates), MessageBoxButton.OK,
                         MessageBoxImage.Information);
                     return;
                 }
 
-                if (MessageBox.Show(Properties.Resources.info_schema_update, "Restart Required", MessageBoxButton.YesNo,
+                if (MessageBox.Show(Properties.Resources.info_schema_update, Utilities.GetLocalizedString(Properties.Resources.info_header_restart_required), MessageBoxButton.YesNo,
                     MessageBoxImage.Information) != MessageBoxResult.Yes) return;
 
                 Json.Update(true);
@@ -580,5 +576,15 @@ namespace HUDEditor
         }
 
         #endregion
+
+        private void BtnSetLanguage_OnClick(object sender, RoutedEventArgs e)
+        {
+            WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = CultureInfo.CurrentUICulture.Name.Equals("en-US")
+                ? new CultureInfo("fr-FR")
+                : new CultureInfo("en-US");
+
+            Settings.Default.user_language = WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture.ToString();
+            Settings.Default.Save();
+        }
     }
 }

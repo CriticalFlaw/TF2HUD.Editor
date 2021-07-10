@@ -8,5 +8,8 @@
     <Setting Name="hud_directory" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="user_language" Type="System.String" Scope="User">
+      <Value Profile="(Default)">en-US</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -11,6 +11,7 @@ using System.Windows;
 using HUDEditor.Models;
 using HUDEditor.Properties;
 using Microsoft.Win32;
+using WPFLocalizeExtension.Deprecated.Extensions;
 
 namespace HUDEditor.Classes
 {
@@ -270,7 +271,7 @@ namespace HUDEditor.Classes
         {
             if (!Process.GetProcessesByName("hl2").Any()) return false;
             if (returnMessage)
-                MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.info_game_running);
+                MainWindow.ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString(Resources.info_game_running));
             return true;
         }
 
@@ -305,6 +306,17 @@ namespace HUDEditor.Classes
         public static bool CheckUserPath(string hudPath)
         {
             return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf\\custom");
+        }
+
+        /// <summary>
+        ///     Get a localized string from the resource file.
+        /// </summary>
+        /// <param name="key"></param>
+        public static string GetLocalizedString(string key)
+        {
+            var locExtension = new LocTextExtension(key);
+            locExtension.ResolveLocalizedValue(out string uiString);
+            return uiString;
         }
     }
 }

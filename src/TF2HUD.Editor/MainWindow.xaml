@@ -3,8 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="HUDEditor"
+        lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
-        Title="TF2 HUD Editor"
+        Title="{lex:Loc ui_title}"
         Width="1300"
         Height="850"
         WindowStartupLocation="CenterScreen"
@@ -22,7 +26,7 @@
         </Grid.RowDefinitions>
         <GroupBox
             x:Name="GbSelectHud"
-            Header="Select a HUD"
+            Header="{lex:Loc Key=ui_select_hud}"
             Visibility="Visible"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
@@ -48,7 +52,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Content="Search:" Grid.Column="0" />
+                        <Label Content="{lex:Loc ui_search}" Grid.Column="0" />
                         <TextBox Name="SearchBox" TextChanged="TbSearchBox_TextChanged" Foreground="WhiteSmoke"
                                  Background="#2B2724" BorderThickness="1" Grid.ColumnSpan="2" Grid.Column="0"
                                  Margin="78,0,10,0" VerticalContentAlignment="Center" />
@@ -97,7 +101,8 @@
         <Label Name="LblStatus" Content="..." Margin="10,5,10,5" Grid.Column="0" Grid.Row="1" />
         <!-- HUD Options -->
         <GroupBox
-            Header="Buttons" HorizontalAlignment="Stretch"
+            Header="{lex:Loc ui_options}"
+            HorizontalAlignment="Stretch"
             Margin="10,5,10,10"
             Padding="10"
             Grid.Column="0" Grid.Row="2">
@@ -105,51 +110,51 @@
                 <Button
                     x:Name="BtnInstall"
                     Click="BtnInstall_OnClick"
-                    Content="Install"
+                    Content="{lex:Loc ui_install}"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnUninstall"
                     Click="BtnUninstall_OnClick"
-                    Content="Uninstall"
+                    Content="{lex:Loc ui_uninstall}"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnSave"
                     Click="BtnSave_OnClick"
-                    Content="Apply Changes"
+                    Content="{lex:Loc ui_apply}"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnReset"
                     Click="BtnReset_OnClick"
-                    Content="Reset to Default"
+                    Content="{lex:Loc ui_reset}"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"
-                    Content="Switch HUDs"
+                    Content="{lex:Loc ui_reset}"
                     Style="{StaticResource Button}" />
                 <Button
                     x:Name="BtnRefresh"
                     Click="BtnRefresh_OnClick"
                     Content="."
-                    ToolTip="Refresh HUD Schemas"
+                    ToolTip="{lex:Loc tooltip_refresh}"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnSetDirectory"
                     Click="BtnSetDirectory_OnClick"
                     Content="r"
-                    ToolTip="Change HUD Path"
+                    ToolTip="{lex:Loc tooltip_path}"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnReportIssue"
                     Click="BtnReportIssue_OnClick"
                     Content="x"
-                    ToolTip="Report an Issue"
+                    ToolTip="{lex:Loc tooltip_report}"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnDocumentation"
                     Click="BtnDocumentation_OnClick"
                     Content="z"
-                    ToolTip="Read the Documentation"
+                    ToolTip="{lex:Loc tooltip_docs}"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     x:Name="BtnGitHub"
@@ -175,6 +180,12 @@
                     Click="BtnSteam_OnClick"
                     Content="X"
                     Background="#1B2838"
+                    Style="{StaticResource LinkButton}" />
+                <Button
+                    x:Name="BtnSetLanguage"
+                    Click="BtnSetLanguage_OnClick"
+                    Content="r"
+                    Visibility="Hidden"
                     Style="{StaticResource LinkButton}" />
             </WrapPanel>
         </GroupBox>
