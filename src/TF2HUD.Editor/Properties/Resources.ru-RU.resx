@@ -226,16 +226,16 @@
     <value>Переустановить</value>
   </data>
   <data name="ui_reset" xml:space="preserve">
-    <value>Сброс настроек по умолчанию</value>
+    <value>Сброс настроек</value>
   </data>
   <data name="ui_search" xml:space="preserve">
     <value>Поиск:</value>
   </data>
   <data name="ui_select_hud" xml:space="preserve">
-    <value>Выбрать интерфейс</value>
+    <value>Выбор интерф.</value>
   </data>
   <data name="ui_switch" xml:space="preserve">
-    <value>Переключение интерфейсов</value>
+    <value>Перекл. интерф.</value>
   </data>
   <data name="ui_title" xml:space="preserve">
     <value>Редактор интерфейса TF2</value>
