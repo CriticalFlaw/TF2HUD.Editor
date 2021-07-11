@@ -61,51 +61,6 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://www.editor.criticalflaw.ca/.
-        /// </summary>
-        public static string app_docs {
-            get {
-                return ResourceManager.GetString("app_docs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{0}.
-        /// </summary>
-        public static string app_json_file {
-            get {
-                return ResourceManager.GetString("app_json_file", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON.
-        /// </summary>
-        public static string app_json_list {
-            get {
-                return ResourceManager.GetString("app_json_list", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://github.com/CriticalFlaw/TF2HUD.Editor/issues.
-        /// </summary>
-        public static string app_tracker {
-            get {
-                return ResourceManager.GetString("app_tracker", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml.
-        /// </summary>
-        public static string app_update {
-            get {
-                return ResourceManager.GetString("app_update", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to A tf/custom directory must be set in order to use this editor..
         /// </summary>
         public static string error_app_directory {
@@ -399,6 +354,24 @@ namespace HUDEditor.Properties {
         public static string ui_options {
             get {
                 return ResourceManager.GetString("ui_options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set Path.
+        /// </summary>
+        public static string ui_path {
+            get {
+                return ResourceManager.GetString("ui_path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string ui_refresh {
+            get {
+                return ResourceManager.GetString("ui_refresh", resourceCulture);
             }
         }
         

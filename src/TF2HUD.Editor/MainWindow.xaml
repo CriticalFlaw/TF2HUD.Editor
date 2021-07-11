@@ -15,36 +15,43 @@
         FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px"
         Background="#2B2724">
-    <Grid x:Name="MainGrid">
+    <Grid x:Name="MainGrid" Margin="10,5,10,10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
+        <ToolBarPanel Grid.Row="0">
+            <Grid>
+                <!-- HUD Status -->
+                <Label Name="LblStatus" Content="..."/>
+                <ToolBar Background="Transparent" ToolBarTray.IsLocked="True" Foreground="White" HorizontalAlignment="Right">
+                    <!--<Button Content="{lex:Loc ui_options}" Foreground="White" Margin="5,0,5,0"/>-->
+                    <Button Content="{lex:Loc ui_refresh}" Foreground="White" Margin="5,0,5,0" Click="BtnRefresh_OnClick"/>
+                    <Button Content="{lex:Loc ui_path}" Foreground="White" Margin="5,0,5,0" Click="BtnSetDirectory_OnClick"/>
+                    <!-- Localization -->
+                    <RadioButton x:Name="btnLocalizeEN" Content="English" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
+                    <RadioButton x:Name="btnLocalizeFR" Content="French" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
+                    <RadioButton x:Name="btnLocalizeRU" Content="Russian" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
+                </ToolBar>
+            </Grid>
+        </ToolBarPanel>
         <GroupBox
             x:Name="GbSelectHud"
             Header="{lex:Loc Key=ui_select_hud}"
-            Visibility="Visible"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Grid.Column="0" Grid.Row="0"
-            Margin="10,10,10,5"
-            Padding="10">
+        	Grid.Row ="1" >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*" />
                     <ColumnDefinition Width="6*" />
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <!-- Select a HUD Grid -->
-                <Grid>
+                <!-- HUD Search List -->
+                <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid HorizontalAlignment="Stretch" Margin="0,0,0,5">
@@ -61,7 +68,7 @@
                         <WrapPanel x:Name="GridSelectHud" HorizontalAlignment="Center" />
                     </ScrollViewer>
                 </Grid>
-                <!-- TF2 HUD Editor and Version -->
+                <!-- App Info and Changelog -->
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0">
                     <StackPanel Margin="20">
                         <Image Source="Resources/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
@@ -93,57 +100,38 @@
                 </ScrollViewer>
             </Grid>
         </GroupBox>
-        <!-- Editor Custom Controls -->
-        <Grid Name="EditorContainer">
-            <!-- Content goes here -->
-        </Grid>
-        <!-- HUD Status -->
-        <Label Name="LblStatus" Content="..." Margin="10,5,10,5" Grid.Column="0" Grid.Row="1" />
-        <!-- HUD Options -->
+        <!-- Editor Controls -->
+        <Grid Name="EditorContainer" Grid.Row ="0" />
+        <!-- Bottom Button Tray -->
         <GroupBox
             Header="{lex:Loc ui_options}"
-            HorizontalAlignment="Stretch"
-            Margin="10,5,10,10"
-            Padding="10"
-            Grid.Column="0" Grid.Row="2">
+            Grid.Row="2">
             <WrapPanel HorizontalAlignment="Center">
                 <Button
                     x:Name="BtnInstall"
                     Click="BtnInstall_OnClick"
                     Content="{lex:Loc ui_install}"
-                    Style="{StaticResource Button}" />
+                    Style="{StaticResource HUDButton}" />
                 <Button
                     x:Name="BtnUninstall"
                     Click="BtnUninstall_OnClick"
                     Content="{lex:Loc ui_uninstall}"
-                    Style="{StaticResource Button}" />
+                    Style="{StaticResource HUDButton}" />
                 <Button
                     x:Name="BtnSave"
                     Click="BtnSave_OnClick"
                     Content="{lex:Loc ui_apply}"
-                    Style="{StaticResource Button}" />
+                    Style="{StaticResource HUDButton}" />
                 <Button
                     x:Name="BtnReset"
                     Click="BtnReset_OnClick"
                     Content="{lex:Loc ui_reset}"
-                    Style="{StaticResource Button}" />
+                    Style="{StaticResource HUDButton}" />
                 <Button
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"
                     Content="{lex:Loc ui_reset}"
-                    Style="{StaticResource Button}" />
-                <Button
-                    x:Name="BtnRefresh"
-                    Click="BtnRefresh_OnClick"
-                    Content="."
-                    ToolTip="{lex:Loc tooltip_refresh}"
-                    Style="{StaticResource LinkButton}" />
-                <Button
-                    x:Name="BtnSetDirectory"
-                    Click="BtnSetDirectory_OnClick"
-                    Content="r"
-                    ToolTip="{lex:Loc tooltip_path}"
-                    Style="{StaticResource LinkButton}" />
+                    Style="{StaticResource HUDButton}" />
                 <Button
                     x:Name="BtnReportIssue"
                     Click="BtnReportIssue_OnClick"
@@ -180,12 +168,6 @@
                     Click="BtnSteam_OnClick"
                     Content="X"
                     Background="#1B2838"
-                    Style="{StaticResource LinkButton}" />
-                <Button
-                    x:Name="BtnSetLanguage"
-                    Click="BtnSetLanguage_OnClick"
-                    Content="r"
-                    Visibility="Hidden"
                     Style="{StaticResource LinkButton}" />
             </WrapPanel>
         </GroupBox>

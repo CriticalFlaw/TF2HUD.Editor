@@ -117,21 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="app_docs" xml:space="preserve">
-    <value>https://www.editor.criticalflaw.ca/</value>
-  </data>
-  <data name="app_json_file" xml:space="preserve">
-    <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{0}</value>
-  </data>
-  <data name="app_json_list" xml:space="preserve">
-    <value>https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON</value>
-  </data>
-  <data name="app_tracker" xml:space="preserve">
-    <value>https://github.com/CriticalFlaw/TF2HUD.Editor/issues</value>
-  </data>
-  <data name="app_update" xml:space="preserve">
-    <value>https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</value>
-  </data>
   <data name="error_app_directory" xml:space="preserve">
     <value>A tf/custom directory must be set in order to use this editor.</value>
   </data>
@@ -230,6 +215,12 @@
   </data>
   <data name="ui_options" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="ui_path" xml:space="preserve">
+    <value>Set Path</value>
+  </data>
+  <data name="ui_refresh" xml:space="preserve">
+    <value>Refresh</value>
   </data>
   <data name="ui_reinstall" xml:space="preserve">
     <value>Reinstall</value>

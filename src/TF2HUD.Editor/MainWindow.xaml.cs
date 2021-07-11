@@ -18,6 +18,7 @@ using HUDEditor.Properties;
 using log4net;
 using log4net.Config;
 using Application = System.Windows.Application;
+using CheckBox = System.Windows.Controls.CheckBox;
 using Label = System.Windows.Controls.Label;
 using MessageBox = System.Windows.MessageBox;
 
@@ -92,7 +93,7 @@ namespace HUDEditor
             // Check for app updates.
             Logger.Info("Checking for app updates.");
             AutoUpdater.OpenDownloadPage = true;
-            AutoUpdater.Start(Properties.Resources.app_update);
+            AutoUpdater.Start(Settings.Default.app_update);
         }
 
         /// <summary>
@@ -498,7 +499,7 @@ namespace HUDEditor
         /// </summary>
         private void BtnReportIssue_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Properties.Resources.app_tracker);
+            Utilities.OpenWebpage(Settings.Default.app_tracker);
         }
 
         /// <summary>
@@ -506,7 +507,7 @@ namespace HUDEditor
         /// </summary>
         private void BtnDocumentation_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Properties.Resources.app_docs);
+            Utilities.OpenWebpage(Settings.Default.app_docs);
         }
 
         /// <summary>
@@ -575,16 +576,20 @@ namespace HUDEditor
             SetPageControls();
         }
 
-        #endregion
-
-        private void BtnSetLanguage_OnClick(object sender, RoutedEventArgs e)
+        private void BtnLocalize_OnClick(object sender, RoutedEventArgs e)
         {
-            WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = CultureInfo.CurrentUICulture.Name.Equals("en-US")
-                ? new CultureInfo("fr-FR")
-                : new CultureInfo("en-US");
+            if (btnLocalizeFR.IsChecked == true)
+                WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
+            //else if (btnLocalizeRU.IsChecked == true)
+            //    WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
+            else
+                WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
 
+            // Save language preference to user settings.
             Settings.Default.user_language = WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture.ToString();
             Settings.Default.Save();
         }
+
+        #endregion
     }
 }

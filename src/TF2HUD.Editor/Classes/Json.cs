@@ -78,7 +78,7 @@ namespace HUDEditor.Classes
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new WebClient();
                 client.Headers.Add("User-Agent", "request");
-                var remoteList = client.DownloadString(Resources.app_json_list);
+                var remoteList = client.DownloadString(Settings.Default.json_list);
                 client.Dispose();
 
                 // Get the remote schema names and file sizes.
@@ -114,7 +114,7 @@ namespace HUDEditor.Classes
 
                     var fileName = $"{remoteName}.json";
                     MainWindow.Logger.Info($"{remoteName}: Downloading latest version...");
-                    client.DownloadFile(string.Format(Resources.app_json_file, fileName), fileName);
+                    client.DownloadFile(string.Format(Settings.Default.json_file, fileName), fileName);
                     client.Dispose();
 
                     // Move the fresh file into the JSON folder, overwriting the previous version.
@@ -141,7 +141,7 @@ namespace HUDEditor.Classes
             {
                 return (await Task.WhenAll(HUDList.Select(async x =>
                 {
-                    var url = string.Format(Resources.app_json_file, $"{x.Name}.json");
+                    var url = string.Format(Settings.Default.json_file, $"{x.Name}.json");
                     MainWindow.Logger.Info($"Requesting {x.Name} from {url}");
                     var response = await Utilities.Fetch(url);
                     if (response == null)

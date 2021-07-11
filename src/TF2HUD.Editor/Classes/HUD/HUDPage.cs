@@ -45,16 +45,6 @@ namespace HUDEditor.Classes
             container.RowDefinitions.Add(titleRow);
             container.RowDefinitions.Add(contentRow);
 
-            // Define the title of the HUD displayed at the top of the page.
-            var title = new Label
-            {
-                Style = (Style) Application.Current.Resources["PageTitle"],
-                Content = Name
-            };
-            Grid.SetColumn(title, 0);
-
-            titleContainer.Children.Add(title);
-
             // Create preset buttons
             var presetsContainer = new WrapPanel
             {
@@ -66,7 +56,7 @@ namespace HUDEditor.Classes
             {
                 var presetButton = new Button
                 {
-                    Style = (Style) Application.Current.Resources["Button"],
+                    Style = (Style) Application.Current.Resources["HUDButton"],
                     Content = preset,
                     Name = $"{Name.Replace('-', '_')}_{preset}",
                     FontSize = 25,

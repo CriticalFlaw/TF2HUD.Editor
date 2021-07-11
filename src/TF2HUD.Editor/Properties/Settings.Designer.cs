@@ -58,5 +58,51 @@ namespace HUDEditor.Properties {
                 this["user_language"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://www.editor.criticalflaw.ca/")]
+        public string app_docs {
+            get {
+                return ((string)(this["app_docs"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Ed" +
+            "itor/JSON/{0}")]
+        public string json_file {
+            get {
+                return ((string)(this["json_file"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON")]
+        public string json_list {
+            get {
+                return ((string)(this["json_list"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/CriticalFlaw/TF2HUD.Editor/issues")]
+        public string app_tracker {
+            get {
+                return ((string)(this["app_tracker"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml")]
+        public string app_update {
+            get {
+                return ((string)(this["app_update"]));
+            }
+        }
     }
 }
