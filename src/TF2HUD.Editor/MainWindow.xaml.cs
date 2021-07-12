@@ -17,8 +17,8 @@ using HUDEditor.Classes;
 using HUDEditor.Properties;
 using log4net;
 using log4net.Config;
+using WPFLocalizeExtension.Engine;
 using Application = System.Windows.Application;
-using CheckBox = System.Windows.Controls.CheckBox;
 using Label = System.Windows.Controls.Label;
 using MessageBox = System.Windows.MessageBox;
 
@@ -115,7 +115,6 @@ namespace HUDEditor
                 {
                     // Loop until the user provides a valid tf/custom directory, unless they cancel out.
                     while (!browser.SelectedPath.EndsWith("tf\\custom"))
-                    {
                         if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
                             browser.SelectedPath.EndsWith("tf\\custom"))
                         {
@@ -128,7 +127,6 @@ namespace HUDEditor
                         {
                             break;
                         }
-                    }
                 }
 
                 // Check one more time if a valid directory has been set.
@@ -155,7 +153,7 @@ namespace HUDEditor
                 File.Delete(Directory.GetCurrentDirectory() + "\\temp.zip");
 
             // If the HUD Selection is visible, disable most control buttons.
-            if (GbSelectHud.Visibility == Visibility.Visible)
+            if (GbSelectHud.IsVisible)
             {
                 LblStatus.Content = string.Empty;
                 BtnInstall.IsEnabled = false;
@@ -167,6 +165,7 @@ namespace HUDEditor
                 BtnHuds.IsEnabled = false;
                 BtnDiscord.IsEnabled = false;
                 BtnSteam.IsEnabled = false;
+                MainToolbar.Visibility = Visibility.Hidden;
                 return;
             }
 
@@ -175,19 +174,19 @@ namespace HUDEditor
                 // The selected HUD is installed in a valid directory.
                 var isInstalled = CheckHudInstallation();
                 BtnInstall.IsEnabled = true;
-                BtnInstall.Content = Utilities.GetLocalizedString(isInstalled ? "ui_uninstall" : "ui_install");
+                BtnInstall.Content = Utilities.GetLocalizedString(isInstalled ? "ui_reinstall" : "ui_install");
                 BtnUninstall.IsEnabled = isInstalled;
                 BtnSave.IsEnabled = isInstalled;
                 BtnReset.IsEnabled = isInstalled;
                 BtnSwitch.IsEnabled = true;
                 LblStatus.Content = string.Format(isInstalled
-                    ? Properties.Resources.status_isInstalled
-                    : Properties.Resources.status_isNotInstalled, HudSelection);
+                    ? Properties.Resources.status_installed
+                    : Properties.Resources.status_installed_not, HudSelection);
             }
             else
             {
                 // The selected HUD is not installed in a valid directory.
-                BtnInstall.Content = Utilities.GetLocalizedString(Properties.Resources.ui_directrory);
+                BtnInstall.Content = Utilities.GetLocalizedString(Properties.Resources.ui_directory);
                 BtnInstall.IsEnabled = true;
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
@@ -225,6 +224,7 @@ namespace HUDEditor
 
                 // Display a list of available HUDs if a HUD selection has not been set.
                 GbSelectHud.Visibility = selection is null ? Visibility.Visible : Visibility.Hidden;
+                MainToolbar.Visibility = selection is null ? Visibility.Hidden : Visibility.Visible;
                 EditorContainer.Children.Clear();
 
                 // If there's a HUD selection, generate the controls for that HUD's page.
@@ -260,10 +260,9 @@ namespace HUDEditor
         private void SetPageBackground()
         {
             // Reset the application to the default background color.
-            if (GbSelectHud.Visibility == Visibility.Visible)
+            if (GbSelectHud.IsVisible)
             {
-                var converter = new BrushConverter();
-                MainGrid.Background = (Brush) converter.ConvertFromString("#2B2724");
+                MainGrid.Background = (Brush) new BrushConverter().ConvertFromString("#2B2724");
                 return;
             }
 
@@ -384,16 +383,16 @@ namespace HUDEditor
                 };
                 worker.RunWorkerCompleted += (_, _) =>
                 {
-                    LblStatus.Content = string.Format(Properties.Resources.status_install, DateTime.Now);
+                    LblStatus.Content = string.Format(Properties.Resources.status_installed_now, Settings.Default.hud_selected, DateTime.Now);
                     Json.GetHUDByName(Settings.Default.hud_selected).ApplyCustomizations();
-                    LblStatus.Content = string.Format(Properties.Resources.status_applied, DateTime.Now);
+                    LblStatus.Content = string.Format(Properties.Resources.status_applied, Settings.Default.hud_selected, DateTime.Now);
                     SetPageControls();
                 };
                 worker.RunWorkerAsync();
             }
             catch (Exception ex)
             {
-                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_app_install), HudSelection)} {ex.Message}");
+                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_install), HudSelection)} {ex.Message}");
             }
         }
 
@@ -418,7 +417,7 @@ namespace HUDEditor
             }
             catch (Exception ex)
             {
-                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_app_uninstall), HudSelection)} {ex.Message}");
+                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_uninstall), HudSelection)} {ex.Message}");
             }
         }
 
@@ -521,12 +520,15 @@ namespace HUDEditor
             {
                 if (!restartRequired.Result)
                 {
-                    MessageBox.Show(Properties.Resources.info_schema_nothing, Utilities.GetLocalizedString(Properties.Resources.info_header_no_updates), MessageBoxButton.OK,
+                    MessageBox.Show(Properties.Resources.info_hud_update_none,
+                        Utilities.GetLocalizedString(Properties.Resources.header_update_none), MessageBoxButton.OK,
                         MessageBoxImage.Information);
                     return;
                 }
 
-                if (MessageBox.Show(Properties.Resources.info_schema_update, Utilities.GetLocalizedString(Properties.Resources.info_header_restart_required), MessageBoxButton.YesNo,
+                if (MessageBox.Show(Properties.Resources.info_hud_update,
+                    Utilities.GetLocalizedString(Properties.Resources.header_restart_required),
+                    MessageBoxButton.YesNo,
                     MessageBoxImage.Information) != MessageBoxResult.Yes) return;
 
                 Json.Update(true);
@@ -579,14 +581,14 @@ namespace HUDEditor
         private void BtnLocalize_OnClick(object sender, RoutedEventArgs e)
         {
             if (btnLocalizeFR.IsChecked == true)
-                WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
-            //else if (btnLocalizeRU.IsChecked == true)
-            //    WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
+                LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
+            else if (btnLocalizeRU.IsChecked == true) 
+                LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
             else
-                WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
+                LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
 
             // Save language preference to user settings.
-            Settings.Default.user_language = WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture.ToString();
+            Settings.Default.user_language = LocalizeDictionary.Instance.Culture.ToString();
             Settings.Default.Save();
         }
 

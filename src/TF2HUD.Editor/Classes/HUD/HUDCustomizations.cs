@@ -292,20 +292,19 @@ namespace HUDEditor.Classes
                             : Settings.GetSetting<bool>(tokens[0].Value);
                         return checkBoxChecked ? tokens[1].Value : tokens[2].Value;
                     }
-                    else
+
+                    // Iterate through matches and evaluate expressions wrapped in curly braces
+                    // example: Size: $value | Outline:{$fh_val_xhair_outline ? ON : OFF}
+                    var index = 0;
+                    foreach (Match match in Regex.Matches(input, "{.+?}"))
                     {
-                        // Iterate through matches and evaluate expressions wrapped in curly braces
-                        // example: Size: $value | Outline:{$fh_val_xhair_outline ? ON : OFF}
-                        var index = 0;
-                        foreach (Match match in Regex.Matches(input, "{.+?}"))
-                        {
-                            result += input[index..match.Index];
-                            result += EvaluateValue(match.Value[1..^1]);
-                            index = match.Index + match.Value.Length;
-                        }
-                        result += input[index..];
-                        return result.Replace("$value", userSetting.Value);
+                        result += input[index..match.Index];
+                        result += EvaluateValue(match.Value[1..^1]);
+                        index = match.Index + match.Value.Length;
                     }
+
+                    result += input[index..];
+                    return result.Replace("$value", userSetting.Value);
                 }
 
                 // Check for special cases like stock or custom backgrounds.
@@ -354,11 +353,10 @@ namespace HUDEditor.Classes
                         {
                             var output = "";
                             if (property.Value.ToString().Contains("true"))
-                            {
-                                output = property.Value.ToArray().Aggregate(output, (current, value) => current + (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase)
+                                output = property.Value.ToArray().Aggregate(output, (current, value) => current +
+                                    (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase)
                                         ? "#base " + value.First.First() + "\r\n"
                                         : "#base " + value.Last.First() + "\r\n"));
-                            }
                             else
                                 output += "#base " + property.Value + "\n";
 
@@ -413,7 +411,8 @@ namespace HUDEditor.Classes
 
                             // Check for already existing keys and warn user
                             if (hudElementRef.ContainsKey(property.Key))
-                                MainWindow.Logger.Warn($"{relativePath} => {objectPath} already contains key {property.Key}!");
+                                MainWindow.Logger.Warn(
+                                    $"{relativePath} => {objectPath} already contains key {property.Key}!");
 
                             hudElement[property.Key] = EvaluateValue(property.Value.ToString());
                             MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
@@ -444,7 +443,8 @@ namespace HUDEditor.Classes
                 //
                 void WriteAnimationCustomizations(string filePath, JObject animationOptions)
                 {
-                    HUDAnimation CreateAnimation(Dictionary<string, dynamic> animation, KeyValuePair<string, JToken> animationOption)
+                    HUDAnimation CreateAnimation(Dictionary<string, dynamic> animation,
+                        KeyValuePair<string, JToken> animationOption)
                     {
                         return animation?["Type"].ToString().ToLower() switch
                         {
@@ -637,17 +637,23 @@ namespace HUDEditor.Classes
 
                                 if (animationOption.Value.Type == JTokenType.Object)
                                 {
-                                    var animationsContainer = animationOption.Value.ToObject<Dictionary<string, JToken>>();
-                                    if (animationsContainer.ContainsKey("true") && animationsContainer.ContainsKey("false"))
+                                    var animationsContainer =
+                                        animationOption.Value.ToObject<Dictionary<string, JToken>>();
+                                    if (animationsContainer.ContainsKey("true") &&
+                                        animationsContainer.ContainsKey("false"))
                                     {
-                                        JToken selection = animationsContainer[userSetting.Value.ToLower()];
+                                        var selection = animationsContainer[userSetting.Value.ToLower()];
                                         animationevents = selection.ToArray();
                                     }
                                     else
+                                    {
                                         throw new Exception($"Unexpected object at {animationOption.Key}!");
+                                    }
                                 }
                                 else
+                                {
                                     animationevents = animationOption.Value.ToArray();
+                                }
 
 
                                 foreach (var option in animationevents)
@@ -685,7 +691,8 @@ namespace HUDEditor.Classes
                 foreach (var filePath in files)
                 {
                     var relativePath = string.Join('/', Regex.Split(filePath.Key, @"[\/]+"));
-                    var absolutePath = MainWindow.HudPath + "\\" + Name + "\\" + string.Join('\\', relativePath.Split('/'));
+                    var absolutePath = MainWindow.HudPath + "\\" + Name + "\\" +
+                                       string.Join('\\', relativePath.Split('/'));
                     var extension = filePath.Key.Split(".")[^1];
 
                     if (resFileExtensions.Contains(extension))
@@ -703,7 +710,8 @@ namespace HUDEditor.Classes
                     }
                     else
                     {
-                        MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
+                        MainWindow.ShowMessageBox(MessageBoxImage.Error,
+                            string.Format(Utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
                     }
                 }
             }
@@ -750,13 +758,16 @@ namespace HUDEditor.Classes
             {
                 // Copy the config file required for this feature
                 if (!enable || Process.GetProcessesByName("hl2").Any()) return true;
-                MainWindow.Logger.Info($"Copying mastercomfig-transparent-viewmodels-addon.vpk to {MainWindow.HudPath}");
-                File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk", MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
+                MainWindow.Logger.Info(
+                    $"Copying mastercomfig-transparent-viewmodels-addon.vpk to {MainWindow.HudPath}");
+                File.Copy(
+                    Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk",
+                    MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
                 return true;
             }
             catch (Exception e)
             {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Utilities.GetLocalizedString(Resources.error_transparent_vm)} {e.Message}");
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_transparent_vm), e.Message));
                 return false;
             }
         }

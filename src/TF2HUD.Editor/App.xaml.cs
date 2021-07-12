@@ -5,6 +5,7 @@ using System.Windows;
 using HUDEditor.Properties;
 using log4net;
 using log4net.Config;
+using WPFLocalizeExtension.Engine;
 
 namespace HUDEditor
 {
@@ -13,9 +14,9 @@ namespace HUDEditor
     /// </summary>
     public partial class App
     {
-        App()
+        private App()
         {
-            WPFLocalizeExtension.Engine.LocalizeDictionary.Instance.Culture = new CultureInfo(Settings.Default.user_language);
+            LocalizeDictionary.Instance.Culture = new CultureInfo(Settings.Default.user_language);
         }
 
         protected override void OnStartup(StartupEventArgs e)

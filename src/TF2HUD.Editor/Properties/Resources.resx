@@ -120,14 +120,14 @@
   <data name="error_app_directory" xml:space="preserve">
     <value>A tf/custom directory must be set in order to use this editor.</value>
   </data>
-  <data name="error_app_install" xml:space="preserve">
+  <data name="error_hud_install" xml:space="preserve">
     <value>An error occurred while installing {0}.</value>
   </data>
-  <data name="error_app_uninstall" xml:space="preserve">
-    <value>An error occurred while uninstalling {0}.</value>
-  </data>
-  <data name="error_hud_not_found" xml:space="preserve">
+  <data name="error_hud_missing" xml:space="preserve">
     <value>Cannot find HUD {0}!</value>
+  </data>
+  <data name="error_hud_uninstall" xml:space="preserve">
+    <value>An error occurred while uninstalling {0}.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
     <value>An error occurred while toggling transparent viewmodels.</value>
@@ -135,71 +135,62 @@
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Could not recognize file extension '{0}'.</value>
   </data>
+  <data name="header_restart_required" xml:space="preserve">
+    <value>Restart Required.</value>
+  </data>
+  <data name="header_update_none" xml:space="preserve">
+    <value>No Updates Found.</value>
+  </data>
   <data name="info_game_restart" xml:space="preserve">
-    <value>The following changes require the game to be restarted:</value>
+    <value>Following changes require the game to be restarted:</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
     <value>Unable to continue because Team Fortress 2 is still running. Please close the game then try again.</value>
   </data>
-  <data name="info_header_no_updates" xml:space="preserve">
-    <value>No Updates Found.</value>
-  </data>
-  <data name="info_header_restart_required" xml:space="preserve">
-    <value>Restart Required.</value>
-  </data>
   <data name="info_hud_backup" xml:space="preserve">
-    <value>An existing {0} installation has been found. To avoid conflicts, a backup has been created.</value>
-  </data>
-  <data name="info_hud_install" xml:space="preserve">
-    <value>{0} has been successfully installed.</value>
+    <value>An existing {0} installation was found. To avoid conflicts, a backup has been created.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
-    <value>Are you sure you want to reset all customization options back their defaults?</value>
+    <value>Are you sure you want to reset all customizations back to their defaults?</value>
   </data>
-  <data name="info_hud_uninstall" xml:space="preserve">
-    <value>{0} has been successfully uninstalled.</value>
+  <data name="info_hud_update" xml:space="preserve">
+    <value>There's a new HUD schema update available. Would you like to restart now to apply the new changes?</value>
+  </data>
+  <data name="info_hud_update_none" xml:space="preserve">
+    <value>You have the latest HUD schema versions. Please check back later.</value>
   </data>
   <data name="info_path_browser" xml:space="preserve">
-    <value>Please select your tf/custom directory. If a valid directory is not provided, multiple editor options will be unavailable.</value>
+    <value>Select your tf/custom directory. If an invalid directory is provided, multiple options will be unavailable.</value>
   </data>
   <data name="info_path_invalid" xml:space="preserve">
     <value>You either selected the same directory or your selection did not end with tf/custom. Please try again.</value>
   </data>
-  <data name="info_path_valid" xml:space="preserve">
-    <value>A new tf/custom directory has been set. You may continue using the editor.</value>
-  </data>
-  <data name="info_schema_nothing" xml:space="preserve">
-    <value>No new HUD schema updates. Please check back later.</value>
-  </data>
-  <data name="info_schema_update" xml:space="preserve">
-    <value>There's a new HUD schema update available. Would you like to restart now to apply the new changes?</value>
-  </data>
   <data name="status_applied" xml:space="preserve">
-    <value>Settings Applied at {0}.</value>
+    <value>{0} customizations applied at {1}.</value>
   </data>
-  <data name="status_install" xml:space="preserve">
-    <value>Installation finished at {0}.</value>
-  </data>
-  <data name="status_isInstalled" xml:space="preserve">
+  <data name="status_installed" xml:space="preserve">
     <value>{0} is installed!</value>
   </data>
-  <data name="status_isNotInstalled" xml:space="preserve">
+  <data name="status_installed_not" xml:space="preserve">
     <value>{0} is not installed!</value>
+  </data>
+  <data name="status_installed_now" xml:space="preserve">
+    <value>{0} installation finished at {1}.</value>
   </data>
   <data name="status_pathNotSet" xml:space="preserve">
     <value>tf/custom directory is not set!</value>
   </data>
   <data name="status_reset" xml:space="preserve">
-    <value>Settings Reset at {0}.</value>
+    <value>{0} customizations reset at {1}.</value>
   </data>
   <data name="tooltip_docs" xml:space="preserve">
-    <value>Read the Documentation</value>
+    <value>Read the project documentation.</value>
   </data>
   <data name="tooltip_path" xml:space="preserve">
-    <value>Change HUD Path</value>
+    <value>Change the tf/custom directory.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Refresh HUD Schemas</value>
+    <value>Check for HUD schema updates.</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>Report an Issue</value>
@@ -207,7 +198,7 @@
   <data name="ui_apply" xml:space="preserve">
     <value>Apply Changes</value>
   </data>
-  <data name="ui_directrory" xml:space="preserve">
+  <data name="ui_directory" xml:space="preserve">
     <value>Set Directory</value>
   </data>
   <data name="ui_install" xml:space="preserve">
@@ -215,9 +206,6 @@
   </data>
   <data name="ui_options" xml:space="preserve">
     <value>Options</value>
-  </data>
-  <data name="ui_path" xml:space="preserve">
-    <value>Set Path</value>
   </data>
   <data name="ui_refresh" xml:space="preserve">
     <value>Refresh</value>
@@ -231,7 +219,7 @@
   <data name="ui_search" xml:space="preserve">
     <value>Search:</value>
   </data>
-  <data name="ui_select_hud" xml:space="preserve">
+  <data name="ui_select" xml:space="preserve">
     <value>Select a HUD</value>
   </data>
   <data name="ui_switch" xml:space="preserve">

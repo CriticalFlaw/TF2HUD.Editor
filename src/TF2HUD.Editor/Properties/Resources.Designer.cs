@@ -72,27 +72,27 @@ namespace HUDEditor.Properties {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while installing {0}..
         /// </summary>
-        public static string error_app_install {
+        public static string error_hud_install {
             get {
-                return ResourceManager.GetString("error_app_install", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while uninstalling {0}..
-        /// </summary>
-        public static string error_app_uninstall {
-            get {
-                return ResourceManager.GetString("error_app_uninstall", resourceCulture);
+                return ResourceManager.GetString("error_hud_install", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Cannot find HUD {0}!.
         /// </summary>
-        public static string error_hud_not_found {
+        public static string error_hud_missing {
             get {
-                return ResourceManager.GetString("error_hud_not_found", resourceCulture);
+                return ResourceManager.GetString("error_hud_missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while uninstalling {0}..
+        /// </summary>
+        public static string error_hud_uninstall {
+            get {
+                return ResourceManager.GetString("error_hud_uninstall", resourceCulture);
             }
         }
         
@@ -115,7 +115,25 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following changes require the game to be restarted:.
+        ///   Looks up a localized string similar to Restart Required..
+        /// </summary>
+        public static string header_restart_required {
+            get {
+                return ResourceManager.GetString("header_restart_required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Updates Found..
+        /// </summary>
+        public static string header_update_none {
+            get {
+                return ResourceManager.GetString("header_update_none", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Following changes require the game to be restarted:.
         /// </summary>
         public static string info_game_restart {
             get {
@@ -133,25 +151,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Updates Found..
-        /// </summary>
-        public static string info_header_no_updates {
-            get {
-                return ResourceManager.GetString("info_header_no_updates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Restart Required..
-        /// </summary>
-        public static string info_header_restart_required {
-            get {
-                return ResourceManager.GetString("info_header_restart_required", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An existing {0} installation has been found. To avoid conflicts, a backup has been created..
+        ///   Looks up a localized string similar to An existing {0} installation was found. To avoid conflicts, a backup has been created..
         /// </summary>
         public static string info_hud_backup {
             get {
@@ -160,16 +160,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} has been successfully installed..
-        /// </summary>
-        public static string info_hud_install {
-            get {
-                return ResourceManager.GetString("info_hud_install", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to reset all customization options back their defaults?.
+        ///   Looks up a localized string similar to Are you sure you want to reset all customizations back to their defaults?.
         /// </summary>
         public static string info_hud_reset {
             get {
@@ -178,16 +169,25 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} has been successfully uninstalled..
+        ///   Looks up a localized string similar to There&apos;s a new HUD schema update available. Would you like to restart now to apply the new changes?.
         /// </summary>
-        public static string info_hud_uninstall {
+        public static string info_hud_update {
             get {
-                return ResourceManager.GetString("info_hud_uninstall", resourceCulture);
+                return ResourceManager.GetString("info_hud_update", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select your tf/custom directory. If a valid directory is not provided, multiple editor options will be unavailable..
+        ///   Looks up a localized string similar to You have the latest HUD schema versions. Please check back later..
+        /// </summary>
+        public static string info_hud_update_none {
+            get {
+                return ResourceManager.GetString("info_hud_update_none", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select your tf/custom directory. If an invalid directory is provided, multiple options will be unavailable..
         /// </summary>
         public static string info_path_browser {
             get {
@@ -205,34 +205,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A new tf/custom directory has been set. You may continue using the editor..
-        /// </summary>
-        public static string info_path_valid {
-            get {
-                return ResourceManager.GetString("info_path_valid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No new HUD schema updates. Please check back later..
-        /// </summary>
-        public static string info_schema_nothing {
-            get {
-                return ResourceManager.GetString("info_schema_nothing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There&apos;s a new HUD schema update available. Would you like to restart now to apply the new changes?.
-        /// </summary>
-        public static string info_schema_update {
-            get {
-                return ResourceManager.GetString("info_schema_update", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings Applied at {0}..
+        ///   Looks up a localized string similar to {0} customizations applied at {1}..
         /// </summary>
         public static string status_applied {
             get {
@@ -241,29 +214,29 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installation finished at {0}..
-        /// </summary>
-        public static string status_install {
-            get {
-                return ResourceManager.GetString("status_install", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to {0} is installed!.
         /// </summary>
-        public static string status_isInstalled {
+        public static string status_installed {
             get {
-                return ResourceManager.GetString("status_isInstalled", resourceCulture);
+                return ResourceManager.GetString("status_installed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} is not installed!.
         /// </summary>
-        public static string status_isNotInstalled {
+        public static string status_installed_not {
             get {
-                return ResourceManager.GetString("status_isNotInstalled", resourceCulture);
+                return ResourceManager.GetString("status_installed_not", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} installation finished at {1}..
+        /// </summary>
+        public static string status_installed_now {
+            get {
+                return ResourceManager.GetString("status_installed_now", resourceCulture);
             }
         }
         
@@ -277,7 +250,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings Reset at {0}..
+        ///   Looks up a localized string similar to {0} customizations reset at {1}..
         /// </summary>
         public static string status_reset {
             get {
@@ -286,7 +259,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read the Documentation.
+        ///   Looks up a localized string similar to Read the project documentation..
         /// </summary>
         public static string tooltip_docs {
             get {
@@ -295,7 +268,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change HUD Path.
+        ///   Looks up a localized string similar to Change the tf/custom directory..
         /// </summary>
         public static string tooltip_path {
             get {
@@ -304,7 +277,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Refresh HUD Schemas.
+        ///   Looks up a localized string similar to Check for HUD schema updates..
         /// </summary>
         public static string tooltip_refresh {
             get {
@@ -333,9 +306,9 @@ namespace HUDEditor.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Set Directory.
         /// </summary>
-        public static string ui_directrory {
+        public static string ui_directory {
             get {
-                return ResourceManager.GetString("ui_directrory", resourceCulture);
+                return ResourceManager.GetString("ui_directory", resourceCulture);
             }
         }
         
@@ -354,15 +327,6 @@ namespace HUDEditor.Properties {
         public static string ui_options {
             get {
                 return ResourceManager.GetString("ui_options", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Set Path.
-        /// </summary>
-        public static string ui_path {
-            get {
-                return ResourceManager.GetString("ui_path", resourceCulture);
             }
         }
         
@@ -405,9 +369,9 @@ namespace HUDEditor.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Select a HUD.
         /// </summary>
-        public static string ui_select_hud {
+        public static string ui_select {
             get {
-                return ResourceManager.GetString("ui_select_hud", resourceCulture);
+                return ResourceManager.GetString("ui_select", resourceCulture);
             }
         }
         

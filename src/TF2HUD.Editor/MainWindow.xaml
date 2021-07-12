@@ -20,29 +20,34 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <ToolBarPanel Grid.Row="0">
+        <ToolBarPanel x:Name="MainToolbar" Grid.Row="0">
             <Grid>
                 <!-- HUD Status -->
-                <Label Name="LblStatus" Content="..."/>
-                <ToolBar Background="Transparent" ToolBarTray.IsLocked="True" Foreground="White" HorizontalAlignment="Right">
+                <Label Name="LblStatus" Content="..." />
+                <ToolBar Background="Transparent" ToolBarTray.IsLocked="True" Foreground="White"
+                         HorizontalAlignment="Right">
                     <!--<Button Content="{lex:Loc ui_options}" Foreground="White" Margin="5,0,5,0"/>-->
-                    <Button Content="{lex:Loc ui_refresh}" Foreground="White" Margin="5,0,5,0" Click="BtnRefresh_OnClick"/>
-                    <Button Content="{lex:Loc ui_path}" Foreground="White" Margin="5,0,5,0" Click="BtnSetDirectory_OnClick"/>
+                    <Button Content="{lex:Loc ui_refresh}" Foreground="White" Margin="5,0,5,0"
+                            Click="BtnRefresh_OnClick" />
+                    <Button Content="{lex:Loc ui_directory}" Foreground="White" Margin="5,0,5,0"
+                            Click="BtnSetDirectory_OnClick" />
                     <!-- Localization -->
-                    <RadioButton x:Name="btnLocalizeEN" Content="English" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
-                    <RadioButton x:Name="btnLocalizeFR" Content="French" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
-                    <RadioButton x:Name="btnLocalizeRU" Content="Russian" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
+                    <RadioButton x:Name="btnLocalizeEN" Content="English" Checked="BtnLocalize_OnClick"
+                                 ToolBar.OverflowMode="Always" />
+                    <RadioButton x:Name="btnLocalizeFR" Content="French" Checked="BtnLocalize_OnClick"
+                                 ToolBar.OverflowMode="Always" />
+                    <RadioButton x:Name="btnLocalizeRU" Content="Russian" Checked="BtnLocalize_OnClick"
+                                 ToolBar.OverflowMode="Always" />
                 </ToolBar>
             </Grid>
         </ToolBarPanel>
         <GroupBox
             x:Name="GbSelectHud"
-            Header="{lex:Loc Key=ui_select_hud}"
-        	Grid.Row ="1" >
+            Header="{lex:Loc Key=ui_select}"
+            Grid.Row="0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*" />
@@ -54,7 +59,7 @@
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Grid HorizontalAlignment="Stretch" Margin="0,0,0,5">
+                    <Grid HorizontalAlignment="Stretch" Margin="5,5,0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -101,11 +106,11 @@
             </Grid>
         </GroupBox>
         <!-- Editor Controls -->
-        <Grid Name="EditorContainer" Grid.Row ="0" />
+        <Grid Name="EditorContainer" Grid.Row="0" />
         <!-- Bottom Button Tray -->
         <GroupBox
             Header="{lex:Loc ui_options}"
-            Grid.Row="2">
+            Grid.Row="1">
             <WrapPanel HorizontalAlignment="Center">
                 <Button
                     x:Name="BtnInstall"
@@ -130,7 +135,7 @@
                 <Button
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"
-                    Content="{lex:Loc ui_reset}"
+                    Content="{lex:Loc ui_switch}"
                     Style="{StaticResource HUDButton}" />
                 <Button
                     x:Name="BtnReportIssue"

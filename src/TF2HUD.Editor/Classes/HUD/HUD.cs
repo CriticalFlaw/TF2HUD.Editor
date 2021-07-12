@@ -13,21 +13,19 @@ namespace HUDEditor.Classes
 {
     public partial class HUD
     {
+        public readonly string[] LayoutOptions;
+        public Dictionary<string, Controls[]> ControlOptions;
         private Grid controls = new();
+        public List<string> DirtyControls;
         private HUDBackground hudBackground;
         private bool isRendered;
         private string[][] layout;
-        public readonly string[] LayoutOptions;
-        public Dictionary<string, Controls[]> ControlOptions;
-        public List<string> DirtyControls;
-
-        public string Name, UpdateUrl, GitHubUrl, IssueUrl, HudsTfUrl, SteamUrl, DiscordUrl;
-        public string Thumbnail, Background, CustomizationsFolder, EnabledFolder;
-        public HUDSettings Settings;
-        public double Opacity;
         public bool Maximize;
 
-        public event EventHandler<Classes.HUDSettingsPreset> PresetChanged;
+        public string Name, UpdateUrl, GitHubUrl, IssueUrl, HudsTfUrl, SteamUrl, DiscordUrl;
+        public double Opacity;
+        public HUDSettings Settings;
+        public string Thumbnail, Background, CustomizationsFolder, EnabledFolder;
 
         /// <summary>
         ///     Initialize the HUD object with values from the JSON schema.
@@ -63,6 +61,8 @@ namespace HUDEditor.Classes
             EnabledFolder = schema.EnabledFolder ?? string.Empty;
         }
 
+        public event EventHandler<HUDSettingsPreset> PresetChanged;
+
         /// <summary>
         ///     Call to download the HUD if a URL has been provided.
         /// </summary>
@@ -72,7 +72,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        /// Test everything except controls and settings. Complex fields require more testing.
+        ///     Test everything except controls and settings. Complex fields require more testing.
         /// </summary>
         /// <param name="hud"></param>
         /// <returns></returns>
@@ -128,7 +128,8 @@ namespace HUDEditor.Classes
 
                         if (value1.Keys.Count != value2.Keys.Count)
                         {
-                            LogChange($"{field.Name}.Keys.Count", value1.Keys.Count.ToString(), value2.Keys.Count.ToString());
+                            LogChange($"{field.Name}.Keys.Count", value1.Keys.Count.ToString(),
+                                value2.Keys.Count.ToString());
                             return false;
                         }
 
@@ -143,7 +144,8 @@ namespace HUDEditor.Classes
                         {
                             if (value1[key].Length != value2[key].Length)
                             {
-                                LogChange($"{field.Name}[\"{key}\"].Length", value1[key].Length.ToString(), value2[key].Length.ToString());
+                                LogChange($"{field.Name}[\"{key}\"].Length", value1[key].Length.ToString(),
+                                    value2[key].Length.ToString());
                                 return false;
                             }
 
@@ -160,7 +162,8 @@ namespace HUDEditor.Classes
                     }
                     else if (field.FieldType == typeof(JObject))
                     {
-                        if (!CompareFiles((JObject)field.GetValue(obj1), (JObject)field.GetValue(obj2), $"{field.Name}.Files => ")) return false;
+                        if (!CompareFiles((JObject) field.GetValue(obj1), (JObject) field.GetValue(obj2),
+                            $"{field.Name}.Files => ")) return false;
                     }
                     else if (field.FieldType == typeof(Option[]))
                     {
@@ -194,6 +197,7 @@ namespace HUDEditor.Classes
                         return false;
                     }
                 }
+
                 return true;
             }
 
@@ -218,7 +222,8 @@ namespace HUDEditor.Classes
                 foreach (var x in obj1)
                     if (obj1[x.Key].Type == JTokenType.Object && obj2[x.Key].Type == JTokenType.Object)
                     {
-                        if (!CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(), $"{path}/{x.Key}")) return false;
+                        if (!CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(),
+                            $"{path}/{x.Key}")) return false;
                     }
                     else if (x.Value.Type == JTokenType.Array && obj2[x.Key].Type == JTokenType.Array)
                     {

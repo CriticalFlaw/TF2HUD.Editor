@@ -118,114 +118,117 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="error_app_directory" xml:space="preserve">
-    <value>Un répertoire tf/custom doit être défini pour utiliser cet éditeur.</value>
+    <value>A tf/custom directory must be set in order to use this editor.</value>
   </data>
-  <data name="error_app_install" xml:space="preserve">
-    <value>Une erreur s'est produite lors de l'installation de {0}.</value>
+  <data name="error_hud_install" xml:space="preserve">
+    <value>An error occurred while installing {0}.</value>
   </data>
-  <data name="error_app_uninstall" xml:space="preserve">
-    <value>Une erreur s'est produite lors de la désinstallation de {0}.</value>
+  <data name="error_hud_missing" xml:space="preserve">
+    <value>Cannot find HUD {0}!</value>
+  </data>
+  <data name="error_hud_uninstall" xml:space="preserve">
+    <value>An error occurred while uninstalling {0}.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
-    <value>Une erreur s'est produite lors du basculement des modèles de vue transparents.</value>
+    <value>An error occurred while toggling transparent viewmodels.</value>
+  </data>
+  <data name="error_unknown_extension" xml:space="preserve">
+    <value>Could not recognize file extension '{0}'.</value>
+  </data>
+  <data name="header_restart_required" xml:space="preserve">
+    <value>Restart Required.</value>
+  </data>
+  <data name="header_update_none" xml:space="preserve">
+    <value>No Updates Found.</value>
   </data>
   <data name="info_game_restart" xml:space="preserve">
-    <value>Les modifications suivantes nécessitent le redémarrage du jeu :</value>
+    <value>Following changes require the game to be restarted:</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
-    <value>Impossible de continuer car Team Fortress 2 est toujours en cours d'exécution. Veuillez fermer le jeu puis réessayer.</value>
-  </data>
-  <data name="info_header_no_updates" xml:space="preserve">
-    <value>Aucune mise à jour trouvée.</value>
-  </data>
-  <data name="info_header_restart_required" xml:space="preserve">
-    <value>Redémarrage requis.</value>
+    <value>Unable to continue because Team Fortress 2 is still running. Please close the game then try again.</value>
   </data>
   <data name="info_hud_backup" xml:space="preserve">
-    <value>Une installation {0} existante a été trouvée. Pour éviter les conflits, une sauvegarde a été créée.</value>
-  </data>
-  <data name="info_hud_install" xml:space="preserve">
-    <value>{0} a été installé avec succès.</value>
+    <value>An existing {0} installation was found. To avoid conflicts, a backup has been created.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
-    <value>Voulez-vous vraiment réinitialiser toutes les options de personnalisation à leurs valeurs par défaut ?</value>
+    <value>Are you sure you want to reset all customizations back to their defaults?</value>
   </data>
-  <data name="info_hud_uninstall" xml:space="preserve">
-    <value>{0} a été désinstallé avec succès.</value>
+  <data name="info_hud_update" xml:space="preserve">
+    <value>There's a new HUD schema update available. Would you like to restart now to apply the new changes?</value>
+  </data>
+  <data name="info_hud_update_none" xml:space="preserve">
+    <value>You have the latest HUD schema versions. Please check back later.</value>
   </data>
   <data name="info_path_browser" xml:space="preserve">
-    <value>Veuillez sélectionner votre répertoire tf/custom. Si un répertoire valide n'est pas fourni, plusieurs options d'éditeur ne seront pas disponibles.</value>
+    <value>Select your tf/custom directory. If an invalid directory is provided, multiple options will be unavailable.</value>
   </data>
   <data name="info_path_invalid" xml:space="preserve">
-    <value>Soit vous avez sélectionné le même répertoire, soit votre sélection ne s'est pas terminée par tf/custom. Veuillez réessayer.</value>
-  </data>
-  <data name="info_path_valid" xml:space="preserve">
-    <value>Un nouveau répertoire tf/custom a été défini. Vous pouvez continuer à utiliser l'éditeur.</value>
-  </data>
-  <data name="info_schema_nothing" xml:space="preserve">
-    <value>Aucune nouvelle mise à jour du schéma HUD. Veuillez vérifier plus tard.</value>
-  </data>
-  <data name="info_schema_update" xml:space="preserve">
-    <value>Une nouvelle mise à jour du schéma HUD est disponible. Souhaitez-vous redémarrer maintenant pour appliquer les nouvelles modifications ?</value>
+    <value>You either selected the same directory or your selection did not end with tf/custom. Please try again.</value>
   </data>
   <data name="status_applied" xml:space="preserve">
-    <value>Paramètres appliqués à {0}.</value>
+    <value>{0} customizations applied at {1}.</value>
   </data>
-  <data name="status_install" xml:space="preserve">
-    <value>Installation terminée à {0}.</value>
+  <data name="status_installed" xml:space="preserve">
+    <value>{0} is installed!</value>
   </data>
-  <data name="status_isInstalled" xml:space="preserve">
-    <value>{0} est installé !</value>
+  <data name="status_installed_not" xml:space="preserve">
+    <value>{0} is not installed!</value>
   </data>
-  <data name="status_isNotInstalled" xml:space="preserve">
-    <value>{0} n'est pas installé !</value>
+  <data name="status_installed_now" xml:space="preserve">
+    <value>{0} installation finished at {1}.</value>
   </data>
   <data name="status_pathNotSet" xml:space="preserve">
-    <value>Le répertoire tf/custom n'est pas défini !</value>
+    <value>tf/custom directory is not set!</value>
   </data>
   <data name="status_reset" xml:space="preserve">
-    <value>Réinitialisation des paramètres à {0}.</value>
+    <value>{0} customizations reset at {1}.</value>
   </data>
   <data name="tooltip_docs" xml:space="preserve">
-    <value>Lire la documentation</value>
+    <value>Read the project documentation.</value>
   </data>
   <data name="tooltip_path" xml:space="preserve">
-    <value>Changer le chemin du HUD</value>
+    <value>Change the tf/custom directory.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Actualiser les schémas HUD</value>
+    <value>Check for HUD schema updates.</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
-    <value>Signaler un problème</value>
+    <value>Report an Issue</value>
   </data>
   <data name="ui_apply" xml:space="preserve">
-    <value>Appliquer les modifications</value>
+    <value>Apply Changes</value>
   </data>
-  <data name="ui_directrory" xml:space="preserve">
-    <value>Définir le répertoire</value>
+  <data name="ui_directory" xml:space="preserve">
+    <value>Set Directory</value>
   </data>
   <data name="ui_install" xml:space="preserve">
-    <value>Installer</value>
+    <value>Install</value>
+  </data>
+  <data name="ui_options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="ui_refresh" xml:space="preserve">
+    <value>Refresh</value>
   </data>
   <data name="ui_reinstall" xml:space="preserve">
-    <value>Réinstaller</value>
+    <value>Reinstall</value>
   </data>
   <data name="ui_reset" xml:space="preserve">
-    <value>Réinitialiser par défaut</value>
+    <value>Reset to Default</value>
   </data>
   <data name="ui_search" xml:space="preserve">
-    <value>Rechercher:</value>
+    <value>Search:</value>
   </data>
-  <data name="ui_select_hud" xml:space="preserve">
-    <value>Sélectionnez un HUD</value>
+  <data name="ui_select" xml:space="preserve">
+    <value>Select a HUD</value>
   </data>
   <data name="ui_switch" xml:space="preserve">
-    <value>Changer de HUD</value>
+    <value>Switch HUDs</value>
   </data>
   <data name="ui_title" xml:space="preserve">
-    <value>Éditeur TF2 HUD</value>
+    <value>TF2 HUD Editor</value>
   </data>
   <data name="ui_uninstall" xml:space="preserve">
-    <value>Désinstaller</value>
+    <value>Uninstall</value>
   </data>
 </root>

@@ -120,13 +120,13 @@
   <data name="error_app_directory" xml:space="preserve">
     <value>Для использования этого редактора необходимо установить каталог tf/custom.</value>
   </data>
-  <data name="error_app_install" xml:space="preserve">
+  <data name="error_hud_install" xml:space="preserve">
     <value>Произошла ошибка при установке {0}.</value>
   </data>
-  <data name="error_app_uninstall" xml:space="preserve">
+  <data name="error_hud_uninstall" xml:space="preserve">
     <value>Произошла ошибка при удалении {0}.</value>
   </data>
-  <data name="error_hud_not_found" xml:space="preserve">
+  <data name="error_hud_missing" xml:space="preserve">
     <value>Невозможно найти интерфейс {0}!</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
@@ -141,23 +141,17 @@
   <data name="info_game_running" xml:space="preserve">
     <value>Невозможно продолжить, потому что Team Fortress 2 всё ещё запущен. Пожалуйста, закройте игру и повторите попытку.</value>
   </data>
-  <data name="info_header_no_updates" xml:space="preserve">
+  <data name="header_update_none" xml:space="preserve">
     <value>Обновления не найдены.</value>
   </data>
-  <data name="info_header_restart_required" xml:space="preserve">
+  <data name="header_restart_required" xml:space="preserve">
     <value>Требуется перезапуск.</value>
   </data>
   <data name="info_hud_backup" xml:space="preserve">
     <value>Обнаружена существующая установка {0}. Чтобы избежать конфликтов, была создана резервная копия.</value>
   </data>
-  <data name="info_hud_install" xml:space="preserve">
-    <value>{0} успешно установлен.</value>
-  </data>
   <data name="info_hud_reset" xml:space="preserve">
     <value>Вы уверены, что хотите вернуть все параметры настройки к значениям по умолчанию?</value>
-  </data>
-  <data name="info_hud_uninstall" xml:space="preserve">
-    <value>{0} успешно удалён.</value>
   </data>
   <data name="info_path_browser" xml:space="preserve">
     <value>Пожалуйста, выберите каталог tf/custom. Если не указан правильный каталог, несколько вариантов редактора будут недоступны.</value>
@@ -165,50 +159,44 @@
   <data name="info_path_invalid" xml:space="preserve">
     <value>Вы либо выбрали один и тот же каталог, либо ваш выбор не закончился на tf/custom. Пожалуйста, попробуйте ещё раз.</value>
   </data>
-  <data name="info_path_valid" xml:space="preserve">
-    <value>Был задан новый каталог tf/custom. Вы можете продолжать использовать редактор.</value>
-  </data>
-  <data name="info_schema_nothing" xml:space="preserve">
+  <data name="info_hud_update_none" xml:space="preserve">
     <value>Никаких новых обновлений схемы интерфейса. Пожалуйста, попробуйте позже.</value>
   </data>
-  <data name="info_schema_update" xml:space="preserve">
+  <data name="info_hud_update" xml:space="preserve">
     <value>Доступно новое обновление схемы интерфейса. Хотите ли вы перезагрузиться сейчас, чтобы применить новые изменения?</value>
   </data>
   <data name="status_applied" xml:space="preserve">
-    <value>Настройки, применяемые в {0}.</value>
+    <value>Настройки {0}, применяемые в {1}.</value>
   </data>
-  <data name="status_install" xml:space="preserve">
-    <value>Установка завершена в {0}.</value>
+  <data name="status_installed_now" xml:space="preserve">
+    <value>Установка {0} завершена в {1}.</value>
   </data>
-  <data name="status_isInstalled" xml:space="preserve">
+  <data name="status_installed" xml:space="preserve">
     <value>{0} установлен!</value>
   </data>
-  <data name="status_isNotInstalled" xml:space="preserve">
+  <data name="status_installed_not" xml:space="preserve">
     <value>{0} не установлен!</value>
   </data>
   <data name="status_pathNotSet" xml:space="preserve">
     <value>Каталог tf/custom не установлен!</value>
   </data>
   <data name="status_reset" xml:space="preserve">
-    <value>Сброс настроек в {0}.</value>
+    <value>Сброс настроек {0} в {1}.</value>
   </data>
   <data name="tooltip_docs" xml:space="preserve">
-    <value>Прочитать документацию</value>
+    <value>Прочитать документацию.</value>
   </data>
   <data name="tooltip_path" xml:space="preserve">
-    <value>Изменить путь интерфейса</value>
+    <value>Изменить путь интерфейса.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Обновить схемы интерфейса</value>
+    <value>Обновить схемы интерфейса.</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
-    <value>Сообщить об ошибке</value>
+    <value>Сообщить об ошибке.</value>
   </data>
   <data name="ui_apply" xml:space="preserve">
     <value>Применить изменения</value>
-  </data>
-  <data name="ui_directrory" xml:space="preserve">
-    <value>Установить каталог</value>
   </data>
   <data name="ui_install" xml:space="preserve">
     <value>Установить</value>
@@ -216,7 +204,7 @@
   <data name="ui_options" xml:space="preserve">
     <value>Настройки</value>
   </data>
-  <data name="ui_path" xml:space="preserve">
+  <data name="ui_directory" xml:space="preserve">
     <value>Установить путь</value>
   </data>
   <data name="ui_refresh" xml:space="preserve">
@@ -231,7 +219,7 @@
   <data name="ui_search" xml:space="preserve">
     <value>Поиск:</value>
   </data>
-  <data name="ui_select_hud" xml:space="preserve">
+  <data name="ui_select" xml:space="preserve">
     <value>Выбор интерф.</value>
   </data>
   <data name="ui_switch" xml:space="preserve">
