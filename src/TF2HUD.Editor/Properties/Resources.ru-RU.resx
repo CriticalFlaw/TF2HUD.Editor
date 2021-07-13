@@ -148,10 +148,10 @@
     <value>Требуется перезапуск.</value>
   </data>
   <data name="info_hud_backup" xml:space="preserve">
-    <value>Обнаружена существующая установка {0}. Чтобы избежать конфликтов, была создана резервная копия.</value>
+    <value>Найдена существующая установка {0}. Чтобы избежать конфликтов, была создана резервная копия.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
-    <value>Вы уверены, что хотите вернуть все параметры настройки к значениям по умолчанию?</value>
+    <value>Вы уверены, что хотите вернуть все настройки к значениям по умолчанию?</value>
   </data>
   <data name="info_path_browser" xml:space="preserve">
     <value>Пожалуйста, выберите каталог tf/custom. Если не указан правильный каталог, несколько вариантов редактора будут недоступны.</value>
@@ -160,7 +160,7 @@
     <value>Вы либо выбрали один и тот же каталог, либо ваш выбор не закончился на tf/custom. Пожалуйста, попробуйте ещё раз.</value>
   </data>
   <data name="info_hud_update_none" xml:space="preserve">
-    <value>Никаких новых обновлений схемы интерфейса. Пожалуйста, попробуйте позже.</value>
+    <value>У вас последние версии схемы интерфейса. Пожалуйста, проверьте позже.</value>
   </data>
   <data name="info_hud_update" xml:space="preserve">
     <value>Доступно новое обновление схемы интерфейса. Хотите ли вы перезагрузиться сейчас, чтобы применить новые изменения?</value>
@@ -181,13 +181,13 @@
     <value>Каталог tf/custom не установлен!</value>
   </data>
   <data name="status_reset" xml:space="preserve">
-    <value>Сброс настроек {0} в {1}.</value>
+    <value>Настройки {0} обнуляются в {1}.</value>
   </data>
   <data name="tooltip_docs" xml:space="preserve">
-    <value>Прочитать документацию.</value>
+    <value>Прочитайте документацию проекта.</value>
   </data>
   <data name="tooltip_path" xml:space="preserve">
-    <value>Изменить путь интерфейса.</value>
+    <value>Проверка обновлений схемы интерфейса.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
     <value>Обновить схемы интерфейса.</value>
