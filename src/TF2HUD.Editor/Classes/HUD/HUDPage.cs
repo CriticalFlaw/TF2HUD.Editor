@@ -49,7 +49,8 @@ namespace HUDEditor.Classes
             var presetsContainer = new WrapPanel
             {
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                Margin = new Thickness(0, 10, 0, 5)
             };
 
             foreach (var preset in Enum.GetValues<HUDSettingsPreset>())
@@ -62,7 +63,7 @@ namespace HUDEditor.Classes
                     FontSize = 25,
                     Width = 35,
                     Height = 35,
-                    Margin = new Thickness(1)
+                    Margin = new Thickness(1, 0, 1, 0)
                 };
 
                 if (Settings.Preset == preset)

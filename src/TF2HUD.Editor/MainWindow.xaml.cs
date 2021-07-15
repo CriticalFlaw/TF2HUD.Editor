@@ -582,7 +582,7 @@ namespace HUDEditor
         {
             if (btnLocalizeFR.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
-            else if (btnLocalizeRU.IsChecked == true) 
+            else if (btnLocalizeRU.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
             else
                 LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
