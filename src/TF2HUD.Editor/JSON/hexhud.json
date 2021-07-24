@@ -818,7 +818,7 @@
             "Value": "2",
             "Files": {
               "customizations/chargemeter.res": {
-                "#base": "../resource/ui/hudmediccharge_metermid.res"
+                "#base": "../resource/ui/hudmediccharge_meterbottom.res"
               }
             }
           }
