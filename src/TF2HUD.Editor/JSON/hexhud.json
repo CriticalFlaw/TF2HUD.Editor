@@ -788,6 +788,67 @@
             }
           }
         }
+      },
+      {
+        "Name": "hex_toggle_chargemeter_style",
+        "Label": "Charge Meter",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "Files": {
+              "customizations/chargemeter.res": {
+                "#base": "../resource/ui/hudmediccharge_meteroff.res"
+              }
+            }
+          },
+          {
+            "Label": "Centered",
+            "Value": "1",
+            "Files": {
+              "customizations/chargemeter.res": {
+                "#base": "../resource/ui/hudmediccharge_metermid.res"
+              }
+            }
+          },
+          {
+            "Label": "Bottom",
+            "Value": "2",
+            "Files": {
+              "customizations/chargemeter.res": {
+                "#base": "../resource/ui/hudmediccharge_metermid.res"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Name": "hex_toggle_resisticon_style",
+        "Label": "Resist Icon",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "Right Side",
+            "Value": "0",
+            "Files": {
+              "customizations/resisticon.res": {
+                "#base": "../resource/ui/hudmediccharge_resistright.res"
+              }
+            }
+          },
+          {
+            "Label": "Centered",
+            "Value": "1",
+            "Files": {
+              "customizations/resisticon.res": {
+                "#base": "../resource/ui/hudmediccharge_resistcenter.res"
+              }
+            }
+          }
+        ]
       }
     ]
   }
