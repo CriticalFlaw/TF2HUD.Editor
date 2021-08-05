@@ -1,0 +1,54 @@
+[
+  {
+    "Name": "Sunset HUD",
+    "Description": "A very BRIGHT TF2 Hud based on material design.",
+    "Author": "Hypnotize",
+    "Thumbnail": "https://huds.tf/site/xthreads_attach.php/2462_1566851473_e5331cf2/40d295bb25f79295f73be50beb68f1b1/1VRpU68.png",
+    "Links": {
+      "Update": "https://github.com/Hypnootize/Sunset-Hud/archive/refs/heads/master.zip",
+      "GitHub": "https://github.com/Hypnootize/Sunset-Hud",
+      "HudsTF": "https://huds.tf/site/s-Sunset-Hud"
+    },
+    "Screenshots": [
+      "https://huds.tf/site/xthreads_attach.php/2457_1618067446_501905ac/60447465caec7aa59c8bb7dbf64bd5af/DxwatTd.jpg",
+      "https://huds.tf/site/xthreads_attach.php/2459_1615654860_bc98b40e/6846269251203341da2ed6a3029a1c8e/HMzOdFm.jpg",
+      "https://huds.tf/site/xthreads_attach.php/2460_1615654860_73714c2f/b996caa102baddcae52cb17cec12e589/scqbfSk.jpg",
+      "https://huds.tf/site/xthreads_attach.php/2461_1615654860_be08055d/a01e9c8c965019372dcf5fc4f24393c8/ckyRcuh.png"
+    ]
+  },
+  {
+    "Name": "ahud",
+    "Description": "A custom HUD for Team Fortress 2. Inspired from various HUDs, including, but not limited to, rayshud, yahud, and omphud.",
+    "Author": "Nokk",
+    "Thumbnail": "https://huds.tf/site/xthreads_attach.php/35_1605074316_8287ffb1/b0305f84d3a470e4a31d0d4863fcc94b/ahud.png",
+    "Links": {
+      "Update": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip",
+      "GitHub": "https://github.com/n0kk/ahud",
+      "HudsTF": "https://huds.tf/site/s-ahud"
+    },
+    "Screenshots": [
+      "https://huds.tf/site/xthreads_attach.php/2612_1605074316_9ec56435/2899c0edb205aaaf22432bd7ea3d3944/Kx70I3P.jpg",
+      "https://huds.tf/site/xthreads_attach.php/2613_1605074316_93a76d66/94bee2d8a943e8cd1c70686270445d18/WgR6jeE.jpg",
+      "https://huds.tf/site/xthreads_attach.php/2614_1605074316_9f5a9f10/46e49e50425d7b968b240e30ddeeca0a/cigUnUo.jpg",
+      "https://huds.tf/site/xthreads_attach.php/3256_1605074316_078a5eff/0839958068085ca1cb6957b3fad92c4b/xya3Hkg.jpg"
+    ]
+  },
+  {
+    "Name": "7HUD",
+    "Description": "Originally based off an old yA version. Hope you guys like it. Updates are typically delayed because I'm a full-time student, but I love TF2 and can't live without this HUD anymore, so you can always expect an update at some point. You should grab 4Plug to take full advantage of the customization of this hud.",
+    "Author": "sevin",
+    "Thumbnail": "https://huds.tf/site/xthreads_attach.php/287_1517885994_ad8b68b6/94d1eb4fd3ad5ab90f998dde1870be18/0W4Jl83.jpg",
+    "Links": {
+      "Update": "https://github.com/Sevin7/7HUD/archive/refs/heads/master.zip",
+      "GitHub": "https://github.com/Sevin7/7HUD",
+      "HudsTF": "https://huds.tf/site/s-7HUD",
+      "Steam": "https://steamcommunity.com/groups/7HUD"
+    },
+    "Screenshots": [
+      "https://huds.tf/site/xthreads_attach.php/288_1599103773_83aafed7/e8125e88da73575361be0c1171bcec54/WJlr2wB.jpg",
+      "https://huds.tf/site/xthreads_attach.php/289_1572025961_2e90b695/270d1891bba48cc866b3e3d725b46910/4LYvkSr.jpg",
+      "https://huds.tf/site/xthreads_attach.php/291_1594151434_8dc43714/87a88f81b533c6b412e2f0d0d5b33399/RUfMUYg.jpg",
+      "https://huds.tf/site/xthreads_attach.php/292_1472313696_2e4425ed/b7e8038d2fa4de966dc5e981b07046f5/irMjzu8.jpg"
+    ]
+  }
+]
