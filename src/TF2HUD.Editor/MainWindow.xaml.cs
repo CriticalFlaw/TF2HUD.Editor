@@ -153,7 +153,7 @@ namespace HUDEditor
                 File.Delete(Directory.GetCurrentDirectory() + "\\temp.zip");
 
             // If the HUD Selection is visible, disable most control buttons.
-            if (GbSelectHud.IsVisible)
+            if (AppInfo.IsVisible)
             {
                 LblStatus.Content = string.Empty;
                 BtnInstall.IsEnabled = false;
@@ -176,12 +176,14 @@ namespace HUDEditor
                 BtnInstall.IsEnabled = true;
                 BtnInstall.Content = Utilities.GetLocalizedString(isInstalled ? "ui_reinstall" : "ui_install");
                 BtnUninstall.IsEnabled = isInstalled;
-                BtnSave.IsEnabled = isInstalled;
-                BtnReset.IsEnabled = isInstalled;
-                BtnSwitch.IsEnabled = true;
+                BtnSave.IsEnabled = isInstalled && !HudInfo.IsVisible; 
+                BtnReset.IsEnabled = isInstalled && !HudInfo.IsVisible;
+                BtnSwitch.IsEnabled = !HudInfo.IsVisible;
                 LblStatus.Content = string.Format(isInstalled
                     ? Properties.Resources.status_installed
                     : Properties.Resources.status_installed_not, HudSelection);
+                HudStatus.Content = LblStatus.Content;
+                HudStatus.Foreground = isInstalled ? new SolidColorBrush(Colors.GreenYellow) : new SolidColorBrush(Colors.Red);
             }
             else
             {
@@ -191,7 +193,7 @@ namespace HUDEditor
                 BtnUninstall.IsEnabled = false;
                 BtnSave.IsEnabled = false;
                 BtnReset.IsEnabled = false;
-                BtnSwitch.IsEnabled = true;
+                BtnSwitch.IsEnabled = !HudInfo.IsVisible;
                 LblStatus.Content = Properties.Resources.status_pathNotSet;
             }
 
@@ -223,24 +225,66 @@ namespace HUDEditor
                 var selection = Json.GetHUDByName(Settings.Default.hud_selected);
 
                 // Display a list of available HUDs if a HUD selection has not been set.
-                GbSelectHud.Visibility = selection is null ? Visibility.Visible : Visibility.Hidden;
-                MainToolbar.Visibility = selection is null ? Visibility.Hidden : Visibility.Visible;
+                GbSelectHud.Visibility = Visibility.Visible;
+                MainToolbar.Visibility = Visibility.Hidden;
                 EditorContainer.Children.Clear();
 
                 // If there's a HUD selection, generate the controls for that HUD's page.
                 if (selection is null) return;
                 Logger.Info($"Changing page view to: {selection.Name}.");
-                EditorContainer.Children.Add(selection.GetControls());
 
-                selection.PresetChanged += (sender, Preset) =>
+                if (selection.Customizable)
                 {
-                    EditorContainer.Children.Clear();
-                    EditorContainer.Children.Add(selection.GetControls());
-                };
+                    GbSelectHud.Visibility = Visibility.Hidden;
+                    MainToolbar.Visibility = Visibility.Visible;
 
-                // Maximize the application window if a given HUD schema requests it.
-                Application.Current.MainWindow.WindowState =
-                    selection.Maximize ? WindowState.Maximized : WindowState.Normal;
+                    EditorContainer.Children.Add(selection.GetControls());
+
+                    selection.PresetChanged += (_, _) =>
+                    {
+                        EditorContainer.Children.Clear();
+                        EditorContainer.Children.Add(selection.GetControls());
+                    };
+
+                    // Maximize the application window if a given HUD schema requests it.
+                    Application.Current.MainWindow.WindowState = selection.Maximize ? WindowState.Maximized : WindowState.Normal;
+                }
+                else
+                {
+                    AppInfo.Visibility = Visibility.Hidden;
+                    HudInfo.Visibility = Visibility.Visible;
+
+                    HudName.Content = selection.Name;
+                    HudAuthor.Text = string.Format(Properties.Resources.ui_author, selection.Author);
+                    HudDesc.Text = selection.Description;
+
+                    int rowIndex = 0, columnIndex = 0;
+                    HudScreenshots.Children.Clear();
+                    foreach (var x in selection.Screenshots)
+                    {
+                        var screenshot = new Image
+                        {
+                            Source = new BitmapImage(new Uri(x))
+                        };
+
+                        if (columnIndex > 1)
+                        {
+                            rowIndex++;
+                            columnIndex = 0;
+                        }
+
+                        Grid.SetRow(screenshot, rowIndex);
+                        Grid.SetColumn(screenshot, columnIndex);
+
+                        columnIndex++;
+                        HudScreenshots.Children.Add(screenshot);
+                    }
+
+                    BtnGitHub.IsEnabled = !string.IsNullOrWhiteSpace(selection.GitHubUrl);
+                    BtnHuds.IsEnabled = !string.IsNullOrWhiteSpace(selection.HudsTfUrl);
+                    BtnDiscord.IsEnabled = !string.IsNullOrWhiteSpace(selection.DiscordUrl);
+                    BtnSteam.IsEnabled = !string.IsNullOrWhiteSpace(selection.SteamUrl);
+                }
 
                 // Disable the social media buttons if they don't have a link.
                 BtnGitHub.IsEnabled = !string.IsNullOrWhiteSpace(selection.GitHubUrl);
@@ -260,15 +304,11 @@ namespace HUDEditor
         private void SetPageBackground()
         {
             // Reset the application to the default background color.
-            if (GbSelectHud.IsVisible)
-            {
-                MainGrid.Background = (Brush) new BrushConverter().ConvertFromString("#2B2724");
-                return;
-            }
+            MainGrid.Background = (Brush)new BrushConverter().ConvertFromString("#2B2724");
 
             // If a HUD is selected, retrieve the set Background value if available.
             var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-            if (selection?.Background == null) return;
+            if (selection?.Background == null || AppInfo.IsVisible) return;
 
             Logger.Info($"Changing background to: {selection.Background}");
             if (selection.Background.StartsWith("http"))
@@ -377,15 +417,15 @@ namespace HUDEditor
                         if (string.IsNullOrWhiteSpace(HudSelection)) return;
                         var selection = Json.GetHUDByName(Settings.Default.hud_selected);
                         selection.Settings.SaveSettings();
+                        if (!selection.Customizable) return;
                         EditorContainer.Children.Clear();
                         EditorContainer.Children.Add(selection.GetControls());
+                        selection.ApplyCustomizations();
                     });
                 };
                 worker.RunWorkerCompleted += (_, _) =>
                 {
                     LblStatus.Content = string.Format(Properties.Resources.status_installed_now, Settings.Default.hud_selected, DateTime.Now);
-                    Json.GetHUDByName(Settings.Default.hud_selected).ApplyCustomizations();
-                    LblStatus.Content = string.Format(Properties.Resources.status_applied, Settings.Default.hud_selected, DateTime.Now);
                     SetPageControls();
                 };
                 worker.RunWorkerAsync();
@@ -478,6 +518,8 @@ namespace HUDEditor
         {
             Logger.Info("Changing page view to: main menu.");
             GbSelectHud.Visibility = Visibility.Visible;
+            AppInfo.Visibility = Visibility.Visible;
+            HudInfo.Visibility = Visibility.Hidden;
             EditorContainer.Children.Clear();
             SetPageControls();
             SetPageBackground();

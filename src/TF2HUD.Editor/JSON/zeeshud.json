@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
-  "Thumbnail": "https://huds.tf/site/xthreads_attach.php/3403_1622089359_0ae9f236/6bdb991d2d780d34bd92ccafeb0ba092/zeeshudlogo_card.jpg",
+  "Thumbnail": "https://huds.tf/site/xthreads_attach.php/3403_1627843846_e18896e8/26d23f685f415d0fa5181c80aba3fdc6/zeeshudlogo_card.jpg",
   "Background": "https://i.imgur.com/U4m1mOx.png",
   "Layout": [
     "0 0 4 4 1 1",

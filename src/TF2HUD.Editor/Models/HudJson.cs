@@ -16,6 +16,10 @@ namespace HUDEditor.Models
         [JsonPropertyName("Maximize")] public bool Maximize;
         [JsonPropertyName("Opacity")] public double Opacity = 0.5;
         [JsonPropertyName("Thumbnail")] public string Thumbnail;
+        [JsonPropertyName("Name")] public string Name;
+        [JsonPropertyName("Description")] public string Description;
+        [JsonPropertyName("Author")] public string Author;
+        [JsonPropertyName("Screenshots")] public string[] Screenshots;
     }
 
     public class Links

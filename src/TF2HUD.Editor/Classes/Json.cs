@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using HUDEditor.Models;
 using HUDEditor.Properties;
 using Newtonsoft.Json;
@@ -31,7 +32,10 @@ namespace HUDEditor.Classes
                 var json = new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd();
 
                 // Add the HUD object to the list.
-                hudList.Add(new HUD(hudName, JsonConvert.DeserializeObject<HudJson>(json)));
+                if (hudName.Equals("shared"))
+                    hudList.AddRange(JsonConvert.DeserializeObject<List<HudJson>>(json).Select(hud => new HUD(hudName, hud, false)));
+                else
+                    hudList.Add(new HUD(hudName, JsonConvert.DeserializeObject<HudJson>(json)));
             }
 
             HUDList = hudList.ToArray();
@@ -50,6 +54,7 @@ namespace HUDEditor.Classes
         /// <param name="name">Name of the HUD the user wants to view.</param>
         public HUD GetHUDByName(string name)
         {
+            if (name.Equals("shared")) return HUDList[0];
             foreach (var hud in HUDList)
                 if (string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase))
                     return hud;

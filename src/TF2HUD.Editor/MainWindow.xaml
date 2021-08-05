@@ -67,12 +67,12 @@
                     <TextBox Name="SearchBox" TextChanged="TbSearchBox_TextChanged" Foreground="WhiteSmoke"
                             Background="#2B2724" BorderThickness="1" VerticalContentAlignment="Center"
                             Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1" />
-                    <ScrollViewer Background="#2B2724" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="0,10,0,0">
+                    <ScrollViewer Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="0,10,0,0">
                         <WrapPanel x:Name="GridSelectHud" HorizontalAlignment="Center" />
                     </ScrollViewer>
                 </Grid>
                 <!-- App Info and Changelog -->
-                <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0">
+                <ScrollViewer x:Name="AppInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="Hidden">
                     <StackPanel Margin="20">
                         <Image Source="Resources/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Center">
@@ -99,6 +99,26 @@
                             <LineBreak />
                             - <Run Foreground="#FF015B" Text="zeeshud" />: Updated to the latest version.
                         </TextBlock>
+                    </StackPanel>
+                </ScrollViewer>
+                <!-- HUD Info and Download -->
+                <ScrollViewer x:Name="HudInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="Visible">
+                    <StackPanel Margin="20">
+                        <Label x:Name="HudName" Content="HUD" Style="{StaticResource HeaderText}"/>
+                        <TextBlock x:Name="HudAuthor" Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center">HUD Developer</TextBlock>
+                        <TextBlock x:Name="HudDesc" Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" Margin="0,15,0,0" >HUD Description</TextBlock>
+                        <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
+                        <Grid x:Name="HudScreenshots">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="5*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5*" />
+                                <RowDefinition Height="5*" />
+                            </Grid.RowDefinitions>
+                        </Grid>
+                        <Label x:Name="HudStatus" Content="HUD" Style="{StaticResource HeaderText}" FontSize="20px" Margin="0,10,0,0"/>
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

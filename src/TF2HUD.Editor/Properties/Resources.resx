@@ -198,6 +198,12 @@
   <data name="ui_apply" xml:space="preserve">
     <value>Apply Changes</value>
   </data>
+  <data name="ui_author" xml:space="preserve">
+    <value>Created by: {0}</value>
+  </data>
+  <data name="ui_back" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="ui_directory" xml:space="preserve">
     <value>Set Directory</value>
   </data>

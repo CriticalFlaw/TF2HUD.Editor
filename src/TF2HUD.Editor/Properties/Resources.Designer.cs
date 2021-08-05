@@ -304,6 +304,24 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created by: {0}.
+        /// </summary>
+        public static string ui_author {
+            get {
+                return ResourceManager.GetString("ui_author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back.
+        /// </summary>
+        public static string ui_back {
+            get {
+                return ResourceManager.GetString("ui_back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set Directory.
         /// </summary>
         public static string ui_directory {

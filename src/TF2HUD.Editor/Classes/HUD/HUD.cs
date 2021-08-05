@@ -20,22 +20,23 @@ namespace HUDEditor.Classes
         private HUDBackground hudBackground;
         private bool isRendered;
         private string[][] layout;
-        public bool Maximize;
+        public bool Maximize, Customizable;
 
-        public string Name, UpdateUrl, GitHubUrl, IssueUrl, HudsTfUrl, SteamUrl, DiscordUrl;
+        public string Name, Description, Author, UpdateUrl, GitHubUrl, HudsTfUrl, SteamUrl, DiscordUrl;
         public double Opacity;
         public HUDSettings Settings;
         public string Thumbnail, Background, CustomizationsFolder, EnabledFolder;
+        public string[] Screenshots;
 
         /// <summary>
         ///     Initialize the HUD object with values from the JSON schema.
         /// </summary>
         /// <param name="name">Name of the HUD object.</param>
         /// <param name="schema">Contents of the HUD's schema file.</param>
-        public HUD(string name, HudJson schema)
+        public HUD(string name, HudJson schema, bool isCustomizable = true)
         {
             // Basic Schema Properties.
-            Name = name;
+            Name = schema.Name ?? name;
             Settings = new HUDSettings(Name);
             Opacity = schema.Opacity;
             Maximize = schema.Maximize;
@@ -44,6 +45,10 @@ namespace HUDEditor.Classes
             DirtyControls = new List<string>();
             Thumbnail = schema.Thumbnail;
             Background = schema.Background;
+            Description = schema.Description;
+            Author = schema.Author;
+            Customizable = isCustomizable;
+            Screenshots = schema.Screenshots;
 
             // Download and Media Links.
             if (schema.Links is not null)
