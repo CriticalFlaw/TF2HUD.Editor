@@ -1,6 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "Zeesastrous",
   "Thumbnail": "https://huds.tf/site/xthreads_attach.php/3403_1627843846_e18896e8/26d23f685f415d0fa5181c80aba3fdc6/zeeshudlogo_card.jpg",
+  "Screenshots": [
+    "https://huds.tf/site/xthreads_attach.php/3408_1614729681_a0a4f030/12fca271f4d402d684f995aa8479a5f1/main_menu.png",
+    "https://huds.tf/site/xthreads_attach.php/3404_1618475363_46b1a661/0f9a219d6fd0b181f60650828ea40367/main_hud.png",
+    "https://huds.tf/site/xthreads_attach.php/3406_1622089359_04ee0ee3/c8326f71c2fbd8e7df180cac486fc3b4/Minmode.jpg",
+    "https://huds.tf/site/xthreads_attach.php/3407_1618475312_220fc9d5/1e0106801421ae2de86ec96ee15215c4/classicstyle.jpg"
+  ],
   "Background": "https://i.imgur.com/U4m1mOx.png",
   "Layout": [
     "0 0 4 4 1 1",

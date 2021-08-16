@@ -1,6 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "CriticalFlaw",
   "Thumbnail": "https://user-images.githubusercontent.com/6818236/123499065-fba2e480-d601-11eb-96e4-e0879c7b2fbd.png",
+  "Screenshots": [
+    "https://huds.tf/site/xthreads_attach.php/265_1624918840_0abb7788/12ebcf7249f0af8372f3ab5a0ac8c74f/20210628180837_1.jpg",
+    "https://huds.tf/site/xthreads_attach.php/266_1615673780_78981626/2bc3c541513a0c34ee59bf6c763f5529/20210313171549_1.jpg",
+    "https://huds.tf/site/xthreads_attach.php/268_1598361138_2c89a084/d42f548731cad1d9703da2df26854ce8/BebP8MR.png",
+    "https://huds.tf/site/xthreads_attach.php/269_1598361138_712980b1/a4b1e6feed379517f3cd678a8cbb3db9/gB7GjxF.png"
+  ],
   "Background": "https://user-images.githubusercontent.com/6818236/123523046-34d56600-d68f-11eb-8838-fbf112c45ea7.png",
   "Layout": [
     "0 0 3 3",
