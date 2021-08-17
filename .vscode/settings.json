@@ -1,0 +1,12 @@
+{
+    "[csharp]": {
+        "editor.insertSpaces": true,
+        "editor.formatOnSave": false,
+        "editor.formatOnSaveMode": "modifications"
+    },
+    "[json]": {
+        "editor.tabSize": 2
+    },
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true
+}

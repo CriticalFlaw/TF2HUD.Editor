@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        xmlns:Classes="clr-namespace:TF2HUDEditor.Classes"
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="HUDEditor"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
@@ -15,7 +16,16 @@
         FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px"
         Background="#2B2724">
-    <Grid x:Name="MainGrid">
+    <Window.Resources>
+        <Classes:NullCheckConverter x:Key="NullCheckConverter" />
+        <Classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
+        <Classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+        <Classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
+        <Classes:InvertBooleanConverter x:Key="InvertBooleanConverter" />
+        <Classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
+        <Classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
+    </Window.Resources>
+    <Grid x:Name="MainGrid" Background="{Binding Json.SelectedHUD, Converter={StaticResource PageBackgroundConverter}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -23,10 +33,10 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <ToolBarPanel x:Name="MainToolbar" Grid.Row="0">
+        <ToolBarPanel x:Name="MainToolbar" Grid.Row="0" Visibility="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverterVisibility}}">
             <Grid>
                 <!-- HUD Status -->
-                <Label Name="LblStatus" Content="..." Height="35" VerticalContentAlignment="Center" Margin="10" />
+                <Label x:Name="LblStatus" Content="..." Height="35" VerticalContentAlignment="Center" Margin="10" />
                 <ToolBar Background="Transparent" ToolBarTray.IsLocked="True" Foreground="White"
                          HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
                     <!--<Button Content="{lex:Loc ui_options}" Foreground="White" Margin="5,0,5,0"/>-->
@@ -47,7 +57,8 @@
         <GroupBox
             x:Name="GbSelectHud"
             Header="{lex:Loc Key=ui_select}"
-            Grid.Row="0">
+            Grid.Row="0"
+            Visibility="{Binding Json.SelectedHUD, Converter={StaticResource NotNullCheckConverterVisibility}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*" />
@@ -64,7 +75,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Label Content="{lex:Loc ui_search}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1" />
-                    <TextBox Name="SearchBox" TextChanged="TbSearchBox_TextChanged" Foreground="WhiteSmoke"
+                    <TextBox x:Name="SearchBox" TextChanged="TbSearchBox_TextChanged" Foreground="WhiteSmoke"
                             Background="#2B2724" BorderThickness="1" VerticalContentAlignment="Center"
                             Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1" />
                     <ScrollViewer Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="0,10,0,0">
@@ -72,59 +83,61 @@
                     </ScrollViewer>
                 </Grid>
                 <!-- App Info and Changelog -->
-                <ScrollViewer x:Name="AppInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="Hidden">
+                <ScrollViewer x:Name="AppInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="{Binding Json.HighlightedHUD, Converter={StaticResource NotNullCheckConverterVisibility}}">
                     <StackPanel Margin="20">
                         <Image Source="Resources/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
-                        <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Center">
-                            <Run Foreground="#70B04A" Text="Install" /> and
-                            <Run Foreground="#38F3AB" Text="customize" /> your favorite Team Fortress 2 HUDs! For additional information and support, check out the
-                            <Run Foreground="#FFD700" Text="documentation" /> linked below.
-                        </TextBlock>
+                        <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Center"><Run Foreground="#70B04A" Text="Install" /><Run Text=" and "/><Run Foreground="#38F3AB" Text="customize" /><Run Text=" your favorite Team Fortress 2 HUDs! For additional information and support, check out the "/><Run Foreground="#FFD700" Text="documentation" /><Run Text=" linked below."/></TextBlock>
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
                         <Label Content="Version 2.2" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
-                        <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-                            - Added support for hypnotize-hud and HExHUD.
-                            <LineBreak />
-                            - Added the ability to change the set tf/custom directory.
-                            <LineBreak />
-                            - Added the ability to only reset controls in a given group.
-                            <LineBreak />
-                            - Fixed not applying customizations made before the HUD is installed.
-                            <LineBreak />
-                            - HUD updates are now initiated on-demand via a refresh button.
-                            <LineBreak />
-                            - Improved the look and functionality of main menu HUD list.
-                            <LineBreak />
-                            - <Run Foreground="#91493b" Text="default" />: Added an option to enable Streamer Mode.
-                            <LineBreak />
-                            - <Run Foreground="#FF015B" Text="zeeshud" />: Updated to the latest version.
-                        </TextBlock>
+                        <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left"><Run Text="- Added support for hypnotize-hud and HExHUD."/><LineBreak /><Run Text="- Added the ability to change the set tf/custom directory."/><LineBreak /><Run Text="- Added the ability to only reset controls in a given group."/><LineBreak /><Run Text="- Fixed not applying customizations made before the HUD is installed."/><LineBreak /><Run Text="- HUD updates are now initiated on-demand via a refresh button."/><LineBreak /><Run Text="- Improved the look and functionality of main menu HUD list."/><LineBreak /><Run Text="- "/><Run Foreground="#91493b" Text="default" /><Run Text=": Added an option to enable Streamer Mode."/><LineBreak /><Run Text="- "/><Run Foreground="#FF015B" Text="zeeshud" /><Run Text=": Updated to the latest version."/></TextBlock>
                     </StackPanel>
                 </ScrollViewer>
                 <!-- HUD Info and Download -->
-                <ScrollViewer x:Name="HudInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="Visible">
+                <ScrollViewer x:Name="HudInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="{Binding Json.HighlightedHUD, Converter={StaticResource NullCheckConverterVisibility}}">
                     <StackPanel Margin="20">
-                        <Label x:Name="HudName" Content="HUD" Style="{StaticResource HeaderText}"/>
-                        <TextBlock x:Name="HudAuthor" Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center">HUD Developer</TextBlock>
-                        <TextBlock x:Name="HudDesc" Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" Margin="0,15,0,0" >HUD Description</TextBlock>
+                        <Label x:Name="HudName" Content="{Binding Json.HighlightedHUD.Name}" Style="{StaticResource HeaderText}"/>
+                        <TextBlock x:Name="HudAuthor" Text="{Binding Json.HighlightedHUD.Author}" Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" />
+                        <TextBlock x:Name="HudDesc" Text="{Binding Json.HighlightedHUD.Description}" Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" Margin="0,15,0,0" Visibility="{Binding Json.HighlightedHUD.Description, Converter={StaticResource NullCheckConverterVisibility}}" />
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-                        <Grid x:Name="HudScreenshots">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="5*" />
-                                <ColumnDefinition Width="5*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="5*" />
-                                <RowDefinition Height="5*" />
-                            </Grid.RowDefinitions>
-                        </Grid>
-                        <Label x:Name="HudStatus" Content="HUD" Style="{StaticResource HeaderText}" FontSize="20px" Margin="0,10,0,0"/>
+                        <ItemsControl ItemsSource="{Binding Json.HighlightedHUD.Screenshots}">
+                            <!-- Container -->
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                    </Grid>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <!-- Items Content Presenter -->
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="{x:Type ContentPresenter}">
+                                    <Setter Property="Grid.Column" Value="{Binding Column}" />
+                                    <Setter Property="Grid.Row" Value="{Binding Row}" />
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            <!-- Items -->
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="5">
+                                        <Image Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="Fant" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <!-- <Label x:Name="HudStatus" Content="HUD" Style="{StaticResource HeaderText}" FontSize="20px" Margin="0,10,0,0"/> -->
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
         </GroupBox>
         <!-- Editor Controls -->
-        <Grid Name="EditorContainer" Grid.Row="0" />
+        <Grid x:Name="EditorContainer" Grid.Row="0" />
         <!-- Bottom Button Tray -->
         <GroupBox
             Header="{lex:Loc ui_options}"
@@ -133,28 +146,33 @@
                 <Button
                     x:Name="BtnInstall"
                     Click="BtnInstall_OnClick"
-                    Content="{lex:Loc ui_install}"
-                    Style="{StaticResource HUDButton}" />
+                    Content="{Binding Json.HighlightedHUD, Converter={StaticResource BtnInstallContentConverter}}"
+                    Style="{StaticResource HUDButton}"
+                    IsEnabled="{Binding Json.HighlightedHUD, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnUninstall"
                     Click="BtnUninstall_OnClick"
                     Content="{lex:Loc ui_uninstall}"
-                    Style="{StaticResource HUDButton}" />
+                    Style="{StaticResource HUDButton}"
+                    IsEnabled="{Binding Json.HighlightedHUDInstalled}" />
                 <Button
                     x:Name="BtnSave"
                     Click="BtnSave_OnClick"
                     Content="{lex:Loc ui_apply}"
-                    Style="{StaticResource HUDButton}" />
+                    Style="{StaticResource HUDButton}"
+                    IsEnabled="{Binding Json.HighlightedHUDInstalled}" />
                 <Button
                     x:Name="BtnReset"
                     Click="BtnReset_OnClick"
                     Content="{lex:Loc ui_reset}"
-                    Style="{StaticResource HUDButton}" />
+                    Style="{StaticResource HUDButton}"
+                    IsEnabled="{Binding Json.HighlightedHUDInstalled}" />
                 <Button
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"
                     Content="{lex:Loc ui_switch}"
-                    Style="{StaticResource HUDButton}" />
+                    Style="{StaticResource HUDButton}"
+                    IsEnabled="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnReportIssue"
                     Click="BtnReportIssue_OnClick"
@@ -172,26 +190,30 @@
                     Click="BtnGitHub_OnClick"
                     Content="Y"
                     Background="#171a21"
-                    Style="{StaticResource LinkButton}" />
+                    Style="{StaticResource LinkButton}"
+                    IsEnabled="{Binding Json.HighlightedHUD.GitHubUrl, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnHuds"
                     Click="BtnHuds_OnClick"
                     Content="H"
                     Background="#42A5F5"
                     FontFamily="../Resources/TF2Build.ttf #TF2 Build"
-                    Style="{StaticResource LinkButton}" />
+                    Style="{StaticResource LinkButton}"
+                    IsEnabled="{Binding Json.HighlightedHUD.HudsTfUrl, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnDiscord"
                     Click="BtnDiscord_OnClick"
                     Content="Z"
                     Background="#5865F2"
-                    Style="{StaticResource LinkButton}" />
+                    Style="{StaticResource LinkButton}"
+                    IsEnabled="{Binding Json.HighlightedHUD.DiscordUrl, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnSteam"
                     Click="BtnSteam_OnClick"
                     Content="X"
                     Background="#1B2838"
-                    Style="{StaticResource LinkButton}" />
+                    Style="{StaticResource LinkButton}"
+                    IsEnabled="{Binding Json.HighlightedHUD.SteamUrl, Converter={StaticResource NullCheckConverter}}" />
             </WrapPanel>
         </GroupBox>
     </Grid>

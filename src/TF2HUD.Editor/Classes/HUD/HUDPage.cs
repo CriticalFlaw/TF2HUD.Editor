@@ -59,7 +59,6 @@ namespace HUDEditor.Classes
                 {
                     Style = (Style) Application.Current.Resources["HUDButton"],
                     Content = preset,
-                    Name = $"{Name.Replace('-', '_')}_{preset}",
                     FontSize = 25,
                     Width = 35,
                     Height = 35,
@@ -169,9 +168,10 @@ namespace HUDEditor.Classes
 
                 resetInput.Click += (_, _) =>
                 {
+                    if (MainWindow.HudSelection != Name) return;
                     ResetSection(section);
                     Settings.SaveSettings();
-                    if (!MainWindow.CheckHudInstallation()) ApplyCustomizations();
+                    if (MainWindow.CheckHudInstallation()) ApplyCustomizations();
                     DirtyControls.Clear();
                 };
 
@@ -183,7 +183,8 @@ namespace HUDEditor.Classes
                 // Generate each individual control, add it to user settings.
                 foreach (var controlItem in ControlOptions[section])
                 {
-                    var id = controlItem.Name;
+                    // WPF Control Names cannot start with numbers, add prefix
+                    var id = Utilities.EncodeID(controlItem.Name);
                     var label = controlItem.Label;
                     var tooltip = controlItem.Tooltip;
                     var width = controlItem.Width;

@@ -20,20 +20,26 @@ namespace HUDEditor.Classes
         private HUDBackground hudBackground;
         private bool isRendered;
         private string[][] layout;
-        public bool Maximize, Customizable;
-
-        public string Name, Description, Author, UpdateUrl, GitHubUrl, HudsTfUrl, SteamUrl, DiscordUrl;
+        public bool Maximize;
+        public string Name { get; set; }
+        public string Author { get; set; }
+        public string Description { get; set; }
+        public string UpdateUrl { get; set; }
+        public string GitHubUrl { get; set; }
+        public string HudsTfUrl { get; set; }
+        public string SteamUrl { get; set; }
+        public string DiscordUrl { get; set; }
         public double Opacity;
         public HUDSettings Settings;
         public string Thumbnail, Background, CustomizationsFolder, EnabledFolder;
-        public string[] Screenshots;
+        public List<object> Screenshots { get; set; } = new();
 
         /// <summary>
         ///     Initialize the HUD object with values from the JSON schema.
         /// </summary>
         /// <param name="name">Name of the HUD object.</param>
         /// <param name="schema">Contents of the HUD's schema file.</param>
-        public HUD(string name, HudJson schema, bool isCustomizable = true)
+        public HUD(string name, HudJson schema)
         {
             // Basic Schema Properties.
             Name = schema.Name ?? name;
@@ -47,8 +53,21 @@ namespace HUDEditor.Classes
             Background = schema.Background;
             Description = schema.Description;
             Author = schema.Author;
-            Customizable = isCustomizable;
-            Screenshots = schema.Screenshots;
+
+            if (schema.Screenshots is not null)
+            {
+                int i = 0;
+                foreach (var screenshot in schema.Screenshots)
+                {
+                    Screenshots.Add(new
+                    {
+                        ImageSource = screenshot,
+                        Column = i % 2,
+                        Row = (int)i / 2
+                    });
+                    i++;
+                }
+            }
 
             // Download and Media Links.
             if (schema.Links is not null)

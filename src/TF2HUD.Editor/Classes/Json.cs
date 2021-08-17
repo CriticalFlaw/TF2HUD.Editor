@@ -1,22 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 using HUDEditor.Models;
 using HUDEditor.Properties;
+using log4net.Repository.Hierarchy;
 using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {
-    public class Json
+    public class Json : INotifyPropertyChanged
     {
         // HUDs to manage
         public HUD[] HUDList;
+
+        // Highlighted HUD
+        private HUD _highlightedHud;
+        public HUD HighlightedHUD { get { return this._highlightedHud; } set { this._highlightedHud = value; OnPropertyChanged("HighlightedHUD"); OnPropertyChanged("HighlightedHUDInstalled"); } }
+        public bool HighlightedHUDInstalled { get { return HighlightedHUD != null ? Directory.Exists($"{MainWindow.HudPath}\\{HighlightedHUD.Name}") : false; } }
+
+        // Selected HUD
+        private HUD _selectedHud;
+        public HUD SelectedHUD { get { return this._selectedHud; } set { this._selectedHud = value; SelectionChanged?.Invoke(this, value); OnPropertyChanged("SelectedHUD"); } }
+
+        // Selected HUD Installed
+        public bool SelectedHUDInstalled
+        {
+            get
+            {
+                MainWindow.Logger.Info("this.SelectedHUD != null" + this.SelectedHUD != null);
+                MainWindow.Logger.Info("MainWindow.HudPath != \"\"" + MainWindow.HudPath != "");
+                MainWindow.Logger.Info("Directory.Exists(MainWindow.HudPath)" + Directory.Exists(MainWindow.HudPath));
+                MainWindow.Logger.Info("Utilities.CheckUserPath(MainWindow.HudPath)" + Utilities.CheckUserPath(MainWindow.HudPath));
+                MainWindow.Logger.Info("MainWindow.CheckHudInstallation()" + MainWindow.CheckHudInstallation());
+                return this.SelectedHUD != null && MainWindow.HudPath != "" && Directory.Exists(MainWindow.HudPath) && Utilities.CheckUserPath(MainWindow.HudPath) && MainWindow.CheckHudInstallation();
+            }
+        }
+
+        public event EventHandler<HUD> SelectionChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public Json()
         {
@@ -32,20 +59,36 @@ namespace HUDEditor.Classes
                 var json = new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd();
 
                 // Add the HUD object to the list.
-                if (hudName.Equals("shared"))
-                    hudList.AddRange(JsonConvert.DeserializeObject<List<HudJson>>(json).Select(hud => new HUD(hudName, hud, false)));
-                else
-                    hudList.Add(new HUD(hudName, JsonConvert.DeserializeObject<HudJson>(json)));
+                hudList.Add(new HUD(hudName, JsonConvert.DeserializeObject<HudJson>(json)));
             }
 
+            // Load all shared huds from JSON/Shared/shared.json, and
+            // shared controls from JSON/Shared/controls.json, for each
+            // hud, assign unique ids for the controls based on the hud
+            // name and add to HUDs list.
+
+            var sharedFolder = $"JSON\\Shared";
+            var sharedHUDs = JsonConvert.DeserializeObject<List<HudJson>>(
+                new StreamReader(File.OpenRead($"{sharedFolder}\\shared.json"), new UTF8Encoding(false)).ReadToEnd()
+            );
+            var sharedControlsJSON = new StreamReader(File.OpenRead($"{sharedFolder}\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
+            hudList.AddRange(sharedHUDs.Select(hud =>
+            {
+                var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
+                foreach (var group in hudControls.Controls)
+                    foreach (var control in hudControls.Controls[group.Key])
+                        control.Name = $"{Utilities.EncodeID(hud.Name)}_{Utilities.EncodeID(control.Name)}";
+
+                hud.Layout = hudControls.Layout;
+                hud.Controls = hudControls.Controls;
+                return new HUD(hud.Name, hud);
+            }));
+
             HUDList = hudList.ToArray();
-        }
 
-        public event EventHandler<HUD> SelectionChanged;
-
-        public void SetHUDByName(string name)
-        {
-            SelectionChanged?.Invoke(this, GetHUDByName(name));
+            var selectedHud = GetHUDByName(Settings.Default.hud_selected);
+            HighlightedHUD = selectedHud;
+            SelectedHUD = selectedHud;
         }
 
         /// <summary>
@@ -54,12 +97,22 @@ namespace HUDEditor.Classes
         /// <param name="name">Name of the HUD the user wants to view.</param>
         public HUD GetHUDByName(string name)
         {
-            if (name.Equals("shared")) return HUDList[0];
             foreach (var hud in HUDList)
                 if (string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase))
                     return hud;
-            MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_hud_missing), name));
+
+            // MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_hud_missing), name));
             return null;
+        }
+
+        /// <summary>
+        ///     Invoke a WPF Binding update of a property.
+        /// </summary>
+        /// <param name="propertyChanged">Name of property to update</param>
+        public void OnPropertyChanged(string propertyChanged)
+        {
+            MainWindow.Logger.Info($"OnPropertyChanged: {propertyChanged}");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyChanged));
         }
 
         /// <summary>

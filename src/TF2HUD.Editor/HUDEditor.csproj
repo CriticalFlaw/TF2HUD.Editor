@@ -33,7 +33,6 @@
     <None Remove="JSON\hexhud.json" />
     <None Remove="JSON\hypnotize-hud.json" />
     <None Remove="JSON\rayshud.json" />
-    <None Remove="JSON\shared.json" />
     <None Remove="JSON\zeeshud.json" />
     <None Remove="log4net.config" />
     <None Remove="Resources\banner.png" />
@@ -113,6 +112,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="JSON\Shared\controls.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="JSON\Shared\shared.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

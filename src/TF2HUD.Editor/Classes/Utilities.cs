@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using HUDEditor.Models;
@@ -317,6 +318,18 @@ namespace HUDEditor.Classes
             var locExtension = new LocTextExtension(key);
             locExtension.ResolveLocalizedValue(out string uiString);
             return uiString;
+        }
+
+        /// <summary>
+        ///     Converts a HUD/control name into a WPF usable ID
+        /// </summary>
+        /// <param name="id"></param>
+        public static string EncodeID(string id)
+        {
+            // If first character is a digit, add an
+            // underscore, then replace all dashes and
+            // whitespace characters with underscores
+            return $"{(Regex.IsMatch(id[0].ToString(),"\\d") ? "_" : "")}{String.Join('_', Regex.Split(id, "[- ]"))}";
         }
     }
 }
