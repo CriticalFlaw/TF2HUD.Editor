@@ -133,6 +133,15 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Setting a new background will override the current one. Use the &quot;Reinstall&quot; option to go revert to the default background..
+        /// </summary>
+        public static string info_background_override {
+            get {
+                return ResourceManager.GetString("info_background_override", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Following changes require the game to be restarted:.
         /// </summary>
         public static string info_game_restart {
@@ -205,7 +214,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} customizations applied at {1}..
+        ///   Looks up a localized string similar to {0} customizations applied on {1}..
         /// </summary>
         public static string status_applied {
             get {
@@ -232,7 +241,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} installation finished at {1}..
+        ///   Looks up a localized string similar to {0} installation finished on {1}..
         /// </summary>
         public static string status_installed_now {
             get {
@@ -250,7 +259,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} customizations reset at {1}..
+        ///   Looks up a localized string similar to {0} customizations reset on {1}..
         /// </summary>
         public static string status_reset {
             get {
@@ -318,6 +327,24 @@ namespace HUDEditor.Properties {
         public static string ui_back {
             get {
                 return ResourceManager.GetString("ui_back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse.
+        /// </summary>
+        public static string ui_browse {
+            get {
+                return ResourceManager.GetString("ui_browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string ui_clear {
+            get {
+                return ResourceManager.GetString("ui_clear", resourceCulture);
             }
         }
         

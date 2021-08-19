@@ -581,7 +581,7 @@ namespace HUDEditor.Classes
                             var bgInput = new Button
                             {
                                 Name = id,
-                                Content = "Browse",
+                                Content = Properties.Resources.ui_browse,
                                 // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
@@ -593,7 +593,7 @@ namespace HUDEditor.Classes
 
                             var clearInput = new Button
                             {
-                                Content = "Reset",
+                                Content = Properties.Resources.ui_clear,
                                 // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
@@ -619,12 +619,12 @@ namespace HUDEditor.Classes
                             // Add Events.
                             bgInput.Click += (_, _) =>
                             {
+                                MainWindow.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_background_override);
                                 using (var fbd = new OpenFileDialog())
                                 {
                                     fbd.ShowDialog();
                                     if (string.IsNullOrWhiteSpace(fbd.FileName)) return;
-                                    var path =
-                                        $"{System.Windows.Forms.Application.LocalUserAppDataPath}\\Images\\{fbd.FileName.Split('\\')[^1]}";
+                                    var path = $"{System.Windows.Forms.Application.LocalUserAppDataPath}\\Images\\{fbd.FileName.Split('\\')[^1]}";
 
                                     bgImage.Source = new BitmapImage(new Uri(fbd.FileName));
 
