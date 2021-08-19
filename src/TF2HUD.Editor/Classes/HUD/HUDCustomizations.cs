@@ -80,7 +80,7 @@ namespace HUDEditor.Classes
                                             obj[key].GetType() == typeof(Dictionary<string, dynamic>))
                                             // Initialise hudContainer and create inner Dictionary
                                             //  to contain elements specified
-                                            hudContainer = new Dictionary<string, dynamic> {[key] = folder[property]};
+                                            hudContainer = new Dictionary<string, dynamic> { [key] = folder[property] };
 
                                         preventInfinite++;
                                     }
@@ -375,7 +375,7 @@ namespace HUDEditor.Classes
                             {
                                 MainWindow.Logger.Info(property.Key);
                                 var newhudElementRef = hudElementRef.ContainsKey(property.Key)
-                                    ? (Dictionary<string, dynamic>) hudElementRef[property.Key]
+                                    ? (Dictionary<string, dynamic>)hudElementRef[property.Key]
                                     : new Dictionary<string, dynamic>();
                                 hudElement[property.Key] = CompileHudElement(currentObj,
                                     absolutePath, relativePath, newhudElementRef,
@@ -686,7 +686,7 @@ namespace HUDEditor.Classes
                     if (animations != null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
                 }
 
-                string[] resFileExtensions = {"res", "vmt", "vdf"};
+                string[] resFileExtensions = { "res", "vmt", "vdf" };
 
                 foreach (var filePath in files)
                 {

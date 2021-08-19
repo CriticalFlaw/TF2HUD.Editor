@@ -47,7 +47,7 @@ namespace HUDEditor.Classes
         public static Dictionary<string, List<HUDAnimation>> Parse(string text)
         {
             var index = 0;
-            char[] ignoredCharacters = {' ', '\t', '\r', '\n'};
+            char[] ignoredCharacters = { ' ', '\t', '\r', '\n' };
 
             string Next(bool lookAhead = false)
             {
@@ -67,7 +67,9 @@ namespace HUDEditor.Classes
                                 x++;
                     }
                     else
+                    {
                         x++;
+                    }
 
                     if (x >= text.Length) return "EOF";
                 }
@@ -115,6 +117,7 @@ namespace HUDEditor.Classes
                     animations[eventName] = ParseEvent();
                     currentToken = Next();
                 }
+
                 return animations;
             }
 
@@ -133,6 +136,7 @@ namespace HUDEditor.Classes
                     }
                 else
                     throw new Exception($"Unexpected ${nextToken} at position {index}! Are you missing an opening brace?");
+				
                 return events;
             }
 
@@ -144,7 +148,7 @@ namespace HUDEditor.Classes
                     animation.Interpolator = interpolator;
                     animation.Frequency = Next();
                 }
-                else if (new[] {"gain", "bias"}.Contains(interpolator))
+                else if (new[] { "gain", "bias" }.Contains(interpolator))
                 {
                     animation.Interpolator = interpolator[0].ToString().ToUpper() + interpolator[1..];
                     animation.Bias = Next();

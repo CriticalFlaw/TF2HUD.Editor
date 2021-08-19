@@ -6,44 +6,22 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using HUDEditor.Models;
 using HUDEditor.Properties;
-using log4net.Repository.Hierarchy;
 using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {
     public class Json : INotifyPropertyChanged
     {
-        // HUDs to manage
-        public HUD[] HUDList;
-
         // Highlighted HUD
         private HUD _highlightedHud;
-        public HUD HighlightedHUD { get { return this._highlightedHud; } set { this._highlightedHud = value; OnPropertyChanged("HighlightedHUD"); OnPropertyChanged("HighlightedHUDInstalled"); } }
-        public bool HighlightedHUDInstalled { get { return HighlightedHUD != null ? Directory.Exists($"{MainWindow.HudPath}\\{HighlightedHUD.Name}") : false; } }
 
         // Selected HUD
         private HUD _selectedHud;
-        public HUD SelectedHUD { get { return this._selectedHud; } set { this._selectedHud = value; SelectionChanged?.Invoke(this, value); OnPropertyChanged("SelectedHUD"); } }
 
-        // Selected HUD Installed
-        public bool SelectedHUDInstalled
-        {
-            get
-            {
-                MainWindow.Logger.Info("this.SelectedHUD != null" + this.SelectedHUD != null);
-                MainWindow.Logger.Info("MainWindow.HudPath != \"\"" + MainWindow.HudPath != "");
-                MainWindow.Logger.Info("Directory.Exists(MainWindow.HudPath)" + Directory.Exists(MainWindow.HudPath));
-                MainWindow.Logger.Info("Utilities.CheckUserPath(MainWindow.HudPath)" + Utilities.CheckUserPath(MainWindow.HudPath));
-                MainWindow.Logger.Info("MainWindow.CheckHudInstallation()" + MainWindow.CheckHudInstallation());
-                return this.SelectedHUD != null && MainWindow.HudPath != "" && Directory.Exists(MainWindow.HudPath) && Utilities.CheckUserPath(MainWindow.HudPath) && MainWindow.CheckHudInstallation();
-            }
-        }
-
-        public event EventHandler<HUD> SelectionChanged;
-        public event PropertyChangedEventHandler PropertyChanged;
+        // HUDs to manage
+        public HUD[] HUDList;
 
         public Json()
         {
@@ -67,17 +45,18 @@ namespace HUDEditor.Classes
             // hud, assign unique ids for the controls based on the hud
             // name and add to HUDs list.
 
-            var sharedFolder = $"JSON\\Shared";
+            var sharedFolder = "JSON\\Shared";
             var sharedHUDs = JsonConvert.DeserializeObject<List<HudJson>>(
                 new StreamReader(File.OpenRead($"{sharedFolder}\\shared.json"), new UTF8Encoding(false)).ReadToEnd()
             );
-            var sharedControlsJSON = new StreamReader(File.OpenRead($"{sharedFolder}\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
+            var sharedControlsJSON =
+                new StreamReader(File.OpenRead($"{sharedFolder}\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
             hudList.AddRange(sharedHUDs.Select(hud =>
             {
                 var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
                 foreach (var group in hudControls.Controls)
-                    foreach (var control in hudControls.Controls[group.Key])
-                        control.Name = $"{Utilities.EncodeID(hud.Name)}_{Utilities.EncodeID(control.Name)}";
+                foreach (var control in hudControls.Controls[group.Key])
+                    control.Name = $"{Utilities.EncodeID(hud.Name)}_{Utilities.EncodeID(control.Name)}";
 
                 hud.Layout = hudControls.Layout;
                 hud.Controls = hudControls.Controls;
@@ -90,6 +69,52 @@ namespace HUDEditor.Classes
             HighlightedHUD = selectedHud;
             SelectedHUD = selectedHud;
         }
+
+        public HUD HighlightedHUD
+        {
+            get => _highlightedHud;
+            set
+            {
+                _highlightedHud = value;
+                OnPropertyChanged("HighlightedHUD");
+                OnPropertyChanged("HighlightedHUDInstalled");
+            }
+        }
+
+        public bool HighlightedHUDInstalled => HighlightedHUD != null
+            ? Directory.Exists($"{MainWindow.HudPath}\\{HighlightedHUD.Name}")
+            : false;
+
+        public HUD SelectedHUD
+        {
+            get => _selectedHud;
+            set
+            {
+                _selectedHud = value;
+                SelectionChanged?.Invoke(this, value);
+                OnPropertyChanged("SelectedHUD");
+            }
+        }
+
+        // Selected HUD Installed
+        public bool SelectedHUDInstalled
+        {
+            get
+            {
+                MainWindow.Logger.Info("this.SelectedHUD != null" + SelectedHUD != null);
+                MainWindow.Logger.Info("MainWindow.HudPath != \"\"" + MainWindow.HudPath != "");
+                MainWindow.Logger.Info("Directory.Exists(MainWindow.HudPath)" + Directory.Exists(MainWindow.HudPath));
+                MainWindow.Logger.Info("Utilities.CheckUserPath(MainWindow.HudPath)" +
+                                       Utilities.CheckUserPath(MainWindow.HudPath));
+                MainWindow.Logger.Info("MainWindow.CheckHudInstallation()" + MainWindow.CheckHudInstallation());
+                return SelectedHUD != null && MainWindow.HudPath != "" && Directory.Exists(MainWindow.HudPath) &&
+                       Utilities.CheckUserPath(MainWindow.HudPath) && MainWindow.CheckHudInstallation();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public event EventHandler<HUD> SelectionChanged;
 
         /// <summary>
         ///     Find and retrieve a HUD object selected by the user.
@@ -127,7 +152,7 @@ namespace HUDEditor.Classes
                 // Get the local schema names and file sizes.
                 List<Tuple<string, int>> localFiles = new();
                 foreach (var file in new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")))
-                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int) file.Length));
+                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length));
                 if (localFiles.Count <= 0) return false;
 
                 // Setup the WebClient for download remote files.

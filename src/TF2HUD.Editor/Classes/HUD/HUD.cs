@@ -31,8 +31,9 @@ namespace HUDEditor.Classes
         public string DiscordUrl { get; set; }
         public double Opacity;
         public HUDSettings Settings;
-        public string Thumbnail, Background, CustomizationsFolder, EnabledFolder;
         public List<object> Screenshots { get; set; } = new();
+        public string Thumbnail, Background, CustomizationsFolder, EnabledFolder;
+        public event EventHandler<HUDSettingsPreset> PresetChanged;
 
         /// <summary>
         ///     Initialize the HUD object with values from the JSON schema.
@@ -56,14 +57,14 @@ namespace HUDEditor.Classes
 
             if (schema.Screenshots is not null)
             {
-                int i = 0;
+                var i = 0;
                 foreach (var screenshot in schema.Screenshots)
                 {
                     Screenshots.Add(new
                     {
                         ImageSource = screenshot,
                         Column = i % 2,
-                        Row = (int)i / 2
+                        Row = i / 2
                     });
                     i++;
                 }
@@ -84,8 +85,6 @@ namespace HUDEditor.Classes
             CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
             EnabledFolder = schema.EnabledFolder ?? string.Empty;
         }
-
-        public event EventHandler<HUDSettingsPreset> PresetChanged;
 
         /// <summary>
         ///     Call to download the HUD if a URL has been provided.
@@ -117,8 +116,8 @@ namespace HUDEditor.Classes
 
                     if (field.FieldType == typeof(string[]))
                     {
-                        var arr1 = (string[]) field.GetValue(obj1);
-                        var arr2 = (string[]) field.GetValue(obj2);
+                        var arr1 = (string[])field.GetValue(obj1);
+                        var arr2 = (string[])field.GetValue(obj2);
 
                         if (arr1 == null && arr2 != null)
                         {
@@ -147,8 +146,8 @@ namespace HUDEditor.Classes
                     }
                     else if (field.FieldType == typeof(Dictionary<string, Controls[]>))
                     {
-                        var value1 = (Dictionary<string, Controls[]>) field.GetValue(obj1);
-                        var value2 = (Dictionary<string, Controls[]>) field.GetValue(obj2);
+                        var value1 = (Dictionary<string, Controls[]>)field.GetValue(obj1);
+                        var value2 = (Dictionary<string, Controls[]>)field.GetValue(obj2);
 
                         if (value1.Keys.Count != value2.Keys.Count)
                         {
@@ -186,13 +185,13 @@ namespace HUDEditor.Classes
                     }
                     else if (field.FieldType == typeof(JObject))
                     {
-                        if (!CompareFiles((JObject) field.GetValue(obj1), (JObject) field.GetValue(obj2),
+                        if (!CompareFiles((JObject)field.GetValue(obj1), (JObject)field.GetValue(obj2),
                             $"{field.Name}.Files => ")) return false;
                     }
                     else if (field.FieldType == typeof(Option[]))
                     {
-                        var arr1 = (Option[]) field.GetValue(obj1);
-                        var arr2 = (Option[]) field.GetValue(obj2);
+                        var arr1 = (Option[])field.GetValue(obj1);
+                        var arr2 = (Option[])field.GetValue(obj2);
 
                         if (arr1 == null && arr2 != null)
                         {
@@ -335,7 +334,7 @@ namespace HUDEditor.Classes
                         break;
 
                     case ComboBox combo:
-                        if (((ComboBoxItem) combo.Items[0]).Style == (Style) Application.Current.Resources["Crosshair"])
+                        if (((ComboBoxItem)combo.Items[0]).Style == (Style)Application.Current.Resources["Crosshair"])
                             combo.SelectedValue = control.Value;
                         else
                             combo.SelectedIndex = int.Parse(control.Value);

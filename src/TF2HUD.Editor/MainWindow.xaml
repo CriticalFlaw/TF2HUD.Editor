@@ -18,10 +18,8 @@
         Background="#2B2724">
     <Window.Resources>
         <Classes:NullCheckConverter x:Key="NullCheckConverter" />
-        <Classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
         <Classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
         <Classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
-        <Classes:InvertBooleanConverter x:Key="InvertBooleanConverter" />
         <Classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
         <Classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
     </Window.Resources>
@@ -33,7 +31,8 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <ToolBarPanel x:Name="MainToolbar" Grid.Row="0" Visibility="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverterVisibility}}">
+        <ToolBarPanel x:Name="MainToolbar" Grid.Row="0"
+                      Visibility="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverterVisibility}}">
             <Grid>
                 <!-- HUD Status -->
                 <Label x:Name="LblStatus" Content="..." Height="35" VerticalContentAlignment="Center" Margin="10" />
@@ -74,30 +73,54 @@
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label Content="{lex:Loc ui_search}" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1" />
+                    <Label Content="{lex:Loc ui_search}" Grid.Column="0" Grid.Row="0" />
                     <TextBox x:Name="SearchBox" TextChanged="TbSearchBox_TextChanged" Foreground="WhiteSmoke"
-                            Background="#2B2724" BorderThickness="1" VerticalContentAlignment="Center"
-                            Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="1" />
-                    <ScrollViewer Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="0,10,0,0">
+                             Background="#2B2724" BorderThickness="1" VerticalContentAlignment="Center"
+                             Grid.Column="1" Grid.Row="0" />
+                    <ScrollViewer Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                                  Margin="0,10,0,0">
                         <WrapPanel x:Name="GridSelectHud" HorizontalAlignment="Center" />
                     </ScrollViewer>
                 </Grid>
                 <!-- App Info and Changelog -->
-                <ScrollViewer x:Name="AppInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="{Binding Json.HighlightedHUD, Converter={StaticResource NotNullCheckConverterVisibility}}">
+                <ScrollViewer x:Name="AppInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0"
+                              Visibility="{Binding Json.HighlightedHUD, Converter={StaticResource NotNullCheckConverterVisibility}}">
                     <StackPanel Margin="20">
                         <Image Source="Resources/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
-                        <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Center"><Run Foreground="#70B04A" Text="Install" /><Run Text=" and "/><Run Foreground="#38F3AB" Text="customize" /><Run Text=" your favorite Team Fortress 2 HUDs! For additional information and support, check out the "/><Run Foreground="#FFD700" Text="documentation" /><Run Text=" linked below."/></TextBlock>
+                        <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Center">
+                            <Run Foreground="#70B04A" Text="Install" /><Run Text=" and " />
+                            <Run Foreground="#38F3AB" Text="customize" />
+                            <Run
+                                Text=" your favorite Team Fortress 2 HUDs! For additional information and support, check out the " />
+                            <Run Foreground="#FFD700" Text="documentation" /><Run Text=" linked below." />
+                        </TextBlock>
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
                         <Label Content="Version 2.2" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
-                        <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left"><Run Text="- Added support for hypnotize-hud and HExHUD."/><LineBreak /><Run Text="- Added the ability to change the set tf/custom directory."/><LineBreak /><Run Text="- Added the ability to only reset controls in a given group."/><LineBreak /><Run Text="- Fixed not applying customizations made before the HUD is installed."/><LineBreak /><Run Text="- HUD updates are now initiated on-demand via a refresh button."/><LineBreak /><Run Text="- Improved the look and functionality of main menu HUD list."/><LineBreak /><Run Text="- "/><Run Foreground="#91493b" Text="default" /><Run Text=": Added an option to enable Streamer Mode."/><LineBreak /><Run Text="- "/><Run Foreground="#FF015B" Text="zeeshud" /><Run Text=": Updated to the latest version."/></TextBlock>
+                        <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
+                            <Run Text="- Added support for hypnotize-hud and HExHUD." /><LineBreak />
+                            <Run Text="- Added the ability to change the set tf/custom directory." /><LineBreak />
+                            <Run Text="- Added the ability to only reset controls in a given group." /><LineBreak />
+                            <Run Text="- Fixed not applying customizations made before the HUD is installed." />
+                            <LineBreak /><Run Text="- HUD updates are now initiated on-demand via a refresh button." />
+                            <LineBreak /><Run Text="- Improved the look and functionality of main menu HUD list." />
+                            <LineBreak /><Run Text="- " /><Run Foreground="#91493b" Text="default" />
+                            <Run Text=": Added an option to enable Streamer Mode." /><LineBreak /><Run Text="- " />
+                            <Run Foreground="#FF015B" Text="zeeshud" /><Run Text=": Updated to the latest version." />
+                        </TextBlock>
                     </StackPanel>
                 </ScrollViewer>
                 <!-- HUD Info and Download -->
-                <ScrollViewer x:Name="HudInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="{Binding Json.HighlightedHUD, Converter={StaticResource NullCheckConverterVisibility}}">
+                <ScrollViewer x:Name="HudInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0"
+                              Visibility="{Binding Json.HighlightedHUD, Converter={StaticResource NullCheckConverterVisibility}}">
                     <StackPanel Margin="20">
-                        <Label x:Name="HudName" Content="{Binding Json.HighlightedHUD.Name}" Style="{StaticResource HeaderText}"/>
-                        <TextBlock x:Name="HudAuthor" Text="{Binding Json.HighlightedHUD.Author}" Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" />
-                        <TextBlock x:Name="HudDesc" Text="{Binding Json.HighlightedHUD.Description}" Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" Margin="0,15,0,0" Visibility="{Binding Json.HighlightedHUD.Description, Converter={StaticResource NullCheckConverterVisibility}}" />
+                        <Label x:Name="HudName" Content="{Binding Json.HighlightedHUD.Name}"
+                               Style="{StaticResource HeaderText}" />
+                        <TextBlock x:Name="HudAuthor" Text="{Binding Json.HighlightedHUD.Author}"
+                                   Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" />
+                        <TextBlock x:Name="HudDesc" Text="{Binding Json.HighlightedHUD.Description}"
+                                   Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center"
+                                   Margin="0,15,0,0"
+                                   Visibility="{Binding Json.HighlightedHUD.Description, Converter={StaticResource NullCheckConverterVisibility}}" />
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
                         <ItemsControl ItemsSource="{Binding Json.HighlightedHUD.Screenshots}">
                             <!-- Container -->

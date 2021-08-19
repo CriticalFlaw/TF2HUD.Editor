@@ -18,8 +18,10 @@ using HUDEditor.Classes;
 using HUDEditor.Properties;
 using log4net;
 using log4net.Config;
+using TF2HUDEditor.Classes;
 using WPFLocalizeExtension.Engine;
 using Application = System.Windows.Application;
+using Binding = System.Windows.Data.Binding;
 using Label = System.Windows.Controls.Label;
 using MessageBox = System.Windows.MessageBox;
 
@@ -36,7 +38,6 @@ namespace HUDEditor
         public static string HudPath = Settings.Default.hud_directory;
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly List<(HUD, Border)> HudThumbnails = new();
-        public static Json Json { get; set; }
 
         public MainWindow()
         {
@@ -75,11 +76,11 @@ namespace HUDEditor
                     }
                 };
 
-                border.Style = (Style) Application.Current.Resources["HudListBorder"];
+                border.Style = (Style)Application.Current.Resources["HudListBorder"];
 
                 var thumbnailImage = new Image();
                 if (hud.Thumbnail != null) thumbnailImage.Source = new BitmapImage(new Uri(hud.Thumbnail));
-                thumbnailImage.Style = (Style) Application.Current.Resources["HudListImage"];
+                thumbnailImage.Style = (Style)Application.Current.Resources["HudListImage"];
 
                 // Prevents image from looking grainy when resized
                 RenderOptions.SetBitmapScalingMode(thumbnailImage, BitmapScalingMode.Fant);
@@ -87,7 +88,7 @@ namespace HUDEditor
                 var hudIconContainer = new StackPanel();
                 hudIconContainer.Children.Add(thumbnailImage);
                 hudIconContainer.Children.Add(new Label
-                { Content = hud.Name, Style = (Style) Application.Current.Resources["HudListLabel"] });
+                    { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
 
                 border.Child = hudIconContainer;
 
@@ -115,47 +116,46 @@ namespace HUDEditor
             AutoUpdater.Start(Settings.Default.app_update);
         }
 
+        public static Json Json { get; set; }
+
         /// <summary>
         ///     Setup the tf/custom directory, if it's not already set.
         /// </summary>
         /// <param name="userSet">Flags the process as being user initiated, skip right to the folder browser.</param>
         public void SetupDirectory(bool userSet = false)
         {
-            if (!Utilities.SearchRegistry() && !Utilities.CheckUserPath(HudPath) || userSet)
+            if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
+            // Display a folder browser, ask the user to provide the tf/custom directory.
+            Logger.Info("tf/custom directory is not set. Asking the user...");
+            using (var browser = new FolderBrowserDialog
             {
-                // Display a folder browser, ask the user to provide the tf/custom directory.
-                Logger.Info("tf/custom directory is not set. Asking the user...");
-                using (var browser = new FolderBrowserDialog
-                {
-                    Description = Properties.Resources.info_path_browser,
-                    UseDescriptionForTitle = true,
-                    ShowNewFolderButton = true
-                })
-                {
-                    // Loop until the user provides a valid tf/custom directory, unless they cancel out.
-                    while (!browser.SelectedPath.EndsWith("tf\\custom"))
-                        if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
-                            browser.SelectedPath.EndsWith("tf\\custom"))
-                        {
-                            Settings.Default.hud_directory = browser.SelectedPath;
-                            Settings.Default.Save();
-                            HudPath = Settings.Default.hud_directory;
-                            Logger.Info("tf/custom directory is set to: " + Settings.Default.hud_directory);
-                        }
-                        else
-                        {
-                            break;
-                        }
-                }
-
-                // Check one more time if a valid directory has been set.
-                if (!Utilities.CheckUserPath(HudPath))
-                {
-                    Logger.Info("tf/custom directory still not set. Exiting...");
-                    ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString(Properties.Resources.error_app_directory));
-                    Application.Current.Shutdown();
-                }
+                Description = Properties.Resources.info_path_browser,
+                UseDescriptionForTitle = true,
+                ShowNewFolderButton = true
+            })
+            {
+                // Loop until the user provides a valid tf/custom directory, unless they cancel out.
+                while (!browser.SelectedPath.EndsWith("tf\\custom"))
+                    if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
+                        browser.SelectedPath.EndsWith("tf\\custom"))
+                    {
+                        Settings.Default.hud_directory = browser.SelectedPath;
+                        Settings.Default.Save();
+                        HudPath = Settings.Default.hud_directory;
+                        Logger.Info("tf/custom directory is set to: " + Settings.Default.hud_directory);
+                    }
+                    else
+                    {
+                        break;
+                    }
             }
+
+            // Check one more time if a valid directory has been set.
+            if (Utilities.CheckUserPath(HudPath)) return;
+            Logger.Info("tf/custom directory still not set. Exiting...");
+            ShowMessageBox(MessageBoxImage.Warning,
+                Utilities.GetLocalizedString(Properties.Resources.error_app_directory));
+            Application.Current.Shutdown();
         }
 
         public void SelectionChanged(object sender, HUD hud)
@@ -166,11 +166,11 @@ namespace HUDEditor
                 HudSelection = hud.Name;
                 if (Json.SelectedHUDInstalled)
                 {
-                    LblStatus.Content = string.Format(HUDEditor.Properties.Resources.status_installed, Json.SelectedHUD.Name);
+                    LblStatus.Content = string.Format(Properties.Resources.status_installed, Json.SelectedHUD.Name);
                 }
-                else if (Directory.Exists(MainWindow.HudPath))
+                else if (Directory.Exists(HudPath))
                 {
-                    LblStatus.Content = string.Format(HUDEditor.Properties.Resources.status_installed_not, Json.SelectedHUD.Name);
+                    LblStatus.Content = string.Format(Properties.Resources.status_installed_not, Json.SelectedHUD.Name);
                 }
                 else
                 {
@@ -258,13 +258,14 @@ namespace HUDEditor
                 {
                     hud.Name,
                     hud.Author,
-                    hud.Description,
+                    hud.Description
                 };
 
                 var i = 0;
                 while (visibility == Visibility.Collapsed && i < searches.Length)
                 {
-                    if (searches[i] != null && searches[i].ToLower().Contains(searchText)) visibility = Visibility.Visible;
+                    if (searches[i] != null && searches[i].ToLower().Contains(searchText))
+                        visibility = Visibility.Visible;
                     i++;
                 }
 
@@ -333,19 +334,20 @@ namespace HUDEditor
                 };
                 worker.RunWorkerCompleted += (_, _) =>
                 {
-                    LblStatus.Content = string.Format(Properties.Resources.status_installed_now, Settings.Default.hud_selected, DateTime.Now);
+                    LblStatus.Content = string.Format(Properties.Resources.status_installed_now,
+                        Settings.Default.hud_selected, DateTime.Now);
 
                     // Update Install/Uninstall/Reset Buttons
                     Json.OnPropertyChanged("HighlightedHUDInstalled");
 
                     // Update Switch HUD Button
                     BtnSwitch.SetBinding(
-                        System.Windows.Controls.Button.IsEnabledProperty,
-                        new System.Windows.Data.Binding
+                        IsEnabledProperty,
+                        new Binding
                         {
                             Source = Json,
                             Path = new PropertyPath("SelectedHUD"),
-                            Converter = new TF2HUDEditor.Classes.NullCheckConverter()
+                            Converter = new NullCheckConverter()
                         }
                     );
                     Json.OnPropertyChanged("SelectedHUD");
@@ -359,7 +361,8 @@ namespace HUDEditor
             }
             catch (Exception ex)
             {
-                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_install), HudSelection)} {ex.Message}");
+                ShowMessageBox(MessageBoxImage.Error,
+                    $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_install), HudSelection)} {ex.Message}");
             }
         }
 
@@ -387,7 +390,8 @@ namespace HUDEditor
             }
             catch (Exception ex)
             {
-                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_uninstall), HudSelection)} {ex.Message}");
+                ShowMessageBox(MessageBoxImage.Error,
+                    $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_uninstall), HudSelection)} {ex.Message}");
             }
         }
 
@@ -420,7 +424,8 @@ namespace HUDEditor
             };
             worker.RunWorkerCompleted += (_, _) =>
             {
-                LblStatus.Content = string.Format(Properties.Resources.status_applied, hudObject.Name, DateTime.Now);
+                LblStatus.Content =
+                    string.Format(Properties.Resources.status_applied, hudObject.Name, DateTime.Now);
             };
             worker.RunWorkerAsync();
         }
@@ -536,7 +541,6 @@ namespace HUDEditor
         /// </summary>
         private void gridSelectHud_SelectionChanged(object sender, HUD hud)
         {
-
         }
 
         private void BtnLocalize_OnClick(object sender, RoutedEventArgs e)

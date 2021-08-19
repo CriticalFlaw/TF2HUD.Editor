@@ -284,7 +284,7 @@ namespace HUDEditor.Classes
         {
             // Try to find the Steam library path in the registry.
             var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-            var registry = (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
+            var registry = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
                 "InstallPath", null);
 
             if (string.IsNullOrWhiteSpace(registry)) return false;
@@ -329,7 +329,7 @@ namespace HUDEditor.Classes
             // If first character is a digit, add an
             // underscore, then replace all dashes and
             // whitespace characters with underscores
-            return $"{(Regex.IsMatch(id[0].ToString(),"\\d") ? "_" : "")}{String.Join('_', Regex.Split(id, "[- ]"))}";
+            return $"{(Regex.IsMatch(id[0].ToString(), "\\d") ? "_" : "")}{string.Join('_', Regex.Split(id, "[- ]"))}";
         }
     }
 }

@@ -1025,12 +1025,12 @@ namespace HUDEditor.Classes
         /// <returns>Copy of <see cref="TgaColorKey" /></returns>
         public TgaColorKey Clone()
         {
-            return new(A, R, G, B);
+            return new TgaColorKey(A, R, G, B);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaColorKey ? Equals((TgaColorKey) obj) : false;
+            return obj is TgaColorKey ? Equals((TgaColorKey)obj) : false;
         }
 
         public bool Equals(TgaColorKey item)
@@ -1129,7 +1129,7 @@ namespace HUDEditor.Classes
 
             FirstEntryIndex = BitConverter.ToUInt16(Bytes, 0);
             ColorMapLength = BitConverter.ToUInt16(Bytes, 2);
-            ColorMapEntrySize = (TgaColorMapEntrySize) Bytes[4];
+            ColorMapEntrySize = (TgaColorMapEntrySize)Bytes[4];
         }
 
         /// <summary>
@@ -1187,12 +1187,12 @@ namespace HUDEditor.Classes
         /// <returns>Copy of <see cref="TgaColorMapSpec" /></returns>
         public TgaColorMapSpec Clone()
         {
-            return new(ToBytes());
+            return new TgaColorMapSpec(ToBytes());
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaColorMapSpec ? Equals((TgaColorMapSpec) obj) : false;
+            return obj is TgaColorMapSpec ? Equals((TgaColorMapSpec)obj) : false;
         }
 
         public bool Equals(TgaColorMapSpec item)
@@ -1235,7 +1235,7 @@ namespace HUDEditor.Classes
         /// <returns>Byte array with length = 5.</returns>
         public byte[] ToBytes()
         {
-            return BitConverterExt.ToBytes(FirstEntryIndex, ColorMapLength, (byte) ColorMapEntrySize);
+            return BitConverterExt.ToBytes(FirstEntryIndex, ColorMapLength, (byte)ColorMapEntrySize);
         }
     }
 
@@ -1278,7 +1278,7 @@ namespace HUDEditor.Classes
                 case '\0':
                 case ' ':
                     BlankSpaceChar = s[s.Length - 1];
-                    OriginalString = s.TrimEnd(new[] {s[s.Length - 1]});
+                    OriginalString = s.TrimEnd(new[] { s[s.Length - 1] });
                     break;
 
                 default:
@@ -1306,12 +1306,12 @@ namespace HUDEditor.Classes
         /// <returns>Copy of <see cref="TgaComment" /></returns>
         public TgaComment Clone()
         {
-            return new(OriginalString, BlankSpaceChar);
+            return new TgaComment(OriginalString, BlankSpaceChar);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaComment ? Equals((TgaComment) obj) : false;
+            return obj is TgaComment ? Equals((TgaComment)obj) : false;
         }
 
         public bool Equals(TgaComment item)
@@ -1359,7 +1359,7 @@ namespace HUDEditor.Classes
             var Str = Encoding.ASCII.GetString(ToBytes());
             for (var i = 1; i < 4; i++)
                 Str = Str.Insert((StrNLen + 1) * i + i - 1, "\n");
-            return Str.Replace("\0", string.Empty).TrimEnd(new[] {'\n'});
+            return Str.Replace("\0", string.Empty).TrimEnd(new[] { '\n' });
         }
 
         /// <summary>
@@ -1416,12 +1416,12 @@ namespace HUDEditor.Classes
         /// <param name="DateAndTime">Some <see cref="DateTime" /> variable.</param>
         public TgaDateTime(DateTime DateAndTime)
         {
-            Month = (ushort) DateAndTime.Month;
-            Day = (ushort) DateAndTime.Day;
-            Year = (ushort) DateAndTime.Year;
-            Hour = (ushort) DateAndTime.Hour;
-            Minute = (ushort) DateAndTime.Minute;
-            Second = (ushort) DateAndTime.Second;
+            Month = (ushort)DateAndTime.Month;
+            Day = (ushort)DateAndTime.Day;
+            Year = (ushort)DateAndTime.Year;
+            Hour = (ushort)DateAndTime.Hour;
+            Minute = (ushort)DateAndTime.Minute;
+            Second = (ushort)DateAndTime.Second;
         }
 
         /// <summary>
@@ -1507,12 +1507,12 @@ namespace HUDEditor.Classes
         /// <returns>Copy of <see cref="TgaDateTime" /></returns>
         public TgaDateTime Clone()
         {
-            return new(Month, Day, Year, Hour, Minute, Second);
+            return new TgaDateTime(Month, Day, Year, Hour, Minute, Second);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaDateTime ? Equals((TgaDateTime) obj) : false;
+            return obj is TgaDateTime ? Equals((TgaDateTime)obj) : false;
         }
 
         public bool Equals(TgaDateTime item)
@@ -1577,7 +1577,7 @@ namespace HUDEditor.Classes
         /// <returns><see cref="DateTime" /> value of <see cref="TgaDateTime" />.</returns>
         public DateTime ToDateTime()
         {
-            return new(Year, Month, Day, Hour, Minute, Second);
+            return new DateTime(Year, Month, Day, Hour, Minute, Second);
         }
     }
 
@@ -1696,12 +1696,12 @@ namespace HUDEditor.Classes
         /// <returns>Copy of <see cref="TgaDevEntry" /></returns>
         public TgaDevEntry Clone()
         {
-            return new(this);
+            return new TgaDevEntry(this);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaDevEntry ? Equals((TgaDevEntry) obj) : false;
+            return obj is TgaDevEntry ? Equals((TgaDevEntry)obj) : false;
         }
 
         public bool Equals(TgaDevEntry item)
@@ -1826,7 +1826,7 @@ namespace HUDEditor.Classes
                 if (Numerator == Denominator)
                     return 1f;
 
-                return Numerator / (float) Denominator;
+                return Numerator / (float)Denominator;
             }
         }
 
@@ -1845,12 +1845,12 @@ namespace HUDEditor.Classes
         /// <returns>Copy of <see cref="TgaFraction" /></returns>
         public TgaFraction Clone()
         {
-            return new(Numerator, Denominator);
+            return new TgaFraction(Numerator, Denominator);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaFraction ? Equals((TgaFraction) obj) : false;
+            return obj is TgaFraction ? Equals((TgaFraction)obj) : false;
         }
 
         public bool Equals(TgaFraction item)
@@ -1925,8 +1925,8 @@ namespace HUDEditor.Classes
         /// </param>
         public TgaImageDescriptor(byte b)
         {
-            ImageOrigin = (TgaImgOrigin) ((b & 0x30) >> 4);
-            AlphaChannelBits = (byte) (b & 0x0F);
+            ImageOrigin = (TgaImgOrigin)((b & 0x30) >> 4);
+            AlphaChannelBits = (byte)(b & 0x0F);
         }
 
         /// <summary>
@@ -1954,12 +1954,12 @@ namespace HUDEditor.Classes
         /// <returns>Full independent copy of <see cref="TgaImageDescriptor" />.</returns>
         public TgaImageDescriptor Clone()
         {
-            return new(ToByte());
+            return new TgaImageDescriptor(ToByte());
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaImageDescriptor ? Equals((TgaImageDescriptor) obj) : false;
+            return obj is TgaImageDescriptor ? Equals((TgaImageDescriptor)obj) : false;
         }
 
         public bool Equals(TgaImageDescriptor item)
@@ -1985,7 +1985,7 @@ namespace HUDEditor.Classes
 
         public override int GetHashCode()
         {
-            return (((int) ImageOrigin << 4) | AlphaChannelBits).GetHashCode();
+            return (((int)ImageOrigin << 4) | AlphaChannelBits).GetHashCode();
         }
 
         public override string ToString()
@@ -2003,7 +2003,7 @@ namespace HUDEditor.Classes
         /// </returns>
         public byte ToByte()
         {
-            return (byte) (((int) ImageOrigin << 4) | AlphaChannelBits);
+            return (byte)(((int)ImageOrigin << 4) | AlphaChannelBits);
         }
     }
 
@@ -2075,7 +2075,7 @@ namespace HUDEditor.Classes
             Y_Origin = BitConverter.ToUInt16(Bytes, 2);
             ImageWidth = BitConverter.ToUInt16(Bytes, 4);
             ImageHeight = BitConverter.ToUInt16(Bytes, 6);
-            PixelDepth = (TgaPixelDepth) Bytes[8];
+            PixelDepth = (TgaPixelDepth)Bytes[8];
             ImageDescriptor = new TgaImageDescriptor(Bytes[9]);
         }
 
@@ -2129,12 +2129,12 @@ namespace HUDEditor.Classes
         /// <returns></returns>
         public TgaImageSpec Clone()
         {
-            return new(ToBytes());
+            return new TgaImageSpec(ToBytes());
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaImageSpec ? Equals((TgaImageSpec) obj) : false;
+            return obj is TgaImageSpec ? Equals((TgaImageSpec)obj) : false;
         }
 
         public bool Equals(TgaImageSpec item)
@@ -2199,7 +2199,7 @@ namespace HUDEditor.Classes
         public byte[] ToBytes()
         {
             return BitConverterExt.ToBytes(X_Origin, Y_Origin, ImageWidth, ImageHeight,
-                (byte) PixelDepth, ImageDescriptor == null ? byte.MinValue : ImageDescriptor.ToByte());
+                (byte)PixelDepth, ImageDescriptor == null ? byte.MinValue : ImageDescriptor.ToByte());
         }
     }
 
@@ -2279,12 +2279,12 @@ namespace HUDEditor.Classes
         /// <returns>Full independent copy of <see cref="TgaPostageStampImage" />.</returns>
         public TgaPostageStampImage Clone()
         {
-            return new(Width, Height, BitConverterExt.ToBytes(Data));
+            return new TgaPostageStampImage(Width, Height, BitConverterExt.ToBytes(Data));
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaPostageStampImage ? Equals((TgaPostageStampImage) obj) : false;
+            return obj is TgaPostageStampImage ? Equals((TgaPostageStampImage)obj) : false;
         }
 
         public bool Equals(TgaPostageStampImage item)
@@ -2414,12 +2414,12 @@ namespace HUDEditor.Classes
         /// <returns></returns>
         public TgaSoftVersion Clone()
         {
-            return new(versionNumber, VersionLetter);
+            return new TgaSoftVersion(versionNumber, VersionLetter);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaSoftVersion ? Equals((TgaSoftVersion) obj) : false;
+            return obj is TgaSoftVersion ? Equals((TgaSoftVersion)obj) : false;
         }
 
         public bool Equals(TgaSoftVersion item)
@@ -2535,7 +2535,7 @@ namespace HUDEditor.Classes
                     case '\0':
                     case ' ':
                         BlankSpaceChar = s[s.Length - 1];
-                        OriginalString = s.TrimEnd(new[] {s[s.Length - 1]});
+                        OriginalString = s.TrimEnd(new[] { s[s.Length - 1] });
                         break;
 
                     default:
@@ -2584,12 +2584,12 @@ namespace HUDEditor.Classes
         /// <returns>Copy of <see cref="TgaString" /></returns>
         public TgaString Clone()
         {
-            return new(OriginalString, Length, UseEndingChar, BlankSpaceChar);
+            return new TgaString(OriginalString, Length, UseEndingChar, BlankSpaceChar);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaString ? Equals((TgaString) obj) : false;
+            return obj is TgaString ? Equals((TgaString)obj) : false;
         }
 
         public bool Equals(TgaString item)
@@ -2715,9 +2715,9 @@ namespace HUDEditor.Classes
         /// <param name="Time">Some <see cref="TimeSpan" /> variable.</param>
         public TgaTime(TimeSpan Time)
         {
-            Hours = (ushort) Time.TotalHours;
-            Minutes = (ushort) Time.Minutes;
-            Seconds = (ushort) Time.Seconds;
+            Hours = (ushort)Time.TotalHours;
+            Minutes = (ushort)Time.Minutes;
+            Seconds = (ushort)Time.Seconds;
         }
 
         /// <summary>
@@ -2779,12 +2779,12 @@ namespace HUDEditor.Classes
         /// <returns>Copy of <see cref="TgaTime" /></returns>
         public TgaTime Clone()
         {
-            return new(Hours, Minutes, Seconds);
+            return new TgaTime(Hours, Minutes, Seconds);
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaTime ? Equals((TgaTime) obj) : false;
+            return obj is TgaTime ? Equals((TgaTime)obj) : false;
         }
 
         public bool Equals(TgaTime item)
@@ -2843,7 +2843,7 @@ namespace HUDEditor.Classes
         /// <returns><see cref="TimeSpan" /> value of <see cref="TgaTime" />.</returns>
         public TimeSpan ToTimeSpan()
         {
-            return new(Hours, Minutes, Seconds);
+            return new TimeSpan(Hours, Minutes, Seconds);
         }
     }
 
@@ -2878,8 +2878,8 @@ namespace HUDEditor.Classes
                 throw new ArgumentOutOfRangeException(nameof(Bytes.Length) + " must be equal " + Size + "!");
 
             IDLength = Bytes[0];
-            ColorMapType = (TgaColorMapType) Bytes[1];
-            ImageType = (TgaImageType) Bytes[2];
+            ColorMapType = (TgaColorMapType)Bytes[1];
+            ImageType = (TgaImageType)Bytes[2];
             ColorMapSpec = new TgaColorMapSpec(BitConverterExt.GetElements(Bytes, 3, TgaColorMapSpec.Size));
             ImageSpec = new TgaImageSpec(BitConverterExt.GetElements(Bytes, 8, TgaImageSpec.Size));
         }
@@ -2944,12 +2944,12 @@ namespace HUDEditor.Classes
         /// <returns>Full independent copy of <see cref="TgaHeader" />.</returns>
         public TgaHeader Clone()
         {
-            return new(ToBytes());
+            return new TgaHeader(ToBytes());
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaHeader ? Equals((TgaHeader) obj) : false;
+            return obj is TgaHeader ? Equals((TgaHeader)obj) : false;
         }
 
         public bool Equals(TgaHeader item)
@@ -2982,7 +2982,7 @@ namespace HUDEditor.Classes
             unchecked
             {
                 var hash = 17;
-                hash = hash * 23 + ((IDLength << 24) | ((byte) ColorMapType << 8) | (byte) ImageType).GetHashCode();
+                hash = hash * 23 + ((IDLength << 24) | ((byte)ColorMapType << 8) | (byte)ImageType).GetHashCode();
 
                 if (ColorMapSpec != null)
                     hash = hash * 23 + ColorMapSpec.GetHashCode();
@@ -3010,7 +3010,7 @@ namespace HUDEditor.Classes
         /// <returns>Byte array with size equal <see cref="Size" />.</returns>
         public byte[] ToBytes()
         {
-            return BitConverterExt.ToBytes(IDLength, (byte) ColorMapType, (byte) ImageType,
+            return BitConverterExt.ToBytes(IDLength, (byte)ColorMapType, (byte)ImageType,
                 ColorMapSpec == null ? new byte[TgaColorMapSpec.Size] : ColorMapSpec.ToBytes(),
                 ImageSpec == null ? new byte[TgaImageSpec.Size] : ImageSpec.ToBytes());
         }
@@ -3117,15 +3117,15 @@ namespace HUDEditor.Classes
         /// <returns>Full independed copy of <see cref="TgaImgOrColMap" />.</returns>
         public TgaImgOrColMap Clone()
         {
-            return new(
+            return new TgaImgOrColMap(
                 ImageID == null ? null : ImageID.Clone(),
-                ColorMapData == null ? null : (byte[]) ColorMapData.Clone(),
-                ImageData == null ? null : (byte[]) ImageData.Clone());
+                ColorMapData == null ? null : (byte[])ColorMapData.Clone(),
+                ImageData == null ? null : (byte[])ImageData.Clone());
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaImgOrColMap ? Equals((TgaImgOrColMap) obj) : false;
+            return obj is TgaImgOrColMap ? Equals((TgaImgOrColMap)obj) : false;
         }
 
         public bool Equals(TgaImgOrColMap item)
@@ -3229,7 +3229,7 @@ namespace HUDEditor.Classes
 
         public override bool Equals(object obj)
         {
-            return obj is TgaDevArea ? Equals((TgaDevArea) obj) : false;
+            return obj is TgaDevArea ? Equals((TgaDevArea)obj) : false;
         }
 
         public bool Equals(TgaDevArea item)
@@ -3277,7 +3277,7 @@ namespace HUDEditor.Classes
             if (Entries == null)
                 throw new Exception(nameof(Entries) + " = null!");
 
-            var NumberOfEntries = (ushort) Math.Min(ushort.MaxValue, Entries.Count);
+            var NumberOfEntries = (ushort)Math.Min(ushort.MaxValue, Entries.Count);
             var DevDir = new List<byte>(BitConverter.GetBytes(NumberOfEntries));
 
             for (var i = 0; i < Entries.Count; i++)
@@ -3332,7 +3332,7 @@ namespace HUDEditor.Classes
             ColorCorrectionTableOffset = BitConverter.ToUInt32(Bytes, 482);
             PostageStampOffset = BitConverter.ToUInt32(Bytes, 486);
             ScanLineOffset = BitConverter.ToUInt32(Bytes, 490);
-            AttributesType = (TgaAttrType) Bytes[494];
+            AttributesType = (TgaAttrType)Bytes[494];
 
             if (ExtensionSize > MinSize)
                 OtherDataInExtensionArea = BitConverterExt.GetElements(Bytes, 495, Bytes.Length - MinSize);
@@ -3375,21 +3375,21 @@ namespace HUDEditor.Classes
             NewExtArea.AttributesType = AttributesType;
 
             if (ScanLineTable != null)
-                NewExtArea.ScanLineTable = (uint[]) ScanLineTable.Clone();
+                NewExtArea.ScanLineTable = (uint[])ScanLineTable.Clone();
             if (PostageStampImage != null)
                 NewExtArea.PostageStampImage = new TgaPostageStampImage(PostageStampImage.ToBytes());
             if (ColorCorrectionTable != null)
-                NewExtArea.ColorCorrectionTable = (ushort[]) ColorCorrectionTable.Clone();
+                NewExtArea.ColorCorrectionTable = (ushort[])ColorCorrectionTable.Clone();
 
             if (OtherDataInExtensionArea != null)
-                NewExtArea.OtherDataInExtensionArea = (byte[]) OtherDataInExtensionArea.Clone();
+                NewExtArea.OtherDataInExtensionArea = (byte[])OtherDataInExtensionArea.Clone();
 
             return NewExtArea;
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaExtArea ? Equals((TgaExtArea) obj) : false;
+            return obj is TgaExtArea ? Equals((TgaExtArea)obj) : false;
         }
 
         public bool Equals(TgaExtArea item)
@@ -3528,7 +3528,7 @@ namespace HUDEditor.Classes
                 ColorCorrectionTableOffset,
                 PostageStampOffset,
                 ScanLineOffset,
-                (byte) AttributesType,
+                (byte)AttributesType,
                 OtherDataInExtensionArea);
         }
 
@@ -3836,8 +3836,8 @@ namespace HUDEditor.Classes
             ExtensionAreaOffset = BitConverter.ToUInt32(Bytes, 0);
             DeveloperDirectoryOffset = BitConverter.ToUInt32(Bytes, 4);
             Signature = new TgaString(BitConverterExt.GetElements(Bytes, 8, TgaString.XFileSignatuteConst.Length));
-            ReservedCharacter = new TgaString(new[] {Bytes[24]});
-            BinaryZeroStringTerminator = new TgaString(new[] {Bytes[25]});
+            ReservedCharacter = new TgaString(new[] { Bytes[24] });
+            BinaryZeroStringTerminator = new TgaString(new[] { Bytes[25] });
         }
 
         /// <summary>
@@ -3902,13 +3902,13 @@ namespace HUDEditor.Classes
         /// <returns></returns>
         public TgaFooter Clone()
         {
-            return new(ExtensionAreaOffset, DeveloperDirectoryOffset, Signature.Clone(),
+            return new TgaFooter(ExtensionAreaOffset, DeveloperDirectoryOffset, Signature.Clone(),
                 ReservedCharacter.Clone(), BinaryZeroStringTerminator.Clone());
         }
 
         public override bool Equals(object obj)
         {
-            return obj is TgaFooter ? Equals((TgaFooter) obj) : false;
+            return obj is TgaFooter ? Equals((TgaFooter)obj) : false;
         }
 
         public bool Equals(TgaFooter item)
@@ -3999,21 +3999,21 @@ namespace HUDEditor.Classes
                 if (obj[i] == null)
                     continue;
                 else if (obj[i] is byte)
-                    BytesList.Add((byte) obj[i]);
+                    BytesList.Add((byte)obj[i]);
                 else if (obj[i] is byte[])
-                    BytesList.AddRange((byte[]) obj[i]);
+                    BytesList.AddRange((byte[])obj[i]);
                 else if (obj[i] is short)
-                    BytesList.AddRange(BitConverter.GetBytes((short) obj[i]));
+                    BytesList.AddRange(BitConverter.GetBytes((short)obj[i]));
                 else if (obj[i] is ushort)
-                    BytesList.AddRange(BitConverter.GetBytes((ushort) obj[i]));
+                    BytesList.AddRange(BitConverter.GetBytes((ushort)obj[i]));
                 else if (obj[i] is int)
-                    BytesList.AddRange(BitConverter.GetBytes((int) obj[i]));
+                    BytesList.AddRange(BitConverter.GetBytes((int)obj[i]));
                 else if (obj[i] is uint)
-                    BytesList.AddRange(BitConverter.GetBytes((uint) obj[i]));
+                    BytesList.AddRange(BitConverter.GetBytes((uint)obj[i]));
                 else if (obj[i] is long)
-                    BytesList.AddRange(BitConverter.GetBytes((long) obj[i]));
+                    BytesList.AddRange(BitConverter.GetBytes((long)obj[i]));
                 else if (obj[i] is ulong)
-                    BytesList.AddRange(BitConverter.GetBytes((ulong) obj[i]));
+                    BytesList.AddRange(BitConverter.GetBytes((ulong)obj[i]));
             return BytesList.ToArray();
         }
 
@@ -4163,8 +4163,8 @@ namespace HUDEditor.Classes
             get => new(Header.ImageSpec.ImageWidth, Header.ImageSpec.ImageHeight);
             set
             {
-                Header.ImageSpec.ImageWidth = (ushort) value.Width;
-                Header.ImageSpec.ImageHeight = (ushort) value.Height;
+                Header.ImageSpec.ImageWidth = (ushort)value.Width;
+                Header.ImageSpec.ImageHeight = (ushort)value.Height;
             }
         }
 
@@ -4179,7 +4179,7 @@ namespace HUDEditor.Classes
         /// <returns>Full independed copy of <see cref="TGA" />.</returns>
         public TGA Clone()
         {
-            return new(this);
+            return new TGA(this);
         }
 
         /// <summary>
@@ -4189,9 +4189,9 @@ namespace HUDEditor.Classes
         /// <param name="Vertical">Flip vertical.</param>
         public void Flip(bool Horizontal = false, bool Vertical = false)
         {
-            var NewOrigin = (int) Header.ImageSpec.ImageDescriptor.ImageOrigin;
+            var NewOrigin = (int)Header.ImageSpec.ImageDescriptor.ImageOrigin;
             NewOrigin = NewOrigin ^ ((Vertical ? 0x20 : 0) | (Horizontal ? 0x10 : 0));
-            Header.ImageSpec.ImageDescriptor.ImageOrigin = (TgaImgOrigin) NewOrigin;
+            Header.ImageSpec.ImageDescriptor.ImageOrigin = (TgaImgOrigin)NewOrigin;
         }
 
         /// <summary>
@@ -4325,7 +4325,7 @@ namespace HUDEditor.Classes
                 if (ImageOrColorMapArea.ImageID.UseEndingChar)
                     StrMaxLen--;
 
-                Header.IDLength = (byte) Math.Min(ImageOrColorMapArea.ImageID.OriginalString.Length, StrMaxLen);
+                Header.IDLength = (byte)Math.Min(ImageOrColorMapArea.ImageID.OriginalString.Length, StrMaxLen);
                 ImageOrColorMapArea.ImageID.Length = Header.IDLength;
                 Offset += Header.IDLength;
             }
@@ -4358,7 +4358,7 @@ namespace HUDEditor.Classes
                     return false;
                 }
 
-                var CmBytesPerPixel = (int) Math.Ceiling((double) Header.ColorMapSpec.ColorMapEntrySize / 8.0);
+                var CmBytesPerPixel = (int)Math.Ceiling((double)Header.ColorMapSpec.ColorMapEntrySize / 8.0);
                 var LenBytes = Header.ColorMapSpec.ColorMapLength * CmBytesPerPixel;
 
                 if (LenBytes != ImageOrColorMapArea.ColorMapData.Length)
@@ -4367,7 +4367,7 @@ namespace HUDEditor.Classes
                     return false;
                 }
 
-                Offset += (uint) ImageOrColorMapArea.ColorMapData.Length;
+                Offset += (uint)ImageOrColorMapArea.ColorMapData.Length;
             }
 
             #endregion ColorMap
@@ -4395,7 +4395,7 @@ namespace HUDEditor.Classes
                     return false;
                 }
 
-                BytesPerPixel = (int) Math.Ceiling((double) Header.ImageSpec.PixelDepth / 8.0);
+                BytesPerPixel = (int)Math.Ceiling((double)Header.ImageSpec.PixelDepth / 8.0);
                 if (Width * Height * BytesPerPixel != ImageOrColorMapArea.ImageData.Length)
                 {
                     ErrorStr = "ImageOrColorMapArea.ImageData.Length has wrong size!";
@@ -4412,12 +4412,12 @@ namespace HUDEditor.Classes
                         return false;
                     }
 
-                    Offset += (uint) RLE.Length;
+                    Offset += (uint)RLE.Length;
                     RLE = null;
                 }
                 else
                 {
-                    Offset += (uint) ImageOrColorMapArea.ImageData.Length;
+                    Offset += (uint)ImageOrColorMapArea.ImageData.Length;
                 }
             }
 
@@ -4457,11 +4457,11 @@ namespace HUDEditor.Classes
                     for (var i = 0; i < DevArea.Count; i++)
                     {
                         DevArea[i].Offset = Offset;
-                        Offset += (uint) DevArea[i].FieldSize;
+                        Offset += (uint)DevArea[i].FieldSize;
                     }
 
                     Footer.DeveloperDirectoryOffset = Offset;
-                    Offset += (uint) (DevArea.Count * 10 + 2);
+                    Offset += (uint)(DevArea.Count * 10 + 2);
                 }
                 else
                 {
@@ -4476,7 +4476,7 @@ namespace HUDEditor.Classes
                 {
                     ExtArea.ExtensionSize = TgaExtArea.MinSize;
                     if (ExtArea.OtherDataInExtensionArea != null)
-                        ExtArea.ExtensionSize += (ushort) ExtArea.OtherDataInExtensionArea.Length;
+                        ExtArea.ExtensionSize += (ushort)ExtArea.OtherDataInExtensionArea.Length;
 
                     ExtArea.DateTimeStamp = new TgaDateTime(DateTime.UtcNow);
 
@@ -4498,7 +4498,7 @@ namespace HUDEditor.Classes
                         }
 
                         ExtArea.ScanLineOffset = Offset;
-                        Offset += (uint) (ExtArea.ScanLineTable.Length * 4);
+                        Offset += (uint)(ExtArea.ScanLineTable.Length * 4);
                     }
 
                     #endregion ScanLineTable
@@ -4532,7 +4532,7 @@ namespace HUDEditor.Classes
                         }
 
                         ExtArea.PostageStampOffset = Offset;
-                        Offset += (uint) ExtArea.PostageStampImage.Data.Length;
+                        Offset += (uint)ExtArea.PostageStampImage.Data.Length;
                     }
 
                     #endregion PostageStampImage
@@ -4552,7 +4552,7 @@ namespace HUDEditor.Classes
                         }
 
                         ExtArea.ColorCorrectionTableOffset = Offset;
-                        Offset += (uint) (ExtArea.ColorCorrectionTable.Length * 2);
+                        Offset += (uint)(ExtArea.ColorCorrectionTable.Length * 2);
                     }
 
                     #endregion ColorCorrectionTable
@@ -4613,14 +4613,14 @@ namespace HUDEditor.Classes
             }
             else
             {
-                var BytesPerPixel = (int) Math.Ceiling((double) PixDepth / 8.0);
+                var BytesPerPixel = (int)Math.Ceiling((double)PixDepth / 8.0);
                 ImageOrColorMapArea.ImageData = new byte[Width * Height * BytesPerPixel];
 
                 if (ImgType == TgaImageType.Uncompressed_ColorMapped || ImgType == TgaImageType.RLE_ColorMapped)
                 {
                     Header.ColorMapType = TgaColorMapType.ColorMap;
                     Header.ColorMapSpec.FirstEntryIndex = 0;
-                    Header.ColorMapSpec.ColorMapEntrySize = (TgaColorMapEntrySize) Math.Ceiling((double) PixDepth / 8);
+                    Header.ColorMapSpec.ColorMapEntrySize = (TgaColorMapEntrySize)Math.Ceiling((double)PixDepth / 8);
                 }
             }
 
@@ -4704,7 +4704,7 @@ namespace HUDEditor.Classes
         /// <returns>Loaded <see cref="TGA" /> file.</returns>
         public static TGA FromFile(string filename)
         {
-            return new(filename);
+            return new TGA(filename);
         }
 
         /// <summary>
@@ -4713,7 +4713,7 @@ namespace HUDEditor.Classes
         /// <param name="bytes">Bytes array (same like TGA File).</param>
         public static TGA FromBytes(byte[] bytes)
         {
-            return new(bytes);
+            return new TGA(bytes);
         }
 
         /// <summary>
@@ -4726,7 +4726,7 @@ namespace HUDEditor.Classes
         /// </param>
         public static TGA FromStream(Stream stream)
         {
-            return new(stream);
+            return new TGA(stream);
         }
 
         /// <summary>
@@ -4739,7 +4739,7 @@ namespace HUDEditor.Classes
         public static TGA FromBitmap(Bitmap bmp, bool UseRLE = false,
             bool NewFormat = true, bool ColorMap2BytesEntry = false)
         {
-            return new(bmp, UseRLE, NewFormat, ColorMap2BytesEntry);
+            return new TGA(bmp, UseRLE, NewFormat, ColorMap2BytesEntry);
         }
 
         /// <summary>
@@ -4898,14 +4898,14 @@ namespace HUDEditor.Classes
 
                 if (Header.ColorMapSpec.ColorMapLength > 0)
                 {
-                    var CmBytesPerPixel = (int) Math.Ceiling((double) Header.ColorMapSpec.ColorMapEntrySize / 8.0);
+                    var CmBytesPerPixel = (int)Math.Ceiling((double)Header.ColorMapSpec.ColorMapEntrySize / 8.0);
                     var LenBytes = Header.ColorMapSpec.ColorMapLength * CmBytesPerPixel;
                     ImageOrColorMapArea.ColorMapData = Br.ReadBytes(LenBytes);
                 }
 
                 #region Read Image Data
 
-                var BytesPerPixel = (int) Math.Ceiling((double) Header.ImageSpec.PixelDepth / 8.0);
+                var BytesPerPixel = (int)Math.Ceiling((double)Header.ImageSpec.PixelDepth / 8.0);
                 if (Header.ImageType != TgaImageType.NoImageData)
                 {
                     var ImageDataSize = Width * Height * BytesPerPixel;
@@ -4959,7 +4959,7 @@ namespace HUDEditor.Classes
                 #region Try parse Footer
 
                 stream.Seek(-TgaFooter.Size, SeekOrigin.End);
-                var FooterOffset = (uint) stream.Position;
+                var FooterOffset = (uint)stream.Position;
                 var MbFooter = new TgaFooter(Br.ReadBytes(TgaFooter.Size));
                 if (MbFooter.IsFooterCorrect)
                 {
@@ -4989,7 +4989,7 @@ namespace HUDEditor.Classes
                         for (var i = 0; i < NumberOfTags; i++)
                         {
                             stream.Seek(TagOffsets[i], SeekOrigin.Begin);
-                            var Ent = new TgaDevEntry(Tags[i], TagOffsets[i], Br.ReadBytes((int) TagSizes[i]));
+                            var Ent = new TgaDevEntry(Tags[i], TagOffsets[i], Br.ReadBytes((int)TagSizes[i]));
                             DevArea.Entries.Add(Ent);
                         }
 
@@ -5005,7 +5005,7 @@ namespace HUDEditor.Classes
                     if (ExtAreaOffset != 0)
                     {
                         stream.Seek(ExtAreaOffset, SeekOrigin.Begin);
-                        var ExtAreaSize = Math.Max((ushort) TgaExtArea.MinSize, Br.ReadUInt16());
+                        var ExtAreaSize = Math.Max((ushort)TgaExtArea.MinSize, Br.ReadUInt16());
                         stream.Seek(ExtAreaOffset, SeekOrigin.Begin);
                         ExtArea = new TgaExtArea(Br.ReadBytes(ExtAreaSize));
 
@@ -5057,8 +5057,8 @@ namespace HUDEditor.Classes
 
             try
             {
-                Header.ImageSpec.ImageWidth = (ushort) bmp.Width;
-                Header.ImageSpec.ImageHeight = (ushort) bmp.Height;
+                Header.ImageSpec.ImageWidth = (ushort)bmp.Width;
+                Header.ImageSpec.ImageHeight = (ushort)bmp.Height;
                 Header.ImageSpec.ImageDescriptor.ImageOrigin = TgaImgOrigin.TopLeft;
 
                 switch (bmp.PixelFormat)
@@ -5099,11 +5099,11 @@ namespace HUDEditor.Classes
                         var IsPreAlpha = IsAlpha && bmp.PixelFormat.ToString().EndsWith("PArgb");
                         var IsColorMapped = bmp.PixelFormat.ToString().EndsWith("Indexed");
 
-                        Header.ImageSpec.PixelDepth = (TgaPixelDepth) (BytesPP * 8);
+                        Header.ImageSpec.PixelDepth = (TgaPixelDepth)(BytesPP * 8);
 
                         if (IsAlpha)
                         {
-                            Header.ImageSpec.ImageDescriptor.AlphaChannelBits = (byte) (BytesPP * 2);
+                            Header.ImageSpec.ImageDescriptor.AlphaChannelBits = (byte)(BytesPP * 2);
 
                             if (bmp.PixelFormat == PixelFormat.Format16bppArgb1555)
                                 Header.ImageSpec.ImageDescriptor.AlphaChannelBits = 1;
@@ -5133,12 +5133,12 @@ namespace HUDEditor.Classes
 
                             var CMapBpp = (ColorMap2BytesEntry ? 15 : 24) +
                                           (ColorMapUseAlpha ? ColorMap2BytesEntry ? 1 : 8 : 0);
-                            var CMBytesPP = (int) Math.Ceiling(CMapBpp / 8.0);
+                            var CMBytesPP = (int)Math.Ceiling(CMapBpp / 8.0);
 
                             #endregion Analyze ColorMapType
 
-                            Header.ColorMapSpec.ColorMapLength = Math.Min((ushort) Colors.Length, ushort.MaxValue);
-                            Header.ColorMapSpec.ColorMapEntrySize = (TgaColorMapEntrySize) CMapBpp;
+                            Header.ColorMapSpec.ColorMapLength = Math.Min((ushort)Colors.Length, ushort.MaxValue);
+                            Header.ColorMapSpec.ColorMapEntrySize = (TgaColorMapEntrySize)CMapBpp;
                             ImageOrColorMapArea.ColorMapData = new byte[Header.ColorMapSpec.ColorMapLength * CMBytesPP];
 
                             var CMapEntry = new byte[CMBytesPP];
@@ -5150,9 +5150,9 @@ namespace HUDEditor.Classes
                                 {
                                     case TgaColorMapEntrySize.A1R5G5B5:
                                     case TgaColorMapEntrySize.X1R5G5B5:
-                                        var R = (int) (Colors[i].R * To5Bit);
-                                        var G = (int) (Colors[i].G * To5Bit) << 5;
-                                        var B = (int) (Colors[i].B * To5Bit) << 10;
+                                        var R = (int)(Colors[i].R * To5Bit);
+                                        var G = (int)(Colors[i].G * To5Bit) << 5;
+                                        var B = (int)(Colors[i].B * To5Bit) << 10;
                                         var A = 0;
 
                                         if (Header.ColorMapSpec.ColorMapEntrySize == TgaColorMapEntrySize.A1R5G5B5)
@@ -5240,7 +5240,7 @@ namespace HUDEditor.Classes
                         #region Bitmap width is aligned by 32 bits = 4 bytes! Delete it.
 
                         var StrideBytes = bmp.Width * BytesPP;
-                        var PaddingBytes = (int) Math.Ceiling(StrideBytes / 4.0) * 4 - StrideBytes;
+                        var PaddingBytes = (int)Math.Ceiling(StrideBytes / 4.0) * 4 - StrideBytes;
 
                         var ImageData = new byte[(StrideBytes + PaddingBytes) * bmp.Height];
 
@@ -5328,7 +5328,7 @@ namespace HUDEditor.Classes
                         for (var i = 0; i < DevArea.Count; i++)
                             Bw.Write(DevArea[i].Data);
 
-                        Bw.Write((ushort) DevArea.Count);
+                        Bw.Write((ushort)DevArea.Count);
 
                         for (var i = 0; i < DevArea.Count; i++)
                         {
@@ -5430,7 +5430,7 @@ namespace HUDEditor.Classes
                                 Count++;
 
                         var CountBpp = (Count + 1) * Bpp;
-                        Encoded.Add((byte) (IsRLE ? Count | 128 : Count));
+                        Encoded.Add((byte)(IsRLE ? Count | 128 : Count));
                         Encoded.AddRange(BitConverterExt.GetElements(RowData, Pos, IsRLE ? Bpp : CountBpp));
                         Pos += CountBpp;
                     }
@@ -5549,9 +5549,9 @@ namespace HUDEditor.Classes
                             {
                                 var A1R5G5B5 = BitConverter.ToUInt16(ImageOrColorMapArea.ColorMapData, i * 2);
                                 var A = (UseAlpha ? (A1R5G5B5 & 0x8000) >> 15 : 1) * 255; // (0 or 1) * 255
-                                var R = (int) (((A1R5G5B5 & 0x7C00) >> 10) * To8Bit);
-                                var G = (int) (((A1R5G5B5 & 0x3E0) >> 5) * To8Bit);
-                                var B = (int) ((A1R5G5B5 & 0x1F) * To8Bit);
+                                var R = (int)(((A1R5G5B5 & 0x7C00) >> 10) * To8Bit);
+                                var G = (int)(((A1R5G5B5 & 0x3E0) >> 5) * To8Bit);
+                                var B = (int)((A1R5G5B5 & 0x1F) * To8Bit);
                                 CMapColors[i] = Color.FromArgb(A, R, G, B);
                             }
 
@@ -5601,9 +5601,9 @@ namespace HUDEditor.Classes
                 #region Bitmap width must by aligned (align value = 32 bits = 4 bytes)!
 
                 byte[] ImageData;
-                var BytesPerPixel = (int) Math.Ceiling((double) Header.ImageSpec.PixelDepth / 8.0);
+                var BytesPerPixel = (int)Math.Ceiling((double)Header.ImageSpec.PixelDepth / 8.0);
                 var StrideBytes = BMP.Width * BytesPerPixel;
-                var PaddingBytes = (int) Math.Ceiling(StrideBytes / 4.0) * 4 - StrideBytes;
+                var PaddingBytes = (int)Math.Ceiling(StrideBytes / 4.0) * 4 - StrideBytes;
 
                 if (PaddingBytes > 0) //Need bytes align
                 {
@@ -5722,30 +5722,30 @@ namespace HUDEditor.Classes
 
             if (Width > 64 || Height > 64)
             {
-                var AspectRatio = Width / (float) Height;
-                PS_Width = (byte) (64f * (AspectRatio < 1f ? AspectRatio : 1f));
-                PS_Height = (byte) (64f / (AspectRatio > 1f ? AspectRatio : 1f));
+                var AspectRatio = Width / (float)Height;
+                PS_Width = (byte)(64f * (AspectRatio < 1f ? AspectRatio : 1f));
+                PS_Height = (byte)(64f / (AspectRatio > 1f ? AspectRatio : 1f));
             }
 
             PS_Width = Math.Max(PS_Width, 4);
             PS_Height = Math.Max(PS_Height, 4);
 
-            ExtArea.PostageStampImage.Width = (byte) PS_Width;
-            ExtArea.PostageStampImage.Height = (byte) PS_Height;
+            ExtArea.PostageStampImage.Width = (byte)PS_Width;
+            ExtArea.PostageStampImage.Height = (byte)PS_Height;
 
-            var BytesPerPixel = (int) Math.Ceiling((double) Header.ImageSpec.PixelDepth / 8.0);
+            var BytesPerPixel = (int)Math.Ceiling((double)Header.ImageSpec.PixelDepth / 8.0);
             ExtArea.PostageStampImage.Data = new byte[PS_Width * PS_Height * BytesPerPixel];
 
-            var WidthCoef = Width / (float) PS_Width;
-            var HeightCoef = Height / (float) PS_Height;
+            var WidthCoef = Width / (float)PS_Width;
+            var HeightCoef = Height / (float)PS_Height;
 
             for (var y = 0; y < PS_Height; y++)
             {
-                var Y_Offset = (int) (y * HeightCoef) * Width * BytesPerPixel;
+                var Y_Offset = (int)(y * HeightCoef) * Width * BytesPerPixel;
                 var y_Offset = y * PS_Width * BytesPerPixel;
 
                 for (var x = 0; x < PS_Width; x++)
-                    Buffer.BlockCopy(ImageOrColorMapArea.ImageData, Y_Offset + (int) (x * WidthCoef) * BytesPerPixel,
+                    Buffer.BlockCopy(ImageOrColorMapArea.ImageData, Y_Offset + (int)(x * WidthCoef) * BytesPerPixel,
                         ExtArea.PostageStampImage.Data, y_Offset + x * BytesPerPixel, BytesPerPixel);
             }
         }

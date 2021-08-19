@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using HUDEditor.Models;
+using HUDEditor.Properties;
 using Xceed.Wpf.Toolkit;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
@@ -34,11 +35,11 @@ namespace HUDEditor.Classes
             // Define the container that will hold the title and content.
             var container = new Grid();
 
-            var titleContainer = new Grid {VerticalAlignment = VerticalAlignment.Center};
+            var titleContainer = new Grid { VerticalAlignment = VerticalAlignment.Center };
             for (var i = 0; i < 3; i++)
                 titleContainer.ColumnDefinitions.Add(new ColumnDefinition());
 
-            var titleRow = new RowDefinition {Height = GridLength.Auto};
+            var titleRow = new RowDefinition { Height = GridLength.Auto };
 
             var contentRow = new RowDefinition();
             if (layout != null) contentRow.Height = GridLength.Auto;
@@ -57,7 +58,7 @@ namespace HUDEditor.Classes
             {
                 var presetButton = new Button
                 {
-                    Style = (Style) Application.Current.Resources["HUDButton"],
+                    Style = (Style)Application.Current.Resources["HUDButton"],
                     Content = preset,
                     FontSize = 25,
                     Width = 35,
@@ -93,13 +94,13 @@ namespace HUDEditor.Classes
             // Create the preview modal
             var preview = new ChildWindow
             {
-                Style = (Style) Application.Current.Resources["PreviewPanel"]
+                Style = (Style)Application.Current.Resources["PreviewPanel"]
             };
             preview.MouseDoubleClick += (_, _) => { preview.Close(); };
 
             var image = new Image
             {
-                Style = (Style) Application.Current.Resources["PreviewImage"]
+                Style = (Style)Application.Current.Resources["PreviewImage"]
             };
             preview.Content = image;
 
@@ -150,12 +151,12 @@ namespace HUDEditor.Classes
 
                 var sectionContentContainer = new Grid();
                 sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition());
-                sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition {Width = GridLength.Auto});
+                sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
                 // Create the reset button for each control section.
                 var resetInput = new Button
                 {
-                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                    Style = (Style)Application.Current.Resources["PreviewButton"],
                     HorizontalAlignment = HorizontalAlignment.Right,
                     Content = ".",
                     Opacity = 0.4
@@ -231,7 +232,7 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Style = (Style)Application.Current.Resources["PreviewButton"],
                                     Margin = new Thickness(0, lastTop, 0, 0),
                                     VerticalAlignment = VerticalAlignment.Bottom
                                 };
@@ -259,7 +260,7 @@ namespace HUDEditor.Classes
                             var colorLabel = new Label
                             {
                                 Content = label,
-                                Style = (Style) Application.Current.Resources["ColorPickerLabel"]
+                                Style = (Style)Application.Current.Resources["ColorPickerLabel"]
                             };
                             var colorInput = new ColorPicker
                             {
@@ -311,7 +312,7 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Style = (Style)Application.Current.Resources["PreviewButton"],
                                     Margin = new Thickness(5, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
@@ -333,7 +334,7 @@ namespace HUDEditor.Classes
                         case "select":
                         case "combobox":
                             // Do not create a ComboBox if there are no defined options.
-                            if (controlItem.Options is not {Length: > 0}) break;
+                            if (controlItem.Options is not { Length: > 0 }) break;
 
                             // Create the Control.
                             var comboBoxContainer = new StackPanel
@@ -343,7 +344,7 @@ namespace HUDEditor.Classes
                             var comboBoxLabel = new Label
                             {
                                 Content = label,
-                                Style = (Style) Application.Current.Resources["ComboBoxLabel"]
+                                Style = (Style)Application.Current.Resources["ComboBoxLabel"]
                             };
                             var comboBoxInput = new ComboBox
                             {
@@ -397,7 +398,7 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Style = (Style)Application.Current.Resources["PreviewButton"],
                                     Margin = new Thickness(0, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
@@ -425,7 +426,7 @@ namespace HUDEditor.Classes
                             var integerLabel = new Label
                             {
                                 Content = label,
-                                Style = (Style) Application.Current.Resources["IntegerUpDownLabel"]
+                                Style = (Style)Application.Current.Resources["IntegerUpDownLabel"]
                             };
                             var integerInput = new IntegerUpDown
                             {
@@ -464,7 +465,7 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Style = (Style)Application.Current.Resources["PreviewButton"],
                                     Margin = new Thickness(0, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
@@ -491,7 +492,7 @@ namespace HUDEditor.Classes
                             var xhairLabel = new Label
                             {
                                 Content = label,
-                                Style = (Style) Application.Current.Resources["CrosshairLabel"]
+                                Style = (Style)Application.Current.Resources["CrosshairLabel"]
                             };
                             var xhairInput = new ComboBox
                             {
@@ -503,10 +504,10 @@ namespace HUDEditor.Classes
                             foreach (var item in Utilities.CrosshairStyles.Select(option => new ComboBoxItem
                             {
                                 Content = option,
-                                Style = (Style) Application.Current.Resources["Crosshair"]
+                                Style = (Style)Application.Current.Resources["Crosshair"]
                             }))
                             {
-                                xhairInput.Style = (Style) Application.Current.Resources["CrosshairBox"];
+                                xhairInput.Style = (Style)Application.Current.Resources["CrosshairBox"];
                                 xhairInput.Items.Add(item);
                             }
 
@@ -536,7 +537,7 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Style = (Style)Application.Current.Resources["PreviewButton"],
                                     Margin = new Thickness(0, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
@@ -581,7 +582,7 @@ namespace HUDEditor.Classes
                             var bgInput = new Button
                             {
                                 Name = id,
-                                Content = Properties.Resources.ui_browse,
+                                Content = Resources.ui_browse,
                                 // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
@@ -593,7 +594,7 @@ namespace HUDEditor.Classes
 
                             var clearInput = new Button
                             {
-                                Content = Properties.Resources.ui_clear,
+                                Content = Resources.ui_clear,
                                 // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
@@ -619,7 +620,7 @@ namespace HUDEditor.Classes
                             // Add Events.
                             bgInput.Click += (_, _) =>
                             {
-                                MainWindow.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_background_override);
+                                MainWindow.ShowMessageBox(MessageBoxImage.Information, Resources.info_background_override);
                                 using (var fbd = new OpenFileDialog())
                                 {
                                     fbd.ShowDialog();
