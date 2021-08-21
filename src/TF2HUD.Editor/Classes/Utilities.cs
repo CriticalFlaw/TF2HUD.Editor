@@ -219,8 +219,7 @@ namespace HUDEditor.Classes
             }
         }
 
-        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj,
-            IEnumerable<string> keys)
+        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj, IEnumerable<string> keys)
         {
             try
             {
@@ -244,8 +243,7 @@ namespace HUDEditor.Classes
 
         public static async Task<string> Fetch(string url)
         {
-            var client = new HttpClient();
-            var response = await client.GetAsync(url);
+            var response = await new HttpClient().GetAsync(url);
             return response.IsSuccessStatusCode ? response.Content.ReadAsStringAsync().Result : null;
         }
 
@@ -268,11 +266,10 @@ namespace HUDEditor.Classes
         ///     Check if Team Fortress 2 is currently running.
         /// </summary>
         /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
-        public static bool CheckIsGameRunning(bool returnMessage = false)
+        public static bool CheckIsGameRunning()
         {
             if (!Process.GetProcessesByName("hl2").Any()) return false;
-            if (returnMessage)
-                MainWindow.ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString(Resources.info_game_running));
+            MainWindow.ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString(Resources.info_game_running));
             return true;
         }
 
@@ -284,8 +281,7 @@ namespace HUDEditor.Classes
         {
             // Try to find the Steam library path in the registry.
             var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-            var registry = (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
-                "InstallPath", null);
+            var registry = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null);
 
             if (string.IsNullOrWhiteSpace(registry)) return false;
 
@@ -293,7 +289,6 @@ namespace HUDEditor.Classes
             registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
 
             if (!Directory.Exists(registry)) return false;
-
             MainWindow.Logger.Info("tf/custom directory found in the registry: " + registry);
             Settings.Default.hud_directory = registry;
             Settings.Default.Save();
@@ -312,24 +307,19 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Get a localized string from the resource file.
         /// </summary>
-        /// <param name="key"></param>
         public static string GetLocalizedString(string key)
         {
-            var locExtension = new LocTextExtension(key);
-            locExtension.ResolveLocalizedValue(out string uiString);
+            _ = new LocTextExtension(key).ResolveLocalizedValue(out string uiString);
             return uiString;
         }
 
         /// <summary>
         ///     Converts a HUD/control name into a WPF usable ID
         /// </summary>
-        /// <param name="id"></param>
+        /// <remarks>If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores.</remarks>
         public static string EncodeID(string id)
         {
-            // If first character is a digit, add an
-            // underscore, then replace all dashes and
-            // whitespace characters with underscores
-            return $"{(Regex.IsMatch(id[0].ToString(),"\\d") ? "_" : "")}{String.Join('_', Regex.Split(id, "[- ]"))}";
+            return $"{(Regex.IsMatch(id[0].ToString(), "\\d") ? "_" : "")}{string.Join('_', Regex.Split(id, "[- ]"))}";
         }
     }
 }

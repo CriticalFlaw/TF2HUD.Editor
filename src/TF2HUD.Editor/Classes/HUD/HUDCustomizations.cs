@@ -24,7 +24,7 @@ namespace HUDEditor.Classes
                 // HUD Background Image.
                 // Set the HUD Background image path when applying, because it's possible
                 // the user did not have their tf/custom folder set up when this HUD constructor was called.
-                hudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\");
+                HudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\");
 
                 var hudSettings = ControlOptions.Values;
                 // var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json")).Controls.Values;
@@ -80,7 +80,7 @@ namespace HUDEditor.Classes
                                             obj[key].GetType() == typeof(Dictionary<string, dynamic>))
                                             // Initialise hudContainer and create inner Dictionary
                                             //  to contain elements specified
-                                            hudContainer = new Dictionary<string, dynamic> {[key] = folder[property]};
+                                            hudContainer = new Dictionary<string, dynamic> { [key] = folder[property] };
 
                                         preventInfinite++;
                                     }
@@ -112,7 +112,7 @@ namespace HUDEditor.Classes
                 // write hudFolders to the HUD once instead of each WriteToFile call reading and writing
                 var hudPath = MainWindow.HudPath + "\\" + Name;
                 IterateProperties(hudFolders, hudPath);
-                hudBackground.Apply();
+                HudBackground.Apply();
                 return true;
             }
             catch (Exception e)
@@ -375,7 +375,7 @@ namespace HUDEditor.Classes
                             {
                                 MainWindow.Logger.Info(property.Key);
                                 var newhudElementRef = hudElementRef.ContainsKey(property.Key)
-                                    ? (Dictionary<string, dynamic>) hudElementRef[property.Key]
+                                    ? (Dictionary<string, dynamic>)hudElementRef[property.Key]
                                     : new Dictionary<string, dynamic>();
                                 hudElement[property.Key] = CompileHudElement(currentObj,
                                     absolutePath, relativePath, newhudElementRef,
@@ -686,7 +686,7 @@ namespace HUDEditor.Classes
                     if (animations != null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
                 }
 
-                string[] resFileExtensions = {"res", "vmt", "vdf"};
+                string[] resFileExtensions = { "res", "vmt", "vdf" };
 
                 foreach (var filePath in files)
                 {
@@ -736,14 +736,14 @@ namespace HUDEditor.Classes
         {
             // Check for special conditions, namely if we should enable stock backgrounds.
             if (string.Equals(special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
-                hudBackground.SetStockBackgrounds(enable);
+                HudBackground.SetStockBackgrounds(enable);
 
             if (string.Equals(special, "HUDBackground", StringComparison.CurrentCultureIgnoreCase))
-                hudBackground.SetHUDBackground(parameters[0]);
+                HudBackground.SetHUDBackground(parameters[0]);
 
             if (string.Equals(special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase) &&
                 Uri.TryCreate(userSetting.Value, UriKind.Absolute, out _))
-                hudBackground.SetCustomBackground(userSetting.Value);
+                HudBackground.SetCustomBackground(userSetting.Value);
 
             if (string.Equals(special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
                 CopyTransparentViewmodelAddon(enable);

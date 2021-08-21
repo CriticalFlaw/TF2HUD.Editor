@@ -6,44 +6,22 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using HUDEditor.Models;
 using HUDEditor.Properties;
-using log4net.Repository.Hierarchy;
 using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {
     public class Json : INotifyPropertyChanged
     {
-        // HUDs to manage
-        public HUD[] HUDList;
-
         // Highlighted HUD
         private HUD _highlightedHud;
-        public HUD HighlightedHUD { get { return this._highlightedHud; } set { this._highlightedHud = value; OnPropertyChanged("HighlightedHUD"); OnPropertyChanged("HighlightedHUDInstalled"); } }
-        public bool HighlightedHUDInstalled { get { return HighlightedHUD != null ? Directory.Exists($"{MainWindow.HudPath}\\{HighlightedHUD.Name}") : false; } }
 
         // Selected HUD
         private HUD _selectedHud;
-        public HUD SelectedHUD { get { return this._selectedHud; } set { this._selectedHud = value; SelectionChanged?.Invoke(this, value); OnPropertyChanged("SelectedHUD"); } }
 
-        // Selected HUD Installed
-        public bool SelectedHUDInstalled
-        {
-            get
-            {
-                MainWindow.Logger.Info("this.SelectedHUD != null" + this.SelectedHUD != null);
-                MainWindow.Logger.Info("MainWindow.HudPath != \"\"" + MainWindow.HudPath != "");
-                MainWindow.Logger.Info("Directory.Exists(MainWindow.HudPath)" + Directory.Exists(MainWindow.HudPath));
-                MainWindow.Logger.Info("Utilities.CheckUserPath(MainWindow.HudPath)" + Utilities.CheckUserPath(MainWindow.HudPath));
-                MainWindow.Logger.Info("MainWindow.CheckHudInstallation()" + MainWindow.CheckHudInstallation());
-                return this.SelectedHUD != null && MainWindow.HudPath != "" && Directory.Exists(MainWindow.HudPath) && Utilities.CheckUserPath(MainWindow.HudPath) && MainWindow.CheckHudInstallation();
-            }
-        }
-
-        public event EventHandler<HUD> SelectionChanged;
-        public event PropertyChangedEventHandler PropertyChanged;
+        // HUDs to manage
+        public HUD[] HUDList;
 
         public Json()
         {
@@ -62,23 +40,15 @@ namespace HUDEditor.Classes
                 hudList.Add(new HUD(hudName, JsonConvert.DeserializeObject<HudJson>(json)));
             }
 
-            // Load all shared huds from JSON/Shared/shared.json, and
-            // shared controls from JSON/Shared/controls.json, for each
-            // hud, assign unique ids for the controls based on the hud
-            // name and add to HUDs list.
-
-            var sharedFolder = $"JSON\\Shared";
-            var sharedHUDs = JsonConvert.DeserializeObject<List<HudJson>>(
-                new StreamReader(File.OpenRead($"{sharedFolder}\\shared.json"), new UTF8Encoding(false)).ReadToEnd()
-            );
-            var sharedControlsJSON = new StreamReader(File.OpenRead($"{sharedFolder}\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
+            // Load all shared huds from JSON/Shared/shared.json, and shared controls from JSON/Shared/controls.json
+            // For each hud, assign unique ids for the controls based on the hud name and add to HUDs list.
+            var sharedHUDs = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON\\Shared\\shared.json"), new UTF8Encoding(false)).ReadToEnd());
+            var sharedControlsJSON = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
             hudList.AddRange(sharedHUDs.Select(hud =>
             {
                 var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
-                foreach (var group in hudControls.Controls)
-                    foreach (var control in hudControls.Controls[group.Key])
-                        control.Name = $"{Utilities.EncodeID(hud.Name)}_{Utilities.EncodeID(control.Name)}";
-
+                foreach (var control in hudControls.Controls.SelectMany(@group => hudControls.Controls[@group.Key]))
+                    control.Name = $"{Utilities.EncodeID(hud.Name)}_{Utilities.EncodeID(control.Name)}";
                 hud.Layout = hudControls.Layout;
                 hud.Controls = hudControls.Controls;
                 return new HUD(hud.Name, hud);
@@ -91,18 +61,55 @@ namespace HUDEditor.Classes
             SelectedHUD = selectedHud;
         }
 
+        public HUD HighlightedHUD
+        {
+            get => _highlightedHud;
+            set
+            {
+                _highlightedHud = value;
+                OnPropertyChanged("HighlightedHUD");
+                OnPropertyChanged("HighlightedHUDInstalled");
+            }
+        }
+
+        public bool HighlightedHUDInstalled => HighlightedHUD != null && Directory.Exists($"{MainWindow.HudPath}\\{HighlightedHUD.Name}");
+
+        public HUD SelectedHUD
+        {
+            get => _selectedHud;
+            set
+            {
+                _selectedHud = value;
+                SelectionChanged?.Invoke(this, value);
+                OnPropertyChanged("SelectedHUD");
+            }
+        }
+
+        // Selected HUD Installed
+        public bool SelectedHUDInstalled
+        {
+            get
+            {
+                MainWindow.Logger.Info($"this.SelectedHUD != null ${SelectedHUD is not null}");
+                MainWindow.Logger.Info($"MainWindow.HudPath != \"\"${!string.IsNullOrEmpty(MainWindow.HudPath)}");
+                MainWindow.Logger.Info($"Directory.Exists(MainWindow.HudPath) ${Directory.Exists(MainWindow.HudPath)}");
+                MainWindow.Logger.Info($"Utilities.CheckUserPath(MainWindow.HudPath) ${Utilities.CheckUserPath(MainWindow.HudPath)}");
+                MainWindow.Logger.Info($"MainWindow.CheckHudInstallation() ${MainWindow.CheckHudInstallation()}");
+                return SelectedHUD != null && MainWindow.HudPath != "" && Directory.Exists(MainWindow.HudPath) && Utilities.CheckUserPath(MainWindow.HudPath) && MainWindow.CheckHudInstallation();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public event EventHandler<HUD> SelectionChanged;
+
         /// <summary>
         ///     Find and retrieve a HUD object selected by the user.
         /// </summary>
         /// <param name="name">Name of the HUD the user wants to view.</param>
         public HUD GetHUDByName(string name)
         {
-            foreach (var hud in HUDList)
-                if (string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase))
-                    return hud;
-
-            // MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_hud_missing), name));
-            return null;
+            return HUDList.FirstOrDefault(hud => string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
@@ -127,7 +134,7 @@ namespace HUDEditor.Classes
                 // Get the local schema names and file sizes.
                 List<Tuple<string, int>> localFiles = new();
                 foreach (var file in new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")))
-                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int) file.Length));
+                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length));
                 if (localFiles.Count <= 0) return false;
 
                 // Setup the WebClient for download remote files.
@@ -140,10 +147,10 @@ namespace HUDEditor.Classes
                 client.Dispose();
 
                 // Get the remote schema names and file sizes.
-                List<Tuple<string, int>> remoteFiles = new();
-                foreach (var file in JsonConvert.DeserializeObject<List<GitJson>>(remoteList)
-                    .Where(x => x.Name.EndsWith(".json")))
-                    remoteFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), file.Size));
+                var remoteFiles = JsonConvert.DeserializeObject<List<GitJson>>(remoteList)
+                    .Where(x => x.Name.EndsWith(".json"))
+                    .Select(file => new Tuple<string, int>(file.Name.Replace(".json", string.Empty), file.Size))
+                    .ToList();
                 if (remoteFiles.Count <= 0) return false;
 
                 // Compare the local and remote files.
@@ -157,8 +164,7 @@ namespace HUDEditor.Classes
                             if (string.Equals(remoteName, localName))
                             {
                                 // The remote file is found locally. Check if the file size has noticeably changed.
-                                downloadFile = !Enumerable.Range(remoteSize - 100, remoteSize + 100)
-                                    .Contains(localSize);
+                                downloadFile = !Enumerable.Range(remoteSize - 100, remoteSize + 100).Contains(localSize);
                                 break;
                             }
 
@@ -186,7 +192,6 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                // Skip this process is there was an error.
                 MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
                 return false;
@@ -202,19 +207,10 @@ namespace HUDEditor.Classes
                     var url = string.Format(Settings.Default.json_file, $"{x.Name}.json");
                     MainWindow.Logger.Info($"Requesting {x.Name} from {url}");
                     var response = await Utilities.Fetch(url);
-                    if (response == null)
-                    {
-                        MainWindow.Logger.Info(
-                            $"{x.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
-                        return false;
-                    }
-
-                    var value = JsonConvert.DeserializeObject<HudJson>(response);
-                    // Added if !DEBUG to test compare HUDs method
-# if !DEBUG
-                    File.WriteAllText($"JSON/{x.Name}.json", response);
-# endif
-                    return !x.TestHUD(new HUD(x.Name, value));
+                    if (response != null)
+                        return !x.TestHUD(new HUD(x.Name, JsonConvert.DeserializeObject<HudJson>(response)));
+                    MainWindow.Logger.Info($"{x.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
+                    return false;
                 }))).Contains(true);
             }
             catch (Exception e)

@@ -9,18 +9,18 @@ namespace HUDEditor.Classes
         public static Dictionary<string, dynamic> Parse(string text, string osTagDelimiter = "^")
         {
             var index = 0;
-            char[] ignoredCharacters = {' ', '\t', '\r', '\n'};
+            char[] ignoredChars = { ' ', '\t', '\r', '\n' };
 
             string Next(bool lookAhead = false)
             {
-                var currentToken = "";
+                var token = "";
                 var x = index;
 
                 // Return EOF if we've reached the end of the text file.
                 if (x >= text.Length - 1) return "EOF";
 
                 // Discard any text that is preempted by a comment tag (//) until the next line.
-                while ((ignoredCharacters.Contains(text[x]) || text[x] == '/') && x <= text.Length - 1)
+                while ((ignoredChars.Contains(text[x]) || text[x] == '/') && x <= text.Length - 1)
                 {
                     if (text[x] == '/')
                     {
@@ -45,7 +45,7 @@ namespace HUDEditor.Classes
                     while (text[x] != '"' && x < text.Length)
                     {
                         if (text[x] == '\n') throw new Exception($"Unexpected end of line at position {x}");
-                        currentToken += text[x];
+                        token += text[x];
                         x++;
                     }
 
@@ -55,23 +55,22 @@ namespace HUDEditor.Classes
                 else
                 {
                     // Read the text until reaching whitespace or an end of the file.
-                    while (!ignoredCharacters.Contains(text[x]) && x < text.Length - 1)
+                    while (!ignoredChars.Contains(text[x]) && x < text.Length - 1)
                     {
                         if (text[x] == '"') throw new Exception($"Unexpected double quote at position {x}");
-                        currentToken += text[x];
+                        token += text[x];
                         x++;
                     }
                 }
 
                 if (!lookAhead) index = x;
 
-                return currentToken;
+                return token;
             }
 
             Dictionary<string, dynamic> ParseObject()
             {
                 Dictionary<string, dynamic> objectRef = new();
-
                 var currentToken = Next();
                 var nextToken = Next(true);
 
@@ -86,8 +85,8 @@ namespace HUDEditor.Classes
                     }
                     else if (nextToken == "{")
                     {
-                        // Object
-                        Next(); // Skip over opening brace
+                        // Skip over opening brace
+                        Next(); 
 
                         if (objectRef.TryGetValue(currentToken, out var value))
                         {

@@ -84,14 +84,14 @@ namespace HUDEditor.Classes
             {
                 case "Boolean":
                     var evaluatedValue = value is "1" or "True" or "true";
-                    return (T) (object) evaluatedValue;
+                    return (T)(object)evaluatedValue;
                 case "Color":
                     var colors = Array.ConvertAll(value.Split(' '), byte.Parse);
-                    return (T) (object) Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                    return (T)(object)Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
                 case "Int32":
-                    return (T) (object) int.Parse(value);
+                    return (T)(object)int.Parse(value);
                 case "String":
-                    return (T) (object) value;
+                    return (T)(object)value;
                 default:
                     throw new Exception($"Unexpected setting type {typeof(T).Name}!");
             }

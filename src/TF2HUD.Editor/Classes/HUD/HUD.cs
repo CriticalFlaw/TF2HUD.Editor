@@ -13,26 +13,11 @@ namespace HUDEditor.Classes
 {
     public partial class HUD
     {
-        public readonly string[] LayoutOptions;
-        public Dictionary<string, Controls[]> ControlOptions;
-        private Grid controls = new();
-        public List<string> DirtyControls;
-        private HUDBackground hudBackground;
+        private Grid Controls = new();
+        private HUDBackground HudBackground;
         private bool isRendered;
-        private string[][] layout;
-        public bool Maximize;
-        public string Name { get; set; }
-        public string Author { get; set; }
-        public string Description { get; set; }
-        public string UpdateUrl { get; set; }
-        public string GitHubUrl { get; set; }
-        public string HudsTfUrl { get; set; }
-        public string SteamUrl { get; set; }
-        public string DiscordUrl { get; set; }
-        public double Opacity;
-        public HUDSettings Settings;
-        public string Thumbnail, Background, CustomizationsFolder, EnabledFolder;
-        public List<object> Screenshots { get; set; } = new();
+        private string[][] Layout;
+        public event EventHandler<HUDSettingsPreset> PresetChanged;
 
         /// <summary>
         ///     Initialize the HUD object with values from the JSON schema.
@@ -46,46 +31,57 @@ namespace HUDEditor.Classes
             Settings = new HUDSettings(Name);
             Opacity = schema.Opacity;
             Maximize = schema.Maximize;
-            ControlOptions = schema.Controls;
-            LayoutOptions = schema.Layout;
-            DirtyControls = new List<string>();
             Thumbnail = schema.Thumbnail;
             Background = schema.Background;
             Description = schema.Description;
             Author = schema.Author;
-
-            if (schema.Screenshots is not null)
-            {
-                int i = 0;
-                foreach (var screenshot in schema.Screenshots)
-                {
-                    Screenshots.Add(new
-                    {
-                        ImageSource = screenshot,
-                        Column = i % 2,
-                        Row = (int)i / 2
-                    });
-                    i++;
-                }
-            }
-
-            // Download and Media Links.
-            if (schema.Links is not null)
-            {
-                UpdateUrl = schema.Links.Update ?? string.Empty;
-                GitHubUrl = schema.Links.GitHub ?? string.Empty;
-                HudsTfUrl = schema.Links.HudsTF ?? string.Empty;
-                SteamUrl = schema.Links.Steam ?? string.Empty;
-                DiscordUrl = schema.Links.Discord ?? string.Empty;
-            }
-
-            // Customization Folder Paths.
-            if (string.IsNullOrWhiteSpace(schema.CustomizationsFolder)) return;
             CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
             EnabledFolder = schema.EnabledFolder ?? string.Empty;
+            UpdateUrl = schema.Links.Update ?? string.Empty;
+            GitHubUrl = schema.Links.GitHub ?? string.Empty;
+            HudsTfUrl = schema.Links.HudsTF ?? string.Empty;
+            SteamUrl = schema.Links.Steam ?? string.Empty;
+            DiscordUrl = schema.Links.Discord ?? string.Empty;
+            ControlOptions = schema.Controls;
+            LayoutOptions = schema.Layout;
+            DirtyControls = new List<string>();
+
+            if (schema.Screenshots is null) return;
+            var index = 0;
+            foreach (var screenshot in schema.Screenshots)
+            {
+                Screenshots.Add((
+                    ImageSource: screenshot,
+                    Column: index % 2,
+                    Row: index / 2
+                ));
+                index++;
+            }
         }
 
-        public event EventHandler<HUDSettingsPreset> PresetChanged;
+        #region HUD PROPERTIES
+
+        public string Name { get; set; }
+        public HUDSettings Settings { get; set; }
+        public double Opacity { get; set; }
+        public bool Maximize { get; set; }
+        public string Thumbnail { get; set; }
+        public string Background { get; set; }
+        public string Description { get; set; }
+        public string Author { get; set; }
+        public string CustomizationsFolder { get; set; }
+        public string EnabledFolder { get; set; }
+        public string UpdateUrl { get; set; }
+        public string GitHubUrl { get; set; }
+        public string HudsTfUrl { get; set; }
+        public string SteamUrl { get; set; }
+        public string DiscordUrl { get; set; }
+        public Dictionary<string, Controls[]> ControlOptions;
+        public readonly string[] LayoutOptions;
+        public List<string> DirtyControls;
+        public List<object> Screenshots { get; set; } = new();
+
+        #endregion
 
         /// <summary>
         ///     Call to download the HUD if a URL has been provided.
@@ -117,8 +113,8 @@ namespace HUDEditor.Classes
 
                     if (field.FieldType == typeof(string[]))
                     {
-                        var arr1 = (string[]) field.GetValue(obj1);
-                        var arr2 = (string[]) field.GetValue(obj2);
+                        var arr1 = (string[])field.GetValue(obj1);
+                        var arr2 = (string[])field.GetValue(obj2);
 
                         if (arr1 == null && arr2 != null)
                         {
@@ -147,8 +143,8 @@ namespace HUDEditor.Classes
                     }
                     else if (field.FieldType == typeof(Dictionary<string, Controls[]>))
                     {
-                        var value1 = (Dictionary<string, Controls[]>) field.GetValue(obj1);
-                        var value2 = (Dictionary<string, Controls[]>) field.GetValue(obj2);
+                        var value1 = (Dictionary<string, Controls[]>)field.GetValue(obj1);
+                        var value2 = (Dictionary<string, Controls[]>)field.GetValue(obj2);
 
                         if (value1.Keys.Count != value2.Keys.Count)
                         {
@@ -186,13 +182,13 @@ namespace HUDEditor.Classes
                     }
                     else if (field.FieldType == typeof(JObject))
                     {
-                        if (!CompareFiles((JObject) field.GetValue(obj1), (JObject) field.GetValue(obj2),
+                        if (!CompareFiles((JObject)field.GetValue(obj1), (JObject)field.GetValue(obj2),
                             $"{field.Name}.Files => ")) return false;
                     }
                     else if (field.FieldType == typeof(Option[]))
                     {
-                        var arr1 = (Option[]) field.GetValue(obj1);
-                        var arr2 = (Option[]) field.GetValue(obj2);
+                        var arr1 = (Option[])field.GetValue(obj1);
+                        var arr2 = (Option[])field.GetValue(obj2);
 
                         if (arr1 == null && arr2 != null)
                         {
@@ -335,7 +331,7 @@ namespace HUDEditor.Classes
                         break;
 
                     case ComboBox combo:
-                        if (((ComboBoxItem) combo.Items[0]).Style == (Style) Application.Current.Resources["Crosshair"])
+                        if (((ComboBoxItem)combo.Items[0]).Style == (Style)Application.Current.Resources["Crosshair"])
                             combo.SelectedValue = control.Value;
                         else
                             combo.SelectedIndex = int.Parse(control.Value);

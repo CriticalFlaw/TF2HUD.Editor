@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using HUDEditor.Models;
+using HUDEditor.Properties;
 using Xceed.Wpf.Toolkit;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
@@ -29,19 +30,19 @@ namespace HUDEditor.Classes
         public Grid GetControls()
         {
             // Skip this process if the controls have already been rendered.
-            if (isRendered) return controls;
+            if (isRendered) return Controls;
 
             // Define the container that will hold the title and content.
             var container = new Grid();
 
-            var titleContainer = new Grid {VerticalAlignment = VerticalAlignment.Center};
+            var titleContainer = new Grid { VerticalAlignment = VerticalAlignment.Center };
             for (var i = 0; i < 3; i++)
                 titleContainer.ColumnDefinitions.Add(new ColumnDefinition());
 
-            var titleRow = new RowDefinition {Height = GridLength.Auto};
+            var titleRow = new RowDefinition { Height = GridLength.Auto };
 
             var contentRow = new RowDefinition();
-            if (layout != null) contentRow.Height = GridLength.Auto;
+            if (Layout != null) contentRow.Height = GridLength.Auto;
             container.RowDefinitions.Add(titleRow);
             container.RowDefinitions.Add(contentRow);
 
@@ -57,7 +58,7 @@ namespace HUDEditor.Classes
             {
                 var presetButton = new Button
                 {
-                    Style = (Style) Application.Current.Resources["HUDButton"],
+                    Style = (Style)Application.Current.Resources["HUDButton"],
                     Content = preset,
                     FontSize = 25,
                     Width = 35,
@@ -79,7 +80,7 @@ namespace HUDEditor.Classes
                     MainWindow.Logger.Info($"Changed preset for {Name} to HUDSettingsPreset.{Settings.Preset}");
 
                     isRendered = false;
-                    controls = new Grid();
+                    Controls = new Grid();
                     PresetChanged.Invoke(this, Settings.Preset);
                 };
                 presetsContainer.Children.Add(presetButton);
@@ -93,13 +94,13 @@ namespace HUDEditor.Classes
             // Create the preview modal
             var preview = new ChildWindow
             {
-                Style = (Style) Application.Current.Resources["PreviewPanel"]
+                Style = (Style)Application.Current.Resources["PreviewPanel"]
             };
             preview.MouseDoubleClick += (_, _) => { preview.Close(); };
 
             var image = new Image
             {
-                Style = (Style) Application.Current.Resources["PreviewImage"]
+                Style = (Style)Application.Current.Resources["PreviewImage"]
             };
             preview.Content = image;
 
@@ -111,7 +112,7 @@ namespace HUDEditor.Classes
             if (LayoutOptions != null)
             {
                 // Splits Layout string[] into 2D Array using \s+
-                layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
+                Layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
 
                 sectionsContainer = new Grid
                 {
@@ -121,9 +122,9 @@ namespace HUDEditor.Classes
                 };
 
                 // Assume that all row arrays are the same length, use column information from Layout[0].
-                for (var i = 0; i < layout[0].Length; i++)
+                for (var i = 0; i < Layout[0].Length; i++)
                     sectionsContainer.ColumnDefinitions.Add(new ColumnDefinition());
-                for (var i = 0; i < layout.Length; i++)
+                for (var i = 0; i < Layout.Length; i++)
                     sectionsContainer.RowDefinitions.Add(new RowDefinition());
             }
             else
@@ -150,12 +151,12 @@ namespace HUDEditor.Classes
 
                 var sectionContentContainer = new Grid();
                 sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition());
-                sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition {Width = GridLength.Auto});
+                sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
 
                 // Create the reset button for each control section.
                 var resetInput = new Button
                 {
-                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                    Style = (Style)Application.Current.Resources["PreviewButton"],
                     HorizontalAlignment = HorizontalAlignment.Right,
                     Content = ".",
                     Opacity = 0.4
@@ -177,7 +178,7 @@ namespace HUDEditor.Classes
 
                 sectionContentContainer.Children.Add(resetInput);
 
-                Panel sectionContent = layout != null ? new WrapPanel() : new StackPanel();
+                Panel sectionContent = Layout != null ? new WrapPanel() : new StackPanel();
                 sectionContent.Margin = new Thickness(3);
 
                 // Generate each individual control, add it to user settings.
@@ -231,7 +232,7 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Style = (Style)Application.Current.Resources["PreviewButton"],
                                     Margin = new Thickness(0, lastTop, 0, 0),
                                     VerticalAlignment = VerticalAlignment.Bottom
                                 };
@@ -259,7 +260,7 @@ namespace HUDEditor.Classes
                             var colorLabel = new Label
                             {
                                 Content = label,
-                                Style = (Style) Application.Current.Resources["ColorPickerLabel"]
+                                Style = (Style)Application.Current.Resources["ColorPickerLabel"]
                             };
                             var colorInput = new ColorPicker
                             {
@@ -311,7 +312,7 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Style = (Style)Application.Current.Resources["PreviewButton"],
                                     Margin = new Thickness(5, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
@@ -333,7 +334,7 @@ namespace HUDEditor.Classes
                         case "select":
                         case "combobox":
                             // Do not create a ComboBox if there are no defined options.
-                            if (controlItem.Options is not {Length: > 0}) break;
+                            if (controlItem.Options is not { Length: > 0 }) break;
 
                             // Create the Control.
                             var comboBoxContainer = new StackPanel
@@ -343,7 +344,7 @@ namespace HUDEditor.Classes
                             var comboBoxLabel = new Label
                             {
                                 Content = label,
-                                Style = (Style) Application.Current.Resources["ComboBoxLabel"]
+                                Style = (Style)Application.Current.Resources["ComboBoxLabel"]
                             };
                             var comboBoxInput = new ComboBox
                             {
@@ -397,7 +398,7 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Style = (Style)Application.Current.Resources["PreviewButton"],
                                     Margin = new Thickness(0, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
@@ -425,7 +426,7 @@ namespace HUDEditor.Classes
                             var integerLabel = new Label
                             {
                                 Content = label,
-                                Style = (Style) Application.Current.Resources["IntegerUpDownLabel"]
+                                Style = (Style)Application.Current.Resources["IntegerUpDownLabel"]
                             };
                             var integerInput = new IntegerUpDown
                             {
@@ -464,7 +465,7 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Style = (Style)Application.Current.Resources["PreviewButton"],
                                     Margin = new Thickness(0, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
@@ -491,7 +492,7 @@ namespace HUDEditor.Classes
                             var xhairLabel = new Label
                             {
                                 Content = label,
-                                Style = (Style) Application.Current.Resources["CrosshairLabel"]
+                                Style = (Style)Application.Current.Resources["CrosshairLabel"]
                             };
                             var xhairInput = new ComboBox
                             {
@@ -503,10 +504,10 @@ namespace HUDEditor.Classes
                             foreach (var item in Utilities.CrosshairStyles.Select(option => new ComboBoxItem
                             {
                                 Content = option,
-                                Style = (Style) Application.Current.Resources["Crosshair"]
+                                Style = (Style)Application.Current.Resources["Crosshair"]
                             }))
                             {
-                                xhairInput.Style = (Style) Application.Current.Resources["CrosshairBox"];
+                                xhairInput.Style = (Style)Application.Current.Resources["CrosshairBox"];
                                 xhairInput.Items.Add(item);
                             }
 
@@ -536,7 +537,7 @@ namespace HUDEditor.Classes
                             {
                                 var previewBtn = new Button
                                 {
-                                    Style = (Style) Application.Current.Resources["PreviewButton"],
+                                    Style = (Style)Application.Current.Resources["PreviewButton"],
                                     Margin = new Thickness(0, lastTop, 0, 0)
                                 };
                                 previewBtn.Click += (_, _) =>
@@ -581,7 +582,7 @@ namespace HUDEditor.Classes
                             var bgInput = new Button
                             {
                                 Name = id,
-                                Content = Properties.Resources.ui_browse,
+                                Content = Resources.ui_browse,
                                 // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
@@ -593,7 +594,7 @@ namespace HUDEditor.Classes
 
                             var clearInput = new Button
                             {
-                                Content = Properties.Resources.ui_clear,
+                                Content = Resources.ui_clear,
                                 // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
@@ -619,7 +620,7 @@ namespace HUDEditor.Classes
                             // Add Events.
                             bgInput.Click += (_, _) =>
                             {
-                                MainWindow.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_background_override);
+                                MainWindow.ShowMessageBox(MessageBoxImage.Information, Resources.info_background_override);
                                 using (var fbd = new OpenFileDialog())
                                 {
                                     fbd.ShowDialog();
@@ -710,16 +711,16 @@ namespace HUDEditor.Classes
 
                 sectionContainer.Content = sectionContent;
 
-                if (layout != null)
+                if (Layout != null)
                 {
                     // Avoid evaluating unnecessarily
                     var groupBoxItemEvaluated = false;
 
-                    for (var i = 0; i < layout.Length; i++)
-                    for (var j = 0; j < layout[i].Length; j++)
+                    for (var i = 0; i < Layout.Length; i++)
+                    for (var j = 0; j < Layout[i].Length; j++)
                     {
                         // Allow index and grid area for grid coordinates.
-                        if (groupBoxIndex.ToString() == layout[i][j] && !groupBoxItemEvaluated)
+                        if (groupBoxIndex.ToString() == Layout[i][j] && !groupBoxItemEvaluated)
                         {
                             // Don't set column or row if it has already been set.
                             // Setting the column/row every time will break spans.
@@ -730,13 +731,13 @@ namespace HUDEditor.Classes
                             // Counts the occurrences of the current item id/index
                             var columnSpan = 0;
                             // Iterate current row
-                            for (var index = 0; index < layout[i].Length; index++)
-                                if (groupBoxIndex.ToString() == layout[i][index] || section == layout[i][index])
+                            for (var index = 0; index < Layout[i].Length; index++)
+                                if (groupBoxIndex.ToString() == Layout[i][index] || section == Layout[i][index])
                                     columnSpan++;
                             Grid.SetColumnSpan(sectionContainer, columnSpan);
 
                             var rowSpan = 0;
-                            foreach (var sections in layout)
+                            foreach (var sections in Layout)
                                 if (groupBoxIndex.ToString() == sections[j] ||
                                     section == sections[j])
                                     rowSpan++;
@@ -767,10 +768,10 @@ namespace HUDEditor.Classes
             }
 
             container.Children.Add(sectionsContainer);
-            controls.Children.Add(container);
+            Controls.Children.Add(container);
 
             isRendered = true;
-            return controls;
+            return Controls;
         }
 
         /// <summary>
