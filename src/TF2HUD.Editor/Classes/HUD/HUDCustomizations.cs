@@ -71,7 +71,7 @@ namespace HUDEditor.Classes
                                     const string pattern = "(Resource/UI/)*.res";
 
                                     int preventInfinite = 0, len = obj.Keys.Count;
-                                    while (hudContainer == null && preventInfinite < len)
+                                    while (hudContainer is null && preventInfinite < len)
                                     {
                                         var key = obj.Keys.ElementAt(preventInfinite);
 
@@ -85,7 +85,7 @@ namespace HUDEditor.Classes
                                         preventInfinite++;
                                     }
 
-                                    if (hudContainer != null)
+                                    if (hudContainer is not null)
                                     {
                                         Utilities.Merge(obj, hudContainer);
                                         File.WriteAllText(filePath, VDF.Stringify(obj));
@@ -320,7 +320,7 @@ namespace HUDEditor.Classes
                     EvaluateSpecial(special, userSetting, enable, specialParameters);
                 }
 
-                if (files == null) return;
+                if (files is null) return;
 
                 // Applies $value (and handles keywords where applicable) to provided HUD element
                 // JObject and returns a HUD element Dictionary, recursively
@@ -683,7 +683,7 @@ namespace HUDEditor.Classes
                             }
                         }
 
-                    if (animations != null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
+                    if (animations is not null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
                 }
 
                 string[] resFileExtensions = { "res", "vmt", "vdf" };
@@ -710,8 +710,7 @@ namespace HUDEditor.Classes
                     }
                     else
                     {
-                        MainWindow.ShowMessageBox(MessageBoxImage.Error,
-                            string.Format(Utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
+                        MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
                     }
                 }
             }

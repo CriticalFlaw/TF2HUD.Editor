@@ -141,6 +141,9 @@
   <data name="header_update_none" xml:space="preserve">
     <value>No Updates Found.</value>
   </data>
+  <data name="info_add_hud" xml:space="preserve">
+    <value>Are you sure you want to add a folder to the list of shared HUDs? This will add the folder locally but will not upload the HUD to TF2HUD.Editor's online database.</value>
+  </data>
   <data name="info_background_override" xml:space="preserve">
     <value>Setting a new background will override the current one. Use the "Reinstall" option to go revert to the default background.</value>
   </data>

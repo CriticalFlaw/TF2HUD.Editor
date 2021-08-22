@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using AutoUpdaterDotNET;
@@ -33,8 +32,6 @@ namespace HUDEditor
     public partial class MainWindow
     {
         public static string HudSelection = Settings.Default.hud_selected;
-
-        // Path to the user tf/custom folder
         public static string HudPath = Settings.Default.hud_directory;
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly List<(HUD, Border)> HudThumbnails = new();
@@ -50,24 +47,16 @@ namespace HUDEditor
 
             // Get the list of HUD JSONs.
             Json = new Json();
-
             InitializeComponent();
             DataContext = this;
 
-            var list = "Loading list of HUDs";
             foreach (var hud in Json.HUDList)
-            {
-                list += $" - {hud.Name}";
                 AddHUDToGridView(hud);
-            }
 
-            Logger.Info(list);
-
-            // Setup the GUI.
+            // Setup the user interface.
             SetPageView(Json.SelectedHUD);
             SelectionChanged(Json, Json.GetHUDByName(Settings.Default.hud_selected));
             SetupDirectory();
-
             Json.SelectionChanged += SelectionChanged;
 
             // Check for app updates.
@@ -117,12 +106,21 @@ namespace HUDEditor
             Application.Current.Shutdown();
         }
 
+        /// <summary>
+        ///     Add a HUD to the list of available HUDs.
+        /// </summary>
+        /// <param name="hud">HUd object to add to the list.</param>
         public void AddHUDToGridView(HUD hud)
         {
-            var border = new Border();
+            Logger.Info($"Loading {hud.Name}");
+            var border = new Border
+            {
+                Style = (Style)Application.Current.Resources["HudListBorder"]
+            };
+
             border.MouseEnter += (_, _) => border.BorderBrush = Brushes.Black;
             border.MouseLeave += (_, _) => border.BorderBrush = Brushes.LightGray;
-            border.MouseUp += (object sender, MouseButtonEventArgs e) =>
+            border.MouseUp += (_, _) =>
             {
                 if (Json.HighlightedHUD == hud)
                 {
@@ -137,42 +135,38 @@ namespace HUDEditor
                 }
             };
 
-            border.Style = (Style)Application.Current.Resources["HudListBorder"];
-
-            var thumbnailIcon = new Label();
-            if (hud.Unique)
+            var thumbnailIcon = new Label
             {
-                thumbnailIcon.Content = "B";
-                // thumbnailIcon.Content = new BitmapImage(new Uri("Resources/importtool_goldstar.png", UriKind.Relative));
-            }
-            thumbnailIcon.Style = (Style)Application.Current.Resources["HudListIcon"];
+                Content = (hud.Unique) ? "B" : "",
+                Style = (Style)Application.Current.Resources["HudListIcon"]
+            };
 
-            var thumbnailImage = new Image();
-            if (hud.Thumbnail != null) thumbnailImage.Source = new BitmapImage(new Uri(hud.Thumbnail));
-            thumbnailImage.Style = (Style)Application.Current.Resources["HudListImage"];
+            var thumbnailImage = new Image
+            {
+                Source = (hud.Thumbnail != null) ? new BitmapImage(new Uri(hud.Thumbnail)) : null,
+                Style = (Style)Application.Current.Resources["HudListImage"]
+            };
 
             // Prevents image from looking grainy when resized
             RenderOptions.SetBitmapScalingMode(thumbnailImage, BitmapScalingMode.Fant);
 
+            // Build the HUD container.
             var hudIconContainer = new Grid();
             hudIconContainer.RowDefinitions.Add(new RowDefinition());
             hudIconContainer.RowDefinitions.Add(new RowDefinition());
             hudIconContainer.Children.Add(thumbnailImage);
             hudIconContainer.Children.Add(thumbnailIcon);
             hudIconContainer.Children.Add(new Label
-                { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
-
+            { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
             border.Child = hudIconContainer;
-
-            // Automatically assign columns and rows
-            // Grid.SetColumn(border, GridSelectHUD.Children.Count % 2);
-            // int d = GridSelectHUD.Children.Count / 2;
-            // Grid.SetRow(border, d);
-
             GridSelectHud.Children.Add(border);
             HudThumbnails.Add((hud, border));
         }
 
+        /// <summary>
+        ///     Called when a new HUD has been selected from the list.
+        /// </summary>
+        /// <param name="hud">Selected HUD object.</param>
         public void SelectionChanged(object sender, HUD hud)
         {
             if (hud != null)
@@ -210,8 +204,7 @@ namespace HUDEditor
         /// <summary>
         ///     Display a message box with a message to the user and log it.
         /// </summary>
-        public static MessageBoxResult ShowMessageBox(MessageBoxImage type, string message,
-            MessageBoxButton buttons = MessageBoxButton.OK)
+        public static MessageBoxResult ShowMessageBox(MessageBoxImage type, string message, MessageBoxButton buttons = MessageBoxButton.OK)
         {
             switch (type)
             {
@@ -239,7 +232,6 @@ namespace HUDEditor
                 if (selection is null) return;
 
                 Logger.Info($"Changing page view to: {selection.Name}.");
-
                 EditorContainer.Children.Add(selection.GetControls());
                 selection.PresetChanged += (_, _) =>
                 {
@@ -247,9 +239,9 @@ namespace HUDEditor
                     EditorContainer.Children.Add(selection.GetControls());
                 };
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ShowMessageBox(MessageBoxImage.Error, ex.Message);
+                ShowMessageBox(MessageBoxImage.Error, e.Message);
             }
         }
 
@@ -268,7 +260,6 @@ namespace HUDEditor
 
         private void TbSearchBox_TextChanged(object sender, RoutedEventArgs e)
         {
-            var searchText = SearchBox.Text.ToLower();
             foreach (var (hud, border) in HudThumbnails)
             {
                 var searches = new[]
@@ -282,7 +273,7 @@ namespace HUDEditor
                 var visibility = Visibility.Collapsed;
                 while (visibility == Visibility.Collapsed && index < searches.Length)
                 {
-                    if (searches[index] != null && searches[index].ToLower().Contains(searchText) && (!DisplayUniqueHUDsOnly || hud.Unique))
+                    if (searches[index] != null && searches[index].ToLower().Contains(SearchBox.Text.ToLower()) && (!DisplayUniqueHUDsOnly || hud.Unique))
                         visibility = Visibility.Visible;
                     index++;
                 }
@@ -298,17 +289,13 @@ namespace HUDEditor
             {
                 UniqueHUDsButton.Foreground = Brushes.SkyBlue;
                 foreach (var (hud, border) in HudThumbnails)
-                {
                     border.Visibility = hud.Unique ? Visibility.Visible : Visibility.Collapsed;
-                }
             }
             else
             {
                 UniqueHUDsButton.Foreground = Brushes.White;
                 foreach (var (hud, border) in HudThumbnails)
-                {
                     border.Visibility = Visibility.Visible;
-                }
             }
             TbSearchBox_TextChanged(sender, e);
         }
@@ -316,11 +303,11 @@ namespace HUDEditor
         /// <summary>
         ///     Invoke HUD installation or setting the tf/custom directory, if not already set.
         /// </summary>
-        private void BtnInstall_OnClick(object sender, RoutedEventArgs e)
+        private void BtnInstall_OnClick(object sender, RoutedEventArgs args)
         {
             try
             {
-                // Disable switching HUD while installing to ensure that HighlightedHUD is the same as SelectedHUD at worker.RunWorkerCompleted
+                // Prevent switching HUD while installing to ensure that HighlightedHUD is the same as SelectedHUD at worker.RunWorkerCompleted
                 BtnSwitch.IsEnabled = false;
                 Json.SelectedHUD = Json.HighlightedHUD;
                 Settings.Default.hud_selected = HudSelection = Json.SelectedHUD.Name;
@@ -394,17 +381,16 @@ namespace HUDEditor
                 };
                 worker.RunWorkerAsync();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ShowMessageBox(MessageBoxImage.Error,
-                    $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_install), HudSelection)} {ex.Message}");
+                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_install), HudSelection)} {e.Message}");
             }
         }
 
         /// <summary>
         ///     Invoke HUD deletion from the tf/custom directory.
         /// </summary>
-        private void BtnUninstall_OnClick(object sender, RoutedEventArgs e)
+        private void BtnUninstall_OnClick(object sender, RoutedEventArgs args)
         {
             try
             {
@@ -421,10 +407,9 @@ namespace HUDEditor
                 Json.OnPropertyChanged("HighlightedHUD");
                 Json.OnPropertyChanged("HighlightedHUDInstalled");
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                ShowMessageBox(MessageBoxImage.Error,
-                    $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_uninstall), HudSelection)} {ex.Message}");
+                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_uninstall), HudSelection)} {e.Message}");
             }
         }
 
@@ -505,26 +490,17 @@ namespace HUDEditor
         /// </summary>
         private void BtnAddSharedHUD_OnClick(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show(String.Join('\n', new string[]
-                {
-                    "Are you sure you want to add a folder to the list of shared HUDs?",
-                    "This will add the folder locally but will not upload the HUD to TF2HUD.Editor's online database."
-                }),
-                "Add HUD",
-                MessageBoxButton.YesNoCancel,
-                MessageBoxImage.Information
-                ) != MessageBoxResult.Yes
-            ) return;
-
-            var fbd = new System.Windows.Forms.FolderBrowserDialog();
-            fbd.SelectedPath = $"{HudPath}\\";
-            var result = fbd.ShowDialog();
-            if (result != System.Windows.Forms.DialogResult.OK) return;
-
             try
             {
-                var hud = Json.Add(fbd.SelectedPath);
-                AddHUDToGridView(hud);
+                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_add_hud, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes) return;
+
+                var browser = new FolderBrowserDialog
+                {
+                    SelectedPath = HudPath + "\\"
+                };
+                if (browser.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+
+                AddHUDToGridView(Json.Add(browser.SelectedPath));
             }
             catch (Exception error)
             {
@@ -559,17 +535,11 @@ namespace HUDEditor
             {
                 if (!restartRequired.Result)
                 {
-                    MessageBox.Show(Properties.Resources.info_hud_update_none,
-                        Utilities.GetLocalizedString(Properties.Resources.header_update_none), MessageBoxButton.OK,
-                        MessageBoxImage.Information);
+                    ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
                     return;
                 }
 
-                if (MessageBox.Show(Properties.Resources.info_hud_update,
-                    Utilities.GetLocalizedString(Properties.Resources.header_restart_required),
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Information) != MessageBoxResult.Yes) return;
-
+                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 Json.Update(true);
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                 Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));

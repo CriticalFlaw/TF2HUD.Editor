@@ -1,6 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
   "Author": "CriticalFlaw",
+  "Description": "Default Team Fortress 2 HUD with community-made fixes and improvements.",
   "Thumbnail": "https://user-images.githubusercontent.com/6818236/123499254-686aae80-d603-11eb-9559-b41befaba00f.png",
   "Background": "https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c47-a17b47cbaf0c.png",
   "Layout": [

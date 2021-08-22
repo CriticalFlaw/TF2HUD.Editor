@@ -114,10 +114,8 @@ namespace HUDEditor.Classes
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetPulsedColor(string rgba)
         {
-            // Split the RGBA string into an array of integers.
-            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
-
             // Apply the pulse change and return the color.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
             colors[^1] = colors[^1] >= 50 ? colors[^1] - 50 : colors[^1];
             return $"{colors[0]} {colors[1]} {colors[2]} {colors[^1]}";
         }
@@ -128,10 +126,8 @@ namespace HUDEditor.Classes
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetShadowColor(string rgba)
         {
-            // Split the RGBA string into an array of integers.
-            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
-
             // Reduce each color channel (except alpha) by 40%, then return the color.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
             for (var x = 0; x < colors.Length; x++)
                 colors[x] = Convert.ToInt32(colors[x] * 0.60);
             return $"{colors[0]} {colors[1]} {colors[2]} 255";
@@ -143,10 +139,8 @@ namespace HUDEditor.Classes
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetDimmedColor(string rgba)
         {
-            // Split the RGBA string into an array of integers.
-            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
-
             // Return the color with a reduced alpha channel.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
             return $"{colors[0]} {colors[1]} {colors[2]} 100";
         }
 
@@ -156,10 +150,8 @@ namespace HUDEditor.Classes
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetGrayedColor(string rgba)
         {
-            // Split the RGBA string into an array of integers.
-            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
-
             // Reduce each color channel (except alpha) by 75%, then return the color.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
             for (var x = 0; x < colors.Length; x++)
                 colors[x] = Convert.ToInt32(colors[x] * 0.25);
             return $"{colors[0]} {colors[1]} {colors[2]} 255";
@@ -185,66 +177,6 @@ namespace HUDEditor.Classes
             if (!string.IsNullOrWhiteSpace(control.FileName))
                 return control.FileName.Replace(".res", string.Empty);
             return control.ComboFiles;
-        }
-
-        /// <summary>
-        ///     TODO: Add comment explaining this method.
-        /// </summary>
-        /// <param name="object1"></param>
-        /// <param name="object2"></param>
-        public static void Merge(Dictionary<string, dynamic> object1, Dictionary<string, dynamic> object2)
-        {
-            try
-            {
-                foreach (var key in object1.Keys)
-                    if (object1[key].GetType() == typeof(Dictionary<string, dynamic>))
-                    {
-                        if (object2.ContainsKey(key) && object2[key].GetType() == typeof(Dictionary<string, dynamic>))
-                            Merge(object1[key], object2[key]);
-                    }
-                    else
-                    {
-                        if (object2.ContainsKey(key))
-                            object1[key] = object2[key];
-                    }
-
-                foreach (var key in object2.Keys.Where(key => !object1.ContainsKey(key)))
-                    object1[key] = object2[key];
-            }
-            catch (Exception e)
-            {
-                MainWindow.Logger.Error(e);
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj, IEnumerable<string> keys)
-        {
-            try
-            {
-                var objectRef = obj;
-                foreach (var key in keys)
-                {
-                    if (!objectRef.ContainsKey(key))
-                        objectRef[key] = new Dictionary<string, dynamic>();
-                    objectRef = objectRef[key];
-                }
-
-                return objectRef;
-            }
-            catch (Exception e)
-            {
-                MainWindow.Logger.Error(e);
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public static async Task<string> Fetch(string url)
-        {
-            var response = await new HttpClient().GetAsync(url);
-            return response.IsSuccessStatusCode ? response.Content.ReadAsStringAsync().Result : null;
         }
 
         /// <summary>
@@ -319,10 +251,68 @@ namespace HUDEditor.Classes
         /// <remarks>If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores.</remarks>
         public static string EncodeID(string id)
         {
-            // If first character is a digit, add an
-            // underscore, then replace all dashes and
-            // whitespace characters with underscores
+            // If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores
             return $"{(Regex.IsMatch(id[0].ToString(), "\\d") ? "_" : "")}{string.Join('_', Regex.Split(id, "[- ]"))}";
+        }
+
+        /// <summary>
+        ///     TODO: Add comment explaining this method.
+        /// </summary>
+        /// <param name="object1"></param>
+        /// <param name="object2"></param>
+        public static void Merge(Dictionary<string, dynamic> object1, Dictionary<string, dynamic> object2)
+        {
+            try
+            {
+                foreach (var key in object1.Keys)
+                    if (object1[key].GetType() == typeof(Dictionary<string, dynamic>))
+                    {
+                        if (object2.ContainsKey(key) && object2[key].GetType() == typeof(Dictionary<string, dynamic>))
+                            Merge(object1[key], object2[key]);
+                    }
+                    else
+                    {
+                        if (object2.ContainsKey(key))
+                            object1[key] = object2[key];
+                    }
+
+                foreach (var key in object2.Keys.Where(key => !object1.ContainsKey(key)))
+                    object1[key] = object2[key];
+            }
+            catch (Exception e)
+            {
+                MainWindow.Logger.Error(e);
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj, IEnumerable<string> keys)
+        {
+            try
+            {
+                var objectRef = obj;
+                foreach (var key in keys)
+                {
+                    if (!objectRef.ContainsKey(key))
+                        objectRef[key] = new Dictionary<string, dynamic>();
+                    objectRef = objectRef[key];
+                }
+
+                return objectRef;
+            }
+            catch (Exception e)
+            {
+                MainWindow.Logger.Error(e);
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public static async Task<string> Fetch(string url)
+        {
+            var response = await new HttpClient().GetAsync(url);
+            return response.IsSuccessStatusCode ? response.Content.ReadAsStringAsync().Result : null;
         }
     }
 }

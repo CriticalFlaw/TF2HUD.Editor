@@ -39,11 +39,9 @@ namespace HUDEditor.Classes
             for (var i = 0; i < 3; i++)
                 titleContainer.ColumnDefinitions.Add(new ColumnDefinition());
 
-            var titleRow = new RowDefinition { Height = GridLength.Auto };
-
             var contentRow = new RowDefinition();
-            if (Layout != null) contentRow.Height = GridLength.Auto;
-            container.RowDefinitions.Add(titleRow);
+            if (Layout is not null) contentRow.Height = GridLength.Auto;
+            container.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             container.RowDefinitions.Add(contentRow);
 
             // Create preset buttons
@@ -88,7 +86,6 @@ namespace HUDEditor.Classes
 
             Grid.SetColumn(presetsContainer, 1);
             titleContainer.Children.Add(presetsContainer);
-
             container.Children.Add(titleContainer);
 
             // Create the preview modal
@@ -109,7 +106,7 @@ namespace HUDEditor.Classes
             // NOTE: ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic for each section.
             dynamic sectionsContainer;
 
-            if (LayoutOptions != null)
+            if (LayoutOptions is not null)
             {
                 // Splits Layout string[] into 2D Array using \s+
                 Layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
@@ -169,7 +166,7 @@ namespace HUDEditor.Classes
 
                 resetInput.Click += (_, _) =>
                 {
-                    if (MainWindow.HudSelection != Name) return;
+                    if (!MainWindow.HudSelection.Equals(Name)) return;
                     ResetSection(section);
                     Settings.SaveSettings();
                     if (MainWindow.CheckHudInstallation()) ApplyCustomizations();
@@ -178,7 +175,7 @@ namespace HUDEditor.Classes
 
                 sectionContentContainer.Children.Add(resetInput);
 
-                Panel sectionContent = Layout != null ? new WrapPanel() : new StackPanel();
+                Panel sectionContent = Layout is not null ? new WrapPanel() : new StackPanel();
                 sectionContent.Margin = new Thickness(3);
 
                 // Generate each individual control, add it to user settings.
@@ -188,7 +185,6 @@ namespace HUDEditor.Classes
                     var id = Utilities.EncodeID(controlItem.Name);
                     var label = controlItem.Label;
                     var tooltip = controlItem.Tooltip;
-                    var width = controlItem.Width;
                     Settings.AddSetting(id, controlItem);
 
                     switch (controlItem.Type.ToLowerInvariant())
@@ -621,20 +617,20 @@ namespace HUDEditor.Classes
                             bgInput.Click += (_, _) =>
                             {
                                 MainWindow.ShowMessageBox(MessageBoxImage.Information, Resources.info_background_override);
-                                using (var fbd = new OpenFileDialog())
+                                using (var browser = new OpenFileDialog())
                                 {
-                                    fbd.ShowDialog();
-                                    if (string.IsNullOrWhiteSpace(fbd.FileName)) return;
-                                    var path = $"{System.Windows.Forms.Application.LocalUserAppDataPath}\\Images\\{fbd.FileName.Split('\\')[^1]}";
+                                    browser.ShowDialog();
+                                    if (string.IsNullOrWhiteSpace(browser.FileName)) return;
 
-                                    bgImage.Source = new BitmapImage(new Uri(fbd.FileName));
+                                    var path = $"{System.Windows.Forms.Application.LocalUserAppDataPath}\\Images\\{browser.FileName.Split('\\')[^1]}";
+
+                                    bgImage.Source = new BitmapImage(new Uri(browser.FileName));
 
                                     Settings.SetSetting(controlItem.Name, path);
 
-                                    MainWindow.Logger.Info($"Copying {fbd.FileName} to {path}");
-
+                                    MainWindow.Logger.Info($"Copying {browser.FileName} to {path}");
                                     Directory.CreateDirectory(Path.GetDirectoryName(path));
-                                    File.Copy(fbd.FileName, path, true);
+                                    File.Copy(browser.FileName, path, true);
                                 }
 
                                 CheckIsDirty(controlItem);
@@ -711,7 +707,7 @@ namespace HUDEditor.Classes
 
                 sectionContainer.Content = sectionContent;
 
-                if (Layout != null)
+                if (Layout is not null)
                 {
                     // Avoid evaluating unnecessarily
                     var groupBoxItemEvaluated = false;

@@ -107,7 +107,7 @@ namespace TF2HUDEditor.Classes
                     ImageSource = new BitmapImage(new Uri(selection.Background, UriKind.RelativeOrAbsolute))
                 };
 
-            // The Background is an RGBA color code, change it to ARGB and set it as the background.
+            // The background is an RGBA color code, change it to ARGB and set it as the background.
             var colors = Array.ConvertAll(selection.Background.Split(' '), byte.Parse);
             return new SolidColorBrush(Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
         }

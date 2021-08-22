@@ -147,9 +147,9 @@ namespace HUDEditor.Classes
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, ex.Message);
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, e.Message);
             }
         }
     }

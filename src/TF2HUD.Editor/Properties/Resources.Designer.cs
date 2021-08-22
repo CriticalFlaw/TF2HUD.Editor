@@ -133,6 +133,15 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to add a folder to the list of shared HUDs? This will add the folder locally but will not upload the HUD to TF2HUD.Editor&apos;s online database..
+        /// </summary>
+        public static string info_add_hud {
+            get {
+                return ResourceManager.GetString("info_add_hud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setting a new background will override the current one. Use the &quot;Reinstall&quot; option to go revert to the default background..
         /// </summary>
         public static string info_background_override {

@@ -33,16 +33,10 @@ namespace HUDEditor.Classes
             var hudList = new List<HUD>();
             foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
             {
-                // Extract HUD information from the file path.
-                var fileName = jsonFile.Split("\\")[^1];
-                var fileInfo = fileName.Split(".");
-                var hudName = fileInfo[0];
-                var extension = fileInfo[^1];
-                if (extension != "json") continue;
-                var json = new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd();
-
-                // Add the HUD object to the list.
-                hudList.Add(new HUD(hudName, JsonConvert.DeserializeObject<HudJson>(json), true));
+                // Extract HUD information from the file path and add it to the object list.
+                var fileInfo = jsonFile.Split("\\")[^1].Split(".");
+                if (fileInfo[^1] != "json") continue;
+                hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true));
             }
 
             // Load all shared huds from JSON/Shared/shared.json, and shared controls from JSON/Shared/controls.json
@@ -60,17 +54,13 @@ namespace HUDEditor.Classes
             }));
 
             // Local Shared HUDs
-            _localSharedPath = Directory.CreateDirectory(
-                $@"{Environment.GetFolderPath(
-                    Environment.SpecialFolder.LocalApplicationData
-                )}\\TF2HUD.Editor\\LocalShared"
-            ).FullName;
+            _localSharedPath = Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\LocalShared").FullName;
 
             foreach (var localSharedHUD in Directory.EnumerateDirectories(_localSharedPath))
             {
                 var hudName = localSharedHUD.Split('\\')[^1];
                 var hudBackgroundPath = $"{localSharedHUD}\\output.png";
-                string hudBackground = File.Exists(hudBackgroundPath)
+                var hudBackground = File.Exists(hudBackgroundPath)
                     ? $"file://{hudBackgroundPath}"
                     : "https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c47-a17b47cbaf0c.png";
                 var sharedProperties = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
@@ -88,7 +78,7 @@ namespace HUDEditor.Classes
                 }, false));
             }
 
-            hudList.Sort((a, b) => string.Compare(a.Name, b.Name));
+            hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
             HUDList = hudList.ToArray();
 
             var selectedHud = GetHUDByName(Settings.Default.hud_selected);
@@ -121,13 +111,7 @@ namespace HUDEditor.Classes
         }
 
         // Selected HUD Installed
-        public bool SelectedHUDInstalled
-        {
-            get
-            {
-                return SelectedHUD != null && MainWindow.HudPath != "" && Directory.Exists(MainWindow.HudPath) && Utilities.CheckUserPath(MainWindow.HudPath) && MainWindow.CheckHudInstallation();
-            }
-        }
+        public bool SelectedHUDInstalled => SelectedHUD != null && MainWindow.HudPath != "" && Directory.Exists(MainWindow.HudPath) && Utilities.CheckUserPath(MainWindow.HudPath) && MainWindow.CheckHudInstallation();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -159,10 +143,8 @@ namespace HUDEditor.Classes
         {
             try
             {
-                var restartRequired = false;
-
                 // Get the local schema names and file sizes.
-                List<Tuple<string, int>> localFiles = new();
+                var localFiles = new List<Tuple<string, int>>();
                 foreach (var file in new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")))
                     localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length));
                 if (localFiles.Count <= 0) return false;
@@ -183,6 +165,7 @@ namespace HUDEditor.Classes
                     .ToList();
                 if (remoteFiles.Count <= 0) return false;
 
+                var restartRequired = false;
                 // Compare the local and remote files.
                 foreach (var (remoteName, remoteSize) in remoteFiles)
                 {
@@ -256,18 +239,16 @@ namespace HUDEditor.Classes
             var hudName = folderPath.Split('\\')[^1];
 
             var hudDetailsFolder = $@"{Directory.CreateDirectory($@"{
-                Environment.GetFolderPath(
-                    Environment.SpecialFolder.LocalApplicationData
-                )
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
             }\TF2HUD.Editor\LocalShared\{hudName}").FullName}";
 
             var hudJson = new HudJson()
             {
                 Name = hudName,
-                Thumbnail = System.Threading.Tasks.Task.Run(() =>
+                Thumbnail = Task.Run(() =>
                 {
                     var consoleFolder =  $"{folderPath}\\materials\\console";
-                    var backgrounds = new string[] { "2fort", "gravelpit", "mvm", "upward" };
+                    var backgrounds = new[] { "2fort", "gravelpit", "mvm", "upward" };
                     var backgroundIndex = 0;
                     string backgroundUri = null;
 
@@ -319,15 +300,10 @@ namespace HUDEditor.Classes
                 }).Result,
                 Links = new Links
                 {
-                    Update = System.Threading.Tasks.Task.Run(() =>
+                    Update = Task.Run(() =>
                     {
                         var zipPath = $"{hudDetailsFolder}\\{hudName}.zip";
-                        System.IO.Compression.ZipFile.CreateFromDirectory(
-                            folderPath,
-                            zipPath,
-                            System.IO.Compression.CompressionLevel.Fastest,
-                            true
-                        );
+                        System.IO.Compression.ZipFile.CreateFromDirectory(folderPath, zipPath, System.IO.Compression.CompressionLevel.Fastest, true);
                         return $"file://{zipPath}";
                     }).Result
                 }
@@ -335,15 +311,8 @@ namespace HUDEditor.Classes
 
             hudJson.Background = hudJson.Thumbnail;
 
-            var hudList = new List<HUD>();
-            foreach (var _hud in HUDList)
-            {
-                hudList.Add(_hud);
-            }
-
-            var sharedFolder = "JSON\\Shared";
-            var sharedControlsJSON =
-                new StreamReader(File.OpenRead($"{sharedFolder}\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
+            var hudList = HUDList.ToList();
+            var sharedControlsJSON = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
 
             var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
             foreach (var group in hudControls.Controls)
@@ -355,13 +324,10 @@ namespace HUDEditor.Classes
 
             var hud = new HUD(hudName, hudJson, false);
             hudList.Add(hud);
-
             hudList.Sort((a, b) => string.Compare(a.Name, b.Name));
             HUDList = hudList.ToArray();
-
             HighlightedHUD = hud;
             SelectedHUD = hud;
-
             return hud;
         }
     }

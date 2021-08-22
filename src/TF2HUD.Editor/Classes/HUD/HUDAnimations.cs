@@ -62,8 +62,8 @@ namespace HUDEditor.Classes
                 {
                     if (text[x] == '/')
                     {
-                        if (text[x + 1] == '/')
-                            while (text[x] != '\n' && x < text.Length - 1)
+                        if (text[x + 1] is '/')
+                            while (text[x] is not '\n' && x < text.Length - 1)
                                 x++;
                     }
                     else
@@ -80,7 +80,7 @@ namespace HUDEditor.Classes
                     // Skip the opening quotation mark.
                     x++;
 
-                    while (text[x] != '"' && x < text.Length - 1)
+                    while (text[x] is not '"' && x < text.Length - 1)
                     {
                         if (text[x] == '\n') throw new Exception($"Unexpected end of line at position {x}");
                         currentToken += text[x];
@@ -127,15 +127,17 @@ namespace HUDEditor.Classes
                 var nextToken = Next();
 
                 if (string.Equals(nextToken, "{"))
-                    while (nextToken != "}" && nextToken != "EOF")
+                    while (nextToken is not "}" && nextToken is not "EOF")
                     {
                         // NextToken is not a closing brace therefore it is the animation type.
                         // Pass the animation type to the animation.
                         nextToken = Next();
-                        if (nextToken != "}") events.Add(ParseAnimation(nextToken));
+                        if (nextToken is not "}") events.Add(ParseAnimation(nextToken));
                     }
                 else
-                    throw new Exception($"Unexpected ${nextToken} at position {index}! Are you missing an opening brace?");
+                    throw new Exception(
+                        $"Unexpected ${nextToken} at position {index}! Are you missing an opening brace?");
+
                 return events;
             }
 
@@ -285,7 +287,7 @@ namespace HUDEditor.Classes
                     else if (T == typeof(PlaySound))
                         stringValue += $"PlaySound {animation.Delay} {FormatWhiteSpace(animation.Sound)}";
 
-                    if (animation.OSTag != null) stringValue += " " + animation.OSTag;
+                    if (animation.OSTag is not null) stringValue += " " + animation.OSTag;
 
                     stringValue += newLine;
                 }

@@ -51,7 +51,8 @@ namespace HUDEditor.Classes
         /// </summary>
         public void AddSetting(string name, Controls control)
         {
-            if (UserSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset) == null)
+            if (UserSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset) is null)
+            {
                 UserSettings.Add(new Setting
                 {
                     HUD = HUDName,
@@ -60,6 +61,7 @@ namespace HUDEditor.Classes
                     Value = control.Value,
                     Preset = Preset
                 });
+            }
         }
 
         /// <summary>
@@ -77,8 +79,7 @@ namespace HUDEditor.Classes
         /// <param name="name">Name of the setting to retrieve.</param>
         public T GetSetting<T>(string name)
         {
-            var setting = UserSettings.First(x => x.Name == name && x.Preset == Preset);
-            var value = setting.Value;
+            var value = UserSettings.First(x => x.Name == name && x.Preset == Preset).Value;
 
             switch (typeof(T).Name)
             {

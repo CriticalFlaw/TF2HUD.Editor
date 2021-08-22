@@ -1,6 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
   "Author": "Hypnotize",
+  "Description": "TF2 HUD based on hexagon shapes.",
   "Thumbnail": "https://huds.tf/site/xthreads_attach.php/4200_1624480708_80df6422/a6733dd158e1b299cae03b753e28aa73/th0oGZT.png",
   "Screenshots": [
     "https://huds.tf/site/xthreads_attach.php/4201_1624480708_c072b6a4/582b89dcb67895876ac7e2b9ae952b7f/u6OEUT6.jpg",

@@ -18,6 +18,7 @@
         Background="#2B2724">
     <Window.Resources>
         <Classes:NullCheckConverter x:Key="NullCheckConverter" />
+        <Classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
         <Classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
         <Classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
         <Classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
@@ -79,7 +80,7 @@
                              Background="#2B2724" BorderThickness="1" VerticalContentAlignment="Center"
                              Grid.Column="1" Grid.Row="0" />
                     <Button  x:Name="UniqueHUDsButton" Content="B"
-                             FontFamily="../Resources/TF2 Icons.ttf #TF2 Icons" FontSize="25" Foreground="#FFFFFF"
+                             FontFamily="../Resources/TF2Icons.ttf #TF2Icons" FontSize="25" Foreground="#FFFFFF"
                              Padding="3,0" Background="Transparent" BorderThickness="0"
                              Grid.Column="2" Grid.Row="0" Click="UniqueHUDsButton_OnClick" />
                     <ScrollViewer Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"

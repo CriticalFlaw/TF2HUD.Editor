@@ -25,7 +25,7 @@ namespace HUDEditor.Classes
                     if (text[x] == '/')
                     {
                         if (text[x + 1] == '/')
-                            while (text[x] != '\n')
+                            while (text[x] is not '\n')
                                 x++;
                     }
                     else
@@ -42,7 +42,7 @@ namespace HUDEditor.Classes
                     // Skip the opening quotation mark.
                     x++;
 
-                    while (text[x] != '"' && x < text.Length)
+                    while (text[x] is not '"' && x < text.Length)
                     {
                         if (text[x] == '\n') throw new Exception($"Unexpected end of line at position {x}");
                         token += text[x];
@@ -74,7 +74,7 @@ namespace HUDEditor.Classes
                 var currentToken = Next();
                 var nextToken = Next(true);
 
-                while (currentToken != "}" && nextToken != "EOF")
+                while (currentToken is not "}" && nextToken is not "EOF")
                 {
                     if (Next(true).StartsWith('['))
                     {
