@@ -319,6 +319,9 @@ namespace HUDEditor.Classes
         /// <remarks>If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores.</remarks>
         public static string EncodeID(string id)
         {
+            // If first character is a digit, add an
+            // underscore, then replace all dashes and
+            // whitespace characters with underscores
             return $"{(Regex.IsMatch(id[0].ToString(), "\\d") ? "_" : "")}{string.Join('_', Regex.Split(id, "[- ]"))}";
         }
     }

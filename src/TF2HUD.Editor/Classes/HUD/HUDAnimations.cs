@@ -136,7 +136,6 @@ namespace HUDEditor.Classes
                     }
                 else
                     throw new Exception($"Unexpected ${nextToken} at position {index}! Are you missing an opening brace?");
-
                 return events;
             }
 

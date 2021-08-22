@@ -12,6 +12,9 @@ namespace TF2HUDEditor.Classes
 {
     public class NullCheckConverter : IValueConverter
     {
+        /// <summary>
+        ///     Returns true if the provided value is not null or empty.
+        /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value switch
@@ -31,9 +34,12 @@ namespace TF2HUDEditor.Classes
 
     public class NotNullCheckConverter : IValueConverter
     {
+        /// <summary>
+        ///     Returns true if the provided value is null.
+        /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is not null;
+            return value is null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -93,7 +99,7 @@ namespace TF2HUDEditor.Classes
 
             if (selection.Background is null) return defaultBackground;
 
-            if (selection.Background.StartsWith("http"))
+            if (selection.Background.StartsWith("http") || selection.Background.StartsWith("file"))
                 return new ImageBrush
                 {
                     Stretch = Stretch.UniformToFill,
