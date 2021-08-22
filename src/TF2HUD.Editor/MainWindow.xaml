@@ -10,7 +10,7 @@
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
         Title="{lex:Loc ui_title}"
-        Width="1300"
+        Width="1320"
         Height="850"
         WindowStartupLocation="CenterScreen"
         FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
@@ -18,6 +18,7 @@
         Background="#2B2724">
     <Window.Resources>
         <Classes:NullCheckConverter x:Key="NullCheckConverter" />
+        <Classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
         <Classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
         <Classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
         <Classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
@@ -68,6 +69,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
@@ -77,7 +79,11 @@
                     <TextBox x:Name="SearchBox" TextChanged="TbSearchBox_TextChanged" Foreground="WhiteSmoke"
                              Background="#2B2724" BorderThickness="1" VerticalContentAlignment="Center"
                              Grid.Column="1" Grid.Row="0" />
-                    <ScrollViewer Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                    <Button  x:Name="UniqueHUDsButton" Content="B"
+                             FontFamily="../Resources/TF2 Icons.ttf #TF2 Icons" FontSize="25" Foreground="#FFFFFF"
+                             Padding="3,0" Background="Transparent" BorderThickness="0"
+                             Grid.Column="2" Grid.Row="0" Click="UniqueHUDsButton_OnClick" />
+                    <ScrollViewer Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
                                   Margin="0,10,0,0">
                         <WrapPanel x:Name="GridSelectHud" HorizontalAlignment="Center" />
                     </ScrollViewer>
@@ -196,6 +202,12 @@
                     Content="{lex:Loc ui_switch}"
                     Style="{StaticResource HUDButton}"
                     IsEnabled="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverter}}" />
+                <Button
+                    x:Name="BtnAddSharedHUD"
+                    Click="BtnAddSharedHUD_OnClick"
+                    Content="W"
+                    Style="{StaticResource LinkButton}"
+                    IsEnabled="{Binding Json.SelectedHUD, Converter={StaticResource NotNullCheckConverter}}" />
                 <Button
                     x:Name="BtnReportIssue"
                     Click="BtnReportIssue_OnClick"

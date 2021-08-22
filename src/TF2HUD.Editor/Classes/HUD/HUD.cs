@@ -33,6 +33,7 @@ namespace HUDEditor.Classes
         public HUDSettings Settings;
         public List<object> Screenshots { get; set; } = new();
         public string Thumbnail, Background, CustomizationsFolder, EnabledFolder;
+        public bool Unique;
         public event EventHandler<HUDSettingsPreset> PresetChanged;
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="name">Name of the HUD object.</param>
         /// <param name="schema">Contents of the HUD's schema file.</param>
-        public HUD(string name, HudJson schema)
+        public HUD(string name, HudJson schema, bool uniq)
         {
             // Basic Schema Properties.
             Name = schema.Name ?? name;
@@ -54,6 +55,7 @@ namespace HUDEditor.Classes
             Background = schema.Background;
             Description = schema.Description;
             Author = schema.Author;
+            Unique = uniq;
 
             if (schema.Screenshots is not null)
             {

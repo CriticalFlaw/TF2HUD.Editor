@@ -38,6 +38,7 @@ namespace HUDEditor
         public static string HudPath = Settings.Default.hud_directory;
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly List<(HUD, Border)> HudThumbnails = new();
+        private bool DisplayUniqueHUDsOnly;
 
         public MainWindow()
         {
@@ -57,48 +58,7 @@ namespace HUDEditor
             foreach (var hud in Json.HUDList)
             {
                 list += $" - {hud.Name}";
-
-                var border = new Border();
-                border.MouseEnter += (_, _) => border.BorderBrush = Brushes.Black;
-                border.MouseLeave += (_, _) => border.BorderBrush = Brushes.LightGray;
-                border.MouseUp += (object sender, MouseButtonEventArgs e) =>
-                {
-                    if (Json.HighlightedHUD == hud)
-                    {
-                        Json.SelectedHUD = hud;
-                    }
-                    else
-                    {
-                        Json.SelectedHUD = null;
-                        Json.HighlightedHUD = hud;
-                        HudInfo.ScrollToVerticalOffset(0);
-                        Logger.Info($"Highlighting {hud.Name}");
-                    }
-                };
-
-                border.Style = (Style)Application.Current.Resources["HudListBorder"];
-
-                var thumbnailImage = new Image();
-                if (hud.Thumbnail != null) thumbnailImage.Source = new BitmapImage(new Uri(hud.Thumbnail));
-                thumbnailImage.Style = (Style)Application.Current.Resources["HudListImage"];
-
-                // Prevents image from looking grainy when resized
-                RenderOptions.SetBitmapScalingMode(thumbnailImage, BitmapScalingMode.Fant);
-
-                var hudIconContainer = new StackPanel();
-                hudIconContainer.Children.Add(thumbnailImage);
-                hudIconContainer.Children.Add(new Label
-                    { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
-
-                border.Child = hudIconContainer;
-
-                // Automatically assign columns and rows
-                // Grid.SetColumn(border, GridSelectHUD.Children.Count % 2);
-                // int d = GridSelectHUD.Children.Count / 2;
-                // Grid.SetRow(border, d);
-
-                GridSelectHud.Children.Add(border);
-                HudThumbnails.Add((hud, border));
+                AddHUDToGridView(hud);
             }
 
             Logger.Info(list);
@@ -156,6 +116,62 @@ namespace HUDEditor
             ShowMessageBox(MessageBoxImage.Warning,
                 Utilities.GetLocalizedString(Properties.Resources.error_app_directory));
             Application.Current.Shutdown();
+        }
+
+        public void AddHUDToGridView(HUD hud)
+        {
+            var border = new Border();
+            border.MouseEnter += (_, _) => border.BorderBrush = Brushes.Black;
+            border.MouseLeave += (_, _) => border.BorderBrush = Brushes.LightGray;
+            border.MouseUp += (object sender, MouseButtonEventArgs e) =>
+            {
+                if (Json.HighlightedHUD == hud)
+                {
+                    Json.SelectedHUD = hud;
+                }
+                else
+                {
+                    Json.SelectedHUD = null;
+                    Json.HighlightedHUD = hud;
+                    HudInfo.ScrollToVerticalOffset(0);
+                    Logger.Info($"Highlighting {hud.Name}");
+                }
+            };
+
+            border.Style = (Style)Application.Current.Resources["HudListBorder"];
+
+            var thumbnailIcon = new Label();
+            if (hud.Unique)
+            {
+                thumbnailIcon.Content = "B";
+                // thumbnailIcon.Content = new BitmapImage(new Uri("Resources/importtool_goldstar.png", UriKind.Relative));
+            }
+            thumbnailIcon.Style = (Style)Application.Current.Resources["HudListIcon"];
+
+            var thumbnailImage = new Image();
+            if (hud.Thumbnail != null) thumbnailImage.Source = new BitmapImage(new Uri(hud.Thumbnail));
+            thumbnailImage.Style = (Style)Application.Current.Resources["HudListImage"];
+
+            // Prevents image from looking grainy when resized
+            RenderOptions.SetBitmapScalingMode(thumbnailImage, BitmapScalingMode.Fant);
+
+            var hudIconContainer = new Grid();
+            hudIconContainer.RowDefinitions.Add(new RowDefinition());
+            hudIconContainer.RowDefinitions.Add(new RowDefinition());
+            hudIconContainer.Children.Add(thumbnailImage);
+            hudIconContainer.Children.Add(thumbnailIcon);
+            hudIconContainer.Children.Add(new Label
+                { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
+
+            border.Child = hudIconContainer;
+
+            // Automatically assign columns and rows
+            // Grid.SetColumn(border, GridSelectHUD.Children.Count % 2);
+            // int d = GridSelectHUD.Children.Count / 2;
+            // Grid.SetRow(border, d);
+
+            GridSelectHud.Children.Add(border);
+            HudThumbnails.Add((hud, border));
         }
 
         public void SelectionChanged(object sender, HUD hud)
@@ -264,13 +280,35 @@ namespace HUDEditor
                 var i = 0;
                 while (visibility == Visibility.Collapsed && i < searches.Length)
                 {
-                    if (searches[i] != null && searches[i].ToLower().Contains(searchText))
+                    if (searches[i] != null && searches[i].ToLower().Contains(searchText) && (!DisplayUniqueHUDsOnly || hud.Unique))
                         visibility = Visibility.Visible;
                     i++;
                 }
 
                 border.Visibility = visibility;
             }
+        }
+
+        private void UniqueHUDsButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            DisplayUniqueHUDsOnly = !DisplayUniqueHUDsOnly;
+            if (DisplayUniqueHUDsOnly)
+            {
+                UniqueHUDsButton.Foreground = Brushes.SkyBlue;
+                foreach (var (hud, border) in HudThumbnails)
+                {
+                    border.Visibility = hud.Unique ? Visibility.Visible : Visibility.Collapsed;
+                }
+            }
+            else
+            {
+                UniqueHUDsButton.Foreground = Brushes.White;
+                foreach (var (hud, border) in HudThumbnails)
+                {
+                    border.Visibility = Visibility.Visible;
+                }
+            }
+            TbSearchBox_TextChanged(sender, e);
         }
 
         /// <summary>
@@ -471,6 +509,38 @@ namespace HUDEditor
         }
 
         /// <summary>
+        ///     Add a HUD from folder to the shared HUDs list.
+        /// </summary>
+        private void BtnAddSharedHUD_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show(String.Join('\n', new string[]
+                {
+                    "Are you sure you want to add a folder to the list of shared HUDs?",
+                    "This will add the folder locally but will not upload the HUD to TF2HUD.Editor's online database."
+                }),
+                "Add HUD",
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Information
+                ) != MessageBoxResult.Yes
+            ) return;
+
+            var fbd = new System.Windows.Forms.FolderBrowserDialog();
+            fbd.SelectedPath = $"{HudPath}\\";
+            var result = fbd.ShowDialog();
+            if (result != System.Windows.Forms.DialogResult.OK) return;
+
+            try
+            {
+                var hud = Json.Add(fbd.SelectedPath);
+                AddHUDToGridView(hud);
+            }
+            catch (Exception error)
+            {
+                ShowMessageBox(MessageBoxImage.Error, error.Message, MessageBoxButton.OK);
+            }
+        }
+
+        /// <summary>
         ///     Opens the issue tracker for the editor.
         /// </summary>
         private void BtnReportIssue_OnClick(object sender, RoutedEventArgs e)
@@ -535,14 +605,9 @@ namespace HUDEditor
             Utilities.OpenWebpage(Json.HighlightedHUD.SteamUrl);
         }
 
-
         /// <summary>
-        ///     Save the selected HUD then update the page view and controls.
+        ///     Updates localization to the selected language.
         /// </summary>
-        private void gridSelectHud_SelectionChanged(object sender, HUD hud)
-        {
-        }
-
         private void BtnLocalize_OnClick(object sender, RoutedEventArgs e)
         {
             if (btnLocalizeFR.IsChecked == true)

@@ -64,16 +64,17 @@ namespace HUDEditor.Classes
         /// <returns>Bitmap of the resized image file.</returns>
         private static Bitmap ResizeImage(Bitmap image)
         {
-            var power = 2;
-            do
-            {
-                power *= 2;
-            } while (power < Math.Max(image.Width, image.Height));
+            // Image size is the greater of both the width and height rounded
+            // up to the nearest power of 2
+            var size = (int)Math.Max(
+                Math.Pow(2, Math.Ceiling(Math.Log(image.Width) / Math.Log(2))),
+                Math.Pow(2, Math.Ceiling(Math.Log(image.Height) / Math.Log(2)))
+            );
 
             // Paint graphics onto the SquareImage Bitmap
-            var squareImage = new Bitmap(power, power);
+            var squareImage = new Bitmap(size, size);
             var graphics = Graphics.FromImage(squareImage);
-            graphics.DrawImage(image, 0, 0, power, power);
+            graphics.DrawImage(image, 0, 0, size, size);
             return squareImage;
         }
 

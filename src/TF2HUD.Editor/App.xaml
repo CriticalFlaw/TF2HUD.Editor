@@ -292,16 +292,28 @@
             <Setter Property="Cursor" Value="Hand" />
         </Style>
 
+        <Style x:Key="HudListIcon" TargetType="Label">
+            <Setter Property="FontFamily" Value="../Resources/TF2 Icons.ttf #TF2 Icons" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Opacity" Value="0.8" />
+            <Setter Property="Grid.Row" Value="0" />
+        </Style>
+
         <Style x:Key="HudListImage" TargetType="Image">
             <Setter Property="Height" Value="118" />
             <Setter Property="Stretch" Value="UniformToFill" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Grid.Row" Value="0" />
         </Style>
 
         <Style x:Key="HudListLabel" TargetType="Label">
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Grid.Row" Value="1" />
         </Style>
     </Application.Resources>
 </Application>
