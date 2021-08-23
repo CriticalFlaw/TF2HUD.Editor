@@ -277,7 +277,16 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read the project documentation..
+        ///   Looks up a localized string similar to Add new HUD..
+        /// </summary>
+        public static string tooltip_addhud {
+            get {
+                return ResourceManager.GetString("tooltip_addhud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read the documentation..
         /// </summary>
         public static string tooltip_docs {
             get {

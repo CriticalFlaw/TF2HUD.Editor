@@ -203,6 +203,7 @@
                     Click="BtnAddSharedHUD_OnClick"
                     Content="W"
                     Style="{StaticResource LinkButton}"
+                    ToolTip="{lex:Loc tooltip_addhud}"
                     IsEnabled="{Binding Json.SelectedHUD, Converter={StaticResource NotNullCheckConverter}}" />
                 <Button
                     x:Name="BtnReportIssue"
@@ -219,31 +220,22 @@
                 <Button
                     x:Name="BtnGitHub"
                     Click="BtnGitHub_OnClick"
-                    Content="Y"
-                    Background="#171a21"
-                    Style="{StaticResource LinkButton}"
+                    Style="{StaticResource GitHubButton}"
                     IsEnabled="{Binding Json.HighlightedHUD.GitHubUrl, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnHuds"
                     Click="BtnHuds_OnClick"
-                    Content="H"
-                    Background="#42A5F5"
-                    FontFamily="../Resources/TF2Build.ttf #TF2 Build"
-                    Style="{StaticResource LinkButton}"
+                    Style="{StaticResource HudsButton}"
                     IsEnabled="{Binding Json.HighlightedHUD.HudsTfUrl, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnDiscord"
                     Click="BtnDiscord_OnClick"
-                    Content="Z"
-                    Background="#5865F2"
-                    Style="{StaticResource LinkButton}"
+                    Style="{StaticResource DiscordButton}"
                     IsEnabled="{Binding Json.HighlightedHUD.DiscordUrl, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnSteam"
                     Click="BtnSteam_OnClick"
-                    Content="X"
-                    Background="#1B2838"
-                    Style="{StaticResource LinkButton}"
+                    Style="{StaticResource SteamButton}"
                     IsEnabled="{Binding Json.HighlightedHUD.SteamUrl, Converter={StaticResource NullCheckConverter}}" />
             </WrapPanel>
         </GroupBox>

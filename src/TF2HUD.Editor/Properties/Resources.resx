@@ -189,8 +189,11 @@
   <data name="status_reset" xml:space="preserve">
     <value>{0} customizations reset on {1}.</value>
   </data>
+  <data name="tooltip_addhud" xml:space="preserve">
+    <value>Add new HUD.</value>
+  </data>
   <data name="tooltip_docs" xml:space="preserve">
-    <value>Read the project documentation.</value>
+    <value>Read the documentation.</value>
   </data>
   <data name="tooltip_path" xml:space="preserve">
     <value>Change the tf/custom directory.</value>
