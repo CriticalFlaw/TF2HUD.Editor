@@ -628,8 +628,9 @@ namespace HUDEditor.Classes
 
                                     Settings.SetSetting(controlItem.Name, path);
 
+                                    if (!Directory.Exists(Path.GetDirectoryName(path)))
+                                        Directory.CreateDirectory(Path.GetDirectoryName(path));
                                     MainWindow.Logger.Info($"Copying {browser.FileName} to {path}");
-                                    Directory.CreateDirectory(Path.GetDirectoryName(path));
                                     File.Copy(browser.FileName, path, true);
                                 }
 

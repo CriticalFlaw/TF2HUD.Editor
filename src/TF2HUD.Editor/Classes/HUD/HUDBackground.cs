@@ -58,7 +58,8 @@ namespace HUDEditor.Classes
                 var consoleFolder = HUDFolderPath + "materials\\console\\";
                 var disabledFolder = consoleFolder + "_disabled";
 
-                Directory.CreateDirectory(consoleFolder);
+                if (!Directory.Exists(consoleFolder))
+                    Directory.CreateDirectory(consoleFolder);
 
                 if (!Directory.Exists(disabledFolder))
                     Directory.CreateDirectory(disabledFolder);

@@ -50,11 +50,12 @@ namespace HUDEditor.Classes
             var index = 0;
             foreach (var screenshot in schema.Screenshots)
             {
-                Screenshots.Add((
-                    ImageSource: screenshot,
-                    Column: index % 2,
-                    Row: index / 2
-                ));
+                Screenshots.Add(new
+                {
+                    ImageSource = screenshot,
+                    Column = index % 2,
+                    Row = index / 2
+                });
                 index++;
             }
         }

@@ -53,7 +53,8 @@ namespace HUDEditor.Classes
                             if (property.Contains("."))
                             {
                                 var filePath = folderPath + "\\" + property;
-                                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                                if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+                                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
                                 // Read file, check each topmost element until we come to an element that matches
                                 // the pattern (Resource/UI/HudFile.res) which indicates it's a HUD ui file

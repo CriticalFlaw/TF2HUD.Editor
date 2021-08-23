@@ -279,6 +279,7 @@
         "Label": "Damage Value Size",
         "Type": "ComboBox",
         "Value": "2",
+        "Width": 200,
         "Options": [
           {
             "Label": "Small, Shadow",
@@ -448,6 +449,7 @@
         "Label": "Health Style",
         "Type": "ComboBox",
         "Value": "0",
+        "Width": 200, 
         "Options": [
           {
             "Label": "Colored Shadow",

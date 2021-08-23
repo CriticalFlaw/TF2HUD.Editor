@@ -42,8 +42,6 @@
                     <!--<Button Content="{lex:Loc ui_options}" Foreground="White" Margin="5,0,5,0"/>-->
                     <Button Content="{lex:Loc ui_refresh}" Foreground="White" Margin="5,0,5,0"
                             Click="BtnRefresh_OnClick" />
-                    <Button Content="{lex:Loc ui_directory}" Foreground="White" Margin="5,0,5,0"
-                            Click="BtnSetDirectory_OnClick" />
                     <!-- Localization -->
                     <RadioButton x:Name="btnLocalizeEN" Content="English" Checked="BtnLocalize_OnClick"
                                  ToolBar.OverflowMode="Always" />
@@ -51,6 +49,8 @@
                                  ToolBar.OverflowMode="Always" />
                     <RadioButton x:Name="btnLocalizeRU" Content="Russian" Checked="BtnLocalize_OnClick"
                                  ToolBar.OverflowMode="Always" />
+                    <Button x:Name="btnSetDirectory" Content="{lex:Loc ui_directory}" Click="BtnSetDirectory_OnClick"
+                            ToolBar.OverflowMode="Always" />
                 </ToolBar>
             </Grid>
         </ToolBarPanel>
@@ -101,17 +101,15 @@
                             <Run Foreground="#FFD700" Text="documentation" /><Run Text=" linked below." />
                         </TextBlock>
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-                        <Label Content="Version 2.2" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
+                        <Label Content="Version 2.3" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-                            <Run Text="- Added support for hypnotize-hud and HExHUD." /><LineBreak />
-                            <Run Text="- Added the ability to change the set tf/custom directory." /><LineBreak />
-                            <Run Text="- Added the ability to only reset controls in a given group." /><LineBreak />
-                            <Run Text="- Fixed not applying customizations made before the HUD is installed." />
-                            <LineBreak /><Run Text="- HUD updates are now initiated on-demand via a refresh button." />
-                            <LineBreak /><Run Text="- Improved the look and functionality of main menu HUD list." />
-                            <LineBreak /><Run Text="- " /><Run Foreground="#91493b" Text="default" />
-                            <Run Text=": Added an option to enable Streamer Mode." /><LineBreak /><Run Text="- " />
-                            <Run Foreground="#FF015B" Text="zeeshud" /><Run Text=": Updated to the latest version." />
+                            <Run Text="- Added support for HUDs without customizations." /><LineBreak />
+                            <Run Text="- Implemented savable customization presets." /><LineBreak />
+                            <Run Text="- Implemented control width override." /><LineBreak />
+                            <Run Text="- Implemented localization support." /><LineBreak />
+                            <Run Text="- Added a toolbar and selected HUD details to the main menu." /><LineBreak />
+                            <Run Text="- Added a warning message when using custom backgrounds." /><LineBreak />
+                            <Run Text="- Miscellaneous codebase improvements and bug-fixes." />
                         </TextBlock>
                     </StackPanel>
                 </ScrollViewer>
@@ -158,7 +156,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <!-- <Label x:Name="HudStatus" Content="HUD" Style="{StaticResource HeaderText}" FontSize="20px" Margin="0,10,0,0"/> -->
+                        <Button x:Name="BtnCustomize" Content="{lex:Loc ui_customize}" Click="BtnCustomize_OnClick" Style="{StaticResource HUDButton}" Width="500" FontSize="30px" HorizontalContentAlignment="Center" HorizontalAlignment="Center" />
                     </StackPanel>
                 </ScrollViewer>
             </Grid>
@@ -187,13 +185,13 @@
                     Click="BtnSave_OnClick"
                     Content="{lex:Loc ui_apply}"
                     Style="{StaticResource HUDButton}"
-                    IsEnabled="{Binding Json.HighlightedHUDInstalled}" />
+                    IsEnabled="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnReset"
                     Click="BtnReset_OnClick"
                     Content="{lex:Loc ui_reset}"
                     Style="{StaticResource HUDButton}"
-                    IsEnabled="{Binding Json.HighlightedHUDInstalled}" />
+                    IsEnabled="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"

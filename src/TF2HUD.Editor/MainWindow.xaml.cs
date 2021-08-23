@@ -85,18 +85,24 @@ namespace HUDEditor
             {
                 // Loop until the user provides a valid tf/custom directory, unless they cancel out.
                 while (!browser.SelectedPath.EndsWith("tf\\custom"))
-                    if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK &&
-                        browser.SelectedPath.EndsWith("tf\\custom"))
+                {
+                    if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        Settings.Default.hud_directory = browser.SelectedPath;
-                        Settings.Default.Save();
-                        HudPath = Settings.Default.hud_directory;
-                        Logger.Info("tf/custom directory is set to: " + Settings.Default.hud_directory);
+                        if (browser.SelectedPath.EndsWith("tf\\custom"))
+                        {
+                            Settings.Default.hud_directory = browser.SelectedPath;
+                            Settings.Default.Save();
+                            HudPath = Settings.Default.hud_directory;
+                            Logger.Info("tf/custom directory is set to: " + Settings.Default.hud_directory);
+                        }
+                        else
+                            ShowMessageBox(MessageBoxImage.Error, Properties.Resources.info_path_invalid);
                     }
                     else
                     {
                         break;
                     }
+                }
             }
 
             // Check one more time if a valid directory has been set.
@@ -478,11 +484,7 @@ namespace HUDEditor
         private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
         {
             Logger.Info("Attempting to change the 'tf/custom' directory.");
-            var previousPath = HudPath;
             SetupDirectory(true);
-
-            if (HudPath.Equals(previousPath) || !Utilities.CheckUserPath(HudPath))
-                ShowMessageBox(MessageBoxImage.Error, Properties.Resources.info_path_invalid);
         }
 
         /// <summary>
@@ -582,6 +584,17 @@ namespace HUDEditor
             // Save language preference to user settings.
             Settings.Default.user_language = LocalizeDictionary.Instance.Culture.ToString();
             Settings.Default.Save();
+        }
+
+
+        private void BtnCustomize_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (Json.HighlightedHUD is null) return;
+            EditorContainer.Children.Clear();
+            Json.SelectedHUD = Json.HighlightedHUD;
+            Settings.Default.hud_selected = Json.SelectedHUD.Name;
+            Settings.Default.Save();
+            SetPageView(Json.GetHUDByName(Settings.Default.hud_selected));
         }
 
         #endregion

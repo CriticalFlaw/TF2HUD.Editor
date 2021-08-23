@@ -214,7 +214,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You either selected the same directory or your selection did not end with tf/custom. Please try again..
+        ///   Looks up a localized string similar to The path you have selected does not end with tf/custom. Please try again..
         /// </summary>
         public static string info_path_invalid {
             get {
@@ -358,7 +358,16 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set Directory.
+        ///   Looks up a localized string similar to Customize.
+        /// </summary>
+        public static string ui_customize {
+            get {
+                return ResourceManager.GetString("ui_customize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set path to tf/custom.
         /// </summary>
         public static string ui_directory {
             get {
@@ -385,7 +394,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Refresh.
+        ///   Looks up a localized string similar to Check for Updates.
         /// </summary>
         public static string ui_refresh {
             get {

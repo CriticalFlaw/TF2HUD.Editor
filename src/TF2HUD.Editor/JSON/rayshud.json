@@ -224,6 +224,7 @@
         "ToolTip": "Default crosshair color.",
         "Value": "242 242 242 255",
         "Restart": true,
+        "Width": 125,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -241,6 +242,7 @@
         "ToolTip": "Color of crosshair when hitting another player.",
         "Value": "255 0 0 255",
         "Restart": true,
+        "Width": 125,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {

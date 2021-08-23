@@ -1,13 +1,21 @@
 {
   "Layout": [
-    "0 0 0 1 1 1",
-    "2 2 3 3 4 4"
+    "0 1 2",
+    "3 1 2"
   ],
   "Controls": {
     "Options": [
       {
+        "Name": "custom_background",
+        "Label": "Custom Background",
+        "Type": "CustomBackground",
+        "Special": "CustomBackground",
+        "ToolTip": "Replace the main menu background with a custom image.",
+        "Restart": true
+      },
+      {
         "Name": "chat_top_left",
-        "Label": "Chat Top Left",
+        "Label": "Chat To Top Left",
         "Type": "Checkbox",
         "ToolTip": "Move the in game chat to the top left of the screen",
         "Value": false,
@@ -38,16 +46,6 @@
             }
           }
         }
-      }
-    ],
-    "Main Menu": [
-      {
-        "Name": "custom_background",
-        "Label": "Set Custom Background",
-        "Type": "CustomBackground",
-        "Special": "CustomBackground",
-        "ToolTip": "Replace the main menu background with a custom image.",
-        "Restart": true
       }
     ],
     "Item Quality": [
@@ -312,27 +310,6 @@
     ],
     "Crosshair": [
       {
-        "Name": "toggle_xhair_enable",
-        "Label": "Toggle Crosshair",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair feature.",
-        "Value": "false",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "visible": {
-                "true": "1",
-                "false": "0"
-              },
-              "enabled": {
-                "true": "1",
-                "false": "0"
-              }
-            }
-          }
-        }
-      },
-      {
         "Name": "xhair_style",
         "Label": "Style",
         "ToolTip": "Style of crosshair.",
@@ -342,6 +319,23 @@
           "scripts/hudlayout.res": {
             "CustomCrosshair": {
               "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_xhair_normal",
+        "Label": "Crosshair",
+        "Type": "ColorPicker",
+        "ToolTip": "Default crosshair color.",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair": "$value"
+              }
             }
           }
         }
@@ -364,17 +358,21 @@
         }
       },
       {
-        "Name": "color_xhair_normal",
-        "Label": "Crosshair",
-        "Type": "ColorPicker",
-        "ToolTip": "Default crosshair color.",
-        "Value": "255 255 255 255",
-        "Restart": true,
+        "Name": "toggle_xhair_enable",
+        "Label": "Toggle Crosshair",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair feature.",
+        "Value": "false",
         "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "Crosshair": "$value"
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
               }
             }
           }

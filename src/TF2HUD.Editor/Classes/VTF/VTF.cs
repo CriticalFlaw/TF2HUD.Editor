@@ -26,7 +26,8 @@ namespace HUDEditor.Classes
             var materialSrc = $"{_tf2Path}\\tf\\materialsrc";
 
             // Create materialsrc (ensure it exists)
-            Directory.CreateDirectory(materialSrc);
+            if (!Directory.Exists(materialSrc))
+                Directory.CreateDirectory(materialSrc);
 
             // Save image as .tga (cast using TGASharpLib)
             var tgaSquareImage = (TGA)ResizeImage(image);
@@ -41,7 +42,9 @@ namespace HUDEditor.Classes
             // Create absolute path to output folder and make directory
             var pathInfo = outFile.Split('\\', '/');
             pathInfo[^1] = "";
-            Directory.CreateDirectory(string.Join("\\", pathInfo));
+            var directory = string.Join("\\", pathInfo);
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
 
             // Make a backup of the existing background files.
             var hudBgPath = new DirectoryInfo($"{MainWindow.HudPath}\\{MainWindow.HudSelection}\\materials\\console\\");

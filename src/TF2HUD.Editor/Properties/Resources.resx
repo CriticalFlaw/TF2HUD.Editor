@@ -169,7 +169,7 @@
     <value>Select your tf/custom directory. If an invalid directory is provided, multiple options will be unavailable.</value>
   </data>
   <data name="info_path_invalid" xml:space="preserve">
-    <value>You either selected the same directory or your selection did not end with tf/custom. Please try again.</value>
+    <value>The path you have selected does not end with tf/custom. Please try again.</value>
   </data>
   <data name="status_applied" xml:space="preserve">
     <value>{0} customizations applied on {1}.</value>
@@ -216,8 +216,11 @@
   <data name="ui_clear" xml:space="preserve">
     <value>Clear</value>
   </data>
+  <data name="ui_customize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
   <data name="ui_directory" xml:space="preserve">
-    <value>Set Directory</value>
+    <value>Set path to tf/custom</value>
   </data>
   <data name="ui_install" xml:space="preserve">
     <value>Install</value>
@@ -226,7 +229,7 @@
     <value>Options</value>
   </data>
   <data name="ui_refresh" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Check for Updates</value>
   </data>
   <data name="ui_reinstall" xml:space="preserve">
     <value>Reinstall</value>
