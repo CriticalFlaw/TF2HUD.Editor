@@ -100,20 +100,19 @@ namespace HUDEditor.Classes
             // Set the VTEX CLI Args
             string[] args =
             {
-                $"\"{folderPath}\\{fileName}.tga\"",
-                "-nopause",
-                "-game",
-                $"\"{_tf2Path}\\tf\\\""
+                $"-quiet",
+                $"\"{folderPath}\\{fileName}.tga\""
             };
 
             // Call Vtex and pass the parameters.
             var processInfo = new ProcessStartInfo($"{_tf2Path}\\bin\\vtex.exe")
             {
                 Arguments = string.Join(" ", args),
-                UseShellExecute = true
+                RedirectStandardOutput = true
             };
-
             var process = Process.Start(processInfo);
+            while (!process.StandardOutput.EndOfStream)
+                MainWindow.Logger.Info($"[VTEX] {process.StandardOutput.ReadLine()}");
             process?.WaitForExit();
             process?.Close();
         }

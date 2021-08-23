@@ -272,7 +272,6 @@ namespace HUDEditor.Classes
                             var processInfo = new ProcessStartInfo($"{MainWindow.HudPath.Replace("\\tf\\custom", string.Empty)}\\bin\\vtf2tga.exe")
                             {
                                 Arguments = string.Join(" ", args),
-                                UseShellExecute = false,
                                 RedirectStandardOutput = true
                             };
                             var process = Process.Start(processInfo);
