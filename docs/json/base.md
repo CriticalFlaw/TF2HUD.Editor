@@ -1,4 +1,105 @@
-This section covers the base settings like the page layout, path of customization folders, and links to Download, GitHub, HUDS.TF and more.
+This section defines the base settings like the HUD author, description, screenshots, customization folders, links and more. 
+
+```json
+{
+	"$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+	"Author": "CriticalFlaw",
+	"Description": "Custom HUD for Team Fortress 2, with the focus on minimalistic design and dark themed colors.",
+	"Thumbnail": "https://i.imgur.com/2UnYNH8.png",
+	"Screenshots": [
+		"https://huds.tf/site/xthreads_attach.php/265_1624918840_0abb7788/12ebcf7249f0af8372f3ab5a0ac8c74f/20210628180837_1.jpg"
+	],
+	"Background": "https://user-images.githubusercontent.com/6818236/123523046-34d56600-d68f-11eb-8838-fbf112c45ea7.png",
+	"Layout": [
+		"0 0 3 3",
+		"1 2 4 5",
+		"1 2 4 5"
+	],
+	"Links": {
+		"Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
+		...
+	},
+	"CustomizationsFolder": "resource//ui//#customizations",
+	"EnabledFolder": "resource//ui//#customizations//_enabled",
+	"Controls": {
+		...
+	}
+}
+```
+
+### Author
+
+**Required**. Name of the HUD author. Displayed on the main menu when the HUD is selected.
+
+```json
+"Author": "CriticalFlaw"
+```
+
+---
+
+### Description
+
+**Optional**. Description of the HUD. Displayed on the main menu when the HUD is selected.
+
+```json
+"Description": "Custom HUD for Team Fortress 2, with the focus on minimalistic design and dark themed colors."
+```
+
+---
+
+
+### Thumbnail
+
+**Optional**. Link to an image that will be used as the thumbnail for the HUD on the main menu.
+
+```json
+"Thumbnail": "https://i.imgur.com/2UnYNH8.png"
+```
+
+---
+
+### Screenshots
+
+**Optional**. Contains links to various screenshots of the HUD, displayed on the main menu when selected.
+
+```json
+"Screenshots": [
+    "https://huds.tf/site/xthreads_attach.php/265_1624918840_0abb7788/12ebcf7249f0af8372f3ab5a0ac8c74f/20210628180837_1.jpg",
+    "https://huds.tf/site/xthreads_attach.php/266_1615673780_78981626/2bc3c541513a0c34ee59bf6c763f5529/20210313171549_1.jpg",
+    "https://huds.tf/site/xthreads_attach.php/268_1598361138_2c89a084/d42f548731cad1d9703da2df26854ce8/BebP8MR.png",
+    "https://huds.tf/site/xthreads_attach.php/269_1598361138_712980b1/a4b1e6feed379517f3cd678a8cbb3db9/gB7GjxF.png"
+]
+```
+
+---
+
+### Background
+
+**Optional**. Sets the background of the HUD page as an RGBA color or an image through a URL.
+
+```json
+"Background": "https://imgur.com/V441OsM.png"
+or
+"Background": "30 30 30 255"
+```
+
+---
+
+### Layout
+
+**Optional**. Defines the placement of each control group in the order they are defined in [controls][docs-controls].
+
+Each number corresponds to its control group box index, 0 based. The group box will be positioned at the first occurence of its index horizontally and vertically, and will expand it's width and height to the count of occurences of its index.
+
+In the example below, the first control group (0) will be placed in the top left corner. The next group (1) will be positioned vertically right underneath the first group.
+
+```json
+"Layout": [
+	"0 0 0 4",
+	"1 2 3 4",
+	"1 2 3 4"
+]
+```
 
 ---
 
@@ -35,24 +136,6 @@ This section covers the base settings like the page layout, path of customizatio
 		{
 			"Name": "rh_val_uber_animation"
 			...
-```
-
----
-
-### Layout
-
-**Optional**. Defines the placement of each control group in the order they are defined in [Controls](https://www.editor.criticalflaw.ca/json/base/#controls).
-
-Each number corresponds to its control group box index, 0 based. The group box will be positioned at the first occurence of its index horizontally and vertically, and will expand it's width and height to the count of occurences of its index.
-
-In the example below, the first control group (0) will be placed in the top left corner. The next group (1) will be positioned vertically right underneath the first group.
-
-```json
-"Layout": [
-	"0 0 0 4",
-	"1 2 3 4",
-	"1 2 3 4"
-]
 ```
 
 This will result in the following layout, with 2 large boxes (0 and 4), and 3 smaller boxes (1, 2 and 3):
@@ -94,18 +177,6 @@ The width and height of all group boxes will expand fractionally to 100%. a row 
 
 ---
 
-### Background
-
-**Optional**. Sets the background of the HUD page as an RGBA color or a link to an image.
-
-```json
-"Background": "https://imgur.com/V441OsM.png"
-or
-"Background": "30 30 30 255"
-```
-
----
-
 ### Opacity
 
 **Optional**. Sets the page's background opacity. The value is a decimal between 0.0 and 1.0.
@@ -125,10 +196,4 @@ or
 ```
 
 <!-- MARKDOWN LINKS -->
-[json-budhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/budhud.json
-[json-flawhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/flawhud.json
-[json-rayshud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/rayshud.json
-[json-sample]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/docs/resources/sample.json
 [docs-controls]: https://www.editor.criticalflaw.ca/json/controls/
-[docs-files]: https://www.editor.criticalflaw.ca/json/files/
-[docs-special]: https://www.editor.criticalflaw.ca/json/special/

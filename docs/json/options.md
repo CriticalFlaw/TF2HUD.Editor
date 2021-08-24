@@ -39,27 +39,19 @@ This section covers individual options available in a list-type controls like `D
 ]
 ```
 
----
+### FileName
 
-### Label
+**Optional**. Name of the file or folder that will be moved from `CustomizationsFolder` to `EnabledFolder` if this option is selected.
 
-**Required**. Sets the name of the option as it will be shown on screen.
+!!! warning
+    Do not use this property in conjuction with **Files** or **Special**. Only use one of the three separately.
 
 ```json
-"Label": "Broesel"
+"FileName": "hudplayerhealth-broesel.res"
 ```
 
 ---
 
-### Value
-
-**Required**. Sets the underlying value for this option that will be used by the editor.
-
-```json
-"Value": "1"
-```
-
----
 
 ### Files
 
@@ -92,15 +84,35 @@ For in depth documentation on File editing, see [this section][docs-files].
 
 ---
 
-### FileName
+### Label
 
-**Optional**. Name of the file or folder that will be moved from `CustomizationsFolder` to `EnabledFolder` if this option is selected.
-
-!!! warning
-    Do not use this property in conjuction with **Files** or **Special**. Only use one of the three separately.
+**Required**. Sets the name of the option as it will be shown on screen.
 
 ```json
-"FileName": "hudplayerhealth-broesel.res"
+"Label": "Broesel"
+```
+
+---
+
+### RenameFile
+
+**Optional**. Defines the name of the file `OldName` that will be renamed to `NewName` when this option is selected. Revert the file name back to `OldName` when this option is deselected. 
+
+```json
+"RenameFile": {
+	"OldName": "#users/dane_/",
+	"NewName": "#users/dane/"
+}
+```
+
+---
+
+### Value
+
+**Required**. Sets the underlying value for this option that will be used by the editor.
+
+```json
+"Value": "1"
 ```
 
 ---

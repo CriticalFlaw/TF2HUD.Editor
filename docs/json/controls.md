@@ -99,10 +99,10 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 * **CheckBox** - Toggling this will either enable or disablee the customization option attached to this control.
 * **ColorPicker** - Opens a color picker for the user to select an RGBA color. Can also use **Color**, **Colour** or **ColourPicker**.
 * **ComboBox** - Contains a list of [options](https://www.editor.criticalflaw.ca/json/controls/#options), each with their own customization instructions. Can also use **DropDown**, **DropDownMenu** or **Select**.
-* **IntegerUpDown** - An integer counter ranging between set minimum and maximum values. Commonly to be used for crosshair sizes and number of rows on the killfeed. Can also use **Number** or **Integer**.
-* **Crosshair** - TODO. Can also use **CustomCrosshair**.
-* **Background** - TODO. Can also use **CustomBackground**.
-* **TextBox** - TODO. Can also use **Text**.
+* **Number** - An integer counter ranging between set minimum and maximum values. Commonly to be used for crosshair sizes and number of rows on the killfeed. Can also use **Integer** or **IntegerUpDown**.
+* **Crosshair** - Contains a list of styles from [Hypnotize's Crosshair Pack][repo-crosshairs] that are applied to the HUD's `hudlayout.res` file. Can also use **CustomCrosshair**.
+* **Background** - Provides the user with the option to select an image file to convert into VTF as a replacement for the HUD's background. Can also use **CustomBackground**.
+* **TextBox** - Text field contents of which will be used as the value for a property in a given hUD file. Can also use **Text**.
 
 ---
 
@@ -279,13 +279,20 @@ For in depth documentation on File editing, see [this section][docs-files].
 "Increment": 2
 ```
 
+---
+
+### Width
+
+**Optional**. Override the width of the control with a different value. Default width of any given control is varied.
+
+```json
+"Width": 200
+```
+
 <!-- MARKDOWN LINKS -->
-[json-budhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/budhud.json
-[json-flawhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/flawhud.json
-[json-rayshud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/rayshud.json
-[json-sample]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/docs/resources/sample.json
 [docs-files]: https://www.editor.criticalflaw.ca/json/files/
 [docs-special]: https://www.editor.criticalflaw.ca/json/special/
 [docs-options]: https://www.editor.criticalflaw.ca/json/options/
 [docs-animations]: https://www.editor.criticalflaw.ca/json/animations/
 [docs-backgrounds]: https://www.editor.criticalflaw.ca/json/backgrounds/
+[repo-crosshairs]: https://github.com/Hypnootize/TF2-Hud-Crosshairs

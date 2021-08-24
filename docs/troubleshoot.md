@@ -6,7 +6,7 @@ This section is for common issues you may encounter and how to resolve them.
 ---
 
 ### The latest release does not contain the executable.
-You most likely downloaded the source code instead of the editor. On the [releases][releases-link] page, make sure to download the file named **TF2HUD.Editor.zip** and extract it into a separate folder.
+You most likely downloaded the source code instead of the editor. On the [releases][releases-link] page, make sure to download the file named **tf2-hud-editor_X.X.zip** and extract it into a separate folder.
 
 ---
 

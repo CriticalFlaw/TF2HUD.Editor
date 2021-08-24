@@ -11,7 +11,7 @@
   <p align="center">
     Install and customize your favorite custom Team Fortress 2 HUDs.
     <br />
-    <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases">Download</a>
+    <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases/latest">Download</a>
     ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor">Source Code</a>
     ·
@@ -24,16 +24,16 @@
 </p>
 
 <!-- BADGES -->
+[![Downloads][downloads-shield]][releases-link]
+[![Docs][docs-shield]][docs-link]
+[![License][license-shield]][license-link]
 [![Stars][stars-shield]][stars-link]
 [![Issues][issues-shield]][issues-link]
-[![License][license-shield]][license-link]
-[![Docs][docs-shield]][docs-link]
 [![Discord][discord-shield]][discord-link]
-[![Downloads][downloads-shield]][releases-link]
 
 <!-- CONTENT -->
 
-### Installation
+## How to Install
 
 1. Download and install the [Microsoft .NET 5.0 Runtime][runtime-link] for desktop apps.
 2. Download and extract the [latest version of the editor][releases-link].
@@ -42,10 +42,9 @@
 ---
 
 ## How to Update
-The editor checks for updates every time it launches. If the local version does not match the latest version, a notification will display letting you know that a new version is available. 
+The editor will check for updates every time it launches. If an update is available, you will receive a notification. 
 
-!!! warning
-    Always use to the latest version of the editor for best compatability with supported HUDs.
+Always use to the latest version of the editor for best compatability with supported HUDs.
 
 <!-- MARKDOWN LINKS -->
 [stars-shield]: https://img.shields.io/github/stars/CriticalFlaw/TF2HUD.Editor?style=flat-square

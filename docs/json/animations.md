@@ -2,16 +2,16 @@ A definition of a HUD animations file contains event names and values, where eac
 
 The main properties for writing a standard HUD animation are:
 
- - Type
- - Element
- - Property
- - Value
- - Interpolator
- - Delay
- - Duration
+ - `Type`
+ - `Element`
+ - `Property`
+ - `Value`
+ - `Interpolator`
+ - `Delay`
+ - `Duration`
 
 !!! warning
-    Unlike HUD files, animation events are not merged, and each time an Event is written, it overwrites the other occurences of that event (in the current file). This is to prevent animations from breaking.
+    Unlike HUD files, animation events are not merged, and each time an event is written, it overwrites the other occurences of that event (in the current file). This is to prevent animations from breaking.
 
 ## Interpolator Parameters
 
