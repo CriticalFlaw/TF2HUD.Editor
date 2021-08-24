@@ -51,9 +51,9 @@ If you need help, report a bug or ask a question related to the project...
 
 ### How to Contribute
 
-Contributions towards the project are welcomed and encouraged. Some ways you can contribute to the project include:
+Contributions towards the project are welcomed and encouraged. Some ways you can contribute include:
 * Code changes towards new features, enhancements and bug fixes. For on-going tasks, see our [issue tracker][issues-link].
-* Adding support for other custom HUDs by creating schema files. For instructions, see [this section of our documentation][json-link].
+* Adding support for other HUDs by creating schema files. See [this section of our documentation][json-link] for instructions.
 * Maintaining, expanding and improving the documentation to help to other users.
 * Sponsor this project through [GitHub Sponsors][sponsors-link].
 
