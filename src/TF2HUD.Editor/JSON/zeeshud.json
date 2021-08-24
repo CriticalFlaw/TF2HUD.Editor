@@ -767,7 +767,7 @@
           "#customizations/custom_colors.res": {
             "Scheme": {
               "Colors": {
-                "Crosshair": "$value"
+                "Hitmarker": "$value"
               }
             }
           }

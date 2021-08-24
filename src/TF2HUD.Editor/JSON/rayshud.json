@@ -30,7 +30,7 @@
         "Name": "rh_color_uber_bar",
         "Label": "Charging",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the �berCharge when charging.",
+        "ToolTip": "Color of the UberCharge when charging.",
         "Value": "235 226 202 255",
         "Restart": true,
         "Files": {
@@ -47,7 +47,7 @@
         "Name": "rh_color_uber_full",
         "Label": "Charged Solid",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the �berCharge when full.",
+        "ToolTip": "Color of the UberCharge when full.",
         "Value": "255 50 25 255",
         "Restart": true,
         "Files": {
@@ -64,7 +64,7 @@
         "Name": "rh_color_uber_flash1",
         "Label": "Charged Flash 1",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the �berCharge when flash style is enabled.",
+        "ToolTip": "Color of the UberCharge when flash style is enabled.",
         "Value": "255 165 0 255",
         "Restart": true,
         "Files": {
@@ -81,7 +81,7 @@
         "Name": "rh_color_uber_flash2",
         "Label": "Charged Flash 2",
         "Type": "ColorPicker",
-        "ToolTip": "Color of the �berCharge when flash style is enabled.",
+        "ToolTip": "Color of the UberCharge when flash style is enabled.",
         "Value": "255 69 0 255",
         "Restart": true,
         "Files": {
@@ -157,7 +157,7 @@
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout.res": {
+          "scripts/hudlayout-base.res": {
             "CustomCrosshair": {
               "visible": {
                 "true": "1",
@@ -193,7 +193,7 @@
         "ToolTip": "Style of crosshair.",
         "Value": "<",
         "Files": {
-          "scripts/hudlayout.res": {
+          "scripts/hudlayout-base.res": {
             "CustomCrosshair": {
               "labelText": "$value"
             }
@@ -210,7 +210,7 @@
         "Increment": "1",
         "ToolTip": "Size of the crosshair.",
         "Files": {
-          "scripts/hudlayout.res": {
+          "scripts/hudlayout-base.res": {
             "CustomCrosshair": {
               "font": "Size:$value | Outline:OFF"
             }
@@ -743,7 +743,7 @@
         "ToolTip": "Toggle position of the game chat to be near the bottom.",
         "Value": "false",
         "Files": {
-          "resource/ui/basechat.res": {
+          "resource/ui/basechat-base.res": {
             "HudChat": {
               "ypos": {
                 "true": "315",
@@ -776,7 +776,7 @@
         "ToolTip": "Toggle the position of the Engineer's metal counter to be near the middle.",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout.res": {
+          "scripts/hudlayout-base.res": {
             "CHudAccountPanel": {
               "xpos": {
                 "true": "c-20",
@@ -806,7 +806,7 @@
         "Special": "TransparentViewmodels",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout.res": {
+          "scripts/hudlayout-base.res": {
             "TransparentViewmodel": {
               "visible": {
                 "true": "1",
@@ -828,7 +828,7 @@
         "Value": "false",
         "FileName": "hudplayerclass-left.res",
         "Files": {
-          "scripts/hudlayout.res": {
+          "scripts/hudlayout-base.res": {
             "DisguiseStatus": {
               "xpos": {
                 "true": "100",
@@ -843,7 +843,7 @@
         "Label": "Menu Background",
         "Type": "ComboBox",
         "ToolTip": "Change the style of background image shown on the main menu.",
-        "Value": "0",
+        "Value": "1",
         "Restart": true,
         "Options": [
           {
@@ -879,7 +879,7 @@
         "Maximum": "9",
         "Increment": "1",
         "Files": {
-          "scripts/hudlayout.res": {
+          "scripts/hudlayout-base.res": {
             "HudDeathNotice": {
               "MaxDeathNotices": "$value"
             }
