@@ -85,7 +85,6 @@ namespace HUDEditor
             {
                 // Loop until the user provides a valid tf/custom directory, unless they cancel out.
                 while (!browser.SelectedPath.EndsWith("tf\\custom"))
-                {
                     if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         if (browser.SelectedPath.EndsWith("tf\\custom"))
@@ -96,13 +95,14 @@ namespace HUDEditor
                             Logger.Info("tf/custom directory is set to: " + Settings.Default.hud_directory);
                         }
                         else
+                        {
                             ShowMessageBox(MessageBoxImage.Error, Properties.Resources.info_path_invalid);
+                        }
                     }
                     else
                     {
                         break;
                     }
-                }
             }
 
             // Check one more time if a valid directory has been set.
@@ -143,13 +143,13 @@ namespace HUDEditor
 
             var thumbnailIcon = new Label
             {
-                Content = (hud.Unique) ? "B" : "",
+                Content = hud.Unique ? "B" : "",
                 Style = (Style)Application.Current.Resources["HudListIcon"]
             };
 
             var thumbnailImage = new Image
             {
-                Source = (hud.Thumbnail != null) ? new BitmapImage(new Uri(hud.Thumbnail)) : null,
+                Source = hud.Thumbnail != null ? new BitmapImage(new Uri(hud.Thumbnail)) : null,
                 Style = (Style)Application.Current.Resources["HudListImage"]
             };
 
@@ -163,7 +163,7 @@ namespace HUDEditor
             hudIconContainer.Children.Add(thumbnailImage);
             hudIconContainer.Children.Add(thumbnailIcon);
             hudIconContainer.Children.Add(new Label
-            { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
+                { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
             border.Child = hudIconContainer;
             GridSelectHud.Children.Add(border);
             HudThumbnails.Add((hud, border));
@@ -180,17 +180,11 @@ namespace HUDEditor
                 // Save the selected HUD.
                 HudSelection = hud.Name;
                 if (Json.SelectedHUDInstalled)
-                {
                     LblStatus.Content = string.Format(Properties.Resources.status_installed, Json.SelectedHUD.Name);
-                }
                 else if (Directory.Exists(HudPath))
-                {
                     LblStatus.Content = string.Format(Properties.Resources.status_installed_not, Json.SelectedHUD.Name);
-                }
                 else
-                {
                     LblStatus.Content = Properties.Resources.status_pathNotSet;
-                }
 
                 Application.Current.MainWindow.WindowState = hud.Maximize ? WindowState.Maximized : WindowState.Normal;
                 Settings.Default.hud_selected = hud.Name;
@@ -303,6 +297,7 @@ namespace HUDEditor
                 foreach (var (hud, border) in HudThumbnails)
                     border.Visibility = Visibility.Visible;
             }
+
             TbSearchBox_TextChanged(sender, e);
         }
 
@@ -447,8 +442,7 @@ namespace HUDEditor
             };
             worker.RunWorkerCompleted += (_, _) =>
             {
-                LblStatus.Content =
-                    string.Format(Properties.Resources.status_applied, hudObject.Name, DateTime.Now);
+                LblStatus.Content = string.Format(Properties.Resources.status_applied, hudObject.Name, DateTime.Now);
             };
             worker.RunWorkerAsync();
         }
@@ -506,7 +500,7 @@ namespace HUDEditor
             }
             catch (Exception error)
             {
-                ShowMessageBox(MessageBoxImage.Error, error.Message, MessageBoxButton.OK);
+                ShowMessageBox(MessageBoxImage.Error, error.Message);
             }
         }
 

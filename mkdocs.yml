@@ -25,10 +25,10 @@ site_url: https://www.editor.criticalflaw.ca/
 repo_url: https://github.com/CriticalFlaw/TF2HUD.Editor/
 nav:
     - Home: 'index.md'
-    - Installation: 'install.md'
     - Screenshots: 'screenshots.md'
     - Troubleshooting: 'troubleshoot.md'
     - How to Contribute: 'contribute.md'
+    - Credits: 'credits.md'
     - Adding your HUD:
         - Introduction: 'json/intro.md'
         - Main Settings: 'json/base.md'

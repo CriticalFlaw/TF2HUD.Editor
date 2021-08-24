@@ -52,7 +52,6 @@ namespace HUDEditor.Classes
         public void AddSetting(string name, Controls control)
         {
             if (UserSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset) is null)
-            {
                 UserSettings.Add(new Setting
                 {
                     HUD = HUDName,
@@ -61,7 +60,6 @@ namespace HUDEditor.Classes
                     Value = control.Value,
                     Preset = Preset
                 });
-            }
         }
 
         /// <summary>

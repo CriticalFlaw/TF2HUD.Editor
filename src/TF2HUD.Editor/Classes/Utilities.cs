@@ -248,7 +248,9 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Converts a HUD/control name into a WPF usable ID
         /// </summary>
-        /// <remarks>If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores.</remarks>
+        /// <remarks>
+        ///     If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores.
+        /// </remarks>
         public static string EncodeID(string id)
         {
             // If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores

@@ -79,10 +79,10 @@
                     <TextBox x:Name="SearchBox" TextChanged="TbSearchBox_TextChanged" Foreground="WhiteSmoke"
                              Background="#2B2724" BorderThickness="1" VerticalContentAlignment="Center"
                              Grid.Column="1" Grid.Row="0" />
-                    <Button  x:Name="UniqueHUDsButton" Content="B"
-                             FontFamily="../Resources/TF2Icons.ttf #TF2Icons" FontSize="25" Foreground="#FFFFFF"
-                             Padding="3,0" Background="Transparent" BorderThickness="0"
-                             Grid.Column="2" Grid.Row="0" Click="UniqueHUDsButton_OnClick" />
+                    <Button x:Name="UniqueHUDsButton" Content="B"
+                            FontFamily="../Resources/TF2Icons.ttf #TF2Icons" FontSize="25" Foreground="#FFFFFF"
+                            Padding="3,0" Background="Transparent" BorderThickness="0"
+                            Grid.Column="2" Grid.Row="0" Click="UniqueHUDsButton_OnClick" />
                     <ScrollViewer Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
                                   Margin="0,10,0,0">
                         <WrapPanel x:Name="GridSelectHud" HorizontalAlignment="Center" />
@@ -117,8 +117,10 @@
                 <ScrollViewer x:Name="HudInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0"
                               Visibility="{Binding Json.HighlightedHUD, Converter={StaticResource NullCheckConverterVisibility}}">
                     <StackPanel Margin="20">
-                        <Label x:Name="HudName" Content="{Binding Json.HighlightedHUD.Name}" Style="{StaticResource HeaderText}" />
-                        <TextBlock x:Name="HudAuthor" Text="{Binding Json.HighlightedHUD.Author}" Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" />
+                        <Label x:Name="HudName" Content="{Binding Json.HighlightedHUD.Name}"
+                               Style="{StaticResource HeaderText}" />
+                        <TextBlock x:Name="HudAuthor" Text="{Binding Json.HighlightedHUD.Author}"
+                                   Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" />
                         <TextBlock x:Name="HudDesc" Text="{Binding Json.HighlightedHUD.Description}"
                                    Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center"
                                    Margin="0,15,0,0"
@@ -156,7 +158,9 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                        <Button x:Name="BtnCustomize" Content="{lex:Loc ui_customize}" Click="BtnCustomize_OnClick" Style="{StaticResource HUDButton}" Width="500" FontSize="30px" HorizontalContentAlignment="Center" HorizontalAlignment="Center" />
+                        <Button x:Name="BtnCustomize" Content="{lex:Loc ui_customize}" Click="BtnCustomize_OnClick"
+                                Style="{StaticResource HUDButton}" Width="500" FontSize="30px"
+                                HorizontalContentAlignment="Center" HorizontalAlignment="Center" />
                     </StackPanel>
                 </ScrollViewer>
             </Grid>

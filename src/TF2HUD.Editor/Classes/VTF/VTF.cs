@@ -100,7 +100,7 @@ namespace HUDEditor.Classes
             // Set the VTEX CLI Args
             string[] args =
             {
-                $"-quiet",
+                "-quiet",
                 $"\"{folderPath}\\{fileName}.tga\""
             };
 

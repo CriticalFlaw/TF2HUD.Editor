@@ -12,13 +12,15 @@
   <p align="center">
     Install and customize your favorite custom Team Fortress 2 HUDs.
     <br />
-    <a href="https://www.editor.criticalflaw.ca/">Documentation</a>
+    <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases/latest">Download</a>
     ·
-    <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases">Releases</a>
+    <a href="https://www.editor.criticalflaw.ca/">Documentation</a>
     ·
     <a href="https://www.editor.criticalflaw.ca/screenshots/">Screenshots</a>
     ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/issues">Issue Tracker</a>
+    ·
+    <a href="https://discord.gg/hTdtK9vBhE">Discord</a>
   </p>
 </p>
 

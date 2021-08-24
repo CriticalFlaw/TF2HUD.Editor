@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using HUDEditor.Models;
 using HUDEditor.Properties;
 using Newtonsoft.Json;
@@ -19,11 +21,11 @@ namespace HUDEditor.Classes
         // Highlighted HUD
         private HUD _highlightedHud;
 
-        // Selected HUD
-        private HUD _selectedHud;
-
         // Local Shared HUDs Path
         private string _localSharedPath;
+
+        // Selected HUD
+        private HUD _selectedHud;
 
         // HUDs to manage
         public HUD[] HUDList;
@@ -46,7 +48,7 @@ namespace HUDEditor.Classes
             hudList.AddRange(sharedHUDs.Select(hud =>
             {
                 var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
-                foreach (var control in hudControls.Controls.SelectMany(@group => hudControls.Controls[@group.Key]))
+                foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
                     control.Name = $"{Utilities.EncodeID(hud.Name)}_{Utilities.EncodeID(control.Name)}";
                 hud.Layout = hudControls.Layout;
                 hud.Controls = hudControls.Controls;
@@ -111,7 +113,10 @@ namespace HUDEditor.Classes
         }
 
         // Selected HUD Installed
-        public bool SelectedHUDInstalled => SelectedHUD != null && MainWindow.HudPath != "" && Directory.Exists(MainWindow.HudPath) && Utilities.CheckUserPath(MainWindow.HudPath) && MainWindow.CheckHudInstallation();
+        public bool SelectedHUDInstalled => SelectedHUD != null && MainWindow.HudPath != "" &&
+                                            Directory.Exists(MainWindow.HudPath) &&
+                                            Utilities.CheckUserPath(MainWindow.HudPath) &&
+                                            MainWindow.CheckHudInstallation();
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -242,12 +247,12 @@ namespace HUDEditor.Classes
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
             }\TF2HUD.Editor\LocalShared\{hudName}").FullName}";
 
-            var hudJson = new HudJson()
+            var hudJson = new HudJson
             {
                 Name = hudName,
                 Thumbnail = Task.Run(() =>
                 {
-                    var consoleFolder =  $"{folderPath}\\materials\\console";
+                    var consoleFolder = $"{folderPath}\\materials\\console";
                     var backgrounds = new[] { "2fort", "gravelpit", "mvm", "upward" };
                     var backgroundIndex = 0;
                     string backgroundUri = null;
@@ -284,17 +289,19 @@ namespace HUDEditor.Classes
 
                             var tga = new TGA($"{outputPath}.tga");
                             var rectImage = new Bitmap(
-                                (int)System.Windows.SystemParameters.PrimaryScreenWidth,
-                                (int)System.Windows.SystemParameters.PrimaryScreenHeight
+                                (int)SystemParameters.PrimaryScreenWidth,
+                                (int)SystemParameters.PrimaryScreenHeight
                             );
                             var graphics = Graphics.FromImage(rectImage);
-                            graphics.DrawImage((Image) tga, 0, 0, rectImage.Width, rectImage.Height);
+                            graphics.DrawImage((Image)tga, 0, 0, rectImage.Width, rectImage.Height);
                             rectImage.Save($"{outputPath}.png");
 
                             backgroundUri = $"file://{outputPath}.png";
                         }
+
                         backgroundIndex++;
                     }
+
                     return backgroundUri;
                 }).Result,
                 Links = new Links
@@ -302,7 +309,7 @@ namespace HUDEditor.Classes
                     Update = Task.Run(() =>
                     {
                         var zipPath = $"{hudDetailsFolder}\\{hudName}.zip";
-                        System.IO.Compression.ZipFile.CreateFromDirectory(folderPath, zipPath, System.IO.Compression.CompressionLevel.Fastest, true);
+                        ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
                         return $"file://{zipPath}";
                     }).Result
                 }
