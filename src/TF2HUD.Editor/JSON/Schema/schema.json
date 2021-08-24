@@ -1,6 +1,9 @@
 {
   "title": "TF2 HUD Editor JSON Schema",
   "properties": {
+    "Author": {
+      "type": "string"
+    },
     "Thumbnail": {
       "type": "string",
       "pattern": "(^https?:\/\/.*$)"
@@ -147,6 +150,9 @@
               "Shadows": {
                 "type": "boolean"
               },
+              "Width": {
+                "type": "integer"
+              },
               "Minimum": {
                 "type": [
                   "integer",
@@ -177,6 +183,7 @@
     }
   },
   "required": [
+    "Author",
     "Links",
     "Controls"
   ]

@@ -1,6 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "Hypnotize",
+  "Description": "Material TF2 Hud that aims to keep a really simple in-game ui and modern menus.",
   "Thumbnail": "https://huds.tf/site/xthreads_attach.php/1107_1604268578_14bbffac/4ecb182a199083cc250fca83c9e8535c/Nq0ArKR.png",
+  "Screenshots": [
+    "https://huds.tf/site/xthreads_attach.php/1108_1608497330_19dfd76c/6f111d98be9ec597d08e057f7aec45bc/TnhEYUb.jpg",
+    "https://huds.tf/site/xthreads_attach.php/1109_1604268578_72de4df9/0872b1bd7997419c3f47a82af07efb2e/Bq7VUyd.jpg",
+    "https://huds.tf/site/xthreads_attach.php/1111_1604268578_e60fc34c/ba27b8ba3472fcd6b275dac5ace74efe/61JDVg1.jpg",
+    "https://huds.tf/site/xthreads_attach.php/1112_1604268578_327327fd/d060a30ce02ede4a5c449ca4d201f076/3tYU9cB.png"
+  ],
   "Background": "27 29 32 255",
   "Layout": [
     "0 1 1",
@@ -279,6 +287,7 @@
         "Label": "Damage Value Size",
         "Type": "ComboBox",
         "Value": "2",
+        "Width": 200,
         "Options": [
           {
             "Label": "Small, Shadow",

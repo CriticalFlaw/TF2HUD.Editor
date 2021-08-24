@@ -13,64 +13,65 @@ namespace HUDEditor.Classes
 {
     public partial class HUD
     {
-        private readonly Grid controls = new();
-        private HUDBackground hudBackground;
+        private Grid Controls = new();
+        private HUDBackground HudBackground;
         private bool isRendered;
-        private string[][] layout;
-        public readonly string[] LayoutOptions;
-        public Dictionary<string, Controls[]> ControlOptions;
-        public List<string> DirtyControls;
-
-        public string Name, UpdateUrl, GitHubUrl, IssueUrl, HudsTfUrl, SteamUrl, DiscordUrl;
-        public string Thumbnail, Background, CustomizationsFolder, EnabledFolder;
-        public HUDSettings Settings;
-        public double Opacity;
-        public bool Maximize;
+        private string[][] Layout;
 
         /// <summary>
         ///     Initialize the HUD object with values from the JSON schema.
         /// </summary>
         /// <param name="name">Name of the HUD object.</param>
         /// <param name="schema">Contents of the HUD's schema file.</param>
-        public HUD(string name, HudJson schema)
+        public HUD(string name, HudJson schema, bool uniq)
         {
             // Basic Schema Properties.
-            Name = name;
+            Name = schema.Name ?? name;
             Settings = new HUDSettings(Name);
             Opacity = schema.Opacity;
             Maximize = schema.Maximize;
+            Thumbnail = schema.Thumbnail;
+            Background = schema.Background;
+            Description = schema.Description;
+            Author = schema.Author;
+            CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
+            EnabledFolder = schema.EnabledFolder ?? string.Empty;
+            UpdateUrl = schema.Links.Update ?? string.Empty;
+            GitHubUrl = schema.Links.GitHub ?? string.Empty;
+            HudsTfUrl = schema.Links.HudsTF ?? string.Empty;
+            SteamUrl = schema.Links.Steam ?? string.Empty;
+            DiscordUrl = schema.Links.Discord ?? string.Empty;
             ControlOptions = schema.Controls;
             LayoutOptions = schema.Layout;
             DirtyControls = new List<string>();
-            Thumbnail = schema.Thumbnail;
-            Background = schema.Background;
+            Unique = uniq;
 
-            // Download and Media Links.
-            if (schema.Links is not null)
+            if (schema.Screenshots is null) return;
+            var index = 0;
+            foreach (var screenshot in schema.Screenshots)
             {
-                UpdateUrl = schema.Links.Update ?? string.Empty;
-                GitHubUrl = schema.Links.GitHub ?? string.Empty;
-                HudsTfUrl = schema.Links.HudsTF ?? string.Empty;
-                SteamUrl = schema.Links.Steam ?? string.Empty;
-                DiscordUrl = schema.Links.Discord ?? string.Empty;
+                Screenshots.Add(new
+                {
+                    ImageSource = screenshot,
+                    Column = index % 2,
+                    Row = index / 2
+                });
+                index++;
             }
-
-            // Customization Folder Paths.
-            if (string.IsNullOrWhiteSpace(schema.CustomizationsFolder)) return;
-            CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
-            EnabledFolder = schema.EnabledFolder ?? string.Empty;
         }
+
+        public event EventHandler<HUDSettingsPreset> PresetChanged;
 
         /// <summary>
         ///     Call to download the HUD if a URL has been provided.
         /// </summary>
         public void Update()
         {
-            if (UpdateUrl != null) Utilities.DownloadHud(UpdateUrl);
+            if (UpdateUrl is not null) Utilities.DownloadHud(UpdateUrl);
         }
 
         /// <summary>
-        /// Test everything except controls and settings. Complex fields require more testing.
+        ///     Test everything except controls and settings. Complex fields require more testing.
         /// </summary>
         /// <param name="hud"></param>
         /// <returns></returns>
@@ -87,26 +88,26 @@ namespace HUDEditor.Classes
                 foreach (var field in obj1.GetType().GetFields())
                 {
                     if (ignoreList.Contains(field.Name)) continue;
-                    if (field.GetValue(obj1) == null && field.GetValue(obj2) == null) continue;
+                    if (field.GetValue(obj1) is null && field.GetValue(obj2) is null) continue;
 
                     if (field.FieldType == typeof(string[]))
                     {
-                        var arr1 = (string[]) field.GetValue(obj1);
-                        var arr2 = (string[]) field.GetValue(obj2);
+                        var arr1 = (string[])field.GetValue(obj1);
+                        var arr2 = (string[])field.GetValue(obj2);
 
-                        if (arr1 == null && arr2 != null)
+                        if (arr1 is null && arr2 is not null)
                         {
                             LogChange($"{field.Name}", "*not present*", $"{arr2}[{arr2.Length}]");
                             return false;
                         }
 
-                        if (arr1 != null && arr2 == null)
+                        if (arr1 is not null && arr2 is null)
                         {
                             LogChange($"{field.Name}", "Argument 2 [0]", "*not present*");
                             return false;
                         }
 
-                        if (arr1.Length != arr2.Length)
+                        if (!arr1.Length.Equals(arr2.Length))
                         {
                             LogChange($"{field.Name}.Length", arr1.Length.ToString(), arr2.Length.ToString());
                             return false;
@@ -121,12 +122,13 @@ namespace HUDEditor.Classes
                     }
                     else if (field.FieldType == typeof(Dictionary<string, Controls[]>))
                     {
-                        var value1 = (Dictionary<string, Controls[]>) field.GetValue(obj1);
-                        var value2 = (Dictionary<string, Controls[]>) field.GetValue(obj2);
+                        var value1 = (Dictionary<string, Controls[]>)field.GetValue(obj1);
+                        var value2 = (Dictionary<string, Controls[]>)field.GetValue(obj2);
 
-                        if (value1.Keys.Count != value2.Keys.Count)
+                        if (!value1.Keys.Count.Equals(value2.Keys.Count))
                         {
-                            LogChange($"{field.Name}.Keys.Count", value1.Keys.Count.ToString(), value2.Keys.Count.ToString());
+                            LogChange($"{field.Name}.Keys.Count", value1.Keys.Count.ToString(),
+                                value2.Keys.Count.ToString());
                             return false;
                         }
 
@@ -139,9 +141,10 @@ namespace HUDEditor.Classes
 
                         foreach (var key in value1.Keys)
                         {
-                            if (value1[key].Length != value2[key].Length)
+                            if (!value1[key].Length.Equals(value2[key].Length))
                             {
-                                LogChange($"{field.Name}[\"{key}\"].Length", value1[key].Length.ToString(), value2[key].Length.ToString());
+                                LogChange($"{field.Name}[\"{key}\"].Length", value1[key].Length.ToString(),
+                                    value2[key].Length.ToString());
                                 return false;
                             }
 
@@ -158,26 +161,27 @@ namespace HUDEditor.Classes
                     }
                     else if (field.FieldType == typeof(JObject))
                     {
-                        if (!CompareFiles((JObject)field.GetValue(obj1), (JObject)field.GetValue(obj2), $"{field.Name}.Files => ")) return false;
+                        if (!CompareFiles((JObject)field.GetValue(obj1), (JObject)field.GetValue(obj2),
+                            $"{field.Name}.Files => ")) return false;
                     }
                     else if (field.FieldType == typeof(Option[]))
                     {
-                        var arr1 = (Option[]) field.GetValue(obj1);
-                        var arr2 = (Option[]) field.GetValue(obj2);
+                        var arr1 = (Option[])field.GetValue(obj1);
+                        var arr2 = (Option[])field.GetValue(obj2);
 
-                        if (arr1 == null && arr2 != null)
+                        if (arr1 is null && arr2 is not null)
                         {
                             LogChange($"{field.Name}", "*not present*", $"{arr2}[{arr2.Length}]");
                             return false;
                         }
 
-                        if (arr1 != null && arr2 == null)
+                        if (arr1 is not null && arr2 is null)
                         {
                             LogChange($"{field.Name}", $"{arr1}[{arr1.Length}]", "*not present*");
                             return false;
                         }
 
-                        if (arr1.Length != arr2.Length)
+                        if (!arr1.Length.Equals(arr2.Length))
                         {
                             LogChange($"{field.Name}.Length", arr1.Length.ToString(), arr2.Length.ToString());
                             return false;
@@ -186,18 +190,19 @@ namespace HUDEditor.Classes
                         if (arr1.Select((t, i) => Compare(t, arr2[i], new string[] { })).Any(comparison => !comparison))
                             return false;
                     }
-                    else if (field.GetValue(obj1)?.ToString() != field.GetValue(obj2)?.ToString())
+                    else if (!string.Equals(field.GetValue(obj1)?.ToString(), field.GetValue(obj2)?.ToString()))
                     {
                         LogChange(field.Name, field.GetValue(obj1)?.ToString(), field.GetValue(obj2)?.ToString());
                         return false;
                     }
                 }
+
                 return true;
             }
 
             bool CompareFiles(JObject obj1, JObject obj2, string path = "")
             {
-                if (obj1 == null && obj2 == null) return true;
+                if (obj1 is null && obj2 is null) return true;
 
                 foreach (var x in obj1)
                 {
@@ -216,14 +221,15 @@ namespace HUDEditor.Classes
                 foreach (var x in obj1)
                     if (obj1[x.Key].Type == JTokenType.Object && obj2[x.Key].Type == JTokenType.Object)
                     {
-                        if (!CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(), $"{path}/{x.Key}")) return false;
+                        if (!CompareFiles(obj1[x.Key].ToObject<JObject>(), obj2[x.Key].ToObject<JObject>(),
+                            $"{path}/{x.Key}")) return false;
                     }
                     else if (x.Value.Type == JTokenType.Array && obj2[x.Key].Type == JTokenType.Array)
                     {
                         var arr1 = obj1[x.Key].ToArray();
                         var arr2 = obj2[x.Key].ToArray();
 
-                        if (arr1.Length != arr2.Length)
+                        if (!arr1.Length.Equals(arr2.Length))
                         {
                             LogChange($"{path}{x.Key}.Length", arr1.Length.ToString(), arr2.Length.ToString());
                             return false;
@@ -236,7 +242,7 @@ namespace HUDEditor.Classes
                             return false;
                         }
                     }
-                    else if (x.Value.ToString() != obj2[x.Key].ToString())
+                    else if (!string.Equals(x.Value.ToString(), obj2[x.Key].ToString()))
                     {
                         LogChange(x.Key, x.Value.ToString(), obj2[x.Key].ToString());
                         return false;
@@ -304,7 +310,7 @@ namespace HUDEditor.Classes
                         break;
 
                     case ComboBox combo:
-                        if (((ComboBoxItem) combo.Items[0]).Style == (Style) Application.Current.Resources["Crosshair"])
+                        if (((ComboBoxItem)combo.Items[0]).Style == (Style)Application.Current.Resources["Crosshair"])
                             combo.SelectedValue = control.Value;
                         else
                             combo.SelectedIndex = int.Parse(control.Value);
@@ -323,5 +329,30 @@ namespace HUDEditor.Classes
                 throw;
             }
         }
+
+        #region HUD PROPERTIES
+
+        public string Name { get; set; }
+        public HUDSettings Settings { get; set; }
+        public double Opacity { get; set; }
+        public bool Maximize { get; set; }
+        public string Thumbnail { get; set; }
+        public string Background { get; set; }
+        public string Description { get; set; }
+        public string Author { get; set; }
+        public string CustomizationsFolder { get; set; }
+        public string EnabledFolder { get; set; }
+        public string UpdateUrl { get; set; }
+        public string GitHubUrl { get; set; }
+        public string HudsTfUrl { get; set; }
+        public string SteamUrl { get; set; }
+        public string DiscordUrl { get; set; }
+        public Dictionary<string, Controls[]> ControlOptions;
+        public readonly string[] LayoutOptions;
+        public List<string> DirtyControls;
+        public List<object> Screenshots { get; set; } = new();
+        public bool Unique;
+
+        #endregion
     }
 }

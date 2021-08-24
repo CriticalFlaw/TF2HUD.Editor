@@ -7,15 +7,19 @@ namespace HUDEditor.Models
 {
     public class HudJson
     {
-        [JsonPropertyName("Thumbnail")] public string Thumbnail;
+        [JsonPropertyName("Author")] public string Author;
         [JsonPropertyName("Background")] public string Background;
         [JsonPropertyName("Controls")] public Dictionary<string, Controls[]> Controls;
         [JsonPropertyName("CustomizationsFolder")] public string CustomizationsFolder;
+        [JsonPropertyName("Description")] public string Description;
         [JsonPropertyName("EnabledFolder")] public string EnabledFolder;
         [JsonPropertyName("Layout")] public string[] Layout;
         [JsonPropertyName("Links")] public Links Links;
         [JsonPropertyName("Maximize")] public bool Maximize;
+        [JsonPropertyName("Name")] public string Name;
         [JsonPropertyName("Opacity")] public double Opacity = 0.5;
+        [JsonPropertyName("Screenshots")] public string[] Screenshots;
+        [JsonPropertyName("Thumbnail")] public string Thumbnail;
     }
 
     public class Links
@@ -49,6 +53,7 @@ namespace HUDEditor.Models
         [JsonPropertyName("Tooltip")] public string Tooltip;
         [JsonPropertyName("Type")] public string Type;
         [JsonPropertyName("Value")] public string Value = "0";
+        [JsonPropertyName("Width")] public int Width;
     }
 
     public class RenameFile

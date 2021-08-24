@@ -1,6 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "Whisker",
+  "Description": "A Team Fortress 2 hud inspired by whayay's yahud and rays' rayshud.",
   "Thumbnail": "https://huds.tf/site/xthreads_attach.php/56_1609642567_7554fba5/aa9bc9a0217d5a78f468cf1e91ac99f0/uxVF5wv.png",
+  "Screenshots": [
+    "https://i.imgur.com/uxVF5wv.png",
+    "https://i.imgur.com/eB7U5OB.png",
+    "https://i.imgur.com/C0LTVAs.png",
+    "https://i.imgur.com/RsxVFw2.jpeg"
+  ],
   "Background": "https://i.imgur.com/B4YCNTU.png",
   "Layout": [
     "0 1 2 3",

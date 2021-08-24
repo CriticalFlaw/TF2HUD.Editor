@@ -24,7 +24,7 @@ namespace HUDEditor.Classes
                 // HUD Background Image.
                 // Set the HUD Background image path when applying, because it's possible
                 // the user did not have their tf/custom folder set up when this HUD constructor was called.
-                hudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\");
+                HudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\");
 
                 var hudSettings = ControlOptions.Values;
                 // var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json")).Controls.Values;
@@ -53,7 +53,8 @@ namespace HUDEditor.Classes
                             if (property.Contains("."))
                             {
                                 var filePath = folderPath + "\\" + property;
-                                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                                if (!Directory.Exists(Path.GetDirectoryName(filePath)))
+                                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
                                 // Read file, check each topmost element until we come to an element that matches
                                 // the pattern (Resource/UI/HudFile.res) which indicates it's a HUD ui file
@@ -71,7 +72,7 @@ namespace HUDEditor.Classes
                                     const string pattern = "(Resource/UI/)*.res";
 
                                     int preventInfinite = 0, len = obj.Keys.Count;
-                                    while (hudContainer == null && preventInfinite < len)
+                                    while (hudContainer is null && preventInfinite < len)
                                     {
                                         var key = obj.Keys.ElementAt(preventInfinite);
 
@@ -80,12 +81,12 @@ namespace HUDEditor.Classes
                                             obj[key].GetType() == typeof(Dictionary<string, dynamic>))
                                             // Initialise hudContainer and create inner Dictionary
                                             //  to contain elements specified
-                                            hudContainer = new Dictionary<string, dynamic> {[key] = folder[property]};
+                                            hudContainer = new Dictionary<string, dynamic> { [key] = folder[property] };
 
                                         preventInfinite++;
                                     }
 
-                                    if (hudContainer != null)
+                                    if (hudContainer is not null)
                                     {
                                         Utilities.Merge(obj, hudContainer);
                                         File.WriteAllText(filePath, VDF.Stringify(obj));
@@ -112,7 +113,7 @@ namespace HUDEditor.Classes
                 // write hudFolders to the HUD once instead of each WriteToFile call reading and writing
                 var hudPath = MainWindow.HudPath + "\\" + Name;
                 IterateProperties(hudFolders, hudPath);
-                hudBackground.Apply();
+                HudBackground.Apply();
                 return true;
             }
             catch (Exception e)
@@ -278,6 +279,35 @@ namespace HUDEditor.Classes
                 MainWindow.Logger.Info($"Applying: {userSetting.Name}");
                 var (files, special, specialParameters) = GetControlInfo(hudSetting, userSetting);
 
+                string EvaluateValue(string input)
+                {
+                    var result = "";
+                    // Match ternary statement ($word, question mark, word, colon, then word)
+                    // all with 0 or more whitespace in-between.
+                    // example: "$value ? ON : OFF"
+                    if (Regex.IsMatch(input, "^\\$\\w+\\s*\\?\\s*\\w+\\s*:\\s*\\w+$"))
+                    {
+                        var tokens = Regex.Matches(input, "\\w+");
+                        var checkBoxChecked = tokens[0].Value == "value"
+                            ? string.Equals(userSetting.Value, "True", StringComparison.CurrentCultureIgnoreCase)
+                            : Settings.GetSetting<bool>(tokens[0].Value);
+                        return checkBoxChecked ? tokens[1].Value : tokens[2].Value;
+                    }
+
+                    // Iterate through matches and evaluate expressions wrapped in curly braces
+                    // example: Size: $value | Outline:{$fh_val_xhair_outline ? ON : OFF}
+                    var index = 0;
+                    foreach (Match match in Regex.Matches(input, "{.+?}"))
+                    {
+                        result += input[index..match.Index];
+                        result += EvaluateValue(match.Value[1..^1]);
+                        index = match.Index + match.Value.Length;
+                    }
+
+                    result += input[index..];
+                    return result.Replace("$value", userSetting.Value);
+                }
+
                 // Check for special cases like stock or custom backgrounds.
                 if (special is not null)
                 {
@@ -291,7 +321,7 @@ namespace HUDEditor.Classes
                     EvaluateSpecial(special, userSetting, enable, specialParameters);
                 }
 
-                if (files == null) return;
+                if (files is null) return;
 
                 // Applies $value (and handles keywords where applicable) to provided HUD element
                 // JObject and returns a HUD element Dictionary, recursively
@@ -324,11 +354,10 @@ namespace HUDEditor.Classes
                         {
                             var output = "";
                             if (property.Value.ToString().Contains("true"))
-                            {
-                                output = property.Value.ToArray().Aggregate(output, (current, value) => current + (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase)
-                                        ? "#base " + value.First.First() + "\n"
-                                        : "#base " + value.Last.First() + "\n"));
-                            }
+                                output = property.Value.ToArray().Aggregate(output, (current, value) => current +
+                                    (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase)
+                                        ? "#base " + value.First.First() + "\r\n"
+                                        : "#base " + value.Last.First() + "\r\n"));
                             else
                                 output += "#base " + property.Value + "\n";
 
@@ -347,7 +376,7 @@ namespace HUDEditor.Classes
                             {
                                 MainWindow.Logger.Info(property.Key);
                                 var newhudElementRef = hudElementRef.ContainsKey(property.Key)
-                                    ? (Dictionary<string, dynamic>) hudElementRef[property.Key]
+                                    ? (Dictionary<string, dynamic>)hudElementRef[property.Key]
                                     : new Dictionary<string, dynamic>();
                                 hudElement[property.Key] = CompileHudElement(currentObj,
                                     absolutePath, relativePath, newhudElementRef,
@@ -383,39 +412,10 @@ namespace HUDEditor.Classes
 
                             // Check for already existing keys and warn user
                             if (hudElementRef.ContainsKey(property.Key))
-                                MainWindow.Logger.Warn($"{relativePath} => {objectPath} already contains key {property.Key}!");
+                                MainWindow.Logger.Warn(
+                                    $"{relativePath} => {objectPath} already contains key {property.Key}!");
 
-                            string EvaluateExpression(string input)
-                            {
-                                var result = "";
-                                // Match ternary statement ($word, question mark, word, colon, then word)
-                                // all with 0 or more whitespace in-between.
-                                // example: "$value ? ON : OFF"
-                                if (Regex.IsMatch(input, "^\\$\\w+\\s*\\?\\s*\\w+\\s*:\\s*\\w+$"))
-                                {
-                                    var tokens = Regex.Matches(input, "\\w+");
-                                    var checkBoxChecked = tokens[0].Value == "value"
-                                        ? string.Equals(userSetting.Value, "True", StringComparison.CurrentCultureIgnoreCase)
-                                        : Settings.GetSetting<bool>(tokens[0].Value);
-                                    return checkBoxChecked ? tokens[1].Value : tokens[2].Value;
-                                }
-                                else
-                                {
-                                    // Iterate through matches and evaluate expressions wrapped in curly braces
-                                    // example: Size: $value | Outline:{$fh_val_xhair_outline ? ON : OFF}
-                                    var index = 0;
-                                    foreach (Match match in Regex.Matches(input, "{.+?}"))
-                                    {
-                                        result += input[index..match.Index];
-                                        result += EvaluateExpression(match.Value[1..^1]);
-                                        index = match.Index + match.Value.Length;
-                                    }
-                                    result += input[index..];
-                                    return result.Replace("$value", userSetting.Value);
-                                }
-                            }
-
-                            hudElement[property.Key] = EvaluateExpression(property.Value.ToString());
+                            hudElement[property.Key] = EvaluateValue(property.Value.ToString());
                             MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
                         }
 
@@ -444,6 +444,78 @@ namespace HUDEditor.Classes
                 //
                 void WriteAnimationCustomizations(string filePath, JObject animationOptions)
                 {
+                    HUDAnimation CreateAnimation(Dictionary<string, dynamic> animation,
+                        KeyValuePair<string, JToken> animationOption)
+                    {
+                        return animation?["Type"].ToString().ToLower() switch
+                        {
+                            "animate" => new Animate
+                            {
+                                Type = "Animate",
+                                Element = EvaluateValue(animation["Element"]),
+                                Property = EvaluateValue(animation["Property"]),
+                                Value = EvaluateValue(animation["Value"]),
+                                Interpolator = EvaluateValue(animation["Interpolator"]),
+                                Delay = EvaluateValue(animation["Delay"]),
+                                Duration = EvaluateValue(animation["Duration"])
+                            },
+                            "runevent" => new RunEvent
+                            {
+                                Type = "RunEvent",
+                                Event = EvaluateValue(animation["Event"]),
+                                Delay = EvaluateValue(animation["Delay"])
+                            },
+                            "stopevent" => new StopEvent
+                            {
+                                Type = "StopEvent",
+                                Event = EvaluateValue(animation["Event"]),
+                                Delay = EvaluateValue(animation["Delay"])
+                            },
+                            "setvisible" => new SetVisible
+                            {
+                                Type = "StopEvent",
+                                Element = EvaluateValue(animation["Element"]),
+                                Delay = EvaluateValue(animation["Delay"]),
+                                Duration = EvaluateValue(animation["Duration"])
+                            },
+                            "firecommand" => new FireCommand
+                            {
+                                Type = "FireCommand",
+                                Delay = EvaluateValue(animation["Delay"]),
+                                Command = EvaluateValue(animation["Command"])
+                            },
+                            "runeventchild" => new RunEventChild
+                            {
+                                Type = "RunEventChild",
+                                Element = EvaluateValue(animation["Element"]),
+                                Event = EvaluateValue(animation["Event"]),
+                                Delay = EvaluateValue(animation["Delay"])
+                            },
+                            "setinputenabled" => new SetInputEnabled
+                            {
+                                Type = "SetInputEnabled",
+                                Element = EvaluateValue(animation["Element"]),
+                                Visible = EvaluateValue(animation["Visible"]),
+                                Delay = EvaluateValue(animation["Delay"])
+                            },
+                            "playsound" => new PlaySound
+                            {
+                                Type = "PlaySound",
+                                Delay = EvaluateValue(animation["Delay"]),
+                                Sound = EvaluateValue(animation["Sound"])
+                            },
+                            "stoppanelanimations" => new StopPanelAnimations
+                            {
+                                Type = "StopPanelAnimations",
+                                Element = EvaluateValue(animation["Element"]),
+                                Delay = EvaluateValue(animation["Delay"])
+                            },
+                            _ => throw new Exception(
+                                $"Unexpected animation type '{animation?["Type"]}' in {animationOption.Key}!")
+                        };
+                    }
+
+
                     // Don't read animations file unless the user requests a new event
                     // the majority of the animation customisations are for enabling/disabling
                     // events, which use the 'replace' keyword
@@ -562,88 +634,47 @@ namespace HUDEditor.Classes
                                 // over multiple 'apply customisations'
                                 animations[animationOption.Key] = new List<HUDAnimation>();
 
-                                foreach (var option in animationOption.Value.ToArray())
+                                JToken[] animationevents;
+
+                                if (animationOption.Value.Type == JTokenType.Object)
+                                {
+                                    var animationsContainer =
+                                        animationOption.Value.ToObject<Dictionary<string, JToken>>();
+                                    if (animationsContainer.ContainsKey("true") &&
+                                        animationsContainer.ContainsKey("false"))
+                                    {
+                                        var selection = animationsContainer[userSetting.Value.ToLower()];
+                                        animationevents = selection.ToArray();
+                                    }
+                                    else
+                                    {
+                                        throw new Exception($"Unexpected object at {animationOption.Key}!");
+                                    }
+                                }
+                                else
+                                {
+                                    animationevents = animationOption.Value.ToArray();
+                                }
+
+
+                                foreach (var option in animationevents)
                                 {
                                     var animation = option.ToObject<Dictionary<string, dynamic>>();
-                                    dynamic current = animation?["Type"].ToString().ToLower() switch
-                                    {
-                                        "animate" => new Animate
-                                        {
-                                            Type = "Animate",
-                                            Element = animation["Element"],
-                                            Property = animation["Property"],
-                                            Value = animation["Value"],
-                                            Interpolator = animation["Interpolator"],
-                                            Delay = animation["Delay"],
-                                            Duration = animation["Duration"]
-                                        },
-                                        "runevent" => new RunEvent
-                                        {
-                                            Type = "RunEvent",
-                                            Event = animation["Event"],
-                                            Delay = animation["Delay"]
-                                        },
-                                        "stopevent" => new StopEvent
-                                        {
-                                            Type = "StopEvent",
-                                            Event = animation["Event"],
-                                            Delay = animation["Delay"]
-                                        },
-                                        "setvisible" => new SetVisible
-                                        {
-                                            Type = "StopEvent",
-                                            Element = animation["Element"],
-                                            Delay = animation["Delay"],
-                                            Duration = animation["Duration"]
-                                        },
-                                        "firecommand" => new FireCommand
-                                        {
-                                            Type = "FireCommand",
-                                            Delay = animation["Delay"],
-                                            Command = animation["Command"]
-                                        },
-                                        "runeventchild" => new RunEventChild
-                                        {
-                                            Type = "RunEventChild",
-                                            Element = animation["Element"],
-                                            Event = animation["Event"],
-                                            Delay = animation["Delay"]
-                                        },
-                                        "setinputenabled" => new SetInputEnabled
-                                        {
-                                            Type = "SetInputEnabled",
-                                            Element = animation["Element"],
-                                            Visible = animation["Visible"],
-                                            Delay = animation["Delay"]
-                                        },
-                                        "playsound" => new PlaySound
-                                        {
-                                            Type = "PlaySound",
-                                            Delay = animation["Delay"],
-                                            Sound = animation["Sound"]
-                                        },
-                                        "stoppanelanimations" => new StopPanelAnimations
-                                        {
-                                            Type = "StopPanelAnimations",
-                                            Element = animation["Element"],
-                                            Delay = animation["Delay"]
-                                        },
-                                        _ => throw new Exception(
-                                            $"Unexpected animation type '{animation?["Type"]}' in {animationOption.Key}!")
-                                    };
+
+                                    dynamic current = CreateAnimation(animation, animationOption);
 
                                     // Animate statements can have an extra argument make sure to account for them
                                     if (current.GetType() == typeof(Animate))
                                     {
                                         if (string.Equals(current.Interpolator, "pulse",
                                             StringComparison.CurrentCultureIgnoreCase))
-                                            current.Frequency = animation["Frequency"];
+                                            current.Frequency = EvaluateValue(animation["Frequency"]);
 
                                         if (string.Equals(current.Interpolator, "gain",
                                                 StringComparison.CurrentCultureIgnoreCase) ||
                                             string.Equals(current.Interpolator, "bias",
                                                 StringComparison.CurrentCultureIgnoreCase))
-                                            current.Bias = animation["Bias"];
+                                            current.Bias = EvaluateValue(animation["Bias"]);
                                     }
 
                                     animations[animationOption.Key].Add(current);
@@ -653,15 +684,16 @@ namespace HUDEditor.Classes
                             }
                         }
 
-                    if (animations != null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
+                    if (animations is not null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
                 }
 
-                string[] resFileExtensions = {"res", "vmt", "vdf"};
+                string[] resFileExtensions = { "res", "vmt", "vdf" };
 
                 foreach (var filePath in files)
                 {
                     var relativePath = string.Join('/', Regex.Split(filePath.Key, @"[\/]+"));
-                    var absolutePath = MainWindow.HudPath + "\\" + Name + "\\" + string.Join('\\', relativePath.Split('/'));
+                    var absolutePath = MainWindow.HudPath + "\\" + Name + "\\" +
+                                       string.Join('\\', relativePath.Split('/'));
                     var extension = filePath.Key.Split(".")[^1];
 
                     if (resFileExtensions.Contains(extension))
@@ -679,7 +711,7 @@ namespace HUDEditor.Classes
                     }
                     else
                     {
-                        MainWindow.ShowMessageBox(MessageBoxImage.Error, $"Could not recognize file extension '{extension}'");
+                        MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
                     }
                 }
             }
@@ -704,14 +736,14 @@ namespace HUDEditor.Classes
         {
             // Check for special conditions, namely if we should enable stock backgrounds.
             if (string.Equals(special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
-                hudBackground.SetStockBackgrounds(enable);
+                HudBackground.SetStockBackgrounds(enable);
 
             if (string.Equals(special, "HUDBackground", StringComparison.CurrentCultureIgnoreCase))
-                hudBackground.SetHUDBackground(parameters[0]);
+                HudBackground.SetHUDBackground(parameters[0]);
 
             if (string.Equals(special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase) &&
                 Uri.TryCreate(userSetting.Value, UriKind.Absolute, out _))
-                hudBackground.SetCustomBackground(userSetting.Value);
+                HudBackground.SetCustomBackground(userSetting.Value);
 
             if (string.Equals(special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
                 CopyTransparentViewmodelAddon(enable);
@@ -726,13 +758,16 @@ namespace HUDEditor.Classes
             {
                 // Copy the config file required for this feature
                 if (!enable || Process.GetProcessesByName("hl2").Any()) return true;
-                MainWindow.Logger.Info($"Copying mastercomfig-transparent-viewmodels-addon.vpk to {MainWindow.HudPath}");
-                File.Copy(Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk", MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
+                MainWindow.Logger.Info(
+                    $"Copying mastercomfig-transparent-viewmodels-addon.vpk to {MainWindow.HudPath}");
+                File.Copy(
+                    Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk",
+                    MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
                 return true;
             }
             catch (Exception e)
             {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{Resources.error_transparent_vm} {e.Message}");
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_transparent_vm), e.Message));
                 return false;
             }
         }

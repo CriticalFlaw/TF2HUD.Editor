@@ -10,7 +10,7 @@
         <Setter x:Key="Tf2Secondary" Property="TextElement.FontFamily"
                 Value="../Resources/TF2Secondary.ttf #TF2 Secondary" />
         <Setter x:Key="Tf2Icons" Property="TextElement.FontFamily"
-                Value="../Resources/TF2Icons.ttf #TF2 Icons" />
+                Value="../Resources/TF2Icons.ttf #TF2Icons" />
         <Setter x:Key="Tf2Crosshairs" Property="TextElement.FontFamily"
                 Value="../Resources/TF2Crosshairs.ttf #TF2Crosshairs" />
 
@@ -54,7 +54,7 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="Width" Value="125" />
+            <Setter Property="Width" Value="150" />
             <Setter Property="FontSize" Value="16" />
         </Style>
 
@@ -64,14 +64,14 @@
             <Setter Property="ColorMode" Value="ColorCanvas" />
             <Setter Property="ShowRecentColors" Value="True" />
             <Setter Property="Foreground" Value="Black" />
-            <Setter Property="Width" Value="125" />
+            <Setter Property="Width" Value="150" />
         </Style>
 
         <Style x:Key="IntegerUpDownLabel" TargetType="Label">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="Width" Value="100" />
+            <Setter Property="Width" Value="125" />
             <Setter Property="FontSize" Value="16" />
         </Style>
 
@@ -81,7 +81,7 @@
             <Setter Property="TextAlignment" Value="Center" />
             <Setter Property="FormatString" Value="N0" />
             <Setter Property="Increment" Value="1" />
-            <Setter Property="Width" Value="100" />
+            <Setter Property="Width" Value="125" />
             <Setter Property="AllowTextInput" Value="False" />
         </Style>
 
@@ -97,7 +97,7 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontSize" Value="30" />
-            <Setter Property="Width" Value="125" />
+            <Setter Property="Width" Value="150" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="FontFamily" Value="../Resources/TF2Crosshairs.ttf #TF2Crosshairs" />
         </Style>
@@ -127,7 +127,7 @@
             <Setter Property="Foreground" Value="#A49E9E" />
         </Style>
 
-        <Style x:Key="Button" TargetType="Button">
+        <Style x:Key="HUDButton" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontFamily" Value="../Resources/TF2Build.ttf #TF2 Build" />
@@ -135,9 +135,8 @@
             <Setter Property="Foreground" Value="#EBE2CA" />
             <Setter Property="Background" Value="#776B5F" />
             <Setter Property="Margin" Value="5" />
-            <Setter Property="Width" Value="140" />
+            <Setter Property="Width" Value="160" />
             <Setter Property="Height" Value="40" />
-
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -167,6 +166,66 @@
             <Setter Property="Background" Value="#776B5F" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Margin" Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FFFFFF" />
+                    <Setter Property="Background" Value="#934739" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#2B2724" />
+                    <Setter Property="Background" Value="#776B5F" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="GitHubButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
+            <Setter Property="Content" Value="Y" />
+            <Setter Property="Background" Value="#171A21" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1D263B" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="HudsButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
+            <Setter Property="FontFamily" Value="../Resources/TF2Build.ttf #TF2 Build" />
+            <Setter Property="Content" Value="H" />
+            <Setter Property="Background" Value="#42A5F5" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#68A8DC" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <Style x:Key="DiscordButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
+            <Setter Property="Content" Value="Z" />
+            <Setter Property="Background" Value="#5865F2" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#7B82D9" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SteamButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
+            <Setter Property="Content" Value="X" />
+            <Setter Property="Background" Value="#1B2838" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#384452" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="PreviewButton" TargetType="Button">
@@ -202,12 +261,6 @@
             <Setter Property="Width" Value="600" />
         </Style>
 
-        <Style x:Key="PageTitle" TargetType="Label">
-            <Setter Property="FontSize" Value="35" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Margin" Value="10,10,0,0" />
-        </Style>
-
         <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -229,6 +282,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
         <Style TargetType="{x:Type ScrollBar}">
             <Setter Property="Margin" Value="-5,0,0,0" />
             <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
@@ -292,16 +346,28 @@
             <Setter Property="Cursor" Value="Hand" />
         </Style>
 
+        <Style x:Key="HudListIcon" TargetType="Label">
+            <Setter Property="FontFamily" Value="../Resources/TF2Icons.ttf #TF2Icons" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Opacity" Value="0.8" />
+            <Setter Property="Grid.Row" Value="0" />
+        </Style>
+
         <Style x:Key="HudListImage" TargetType="Image">
             <Setter Property="Height" Value="118" />
             <Setter Property="Stretch" Value="UniformToFill" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Grid.Row" Value="0" />
         </Style>
 
         <Style x:Key="HudListLabel" TargetType="Label">
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Grid.Row" Value="1" />
         </Style>
     </Application.Resources>
 </Application>

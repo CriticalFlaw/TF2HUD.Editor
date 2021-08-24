@@ -6,11 +6,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using HUDEditor.Models;
 using HUDEditor.Properties;
 using Microsoft.Win32;
+using WPFLocalizeExtension.Deprecated.Extensions;
 
 namespace HUDEditor.Classes
 {
@@ -112,10 +114,8 @@ namespace HUDEditor.Classes
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetPulsedColor(string rgba)
         {
-            // Split the RGBA string into an array of integers.
-            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
-
             // Apply the pulse change and return the color.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
             colors[^1] = colors[^1] >= 50 ? colors[^1] - 50 : colors[^1];
             return $"{colors[0]} {colors[1]} {colors[2]} {colors[^1]}";
         }
@@ -126,10 +126,8 @@ namespace HUDEditor.Classes
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetShadowColor(string rgba)
         {
-            // Split the RGBA string into an array of integers.
-            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
-
             // Reduce each color channel (except alpha) by 40%, then return the color.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
             for (var x = 0; x < colors.Length; x++)
                 colors[x] = Convert.ToInt32(colors[x] * 0.60);
             return $"{colors[0]} {colors[1]} {colors[2]} 255";
@@ -141,10 +139,8 @@ namespace HUDEditor.Classes
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetDimmedColor(string rgba)
         {
-            // Split the RGBA string into an array of integers.
-            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
-
             // Return the color with a reduced alpha channel.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
             return $"{colors[0]} {colors[1]} {colors[2]} 100";
         }
 
@@ -154,10 +150,8 @@ namespace HUDEditor.Classes
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetGrayedColor(string rgba)
         {
-            // Split the RGBA string into an array of integers.
-            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
-
             // Reduce each color channel (except alpha) by 75%, then return the color.
+            var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
             for (var x = 0; x < colors.Length; x++)
                 colors[x] = Convert.ToInt32(colors[x] * 0.25);
             return $"{colors[0]} {colors[1]} {colors[2]} 255";
@@ -183,6 +177,82 @@ namespace HUDEditor.Classes
             if (!string.IsNullOrWhiteSpace(control.FileName))
                 return control.FileName.Replace(".res", string.Empty);
             return control.ComboFiles;
+        }
+
+        /// <summary>
+        ///     Download the HUD using the provided URL.
+        /// </summary>
+        /// <param name="url">URL from which to download the HUD.</param>
+        public static void DownloadHud(string url)
+        {
+            MainWindow.Logger.Info($"Downloading from: {url}");
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            var client = new WebClient();
+            client.DownloadFile(url, "temp.zip");
+            client.Dispose();
+        }
+
+        /// <summary>
+        ///     Check if Team Fortress 2 is currently running.
+        /// </summary>
+        /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
+        public static bool CheckIsGameRunning()
+        {
+            if (!Process.GetProcessesByName("hl2").Any()) return false;
+            MainWindow.ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString(Resources.info_game_running));
+            return true;
+        }
+
+        /// <summary>
+        ///     Search registry for the Team Fortress 2 installation directory.
+        /// </summary>
+        /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
+        public static bool SearchRegistry()
+        {
+            // Try to find the Steam library path in the registry.
+            var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
+            var registry = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null);
+
+            if (string.IsNullOrWhiteSpace(registry)) return false;
+
+            // Found the Steam library path, now try to find the TF2 path.
+            registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
+
+            if (!Directory.Exists(registry)) return false;
+            MainWindow.Logger.Info("tf/custom directory found in the registry: " + registry);
+            Settings.Default.hud_directory = registry;
+            Settings.Default.Save();
+            return true;
+        }
+
+        /// <summary>
+        ///     Check if the set tf/custom directory is valid.
+        /// </summary>
+        /// <returns>True if the set tf/custom directory is valid.</returns>
+        public static bool CheckUserPath(string hudPath)
+        {
+            return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf\\custom");
+        }
+
+        /// <summary>
+        ///     Get a localized string from the resource file.
+        /// </summary>
+        public static string GetLocalizedString(string key)
+        {
+            _ = new LocTextExtension(key).ResolveLocalizedValue(out string uiString);
+            return uiString;
+        }
+
+        /// <summary>
+        ///     Converts a HUD/control name into a WPF usable ID
+        /// </summary>
+        /// <remarks>If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores.</remarks>
+        public static string EncodeID(string id)
+        {
+            // If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores
+            return $"{(Regex.IsMatch(id[0].ToString(), "\\d") ? "_" : "")}{string.Join('_', Regex.Split(id, "[- ]"))}";
         }
 
         /// <summary>
@@ -217,8 +287,7 @@ namespace HUDEditor.Classes
             }
         }
 
-        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj,
-            IEnumerable<string> keys)
+        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj, IEnumerable<string> keys)
         {
             try
             {
@@ -242,69 +311,8 @@ namespace HUDEditor.Classes
 
         public static async Task<string> Fetch(string url)
         {
-            var client = new HttpClient();
-            var response = await client.GetAsync(url);
+            var response = await new HttpClient().GetAsync(url);
             return response.IsSuccessStatusCode ? response.Content.ReadAsStringAsync().Result : null;
-        }
-
-        /// <summary>
-        ///     Download the HUD using the provided URL.
-        /// </summary>
-        /// <param name="url">URL from which to download the HUD.</param>
-        public static void DownloadHud(string url)
-        {
-            MainWindow.Logger.Info($"Downloading from: {url}");
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            var client = new WebClient();
-            client.DownloadFile(url, "temp.zip");
-            client.Dispose();
-        }
-
-        /// <summary>
-        ///     Check if Team Fortress 2 is currently running.
-        /// </summary>
-        /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
-        public static bool CheckIsGameRunning(bool returnMessage = false)
-        {
-            if (!Process.GetProcessesByName("hl2").Any()) return false;
-            if (returnMessage)
-                MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.info_game_running);
-            return true;
-        }
-
-        /// <summary>
-        ///     Search registry for the Team Fortress 2 installation directory.
-        /// </summary>
-        /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
-        public static bool SearchRegistry()
-        {
-            // Try to find the Steam library path in the registry.
-            var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-            var registry = (string) Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam",
-                "InstallPath", null);
-
-            if (string.IsNullOrWhiteSpace(registry)) return false;
-
-            // Found the Steam library path, now try to find the TF2 path.
-            registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
-
-            if (!Directory.Exists(registry)) return false;
-
-            MainWindow.Logger.Info("tf/custom directory found in the registry: " + registry);
-            Settings.Default.hud_directory = registry;
-            Settings.Default.Save();
-            return true;
-        }
-
-        /// <summary>
-        ///     Check if the set tf/custom directory is valid.
-        /// </summary>
-        /// <returns>True if the set tf/custom directory is valid.</returns>
-        public static bool CheckUserPath(string hudPath)
-        {
-            return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf\\custom");
         }
     }
 }

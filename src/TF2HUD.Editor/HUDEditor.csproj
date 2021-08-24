@@ -50,10 +50,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autoupdater.NET.Official" Version="1.6.4" />
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.8.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,9 +73,11 @@
     <Content Remove="Resources\banner.png" />
     <Content Remove="Resources\favicon.ico" />
     <Content Remove="Resources\logo.png" />
+    <Content Remove="Resources\TF2.ttf" />
     <Content Remove="Resources\TF2Build.ttf" />
     <Content Remove="Resources\TF2Crosshairs.ttf" />
     <Content Remove="Resources\TF2Icons.ttf" />
+    <Content Remove="Resources\TF2Professor.ttf" />
     <Content Remove="Resources\TF2Secondary.ttf" />
   </ItemGroup>
 
@@ -82,11 +85,23 @@
     <Resource Include="Resources\banner.png" />
     <Resource Include="Resources\favicon.ico" />
     <Resource Include="Resources\logo.png" />
-    <Resource Include="Resources\TF2Build.ttf" />
-    <Resource Include="Resources\TF2Crosshairs.ttf" />
-    <Resource Include="Resources\TF2Icons.ttf" />
+    <Resource Include="Resources\TF2.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\TF2Build.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\TF2Crosshairs.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\TF2Icons.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\TF2Professor.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\TF2Secondary.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
@@ -105,12 +120,18 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="JSON\Shared\controls.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="JSON\Shared\shared.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

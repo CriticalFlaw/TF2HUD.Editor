@@ -8,17 +8,28 @@ using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {
+    public enum HUDSettingsPreset
+    {
+        A,
+        B,
+        C,
+        D
+    }
+
     public class HUDSettings
     {
-        public static readonly string UserFile = System.Threading.Tasks.Task.Run(() =>
-        {
-            Directory.CreateDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor");
-            return $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\settings.json";
-        }).Result;
+        public static readonly string UserFile =
+            $"{Directory.CreateDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor").FullName}\\settings.json";
 
-        private static readonly List<Setting> UserSettings = File.Exists(UserFile)
-            ? JsonConvert.DeserializeObject<Dictionary<string, List<Setting>>>(File.ReadAllText(UserFile))?["Settings"]
-            : new List<Setting>();
+        private static readonly UserJson Json = File.Exists(UserFile)
+            ? JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(UserFile))
+            : new UserJson();
+
+        private static readonly Dictionary<string, HUDSettingsPreset> Presets = Json.Presets;
+
+        private static readonly List<Setting> UserSettings = Json.Settings;
+
+        private HUDSettingsPreset _Preset;
 
         public string HUDName;
 
@@ -26,8 +37,13 @@ namespace HUDEditor.Classes
         {
             HUDName = name;
 
-            // Write empty settings object to file as creating without Settings key causes a null reference if settings are not saved by next application start
-            if (!File.Exists(UserFile)) File.WriteAllText(UserFile, "{ \"Settings\": [] }");
+            if (!Presets.ContainsKey(name)) Preset = HUDSettingsPreset.A;
+        }
+
+        public HUDSettingsPreset Preset
+        {
+            get => _Preset;
+            set => _Preset = Presets[HUDName] = value;
         }
 
         /// <summary>
@@ -35,14 +51,17 @@ namespace HUDEditor.Classes
         /// </summary>
         public void AddSetting(string name, Controls control)
         {
-            if (UserSettings.FirstOrDefault(x => x.Name == name) == null)
+            if (UserSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset) is null)
+            {
                 UserSettings.Add(new Setting
                 {
                     HUD = HUDName,
                     Name = name,
                     Type = control.Type,
-                    Value = control.Value
+                    Value = control.Value,
+                    Preset = Preset
                 });
+            }
         }
 
         /// <summary>
@@ -51,20 +70,7 @@ namespace HUDEditor.Classes
         /// <param name="name">Name of the setting to retrieve.</param>
         public Setting GetSetting(string name)
         {
-            return UserSettings.First(x => x.Name == name);
-        }
-
-        /// <summary>
-        ///     Retrieve a specific user setting or just the value, by name.
-        /// </summary>
-        /// <param name="name">Name of the setting to retrieve.</param>
-        /// <param name="returnVal">
-        ///     Indicate if you want to retrieve just the setting value (true) or the whole setting object (false).
-        /// </param>
-        public dynamic GetSetting(string name, bool returnVal)
-        {
-            var setting = UserSettings.First(x => x.Name == name);
-            return returnVal ? setting.Value : setting;
+            return UserSettings.First(x => x.Name == name && x.Preset == Preset);
         }
 
         /// <summary>
@@ -73,21 +79,20 @@ namespace HUDEditor.Classes
         /// <param name="name">Name of the setting to retrieve.</param>
         public T GetSetting<T>(string name)
         {
-            var setting = UserSettings.First(x => x.Name == name);
-            var value = setting.Value;
+            var value = UserSettings.First(x => x.Name == name && x.Preset == Preset).Value;
 
             switch (typeof(T).Name)
             {
                 case "Boolean":
                     var evaluatedValue = value is "1" or "True" or "true";
-                    return (T) (object) evaluatedValue;
+                    return (T)(object)evaluatedValue;
                 case "Color":
                     var colors = Array.ConvertAll(value.Split(' '), byte.Parse);
-                    return (T) (object) Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                    return (T)(object)Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
                 case "Int32":
-                    return (T) (object) int.Parse(value);
+                    return (T)(object)int.Parse(value);
                 case "String":
-                    return (T) (object) value;
+                    return (T)(object)value;
                 default:
                     throw new Exception($"Unexpected setting type {typeof(T).Name}!");
             }
@@ -100,7 +105,7 @@ namespace HUDEditor.Classes
         /// <param name="value">New value for updating setting.</param>
         public void SetSetting(string name, string value)
         {
-            UserSettings.First(x => x.Name == name).Value = value;
+            UserSettings.First(x => x.Name == name && x.Preset == Preset).Value = value;
         }
 
         /// <summary>
@@ -108,9 +113,10 @@ namespace HUDEditor.Classes
         /// </summary>
         public void SaveSettings()
         {
-            var settings = new Dictionary<string, List<Setting>>
+            var settings = new UserJson
             {
-                ["Settings"] = UserSettings
+                Presets = Presets,
+                Settings = UserSettings
             };
             File.WriteAllText(UserFile, JsonConvert.SerializeObject(settings, Formatting.Indented));
             MainWindow.Logger.Info($"Saved user settings to: {UserFile}");

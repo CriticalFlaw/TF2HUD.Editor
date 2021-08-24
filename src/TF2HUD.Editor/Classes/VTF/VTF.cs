@@ -26,10 +26,11 @@ namespace HUDEditor.Classes
             var materialSrc = $"{_tf2Path}\\tf\\materialsrc";
 
             // Create materialsrc (ensure it exists)
-            Directory.CreateDirectory(materialSrc);
+            if (!Directory.Exists(materialSrc))
+                Directory.CreateDirectory(materialSrc);
 
             // Save image as .tga (cast using TGASharpLib)
-            var tgaSquareImage = (TGA) ResizeImage(image);
+            var tgaSquareImage = (TGA)ResizeImage(image);
             tgaSquareImage.Save($"{materialSrc}\\temp.tga");
 
             // Convert using VTEX
@@ -41,7 +42,9 @@ namespace HUDEditor.Classes
             // Create absolute path to output folder and make directory
             var pathInfo = outFile.Split('\\', '/');
             pathInfo[^1] = "";
-            Directory.CreateDirectory(string.Join("\\", pathInfo));
+            var directory = string.Join("\\", pathInfo);
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
 
             // Make a backup of the existing background files.
             var hudBgPath = new DirectoryInfo($"{MainWindow.HudPath}\\{MainWindow.HudSelection}\\materials\\console\\");
@@ -64,16 +67,17 @@ namespace HUDEditor.Classes
         /// <returns>Bitmap of the resized image file.</returns>
         private static Bitmap ResizeImage(Bitmap image)
         {
-            var power = 2;
-            do
-            {
-                power *= 2;
-            } while (power < Math.Max(image.Width, image.Height));
+            // Image size is the greater of both the width and height rounded
+            // up to the nearest power of 2
+            var size = (int)Math.Max(
+                Math.Pow(2, Math.Ceiling(Math.Log(image.Width) / Math.Log(2))),
+                Math.Pow(2, Math.Ceiling(Math.Log(image.Height) / Math.Log(2)))
+            );
 
             // Paint graphics onto the SquareImage Bitmap
-            var squareImage = new Bitmap(power, power);
+            var squareImage = new Bitmap(size, size);
             var graphics = Graphics.FromImage(squareImage);
-            graphics.DrawImage(image, 0, 0, power, power);
+            graphics.DrawImage(image, 0, 0, size, size);
             return squareImage;
         }
 
@@ -96,20 +100,19 @@ namespace HUDEditor.Classes
             // Set the VTEX CLI Args
             string[] args =
             {
-                $"\"{folderPath}\\{fileName}.tga\"",
-                "-nopause",
-                "-game",
-                $"\"{_tf2Path}\\tf\\\""
+                $"-quiet",
+                $"\"{folderPath}\\{fileName}.tga\""
             };
 
             // Call Vtex and pass the parameters.
             var processInfo = new ProcessStartInfo($"{_tf2Path}\\bin\\vtex.exe")
             {
                 Arguments = string.Join(" ", args),
-                UseShellExecute = true
+                RedirectStandardOutput = true
             };
-
             var process = Process.Start(processInfo);
+            while (!process.StandardOutput.EndOfStream)
+                MainWindow.Logger.Info($"[VTEX] {process.StandardOutput.ReadLine()}");
             process?.WaitForExit();
             process?.Close();
         }

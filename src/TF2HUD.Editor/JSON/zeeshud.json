@@ -1,6 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
-  "Thumbnail": "https://huds.tf/site/xthreads_attach.php/3403_1622089359_0ae9f236/6bdb991d2d780d34bd92ccafeb0ba092/zeeshudlogo_card.jpg",
+  "Author": "Zeesastrous",
+  "Description": "ZeesHUD is a stylish and ambitious HUD inspired by retro punk aesthetics.",
+  "Thumbnail": "https://huds.tf/site/xthreads_attach.php/3403_1627843846_e18896e8/26d23f685f415d0fa5181c80aba3fdc6/zeeshudlogo_card.jpg",
+  "Screenshots": [
+    "https://huds.tf/site/xthreads_attach.php/3408_1614729681_a0a4f030/12fca271f4d402d684f995aa8479a5f1/main_menu.png",
+    "https://huds.tf/site/xthreads_attach.php/3404_1618475363_46b1a661/0f9a219d6fd0b181f60650828ea40367/main_hud.png",
+    "https://huds.tf/site/xthreads_attach.php/3406_1622089359_04ee0ee3/c8326f71c2fbd8e7df180cac486fc3b4/Minmode.jpg",
+    "https://huds.tf/site/xthreads_attach.php/3407_1618475312_220fc9d5/1e0106801421ae2de86ec96ee15215c4/classicstyle.jpg"
+  ],
   "Background": "https://i.imgur.com/U4m1mOx.png",
   "Layout": [
     "0 0 4 4 1 1",
@@ -22,6 +30,7 @@
         "Label": "Layout Style",
         "Type": "ComboBox",
         "Value": "0",
+        "Width": 350,
         "ToolTip": "Layout of health, ammo, objective, meters, etc. in-game.",
         "ComboFiles": [
           "health-ammo-style_ut",
@@ -49,6 +58,7 @@
         "Label": "Font",
         "Type": "ComboBox",
         "Value": "0",
+        "Width": 200,
         "ToolTip": "Font used for Health, Ammo and Counters",
         "ComboFiles": [
           "health-ammo_font_futura"
@@ -315,6 +325,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Default crosshair color.",
         "Value": "255 255 255 255",
+        "Width": 125,
         "Files": {
           "#customizations/custom_colors.res": {
             "Scheme": {
@@ -331,6 +342,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Default crosshair color on player hit.",
         "Value": "242 0 0 255",
+        "Width": 125,
         "Files": {
           "#customizations/custom_colors.res": {
             "Scheme": {
@@ -872,6 +884,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Color of the damage number when hurt.",
         "Value": "255 0 90 255",
+        "Width": 125,
         "Files": {
           "#customizations/custom_colors.res": {
             "Scheme": {
@@ -888,6 +901,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Color of the damage number when heal.",
         "Value": "0 255 214 255",
+        "Width": 125, 
         "Files": {
           "#customizations/custom_colors.res": {
             "Scheme": {
@@ -904,6 +918,7 @@
         "Type": "ColorPicker",
         "ToolTip": "Color of the damage number in the center.",
         "Value": "255 255 255 255",
+        "Width": 125,
         "Files": {
           "#customizations/custom_colors.res": {
             "Scheme": {
@@ -962,20 +977,20 @@
         "FileName": "meters_centered"
       },
       {
-        "Name": "zh_showimages",
-        "Label": "Hide IMGs",
-        "Type": "Checkbox",
-        "Value": "false",
-        "ToolTip": "Hides decorative images around the HUD.",
-        "FileName": "disable_images"
-      },
-      {
         "Name": "zh_centered_metal",
         "Label": "Centered Metal count",
         "Type": "Checkbox",
         "Value": "false",
         "ToolTip": "Centers the metal around the crosshair.",
         "FileName": "metal_centered"
+      },
+      {
+        "Name": "zh_showimages",
+        "Label": "Hide IMGs",
+        "Type": "Checkbox",
+        "Value": "false",
+        "ToolTip": "Hides decorative images around the HUD.",
+        "FileName": "disable_images"
       }
     ],
     "Health Status Indicators": [

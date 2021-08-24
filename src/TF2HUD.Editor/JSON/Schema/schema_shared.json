@@ -1,0 +1,67 @@
+{
+  "title": "TF2 HUD Editor Shared JSON Schema",
+  "properties": {
+    "HUDS": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "Author": {
+            "type": "string"
+          },
+          "Thumbnail": {
+            "type": "string",
+            "pattern": "^https?:\/\/.*$"
+          },
+          "Links": {
+            "type": "object",
+            "items": {
+              "properties": {
+                "Update": {
+                  "type": "string",
+                  "pattern": "^https?:\/\/.*$"
+                },
+                "GitHub": {
+                  "type": "string",
+                  "pattern": "^https?:\/\/.*$"
+                },
+                "HudsTF": {
+                  "type": "string",
+                  "pattern": "^https?:\/\/.*$"
+                },
+                "Steam": {
+                  "type": "string",
+                  "pattern": "^https?:\/\/.*$"
+                }
+              }
+            }
+          },
+          "Screenshots": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^https?:\/\/.*$"
+            }
+          }
+        },
+        "required": [
+          "Name",
+          "Description",
+          "Author",
+          "Thumbnail",
+          "Links",
+          "Screenshots"
+        ]
+      }
+    }
+  },
+  "required": [
+    "HUDS"
+  ]
+}

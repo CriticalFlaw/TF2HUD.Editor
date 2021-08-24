@@ -9,23 +9,23 @@ namespace HUDEditor.Classes
         public static Dictionary<string, dynamic> Parse(string text, string osTagDelimiter = "^")
         {
             var index = 0;
-            char[] ignoredCharacters = {' ', '\t', '\r', '\n'};
+            char[] ignoredChars = { ' ', '\t', '\r', '\n' };
 
             string Next(bool lookAhead = false)
             {
-                var currentToken = "";
+                var token = "";
                 var x = index;
 
                 // Return EOF if we've reached the end of the text file.
                 if (x >= text.Length - 1) return "EOF";
 
                 // Discard any text that is preempted by a comment tag (//) until the next line.
-                while ((ignoredCharacters.Contains(text[x]) || text[x] == '/') && x <= text.Length - 1)
+                while ((ignoredChars.Contains(text[x]) || text[x] == '/') && x <= text.Length - 1)
                 {
                     if (text[x] == '/')
                     {
                         if (text[x + 1] == '/')
-                            while (text[x] != '\n')
+                            while (text[x] is not '\n')
                                 x++;
                     }
                     else
@@ -42,10 +42,10 @@ namespace HUDEditor.Classes
                     // Skip the opening quotation mark.
                     x++;
 
-                    while (text[x] != '"' && x < text.Length)
+                    while (text[x] is not '"' && x < text.Length)
                     {
                         if (text[x] == '\n') throw new Exception($"Unexpected end of line at position {x}");
-                        currentToken += text[x];
+                        token += text[x];
                         x++;
                     }
 
@@ -55,27 +55,26 @@ namespace HUDEditor.Classes
                 else
                 {
                     // Read the text until reaching whitespace or an end of the file.
-                    while (!ignoredCharacters.Contains(text[x]) && x < text.Length - 1)
+                    while (!ignoredChars.Contains(text[x]) && x < text.Length - 1)
                     {
                         if (text[x] == '"') throw new Exception($"Unexpected double quote at position {x}");
-                        currentToken += text[x];
+                        token += text[x];
                         x++;
                     }
                 }
 
                 if (!lookAhead) index = x;
 
-                return currentToken;
+                return token;
             }
 
             Dictionary<string, dynamic> ParseObject()
             {
                 Dictionary<string, dynamic> objectRef = new();
-
                 var currentToken = Next();
                 var nextToken = Next(true);
 
-                while (currentToken != "}" && nextToken != "EOF")
+                while (currentToken is not "}" && nextToken is not "EOF")
                 {
                     if (Next(true).StartsWith('['))
                     {
@@ -86,8 +85,8 @@ namespace HUDEditor.Classes
                     }
                     else if (nextToken == "{")
                     {
-                        // Object
-                        Next(); // Skip over opening brace
+                        // Skip over opening brace
+                        Next();
 
                         if (objectRef.TryGetValue(currentToken, out var value))
                         {
@@ -209,7 +208,8 @@ namespace HUDEditor.Classes
                         // Check for an OS tag.
                         var keyTokens = key.Split('^');
                         if (keyTokens.Length > 1)
-                            stringValue += $"{new string(tab, tabs)}\"{keyTokens[0]}\"\t\"{obj[key]}\" {keyTokens[1]}{newLine}";
+                            stringValue +=
+                                $"{new string(tab, tabs)}\"{keyTokens[0]}\"\t\"{obj[key]}\" {keyTokens[1]}{newLine}";
                         else
                             stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{obj[key]}\"{newLine}";
                     }

@@ -1,0 +1,383 @@
+{
+  "Layout": [
+    "0 1 2",
+    "3 1 2"
+  ],
+  "Controls": {
+    "Options": [
+      {
+        "Name": "custom_background",
+        "Label": "Custom Background",
+        "Type": "CustomBackground",
+        "Special": "CustomBackground",
+        "ToolTip": "Replace the main menu background with a custom image.",
+        "Restart": true
+      },
+      {
+        "Name": "chat_top_left",
+        "Label": "Chat To Top Left",
+        "Type": "Checkbox",
+        "ToolTip": "Move the in game chat to the top left of the screen",
+        "Value": false,
+        "Restart": false,
+        "Files": {
+          "resource/ui/basechat.res": {
+            "HudChat": {
+              "ypos": {
+                "true": "0",
+                "false": "275"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "val_killfeed_rows",
+        "Label": "Killfeed Rows",
+        "Type": "IntegerUpDown",
+        "ToolTip": "Change the number of rows seen on the killfeed.",
+        "Value": "5",
+        "Minimum": "0",
+        "Increment": "1",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "HudDeathNotice": {
+              "MaxDeathNotices": "$value"
+            }
+          }
+        }
+      }
+    ],
+    "Item Quality": [
+      {
+        "Name": "color_normal",
+        "Label": "Normal",
+        "Type": "ColorPicker",
+        "Value": "178 178 178 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorNormal": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_unique",
+        "Label": "Unique",
+        "Type": "ColorPicker",
+        "Value": "255 215 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorUnique": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_strange",
+        "Label": "Strange",
+        "Type": "ColorPicker",
+        "Value": "207 106 50 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorStrange": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_vintage",
+        "Label": "Vintage",
+        "Type": "ColorPicker",
+        "Value": "71 98 145 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorVintage": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_haunted",
+        "Label": "Haunted",
+        "Type": "ColorPicker",
+        "Value": "56 243 171 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorHaunted": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_genuine",
+        "Label": "Genuine",
+        "Type": "ColorPicker",
+        "Value": "77 116 85 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorrarity1": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_collectors",
+        "Label": "Collectors",
+        "Type": "ColorPicker",
+        "Value": "170 0 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorCollectors": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_unusual",
+        "Label": "Unusual",
+        "Type": "ColorPicker",
+        "Value": "134 80 172 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorrarity4": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_community",
+        "Label": "Community",
+        "Type": "ColorPicker",
+        "Value": "112 176 74 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorCommunity": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_valve",
+        "Label": "Valve",
+        "Type": "ColorPicker",
+        "Value": "165 15 121 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "QualityColorDeveloper": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Item Rarity": [
+      {
+        "Name": "color_civilian",
+        "Label": "Civilian",
+        "Type": "ColorPicker",
+        "Value": "176 195 217 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityCommon": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_freelance",
+        "Label": "Freelance",
+        "Type": "ColorPicker",
+        "Value": "94 152 217 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityUncommon": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_mercenary",
+        "Label": "Mercenary",
+        "Type": "ColorPicker",
+        "Value": "75 105 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityRare": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_commando",
+        "Label": "Commando",
+        "Type": "ColorPicker",
+        "Value": "136 71 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityMythical": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_assassin",
+        "Label": "Assassin",
+        "Type": "ColorPicker",
+        "Value": "211 44 230 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityLegendary": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_elite",
+        "Label": "Elite",
+        "Type": "ColorPicker",
+        "Value": "235 75 75 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ItemRarityAncient": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Crosshair": [
+      {
+        "Name": "xhair_style",
+        "Label": "Style",
+        "ToolTip": "Style of crosshair.",
+        "Type": "Crosshair",
+        "Value": "<",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_xhair_normal",
+        "Label": "Crosshair",
+        "Type": "ColorPicker",
+        "ToolTip": "Default crosshair color.",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "val_xhair_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "ToolTip": "Size of the crosshair.",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "font": "Size: $value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "toggle_xhair_enable",
+        "Label": "Toggle Crosshair",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair feature.",
+        "Value": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

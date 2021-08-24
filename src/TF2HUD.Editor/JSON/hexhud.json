@@ -1,6 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "Hypnotize",
+  "Description": "TF2 HUD based on hexagon shapes.",
   "Thumbnail": "https://huds.tf/site/xthreads_attach.php/4200_1624480708_80df6422/a6733dd158e1b299cae03b753e28aa73/th0oGZT.png",
+  "Screenshots": [
+    "https://huds.tf/site/xthreads_attach.php/4201_1624480708_c072b6a4/582b89dcb67895876ac7e2b9ae952b7f/u6OEUT6.jpg",
+    "https://huds.tf/site/xthreads_attach.php/4202_1624480708_6dcc259b/2291a31d33ab8effa69af72a8ba1852b/2f06dnO.jpg",
+    "https://huds.tf/site/xthreads_attach.php/4204_1624480708_033024ed/2ff4e8735877749f83d0d149f8c90052/865uXJt.jpg",
+    "https://huds.tf/site/xthreads_attach.php/4205_1624480708_a5064267/b9446464e43d43dd1a30e5315de33836/wVzfPvp.png"
+  ],
   "Background": "8 7 12 255",
   "Layout": [
     "0 1 1",
@@ -271,6 +279,7 @@
         "Label": "Damage Value Size",
         "Type": "ComboBox",
         "Value": "2",
+        "Width": 200,
         "Options": [
           {
             "Label": "Small, Shadow",
@@ -440,6 +449,7 @@
         "Label": "Health Style",
         "Type": "ComboBox",
         "Value": "0",
+        "Width": 200, 
         "Options": [
           {
             "Label": "Colored Shadow",
