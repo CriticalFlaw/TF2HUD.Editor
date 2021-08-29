@@ -19,15 +19,17 @@ namespace HUDEditor.Classes
     internal class HUDBackground
     {
         private readonly string HUDFolderPath;
+        private readonly Notifier _notifier;
         private string customImagePath;
         private string HUDImagePath;
         private bool useCustomBackground;
         private bool useHUDBackground;
         private bool useStockBackgrounds;
 
-        public HUDBackground(string hudPath)
+        public HUDBackground(string hudPath, Notifier notifier)
         {
             HUDFolderPath = hudPath;
+            _notifier = notifier;
         }
 
         public void SetStockBackgrounds(bool enable)
@@ -150,7 +152,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, e.Message);
+                _notifier.ShowMessageBox(MessageBoxImage.Error, e.Message);
             }
         }
     }

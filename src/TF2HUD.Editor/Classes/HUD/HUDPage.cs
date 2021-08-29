@@ -616,7 +616,7 @@ namespace HUDEditor.Classes
                             // Add Events.
                             bgInput.Click += (_, _) =>
                             {
-                                MainWindow.ShowMessageBox(MessageBoxImage.Information, Resources.info_background_override);
+                                _notifier.ShowMessageBox(MessageBoxImage.Information, Resources.info_background_override);
                                 using (var browser = new OpenFileDialog())
                                 {
                                     browser.ShowDialog();
