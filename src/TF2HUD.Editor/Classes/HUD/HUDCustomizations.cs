@@ -24,7 +24,7 @@ namespace HUDEditor.Classes
                 // HUD Background Image.
                 // Set the HUD Background image path when applying, because it's possible
                 // the user did not have their tf/custom folder set up when this HUD constructor was called.
-                HudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\");
+                HudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\", _notifier);
 
                 var hudSettings = ControlOptions.Values;
                 // var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json")).Controls.Values;
@@ -711,7 +711,7 @@ namespace HUDEditor.Classes
                     }
                     else
                     {
-                        MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
+                        _notifier.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
                     }
                 }
             }
@@ -752,7 +752,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Copy configuration file for transparent viewmodels into the HUD's cfg folder.
         /// </summary>
-        public static bool CopyTransparentViewmodelAddon(bool enable = false)
+        public bool CopyTransparentViewmodelAddon(bool enable = false)
         {
             try
             {
@@ -767,7 +767,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_transparent_vm), e.Message));
+                _notifier.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_transparent_vm), e.Message));
                 return false;
             }
         }

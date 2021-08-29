@@ -36,81 +36,25 @@ namespace HUDEditor
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly List<(HUD, Border)> HudThumbnails = new();
         private bool DisplayUniqueHUDsOnly;
+        private readonly Notifier _notifier;
+        private readonly HudDirectory _hudDirectory;
 
         public MainWindow()
         {
-            // Initialize the logger.
-            var repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
-            Logger.Info("=======================================================");
-            Logger.Info("Initializing.");
+            InitializeLogger();
+            _notifier = new Notifier(Logger);
+            _hudDirectory = new HudDirectory(Logger, _notifier);
 
-            // Get the list of HUD JSONs.
-            Json = new Json();
+            Json = new Json(_notifier);
             InitializeComponent();
             DataContext = this;
 
-            foreach (var hud in Json.HUDList)
-                AddHUDToGridView(hud);
-
-            // Setup the user interface.
-            SetPageView(Json.SelectedHUD);
-            SelectionChanged(Json, Json.GetHUDByName(Settings.Default.hud_selected));
-            SetupDirectory();
-            Json.SelectionChanged += SelectionChanged;
-
-            // Check for app updates.
-            Logger.Info("Checking for app updates.");
-            AutoUpdater.OpenDownloadPage = true;
-            AutoUpdater.Start(Settings.Default.app_update);
+            AddHUDs();
+            SetupUI();
+            CheckForUpdates();
         }
 
         public static Json Json { get; set; }
-
-        /// <summary>
-        ///     Setup the tf/custom directory, if it's not already set.
-        /// </summary>
-        /// <param name="userSet">Flags the process as being user initiated, skip right to the folder browser.</param>
-        public void SetupDirectory(bool userSet = false)
-        {
-            if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
-            // Display a folder browser, ask the user to provide the tf/custom directory.
-            Logger.Info("tf/custom directory is not set. Asking the user...");
-            using (var browser = new FolderBrowserDialog
-            {
-                Description = Properties.Resources.info_path_browser,
-                UseDescriptionForTitle = true,
-                ShowNewFolderButton = true
-            })
-            {
-                // Loop until the user provides a valid tf/custom directory, unless they cancel out.
-                while (!browser.SelectedPath.EndsWith("tf\\custom"))
-                    if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        if (browser.SelectedPath.EndsWith("tf\\custom"))
-                        {
-                            Settings.Default.hud_directory = browser.SelectedPath;
-                            Settings.Default.Save();
-                            HudPath = Settings.Default.hud_directory;
-                            Logger.Info("tf/custom directory is set to: " + Settings.Default.hud_directory);
-                        }
-                        else
-                        {
-                            ShowMessageBox(MessageBoxImage.Error, Properties.Resources.info_path_invalid);
-                        }
-                    }
-                    else
-                    {
-                        break;
-                    }
-            }
-
-            // Check one more time if a valid directory has been set.
-            if (Utilities.CheckUserPath(HudPath)) return;
-            Logger.Info("tf/custom directory still not set. Exiting...");
-            ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString(Properties.Resources.error_app_directory));
-            Application.Current.Shutdown();
-        }
 
         /// <summary>
         ///     Add a HUD to the list of available HUDs.
@@ -163,7 +107,7 @@ namespace HUDEditor
             hudIconContainer.Children.Add(thumbnailImage);
             hudIconContainer.Children.Add(thumbnailIcon);
             hudIconContainer.Children.Add(new Label
-                { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
+            { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
             border.Child = hudIconContainer;
             GridSelectHud.Children.Add(border);
             HudThumbnails.Add((hud, border));
@@ -199,25 +143,36 @@ namespace HUDEditor
             SetPageView(hud);
         }
 
-        #region PAGE_EVENTS
-
-        /// <summary>
-        ///     Display a message box with a message to the user and log it.
-        /// </summary>
-        public static MessageBoxResult ShowMessageBox(MessageBoxImage type, string message, MessageBoxButton buttons = MessageBoxButton.OK)
+        private void InitializeLogger()
         {
-            switch (type)
-            {
-                case MessageBoxImage.Error:
-                    Logger.Error(message);
-                    break;
-                case MessageBoxImage.Warning:
-                    Logger.Warn(message);
-                    break;
-            }
-
-            return MessageBox.Show(message, string.Empty, buttons, type);
+            var repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+            Logger.Info("=======================================================");
+            Logger.Info("Initializing.");
         }
+
+        private void AddHUDs()
+        {
+            foreach (var hud in Json.HUDList)
+                AddHUDToGridView(hud);
+        }
+
+        private void SetupUI()
+        {
+            SetPageView(Json.SelectedHUD);
+            SelectionChanged(Json, Json.GetHUDByName(Settings.Default.hud_selected));
+            _hudDirectory.Setup(HudPath);
+            Json.SelectionChanged += SelectionChanged;
+        }
+
+        private static void CheckForUpdates()
+        {
+            Logger.Info("Checking for app updates.");
+            AutoUpdater.OpenDownloadPage = true;
+            AutoUpdater.Start(Settings.Default.app_update);
+        }
+
+        #region PAGE_EVENTS
 
         /// <summary>
         ///     Update the page view to the selected HUD.
@@ -241,7 +196,7 @@ namespace HUDEditor
             }
             catch (Exception e)
             {
-                ShowMessageBox(MessageBoxImage.Error, e.Message);
+                _notifier.ShowMessageBox(MessageBoxImage.Error, e.Message);
             }
         }
 
@@ -315,10 +270,14 @@ namespace HUDEditor
 
                 // Force the user to set a directory before installing.
                 if (!Utilities.CheckUserPath(HudPath))
-                    SetupDirectory(true);
+                    _hudDirectory.Setup(HudPath, true);
 
                 // Stop the process if Team Fortress 2 is still running.
-                if (Utilities.CheckIsGameRunning()) return;
+                if (Utilities.IsGameRunning())
+                {
+                    _notifier.ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString(Properties.Resources.info_game_running));
+                    return;
+                }
 
                 var worker = new BackgroundWorker();
                 worker.DoWork += (_, _) =>
@@ -384,7 +343,7 @@ namespace HUDEditor
             }
             catch (Exception e)
             {
-                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_install), HudSelection)} {e.Message}");
+                _notifier.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_install), HudSelection)} {e.Message}");
             }
         }
 
@@ -399,7 +358,11 @@ namespace HUDEditor
                 if (!CheckHudInstallation()) return;
 
                 // Stop the process if Team Fortress 2 is still running.
-                if (Utilities.CheckIsGameRunning()) return;
+                if (Utilities.IsGameRunning())
+                {
+                    _notifier.ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString(Properties.Resources.info_game_running));
+                    return;
+                }
 
                 // Remove the HUD from the tf/custom directory.
                 Logger.Info($"Start uninstalling {HudSelection}.");
@@ -410,7 +373,7 @@ namespace HUDEditor
             }
             catch (Exception e)
             {
-                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_uninstall), HudSelection)} {e.Message}");
+                _notifier.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_uninstall), HudSelection)} {e.Message}");
             }
         }
 
@@ -423,7 +386,7 @@ namespace HUDEditor
             if (Process.GetProcessesByName("hl2").Any() && hudObject.DirtyControls.Count > 0)
             {
                 var message = hudObject.DirtyControls.Aggregate(Properties.Resources.info_game_restart, (current, control) => current + $"\n - {control}");
-                if (ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
+                if (_notifier.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
             }
 
             Logger.Info("Start applying settings.");
@@ -453,7 +416,7 @@ namespace HUDEditor
         private void BtnReset_OnClick(object sender, RoutedEventArgs e)
         {
             // Ask the user if they want to reset before doing so.
-            if (ShowMessageBox(MessageBoxImage.Question, Properties.Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (_notifier.ShowMessageBox(MessageBoxImage.Question, Properties.Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             Logger.Info("Start resetting settings.");
             var selection = Json.SelectedHUD;
             selection.ResetAll();
@@ -478,7 +441,7 @@ namespace HUDEditor
         private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
         {
             Logger.Info("Attempting to change the 'tf/custom' directory.");
-            SetupDirectory(true);
+            _hudDirectory.Setup(HudPath, true);
         }
 
         /// <summary>
@@ -488,7 +451,7 @@ namespace HUDEditor
         {
             try
             {
-                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_add_hud, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes) return;
+                if (_notifier.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_add_hud, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes) return;
 
                 var browser = new FolderBrowserDialog
                 {
@@ -500,7 +463,7 @@ namespace HUDEditor
             }
             catch (Exception error)
             {
-                ShowMessageBox(MessageBoxImage.Error, error.Message);
+                _notifier.ShowMessageBox(MessageBoxImage.Error, error.Message);
             }
         }
 
@@ -531,11 +494,11 @@ namespace HUDEditor
             {
                 if (!restartRequired.Result)
                 {
-                    ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
+                    _notifier.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
                     return;
                 }
 
-                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                if (_notifier.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 Json.Update(true);
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                 Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));

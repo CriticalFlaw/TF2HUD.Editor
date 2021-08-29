@@ -23,7 +23,7 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="name">Name of the HUD object.</param>
         /// <param name="schema">Contents of the HUD's schema file.</param>
-        public HUD(string name, HudJson schema, bool uniq)
+        public HUD(string name, HudJson schema, bool uniq, Notifier notifier)
         {
             // Basic Schema Properties.
             Name = schema.Name ?? name;
@@ -45,7 +45,7 @@ namespace HUDEditor.Classes
             LayoutOptions = schema.Layout;
             DirtyControls = new List<string>();
             Unique = uniq;
-
+            _notifier = notifier;
             if (schema.Screenshots is null) return;
             var index = 0;
             foreach (var screenshot in schema.Screenshots)
@@ -352,6 +352,7 @@ namespace HUDEditor.Classes
         public List<string> DirtyControls;
         public List<object> Screenshots { get; set; } = new();
         public bool Unique;
+        private readonly Notifier _notifier;
 
         #endregion
     }
