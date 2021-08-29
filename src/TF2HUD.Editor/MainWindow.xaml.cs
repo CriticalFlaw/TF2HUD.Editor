@@ -273,7 +273,11 @@ namespace HUDEditor
                     _hudDirectory.Setup(HudPath, true);
 
                 // Stop the process if Team Fortress 2 is still running.
-                if (Utilities.CheckIsGameRunning(_notifier)) return;
+                if (Utilities.IsGameRunning())
+                {
+                    _notifier.ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString(Properties.Resources.info_game_running));
+                    return;
+                }
 
                 var worker = new BackgroundWorker();
                 worker.DoWork += (_, _) =>
@@ -354,7 +358,11 @@ namespace HUDEditor
                 if (!CheckHudInstallation()) return;
 
                 // Stop the process if Team Fortress 2 is still running.
-                if (Utilities.CheckIsGameRunning(_notifier)) return;
+                if (Utilities.IsGameRunning())
+                {
+                    _notifier.ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString(Properties.Resources.info_game_running));
+                    return;
+                }
 
                 // Remove the HUD from the tf/custom directory.
                 Logger.Info($"Start uninstalling {HudSelection}.");
