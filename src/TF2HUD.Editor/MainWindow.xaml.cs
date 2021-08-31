@@ -536,7 +536,7 @@ namespace HUDEditor
         /// </summary>
         private void BtnReportIssue_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Settings.Default.app_tracker);
+            Utilities.OpenWebpage(Settings.Default?.app_tracker);
         }
 
         /// <summary>
@@ -544,7 +544,7 @@ namespace HUDEditor
         /// </summary>
         private void BtnDocumentation_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Settings.Default.app_docs);
+            Utilities.OpenWebpage(Settings.Default?.app_docs);
         }
 
         /// <summary>
@@ -572,22 +572,22 @@ namespace HUDEditor
 
         private void BtnGitHub_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Json.HighlightedHUD.GitHubUrl);
+            Utilities.OpenWebpage(Json?.HighlightedHUD?.GitHubUrl);
         }
 
         private void BtnHuds_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Json.HighlightedHUD.HudsTfUrl);
+            Utilities.OpenWebpage(Json?.HighlightedHUD?.HudsTfUrl);
         }
 
         private void BtnDiscord_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Json.HighlightedHUD.DiscordUrl);
+            Utilities.OpenWebpage(Json?.HighlightedHUD?.DiscordUrl);
         }
 
         private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Json.HighlightedHUD.SteamUrl);
+            Utilities.OpenWebpage(Json?.HighlightedHUD?.SteamUrl);
         }
 
         /// <summary>
