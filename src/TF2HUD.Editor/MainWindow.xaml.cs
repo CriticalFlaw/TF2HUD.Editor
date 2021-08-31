@@ -26,6 +26,7 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace HUDEditor
 {
+    public delegate void MainWindowDelegate();
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
@@ -46,7 +47,9 @@ namespace HUDEditor
             Logger.Info("Initializing.");
 
             // Get the list of HUD JSONs.
-            Json = new Json();
+            MainWindowDelegate enableSocialButtons = EnableSocialButtons;
+            MainWindowDelegate disableSocialButtons = DisableSocialButtons;
+            Json = new Json(enableSocialButtons, disableSocialButtons);
             InitializeComponent();
             DataContext = this;
 
@@ -217,6 +220,30 @@ namespace HUDEditor
             }
 
             return MessageBox.Show(message, string.Empty, buttons, type);
+        }
+
+        private void DisableSocialButtons()
+        {
+            if (BtnGitHub != null)
+                BtnGitHub.IsEnabled = false;
+            if (BtnHuds != null)
+                BtnHuds.IsEnabled = false;
+            if (BtnDiscord != null)
+                BtnDiscord.IsEnabled = false;
+            if (BtnSteam != null)
+                BtnSteam.IsEnabled = false;
+        }
+
+        private void EnableSocialButtons()
+        {
+            if (BtnGitHub != null)
+                BtnGitHub.IsEnabled = true;
+            if (BtnHuds != null)
+                BtnHuds.IsEnabled = true;
+            if (BtnDiscord != null)
+                BtnDiscord.IsEnabled = true;
+            if (BtnSteam != null)
+                BtnSteam.IsEnabled = true;
         }
 
         /// <summary>

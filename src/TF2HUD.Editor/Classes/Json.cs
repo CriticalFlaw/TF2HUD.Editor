@@ -30,8 +30,14 @@ namespace HUDEditor.Classes
         // HUDs to manage
         public HUD[] HUDList;
 
-        public Json()
+        private readonly MainWindowDelegate _selectedHudSet;
+        private readonly MainWindowDelegate _selectedHudCleared;
+
+        public Json(MainWindowDelegate selectedHudSet, MainWindowDelegate selectedHudCleared)
         {
+            _selectedHudSet = selectedHudSet;
+            _selectedHudCleared = selectedHudCleared;
+
             var hudList = new List<HUD>();
             foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
             {
@@ -96,6 +102,10 @@ namespace HUDEditor.Classes
                 _highlightedHud = value;
                 OnPropertyChanged("HighlightedHUD");
                 OnPropertyChanged("HighlightedHUDInstalled");
+                if (_highlightedHud != null)
+                    _selectedHudSet();
+                else
+                    _selectedHudCleared();
             }
         }
 
