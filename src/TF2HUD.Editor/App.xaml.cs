@@ -30,6 +30,7 @@ namespace HUDEditor
         private void ConfigureServices(ServiceCollection services)
         {
             ConfigureLogging(services);
+            services.AddSingleton<IMessageBox, WindowsMessageBox>();
             services.AddSingleton<Utilities>();
             services.AddSingleton<Notifier>();
             services.AddSingleton<HudDirectory>();

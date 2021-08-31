@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HUDEditor", "TF2HUD.Editor\HUDEditor.csproj", "{D82ECF48-16F4-4FA6-BDF9-4CFD78FB24DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HUDEditor.Tests", "HUDEditor.Tests\HUDEditor.Tests.csproj", "{445A0C1A-E4CC-479B-8C08-C201E0833084}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D82ECF48-16F4-4FA6-BDF9-4CFD78FB24DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D82ECF48-16F4-4FA6-BDF9-4CFD78FB24DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D82ECF48-16F4-4FA6-BDF9-4CFD78FB24DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{445A0C1A-E4CC-479B-8C08-C201E0833084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{445A0C1A-E4CC-479B-8C08-C201E0833084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{445A0C1A-E4CC-479B-8C08-C201E0833084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{445A0C1A-E4CC-479B-8C08-C201E0833084}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

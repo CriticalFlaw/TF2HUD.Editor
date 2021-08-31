@@ -10,10 +10,12 @@ namespace HUDEditor.Classes
 {
     public class Notifier
     {
+        private readonly IMessageBox _messageBox;
         private readonly ILog _logger;
 
-        public Notifier(ILog logger)
+        public Notifier(IMessageBox messageBox, ILog logger)
         {
+            _messageBox = messageBox;
             _logger = logger;
         }
 
@@ -23,7 +25,7 @@ namespace HUDEditor.Classes
         public MessageBoxResult ShowMessageBox(MessageBoxImage type, string message, MessageBoxButton buttons = MessageBoxButton.OK)
         {
             LogMessage(type, message);
-            return MessageBox.Show(message, string.Empty, buttons, type);
+            return _messageBox.Show(message, string.Empty, buttons, type);
         }
 
         private void LogMessage(MessageBoxImage type, string message)
