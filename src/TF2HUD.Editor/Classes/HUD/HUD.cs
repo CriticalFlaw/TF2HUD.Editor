@@ -5,9 +5,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using HUDEditor.Models;
+using log4net;
 using Newtonsoft.Json.Linq;
 using Xceed.Wpf.Toolkit;
-using static HUDEditor.MainWindow;
 
 namespace HUDEditor.Classes
 {
@@ -23,11 +23,11 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="name">Name of the HUD object.</param>
         /// <param name="schema">Contents of the HUD's schema file.</param>
-        public HUD(string name, HudJson schema, bool uniq, Notifier notifier)
+        public HUD(string name, HudJson schema, bool uniq, ILog logger, Utilities utilities, Notifier notifier)
         {
             // Basic Schema Properties.
             Name = schema.Name ?? name;
-            Settings = new HUDSettings(Name);
+            Settings = new HUDSettings(Name, logger);
             Opacity = schema.Opacity;
             Maximize = schema.Maximize;
             Thumbnail = schema.Thumbnail;
@@ -45,6 +45,8 @@ namespace HUDEditor.Classes
             LayoutOptions = schema.Layout;
             DirtyControls = new List<string>();
             Unique = uniq;
+            _logger = logger;
+            _utilities = utilities;
             _notifier = notifier;
             if (schema.Screenshots is null) return;
             var index = 0;
@@ -67,7 +69,7 @@ namespace HUDEditor.Classes
         /// </summary>
         public void Update()
         {
-            if (UpdateUrl is not null) Utilities.DownloadHud(UpdateUrl);
+            if (UpdateUrl is not null) _utilities.DownloadHud(UpdateUrl);
         }
 
         /// <summary>
@@ -80,7 +82,7 @@ namespace HUDEditor.Classes
             void LogChange(string prop, string before = "", string after = "")
             {
                 var message = !string.IsNullOrWhiteSpace(before) ? $" (\"{before}\" => \"{after}\")" : string.Empty;
-                Logger.Info($"{Name}: {prop} has changed{message}, HUD has been updated.");
+                _logger.Info($"{Name}: {prop} has changed{message}, HUD has been updated.");
             }
 
             bool Compare(object obj1, object obj2, string[] ignoreList)
@@ -259,7 +261,7 @@ namespace HUDEditor.Classes
                 "Settings"
             });
 
-            if (equal) Logger.Info($"{Name}: no fields changed, HUD has not been updated.");
+            if (equal) _logger.Info($"{Name}: no fields changed, HUD has not been updated.");
 
             return equal;
         }
@@ -295,18 +297,18 @@ namespace HUDEditor.Classes
                     case CheckBox check:
                         if (bool.TryParse(control.Value, out var value))
                             check.IsChecked = value;
-                        Logger.Info($"Reset {control.Name} to {value}");
+                        _logger.Info($"Reset {control.Name} to {value}");
                         break;
 
                     case TextBox text:
                         text.Text = control.Value;
-                        Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                        _logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                         break;
 
                     case ColorPicker color:
                         var colors = Array.ConvertAll(control.Value.Split(' '), byte.Parse);
                         color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
-                        Logger.Info($"Reset {control.Name} to {color.SelectedColor}");
+                        _logger.Info($"Reset {control.Name} to {color.SelectedColor}");
                         break;
 
                     case ComboBox combo:
@@ -314,7 +316,7 @@ namespace HUDEditor.Classes
                             combo.SelectedValue = control.Value;
                         else
                             combo.SelectedIndex = int.Parse(control.Value);
-                        Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                        _logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                         break;
 
                     case IntegerUpDown integer:
@@ -324,7 +326,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                Logger.Error(e.Message);
+                _logger.Error(e.Message);
                 Console.WriteLine(e);
                 throw;
             }
@@ -352,6 +354,8 @@ namespace HUDEditor.Classes
         public List<string> DirtyControls;
         public List<object> Screenshots { get; set; } = new();
         public bool Unique;
+        private readonly ILog _logger;
+        private readonly Utilities _utilities;
         private readonly Notifier _notifier;
 
         #endregion

@@ -7,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using HUDEditor;
 using HUDEditor.Classes;
+using log4net;
 
 namespace TF2HUDEditor.Classes
 {
@@ -120,6 +121,15 @@ namespace TF2HUDEditor.Classes
 
     public class BtnInstallContentConverter : IValueConverter
     {
+        private readonly ILog _logger;
+        private readonly Utilities _utilities;
+
+        public BtnInstallContentConverter()
+        {
+            _logger = LogManager.GetLogger(GetType());
+            _utilities = new Utilities(_logger);
+        }
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var hud = (HUD)value;
@@ -127,16 +137,16 @@ namespace TF2HUDEditor.Classes
             {
                 if (Directory.Exists($"{MainWindow.HudPath}\\{hud.Name}"))
                 {
-                    MainWindow.Logger.Info($"[BtnInstallContentConverter] {hud.Name} is installed");
-                    return Utilities.GetLocalizedString("ui_reinstall") ?? "Reinstall";
+                    _logger.Info($"[BtnInstallContentConverter] {hud.Name} is installed");
+                    return _utilities.GetLocalizedString("ui_reinstall") ?? "Reinstall";
                 }
 
-                MainWindow.Logger.Info($"[BtnInstallContentConverter] {hud.Name} is not installed");
-                return Utilities.GetLocalizedString("ui_install") ?? "Install";
+                _logger.Info($"[BtnInstallContentConverter] {hud.Name} is not installed");
+                return _utilities.GetLocalizedString("ui_install") ?? "Install";
             }
 
-            MainWindow.Logger.Info("[BtnInstallContentConverter] Highlighted HUD is null");
-            return Utilities.GetLocalizedString("ui_install") ?? "Install";
+            _logger.Info("[BtnInstallContentConverter] Highlighted HUD is null");
+            return _utilities.GetLocalizedString("ui_install") ?? "Install";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

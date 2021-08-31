@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using HUDEditor.Models;
+using log4net;
 using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
@@ -32,11 +33,12 @@ namespace HUDEditor.Classes
         private HUDSettingsPreset _Preset;
 
         public string HUDName;
+        private readonly ILog _logger;
 
-        public HUDSettings(string name)
+        public HUDSettings(string name, ILog logger)
         {
             HUDName = name;
-
+            _logger = logger;
             if (!Presets.ContainsKey(name)) Preset = HUDSettingsPreset.A;
         }
 
@@ -117,7 +119,7 @@ namespace HUDEditor.Classes
                 Settings = UserSettings
             };
             File.WriteAllText(UserFile, JsonConvert.SerializeObject(settings, Formatting.Indented));
-            MainWindow.Logger.Info($"Saved user settings to: {UserFile}");
+            _logger.Info($"Saved user settings to: {UserFile}");
         }
     }
 }

@@ -13,11 +13,13 @@ namespace HUDEditor.Classes
     public class HudDirectory
     {
         private readonly ILog _logger;
+        private readonly Utilities _utilities;
         private readonly Notifier _notifier;
 
-        public HudDirectory(ILog logger, Notifier notifier)
+        public HudDirectory(ILog logger, Utilities utilities, Notifier notifier)
         {
             _logger = logger;
+            _utilities = utilities;
             _notifier = notifier;
         }
 
@@ -42,7 +44,7 @@ namespace HUDEditor.Classes
         
         private bool AlreadySetup(string currentHudPath)
         {
-            return Utilities.CheckUserPath(currentHudPath) || Utilities.SearchRegistry();
+            return _utilities.CheckUserPath(currentHudPath) || _utilities.SearchRegistry();
         }
 
         private void SetupWithFolderBrowser()
@@ -100,15 +102,15 @@ namespace HUDEditor.Classes
             _logger.Info($"tf/custom directory is set to: {Settings.Default.hud_directory}");
         }
 
-        private static bool NotSetup(string currentHudPath)
+        private bool NotSetup(string currentHudPath)
         {
-            return !Utilities.CheckUserPath(currentHudPath);
+            return !_utilities.CheckUserPath(currentHudPath);
         }
 
         private void QuitApplication()
         {
             _logger.Info("tf/custom directory still not set. Exiting...");
-            _notifier.ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString(Properties.Resources.error_app_directory));
+            _notifier.ShowMessageBox(MessageBoxImage.Warning, _utilities.GetLocalizedString(Properties.Resources.error_app_directory));
             System.Windows.Application.Current.Shutdown();
         }
     }

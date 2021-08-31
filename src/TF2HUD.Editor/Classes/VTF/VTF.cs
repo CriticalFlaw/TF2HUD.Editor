@@ -1,3 +1,4 @@
+using log4net;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -8,10 +9,12 @@ namespace HUDEditor.Classes
     internal class VTF
     {
         private readonly string _tf2Path;
+        private readonly ILog _logger;
 
-        public VTF(string path)
+        public VTF(string path, ILog logger)
         {
             _tf2Path = path.Replace("\\tf\\custom", string.Empty);
+            _logger = logger;
         }
 
         /// <summary>
@@ -112,7 +115,7 @@ namespace HUDEditor.Classes
             };
             var process = Process.Start(processInfo);
             while (!process.StandardOutput.EndOfStream)
-                MainWindow.Logger.Info($"[VTEX] {process.StandardOutput.ReadLine()}");
+                _logger.Info($"[VTEX] {process.StandardOutput.ReadLine()}");
             process?.WaitForExit();
             process?.Close();
         }

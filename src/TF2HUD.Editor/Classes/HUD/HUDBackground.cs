@@ -1,3 +1,4 @@
+using log4net;
 using System;
 using System.IO;
 using System.Windows;
@@ -19,6 +20,7 @@ namespace HUDEditor.Classes
     internal class HUDBackground
     {
         private readonly string HUDFolderPath;
+        private readonly ILog _logger;
         private readonly Notifier _notifier;
         private string customImagePath;
         private string HUDImagePath;
@@ -26,21 +28,22 @@ namespace HUDEditor.Classes
         private bool useHUDBackground;
         private bool useStockBackgrounds;
 
-        public HUDBackground(string hudPath, Notifier notifier)
+        public HUDBackground(string hudPath, ILog logger, Notifier notifier)
         {
             HUDFolderPath = hudPath;
+            _logger = logger;
             _notifier = notifier;
         }
 
         public void SetStockBackgrounds(bool enable)
         {
-            MainWindow.Logger.Info("Changing HUD background to: stock.");
+            _logger.Info("Changing HUD background to: stock.");
             useStockBackgrounds = enable;
         }
 
         public void SetHUDBackground(string imagePath)
         {
-            MainWindow.Logger.Info($"Changing HUD background to: {imagePath}");
+            _logger.Info($"Changing HUD background to: {imagePath}");
             useHUDBackground = true;
             HUDImagePath = imagePath;
         }
@@ -48,7 +51,7 @@ namespace HUDEditor.Classes
         public void SetCustomBackground(string imagePath)
         {
             if (imagePath == "") return;
-            MainWindow.Logger.Info($"Setting custom background to: {imagePath}");
+            _logger.Info($"Setting custom background to: {imagePath}");
             useCustomBackground = true;
             customImagePath = imagePath;
         }
@@ -69,24 +72,24 @@ namespace HUDEditor.Classes
                 if (useCustomBackground && !string.IsNullOrWhiteSpace(customImagePath))
                 {
                     // Check that the supplied image path is valid
-                    MainWindow.Logger.Info($"Validating image path: {customImagePath}");
+                    _logger.Info($"Validating image path: {customImagePath}");
                     if (!Uri.TryCreate(customImagePath, UriKind.Absolute, out _)) return;
 
                     // Move all existing files to the disabled folder.
                     foreach (var filePath in Directory.GetFiles(consoleFolder))
                     {
-                        MainWindow.Logger.Info($"Moving {filePath} to {disabledFolder}");
+                        _logger.Info($"Moving {filePath} to {disabledFolder}");
                         File.Move(filePath, $"{disabledFolder}\\{filePath.Split("\\")[^1]}", true);
                     }
 
                     // Convert the provided image into a VTF format.
-                    var converter = new VTF(MainWindow.HudPath.Replace("\\tf\\custom\\", string.Empty));
+                    var converter = new VTF(MainWindow.HudPath.Replace("\\tf\\custom\\", string.Empty), _logger);
                     var output = $"{consoleFolder}\\background_upward.vtf";
-                    MainWindow.Logger.Info($"Converting image to VTF: {output}");
+                    _logger.Info($"Converting image to VTF: {output}");
                     converter.Convert(customImagePath, output);
 
                     // Copy the generated file to the backgrounds folder.
-                    MainWindow.Logger.Info($"Copying {output} to {HUDFolderPath}");
+                    _logger.Info($"Copying {output} to {HUDFolderPath}");
                     File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
                     File.Copy("Resources\\chapterbackgrounds.txt", $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt", true);
                 }
@@ -97,17 +100,17 @@ namespace HUDEditor.Classes
                         // Copy enabled background to console folder
                         if (File.Exists($"{disabledFolder}\\{HUDImagePath}.vtf"))
                         {
-                            MainWindow.Logger.Info($"Copying {disabledFolder}\\{HUDImagePath} to {consoleFolder}");
+                            _logger.Info($"Copying {disabledFolder}\\{HUDImagePath} to {consoleFolder}");
                             File.Copy($"{disabledFolder}\\{HUDImagePath}.vtf", $"{consoleFolder}\\background_upward.vtf", true);
                         }
 
                         if (File.Exists($"{disabledFolder}\\{HUDImagePath}_widescreen.vtf"))
                         {
-                            MainWindow.Logger.Info($"Copying {disabledFolder}\\{HUDImagePath} to {consoleFolder}");
+                            _logger.Info($"Copying {disabledFolder}\\{HUDImagePath} to {consoleFolder}");
                             File.Copy($"{disabledFolder}\\{HUDImagePath}.vtf", $"{consoleFolder}\\background_upward_widescreen.vtf", true);
                         }
 
-                        MainWindow.Logger.Info($"Copying chapterbackgrounds.txt to {HUDFolderPath}\\scripts");
+                        _logger.Info($"Copying chapterbackgrounds.txt to {HUDFolderPath}\\scripts");
                         File.Copy("Resources\\chapterbackgrounds.txt", $"{HUDFolderPath}\\scripts\\chapterbackgrounds.txt", true);
                     }
                     else if (useStockBackgrounds)
@@ -115,12 +118,12 @@ namespace HUDEditor.Classes
                         foreach (var filePath in Directory.GetFiles(consoleFolder))
                             if (filePath.EndsWith(".vtf"))
                             {
-                                MainWindow.Logger.Info($"Disabling {filePath} (.VTF => .BAK)");
+                                _logger.Info($"Disabling {filePath} (.VTF => .BAK)");
                                 File.Move(filePath, filePath.Replace(".vtf", ".bak"), true);
                             }
                             else if (filePath.EndsWith(".vmt"))
                             {
-                                MainWindow.Logger.Info($"Disabling {filePath} (.VMT => .TEMP)");
+                                _logger.Info($"Disabling {filePath} (.VMT => .TEMP)");
                                 File.Move(filePath, filePath.Replace(".vmt", ".temp"), true);
                             }
                     }
@@ -130,7 +133,7 @@ namespace HUDEditor.Classes
                         if (!Directory.Exists(disabledFolder)) return;
                         foreach (var filePath in Directory.GetFiles(disabledFolder))
                         {
-                            MainWindow.Logger.Info($"Copying {filePath} to {consoleFolder}");
+                            _logger.Info($"Copying {filePath} to {consoleFolder}");
                             File.Move(filePath, $"{consoleFolder}\\{filePath.Split("\\")[^1]}", true);
                         }
 
@@ -139,12 +142,12 @@ namespace HUDEditor.Classes
                         foreach (var filePath in Directory.GetFiles(consoleFolder))
                             if (filePath.EndsWith(".bak"))
                             {
-                                MainWindow.Logger.Info($"Enabling {filePath} (.BAK => .VTF)");
+                                _logger.Info($"Enabling {filePath} (.BAK => .VTF)");
                                 File.Move(filePath, filePath.Replace(".bak", ".vtf"), true);
                             }
                             else if (filePath.EndsWith(".temp"))
                             {
-                                MainWindow.Logger.Info($"Enabling {filePath} (.TEMP => .VMT)");
+                                _logger.Info($"Enabling {filePath} (.TEMP => .VMT)");
                                 File.Move(filePath, filePath.Replace(".temp", ".vmt"), true);
                             }
                     }

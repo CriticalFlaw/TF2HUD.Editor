@@ -24,7 +24,7 @@ namespace HUDEditor.Classes
                 // HUD Background Image.
                 // Set the HUD Background image path when applying, because it's possible
                 // the user did not have their tf/custom folder set up when this HUD constructor was called.
-                HudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\", _notifier);
+                HudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\", _logger, _notifier);
 
                 var hudSettings = ControlOptions.Values;
                 // var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json")).Controls.Values;
@@ -45,7 +45,7 @@ namespace HUDEditor.Classes
                     WriteToFile(control, setting, hudFolders);
                 }
 
-                static void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
+                void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
                 {
                     foreach (var property in folder.Keys)
                         if (folder[property].GetType() == typeof(Dictionary<string, dynamic>))
@@ -88,13 +88,13 @@ namespace HUDEditor.Classes
 
                                     if (hudContainer is not null)
                                     {
-                                        Utilities.Merge(obj, hudContainer);
+                                        _utilities.Merge(obj, hudContainer);
                                         File.WriteAllText(filePath, VDF.Stringify(obj));
                                     }
                                     else
                                     {
                                         // Write folder[property] to hud file
-                                        Utilities.Merge(obj, folder[property]);
+                                        _utilities.Merge(obj, folder[property]);
                                         File.WriteAllText(filePath, VDF.Stringify(obj));
                                     }
                                 }
@@ -118,7 +118,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e.Message);
+                _logger.Error(e.Message);
                 Console.WriteLine(e);
                 return false;
             }
@@ -178,7 +178,7 @@ namespace HUDEditor.Classes
                                 }
                             }
 
-                            var fileName = Utilities.GetFileNames(control);
+                            var fileName = _utilities.GetFileNames(control);
                             if (fileName is null or not string) continue; // File name not found, skipping.
 
                             custom += $"\\{fileName}";
@@ -226,7 +226,7 @@ namespace HUDEditor.Classes
                                         File.Move(path + option.RenameFile.OldName, path + option.RenameFile.NewName);
                                 }
 
-                            var fileNames = Utilities.GetFileNames(control);
+                            var fileNames = _utilities.GetFileNames(control);
                             if (fileNames is null or not string[]) continue; // File names not found, skipping.
 
                             // Move every file assigned to this control back to the customization folder first.
@@ -260,7 +260,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e.Message);
+                _logger.Error(e.Message);
                 Console.WriteLine(e);
                 return false;
             }
@@ -276,7 +276,7 @@ namespace HUDEditor.Classes
         {
             try
             {
-                MainWindow.Logger.Info($"Applying: {userSetting.Name}");
+                _logger.Info($"Applying: {userSetting.Name}");
                 var (files, special, specialParameters) = GetControlInfo(hudSetting, userSetting);
 
                 string EvaluateValue(string input)
@@ -347,7 +347,7 @@ namespace HUDEditor.Classes
                                 replace = values[0].ToString();
                             }
 
-                            MainWindow.Logger.Info($"Replace value \"{find}\" with \"{replace}\".");
+                            _logger.Info($"Replace value \"{find}\" with \"{replace}\".");
                             File.WriteAllText(absolutePath, File.ReadAllText(absolutePath).Replace(find, replace));
                         }
                         else if (string.Equals(property.Key, "#base", StringComparison.OrdinalIgnoreCase))
@@ -370,11 +370,11 @@ namespace HUDEditor.Classes
                             if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
                             {
                                 hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()];
-                                MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
+                                _logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
                             }
                             else
                             {
-                                MainWindow.Logger.Info(property.Key);
+                                _logger.Info(property.Key);
                                 var newhudElementRef = hudElementRef.ContainsKey(property.Key)
                                     ? (Dictionary<string, dynamic>)hudElementRef[property.Key]
                                     : new Dictionary<string, dynamic>();
@@ -392,31 +392,31 @@ namespace HUDEditor.Classes
                                 if (hudSetting.Pulse)
                                 {
                                     var pulseKey = property.Key + "Pulse";
-                                    hudElement[pulseKey] = Utilities.GetPulsedColor(userSetting.Value);
+                                    hudElement[pulseKey] = _utilities.GetPulsedColor(userSetting.Value);
                                 }
                                 // If the color is supposed to have a pulse, set the pulse value in the schema.
                                 else if (hudSetting.Shadow)
                                 {
                                     var pulseKey = property.Key + "Shadow";
-                                    hudElement[pulseKey] = Utilities.GetShadowColor(userSetting.Value);
+                                    hudElement[pulseKey] = _utilities.GetShadowColor(userSetting.Value);
                                 }
 
                                 // If the color value is for an item rarity, update the dimmed and grayed values.
-                                foreach (var (item1, item2, item3) in Utilities.ItemRarities)
+                                foreach (var (item1, item2, item3) in _utilities.ItemRarities)
                                 {
                                     if (!string.Equals(property.Key, item1)) continue;
-                                    hudElement[item2] = Utilities.GetDimmedColor(userSetting.Value);
-                                    hudElement[item3] = Utilities.GetGrayedColor(userSetting.Value);
+                                    hudElement[item2] = _utilities.GetDimmedColor(userSetting.Value);
+                                    hudElement[item3] = _utilities.GetGrayedColor(userSetting.Value);
                                 }
                             }
 
                             // Check for already existing keys and warn user
                             if (hudElementRef.ContainsKey(property.Key))
-                                MainWindow.Logger.Warn(
+                                _logger.Warn(
                                     $"{relativePath} => {objectPath} already contains key {property.Key}!");
 
                             hudElement[property.Key] = EvaluateValue(property.Value.ToString());
-                            MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
+                            _logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
                         }
 
                     return hudElement;
@@ -520,7 +520,7 @@ namespace HUDEditor.Classes
                     // the majority of the animation customisations are for enabling/disabling
                     // events, which use the 'replace' keyword
                     Dictionary<string, List<HUDAnimation>> animations = null;
-                    MainWindow.Logger.Info($"Processing: {filePath}");
+                    _logger.Info($"Processing: {filePath}");
 
                     foreach (var animationOption in animationOptions)
                         switch (animationOption.Key.ToLowerInvariant())
@@ -564,18 +564,18 @@ namespace HUDEditor.Classes
                                 {
                                     var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
-                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
+                                    foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
                                         lines[index] = valid
-                                            ? Utilities.CommentTextLine(lines, index)
-                                            : Utilities.UncommentTextLine(lines, index);
+                                            ? _utilities.CommentTextLine(lines, index)
+                                            : _utilities.UncommentTextLine(lines, index);
                                     File.WriteAllLines(filePath, lines);
                                 }
                                 else if (int.TryParse(userSetting.Value, out _))
                                 {
                                     var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
-                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
-                                        lines[index] = Utilities.CommentTextLine(lines, index);
+                                    foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
+                                        lines[index] = _utilities.CommentTextLine(lines, index);
                                     File.WriteAllLines(filePath, lines);
                                 }
 
@@ -595,18 +595,18 @@ namespace HUDEditor.Classes
                                 {
                                     var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
-                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
+                                    foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
                                         lines[index] = valid
-                                            ? Utilities.UncommentTextLine(lines, index)
-                                            : Utilities.CommentTextLine(lines, index);
+                                            ? _utilities.UncommentTextLine(lines, index)
+                                            : _utilities.CommentTextLine(lines, index);
                                     File.WriteAllLines(filePath, lines);
                                 }
                                 else if (int.TryParse(userSetting.Value, out _))
                                 {
                                     var lines = File.ReadAllLines(filePath);
                                     foreach (string value in values)
-                                    foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
-                                        lines[index] = Utilities.UncommentTextLine(lines, index);
+                                    foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
+                                        lines[index] = _utilities.UncommentTextLine(lines, index);
                                     File.WriteAllLines(filePath, lines);
                                 }
 
@@ -698,10 +698,10 @@ namespace HUDEditor.Classes
 
                     if (resFileExtensions.Contains(extension))
                     {
-                        var hudFile = Utilities.CreateNestedObject(hudFolders, relativePath.Split('/'));
-                        MainWindow.Logger.Info($"Go to => {relativePath}");
+                        var hudFile = _utilities.CreateNestedObject(hudFolders, relativePath.Split('/'));
+                        _logger.Info($"Go to => {relativePath}");
 
-                        Utilities.Merge(hudFile, CompileHudElement(filePath.Value?.ToObject<JObject>(),
+                        _utilities.Merge(hudFile, CompileHudElement(filePath.Value?.ToObject<JObject>(),
                             absolutePath, relativePath, hudFile, ""));
                     }
                     else if (string.Equals(extension, "txt"))
@@ -711,13 +711,13 @@ namespace HUDEditor.Classes
                     }
                     else
                     {
-                        _notifier.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
+                        _notifier.ShowMessageBox(MessageBoxImage.Error, string.Format(_utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
                     }
                 }
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e.Message);
+                _logger.Error(e.Message);
                 Console.WriteLine(e);
             }
         }
@@ -758,7 +758,7 @@ namespace HUDEditor.Classes
             {
                 // Copy the config file required for this feature
                 if (!enable || Process.GetProcessesByName("hl2").Any()) return true;
-                MainWindow.Logger.Info(
+                _logger.Info(
                     $"Copying mastercomfig-transparent-viewmodels-addon.vpk to {MainWindow.HudPath}");
                 File.Copy(
                     Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk",
@@ -767,7 +767,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                _notifier.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_transparent_vm), e.Message));
+                _notifier.ShowMessageBox(MessageBoxImage.Error, string.Format(_utilities.GetLocalizedString(Resources.error_transparent_vm), e.Message));
                 return false;
             }
         }

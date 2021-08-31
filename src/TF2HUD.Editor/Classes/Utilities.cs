@@ -11,14 +11,20 @@ using System.Threading.Tasks;
 using System.Windows;
 using HUDEditor.Models;
 using HUDEditor.Properties;
+using log4net;
 using Microsoft.Win32;
 using WPFLocalizeExtension.Deprecated.Extensions;
 
 namespace HUDEditor.Classes
 {
-    public static class Utilities
+    public class Utilities
     {
-        public static List<Tuple<string, string, string>> ItemRarities = new()
+        public Utilities(ILog logger)
+        {
+            _logger = logger;
+        }
+
+        public List<Tuple<string, string, string>> ItemRarities = new()
         {
             new Tuple<string, string, string>("QualityColorNormal", "DimmQualityColorNormal",
                 "QualityColorNormal_GreyedOut"),
@@ -52,22 +58,23 @@ namespace HUDEditor.Classes
                 "ItemRarityAncient_GreyedOut")
         };
 
-        public static List<string> CrosshairStyles = new()
+        public List<string> CrosshairStyles = new()
         {
             "!", "#", "$", "%", "'", "(", ")", "*", "+", ",", ".", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":",
             ";", "=", "<", ">", "?", "@", "|", "}", "`", "_", "^", "]", "[", "A", "B", "C", "D", "E", "F", "G", "H",
             "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c",
             "d", "e", "f", "g", "h", "i", "j", "k", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
         };
+        private readonly ILog _logger;
 
         /// <summary>
         ///     Add a comment tag (//) to the beginning of a text line.
         /// </summary>
         /// <param name="lines">Text lines from a file to process.</param>
         /// <param name="index">Line number to which to add a comment tag.</param>
-        public static string CommentTextLine(string[] lines, int index)
+        public string CommentTextLine(string[] lines, int index)
         {
-            MainWindow.Logger.Info($"Commenting line: {index}");
+            _logger.Info($"Commenting line: {index}");
             return string.Concat("//", lines[index].Replace("//", string.Empty));
         }
 
@@ -76,9 +83,9 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="lines">Text lines from a file to process.</param>
         /// <param name="index">Line number from which to remove a comment tag.</param>
-        public static string UncommentTextLine(string[] lines, int index)
+        public string UncommentTextLine(string[] lines, int index)
         {
-            MainWindow.Logger.Info($"Uncommenting line: {index}");
+            _logger.Info($"Uncommenting line: {index}");
             return lines[index].Replace("//", string.Empty);
         }
 
@@ -87,7 +94,7 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="lines">An array of lines to loop through.</param>
         /// <param name="value">String value to look for in the list of lines.</param>
-        public static List<int> GetLineNumbersContainingString(string[] lines, string value)
+        public List<int> GetLineNumbersContainingString(string[] lines, string value)
         {
             // Loop through each line in the array, add any line number containing the value parameter to the list.
             var indexList = new List<int>();
@@ -101,10 +108,10 @@ namespace HUDEditor.Classes
         ///     Convert a HEX color code to RGBA.
         /// </summary>
         /// <param name="hex">HEX color code to be convert to RGBA.</param>
-        public static string ConvertToRgba(string hex)
+        public string ConvertToRgba(string hex)
         {
             var color = ColorTranslator.FromHtml(hex);
-            MainWindow.Logger.Info($"Converting {hex} to {color}.");
+            _logger.Info($"Converting {hex} to {color}.");
             return $"{color.R} {color.G} {color.B} {color.A}";
         }
 
@@ -112,7 +119,7 @@ namespace HUDEditor.Classes
         ///     Get a pulsed color by reducing a color channel value by 50.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>
-        public static string GetPulsedColor(string rgba)
+        public string GetPulsedColor(string rgba)
         {
             // Apply the pulse change and return the color.
             var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
@@ -124,7 +131,7 @@ namespace HUDEditor.Classes
         ///     Get a darkened color by reducing each color channel by 40%.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>
-        public static string GetShadowColor(string rgba)
+        public string GetShadowColor(string rgba)
         {
             // Reduce each color channel (except alpha) by 40%, then return the color.
             var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
@@ -137,7 +144,7 @@ namespace HUDEditor.Classes
         ///     Get a dimmed color by setting the alpha channel to 100.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>
-        public static string GetDimmedColor(string rgba)
+        public string GetDimmedColor(string rgba)
         {
             // Return the color with a reduced alpha channel.
             var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
@@ -148,7 +155,7 @@ namespace HUDEditor.Classes
         ///     Get a grayed color by reducing each color channel by 75%.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>
-        public static string GetGrayedColor(string rgba)
+        public string GetGrayedColor(string rgba)
         {
             // Reduce each color channel (except alpha) by 75%, then return the color.
             var colors = Array.ConvertAll(rgba.Split(' '), int.Parse);
@@ -161,10 +168,10 @@ namespace HUDEditor.Classes
         ///     Open the provided path in browser or Windows Explorer.
         /// </summary>
         /// <param name="url">URL link to open.</param>
-        public static void OpenWebpage(string url)
+        public void OpenWebpage(string url)
         {
             if (string.IsNullOrWhiteSpace(url)) return;
-            MainWindow.Logger.Info($"Opening URL: {url}");
+            _logger.Info($"Opening URL: {url}");
             Process.Start("explorer", url);
         }
 
@@ -172,7 +179,7 @@ namespace HUDEditor.Classes
         ///     Get the filename from the HUD schema control using a string value.
         /// </summary>
         /// <param name="control">Schema control to retrieve file names from.</param>
-        internal static dynamic GetFileNames(Controls control)
+        internal dynamic GetFileNames(Controls control)
         {
             if (!string.IsNullOrWhiteSpace(control.FileName))
                 return control.FileName.Replace(".res", string.Empty);
@@ -183,9 +190,9 @@ namespace HUDEditor.Classes
         ///     Download the HUD using the provided URL.
         /// </summary>
         /// <param name="url">URL from which to download the HUD.</param>
-        public static void DownloadHud(string url)
+        public void DownloadHud(string url)
         {
-            MainWindow.Logger.Info($"Downloading from: {url}");
+            _logger.Info($"Downloading from: {url}");
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
@@ -198,7 +205,7 @@ namespace HUDEditor.Classes
         ///     Check if Team Fortress 2 is currently running.
         /// </summary>
         /// <returns>False if there's no active process named hl2, otherwise true.</returns>
-        public static bool IsGameRunning()
+        public bool IsGameRunning()
         {
             return Process.GetProcessesByName("hl2").Any();
         }
@@ -207,7 +214,7 @@ namespace HUDEditor.Classes
         ///     Search registry for the Team Fortress 2 installation directory.
         /// </summary>
         /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
-        public static bool SearchRegistry()
+        public bool SearchRegistry()
         {
             // Try to find the Steam library path in the registry.
             var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
@@ -219,7 +226,7 @@ namespace HUDEditor.Classes
             registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
 
             if (!Directory.Exists(registry)) return false;
-            MainWindow.Logger.Info("tf/custom directory found in the registry: " + registry);
+            _logger.Info("tf/custom directory found in the registry: " + registry);
             Settings.Default.hud_directory = registry;
             Settings.Default.Save();
             return true;
@@ -229,7 +236,7 @@ namespace HUDEditor.Classes
         ///     Check if the set tf/custom directory is valid.
         /// </summary>
         /// <returns>True if the set tf/custom directory is valid.</returns>
-        public static bool CheckUserPath(string hudPath)
+        public bool CheckUserPath(string hudPath)
         {
             return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf\\custom");
         }
@@ -237,7 +244,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Get a localized string from the resource file.
         /// </summary>
-        public static string GetLocalizedString(string key)
+        public string GetLocalizedString(string key)
         {
             _ = new LocTextExtension(key).ResolveLocalizedValue(out string uiString);
             return uiString;
@@ -249,7 +256,7 @@ namespace HUDEditor.Classes
         /// <remarks>
         ///     If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores.
         /// </remarks>
-        public static string EncodeID(string id)
+        public string EncodeID(string id)
         {
             // If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores
             return $"{(Regex.IsMatch(id[0].ToString(), "\\d") ? "_" : "")}{string.Join('_', Regex.Split(id, "[- ]"))}";
@@ -260,7 +267,7 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="object1"></param>
         /// <param name="object2"></param>
-        public static void Merge(Dictionary<string, dynamic> object1, Dictionary<string, dynamic> object2)
+        public void Merge(Dictionary<string, dynamic> object1, Dictionary<string, dynamic> object2)
         {
             try
             {
@@ -281,13 +288,13 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e);
+                _logger.Error(e);
                 Console.WriteLine(e);
                 throw;
             }
         }
 
-        public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj, IEnumerable<string> keys)
+        public Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj, IEnumerable<string> keys)
         {
             try
             {
@@ -303,13 +310,13 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e);
+                _logger.Error(e);
                 Console.WriteLine(e);
                 throw;
             }
         }
 
-        public static async Task<string> Fetch(string url)
+        public async Task<string> Fetch(string url)
         {
             var response = await new HttpClient().GetAsync(url);
             return response.IsSuccessStatusCode ? response.Content.ReadAsStringAsync().Result : null;
