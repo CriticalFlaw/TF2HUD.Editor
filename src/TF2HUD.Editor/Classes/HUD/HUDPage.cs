@@ -497,7 +497,7 @@ namespace HUDEditor.Classes
                             };
 
                             // Add items to the ComboBox.
-                            foreach (var item in _utilities.CrosshairStyles.Select(option => new ComboBoxItem
+                            foreach (var item in _utilities.CrosshairStyles().Select(option => new ComboBoxItem
                             {
                                 Content = option,
                                 Style = (Style)Application.Current.Resources["Crosshair"]
@@ -578,7 +578,7 @@ namespace HUDEditor.Classes
                             var bgInput = new Button
                             {
                                 Name = id,
-                                Content = Resources.ui_browse,
+                                Content = _localization.UiBrowse,
                                 // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
@@ -590,7 +590,7 @@ namespace HUDEditor.Classes
 
                             var clearInput = new Button
                             {
-                                Content = Resources.ui_clear,
+                                Content = _localization.UiClear,
                                 // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
@@ -616,7 +616,7 @@ namespace HUDEditor.Classes
                             // Add Events.
                             bgInput.Click += (_, _) =>
                             {
-                                _notifier.ShowMessageBox(MessageBoxImage.Information, Resources.info_background_override);
+                                _notifier.ShowMessageBox(MessageBoxImage.Information, _localization.InfoBackgroundOverride);
                                 using (var browser = new OpenFileDialog())
                                 {
                                     browser.ShowDialog();

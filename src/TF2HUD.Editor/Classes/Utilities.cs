@@ -17,14 +17,15 @@ using WPFLocalizeExtension.Deprecated.Extensions;
 
 namespace HUDEditor.Classes
 {
-    public class Utilities
+    public class Utilities : IUtilities
     {
-        public Utilities(ILog logger)
+        public Utilities(ILog logger, IAppSettings settings)
         {
             _logger = logger;
+            _settings = settings;
         }
 
-        public List<Tuple<string, string, string>> ItemRarities = new()
+        public List<Tuple<string, string, string>> ItemRarities() => new()
         {
             new Tuple<string, string, string>("QualityColorNormal", "DimmQualityColorNormal",
                 "QualityColorNormal_GreyedOut"),
@@ -58,14 +59,96 @@ namespace HUDEditor.Classes
                 "ItemRarityAncient_GreyedOut")
         };
 
-        public List<string> CrosshairStyles = new()
+        public List<string> CrosshairStyles() => new()
         {
-            "!", "#", "$", "%", "'", "(", ")", "*", "+", ",", ".", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":",
-            ";", "=", "<", ">", "?", "@", "|", "}", "`", "_", "^", "]", "[", "A", "B", "C", "D", "E", "F", "G", "H",
-            "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c",
-            "d", "e", "f", "g", "h", "i", "j", "k", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+            "!",
+            "#",
+            "$",
+            "%",
+            "'",
+            "(",
+            ")",
+            "*",
+            "+",
+            ",",
+            ".",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            ":",
+            ";",
+            "=",
+            "<",
+            ">",
+            "?",
+            "@",
+            "|",
+            "}",
+            "`",
+            "_",
+            "^",
+            "]",
+            "[",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z",
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z"
         };
         private readonly ILog _logger;
+        private readonly IAppSettings _settings;
 
         /// <summary>
         ///     Add a comment tag (//) to the beginning of a text line.
@@ -179,10 +262,20 @@ namespace HUDEditor.Classes
         ///     Get the filename from the HUD schema control using a string value.
         /// </summary>
         /// <param name="control">Schema control to retrieve file names from.</param>
-        internal dynamic GetFileNames(Controls control)
+        public string GetFileName(Controls control)
         {
-            if (!string.IsNullOrWhiteSpace(control.FileName))
-                return control.FileName.Replace(".res", string.Empty);
+            if (string.IsNullOrWhiteSpace(control.FileName))
+                return null;
+
+            return control.FileName.Replace(".res", string.Empty);
+        }
+
+        /// <summary>
+        ///     Get the filename from the HUD schema control using a string value.
+        /// </summary>
+        /// <param name="control">Schema control to retrieve file names from.</param>
+        public IEnumerable<string> GetFileNames(Controls control)
+        {
             return control.ComboFiles;
         }
 
@@ -227,8 +320,8 @@ namespace HUDEditor.Classes
 
             if (!Directory.Exists(registry)) return false;
             _logger.Info("tf/custom directory found in the registry: " + registry);
-            Settings.Default.hud_directory = registry;
-            Settings.Default.Save();
+            _settings.HudDirectory = registry;
+            _settings.Save();
             return true;
         }
 

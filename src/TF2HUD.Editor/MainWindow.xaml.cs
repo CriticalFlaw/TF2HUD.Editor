@@ -31,16 +31,24 @@ namespace HUDEditor
     /// </summary>
     public partial class MainWindow
     {
-        public static string HudSelection = Settings.Default.hud_selected;
-        public static string HudPath = Settings.Default.hud_directory;
+        public static string HudSelection;
+        public static string HudPath;
         private readonly List<(HUD, Border)> HudThumbnails = new();
         private bool DisplayUniqueHUDsOnly;
-        private readonly Notifier _notifier;
+        private readonly INotifier _notifier;
+        private readonly ILocalization _localization;
+        private readonly IAppSettings _settings;
         private readonly HudDirectory _hudDirectory;
         private readonly ILog _logger;
-        private readonly Utilities _utilities;
+        private readonly IUtilities _utilities;
 
-        public MainWindow(ILog logger, Utilities utilities, HudDirectory hudDirectory, Notifier notifier) : base()
+        public MainWindow(
+            ILog logger,
+            IUtilities utilities,
+            HudDirectory hudDirectory,
+            INotifier notifier,
+            ILocalization localization,
+            IAppSettings settings) : base()
         {
             InitializeComponent();
             DataContext = this;
@@ -49,8 +57,12 @@ namespace HUDEditor
             _utilities = utilities;
             _hudDirectory = hudDirectory;
             _notifier = notifier;
+            _localization = localization;
+            _settings = settings;
+            Json = new Json(_logger, _utilities, _notifier, _localization, _settings);
 
-            Json = new Json(_logger, _utilities, _notifier);
+            HudSelection = _settings.HudSelected;
+            HudPath = _settings.HudDirectory;
 
             AddHUDs();
             SetupUI();
@@ -127,15 +139,15 @@ namespace HUDEditor
                 // Save the selected HUD.
                 HudSelection = hud.Name;
                 if (Json.SelectedHUDInstalled)
-                    LblStatus.Content = string.Format(Properties.Resources.status_installed, Json.SelectedHUD.Name);
+                    LblStatus.Content = string.Format(_localization.StatusInstalled, Json.SelectedHUD.Name);
                 else if (Directory.Exists(HudPath))
-                    LblStatus.Content = string.Format(Properties.Resources.status_installed_not, Json.SelectedHUD.Name);
+                    LblStatus.Content = string.Format(_localization.StatusInstalledNot, Json.SelectedHUD.Name);
                 else
-                    LblStatus.Content = Properties.Resources.status_pathNotSet;
+                    LblStatus.Content = _localization.StatusPathNotSet;
 
                 Application.Current.MainWindow.WindowState = hud.Maximize ? WindowState.Maximized : WindowState.Normal;
-                Settings.Default.hud_selected = hud.Name;
-                Settings.Default.Save();
+                _settings.HudSelected = hud.Name;
+                _settings.Save();
             }
             else
             {
@@ -163,7 +175,7 @@ namespace HUDEditor
         private void SetupUI()
         {
             SetPageView(Json.SelectedHUD);
-            SelectionChanged(Json, Json.GetHUDByName(Settings.Default.hud_selected));
+            SelectionChanged(Json, Json.GetHUDByName(_settings.HudSelected));
             _hudDirectory.Setup(HudPath);
             Json.SelectionChanged += SelectionChanged;
         }
@@ -172,7 +184,7 @@ namespace HUDEditor
         {
             _logger.Info("Checking for app updates.");
             AutoUpdater.OpenDownloadPage = true;
-            AutoUpdater.Start(Settings.Default.app_update);
+            AutoUpdater.Start(_settings.AppUpdate);
         }
 
         #region PAGE_EVENTS
@@ -269,7 +281,7 @@ namespace HUDEditor
                 // Prevent switching HUD while installing to ensure that HighlightedHUD is the same as SelectedHUD at worker.RunWorkerCompleted
                 BtnSwitch.IsEnabled = false;
                 Json.SelectedHUD = Json.HighlightedHUD;
-                Settings.Default.hud_selected = HudSelection = Json.SelectedHUD.Name;
+                _settings.HudSelected = HudSelection = Json.SelectedHUD.Name;
 
                 // Force the user to set a directory before installing.
                 if (!_utilities.CheckUserPath(HudPath))
@@ -278,7 +290,7 @@ namespace HUDEditor
                 // Stop the process if Team Fortress 2 is still running.
                 if (_utilities.IsGameRunning())
                 {
-                    _notifier.ShowMessageBox(MessageBoxImage.Warning, _utilities.GetLocalizedString(Properties.Resources.info_game_running));
+                    _notifier.ShowMessageBox(MessageBoxImage.Warning, _utilities.GetLocalizedString(_localization.InfoGameRunning));
                     return;
                 }
 
@@ -319,8 +331,8 @@ namespace HUDEditor
                 };
                 worker.RunWorkerCompleted += (_, _) =>
                 {
-                    LblStatus.Content = string.Format(Properties.Resources.status_installed_now,
-                        Settings.Default.hud_selected, DateTime.Now);
+                    LblStatus.Content = string.Format(_localization.StatusInstalledNow,
+                        _settings.HudSelected, DateTime.Now);
 
                     // Update Install/Uninstall/Reset Buttons
                     Json.OnPropertyChanged("HighlightedHUDInstalled");
@@ -346,7 +358,7 @@ namespace HUDEditor
             }
             catch (Exception e)
             {
-                _notifier.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(_utilities.GetLocalizedString(Properties.Resources.error_hud_install), HudSelection)} {e.Message}");
+                _notifier.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(_utilities.GetLocalizedString(_localization.ErrorHudInstall), HudSelection)} {e.Message}");
             }
         }
 
@@ -363,7 +375,7 @@ namespace HUDEditor
                 // Stop the process if Team Fortress 2 is still running.
                 if (_utilities.IsGameRunning())
                 {
-                    _notifier.ShowMessageBox(MessageBoxImage.Warning, _utilities.GetLocalizedString(Properties.Resources.info_game_running));
+                    _notifier.ShowMessageBox(MessageBoxImage.Warning, _utilities.GetLocalizedString(_localization.InfoGameRunning));
                     return;
                 }
 
@@ -376,7 +388,7 @@ namespace HUDEditor
             }
             catch (Exception e)
             {
-                _notifier.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(_utilities.GetLocalizedString(Properties.Resources.error_hud_uninstall), HudSelection)} {e.Message}");
+                _notifier.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(_utilities.GetLocalizedString(_localization.ErrorHudUninstall), HudSelection)} {e.Message}");
             }
         }
 
@@ -385,10 +397,10 @@ namespace HUDEditor
         /// </summary>
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            var hudObject = Json.GetHUDByName(Settings.Default.hud_selected);
+            var hudObject = Json.GetHUDByName(_settings.HudSelected);
             if (Process.GetProcessesByName("hl2").Any() && hudObject.DirtyControls.Count > 0)
             {
-                var message = hudObject.DirtyControls.Aggregate(Properties.Resources.info_game_restart, (current, control) => current + $"\n - {control}");
+                var message = hudObject.DirtyControls.Aggregate(_localization.InfoGameRestart, (current, control) => current + $"\n - {control}");
                 if (_notifier.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
             }
 
@@ -399,7 +411,7 @@ namespace HUDEditor
                 Dispatcher.Invoke(() =>
                 {
                     if (string.IsNullOrWhiteSpace(HudSelection)) return;
-                    var selection = Json.GetHUDByName(Settings.Default.hud_selected);
+                    var selection = Json.GetHUDByName(_settings.HudSelected);
                     selection.Settings.SaveSettings();
                     selection.ApplyCustomizations();
                     selection.DirtyControls.Clear();
@@ -408,7 +420,7 @@ namespace HUDEditor
             };
             worker.RunWorkerCompleted += (_, _) =>
             {
-                LblStatus.Content = string.Format(Properties.Resources.status_applied, hudObject.Name, DateTime.Now);
+                LblStatus.Content = string.Format(_localization.StatusApplied, hudObject.Name, DateTime.Now);
             };
             worker.RunWorkerAsync();
         }
@@ -419,14 +431,14 @@ namespace HUDEditor
         private void BtnReset_OnClick(object sender, RoutedEventArgs e)
         {
             // Ask the user if they want to reset before doing so.
-            if (_notifier.ShowMessageBox(MessageBoxImage.Question, Properties.Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (_notifier.ShowMessageBox(MessageBoxImage.Question, _localization.InfoHudReset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             _logger.Info("Start resetting settings.");
             var selection = Json.SelectedHUD;
             selection.ResetAll();
             selection.Settings.SaveSettings();
             selection.ApplyCustomizations();
             selection.DirtyControls.Clear();
-            LblStatus.Content = string.Format(Properties.Resources.status_reset, selection.Name, DateTime.Now);
+            LblStatus.Content = string.Format(_localization.StatusReset, selection.Name, DateTime.Now);
             _logger.Info("Done resetting settings.");
         }
 
@@ -454,7 +466,7 @@ namespace HUDEditor
         {
             try
             {
-                if (_notifier.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_add_hud, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes) return;
+                if (_notifier.ShowMessageBox(MessageBoxImage.Information, _localization.InfoAddHud, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes) return;
 
                 var browser = new FolderBrowserDialog
                 {
@@ -475,7 +487,7 @@ namespace HUDEditor
         /// </summary>
         private void BtnReportIssue_OnClick(object sender, RoutedEventArgs e)
         {
-            _utilities.OpenWebpage(Settings.Default.app_tracker);
+            _utilities.OpenWebpage(_settings.AppTracker);
         }
 
         /// <summary>
@@ -483,7 +495,7 @@ namespace HUDEditor
         /// </summary>
         private void BtnDocumentation_OnClick(object sender, RoutedEventArgs e)
         {
-            _utilities.OpenWebpage(Settings.Default.app_docs);
+            _utilities.OpenWebpage(_settings.AppDocs);
         }
 
         /// <summary>
@@ -497,11 +509,11 @@ namespace HUDEditor
             {
                 if (!restartRequired.Result)
                 {
-                    _notifier.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
+                    _notifier.ShowMessageBox(MessageBoxImage.Information, _localization.InfoHudUpdateNone);
                     return;
                 }
 
-                if (_notifier.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                if (_notifier.ShowMessageBox(MessageBoxImage.Information, _localization.InfoHudUpdate, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 Json.Update(true);
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                 Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
@@ -542,8 +554,8 @@ namespace HUDEditor
                 LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
 
             // Save language preference to user settings.
-            Settings.Default.user_language = LocalizeDictionary.Instance.Culture.ToString();
-            Settings.Default.Save();
+            _settings.UserLanguage = LocalizeDictionary.Instance.Culture.ToString();
+            _settings.Save();
         }
 
 
@@ -552,9 +564,9 @@ namespace HUDEditor
             if (Json.HighlightedHUD is null) return;
             EditorContainer.Children.Clear();
             Json.SelectedHUD = Json.HighlightedHUD;
-            Settings.Default.hud_selected = Json.SelectedHUD.Name;
-            Settings.Default.Save();
-            SetPageView(Json.GetHUDByName(Settings.Default.hud_selected));
+            _settings.HudSelected = Json.SelectedHUD.Name;
+            _settings.Save();
+            SetPageView(Json.GetHUDByName(_settings.HudSelected));
         }
 
         #endregion

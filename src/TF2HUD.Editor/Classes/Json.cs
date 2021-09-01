@@ -31,22 +31,30 @@ namespace HUDEditor.Classes
         // HUDs to manage
         public HUD[] HUDList;
         private readonly ILog _logger;
-        private readonly Utilities _utilities;
-        private readonly Notifier _notifier;
+        private readonly IUtilities _utilities;
+        private readonly INotifier _notifier;
+        private readonly ILocalization _localization;
+        private readonly IAppSettings _settings;
 
-        public Json(ILog logger, Utilities utilities, Notifier notifier)
+        public Json(
+            ILog logger,
+            IUtilities utilities,
+            INotifier notifier,
+            ILocalization localization,
+            IAppSettings settings)
         {
             _logger = logger;
             _utilities = utilities;
             _notifier = notifier;
-
+            _localization = localization;
+            _settings = settings;
             var hudList = new List<HUD>();
             foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
             {
                 // Extract HUD information from the file path and add it to the object list.
                 var fileInfo = jsonFile.Split("\\")[^1].Split(".");
                 if (fileInfo[^1] != "json") continue;
-                hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true, _logger, _utilities, _notifier));
+                hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true, _logger, _utilities, _notifier, _localization));
             }
 
             // Load all shared huds from JSON/Shared/shared.json, and shared controls from JSON/Shared/controls.json
@@ -60,7 +68,7 @@ namespace HUDEditor.Classes
                     control.Name = $"{_utilities.EncodeID(hud.Name)}_{_utilities.EncodeID(control.Name)}";
                 hud.Layout = hudControls.Layout;
                 hud.Controls = hudControls.Controls;
-                return new HUD(hud.Name, hud, false, _logger, _utilities, _notifier);
+                return new HUD(hud.Name, hud, false, _logger, _utilities, _notifier, _localization);
             }));
 
             // Local Shared HUDs
@@ -85,13 +93,13 @@ namespace HUDEditor.Classes
                         Update = $"file://{localSharedHUD}\\{hudName}.zip"
                     },
                     Controls = sharedProperties.Controls
-                }, false, _logger, _utilities, _notifier));
+                }, false, _logger, _utilities, _notifier, _localization));
             }
 
             hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
             HUDList = hudList.ToArray();
 
-            var selectedHud = GetHUDByName(Settings.Default.hud_selected);
+            var selectedHud = GetHUDByName(_settings.HudSelected);
             HighlightedHUD = selectedHud;
             SelectedHUD = selectedHud;
         }
@@ -168,7 +176,7 @@ namespace HUDEditor.Classes
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new WebClient();
                 client.Headers.Add("User-Agent", "request");
-                var remoteList = client.DownloadString(Settings.Default.json_list);
+                var remoteList = client.DownloadString(_settings.JsonList);
                 client.Dispose();
 
                 // Get the remote schema names and file sizes.
@@ -204,7 +212,7 @@ namespace HUDEditor.Classes
 
                     var fileName = $"{remoteName}.json";
                     _logger.Info($"{remoteName}: Downloading latest version...");
-                    client.DownloadFile(string.Format(Settings.Default.json_file, fileName), fileName);
+                    client.DownloadFile(string.Format(_settings.JsonFile, fileName), fileName);
                     client.Dispose();
 
                     // Move the fresh file into the JSON folder, overwriting the previous version.
@@ -230,11 +238,11 @@ namespace HUDEditor.Classes
             {
                 return (await Task.WhenAll(HUDList.Select(async x =>
                 {
-                    var url = string.Format(Settings.Default.json_file, $"{x.Name}.json");
+                    var url = string.Format(_settings.JsonFile, $"{x.Name}.json");
                     _logger.Info($"Requesting {x.Name} from {url}");
                     var response = await _utilities.Fetch(url);
                     if (response != null)
-                        return !x.TestHUD(new HUD(x.Name, JsonConvert.DeserializeObject<HudJson>(response), true, _logger, _utilities, _notifier));
+                        return !x.TestHUD(new HUD(x.Name, JsonConvert.DeserializeObject<HudJson>(response), true, _logger, _utilities, _notifier, _localization));
                     _logger.Info($"{x.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
                     return false;
                 }))).Contains(true);
@@ -330,13 +338,13 @@ namespace HUDEditor.Classes
 
             var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
             foreach (var group in hudControls.Controls)
-            foreach (var control in hudControls.Controls[group.Key])
-                control.Name = $"{_utilities.EncodeID(hudJson.Name)}_{_utilities.EncodeID(control.Name)}";
+                foreach (var control in hudControls.Controls[group.Key])
+                    control.Name = $"{_utilities.EncodeID(hudJson.Name)}_{_utilities.EncodeID(control.Name)}";
 
             hudJson.Layout = hudControls.Layout;
             hudJson.Controls = hudControls.Controls;
 
-            var hud = new HUD(hudName, hudJson, false, _logger, _utilities, _notifier);
+            var hud = new HUD(hudName, hudJson, false, _logger, _utilities, _notifier, _localization);
             hudList.Add(hud);
             hudList.Sort((a, b) => string.Compare(a.Name, b.Name));
             HUDList = hudList.ToArray();

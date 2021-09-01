@@ -122,12 +122,14 @@ namespace TF2HUDEditor.Classes
     public class BtnInstallContentConverter : IValueConverter
     {
         private readonly ILog _logger;
-        private readonly Utilities _utilities;
+        private readonly IAppSettings _settings;
+        private readonly IUtilities _utilities;
 
         public BtnInstallContentConverter()
         {
             _logger = LogManager.GetLogger(GetType());
-            _utilities = new Utilities(_logger);
+            _settings = new AppSettings();
+            _utilities = new Utilities(_logger, _settings);
         }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

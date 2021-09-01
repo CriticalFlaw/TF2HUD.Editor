@@ -24,17 +24,29 @@ namespace HUDEditor
             ConfigureServices(services);
             _serviceProvider = services.BuildServiceProvider();
 
-            LocalizeDictionary.Instance.Culture = new CultureInfo(Settings.Default.user_language);
+            var appSettings = _serviceProvider.GetService<IAppSettings>();
+            LocalizeDictionary.Instance.Culture = new CultureInfo(appSettings.UserLanguage);
         }
 
         private void ConfigureServices(ServiceCollection services)
         {
             ConfigureLogging(services);
-            services.AddSingleton<IMessageBox, WindowsMessageBox>();
+            ConfigureWindowsComponents(services);
+            services.AddSingleton<ILocalization, Localization>();
+            services.AddSingleton<IAppSettings, AppSettings>();
+            services.AddSingleton<INotifier, Notifier>();
+            services.AddSingleton<IUtilities, Utilities>();
             services.AddSingleton<Utilities>();
             services.AddSingleton<Notifier>();
             services.AddSingleton<HudDirectory>();
             services.AddSingleton<MainWindow>();
+        }
+
+        private static void ConfigureWindowsComponents(ServiceCollection services)
+        {
+            services.AddTransient<IFolderBrowserDialog, WindowsFolderBrowserDialog>();
+            services.AddSingleton<IMessageBox, WindowsMessageBox>();
+            services.AddSingleton<IApplication, WindowsApplication>();
         }
 
         private void ConfigureLogging(ServiceCollection services)

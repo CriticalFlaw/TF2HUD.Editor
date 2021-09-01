@@ -1,5 +1,4 @@
-﻿using HUDEditor.Properties;
-using log4net;
+﻿using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +12,29 @@ namespace HUDEditor.Classes
     public class HudDirectory
     {
         private readonly ILog _logger;
-        private readonly Utilities _utilities;
-        private readonly Notifier _notifier;
+        private readonly IUtilities _utilities;
+        private readonly INotifier _notifier;
+        private readonly IAppSettings _settings;
+        private readonly IApplication _application;
+        private readonly ILocalization _localization;
+        private readonly IServiceProvider _serviceProvider;
 
-        public HudDirectory(ILog logger, Utilities utilities, Notifier notifier)
+        public HudDirectory(
+            ILog logger,
+            IUtilities utilities,
+            INotifier notifier,
+            IAppSettings settings,
+            IApplication application,
+            ILocalization localization,
+            IServiceProvider serviceProvider)
         {
             _logger = logger;
             _utilities = utilities;
             _notifier = notifier;
+            _settings = settings;
+            _application = application;
+            _localization = localization;
+            _serviceProvider = serviceProvider;
         }
 
         /// <summary>
@@ -36,12 +50,12 @@ namespace HUDEditor.Classes
 
             SetupWithFolderBrowser();
 
-            if (NotSetup(Settings.Default.hud_directory))
+            if (NotSetup(_settings.HudDirectory))
             {
                 QuitApplication();
             }
         }
-        
+
         private bool AlreadySetup(string currentHudPath)
         {
             return _utilities.CheckUserPath(currentHudPath) || _utilities.SearchRegistry();
@@ -51,12 +65,8 @@ namespace HUDEditor.Classes
         {
             _logger.Info("tf/custom directory is not set. Asking the user...");
 
-            using var browser = new FolderBrowserDialog
-            {
-                Description = Properties.Resources.info_path_browser,
-                UseDescriptionForTitle = true,
-                ShowNewFolderButton = true
-            };
+            var browser = GetFolderBrowser();
+
             var selectedDirectory = GetSelectedDirectory(browser);
             if (selectedDirectory != null)
             {
@@ -64,30 +74,40 @@ namespace HUDEditor.Classes
             }
         }
 
+        private IFolderBrowserDialog GetFolderBrowser()
+        {
+            IFolderBrowserDialog browser = (IFolderBrowserDialog)_serviceProvider.GetService(typeof(IFolderBrowserDialog));
+            browser.Description = _localization.InfoPathBrowser;
+            browser.UseDescriptionForTitle = true;
+            browser.ShowNewFolderButton = true;
+            return browser;
+        }
+
         /// <summary>
         /// Loop until the user provides a valid tf/custom directory, unless they cancel out.
         /// </summary>
         /// <param name="browser"></param>
         /// <returns>The selected directory.</returns>
-        private string GetSelectedDirectory(FolderBrowserDialog browser)
+        private string GetSelectedDirectory(IFolderBrowserDialog browser)
         {
+            var retryCount = 0;
             while (!IsValidDirectory(browser.SelectedPath))
             {
                 if (browser.ShowDialog() != DialogResult.OK)
-                {
                     return null;
-                }
 
                 if (!IsValidDirectory(browser.SelectedPath))
-                {
-                    _notifier.ShowMessageBox(MessageBoxImage.Error, Properties.Resources.info_path_invalid);
-                    return null;
-                }
+                    _notifier.ShowMessageBox(MessageBoxImage.Error, _localization.InfoPathInvalid);
+                else
+                    return browser.SelectedPath;
 
-                return browser.SelectedPath;
+                retryCount++;
+
+                if (retryCount >= 5)
+                    return null;
             }
 
-            return null;
+            return browser.SelectedPath;
         }
 
         private static bool IsValidDirectory(string directory)
@@ -97,9 +117,9 @@ namespace HUDEditor.Classes
 
         private void SaveDirectory(string selectedDirectory)
         {
-            Settings.Default.hud_directory = selectedDirectory;
-            Settings.Default.Save();
-            _logger.Info($"tf/custom directory is set to: {Settings.Default.hud_directory}");
+            _settings.HudDirectory = selectedDirectory;
+            _settings.Save();
+            _logger.Info($"tf/custom directory is set to: {_settings.HudDirectory}");
         }
 
         private bool NotSetup(string currentHudPath)
@@ -110,8 +130,8 @@ namespace HUDEditor.Classes
         private void QuitApplication()
         {
             _logger.Info("tf/custom directory still not set. Exiting...");
-            _notifier.ShowMessageBox(MessageBoxImage.Warning, _utilities.GetLocalizedString(Properties.Resources.error_app_directory));
-            System.Windows.Application.Current.Shutdown();
+            _notifier.ShowMessageBox(MessageBoxImage.Warning, _utilities.GetLocalizedString(_localization.ErrorAppDirectory));
+            _application.Shutdown();
         }
     }
 }

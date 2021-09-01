@@ -178,8 +178,8 @@ namespace HUDEditor.Classes
                                 }
                             }
 
-                            var fileName = _utilities.GetFileNames(control);
-                            if (fileName is null or not string) continue; // File name not found, skipping.
+                            var fileName = _utilities.GetFileName(control);
+                            if (fileName is null) continue; // File name not found, skipping.
 
                             custom += $"\\{fileName}";
                             enabled += $"\\{fileName}";
@@ -402,7 +402,7 @@ namespace HUDEditor.Classes
                                 }
 
                                 // If the color value is for an item rarity, update the dimmed and grayed values.
-                                foreach (var (item1, item2, item3) in _utilities.ItemRarities)
+                                foreach (var (item1, item2, item3) in _utilities.ItemRarities())
                                 {
                                     if (!string.Equals(property.Key, item1)) continue;
                                     hudElement[item2] = _utilities.GetDimmedColor(userSetting.Value);
@@ -711,7 +711,7 @@ namespace HUDEditor.Classes
                     }
                     else
                     {
-                        _notifier.ShowMessageBox(MessageBoxImage.Error, string.Format(_utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
+                        _notifier.ShowMessageBox(MessageBoxImage.Error, string.Format(_utilities.GetLocalizedString(_localization.ErrorUnknownExtension), extension));
                     }
                 }
             }
@@ -767,7 +767,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                _notifier.ShowMessageBox(MessageBoxImage.Error, string.Format(_utilities.GetLocalizedString(Resources.error_transparent_vm), e.Message));
+                _notifier.ShowMessageBox(MessageBoxImage.Error, string.Format(_utilities.GetLocalizedString(_localization.ErrorTransparentVM), e.Message));
                 return false;
             }
         }

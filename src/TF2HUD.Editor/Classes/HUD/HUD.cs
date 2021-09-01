@@ -23,7 +23,7 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="name">Name of the HUD object.</param>
         /// <param name="schema">Contents of the HUD's schema file.</param>
-        public HUD(string name, HudJson schema, bool uniq, ILog logger, Utilities utilities, Notifier notifier)
+        public HUD(string name, HudJson schema, bool uniq, ILog logger, IUtilities utilities, INotifier notifier, ILocalization localization)
         {
             // Basic Schema Properties.
             Name = schema.Name ?? name;
@@ -48,6 +48,7 @@ namespace HUDEditor.Classes
             _logger = logger;
             _utilities = utilities;
             _notifier = notifier;
+            _localization = localization;
             if (schema.Screenshots is null) return;
             var index = 0;
             foreach (var screenshot in schema.Screenshots)
@@ -355,8 +356,9 @@ namespace HUDEditor.Classes
         public List<object> Screenshots { get; set; } = new();
         public bool Unique;
         private readonly ILog _logger;
-        private readonly Utilities _utilities;
-        private readonly Notifier _notifier;
+        private readonly IUtilities _utilities;
+        private readonly INotifier _notifier;
+        private readonly ILocalization _localization;
 
         #endregion
     }

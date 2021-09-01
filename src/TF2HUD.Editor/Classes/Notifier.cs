@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace HUDEditor.Classes
 {
-    public class Notifier
+    public class Notifier : INotifier
     {
         private readonly IMessageBox _messageBox;
         private readonly ILog _logger;

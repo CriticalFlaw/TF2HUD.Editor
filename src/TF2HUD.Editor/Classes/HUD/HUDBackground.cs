@@ -21,14 +21,14 @@ namespace HUDEditor.Classes
     {
         private readonly string HUDFolderPath;
         private readonly ILog _logger;
-        private readonly Notifier _notifier;
+        private readonly INotifier _notifier;
         private string customImagePath;
         private string HUDImagePath;
         private bool useCustomBackground;
         private bool useHUDBackground;
         private bool useStockBackgrounds;
 
-        public HUDBackground(string hudPath, ILog logger, Notifier notifier)
+        public HUDBackground(string hudPath, ILog logger, INotifier notifier)
         {
             HUDFolderPath = hudPath;
             _logger = logger;
