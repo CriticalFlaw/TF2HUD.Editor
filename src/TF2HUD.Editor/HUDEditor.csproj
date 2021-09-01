@@ -6,14 +6,14 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <StartupObject>HUDEditor.App</StartupObject>
-    <ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
     <Authors>Igor Nikitin, Peter Wobcke</Authors>
     <Company>CriticalFlaw</Company>
     <Copyright>CriticalFlaw</Copyright>
     <PackageProjectUrl>https://www.editor.criticalflaw.ca/</PackageProjectUrl>
-    <AssemblyVersion>2.3.0.0</AssemblyVersion>
-    <FileVersion>2.3.0.0</FileVersion>
-    <Version>2.3.0</Version>
+    <AssemblyVersion>2.3.1.0</AssemblyVersion>
+    <FileVersion>2.3.1.0</FileVersion>
+    <Version>2.3.1</Version>
     <RepositoryUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -21,6 +21,9 @@
     <Product>TF2 HUD Editor</Product>
     <SignAssembly>false</SignAssembly>
     <NeutralLanguage>en</NeutralLanguage>
+    <PackageIconUrl />
+    <AssemblyName>TF2HUD.Editor</AssemblyName>
+    <RootNamespace>HUDEditor</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -40,7 +43,6 @@
     <None Remove="Resources\banner.png" />
     <None Remove="Resources\chapterbackgrounds.txt" />
     <None Remove="Resources\favicon.ico" />
-    <None Remove="Resources\mastercomfig-transparent-viewmodels-addon.vpk" />
     <None Remove="Resources\TF2Build.ttf" />
     <None Remove="Resources\TF2Crosshairs.ttf" />
     <None Remove="Resources\TF2Icons.ttf" />
@@ -56,7 +58,7 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="WPFLocalizeExtension" Version="3.8.0" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,26 +87,13 @@
 
   <ItemGroup>
     <Resource Include="Resources\banner.png" />
-    <Resource Include="Resources\favicon.ico" />
     <Resource Include="Resources\logo.png" />
-    <Resource Include="Resources\TF2.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\TF2Build.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\TF2Crosshairs.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\TF2Icons.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\TF2Professor.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\TF2Secondary.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Resources\TF2.ttf" />
+    <Resource Include="Resources\TF2Build.ttf" />
+    <Resource Include="Resources\TF2Crosshairs.ttf" />
+    <Resource Include="Resources\TF2Icons.ttf" />
+    <Resource Include="Resources\TF2Professor.ttf" />
+    <Resource Include="Resources\TF2Secondary.ttf" />
   </ItemGroup>
 
   <ItemGroup>

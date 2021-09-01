@@ -26,5 +26,8 @@
     <Setting Name="app_update" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</Value>
     </Setting>
+    <Setting Name="mastercomfig_vpk" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://github.com/mastercomfig/mastercomfig/releases/download/9.5.2/mastercomfig-transparent-viewmodels-addon.vpk</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

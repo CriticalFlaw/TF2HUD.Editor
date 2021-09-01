@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
-        xmlns:Classes="clr-namespace:TF2HUDEditor.Classes"
+        xmlns:classes="clr-namespace:TF2HUDEditor.Classes"
         lex:LocalizeDictionary.DesignCulture="en"
-        lex:ResxLocalizationProvider.DefaultAssembly="HUDEditor"
+        lex:ResxLocalizationProvider.DefaultAssembly="TF2HUD.Editor"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
         Title="{lex:Loc ui_title}"
@@ -17,12 +17,12 @@
         FontSize="20px"
         Background="#2B2724">
     <Window.Resources>
-        <Classes:NullCheckConverter x:Key="NullCheckConverter" />
-        <Classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
-        <Classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
-        <Classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
-        <Classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
-        <Classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
+        <classes:NullCheckConverter x:Key="NullCheckConverter" />
+        <classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
+        <classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+        <classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
+        <classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
+        <classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
     </Window.Resources>
     <Grid x:Name="MainGrid" Background="{Binding Json.SelectedHUD, Converter={StaticResource PageBackgroundConverter}}">
         <Grid.ColumnDefinitions>
