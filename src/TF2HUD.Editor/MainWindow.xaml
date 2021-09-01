@@ -225,22 +225,22 @@
                     x:Name="BtnGitHub"
                     Click="BtnGitHub_OnClick"
                     Style="{StaticResource GitHubButton}"
-                    IsEnabled="{Binding Json.HighlightedHUD.GitHubUrl, Converter={StaticResource NullCheckConverter}}" />
+                    IsEnabled="{Binding Json.HighlightedHUD.GitHubUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
                 <Button
                     x:Name="BtnHuds"
                     Click="BtnHuds_OnClick"
                     Style="{StaticResource HudsButton}"
-                    IsEnabled="{Binding Json.HighlightedHUD.HudsTfUrl, Converter={StaticResource NullCheckConverter}}" />
+                    IsEnabled="{Binding Json.HighlightedHUD.HudsTfUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
                 <Button
                     x:Name="BtnDiscord"
                     Click="BtnDiscord_OnClick"
                     Style="{StaticResource DiscordButton}"
-                    IsEnabled="{Binding Json.HighlightedHUD.DiscordUrl, Converter={StaticResource NullCheckConverter}}" />
+                    IsEnabled="{Binding Json.HighlightedHUD.DiscordUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
                 <Button
                     x:Name="BtnSteam"
                     Click="BtnSteam_OnClick"
                     Style="{StaticResource SteamButton}"
-                    IsEnabled="{Binding Json.HighlightedHUD.SteamUrl, Converter={StaticResource NullCheckConverter}}" />
+                    IsEnabled="{Binding Json.HighlightedHUD.SteamUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
             </WrapPanel>
         </GroupBox>
     </Grid>
