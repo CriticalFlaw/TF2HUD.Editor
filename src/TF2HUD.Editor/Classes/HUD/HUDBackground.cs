@@ -22,17 +22,19 @@ namespace HUDEditor.Classes
         private readonly string HUDFolderPath;
         private readonly ILog _logger;
         private readonly INotifier _notifier;
+        private readonly VTF _vtf;
         private string customImagePath;
         private string HUDImagePath;
         private bool useCustomBackground;
         private bool useHUDBackground;
         private bool useStockBackgrounds;
 
-        public HUDBackground(string hudPath, ILog logger, INotifier notifier)
+        public HUDBackground(string hudPath, ILog logger, INotifier notifier, VTF vtf)
         {
             HUDFolderPath = hudPath;
             _logger = logger;
             _notifier = notifier;
+            _vtf = vtf;
         }
 
         public void SetStockBackgrounds(bool enable)
@@ -63,11 +65,8 @@ namespace HUDEditor.Classes
                 var consoleFolder = HUDFolderPath + "materials\\console\\";
                 var disabledFolder = consoleFolder + "_disabled";
 
-                if (!Directory.Exists(consoleFolder))
-                    Directory.CreateDirectory(consoleFolder);
-
-                if (!Directory.Exists(disabledFolder))
-                    Directory.CreateDirectory(disabledFolder);
+                Directory.CreateDirectory(consoleFolder);
+                Directory.CreateDirectory(disabledFolder);
 
                 if (useCustomBackground && !string.IsNullOrWhiteSpace(customImagePath))
                 {
@@ -83,10 +82,10 @@ namespace HUDEditor.Classes
                     }
 
                     // Convert the provided image into a VTF format.
-                    var converter = new VTF(MainWindow.HudPath.Replace("\\tf\\custom\\", string.Empty), _logger);
+                    var tf2Path = MainWindow.HudPath.Replace("\\tf\\custom\\", string.Empty);
                     var output = $"{consoleFolder}\\background_upward.vtf";
                     _logger.Info($"Converting image to VTF: {output}");
-                    converter.Convert(customImagePath, output);
+                    _vtf.Convert(tf2Path, customImagePath, output);
 
                     // Copy the generated file to the backgrounds folder.
                     _logger.Info($"Copying {output} to {HUDFolderPath}");

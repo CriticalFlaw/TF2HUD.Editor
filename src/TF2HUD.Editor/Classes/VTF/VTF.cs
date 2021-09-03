@@ -6,15 +6,14 @@ using System.IO;
 
 namespace HUDEditor.Classes
 {
-    internal class VTF
+    public class VTF
     {
-        private readonly string _tf2Path;
-        private readonly ILog _logger;
+        private readonly VTEX _vtex;
+        private static string MaterialSrcDirectory(string tf2Path) => $"{tf2Path}\\tf\\materialsrc";
 
-        public VTF(string path, ILog logger)
+        public VTF(VTEX vtex)
         {
-            _tf2Path = path.Replace("\\tf\\custom", string.Empty);
-            _logger = logger;
+            _vtex = vtex;
         }
 
         /// <summary>
@@ -22,45 +21,88 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="inFile">Path and file name of the image to be converted.</param>
         /// <param name="outFile">Output path and file name for the VTF.</param>
-        public void Convert(string inFile, string outFile)
+        public void Convert(string tf2Path, string inFile, string outFile)
         {
-            // Resize image to square of larger proportional
-            var image = new Bitmap(inFile);
-            var materialSrc = $"{_tf2Path}\\tf\\materialsrc";
+            var workingFileName = "temp";
+            var materialSrc = MaterialSrcDirectory(tf2Path);
 
-            // Create materialsrc (ensure it exists)
-            if (!Directory.Exists(materialSrc))
-                Directory.CreateDirectory(materialSrc);
+            CreateTGAFile(inFile, workingFileName);
+            var vtfFilePath = CreateVTFFile(tf2Path, workingFileName, materialSrc);
 
-            // Save image as .tga (cast using TGASharpLib)
-            var tgaSquareImage = (TGA)ResizeImage(image);
-            tgaSquareImage.Save($"{materialSrc}\\temp.tga");
+            DeleteExistingBackgroundFiles();
 
-            // Convert using VTEX
-            VtexConvert(materialSrc, "temp");
+            SaveVTF(vtfFilePath, outFile);
 
-            // Path to VTEX output file
-            var vtfOutput = $"{_tf2Path}\\tf\\materials\\temp.vtf";
+            DeleteWorkingFiles(materialSrc, vtfFilePath, workingFileName);
+        }
 
-            // Create absolute path to output folder and make directory
-            var pathInfo = outFile.Split('\\', '/');
-            pathInfo[^1] = "";
-            var directory = string.Join("\\", pathInfo);
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
+        private string CreateVTFFile(string tf2Path, string workingFileName, string materialSrc)
+        {
+            return _vtex.Convert(tf2Path, materialSrc, workingFileName);
+        }
 
-            // Make a backup of the existing background files.
+        private void CreateTGAFile(string inFile, string workingFileName)
+        {
+            var tgaImage = CreateTGAImage(inFile);
+            SaveTGA(tgaImage, inFile, workingFileName);
+        }
+
+        /// <summary>
+        /// Copy vtf from vtex output to user defined path
+        /// </summary>
+        /// <param name="outFile"></param>
+        /// <param name="vtfFilePath"></param>
+        private static void SaveVTF(string vtfFilePath, string outFile)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(outFile));
+            File.Copy(vtfFilePath, outFile, true);
+        }
+
+        /// <summary>
+        /// Delete temporary tga and vtex output
+        /// </summary>
+        /// <param name="materialSrc"></param>
+        /// <param name="vtfOutput"></param>
+        private static void DeleteWorkingFiles(string materialSrc, string vtfOutput, string fileName)
+        {
+            File.Delete($"{materialSrc}\\{fileName}.tga");
+            File.Delete($"{materialSrc}\\{fileName}.txt");
+            File.Delete(vtfOutput);
+        }
+
+        private static void DeleteExistingBackgroundFiles()
+        {
             var hudBgPath = new DirectoryInfo($"{MainWindow.HudPath}\\{MainWindow.HudSelection}\\materials\\console\\");
             foreach (var file in hudBgPath.GetFiles())
                 File.Delete(file.FullName);
+        }
 
-            // Copy vtf from vtex output to user defined path
-            File.Copy(vtfOutput, outFile, true);
+        /// <summary>
+        /// Save TGA image to disk.
+        /// </summary>
+        /// <param name="image">TGA image to save.</param>
+        /// <param name="materialSrc">Directory of tf\materialsrc.</param>
+        /// <param name="fileName">Name of the saved TGA file.</param>
+        /// <returns>Path to TGA file.</returns>
+        private string SaveTGA(TGA image, string materialSrc, string fileName)
+        {
+            var tgaFilePath = $"{materialSrc}\\{fileName}.tga";
+            Directory.CreateDirectory(materialSrc);
+            image.Save(tgaFilePath);
 
-            // Delete temporary tga and vtex output
-            File.Delete($"{materialSrc}\\temp.tga");
-            File.Delete($"{materialSrc}\\temp.txt");
-            File.Delete(vtfOutput);
+            return tgaFilePath;
+        }
+
+        /// <summary>
+        /// Converts image to .tga (cast using TGASharpLib)
+        /// </summary>
+        /// <param name="inFile"></param>
+        /// <returns></returns>
+        private static TGA CreateTGAImage(string inFile)
+        {
+            var image = new Bitmap(inFile);
+            var tgaSquareImage = (TGA)ResizeImage(image);
+            return tgaSquareImage;
         }
 
         /// <summary>
@@ -70,14 +112,18 @@ namespace HUDEditor.Classes
         /// <returns>Bitmap of the resized image file.</returns>
         private static Bitmap ResizeImage(Bitmap image)
         {
-            // Image size is the greater of both the width and height rounded
-            // up to the nearest power of 2
-            var size = (int)Math.Max(
-                Math.Pow(2, Math.Ceiling(Math.Log(image.Width) / Math.Log(2))),
-                Math.Pow(2, Math.Ceiling(Math.Log(image.Height) / Math.Log(2)))
-            );
+            var size = GetImageSize(image);
+            return DrawImage(image, size);
+        }
 
-            // Paint graphics onto the SquareImage Bitmap
+        /// <summary>
+        /// Paint graphics onto the SquareImage Bitmap
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        private static Bitmap DrawImage(Bitmap image, int size)
+        {
             var squareImage = new Bitmap(size, size);
             var graphics = Graphics.FromImage(squareImage);
             graphics.DrawImage(image, 0, 0, size, size);
@@ -85,39 +131,15 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Use the Valve Texture Tool (Vtex) to convert a Targa file (tga) into a Valve Texture File (vtf).
+        /// Image size is the greater of both the width and height rounded up to the nearest power of 2
         /// </summary>
-        /// <param name="folderPath">Input image file path.</param>
-        /// <param name="fileName">Name of the image to be converted.</param>
-        /// <remarks>See: https://developer.valvesoftware.com/wiki/Vtex_compile_parameters </remarks>
-        private void VtexConvert(string folderPath, string fileName)
+        /// <param name="image"></param>
+        /// <returns></returns>
+        private static int GetImageSize(Bitmap image)
         {
-            // Set the VTEX Args
-            File.WriteAllLines($"{folderPath}\\{fileName}.txt", new[]
-            {
-                "pointsample 1",
-                "nolod 1",
-                "nomip 1"
-            });
-
-            // Set the VTEX CLI Args
-            string[] args =
-            {
-                "-quiet",
-                $"\"{folderPath}\\{fileName}.tga\""
-            };
-
-            // Call Vtex and pass the parameters.
-            var processInfo = new ProcessStartInfo($"{_tf2Path}\\bin\\vtex.exe")
-            {
-                Arguments = string.Join(" ", args),
-                RedirectStandardOutput = true
-            };
-            var process = Process.Start(processInfo);
-            while (!process.StandardOutput.EndOfStream)
-                _logger.Info($"[VTEX] {process.StandardOutput.ReadLine()}");
-            process?.WaitForExit();
-            process?.Close();
+            var width = Math.Pow(2, Math.Ceiling(Math.Log(image.Width) / Math.Log(2)));
+            var height = Math.Pow(2, Math.Ceiling(Math.Log(image.Height) / Math.Log(2)));
+            return (int)Math.Max(width, height);
         }
     }
 }

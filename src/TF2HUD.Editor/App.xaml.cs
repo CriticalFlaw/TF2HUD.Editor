@@ -32,12 +32,12 @@ namespace HUDEditor
         {
             ConfigureLogging(services);
             ConfigureWindowsComponents(services);
+            services.AddSingleton<VTEX>();
+            services.AddSingleton<VTF>();
             services.AddSingleton<ILocalization, Localization>();
             services.AddSingleton<IAppSettings, AppSettings>();
             services.AddSingleton<INotifier, Notifier>();
             services.AddSingleton<IUtilities, Utilities>();
-            services.AddSingleton<Utilities>();
-            services.AddSingleton<Notifier>();
             services.AddSingleton<HudDirectory>();
             services.AddSingleton<MainWindow>();
         }

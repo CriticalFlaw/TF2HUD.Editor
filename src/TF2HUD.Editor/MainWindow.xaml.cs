@@ -38,6 +38,7 @@ namespace HUDEditor
         private readonly INotifier _notifier;
         private readonly ILocalization _localization;
         private readonly IAppSettings _settings;
+        private readonly VTF _vtf;
         private readonly HudDirectory _hudDirectory;
         private readonly ILog _logger;
         private readonly IUtilities _utilities;
@@ -48,7 +49,8 @@ namespace HUDEditor
             HudDirectory hudDirectory,
             INotifier notifier,
             ILocalization localization,
-            IAppSettings settings) : base()
+            IAppSettings settings,
+            VTF vtf) : base()
         {
             InitializeComponent();
             DataContext = this;
@@ -59,7 +61,8 @@ namespace HUDEditor
             _notifier = notifier;
             _localization = localization;
             _settings = settings;
-            Json = new Json(_logger, _utilities, _notifier, _localization, _settings);
+            _vtf = vtf;
+            Json = new Json(_logger, _utilities, _notifier, _localization, _settings, _vtf);
 
             HudSelection = _settings.HudSelected;
             HudPath = _settings.HudDirectory;

@@ -24,7 +24,7 @@ namespace HUDEditor.Classes
                 // HUD Background Image.
                 // Set the HUD Background image path when applying, because it's possible
                 // the user did not have their tf/custom folder set up when this HUD constructor was called.
-                HudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\", _logger, _notifier);
+                HudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\", _logger, _notifier, _vtf);
 
                 var hudSettings = ControlOptions.Values;
                 // var hudSettings = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText($"JSON//{Name}.json")).Controls.Values;
@@ -38,12 +38,12 @@ namespace HUDEditor.Classes
                 var hudFolders = new Dictionary<string, dynamic>();
 
                 foreach (var group in hudSettings)
-                foreach (var control in group)
-                {
-                    var setting = Settings.GetSetting(control.Name);
-                    if (setting is null) continue;
-                    WriteToFile(control, setting, hudFolders);
-                }
+                    foreach (var control in group)
+                    {
+                        var setting = Settings.GetSetting(control.Name);
+                        if (setting is null) continue;
+                        WriteToFile(control, setting, hudFolders);
+                    }
 
                 void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
                 {
@@ -53,8 +53,7 @@ namespace HUDEditor.Classes
                             if (property.Contains("."))
                             {
                                 var filePath = folderPath + "\\" + property;
-                                if (!Directory.Exists(Path.GetDirectoryName(filePath)))
-                                    Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
                                 // Read file, check each topmost element until we come to an element that matches
                                 // the pattern (Resource/UI/HudFile.res) which indicates it's a HUD ui file
@@ -136,125 +135,124 @@ namespace HUDEditor.Classes
                 if (!Directory.Exists($"{path}\\{CustomizationsFolder}")) return true;
 
                 // Check if the "enabled" folder exists. If not, create it.
-                if (!Directory.Exists($"{path}\\{EnabledFolder}"))
-                    Directory.CreateDirectory($"{path}\\{EnabledFolder}");
+                Directory.CreateDirectory($"{path}\\{EnabledFolder}");
 
                 // Get user's settings for the selected HUD.
                 var userSettings = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(HUDSettings.UserFile))
                     ?.Settings.Where(x => x.HUD == Name);
 
                 foreach (var group in hudSettings)
-                foreach (var control in group)
-                {
-                    // Loop through every control on the page, find the matching user setting.
-                    var setting = userSettings.FirstOrDefault(x => x.Name == control.Name);
-                    if (setting is null) continue; // User setting not found, skipping.
-
-                    var custom = path + CustomizationsFolder;
-                    var enabled = path + EnabledFolder;
-
-                    switch (control.Type.ToLowerInvariant())
+                    foreach (var control in group)
                     {
-                        case "checkbox":
-                            if (control.RenameFile is not null)
-                            {
-                                if (control.RenameFile.OldName.EndsWith('/'))
-                                {
-                                    if (Directory.Exists(path + control.RenameFile.NewName))
-                                        Directory.Move(path + control.RenameFile.NewName,
-                                            path + control.RenameFile.OldName);
+                        // Loop through every control on the page, find the matching user setting.
+                        var setting = userSettings.FirstOrDefault(x => x.Name == control.Name);
+                        if (setting is null) continue; // User setting not found, skipping.
 
-                                    if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
-                                        Directory.Move(path + control.RenameFile.OldName,
-                                            path + control.RenameFile.NewName);
+                        var custom = path + CustomizationsFolder;
+                        var enabled = path + EnabledFolder;
+
+                        switch (control.Type.ToLowerInvariant())
+                        {
+                            case "checkbox":
+                                if (control.RenameFile is not null)
+                                {
+                                    if (control.RenameFile.OldName.EndsWith('/'))
+                                    {
+                                        if (Directory.Exists(path + control.RenameFile.NewName))
+                                            Directory.Move(path + control.RenameFile.NewName,
+                                                path + control.RenameFile.OldName);
+
+                                        if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
+                                            Directory.Move(path + control.RenameFile.OldName,
+                                                path + control.RenameFile.NewName);
+                                    }
+                                    else
+                                    {
+                                        if (File.Exists(path + control.RenameFile.NewName))
+                                            File.Move(path + control.RenameFile.NewName, path + control.RenameFile.OldName);
+
+                                        if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
+                                            File.Move(path + control.RenameFile.OldName, path + control.RenameFile.NewName);
+                                    }
+                                }
+
+                                var fileName = _utilities.GetFileName(control);
+                                if (fileName is null) continue; // File name not found, skipping.
+
+                                custom += $"\\{fileName}";
+                                enabled += $"\\{fileName}";
+
+                                // If true, move the customization file into the enabled folder, otherwise move it back.
+                                if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
+                                {
+                                    if (Directory.Exists(custom))
+                                        Directory.Move(custom, enabled);
+                                    else if (File.Exists(custom + ".res"))
+                                        File.Move(custom + ".res", enabled + ".res", true);
                                 }
                                 else
                                 {
-                                    if (File.Exists(path + control.RenameFile.NewName))
-                                        File.Move(path + control.RenameFile.NewName, path + control.RenameFile.OldName);
-
-                                    if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
-                                        File.Move(path + control.RenameFile.OldName, path + control.RenameFile.NewName);
+                                    if (Directory.Exists(enabled))
+                                        Directory.Move(enabled, custom);
+                                    else if (File.Exists(enabled + ".res"))
+                                        File.Move(enabled + ".res", custom + ".res", true);
                                 }
-                            }
 
-                            var fileName = _utilities.GetFileName(control);
-                            if (fileName is null) continue; // File name not found, skipping.
+                                break;
 
-                            custom += $"\\{fileName}";
-                            enabled += $"\\{fileName}";
+                            case "dropdown":
+                            case "dropdownmenu":
+                            case "select":
+                            case "combobox":
+                                foreach (var option in control.Options.Where(x => x.RenameFile is not null))
+                                    if (option.RenameFile.OldName.EndsWith('/'))
+                                    {
+                                        if (Directory.Exists(path + option.RenameFile.NewName))
+                                            Directory.Move(path + option.RenameFile.NewName,
+                                                path + option.RenameFile.OldName);
 
-                            // If true, move the customization file into the enabled folder, otherwise move it back.
-                            if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                if (Directory.Exists(custom))
-                                    Directory.Move(custom, enabled);
-                                else if (File.Exists(custom + ".res"))
-                                    File.Move(custom + ".res", enabled + ".res", true);
-                            }
-                            else
-                            {
-                                if (Directory.Exists(enabled))
-                                    Directory.Move(enabled, custom);
-                                else if (File.Exists(enabled + ".res"))
-                                    File.Move(enabled + ".res", custom + ".res", true);
-                            }
+                                        if (string.Equals(option.Value, setting.Value))
+                                            Directory.Move(path + option.RenameFile.OldName,
+                                                path + option.RenameFile.NewName);
+                                    }
+                                    else
+                                    {
+                                        if (File.Exists(path + option.RenameFile.NewName))
+                                            File.Move(path + option.RenameFile.NewName, path + option.RenameFile.OldName);
 
-                            break;
+                                        if (string.Equals(option.Value, setting.Value))
+                                            File.Move(path + option.RenameFile.OldName, path + option.RenameFile.NewName);
+                                    }
 
-                        case "dropdown":
-                        case "dropdownmenu":
-                        case "select":
-                        case "combobox":
-                            foreach (var option in control.Options.Where(x => x.RenameFile is not null))
-                                if (option.RenameFile.OldName.EndsWith('/'))
+                                var fileNames = _utilities.GetFileNames(control);
+                                if (fileNames is null or not string[]) continue; // File names not found, skipping.
+
+                                // Move every file assigned to this control back to the customization folder first.
+                                foreach (string file in fileNames)
                                 {
-                                    if (Directory.Exists(path + option.RenameFile.NewName))
-                                        Directory.Move(path + option.RenameFile.NewName,
-                                            path + option.RenameFile.OldName);
-
-                                    if (string.Equals(option.Value, setting.Value))
-                                        Directory.Move(path + option.RenameFile.OldName,
-                                            path + option.RenameFile.NewName);
+                                    var name = file.Replace(".res", string.Empty);
+                                    if (Directory.Exists(enabled + $"\\{name}"))
+                                        Directory.Move(enabled + $"\\{name}", custom + $"\\{name}");
+                                    else if (File.Exists(enabled + $"\\{name}.res"))
+                                        File.Move(enabled + $"\\{name}.res", custom + $"\\{name}.res", true);
                                 }
-                                else
+
+                                // Only move the files for the control option selected by the user.
+                                if (!string.Equals(setting.Value, "0"))
                                 {
-                                    if (File.Exists(path + option.RenameFile.NewName))
-                                        File.Move(path + option.RenameFile.NewName, path + option.RenameFile.OldName);
+                                    var name = control.Options[int.Parse(setting.Value)].FileName;
+                                    if (string.IsNullOrWhiteSpace(name)) break;
 
-                                    if (string.Equals(option.Value, setting.Value))
-                                        File.Move(path + option.RenameFile.OldName, path + option.RenameFile.NewName);
+                                    name = name.Replace(".res", string.Empty);
+                                    if (Directory.Exists(custom + $"\\{name}"))
+                                        Directory.Move(custom + $"\\{name}", enabled + $"\\{name}");
+                                    else if (File.Exists(custom + $"\\{name}.res"))
+                                        File.Move(custom + $"\\{name}.res", enabled + $"\\{name}.res", true);
                                 }
 
-                            var fileNames = _utilities.GetFileNames(control);
-                            if (fileNames is null or not string[]) continue; // File names not found, skipping.
-
-                            // Move every file assigned to this control back to the customization folder first.
-                            foreach (string file in fileNames)
-                            {
-                                var name = file.Replace(".res", string.Empty);
-                                if (Directory.Exists(enabled + $"\\{name}"))
-                                    Directory.Move(enabled + $"\\{name}", custom + $"\\{name}");
-                                else if (File.Exists(enabled + $"\\{name}.res"))
-                                    File.Move(enabled + $"\\{name}.res", custom + $"\\{name}.res", true);
-                            }
-
-                            // Only move the files for the control option selected by the user.
-                            if (!string.Equals(setting.Value, "0"))
-                            {
-                                var name = control.Options[int.Parse(setting.Value)].FileName;
-                                if (string.IsNullOrWhiteSpace(name)) break;
-
-                                name = name.Replace(".res", string.Empty);
-                                if (Directory.Exists(custom + $"\\{name}"))
-                                    Directory.Move(custom + $"\\{name}", enabled + $"\\{name}");
-                                else if (File.Exists(custom + $"\\{name}.res"))
-                                    File.Move(custom + $"\\{name}.res", enabled + $"\\{name}.res", true);
-                            }
-
-                            break;
+                                break;
+                        }
                     }
-                }
 
                 return true;
             }
@@ -526,162 +524,162 @@ namespace HUDEditor.Classes
                         switch (animationOption.Key.ToLowerInvariant())
                         {
                             case "replace":
-                            {
-                                // Example:
-                                // "replace": [
-                                //   "HudSpyDisguiseFadeIn_disabled",
-                                //   "HudSpyDisguiseFadeIn"
-                                // ]
-
-                                var values = animationOption.Value.ToArray();
-
-                                string find, replace;
-                                if (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
                                 {
-                                    find = values[0].ToString();
-                                    replace = values[1].ToString();
-                                }
-                                else
-                                {
-                                    find = values[1].ToString();
-                                    replace = values[0].ToString();
-                                }
+                                    // Example:
+                                    // "replace": [
+                                    //   "HudSpyDisguiseFadeIn_disabled",
+                                    //   "HudSpyDisguiseFadeIn"
+                                    // ]
 
-                                File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
-                                break;
-                            }
-                            case "comment":
-                            {
-                                // Example:
-                                // "comment": [
-                                //   "StopEvent",
-                                //   "StopEvent"
-                                // ]
+                                    var values = animationOption.Value.ToArray();
 
-                                var values = animationOption.Value.ToArray();
-
-                                if (bool.TryParse(userSetting.Value, out var valid))
-                                {
-                                    var lines = File.ReadAllLines(filePath);
-                                    foreach (string value in values)
-                                    foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
-                                        lines[index] = valid
-                                            ? _utilities.CommentTextLine(lines, index)
-                                            : _utilities.UncommentTextLine(lines, index);
-                                    File.WriteAllLines(filePath, lines);
-                                }
-                                else if (int.TryParse(userSetting.Value, out _))
-                                {
-                                    var lines = File.ReadAllLines(filePath);
-                                    foreach (string value in values)
-                                    foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
-                                        lines[index] = _utilities.CommentTextLine(lines, index);
-                                    File.WriteAllLines(filePath, lines);
-                                }
-
-                                break;
-                            }
-                            case "uncomment":
-                            {
-                                // Example:
-                                // "uncomment": [
-                                //   "StopEvent",
-                                //   "StopEvent"
-                                // ]
-
-                                var values = animationOption.Value.ToArray();
-
-                                if (bool.TryParse(userSetting.Value, out var valid))
-                                {
-                                    var lines = File.ReadAllLines(filePath);
-                                    foreach (string value in values)
-                                    foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
-                                        lines[index] = valid
-                                            ? _utilities.UncommentTextLine(lines, index)
-                                            : _utilities.CommentTextLine(lines, index);
-                                    File.WriteAllLines(filePath, lines);
-                                }
-                                else if (int.TryParse(userSetting.Value, out _))
-                                {
-                                    var lines = File.ReadAllLines(filePath);
-                                    foreach (string value in values)
-                                    foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
-                                        lines[index] = _utilities.UncommentTextLine(lines, index);
-                                    File.WriteAllLines(filePath, lines);
-                                }
-
-                                break;
-                            }
-                            default:
-                            {
-                                // animation
-                                // example:
-                                // "HudHealthBonusPulse": [
-                                //   {
-                                //     "Type": "Animate",
-                                //     "Element": "PlayerStatusHealthValue",
-                                //     "Property": "Fgcolor",
-                                //     "Value": "0 170 255 255",
-                                //     "Interpolator": "Linear",
-                                //     "Delay": "0",
-                                //     "Duration": "0"
-                                //   }
-                                // ]
-
-                                animations ??= HUDAnimations.Parse(File.ReadAllText(filePath));
-
-                                // Create new event or animation statements could stack
-                                // over multiple 'apply customisations'
-                                animations[animationOption.Key] = new List<HUDAnimation>();
-
-                                JToken[] animationevents;
-
-                                if (animationOption.Value.Type == JTokenType.Object)
-                                {
-                                    var animationsContainer =
-                                        animationOption.Value.ToObject<Dictionary<string, JToken>>();
-                                    if (animationsContainer.ContainsKey("true") &&
-                                        animationsContainer.ContainsKey("false"))
+                                    string find, replace;
+                                    if (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
                                     {
-                                        var selection = animationsContainer[userSetting.Value.ToLower()];
-                                        animationevents = selection.ToArray();
+                                        find = values[0].ToString();
+                                        replace = values[1].ToString();
                                     }
                                     else
                                     {
-                                        throw new Exception($"Unexpected object at {animationOption.Key}!");
+                                        find = values[1].ToString();
+                                        replace = values[0].ToString();
                                     }
+
+                                    File.WriteAllText(filePath, File.ReadAllText(filePath).Replace(find, replace));
+                                    break;
                                 }
-                                else
+                            case "comment":
                                 {
-                                    animationevents = animationOption.Value.ToArray();
-                                }
+                                    // Example:
+                                    // "comment": [
+                                    //   "StopEvent",
+                                    //   "StopEvent"
+                                    // ]
 
+                                    var values = animationOption.Value.ToArray();
 
-                                foreach (var option in animationevents)
-                                {
-                                    var animation = option.ToObject<Dictionary<string, dynamic>>();
-
-                                    dynamic current = CreateAnimation(animation, animationOption);
-
-                                    // Animate statements can have an extra argument make sure to account for them
-                                    if (current.GetType() == typeof(Animate))
+                                    if (bool.TryParse(userSetting.Value, out var valid))
                                     {
-                                        if (string.Equals(current.Interpolator, "pulse",
-                                            StringComparison.CurrentCultureIgnoreCase))
-                                            current.Frequency = EvaluateValue(animation["Frequency"]);
-
-                                        if (string.Equals(current.Interpolator, "gain",
-                                                StringComparison.CurrentCultureIgnoreCase) ||
-                                            string.Equals(current.Interpolator, "bias",
-                                                StringComparison.CurrentCultureIgnoreCase))
-                                            current.Bias = EvaluateValue(animation["Bias"]);
+                                        var lines = File.ReadAllLines(filePath);
+                                        foreach (string value in values)
+                                            foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
+                                                lines[index] = valid
+                                                    ? _utilities.CommentTextLine(lines, index)
+                                                    : _utilities.UncommentTextLine(lines, index);
+                                        File.WriteAllLines(filePath, lines);
+                                    }
+                                    else if (int.TryParse(userSetting.Value, out _))
+                                    {
+                                        var lines = File.ReadAllLines(filePath);
+                                        foreach (string value in values)
+                                            foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
+                                                lines[index] = _utilities.CommentTextLine(lines, index);
+                                        File.WriteAllLines(filePath, lines);
                                     }
 
-                                    animations[animationOption.Key].Add(current);
+                                    break;
                                 }
+                            case "uncomment":
+                                {
+                                    // Example:
+                                    // "uncomment": [
+                                    //   "StopEvent",
+                                    //   "StopEvent"
+                                    // ]
 
-                                break;
-                            }
+                                    var values = animationOption.Value.ToArray();
+
+                                    if (bool.TryParse(userSetting.Value, out var valid))
+                                    {
+                                        var lines = File.ReadAllLines(filePath);
+                                        foreach (string value in values)
+                                            foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
+                                                lines[index] = valid
+                                                    ? _utilities.UncommentTextLine(lines, index)
+                                                    : _utilities.CommentTextLine(lines, index);
+                                        File.WriteAllLines(filePath, lines);
+                                    }
+                                    else if (int.TryParse(userSetting.Value, out _))
+                                    {
+                                        var lines = File.ReadAllLines(filePath);
+                                        foreach (string value in values)
+                                            foreach (var index in _utilities.GetLineNumbersContainingString(lines, value))
+                                                lines[index] = _utilities.UncommentTextLine(lines, index);
+                                        File.WriteAllLines(filePath, lines);
+                                    }
+
+                                    break;
+                                }
+                            default:
+                                {
+                                    // animation
+                                    // example:
+                                    // "HudHealthBonusPulse": [
+                                    //   {
+                                    //     "Type": "Animate",
+                                    //     "Element": "PlayerStatusHealthValue",
+                                    //     "Property": "Fgcolor",
+                                    //     "Value": "0 170 255 255",
+                                    //     "Interpolator": "Linear",
+                                    //     "Delay": "0",
+                                    //     "Duration": "0"
+                                    //   }
+                                    // ]
+
+                                    animations ??= HUDAnimations.Parse(File.ReadAllText(filePath));
+
+                                    // Create new event or animation statements could stack
+                                    // over multiple 'apply customisations'
+                                    animations[animationOption.Key] = new List<HUDAnimation>();
+
+                                    JToken[] animationevents;
+
+                                    if (animationOption.Value.Type == JTokenType.Object)
+                                    {
+                                        var animationsContainer =
+                                            animationOption.Value.ToObject<Dictionary<string, JToken>>();
+                                        if (animationsContainer.ContainsKey("true") &&
+                                            animationsContainer.ContainsKey("false"))
+                                        {
+                                            var selection = animationsContainer[userSetting.Value.ToLower()];
+                                            animationevents = selection.ToArray();
+                                        }
+                                        else
+                                        {
+                                            throw new Exception($"Unexpected object at {animationOption.Key}!");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        animationevents = animationOption.Value.ToArray();
+                                    }
+
+
+                                    foreach (var option in animationevents)
+                                    {
+                                        var animation = option.ToObject<Dictionary<string, dynamic>>();
+
+                                        dynamic current = CreateAnimation(animation, animationOption);
+
+                                        // Animate statements can have an extra argument make sure to account for them
+                                        if (current.GetType() == typeof(Animate))
+                                        {
+                                            if (string.Equals(current.Interpolator, "pulse",
+                                                StringComparison.CurrentCultureIgnoreCase))
+                                                current.Frequency = EvaluateValue(animation["Frequency"]);
+
+                                            if (string.Equals(current.Interpolator, "gain",
+                                                    StringComparison.CurrentCultureIgnoreCase) ||
+                                                string.Equals(current.Interpolator, "bias",
+                                                    StringComparison.CurrentCultureIgnoreCase))
+                                                current.Bias = EvaluateValue(animation["Bias"]);
+                                        }
+
+                                        animations[animationOption.Key].Add(current);
+                                    }
+
+                                    break;
+                                }
                         }
 
                     if (animations is not null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
