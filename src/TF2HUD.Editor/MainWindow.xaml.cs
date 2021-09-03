@@ -168,7 +168,6 @@ namespace HUDEditor
         private static void CheckForUpdates()
         {
             Logger.Info("Checking for app updates.");
-            AutoUpdater.OpenDownloadPage = true;
             AutoUpdater.Start(Settings.Default.app_update);
         }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <item>
-    <version>2.3.0.0</version>
-    <url>https://github.com/CriticalFlaw/TF2HUD.Editor/releases/tag/2.3</url>
-    <changelog>https://github.com/CriticalFlaw/TF2HUD.Editor/releases/tag/2.3</changelog>
+    <version>2.3.1.0</version>
+    <url>https://github.com/CriticalFlaw/TF2HUD.Editor/releases/download/2.3.1/tf2-hud-editor_2.3.1-x64.zip</url>
+    <changelog>https://github.com/CriticalFlaw/TF2HUD.Editor/releases/tag/2.3.1</changelog>
     <mandatory>true</mandatory>
 </item>
