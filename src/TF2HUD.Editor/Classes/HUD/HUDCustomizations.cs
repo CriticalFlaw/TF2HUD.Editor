@@ -712,7 +712,7 @@ namespace HUDEditor.Classes
                     }
                     else
                     {
-                        MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_unknown_extension), extension));
+                        MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString("error_unknown_extension"), extension));
                     }
                 }
             }
@@ -778,7 +778,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString(Resources.error_transparent_vm), e.Message));
+                MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString("error_transparent_vm"), e.Message));
                 return false;
             }
         }

@@ -107,7 +107,7 @@ namespace HUDEditor
             // Check one more time if a valid directory has been set.
             if (Utilities.CheckUserPath(HudPath)) return;
             Logger.Info("tf/custom directory still not set. Exiting...");
-            ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString(Properties.Resources.error_app_directory));
+            ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString("error_app_directory"));
             Application.Current.Shutdown();
         }
 
@@ -383,7 +383,7 @@ namespace HUDEditor
             }
             catch (Exception e)
             {
-                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_install), HudSelection)} {e.Message}");
+                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString("error_hud_install"), HudSelection)} {e.Message}");
             }
         }
 
@@ -409,7 +409,7 @@ namespace HUDEditor
             }
             catch (Exception e)
             {
-                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString(Properties.Resources.error_hud_uninstall), HudSelection)} {e.Message}");
+                ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString("error_hud_uninstall"), HudSelection)} {e.Message}");
             }
         }
 

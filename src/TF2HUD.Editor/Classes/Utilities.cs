@@ -12,7 +12,7 @@ using System.Windows;
 using HUDEditor.Models;
 using HUDEditor.Properties;
 using Microsoft.Win32;
-using WPFLocalizeExtension.Deprecated.Extensions;
+using WPFLocalizeExtension.Extensions;
 
 namespace HUDEditor.Classes
 {
@@ -201,7 +201,7 @@ namespace HUDEditor.Classes
         public static bool CheckIsGameRunning()
         {
             if (!Process.GetProcessesByName("hl2").Any()) return false;
-            MainWindow.ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString(Resources.info_game_running));
+            MainWindow.ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString("info_game_running"));
             return true;
         }
 
@@ -241,7 +241,7 @@ namespace HUDEditor.Classes
         /// </summary>
         public static string GetLocalizedString(string key)
         {
-            _ = new LocTextExtension(key).ResolveLocalizedValue(out string uiString);
+            _ = new LocExtension(key).ResolveLocalizedValue(out string uiString);
             return uiString;
         }
 
