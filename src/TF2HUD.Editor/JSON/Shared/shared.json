@@ -1,21 +1,71 @@
 [
   {
-    "Name": "Sunset HUD",
-    "Description": "A very BRIGHT TF2 Hud based on material design.",
-    "Author": "Hypnotize",
-    "Thumbnail": "https://huds.tf/site/xthreads_attach.php/2462_1566851473_e5331cf2/40d295bb25f79295f73be50beb68f1b1/1VRpU68.png",
+    "Name": "PeachHUD",
+    "Description": "A Team Fortress 2 HUD made by Peaches and streamlined for competitive, while maintaining a clean and minimalistic look.",
+    "Author": "PeachesTV",
+    "Thumbnail": "https://huds.tf/site/xthreads_attach.php/3151_1601749117_3bbd70f3/8b9e290bc3bd43fa3a78b4b2d8cacaed/PeachMountainBlurHUDSTF.png",
     "Links": {
-      "Update": "https://github.com/Hypnootize/Sunset-Hud/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/Hypnootize/Sunset-Hud",
-      "HudsTF": "https://huds.tf/site/s-Sunset-Hud"
+      "Update": "https://github.com/PapaPeach/PeachHUD/archive/refs/heads/master.zip",
+      "GitHub": "https://github.com/PapaPeach/PeachHUD",
+      "HudsTF": "https://huds.tf/site/s-PeachHUD"
     },
     "Screenshots": [
-      "https://huds.tf/site/xthreads_attach.php/2457_1618067446_501905ac/60447465caec7aa59c8bb7dbf64bd5af/DxwatTd.jpg",
-      "https://huds.tf/site/xthreads_attach.php/2459_1615654860_bc98b40e/6846269251203341da2ed6a3029a1c8e/HMzOdFm.jpg",
-      "https://huds.tf/site/xthreads_attach.php/2460_1615654860_73714c2f/b996caa102baddcae52cb17cec12e589/scqbfSk.jpg",
-      "https://huds.tf/site/xthreads_attach.php/2461_1615654860_be08055d/a01e9c8c965019372dcf5fc4f24393c8/ckyRcuh.png"
+      "https://i.imgur.com/4c3nhSV.jpeg",
+      "https://i.imgur.com/EPCBcoB.jpeg",
+      "https://i.imgur.com/1WJGsNS.jpeg",
+      "https://i.imgur.com/M1LjwtS.jpeg"
     ]
   },
+  {
+    "Name": "collyhud",
+    "Author": "omnibombulator",
+    "Thumbnail": "https://huds.tf/site/xthreads_attach.php/3420_1610890758_652bc68e/ec8c1fb5d4553dbb8e8dc0d8df64299c/collyhud-logo.jpg",
+    "Links": {
+      "Update": "https://github.com/omnibombulator/collyhud/archive/refs/heads/master.zip",
+      "GitHub": "https://github.com/omnibombulator/collyhud",
+      "HudsTF": "https://huds.tf/site/s-collyhud"
+    },
+    "Screenshots": [
+      "https://huds.tf/site/xthreads_attach.php/3422_1610890758_9b89263a/b0b281edb5d4442e6ae731a302f33b3c/main-menu.jpg",
+      "https://huds.tf/site/xthreads_attach.php/3423_1613495388_aff68a85/6f9dbbf5ce2e7dc6eb1aaeac3c72af55/medic-charged.jpg",
+      "https://huds.tf/site/xthreads_attach.php/3424_1610890758_02963e22/3df6d98e69255dee748e6ff624ea30ff/scoreboard-6.jpg",
+      "https://huds.tf/site/xthreads_attach.php/3425_1613495388_4c9ddaff/e08de0ef4a97c165698006d1c85a11f0/tournament-spec.jpg"
+    ]
+  },
+  {
+    "Name": "m0rehud",
+    "Description": "Clean, functional and minimalistic HUD created by m0re.",
+    "Author": "Hypnotize",
+    "Thumbnail": "https://huds.tf/site/xthreads_attach.php/244_1575132372_f2b65a9e/69ce71dfb6eb377f69f18d9f5cf505de/tZsHgRf.png",
+    "Links": {
+      "Update": "https://github.com/Hypnootize/m0rehud/archive/refs/heads/master.zip",
+      "GitHub": "https://github.com/Hypnootize/m0rehud",
+      "HudsTF": "https://huds.tf/site/s-m0re-Hud"
+    },
+    "Screenshots": [
+      "https://huds.tf/site/xthreads_attach.php/245_1629748124_7320d20f/d75ca2baeb429f8e56e399b709186133/FCPZxX1.jpg",
+      "https://huds.tf/site/xthreads_attach.php/246_1558189825_a7c7a174/f271ea845dd63961c6005fbb80b66cd5/2DEdFyc.jpg",
+      "https://huds.tf/site/xthreads_attach.php/248_1558189825_9ad4dd5e/c4372bc2e63a77b4d27095bf21ad623c/Yub8aOP.jpg",
+      "https://huds.tf/site/xthreads_attach.php/249_1629748124_94bcdc15/f39834c57965b33535614de85c1245a8/JFGQ6tE.jpg"
+    ]
+  },
+  //{
+  //  "Name": "Sunset HUD",
+  //  "Description": "A very BRIGHT TF2 Hud based on material design.",
+  //  "Author": "Hypnotize",
+  //  "Thumbnail": "https://huds.tf/site/xthreads_attach.php/2462_1566851473_e5331cf2/40d295bb25f79295f73be50beb68f1b1/1VRpU68.png",
+  //  "Links": {
+  //    "Update": "https://github.com/Hypnootize/Sunset-Hud/archive/refs/heads/master.zip",
+  //    "GitHub": "https://github.com/Hypnootize/Sunset-Hud",
+  //    "HudsTF": "https://huds.tf/site/s-Sunset-Hud"
+  //  },
+  //  "Screenshots": [
+  //    "https://huds.tf/site/xthreads_attach.php/2457_1618067446_501905ac/60447465caec7aa59c8bb7dbf64bd5af/DxwatTd.jpg",
+  //    "https://huds.tf/site/xthreads_attach.php/2459_1615654860_bc98b40e/6846269251203341da2ed6a3029a1c8e/HMzOdFm.jpg",
+  //    "https://huds.tf/site/xthreads_attach.php/2460_1615654860_73714c2f/b996caa102baddcae52cb17cec12e589/scqbfSk.jpg",
+  //    "https://huds.tf/site/xthreads_attach.php/2461_1615654860_be08055d/a01e9c8c965019372dcf5fc4f24393c8/ckyRcuh.png"
+  //  ]
+  //},
   {
     "Name": "ahud",
     "Description": "A custom HUD for Team Fortress 2. Inspired from various HUDs, including, but not limited to, rayshud, yahud, and omphud.",
