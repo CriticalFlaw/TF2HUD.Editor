@@ -18,6 +18,7 @@ namespace HUDEditor
         public string AppUpdate { get => Settings.Default.app_update; }
         public string AppTracker { get => Settings.Default.app_tracker; }
         public string AppDocs { get => Settings.Default.app_docs; }
+        public string MastercomfigVPKDownloadURL { get => Settings.Default.mastercomfig_vpk; }
 
         public void Save()
         {

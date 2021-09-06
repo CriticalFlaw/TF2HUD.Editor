@@ -104,5 +104,15 @@ namespace HUDEditor.Properties {
                 return ((string)(this["app_update"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/mastercomfig/mastercomfig/releases/download/9.5.2/mastercomfig" +
+            "-transparent-viewmodels-addon.vpk")]
+        public string mastercomfig_vpk {
+            get {
+                return ((string)(this["mastercomfig_vpk"]));
+            }
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows;
 using HUDEditor.Models;
@@ -80,7 +81,7 @@ namespace HUDEditor.Classes
                                             obj[key].GetType() == typeof(Dictionary<string, dynamic>))
                                             // Initialise hudContainer and create inner Dictionary
                                             //  to contain elements specified
-                                            hudContainer = new Dictionary<string, dynamic> { [key] = folder[property] };
+                                            hudContainer = new Dictionary<string, dynamic> {[key] = folder[property]};
 
                                         preventInfinite++;
                                     }
@@ -374,7 +375,7 @@ namespace HUDEditor.Classes
                             {
                                 _logger.Info(property.Key);
                                 var newhudElementRef = hudElementRef.ContainsKey(property.Key)
-                                    ? (Dictionary<string, dynamic>)hudElementRef[property.Key]
+                                    ? (Dictionary<string, dynamic>) hudElementRef[property.Key]
                                     : new Dictionary<string, dynamic>();
                                 hudElement[property.Key] = CompileHudElement(currentObj,
                                     absolutePath, relativePath, newhudElementRef,
@@ -685,7 +686,7 @@ namespace HUDEditor.Classes
                     if (animations is not null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
                 }
 
-                string[] resFileExtensions = { "res", "vmt", "vdf" };
+                string[] resFileExtensions = {"res", "vmt", "vdf"};
 
                 foreach (var filePath in files)
                 {
@@ -754,13 +755,23 @@ namespace HUDEditor.Classes
         {
             try
             {
-                // Copy the config file required for this feature
-                if (!enable || Process.GetProcessesByName("hl2").Any()) return true;
-                _logger.Info(
-                    $"Copying mastercomfig-transparent-viewmodels-addon.vpk to {MainWindow.HudPath}");
-                File.Copy(
-                    Directory.GetCurrentDirectory() + "\\Resources\\mastercomfig-transparent-viewmodels-addon.vpk",
-                    MainWindow.HudPath + "\\mastercomfig-transparent-viewmodels-addon.vpk", true);
+                const string fileName = "mastercomfig-transparent-viewmodels-addon.vpk";
+
+                // Skip this step if TF2 is running, user already has the add-on or this feature is not enabled.
+                if (Process.GetProcessesByName("hl2").Any()
+                    || File.Exists(MainWindow.HudPath + "\\" + fileName)
+                    || !enable) return true;
+
+                // Download a version of the transparent viewmodels add-on.
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                var client = new WebClient();
+                client.DownloadFile(_settings.MastercomfigVPKDownloadURL, fileName);
+                client.Dispose();
+
+                // Move the file to the tf/custom folder.
+                File.Move($"{Directory.GetCurrentDirectory()}\\{fileName}", $"{MainWindow.HudPath}\\{fileName}", true);
                 return true;
             }
             catch (Exception e)

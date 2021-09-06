@@ -23,7 +23,7 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="name">Name of the HUD object.</param>
         /// <param name="schema">Contents of the HUD's schema file.</param>
-        public HUD(string name, HudJson schema, bool uniq, ILog logger, IUtilities utilities, INotifier notifier, ILocalization localization, VTF vtf)
+        public HUD(string name, HudJson schema, bool uniq, ILog logger, IUtilities utilities, INotifier notifier, ILocalization localization, VTF vtf, IAppSettings settings)
         {
             // Basic Schema Properties.
             Name = schema.Name ?? name;
@@ -50,6 +50,7 @@ namespace HUDEditor.Classes
             _notifier = notifier;
             _localization = localization;
             _vtf = vtf;
+            _settings = settings;
             if (schema.Screenshots is null) return;
             var index = 0;
             foreach (var screenshot in schema.Screenshots)
@@ -96,8 +97,8 @@ namespace HUDEditor.Classes
 
                     if (field.FieldType == typeof(string[]))
                     {
-                        var arr1 = (string[])field.GetValue(obj1);
-                        var arr2 = (string[])field.GetValue(obj2);
+                        var arr1 = (string[]) field.GetValue(obj1);
+                        var arr2 = (string[]) field.GetValue(obj2);
 
                         if (arr1 is null && arr2 is not null)
                         {
@@ -126,8 +127,8 @@ namespace HUDEditor.Classes
                     }
                     else if (field.FieldType == typeof(Dictionary<string, Controls[]>))
                     {
-                        var value1 = (Dictionary<string, Controls[]>)field.GetValue(obj1);
-                        var value2 = (Dictionary<string, Controls[]>)field.GetValue(obj2);
+                        var value1 = (Dictionary<string, Controls[]>) field.GetValue(obj1);
+                        var value2 = (Dictionary<string, Controls[]>) field.GetValue(obj2);
 
                         if (!value1.Keys.Count.Equals(value2.Keys.Count))
                         {
@@ -165,13 +166,13 @@ namespace HUDEditor.Classes
                     }
                     else if (field.FieldType == typeof(JObject))
                     {
-                        if (!CompareFiles((JObject)field.GetValue(obj1), (JObject)field.GetValue(obj2),
+                        if (!CompareFiles((JObject) field.GetValue(obj1), (JObject) field.GetValue(obj2),
                             $"{field.Name}.Files => ")) return false;
                     }
                     else if (field.FieldType == typeof(Option[]))
                     {
-                        var arr1 = (Option[])field.GetValue(obj1);
-                        var arr2 = (Option[])field.GetValue(obj2);
+                        var arr1 = (Option[]) field.GetValue(obj1);
+                        var arr2 = (Option[]) field.GetValue(obj2);
 
                         if (arr1 is null && arr2 is not null)
                         {
@@ -314,7 +315,7 @@ namespace HUDEditor.Classes
                         break;
 
                     case ComboBox combo:
-                        if (((ComboBoxItem)combo.Items[0]).Style == (Style)Application.Current.Resources["Crosshair"])
+                        if (((ComboBoxItem) combo.Items[0]).Style == (Style) Application.Current.Resources["Crosshair"])
                             combo.SelectedValue = control.Value;
                         else
                             combo.SelectedIndex = int.Parse(control.Value);
@@ -361,6 +362,7 @@ namespace HUDEditor.Classes
         private readonly INotifier _notifier;
         private readonly ILocalization _localization;
         private readonly VTF _vtf;
+        private readonly IAppSettings _settings;
 
         #endregion
     }

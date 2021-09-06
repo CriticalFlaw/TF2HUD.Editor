@@ -10,6 +10,7 @@
         string AppUpdate { get; }
         string AppTracker { get; }
         string AppDocs { get; }
+        string MastercomfigVPKDownloadURL { get; }
 
         void Save();
     }
