@@ -22,9 +22,6 @@ namespace HUDEditor.Classes
         // Highlighted HUD
         private HUD _highlightedHud;
 
-        // Local Shared HUDs Path
-        private string _localSharedPath;
-
         // Selected HUD
         private HUD _selectedHud;
 
@@ -51,33 +48,40 @@ namespace HUDEditor.Classes
             _localization = localization;
             _settings = settings;
             _vtf = vtf;
+
+            CreateHUDList();
+
+            var selectedHud = GetHUDByName(_settings.HudSelected);
+            HighlightedHUD = selectedHud;
+            SelectedHUD = selectedHud;
+        }
+
+        private void CreateHUDList()
+        {
             var hudList = new List<HUD>();
-            foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
-            {
-                // Extract HUD information from the file path and add it to the object list.
-                var fileInfo = jsonFile.Split("\\")[^1].Split(".");
-                if (fileInfo[^1] != "json") continue;
-                hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true, _logger, _utilities, _notifier, _localization, _vtf, _settings));
-            }
+            var sharedJSON = ReadJSONFile("JSON\\Shared\\shared.json");
+            var sharedControlsJSON = ReadJSONFile("JSON\\Shared\\controls.json");
 
-            // Load all shared huds from JSON/Shared/shared.json, and shared controls from JSON/Shared/controls.json
-            // For each hud, assign unique ids for the controls based on the hud name and add to HUDs list.
-            var sharedHUDs = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON\\Shared\\shared.json"), new UTF8Encoding(false)).ReadToEnd());
-            var sharedControlsJSON = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
-            hudList.AddRange(sharedHUDs.Select(hud =>
-            {
-                var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
-                foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
-                    control.Name = $"{_utilities.EncodeID(hud.Name)}_{_utilities.EncodeID(control.Name)}";
-                hud.Layout = hudControls.Layout;
-                hud.Controls = hudControls.Controls;
-                return new HUD(hud.Name, hud, false, _logger, _utilities, _notifier, _localization, _vtf, _settings);
-            }));
+            AddPredefinedHUDs(hudList);
+            AddSharedHUDs(hudList, sharedJSON, sharedControlsJSON);
+            AddLocalSharedHUDs(hudList, sharedControlsJSON);
 
+            hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
+            HUDList = hudList.ToArray();
+        }
+
+        private static string ReadJSONFile(string path)
+        {
+            return new StreamReader(File.OpenRead(path), new UTF8Encoding(false)).ReadToEnd();
+        }
+
+        private void AddLocalSharedHUDs(List<HUD> hudList, string sharedControlsJSON)
+        {
             // Local Shared HUDs
-            _localSharedPath = Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\LocalShared").FullName;
+            var localSharedHUDsPath = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\LocalShared";
+            var localSharedPath = Directory.CreateDirectory(localSharedHUDsPath).FullName;
 
-            foreach (var localSharedHUD in Directory.EnumerateDirectories(_localSharedPath))
+            foreach (var localSharedHUD in Directory.EnumerateDirectories(localSharedPath))
             {
                 var hudName = localSharedHUD.Split('\\')[^1];
                 var hudBackgroundPath = $"{localSharedHUD}\\output.png";
@@ -98,13 +102,33 @@ namespace HUDEditor.Classes
                     Controls = sharedProperties.Controls
                 }, false, _logger, _utilities, _notifier, _localization, _vtf, _settings));
             }
+        }
 
-            hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
-            HUDList = hudList.ToArray();
+        private void AddSharedHUDs(List<HUD> hudList, string sharedJSON, string sharedControlsJSON)
+        {
+            // Load all shared huds from JSON/Shared/shared.json, and shared controls from JSON/Shared/controls.json
+            // For each hud, assign unique ids for the controls based on the hud name and add to HUDs list.
+            var sharedHUDs = JsonConvert.DeserializeObject<List<HudJson>>(sharedJSON);
+            hudList.AddRange(sharedHUDs.Select(hud =>
+            {
+                var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
+                foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
+                    control.Name = $"{_utilities.EncodeID(hud.Name)}_{_utilities.EncodeID(control.Name)}";
+                hud.Layout = hudControls.Layout;
+                hud.Controls = hudControls.Controls;
+                return new HUD(hud.Name, hud, false, _logger, _utilities, _notifier, _localization, _vtf, _settings);
+            }));
+        }
 
-            var selectedHud = GetHUDByName(_settings.HudSelected);
-            HighlightedHUD = selectedHud;
-            SelectedHUD = selectedHud;
+        private void AddPredefinedHUDs(List<HUD> hudList)
+        {
+            foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
+            {
+                // Extract HUD information from the file path and add it to the object list.
+                var fileInfo = jsonFile.Split("\\")[^1].Split(".");
+                if (fileInfo[^1] != "json") continue;
+                hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true, _logger, _utilities, _notifier, _localization, _vtf, _settings));
+            }
         }
 
         public HUD HighlightedHUD
@@ -163,64 +187,31 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Synchronize the local HUD schema files with the latest versions on GitHub.
         /// </summary>
-        public bool Update(bool force = false)
+        public bool Update(bool forceDownload = false)
         {
             try
             {
                 // Get the local schema names and file sizes.
-                var localFiles = new List<Tuple<string, int>>();
-                foreach (var file in new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")))
-                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length));
-                if (localFiles.Count <= 0) return false;
+                List<Tuple<string, int>> localHUDSchemas = GetHUDSchemas();
+                if (localHUDSchemas.Count <= 0) return false;
 
-                // Setup the WebClient for download remote files.
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 var client = new WebClient();
                 client.Headers.Add("User-Agent", "request");
-                var remoteList = client.DownloadString(_settings.JsonList);
-                client.Dispose();
 
-                // Get the remote schema names and file sizes.
-                var remoteFiles = JsonConvert.DeserializeObject<List<GitJson>>(remoteList)
-                    .Where(x => x.Name.EndsWith(".json"))
-                    .Select(file => new Tuple<string, int>(file.Name.Replace(".json", string.Empty), file.Size))
-                    .ToList();
+                List<Tuple<string, int>> remoteFiles = GetRemoteFiles(client);
                 if (remoteFiles.Count <= 0) return false;
 
                 var restartRequired = false;
                 // Compare the local and remote files.
                 foreach (var (remoteName, remoteSize) in remoteFiles)
                 {
-                    if (!force)
+                    if (!forceDownload && !HudDoesNotExistLocallyOrIsOutdated(localHUDSchemas, remoteName, remoteSize))
                     {
-                        var downloadFile = true;
-                        _logger.Info($"{remoteName}: Checking ...");
-                        foreach (var (localName, localSize) in localFiles)
-                            if (string.Equals(remoteName, localName))
-                            {
-                                // The remote file is found locally. Check if the file size has noticeably changed.
-                                downloadFile = !Enumerable.Range(remoteSize - 100, remoteSize + 100).Contains(localSize);
-                                break;
-                            }
-
-                        // If the remote file is not found locally, or the size difference is too great - download the latest version.
-                        if (!downloadFile)
-                        {
-                            _logger.Info($"{remoteName}: No updates...");
-                            continue;
-                        }
+                        _logger.Info($"{remoteName}: No updates...");
+                        continue;
                     }
 
-                    var fileName = $"{remoteName}.json";
-                    _logger.Info($"{remoteName}: Downloading latest version...");
-                    client.DownloadFile(string.Format(_settings.JsonFile, fileName), fileName);
-                    client.Dispose();
-
-                    // Move the fresh file into the JSON folder, overwriting the previous version.
-                    if (File.Exists(fileName))
-                        File.Move(fileName, $"JSON/{fileName}", true);
+                    DownloadHUD(client, remoteName);
 
                     restartRequired = true;
                 }
@@ -235,18 +226,81 @@ namespace HUDEditor.Classes
             }
         }
 
+        private bool HudDoesNotExistLocallyOrIsOutdated(List<Tuple<string, int>> localHUDSchemas, string remoteName, int remoteSize)
+        {
+            var shouldDownloadFile = true;
+            _logger.Info($"{remoteName}: Checking ...");
+            foreach (var (localName, localSize) in localHUDSchemas)
+                if (string.Equals(remoteName, localName))
+                {
+                    // The remote file is found locally. Check if the file size has noticeably changed.
+                    shouldDownloadFile = FileSizeHasChanged(remoteSize, localSize);
+                    break;
+                }
+
+            return shouldDownloadFile;
+        }
+
+        private static bool FileSizeHasChanged(int remoteSize, int localSize)
+        {
+            return !Enumerable.Range(remoteSize - 100, remoteSize + 100).Contains(localSize);
+        }
+
+        private void DownloadHUD(WebClient client, string remoteName)
+        {
+            var fileName = $"{remoteName}.json";
+            _logger.Info($"{remoteName}: Downloading latest version...");
+            client.DownloadFile(string.Format(_settings.JsonFile, fileName), fileName);
+            client.Dispose();
+
+            // Move the fresh file into the JSON folder, overwriting the previous version.
+            if (File.Exists(fileName))
+                File.Move(fileName, $"JSON/{fileName}", true);
+        }
+
+        private List<Tuple<string, int>> GetRemoteFiles(WebClient client)
+        {
+            var remoteList = DownloadRemoteList(client);
+
+            // Get the remote schema names and file sizes.
+            return JsonConvert.DeserializeObject<List<GitJson>>(remoteList)
+                .Where(x => x.Name.EndsWith(".json"))
+                .Select(file => new Tuple<string, int>(file.Name.Replace(".json", string.Empty), file.Size))
+                .ToList();
+        }
+
+        private string DownloadRemoteList(WebClient client)
+        {
+            // Setup the WebClient for download remote files.
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+            var remoteList = client.DownloadString(_settings.JsonList);
+            client.Dispose();
+            return remoteList;
+        }
+
+        private static List<Tuple<string, int>> GetHUDSchemas()
+        {
+            var localFiles = new List<Tuple<string, int>>();
+            foreach (var file in new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")))
+                localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length));
+            return localFiles;
+        }
+
         public async Task<bool> UpdateAsync()
         {
             try
             {
-                return (await Task.WhenAll(HUDList.Select(async x =>
+                return (await Task.WhenAll(HUDList.Select(async hud =>
                 {
-                    var url = string.Format(_settings.JsonFile, $"{x.Name}.json");
-                    _logger.Info($"Requesting {x.Name} from {url}");
+                    var url = string.Format(_settings.JsonFile, $"{hud.Name}.json");
+                    _logger.Info($"Requesting {hud.Name} from {url}");
                     var response = await _utilities.Fetch(url);
                     if (response != null)
-                        return !x.TestHUD(new HUD(x.Name, JsonConvert.DeserializeObject<HudJson>(response), true, _logger, _utilities, _notifier, _localization, _vtf, _settings));
-                    _logger.Info($"{x.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
+                        return !hud.TestHUD(new HUD(hud.Name, JsonConvert.DeserializeObject<HudJson>(response), true, _logger, _utilities, _notifier, _localization, _vtf, _settings));
+                    _logger.Info($"{hud.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
                     return false;
                 }))).Contains(true);
             }
@@ -266,6 +320,25 @@ namespace HUDEditor.Classes
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
             }\TF2HUD.Editor\LocalShared\{hudName}").FullName}";
 
+            var hudJson = CreateHudJson(folderPath, hudName, hudDetailsFolder);
+
+            var hud = new HUD(hudName, hudJson, false, _logger, _utilities, _notifier, _localization, _vtf, _settings);
+            UpdateHUDList(hud);
+            HighlightedHUD = hud;
+            SelectedHUD = hud;
+            return hud;
+        }
+
+        private void UpdateHUDList(HUD hud)
+        {
+            var hudList = HUDList.ToList();
+            hudList.Add(hud);
+            hudList.Sort((a, b) => string.Compare(a.Name, b.Name));
+            HUDList = hudList.ToArray();
+        }
+
+        private HudJson CreateHudJson(string folderPath, string hudName, string hudDetailsFolder)
+        {
             var hudJson = new HudJson
             {
                 Name = hudName,
@@ -336,9 +409,7 @@ namespace HUDEditor.Classes
 
             hudJson.Background = hudJson.Thumbnail;
 
-            var hudList = HUDList.ToList();
-            var sharedControlsJSON = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
-
+            var sharedControlsJSON = ReadJSONFile("JSON\\Shared\\controls.json");
             var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
             foreach (var group in hudControls.Controls)
                 foreach (var control in hudControls.Controls[group.Key])
@@ -347,13 +418,7 @@ namespace HUDEditor.Classes
             hudJson.Layout = hudControls.Layout;
             hudJson.Controls = hudControls.Controls;
 
-            var hud = new HUD(hudName, hudJson, false, _logger, _utilities, _notifier, _localization, _vtf, _settings);
-            hudList.Add(hud);
-            hudList.Sort((a, b) => string.Compare(a.Name, b.Name));
-            HUDList = hudList.ToArray();
-            HighlightedHUD = hud;
-            SelectedHUD = hud;
-            return hud;
+            return hudJson;
         }
     }
 }
