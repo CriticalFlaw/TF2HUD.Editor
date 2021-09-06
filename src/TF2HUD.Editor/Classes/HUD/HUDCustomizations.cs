@@ -7,7 +7,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows;
 using HUDEditor.Models;
-using HUDEditor.Properties;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -128,13 +127,13 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Copy files used for folder-based customizations.
         /// </summary>
-        public bool MoveCustomizationFiles(Dictionary<string, Controls[]>.ValueCollection hudSettings)
+        private void MoveCustomizationFiles(Dictionary<string, Controls[]>.ValueCollection hudSettings)
         {
             try
             {
                 // Check if the customization folder exist.
                 var path = $"{MainWindow.HudPath}\\{Name}\\";
-                if (!Directory.Exists($"{path}\\{CustomizationsFolder}")) return true;
+                if (!Directory.Exists($"{path}\\{CustomizationsFolder}")) return;
 
                 // Check if the "enabled" folder exists. If not, create it.
                 if (!Directory.Exists($"{path}\\{EnabledFolder}"))
@@ -256,14 +255,11 @@ namespace HUDEditor.Classes
                             break;
                     }
                 }
-
-                return true;
             }
             catch (Exception e)
             {
                 MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
-                return false;
             }
         }
 
@@ -357,8 +353,8 @@ namespace HUDEditor.Classes
                             if (property.Value.ToString().Contains("true"))
                                 output = property.Value.ToArray().Aggregate(output, (current, value) => current +
                                     (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase)
-                                        ? "#base " + value.First.First() + "\r\n"
-                                        : "#base " + value.Last.First() + "\r\n"));
+                                        ? "#base " + value.First!.First() + "\r\n"
+                                        : "#base " + value.Last!.First() + "\r\n"));
                             else
                                 output += "#base " + property.Value + "\n";
 
@@ -518,7 +514,7 @@ namespace HUDEditor.Classes
 
 
                     // Don't read animations file unless the user requests a new event
-                    // the majority of the animation customisations are for enabling/disabling
+                    // the majority of the animation customizations are for enabling/disabling
                     // events, which use the 'replace' keyword
                     Dictionary<string, List<HUDAnimation>> animations = null;
                     MainWindow.Logger.Info($"Processing: {filePath}");
@@ -534,7 +530,7 @@ namespace HUDEditor.Classes
                                 //   "HudSpyDisguiseFadeIn"
                                 // ]
 
-                                var values = animationOption.Value.ToArray();
+                                var values = animationOption.Value!.ToArray();
 
                                 string find, replace;
                                 if (string.Equals(userSetting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
@@ -559,7 +555,7 @@ namespace HUDEditor.Classes
                                 //   "StopEvent"
                                 // ]
 
-                                var values = animationOption.Value.ToArray();
+                                var values = animationOption.Value!.ToArray();
 
                                 if (bool.TryParse(userSetting.Value, out var valid))
                                 {
@@ -590,7 +586,7 @@ namespace HUDEditor.Classes
                                 //   "StopEvent"
                                 // ]
 
-                                var values = animationOption.Value.ToArray();
+                                var values = animationOption.Value!.ToArray();
 
                                 if (bool.TryParse(userSetting.Value, out var valid))
                                 {
@@ -631,8 +627,7 @@ namespace HUDEditor.Classes
 
                                 animations ??= HUDAnimations.Parse(File.ReadAllText(filePath));
 
-                                // Create new event or animation statements could stack
-                                // over multiple 'apply customisations'
+                                // Create new event or animation statements could stack over multiple 'apply customizations'.
                                 animations[animationOption.Key] = new List<HUDAnimation>();
 
                                 JToken[] animationevents;
@@ -753,7 +748,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Copy configuration file for transparent viewmodels into the HUD's cfg folder.
         /// </summary>
-        public bool CopyTransparentViewmodelAddon(bool enable = false)
+        private void CopyTransparentViewmodelAddon(bool enable = false)
         {
             try
             {
@@ -762,7 +757,7 @@ namespace HUDEditor.Classes
                 // Skip this step if TF2 is running, user already has the add-on or this feature is not enabled.
                 if (Process.GetProcessesByName("hl2").Any()
                     || File.Exists(MainWindow.HudPath + "\\" + fileName)
-                    || !enable) return true;
+                    || !enable) return;
 
                 // Download a version of the transparent viewmodels add-on.
                 ServicePointManager.Expect100Continue = true;
@@ -774,12 +769,10 @@ namespace HUDEditor.Classes
 
                 // Move the file to the tf/custom folder.
                 File.Move($"{Directory.GetCurrentDirectory()}\\{fileName}", $"{MainWindow.HudPath}\\{fileName}", true);
-                return true;
             }
             catch (Exception e)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString("error_transparent_vm"), e.Message));
-                return false;
             }
         }
     }

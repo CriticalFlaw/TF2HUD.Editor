@@ -21,9 +21,6 @@ namespace HUDEditor.Classes
         // Highlighted HUD
         private HUD _highlightedHud;
 
-        // Local Shared HUDs Path
-        private string _localSharedPath;
-
         // Selected HUD
         private HUD _selectedHud;
 
@@ -45,7 +42,7 @@ namespace HUDEditor.Classes
             // For each hud, assign unique ids for the controls based on the hud name and add to HUDs list.
             var sharedHUDs = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON\\Shared\\shared.json"), new UTF8Encoding(false)).ReadToEnd());
             var sharedControlsJSON = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
-            hudList.AddRange(sharedHUDs.Select(hud =>
+            hudList.AddRange(sharedHUDs!.Select(hud =>
             {
                 var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
                 foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
@@ -56,7 +53,7 @@ namespace HUDEditor.Classes
             }));
 
             // Local Shared HUDs
-            _localSharedPath = Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\LocalShared").FullName;
+            var _localSharedPath = Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\LocalShared").FullName;
 
             foreach (var localSharedHUD in Directory.EnumerateDirectories(_localSharedPath))
             {
@@ -144,15 +141,13 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Synchronize the local HUD schema files with the latest versions on GitHub.
         /// </summary>
-        public static bool Update(bool force = false)
+        public static void Update(bool force = false)
         {
             try
             {
                 // Get the local schema names and file sizes.
-                var localFiles = new List<Tuple<string, int>>();
-                foreach (var file in new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")))
-                    localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length));
-                if (localFiles.Count <= 0) return false;
+                var localFiles = new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")).Select(file => new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int) file.Length)).ToList();
+                if (localFiles.Count <= 0) return;
 
                 // Setup the WebClient for download remote files.
                 ServicePointManager.Expect100Continue = true;
@@ -164,13 +159,12 @@ namespace HUDEditor.Classes
                 client.Dispose();
 
                 // Get the remote schema names and file sizes.
-                var remoteFiles = JsonConvert.DeserializeObject<List<GitJson>>(remoteList)
+                var remoteFiles = JsonConvert.DeserializeObject<List<GitJson>>(remoteList)!
                     .Where(x => x.Name.EndsWith(".json"))
                     .Select(file => new Tuple<string, int>(file.Name.Replace(".json", string.Empty), file.Size))
                     .ToList();
-                if (remoteFiles.Count <= 0) return false;
+                if (remoteFiles.Count <= 0) return;
 
-                var restartRequired = false;
                 // Compare the local and remote files.
                 foreach (var (remoteName, remoteSize) in remoteFiles)
                 {
@@ -202,17 +196,12 @@ namespace HUDEditor.Classes
                     // Move the fresh file into the JSON folder, overwriting the previous version.
                     if (File.Exists(fileName))
                         File.Move(fileName, $"JSON/{fileName}", true);
-
-                    restartRequired = true;
                 }
-
-                return restartRequired;
             }
             catch (Exception e)
             {
                 MainWindow.Logger.Error(e.Message);
                 Console.WriteLine(e);
-                return false;
             }
         }
 
@@ -282,8 +271,8 @@ namespace HUDEditor.Classes
                             var process = Process.Start(processInfo);
                             while (!process.StandardOutput.EndOfStream)
                                 MainWindow.Logger.Info($"[VTF2TGA] {process.StandardOutput.ReadLine()}");
-                            process?.WaitForExit();
-                            process?.Close();
+                            process.WaitForExit();
+                            process.Close();
 
                             File.Move(vtf2tgaOutputPath, $"{outputPath}.tga", true);
 
@@ -330,7 +319,7 @@ namespace HUDEditor.Classes
 
             var hud = new HUD(hudName, hudJson, false);
             hudList.Add(hud);
-            hudList.Sort((a, b) => string.Compare(a.Name, b.Name));
+            hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
             HUDList = hudList.ToArray();
             HighlightedHUD = hud;
             SelectedHUD = hud;

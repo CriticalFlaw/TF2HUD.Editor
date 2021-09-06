@@ -23,7 +23,8 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="name">Name of the HUD object.</param>
         /// <param name="schema">Contents of the HUD's schema file.</param>
-        public HUD(string name, HudJson schema, bool uniq)
+        /// <param name="unique">Flags the HUD as having unique customizations.</param>
+        public HUD(string name, HudJson schema, bool unique)
         {
             // Basic Schema Properties.
             Name = schema.Name ?? name;
@@ -44,7 +45,7 @@ namespace HUDEditor.Classes
             ControlOptions = schema.Controls;
             LayoutOptions = schema.Layout;
             DirtyControls = new List<string>();
-            Unique = uniq;
+            Unique = unique;
 
             if (schema.Screenshots is null) return;
             var index = 0;
@@ -277,7 +278,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Reset selected group of user-settings to the default values defined in the HUD schema.
         /// </summary>
-        public void ResetSection(string selection)
+        private void ResetSection(string selection)
         {
             foreach (var section in ControlOptions[selection])
                 ResetControl(section);
@@ -286,7 +287,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Reset user-settings to the default values defined in the HUD schema.
         /// </summary>
-        public void ResetControl(Controls control)
+        private void ResetControl(Controls control)
         {
             try
             {

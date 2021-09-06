@@ -113,8 +113,8 @@ namespace HUDEditor.Classes
             var process = Process.Start(processInfo);
             while (!process.StandardOutput.EndOfStream)
                 MainWindow.Logger.Info($"[VTEX] {process.StandardOutput.ReadLine()}");
-            process?.WaitForExit();
-            process?.Close();
+            process.WaitForExit();
+            process.Close();
         }
     }
 }

@@ -774,7 +774,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Check whether a control change requires a game restart.
         /// </summary>
-        public void CheckIsDirty(Controls control)
+        private void CheckIsDirty(Controls control)
         {
             if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value) &&
                 !DirtyControls.Contains(control.Label))

@@ -17,7 +17,6 @@ using HUDEditor.Classes;
 using HUDEditor.Properties;
 using log4net;
 using log4net.Config;
-using TF2HUDEditor.Classes;
 using WPFLocalizeExtension.Engine;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
@@ -70,7 +69,7 @@ namespace HUDEditor
         ///     Setup the tf/custom directory, if it's not already set.
         /// </summary>
         /// <param name="userSet">Flags the process as being user initiated, skip right to the folder browser.</param>
-        public void SetupDirectory(bool userSet = false)
+        private void SetupDirectory(bool userSet = false)
         {
             if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
             // Display a folder browser, ask the user to provide the tf/custom directory.
@@ -115,7 +114,7 @@ namespace HUDEditor
         ///     Add a HUD to the list of available HUDs.
         /// </summary>
         /// <param name="hud">HUd object to add to the list.</param>
-        public void AddHUDToGridView(HUD hud)
+        private void AddHUDToGridView(HUD hud)
         {
             Logger.Info($"Loading {hud.Name}");
             var border = new Border
@@ -172,7 +171,7 @@ namespace HUDEditor
         ///     Called when a new HUD has been selected from the list.
         /// </summary>
         /// <param name="hud">Selected HUD object.</param>
-        public void SelectionChanged(object sender, HUD hud)
+        private void SelectionChanged(object sender, HUD hud)
         {
             if (hud != null)
             {
@@ -491,7 +490,7 @@ namespace HUDEditor
 
                 var browser = new FolderBrowserDialog
                 {
-                    SelectedPath = HudPath + "\\"
+                    SelectedPath = $@"{HudPath}\"
                 };
                 if (browser.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
 
@@ -567,12 +566,12 @@ namespace HUDEditor
         /// </summary>
         private void BtnLocalize_OnClick(object sender, RoutedEventArgs e)
         {
-            if (btnLocalizeFR.IsChecked == true)
-                LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
-            else if (btnLocalizeRU.IsChecked == true)
-                LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
-            else
+            if (btnLocalizeEn.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
+            else if (btnLocalizeFr.IsChecked == true)
+                LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
+            else if (btnLocalizeRu.IsChecked == true)
+                LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
 
             // Save language preference to user settings.
             Settings.Default.user_language = LocalizeDictionary.Instance.Culture.ToString();

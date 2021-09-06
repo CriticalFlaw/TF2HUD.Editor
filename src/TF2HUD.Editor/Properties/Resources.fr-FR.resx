@@ -141,9 +141,6 @@
   <data name="header_update_none" xml:space="preserve">
     <value>Aucune mise à jour trouvée.</value>
   </data>
-  <data name="info_background_override" xml:space="preserve">
-    <value>Setting a new background will override the current one. Use the "Reinstall" option to go revert to the default background.</value>
-  </data>
   <data name="info_game_restart" xml:space="preserve">
     <value>Les modifications suivantes nécessitent le redémarrage du jeu:</value>
   </data>
@@ -201,9 +198,6 @@
   <data name="ui_apply" xml:space="preserve">
     <value>Appliquer les modifications</value>
   </data>
-  <data name="ui_author" xml:space="preserve">
-    <value>Created by: {0}</value>
-  </data>
   <data name="ui_back" xml:space="preserve">
     <value>Arrière</value>
   </data>
@@ -239,9 +233,6 @@
   </data>
   <data name="ui_switch" xml:space="preserve">
     <value>Changer de HUD</value>
-  </data>
-  <data name="ui_title" xml:space="preserve">
-    <value>TF2 HUD Editor</value>
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Désinstaller</value>

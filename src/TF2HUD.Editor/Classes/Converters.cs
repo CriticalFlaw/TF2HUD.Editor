@@ -5,10 +5,8 @@ using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using HUDEditor;
-using HUDEditor.Classes;
 
-namespace TF2HUDEditor.Classes
+namespace HUDEditor.Classes
 {
     public class NullCheckConverter : IValueConverter
     {
