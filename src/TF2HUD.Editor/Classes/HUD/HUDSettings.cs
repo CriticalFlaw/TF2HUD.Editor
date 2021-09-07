@@ -9,14 +9,6 @@ using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {
-    public enum HUDSettingsPreset
-    {
-        A,
-        B,
-        C,
-        D
-    }
-
     public class HUDSettings
     {
         public static readonly string UserFile =
@@ -53,7 +45,7 @@ namespace HUDEditor.Classes
         /// </summary>
         public void AddSetting(string name, Controls control)
         {
-            if (UserSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset) is null)
+            if (GetSetting(name) is null)
                 UserSettings.Add(new Setting
                 {
                     HUD = HUDName,
@@ -70,7 +62,7 @@ namespace HUDEditor.Classes
         /// <param name="name">Name of the setting to retrieve.</param>
         public Setting GetSetting(string name)
         {
-            return UserSettings.First(x => x.Name == name && x.Preset == Preset);
+            return UserSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset);
         }
 
         /// <summary>
@@ -79,7 +71,7 @@ namespace HUDEditor.Classes
         /// <param name="name">Name of the setting to retrieve.</param>
         public T GetSetting<T>(string name)
         {
-            var value = UserSettings.First(x => x.Name == name && x.Preset == Preset).Value;
+            var value = GetSetting(name).Value;
 
             switch (typeof(T).Name)
             {
@@ -105,7 +97,7 @@ namespace HUDEditor.Classes
         /// <param name="value">New value for updating setting.</param>
         public void SetSetting(string name, string value)
         {
-            UserSettings.First(x => x.Name == name && x.Preset == Preset).Value = value;
+            GetSetting(name).Value = value;
         }
 
         /// <summary>

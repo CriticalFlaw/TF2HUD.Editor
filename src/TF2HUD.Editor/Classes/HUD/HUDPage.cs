@@ -862,7 +862,7 @@ namespace HUDEditor.Classes
         /// </summary>
         public void CheckIsDirty(Controls control)
         {
-            if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value) &&
+            if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name)?.Value) &&
                 !DirtyControls.Contains(control.Label))
                 DirtyControls.Add(control.Label);
             else
