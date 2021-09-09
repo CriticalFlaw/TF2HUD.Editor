@@ -173,10 +173,11 @@
                     Style="{StaticResource HUDButton}"
                     IsEnabled="{Binding Json.HighlightedHUD, Converter={StaticResource NullCheckConverter}}" />
                 <Button
+                    x:Name="BtnUninstall"
                     Click="BtnUninstall_OnClick"
                     Content="{lex:Loc ui_uninstall}"
                     Style="{StaticResource HUDButton}"
-                    IsEnabled="{Binding Json.HighlightedHUDInstalled}" />
+                    IsEnabled="{Binding Json.HighlightedHUDInstalled, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     Click="BtnSave_OnClick"
                     Content="{lex:Loc ui_apply}"

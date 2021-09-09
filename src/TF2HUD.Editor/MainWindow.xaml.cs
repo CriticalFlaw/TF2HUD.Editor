@@ -252,6 +252,21 @@ namespace HUDEditor
             return Directory.Exists($"{HudPath}\\{HudSelection}");
         }
 
+        /// <summary>
+        ///     Check if the selected hud is valid.
+        /// </summary>
+        /// <returns>True if the selected hud is valid.</returns>
+        public static bool CheckHudSelection()
+        {
+            Json.SelectedHUD = Json.HighlightedHUD;
+            Settings.Default.hud_selected = HudSelection = Json.SelectedHUD.Name;
+            if (string.IsNullOrWhiteSpace(HudSelection))
+            {
+                return false;
+            }
+            return true;
+        }
+
         #endregion
 
         #region CLICK_EVENTS
@@ -393,6 +408,13 @@ namespace HUDEditor
         {
             try
             {
+                // Check if HUDSelection is valid.
+                if (!CheckHudSelection())
+                {
+                    BtnUninstall.IsEnabled = false;
+                    return;
+                }
+
                 // Check if the HUD is installed in a valid directory.
                 if (!CheckHudInstallation()) return;
 
