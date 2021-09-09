@@ -177,6 +177,9 @@
   <data name="status_installed_now" xml:space="preserve">
     <value>Installation de {0} terminée le {1}.</value>
   </data>
+    <data name="status_uninstalled_now" xml:space="preserve">
+    <value>{0} désinstallé sur {1}.</value>
+  </data>
   <data name="status_pathNotSet" xml:space="preserve">
     <value>Le répertoire "tf/custom" n'est pas défini!</value>
   </data>

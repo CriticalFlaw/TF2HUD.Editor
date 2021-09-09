@@ -183,6 +183,9 @@
   <data name="status_installed_now" xml:space="preserve">
     <value>{0} installation finished on {1}.</value>
   </data>
+  <data name="status_uninstalled_now" xml:space="preserve">
+    <value>{0} uninstalled on {1}.</value>
+  </data>
   <data name="status_pathNotSet" xml:space="preserve">
     <value>tf/custom directory is not set!</value>
   </data>

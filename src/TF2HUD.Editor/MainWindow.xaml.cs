@@ -427,6 +427,8 @@ namespace HUDEditor
                 Directory.Delete(HudPath + $"\\{HudSelection}\\", true);
                 Json.OnPropertyChanged("HighlightedHUD");
                 Json.OnPropertyChanged("HighlightedHUDInstalled");
+                LblStatus.Content = string.Format(Properties.Resources.status_uninstalled_now,
+                        Settings.Default.hud_selected, DateTime.Now);
             }
             catch (Exception e)
             {

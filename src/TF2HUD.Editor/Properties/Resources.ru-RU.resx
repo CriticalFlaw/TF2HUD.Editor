@@ -171,6 +171,9 @@
   <data name="status_installed_now" xml:space="preserve">
     <value>Установка {0} завершена в {1}.</value>
   </data>
+  <data name="status_uninstalled_now" xml:space="preserve">
+    <value>{0} удалена на {1}.</value>
+  </data>
   <data name="status_installed" xml:space="preserve">
     <value>{0} установлен!</value>
   </data>

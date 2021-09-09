@@ -259,6 +259,14 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} uninstalled on {1}...
+        /// </summary>
+        public static string status_uninstalled_now {
+            get {
+                return ResourceManager.GetString("status_uninstalled_now", resourceCulture);
+            }
+        }
+        /// <summary>
         ///   Looks up a localized string similar to tf/custom directory is not set!.
         /// </summary>
         public static string status_pathNotSet {
