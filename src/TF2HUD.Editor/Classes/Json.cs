@@ -33,6 +33,7 @@ namespace HUDEditor.Classes
         private readonly ILocalization _localization;
         private readonly IAppSettings _settings;
         private readonly VTF _vtf;
+        private readonly IHUDUpdateChecker _hudUpdateChecker;
 
         public Json(
             ILog logger,
@@ -40,7 +41,8 @@ namespace HUDEditor.Classes
             INotifier notifier,
             ILocalization localization,
             IAppSettings settings,
-            VTF vtf)
+            VTF vtf,
+            IHUDUpdateChecker hudTester)
         {
             _logger = logger;
             _utilities = utilities;
@@ -48,6 +50,7 @@ namespace HUDEditor.Classes
             _localization = localization;
             _settings = settings;
             _vtf = vtf;
+            _hudUpdateChecker = hudTester;
 
             CreateHUDList();
 
@@ -289,19 +292,17 @@ namespace HUDEditor.Classes
             return localFiles;
         }
 
+        /// <summary>
+        /// Checks for HUD schema updates asynchronously.
+        /// </summary>
+        /// <returns>True if at least one HUD has an update available, false otherwise.</returns>
         public async Task<bool> UpdateAsync()
         {
             try
             {
                 return (await Task.WhenAll(HUDList.Select(async hud =>
                 {
-                    var url = string.Format(_settings.JsonFile, $"{hud.Name}.json");
-                    _logger.Info($"Requesting {hud.Name} from {url}");
-                    var response = await _utilities.Fetch(url);
-                    if (response != null)
-                        return !hud.TestHUD(new HUD(hud.Name, JsonConvert.DeserializeObject<HudJson>(response), true, _logger, _utilities, _notifier, _localization, _vtf, _settings));
-                    _logger.Info($"{hud.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
-                    return false;
+                    return await IsUpdateAvailable(hud);
                 }))).Contains(true);
             }
             catch (Exception e)
@@ -310,6 +311,34 @@ namespace HUDEditor.Classes
                 Console.WriteLine(e);
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Determines if an update is available for the given HUD.
+        /// </summary>
+        /// <param name="hud"></param>
+        /// <returns>True if an update is available, false otherwise.</returns>
+        private async Task<bool> IsUpdateAvailable(HUD hud)
+        {
+            var url = string.Format(_settings.JsonFile, $"{hud.Name}.json");
+            _logger.Info($"Requesting {hud.Name} from {url}");
+            var response = await _utilities.Fetch(url);
+
+            if (response is null)
+            {
+                _logger.Info($"{hud.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
+                return false;
+            }
+
+            // Test everything except controls and settings. Complex fields require more testing.
+            var latestHud = new HUD(hud.Name, JsonConvert.DeserializeObject<HudJson>(response), true, _logger, _utilities, _notifier, _localization, _vtf, _settings);
+            return !_hudUpdateChecker.AreEqual(hud.Name, hud, latestHud, new[]
+            {
+                "controls",
+                "DirtyControls",
+                "isRendered",
+                "Settings"
+            });
         }
 
         public HUD Add(string folderPath)

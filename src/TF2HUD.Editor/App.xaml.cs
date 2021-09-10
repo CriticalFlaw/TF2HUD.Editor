@@ -35,6 +35,7 @@ namespace HUDEditor
             services.AddSingleton<VTEX>();
             services.AddSingleton<VTF>();
             services.AddSingleton<ILocalization, Localization>();
+            services.AddSingleton<IHUDUpdateChecker, HUDUpdateChecker>();
             services.AddSingleton<IAppSettings, AppSettings>();
             services.AddSingleton<INotifier, Notifier>();
             services.AddSingleton<IUtilities, Utilities>();
