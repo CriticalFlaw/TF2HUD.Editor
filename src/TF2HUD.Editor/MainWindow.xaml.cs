@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -112,7 +112,7 @@ namespace HUDEditor
         {
             return new Label
             {
-                Content = hud.Name + "YEET",
+                Content = hud.Name,
                 Style = (Style)Application.Current.Resources["HudListLabel"]
             };
         }
