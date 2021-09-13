@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -258,46 +258,42 @@ namespace HUDEditor
 
         private void TbSearchBox_TextChanged(object sender, RoutedEventArgs e)
         {
+            Search(SearchBox.Text);
+        }
+
+        private void Search(string searchTerm)
+        {
             foreach (var (hud, border) in HudThumbnails)
             {
-                var searches = new[]
+                var termsToSearch = new[]
                 {
                     hud.Name,
                     hud.Author,
                     hud.Description
                 };
 
-                var index = 0;
-                var visibility = Visibility.Collapsed;
-                while (visibility == Visibility.Collapsed && index < searches.Length)
-                {
-                    if (searches[index] != null && searches[index].ToLower().Contains(SearchBox.Text.ToLower()) && (!DisplayUniqueHUDsOnly || hud.Unique))
-                        visibility = Visibility.Visible;
-                    index++;
-                }
-
-                border.Visibility = visibility;
+                border.Visibility = CanDisplayHud(hud) && SearchMatches(searchTerm, termsToSearch)
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
             }
+        }
+
+        private bool CanDisplayHud(HUD hud)
+        {
+            return DisplayUniqueHUDsOnly ? hud.Unique : true;
+        }
+
+        private static bool SearchMatches(string searchTerm, string[] termsToSearch)
+        {
+            return termsToSearch.Any(s => (s ?? string.Empty).Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase));
         }
 
         private void UniqueHUDsButton_OnClick(object sender, RoutedEventArgs e)
         {
             DisplayUniqueHUDsOnly = !DisplayUniqueHUDsOnly;
+            UniqueHUDsButton.Foreground = DisplayUniqueHUDsOnly ? Brushes.SkyBlue : Brushes.White;
 
-            if (DisplayUniqueHUDsOnly)
-            {
-                UniqueHUDsButton.Foreground = Brushes.SkyBlue;
-                foreach (var (hud, border) in HudThumbnails)
-                    border.Visibility = hud.Unique ? Visibility.Visible : Visibility.Collapsed;
-            }
-            else
-            {
-                UniqueHUDsButton.Foreground = Brushes.White;
-                foreach (var (hud, border) in HudThumbnails)
-                    border.Visibility = Visibility.Visible;
-            }
-
-            TbSearchBox_TextChanged(sender, e);
+            Search(SearchBox.Text);
         }
 
         /// <summary>
