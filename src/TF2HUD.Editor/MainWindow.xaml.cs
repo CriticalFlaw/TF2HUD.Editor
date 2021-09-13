@@ -84,6 +84,63 @@ namespace HUDEditor
         public void AddHUDToGridView(HUD hud)
         {
             _logger.Info($"Loading {hud.Name}");
+
+            Border border = CreateBorder(hud);
+            Label thumbnailIcon = CreateThumbnailIcon(hud);
+            Image thumbnailImage = CreateThumbnailImage(hud);
+            Label hudLabel = CreateHudLabel(hud);
+
+            Grid hudIconContainer = BuildHudContainer(thumbnailIcon, thumbnailImage, hudLabel);
+
+            border.Child = hudIconContainer;
+            GridSelectHud.Children.Add(border);
+            HudThumbnails.Add((hud, border));
+        }
+
+        private static Grid BuildHudContainer(Label thumbnailIcon, Image thumbnailImage, Label hudLabel)
+        {
+            var hudIconContainer = new Grid();
+            hudIconContainer.RowDefinitions.Add(new RowDefinition());
+            hudIconContainer.RowDefinitions.Add(new RowDefinition());
+            hudIconContainer.Children.Add(thumbnailImage);
+            hudIconContainer.Children.Add(thumbnailIcon);
+            hudIconContainer.Children.Add(hudLabel);
+            return hudIconContainer;
+        }
+
+        private static Label CreateHudLabel(HUD hud)
+        {
+            return new Label
+            {
+                Content = hud.Name + "YEET",
+                Style = (Style)Application.Current.Resources["HudListLabel"]
+            };
+        }
+
+        private static Label CreateThumbnailIcon(HUD hud)
+        {
+            return new Label
+            {
+                Content = hud.Unique ? "B" : "",
+                Style = (Style)Application.Current.Resources["HudListIcon"]
+            };
+        }
+
+        private static Image CreateThumbnailImage(HUD hud)
+        {
+            var thumbnailImage = new Image
+            {
+                Source = hud.Thumbnail != null ? new BitmapImage(new Uri(hud.Thumbnail)) : null,
+                Style = (Style)Application.Current.Resources["HudListImage"]
+            };
+
+            // Prevents image from looking grainy when resized
+            RenderOptions.SetBitmapScalingMode(thumbnailImage, BitmapScalingMode.Fant);
+            return thumbnailImage;
+        }
+
+        private Border CreateBorder(HUD hud)
+        {
             var border = new Border
             {
                 Style = (Style)Application.Current.Resources["HudListBorder"]
@@ -105,33 +162,7 @@ namespace HUDEditor
                     _logger.Info($"Highlighting {hud.Name}");
                 }
             };
-
-            var thumbnailIcon = new Label
-            {
-                Content = hud.Unique ? "B" : "",
-                Style = (Style)Application.Current.Resources["HudListIcon"]
-            };
-
-            var thumbnailImage = new Image
-            {
-                Source = hud.Thumbnail != null ? new BitmapImage(new Uri(hud.Thumbnail)) : null,
-                Style = (Style)Application.Current.Resources["HudListImage"]
-            };
-
-            // Prevents image from looking grainy when resized
-            RenderOptions.SetBitmapScalingMode(thumbnailImage, BitmapScalingMode.Fant);
-
-            // Build the HUD container.
-            var hudIconContainer = new Grid();
-            hudIconContainer.RowDefinitions.Add(new RowDefinition());
-            hudIconContainer.RowDefinitions.Add(new RowDefinition());
-            hudIconContainer.Children.Add(thumbnailImage);
-            hudIconContainer.Children.Add(thumbnailIcon);
-            hudIconContainer.Children.Add(new Label
-            { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
-            border.Child = hudIconContainer;
-            GridSelectHud.Children.Add(border);
-            HudThumbnails.Add((hud, border));
+            return border;
         }
 
         /// <summary>
@@ -163,14 +194,6 @@ namespace HUDEditor
 
             SetPageView(hud);
         }
-
-        //private void InitializeLogger()
-        //{
-        //    var repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-        //    XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
-        //    Logger.Info("=======================================================");
-        //    Logger.Info("Initializing.");
-        //}
 
         private void AddHUDs()
         {
@@ -260,6 +283,7 @@ namespace HUDEditor
         private void UniqueHUDsButton_OnClick(object sender, RoutedEventArgs e)
         {
             DisplayUniqueHUDsOnly = !DisplayUniqueHUDsOnly;
+
             if (DisplayUniqueHUDsOnly)
             {
                 UniqueHUDsButton.Foreground = Brushes.SkyBlue;
