@@ -254,13 +254,6 @@ namespace HUDEditor
 
         #endregion
 
-        #region CLICK_EVENTS
-
-        private void TbSearchBox_TextChanged(object sender, RoutedEventArgs e)
-        {
-            Search(SearchBox.Text);
-        }
-
         private void Search(string searchTerm)
         {
             foreach (var (hud, border) in HudThumbnails)
@@ -288,18 +281,7 @@ namespace HUDEditor
             return termsToSearch.Any(s => (s ?? string.Empty).Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        private void UniqueHUDsButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            DisplayUniqueHUDsOnly = !DisplayUniqueHUDsOnly;
-            UniqueHUDsButton.Foreground = DisplayUniqueHUDsOnly ? Brushes.SkyBlue : Brushes.White;
-
-            Search(SearchBox.Text);
-        }
-
-        /// <summary>
-        ///     Invoke HUD installation or setting the tf/custom directory, if not already set.
-        /// </summary>
-        private void BtnInstall_OnClick(object sender, RoutedEventArgs args)
+        private void InstallSelectedHud()
         {
             try
             {
@@ -330,9 +312,9 @@ namespace HUDEditor
 
                         // Step 2. Clear tf/custom directory of other installed HUDs.
                         _logger.Info("Preparing directories for extraction.");
-                        foreach (var x in Json.HUDList)
-                            if (Directory.Exists(HudPath + "\\" + x.Name?.ToLowerInvariant()))
-                                Directory.Delete(HudPath + "\\" + x.Name?.ToLowerInvariant(), true);
+                        foreach (var hud in Json.HUDList)
+                            if (Directory.Exists(HudPath + "\\" + hud.Name?.ToLowerInvariant()))
+                                Directory.Delete(HudPath + "\\" + hud.Name?.ToLowerInvariant(), true);
 
                         // Step 3. Record the name of the HUD inside the downloaded folder.
                         var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";
@@ -387,10 +369,7 @@ namespace HUDEditor
             }
         }
 
-        /// <summary>
-        ///     Invoke HUD deletion from the tf/custom directory.
-        /// </summary>
-        private void BtnUninstall_OnClick(object sender, RoutedEventArgs args)
+        private void UninstallSelectedHud()
         {
             try
             {
@@ -417,15 +396,12 @@ namespace HUDEditor
             }
         }
 
-        /// <summary>
-        ///     Save and apply user settings to the HUD files.
-        /// </summary>
-        private void BtnSave_OnClick(object sender, RoutedEventArgs e)
+        private void SaveAndApplyUserSettings()
         {
-            var hudObject = Json.GetHUDByName(_settings.HudSelected);
-            if (Process.GetProcessesByName("hl2").Any() && hudObject.DirtyControls.Count > 0)
+            var selectedHud = Json.GetHUDByName(_settings.HudSelected);
+            if (_utilities.IsGameRunning() && selectedHud.DirtyControls.Count > 0)
             {
-                var message = hudObject.DirtyControls.Aggregate(_localization.InfoGameRestart, (current, control) => current + $"\n - {control}");
+                var message = selectedHud.DirtyControls.Aggregate(_localization.InfoGameRestart, (current, control) => current + $"\n - {control}");
                 if (_notifier.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
             }
 
@@ -445,15 +421,12 @@ namespace HUDEditor
             };
             worker.RunWorkerCompleted += (_, _) =>
             {
-                LblStatus.Content = string.Format(_localization.StatusApplied, hudObject.Name, DateTime.Now);
+                LblStatus.Content = string.Format(_localization.StatusApplied, selectedHud.Name, DateTime.Now);
             };
             worker.RunWorkerAsync();
         }
 
-        /// <summary>
-        ///     Reset user settings for the selected HUD to default.
-        /// </summary>
-        private void BtnReset_OnClick(object sender, RoutedEventArgs e)
+        private void ResetUserSettings()
         {
             // Ask the user if they want to reset before doing so.
             if (_notifier.ShowMessageBox(MessageBoxImage.Question, _localization.InfoHudReset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
@@ -467,10 +440,7 @@ namespace HUDEditor
             _logger.Info("Done resetting settings.");
         }
 
-        /// <summary>
-        ///     Return to the HUD selection page.
-        /// </summary>
-        private void BtnSwitch_OnClick(object sender, RoutedEventArgs e)
+        private void ReturnToHudSelectionPage()
         {
             _logger.Info("Changing page view to: main menu.");
             EditorContainer.Children.Clear();
@@ -478,16 +448,13 @@ namespace HUDEditor
             Json.SelectedHUD = null;
         }
 
-        private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
+        private void SetupHudDirectory()
         {
             _logger.Info("Attempting to change the 'tf/custom' directory.");
             _hudDirectory.Setup(HudPath, true);
         }
 
-        /// <summary>
-        ///     Add a HUD from folder to the shared HUDs list.
-        /// </summary>
-        private void BtnAddSharedHUD_OnClick(object sender, RoutedEventArgs e)
+        private void AddHudToSharedList()
         {
             try
             {
@@ -508,25 +475,9 @@ namespace HUDEditor
         }
 
         /// <summary>
-        ///     Opens the issue tracker for the editor.
-        /// </summary>
-        private void BtnReportIssue_OnClick(object sender, RoutedEventArgs e)
-        {
-            _utilities.OpenWebpage(_settings.AppTracker);
-        }
-
-        /// <summary>
-        ///     Opens the project documentation site.
-        /// </summary>
-        private void BtnDocumentation_OnClick(object sender, RoutedEventArgs e)
-        {
-            _utilities.OpenWebpage(_settings.AppDocs);
-        }
-
-        /// <summary>
         ///     Updates the local schema files to the latest version.
         /// </summary>
-        private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
+        private void UpdateHudSchemas()
         {
             // Check for HUD updates.
             _logger.Info("Checking for schema updates.");
@@ -544,6 +495,114 @@ namespace HUDEditor
                 Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
                 Environment.Exit(0);
             });
+        }
+
+        /// <summary>
+        ///     Updates localization to the selected language.
+        /// </summary>
+        private void SetLocalization()
+        {
+            if (btnLocalizeFR.IsChecked == true)
+                LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
+            else if (btnLocalizeRU.IsChecked == true)
+                LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
+            else
+                LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
+
+            // Save language preference to user settings.
+            _settings.UserLanguage = LocalizeDictionary.Instance.Culture.ToString();
+            _settings.Save();
+        }
+
+        private void GoToHudCustomizationPage()
+        {
+            if (Json.HighlightedHUD is null) return;
+
+            EditorContainer.Children.Clear();
+            Json.SelectedHUD = Json.HighlightedHUD;
+            _settings.HudSelected = Json.SelectedHUD.Name;
+            _settings.Save();
+            SetPageView(Json.GetHUDByName(_settings.HudSelected));
+        }
+
+        #region CLICK_EVENTS
+
+        private void TbSearchBox_TextChanged(object sender, RoutedEventArgs e)
+        {
+            Search(SearchBox.Text);
+        }
+
+        private void UniqueHUDsButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            DisplayUniqueHUDsOnly = !DisplayUniqueHUDsOnly;
+            UniqueHUDsButton.Foreground = DisplayUniqueHUDsOnly ? Brushes.SkyBlue : Brushes.White;
+
+            Search(SearchBox.Text);
+        }
+
+        /// <summary>
+        ///     Invoke HUD installation or setting the tf/custom directory, if not already set.
+        /// </summary>
+        private void BtnInstall_OnClick(object sender, RoutedEventArgs args)
+        {
+            InstallSelectedHud();
+        }
+
+        /// <summary>
+        ///     Invoke HUD deletion from the tf/custom directory.
+        /// </summary>
+        private void BtnUninstall_OnClick(object sender, RoutedEventArgs args)
+        {
+            UninstallSelectedHud();
+        }
+
+        /// <summary>
+        ///     Save and apply user settings to the HUD files.
+        /// </summary>
+        private void BtnSave_OnClick(object sender, RoutedEventArgs e)
+        {
+            SaveAndApplyUserSettings();
+        }
+
+        /// <summary>
+        ///     Reset user settings for the selected HUD to default.
+        /// </summary>
+        private void BtnReset_OnClick(object sender, RoutedEventArgs e)
+        {
+            ResetUserSettings();
+        }
+
+        /// <summary>
+        ///     Return to the HUD selection page.
+        /// </summary>
+        private void BtnSwitch_OnClick(object sender, RoutedEventArgs e)
+        {
+            ReturnToHudSelectionPage();
+        }
+
+        private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
+        {
+            SetupHudDirectory();
+        }
+
+        private void BtnAddSharedHUD_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddHudToSharedList();
+        }
+
+        private void BtnReportIssue_OnClick(object sender, RoutedEventArgs e)
+        {
+            _utilities.OpenWebpage(_settings.AppTracker);
+        }
+
+        private void BtnDocumentation_OnClick(object sender, RoutedEventArgs e)
+        {
+            _utilities.OpenWebpage(_settings.AppDocs);
+        }
+
+        private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
+        {
+            UpdateHudSchemas();
         }
 
         private void BtnGitHub_OnClick(object sender, RoutedEventArgs e)
@@ -566,32 +625,15 @@ namespace HUDEditor
             _utilities.OpenWebpage(Json.HighlightedHUD.SteamUrl);
         }
 
-        /// <summary>
-        ///     Updates localization to the selected language.
-        /// </summary>
+
         private void BtnLocalize_OnClick(object sender, RoutedEventArgs e)
         {
-            if (btnLocalizeFR.IsChecked == true)
-                LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
-            else if (btnLocalizeRU.IsChecked == true)
-                LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
-            else
-                LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
-
-            // Save language preference to user settings.
-            _settings.UserLanguage = LocalizeDictionary.Instance.Culture.ToString();
-            _settings.Save();
+            SetLocalization();
         }
-
 
         private void BtnCustomize_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Json.HighlightedHUD is null) return;
-            EditorContainer.Children.Clear();
-            Json.SelectedHUD = Json.HighlightedHUD;
-            _settings.HudSelected = Json.SelectedHUD.Name;
-            _settings.Save();
-            SetPageView(Json.GetHUDByName(_settings.HudSelected));
+            GoToHudCustomizationPage();
         }
 
         #endregion

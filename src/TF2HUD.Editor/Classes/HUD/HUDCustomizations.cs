@@ -758,7 +758,7 @@ namespace HUDEditor.Classes
                 const string fileName = "mastercomfig-transparent-viewmodels-addon.vpk";
 
                 // Skip this step if TF2 is running, user already has the add-on or this feature is not enabled.
-                if (Process.GetProcessesByName("hl2").Any()
+                if (_utilities.IsGameRunning()
                     || File.Exists(MainWindow.HudPath + "\\" + fileName)
                     || !enable) return true;
 
