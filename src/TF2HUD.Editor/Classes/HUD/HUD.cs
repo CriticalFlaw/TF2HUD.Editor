@@ -31,11 +31,28 @@ namespace HUDEditor.Classes
             INotifier notifier,
             ILocalization localization,
             VTF vtf,
-            IAppSettings settings)
+            IAppSettings settings,
+            IUserSettingsService userSettingsService)
         {
-            // Basic Schema Properties.
-            Name = schema.Name ?? name;
-            Settings = new HUDSettings(Name, logger);
+            _logger = logger;
+            _utilities = utilities;
+            _notifier = notifier;
+            _localization = localization;
+            _vtf = vtf;
+            _settings = settings;
+            _userSettingsService = userSettingsService;
+
+            ConfigureWithSchema(name, schema);
+            ConfigureScreenshots(schema);
+
+            Settings = new HUDSettings(Name, _userSettingsService);
+            DirtyControls = new List<string>();
+            Unique = uniq;
+        }
+
+        private void ConfigureWithSchema(string hudName, HudJson schema)
+        {
+            Name = schema.Name ?? hudName;
             Opacity = schema.Opacity;
             Maximize = schema.Maximize;
             Thumbnail = schema.Thumbnail;
@@ -51,15 +68,12 @@ namespace HUDEditor.Classes
             DiscordUrl = schema.Links.Discord ?? string.Empty;
             ControlOptions = schema.Controls;
             LayoutOptions = schema.Layout;
-            DirtyControls = new List<string>();
-            Unique = uniq;
-            _logger = logger;
-            _utilities = utilities;
-            _notifier = notifier;
-            _localization = localization;
-            _vtf = vtf;
-            _settings = settings;
+        }
+
+        private void ConfigureScreenshots(HudJson schema)
+        {
             if (schema.Screenshots is null) return;
+
             var index = 0;
             foreach (var screenshot in schema.Screenshots)
             {
@@ -167,7 +181,7 @@ namespace HUDEditor.Classes
         public string SteamUrl { get; set; }
         public string DiscordUrl { get; set; }
         public Dictionary<string, Controls[]> ControlOptions;
-        public readonly string[] LayoutOptions;
+        public string[] LayoutOptions;
         public List<string> DirtyControls;
         public List<object> Screenshots { get; set; } = new();
         public bool Unique;
@@ -177,6 +191,7 @@ namespace HUDEditor.Classes
         private readonly ILocalization _localization;
         private readonly VTF _vtf;
         private readonly IAppSettings _settings;
+        private readonly IUserSettingsService _userSettingsService;
 
         #endregion
     }

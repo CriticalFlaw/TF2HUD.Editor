@@ -34,6 +34,7 @@ namespace HUDEditor
             ConfigureWindowsComponents(services);
             services.AddSingleton<VTEX>();
             services.AddSingleton<VTF>();
+            services.AddSingleton<IUserSettingsService, UserSettingsService>();
             services.AddSingleton<ILocalization, Localization>();
             services.AddSingleton<IHUDUpdateChecker, HUDUpdateChecker>();
             services.AddSingleton<IAppSettings, AppSettings>();

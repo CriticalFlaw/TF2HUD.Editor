@@ -4,40 +4,33 @@ using System.IO;
 using System.Linq;
 using System.Windows.Media;
 using HUDEditor.Models;
-using log4net;
-using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {
     public class HUDSettings
     {
-        public static readonly string UserFile =
-            $"{Directory.CreateDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor").FullName}\\settings.json";
-
-        private static readonly UserJson Json = File.Exists(UserFile)
-            ? JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(UserFile))
-            : new UserJson();
-
-        private static readonly Dictionary<string, HUDSettingsPreset> Presets = Json.Presets;
-
-        private static readonly List<Setting> UserSettings = Json.Settings;
-
-        private HUDSettingsPreset _Preset;
-
         public string HUDName;
-        private readonly ILog _logger;
+        private readonly IUserSettingsService _userSettingsService;
+        private readonly Dictionary<string, HUDSettingsPreset> _presets;
+        private readonly List<Setting> _userSettings;
+        private HUDSettingsPreset _preset;
 
-        public HUDSettings(string name, ILog logger)
+        public HUDSettings(string name, IUserSettingsService userSettingsService)
         {
             HUDName = name;
-            _logger = logger;
-            if (!Presets.ContainsKey(name)) Preset = HUDSettingsPreset.A;
+
+            _userSettingsService = userSettingsService;
+            var settings = _userSettingsService.Read();
+            _presets = settings.Presets;
+            _userSettings = settings.Settings;
+
+            if (!_presets.ContainsKey(name)) Preset = HUDSettingsPreset.A;
         }
 
         public HUDSettingsPreset Preset
         {
-            get => _Preset;
-            set => _Preset = Presets[HUDName] = value;
+            get => _preset;
+            set => _preset = _presets[HUDName] = value;
         }
 
         /// <summary>
@@ -46,7 +39,7 @@ namespace HUDEditor.Classes
         public void AddSetting(string name, Controls control)
         {
             if (GetSetting(name) is null)
-                UserSettings.Add(new Setting
+                _userSettings.Add(new Setting
                 {
                     HUD = HUDName,
                     Name = name,
@@ -62,7 +55,7 @@ namespace HUDEditor.Classes
         /// <param name="name">Name of the setting to retrieve.</param>
         public Setting GetSetting(string name)
         {
-            return UserSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset);
+            return _userSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset);
         }
 
         /// <summary>
@@ -105,13 +98,11 @@ namespace HUDEditor.Classes
         /// </summary>
         public void SaveSettings()
         {
-            var settings = new UserJson
+            _userSettingsService.Save(new UserJson
             {
-                Presets = Presets,
-                Settings = UserSettings
-            };
-            File.WriteAllText(UserFile, JsonConvert.SerializeObject(settings, Formatting.Indented));
-            _logger.Info($"Saved user settings to: {UserFile}");
+                Presets = _presets,
+                Settings = _userSettings
+            });
         }
     }
 }

@@ -139,8 +139,7 @@ namespace HUDEditor.Classes
                 Directory.CreateDirectory($"{path}\\{EnabledFolder}");
 
                 // Get user's settings for the selected HUD.
-                var userSettings = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(HUDSettings.UserFile))
-                    ?.Settings.Where(x => x.HUD == Name);
+                var userSettings = _userSettingsService.Read().Settings.Where(x => x.HUD == Name);
 
                 foreach (var group in hudSettings)
                     foreach (var control in group)
