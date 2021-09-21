@@ -40,6 +40,8 @@ namespace HUDEditor
             services.AddSingleton<IAppSettings, AppSettings>();
             services.AddSingleton<INotifier, Notifier>();
             services.AddSingleton<IUtilities, Utilities>();
+            services.AddSingleton<IHUDFactory, HUDFactory>();
+            services.AddSingleton<IJsonFactory, JsonFactory>();
             services.AddSingleton<HudDirectory>();
             services.AddSingleton<MainWindow>();
         }

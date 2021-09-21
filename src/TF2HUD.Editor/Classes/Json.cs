@@ -29,32 +29,22 @@ namespace HUDEditor.Classes
         public HUD[] HUDList;
         private readonly ILog _logger;
         private readonly IUtilities _utilities;
-        private readonly INotifier _notifier;
-        private readonly ILocalization _localization;
         private readonly IAppSettings _settings;
-        private readonly VTF _vtf;
         private readonly IHUDUpdateChecker _hudUpdateChecker;
-        private readonly IUserSettingsService _userSettingsService;
+        private readonly IHUDFactory _hudFactory;
 
         public Json(
             ILog logger,
             IUtilities utilities,
-            INotifier notifier,
-            ILocalization localization,
             IAppSettings settings,
-            VTF vtf,
             IHUDUpdateChecker hudTester,
-            IUserSettingsService userSettingsService)
+            IHUDFactory hudFactory)
         {
             _logger = logger;
             _utilities = utilities;
-            _notifier = notifier;
-            _localization = localization;
             _settings = settings;
-            _vtf = vtf;
             _hudUpdateChecker = hudTester;
-            _userSettingsService = userSettingsService;
-
+            _hudFactory = hudFactory;
             CreateHUDList();
 
             var selectedHud = GetHUDByName(_settings.HudSelected);
@@ -95,7 +85,7 @@ namespace HUDEditor.Classes
                     ? $"file://{hudBackgroundPath}"
                     : "https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c47-a17b47cbaf0c.png";
                 var sharedProperties = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
-                hudList.Add(new HUD(hudName, new HudJson
+                hudList.Add(_hudFactory.CreateHUD(hudName, new HudJson
                 {
                     Name = hudName,
                     Thumbnail = hudBackground,
@@ -106,7 +96,7 @@ namespace HUDEditor.Classes
                         Update = $"file://{localSharedHUD}\\{hudName}.zip"
                     },
                     Controls = sharedProperties.Controls
-                }, false, _logger, _utilities, _notifier, _localization, _vtf, _settings, _userSettingsService));
+                }, false));
             }
         }
 
@@ -122,7 +112,7 @@ namespace HUDEditor.Classes
                     control.Name = $"{_utilities.EncodeID(hud.Name)}_{_utilities.EncodeID(control.Name)}";
                 hud.Layout = hudControls.Layout;
                 hud.Controls = hudControls.Controls;
-                return new HUD(hud.Name, hud, false, _logger, _utilities, _notifier, _localization, _vtf, _settings, _userSettingsService);
+                return _hudFactory.CreateHUD(hud.Name, hud, false);
             }));
         }
 
@@ -133,7 +123,7 @@ namespace HUDEditor.Classes
                 // Extract HUD information from the file path and add it to the object list.
                 var fileInfo = jsonFile.Split("\\")[^1].Split(".");
                 if (fileInfo[^1] != "json") continue;
-                hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true, _logger, _utilities, _notifier, _localization, _vtf, _settings, _userSettingsService));
+                hudList.Add(_hudFactory.CreateHUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true));
             }
         }
 
@@ -334,7 +324,7 @@ namespace HUDEditor.Classes
             }
 
             // Test everything except controls and settings. Complex fields require more testing.
-            var latestHud = new HUD(hud.Name, JsonConvert.DeserializeObject<HudJson>(response), true, _logger, _utilities, _notifier, _localization, _vtf, _settings, _userSettingsService);
+            var latestHud = _hudFactory.CreateHUD(hud.Name, JsonConvert.DeserializeObject<HudJson>(response), true);
             return !_hudUpdateChecker.AreEqual(hud.Name, hud, latestHud, new[]
             {
                 "controls",
@@ -354,7 +344,7 @@ namespace HUDEditor.Classes
 
             var hudJson = CreateHudJson(folderPath, hudName, hudDetailsFolder);
 
-            var hud = new HUD(hudName, hudJson, false, _logger, _utilities, _notifier, _localization, _vtf, _settings, _userSettingsService);
+            var hud = _hudFactory.CreateHUD(hudName, hudJson, false);
             UpdateHUDList(hud);
             HighlightedHUD = hud;
             SelectedHUD = hud;

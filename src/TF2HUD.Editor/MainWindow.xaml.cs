@@ -38,9 +38,7 @@ namespace HUDEditor
         private readonly INotifier _notifier;
         private readonly ILocalization _localization;
         private readonly IAppSettings _settings;
-        private readonly VTF _vtf;
-        private readonly IHUDUpdateChecker _hudUpdateChecker;
-        private readonly IUserSettingsService _userSettingsService;
+        private readonly IJsonFactory _jsonFactory;
         private readonly HudDirectory _hudDirectory;
         private readonly ILog _logger;
         private readonly IUtilities _utilities;
@@ -52,9 +50,7 @@ namespace HUDEditor
             INotifier notifier,
             ILocalization localization,
             IAppSettings settings,
-            VTF vtf,
-            IHUDUpdateChecker hudUpdateChecker,
-            IUserSettingsService userSettingsService) : base()
+            IJsonFactory jsonFactory) : base()
         {
             InitializeComponent();
             DataContext = this;
@@ -65,10 +61,8 @@ namespace HUDEditor
             _notifier = notifier;
             _localization = localization;
             _settings = settings;
-            _vtf = vtf;
-            _hudUpdateChecker = hudUpdateChecker;
-            _userSettingsService = userSettingsService;
-            Json = new Json(_logger, _utilities, _notifier, _localization, _settings, _vtf, _hudUpdateChecker, _userSettingsService);
+            _jsonFactory = jsonFactory;
+            Json = _jsonFactory.CreateJson();
 
             HudSelection = _settings.HudSelected;
             HudPath = _settings.HudDirectory;
