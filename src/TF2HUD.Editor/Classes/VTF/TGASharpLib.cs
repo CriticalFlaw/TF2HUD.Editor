@@ -622,7 +622,7 @@ namespace HUDEditor.Classes
     /// <summary>
     ///     Used to indicate the order in which pixel data is transferred from the file to the screen.
     ///     (Bit 4 (bit 0 in enum) is for left-to-right ordering and bit 5 (bit 1 in enum) is for
-    ///     topto-bottom ordering as shown below.)
+    ///     top-to-bottom ordering as shown below.)
     /// </summary>
     public enum TgaImgOrigin : byte
     {
@@ -1011,7 +1011,7 @@ namespace HUDEditor.Classes
         public byte B { get; set; }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaColorKey" />.
+        ///     Make full independent copy of <see cref="TgaColorKey" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaColorKey" /></returns>
         object ICloneable.Clone()
@@ -1020,7 +1020,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaColorKey" />.
+        ///     Make full independent copy of <see cref="TgaColorKey" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaColorKey" /></returns>
         public TgaColorKey Clone()
@@ -1173,7 +1173,7 @@ namespace HUDEditor.Classes
         public TgaColorMapEntrySize ColorMapEntrySize { get; set; } = TgaColorMapEntrySize.Other;
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaColorMapSpec" />.
+        ///     Make full independent copy of <see cref="TgaColorMapSpec" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaColorMapSpec" /></returns>
         object ICloneable.Clone()
@@ -1182,7 +1182,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaColorMapSpec" />.
+        ///     Make full independent copy of <see cref="TgaColorMapSpec" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaColorMapSpec" /></returns>
         public TgaColorMapSpec Clone()
@@ -1292,7 +1292,7 @@ namespace HUDEditor.Classes
         public char BlankSpaceChar { get; set; } = TgaString.DefaultBlankSpaceChar;
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaComment" />.
+        ///     Make full independent copy of <see cref="TgaComment" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaComment" /></returns>
         object ICloneable.Clone()
@@ -1301,7 +1301,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaComment" />.
+        ///     Make full independent copy of <see cref="TgaComment" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaComment" /></returns>
         public TgaComment Clone()
@@ -1493,7 +1493,7 @@ namespace HUDEditor.Classes
         public ushort Second { get; set; }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaDateTime" />.
+        ///     Make full independent copy of <see cref="TgaDateTime" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaDateTime" /></returns>
         object ICloneable.Clone()
@@ -1502,7 +1502,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaDateTime" />.
+        ///     Make full independent copy of <see cref="TgaDateTime" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaDateTime" /></returns>
         public TgaDateTime Clone()
@@ -1682,7 +1682,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaDevEntry" />.
+        ///     Make full independent copy of <see cref="TgaDevEntry" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaDevEntry" /></returns>
         object ICloneable.Clone()
@@ -1691,7 +1691,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaDevEntry" />.
+        ///     Make full independent copy of <see cref="TgaDevEntry" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaDevEntry" /></returns>
         public TgaDevEntry Clone()
@@ -1831,7 +1831,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaFraction" />.
+        ///     Make full independent copy of <see cref="TgaFraction" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaFraction" /></returns>
         object ICloneable.Clone()
@@ -1840,7 +1840,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaFraction" />.
+        ///     Make full independent copy of <see cref="TgaFraction" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaFraction" /></returns>
         public TgaFraction Clone()
@@ -1930,7 +1930,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Gets or Sets Image Origin bits (select from enum only, don'n use 5-4 bits!).
+        ///     Gets or Sets Image Origin bits (select from enum only, don't use 5-4 bits!).
         /// </summary>
         public TgaImgOrigin ImageOrigin { get; set; } = 0;
 
@@ -2482,7 +2482,7 @@ namespace HUDEditor.Classes
     /// </summary>
     public class TgaString : ICloneable
     {
-        public const string XFileSignatuteConst = "TRUEVISION-XFILE";
+        public const string XFileSignatureConst = "TRUEVISION-XFILE";
         public const string DotSymbolConst = ".";
 
         /// <summary>
@@ -2511,9 +2511,9 @@ namespace HUDEditor.Classes
         public static readonly TgaString DotSymbol = new(DotSymbolConst, DotSymbolConst.Length);
 
         /// <summary>
-        ///     Gets "TRUEVISION-XFILE" <see cref="TgaString" /> (TGA File Format Version 2.0 signatute).
+        ///     Gets "TRUEVISION-XFILE" <see cref="TgaString" /> (TGA File Format Version 2.0 signature).
         /// </summary>
-        public static readonly TgaString XFileSignatute = new(XFileSignatuteConst, XFileSignatuteConst.Length);
+        public static readonly TgaString XFileSignature = new(XFileSignatureConst, XFileSignatureConst.Length);
 
         public TgaString(bool UseEnding = false)
         {
@@ -2570,7 +2570,7 @@ namespace HUDEditor.Classes
         public bool UseEndingChar { get; set; }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaString" />.
+        ///     Make full independent copy of <see cref="TgaString" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaString" /></returns>
         object ICloneable.Clone()
@@ -2579,7 +2579,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaString" />.
+        ///     Make full independent copy of <see cref="TgaString" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaString" /></returns>
         public TgaString Clone()
@@ -2765,7 +2765,7 @@ namespace HUDEditor.Classes
         public ushort Seconds { get; set; }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaTime" />.
+        ///     Make full independent copy of <see cref="TgaTime" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaTime" /></returns>
         object ICloneable.Clone()
@@ -2774,7 +2774,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TgaTime" />.
+        ///     Make full independent copy of <see cref="TgaTime" />.
         /// </summary>
         /// <returns>Copy of <see cref="TgaTime" /></returns>
         public TgaTime Clone()
@@ -3105,7 +3105,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Make full copy of <see cref="TgaImgOrColMap" />.
         /// </summary>
-        /// <returns>Full independed copy of <see cref="TgaImgOrColMap" />.</returns>
+        /// <returns>Full independent copy of <see cref="TgaImgOrColMap" />.</returns>
         object ICloneable.Clone()
         {
             return Clone();
@@ -3114,7 +3114,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Make full copy of <see cref="TgaImgOrColMap" />.
         /// </summary>
-        /// <returns>Full independed copy of <see cref="TgaImgOrColMap" />.</returns>
+        /// <returns>Full independent copy of <see cref="TgaImgOrColMap" />.</returns>
         public TgaImgOrColMap Clone()
         {
             return new TgaImgOrColMap(
@@ -3536,7 +3536,7 @@ namespace HUDEditor.Classes
 
         /// <summary>
         ///     Extension Size - Field 10 (2 Bytes):
-        ///     This field is a SHORT field which specifies the number of BYTES in the fixedlength portion of
+        ///     This field is a SHORT field which specifies the number of BYTES in the fixed length portion of
         ///     the Extension Area. For Version 2.0 of the TGA File Format, this number should be set to 495.
         ///     If the number found in this field is not 495, then the file will be assumed to be of a
         ///     version other than 2.0. If it ever becomes necessary to alter this number, the change
@@ -3678,7 +3678,7 @@ namespace HUDEditor.Classes
         ///     <para>SHORT 1: Gamma Denominator</para>
         ///     The resulting value should be in the range of 0.0 to 10.0, with only one decimal place of
         ///     precision necessary. An uncorrected image (an image with no gamma) should have the value 1.0 as
-        ///     the result.This may be accomplished by placing thesame, non-zero values in both positions
+        ///     the result.This may be accomplished by placing the same, non-zero values in both positions
         ///     (i.e., 1/1). If you decide to totally ignore this field, please set the denominator (the second
         ///     SHORT) to the value zero. This will indicate that the Gamma Value field is not being used.
         /// </summary>
@@ -3835,7 +3835,7 @@ namespace HUDEditor.Classes
 
             ExtensionAreaOffset = BitConverter.ToUInt32(Bytes, 0);
             DeveloperDirectoryOffset = BitConverter.ToUInt32(Bytes, 4);
-            Signature = new TgaString(BitConverterExt.GetElements(Bytes, 8, TgaString.XFileSignatuteConst.Length));
+            Signature = new TgaString(BitConverterExt.GetElements(Bytes, 8, TgaString.XFileSignatureConst.Length));
             ReservedCharacter = new TgaString(new[] { Bytes[24] });
             BinaryZeroStringTerminator = new TgaString(new[] { Bytes[25] });
         }
@@ -3865,7 +3865,7 @@ namespace HUDEditor.Classes
         ///     therefore, contain the Developer Area and/or the Extension Area fields.If the
         ///     signature is not found, then the file is assumed to be in the Original TGA format.
         /// </summary>
-        public TgaString Signature { get; set; } = TgaString.XFileSignatute;
+        public TgaString Signature { get; set; } = TgaString.XFileSignature;
 
         /// <summary>
         ///     Byte 24 - Reserved Character - Field 31
@@ -3885,7 +3885,7 @@ namespace HUDEditor.Classes
         ///     Is footer is real footer of TGA File Format Version 2.0?
         ///     Checking by <see cref="TgaString.XFileSignatute" />.
         /// </summary>
-        public bool IsFooterCorrect => Signature == TgaString.XFileSignatute;
+        public bool IsFooterCorrect => Signature == TgaString.XFileSignature;
 
         /// <summary>
         ///     Make full copy of <see cref="TgaFooter" />.
@@ -3979,7 +3979,7 @@ namespace HUDEditor.Classes
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// <summary>
-    ///     Simplify ByteConversion operations, like concatination of byte arrays, comparing and other.
+    ///     Simplify ByteConversion operations, like concatenation of byte arrays, comparing and other.
     /// </summary>
     public static class BitConverterExt
     {
@@ -4174,9 +4174,9 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Make full independed copy of <see cref="TGA" />.
+        ///     Make full independent copy of <see cref="TGA" />.
         /// </summary>
-        /// <returns>Full independed copy of <see cref="TGA" />.</returns>
+        /// <returns>Full independent copy of <see cref="TGA" />.</returns>
         public TGA Clone()
         {
             return new TGA(this);
@@ -4449,7 +4449,7 @@ namespace HUDEditor.Classes
                         for (var i = 0; i < DevArea.Count - 1; i++)
                             if (DevArea[i].Tag == DevArea[i + 1].Tag)
                             {
-                                ErrorStr = "DevArea Enties has same Tags!";
+                                ErrorStr = "DevArea Entities has same Tags!";
                                 return false;
                             }
                     }
@@ -4585,7 +4585,7 @@ namespace HUDEditor.Classes
         #region TGA Creation, Loading, Saving (all are public, have reference to private metods).
 
         /// <summary>
-        ///     Create new empty <see cref="TGA" /> istance.
+        ///     Create new empty <see cref="TGA" /> instance.
         /// </summary>
         public TGA()
         {
@@ -4599,7 +4599,7 @@ namespace HUDEditor.Classes
         /// <param name="Height">Image Height.</param>
         /// <param name="PixDepth">Image Pixel Depth (bits / pixel), set ColorMap bpp after, if needed!</param>
         /// <param name="ImgType">Image Type (is RLE compressed, ColorMapped or GrayScaled).</param>
-        /// <param name="AttrBits">Set numder of Attrbute bits (Alpha channel bits), default: 0, 1, 8.</param>
+        /// <param name="AttrBits">Set number of Attribute bits (Alpha channel bits), default: 0, 1, 8.</param>
         /// <param name="NewFormat">Use new 2.0 TGA XFile format?</param>
         public TGA(ushort Width, ushort Height, TgaPixelDepth PixDepth = TgaPixelDepth.Bpp24,
             TgaImageType ImgType = TgaImageType.Uncompressed_TrueColor, byte AttrBits = 0, bool NewFormat = true)
@@ -4884,7 +4884,7 @@ namespace HUDEditor.Classes
             if (stream == null)
                 throw new ArgumentNullException();
             if (!(stream.CanRead && stream.CanSeek))
-                throw new FileLoadException("Stream reading or seeking is not avaiable!");
+                throw new FileLoadException("Stream reading or seeking is not available!");
 
             try
             {
@@ -5289,7 +5289,7 @@ namespace HUDEditor.Classes
                 if (stream == null)
                     throw new ArgumentNullException();
                 if (!(stream.CanWrite && stream.CanSeek))
-                    throw new FileLoadException("Stream writing or seeking is not avaiable!");
+                    throw new FileLoadException("Stream writing or seeking is not available!");
 
                 string CheckResult;
                 if (!CheckAndUpdateOffsets(out CheckResult))

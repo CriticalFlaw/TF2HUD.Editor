@@ -22,10 +22,11 @@ namespace HUDEditor.Classes
         /// </summary>
         /// <param name="name">Name of the HUD object.</param>
         /// <param name="schema">Contents of the HUD's schema file.</param>
+        /// <param name="unique">Flags the HUD as having unique customizations.</param>
         public HUD(
             string name,
             HudJson schema,
-            bool uniq,
+            bool unique,
             ILog logger,
             IUtilities utilities,
             INotifier notifier,
@@ -47,7 +48,7 @@ namespace HUDEditor.Classes
 
             Settings = new HUDSettings(Name, _userSettingsService);
             DirtyControls = new List<string>();
-            Unique = uniq;
+            Unique = unique;
         }
 
         private void ConfigureWithSchema(string hudName, HudJson schema)
@@ -110,7 +111,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Reset selected group of user-settings to the default values defined in the HUD schema.
         /// </summary>
-        public void ResetSection(string selection)
+        private void ResetSection(string selection)
         {
             foreach (var section in ControlOptions[selection])
                 ResetControl(section);
@@ -119,7 +120,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Reset user-settings to the default values defined in the HUD schema.
         /// </summary>
-        public void ResetControl(Controls control)
+        private void ResetControl(Controls control)
         {
             try
             {

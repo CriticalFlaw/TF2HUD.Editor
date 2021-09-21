@@ -17,7 +17,6 @@ using HUDEditor.Classes;
 using HUDEditor.Properties;
 using log4net;
 using log4net.Config;
-using TF2HUDEditor.Classes;
 using WPFLocalizeExtension.Engine;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
@@ -166,7 +165,7 @@ namespace HUDEditor
         ///     Called when a new HUD has been selected from the list.
         /// </summary>
         /// <param name="hud">Selected HUD object.</param>
-        public void SelectionChanged(object sender, HUD hud)
+        private void SelectionChanged(object sender, HUD hud)
         {
             if (hud != null)
             {
@@ -459,7 +458,7 @@ namespace HUDEditor
 
                 var browser = new FolderBrowserDialog
                 {
-                    SelectedPath = HudPath + "\\"
+                    SelectedPath = $@"{HudPath}\"
                 };
                 if (browser.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
 
@@ -499,9 +498,9 @@ namespace HUDEditor
         /// </summary>
         private void SetLocalization()
         {
-            if (btnLocalizeFR.IsChecked == true)
+            if (btnLocalizeFr.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
-            else if (btnLocalizeRU.IsChecked == true)
+            else if (btnLocalizeRu.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
             else
                 LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");

@@ -13,7 +13,7 @@ using HUDEditor.Models;
 using HUDEditor.Properties;
 using log4net;
 using Microsoft.Win32;
-using WPFLocalizeExtension.Deprecated.Extensions;
+using WPFLocalizeExtension.Extensions;
 
 namespace HUDEditor.Classes
 {
@@ -339,7 +339,7 @@ namespace HUDEditor.Classes
         /// </summary>
         public string GetLocalizedString(string key)
         {
-            _ = new LocTextExtension(key).ResolveLocalizedValue(out string uiString);
+            _ = new LocExtension(key).ResolveLocalizedValue(out string uiString);
             return uiString;
         }
 

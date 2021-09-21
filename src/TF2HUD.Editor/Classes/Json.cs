@@ -183,21 +183,20 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Synchronize the local HUD schema files with the latest versions on GitHub.
         /// </summary>
-        public bool Update(bool forceDownload = false)
+        public void Update(bool forceDownload = false)
         {
             try
             {
                 // Get the local schema names and file sizes.
                 List<Tuple<string, int>> localHUDSchemas = GetHUDSchemas();
-                if (localHUDSchemas.Count <= 0) return false;
+                if (!localHUDSchemas.Any()) return;
 
                 var client = new WebClient();
                 client.Headers.Add("User-Agent", "request");
 
                 List<Tuple<string, int>> remoteFiles = GetRemoteFiles(client);
-                if (remoteFiles.Count <= 0) return false;
+                if (!remoteFiles.Any()) return;
 
-                var restartRequired = false;
                 // Compare the local and remote files.
                 foreach (var (remoteName, remoteSize) in remoteFiles)
                 {
@@ -208,17 +207,13 @@ namespace HUDEditor.Classes
                     }
 
                     DownloadHUD(client, remoteName);
-
-                    restartRequired = true;
                 }
-
-                return restartRequired;
             }
             catch (Exception e)
             {
                 _logger.Error(e.Message);
                 Console.WriteLine(e);
-                return false;
+                return;
             }
         }
 
@@ -279,10 +274,9 @@ namespace HUDEditor.Classes
 
         private static List<Tuple<string, int>> GetHUDSchemas()
         {
-            var localFiles = new List<Tuple<string, int>>();
-            foreach (var file in new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")))
-                localFiles.Add(new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length));
-            return localFiles;
+            return new DirectoryInfo("JSON").GetFiles()
+                .Where(x => x.FullName.EndsWith(".json"))
+                .Select(file => new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int)file.Length)).ToList();
         }
 
         /// <summary>
@@ -396,8 +390,8 @@ namespace HUDEditor.Classes
                             var process = Process.Start(processInfo);
                             while (!process.StandardOutput.EndOfStream)
                                 _logger.Info($"[VTF2TGA] {process.StandardOutput.ReadLine()}");
-                            process?.WaitForExit();
-                            process?.Close();
+                            process.WaitForExit();
+                            process.Close();
 
                             File.Move(vtf2tgaOutputPath, $"{outputPath}.tga", true);
 

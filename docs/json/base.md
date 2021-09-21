@@ -101,6 +101,22 @@ In the example below, the first control group (0) will be placed in the top left
 ]
 ```
 
+This will result in the following layout, with 2 large boxes (0 and 4), and 3 smaller boxes (1, 2 and 3):
+
+```
++-0------------+-4--+
+|              |    |
+|-1--+-2--+-3--|    |
+|    |    |    |    |
+|    |    |    |    |
++----+----+----+----+
+```
+
+The width and height of all group boxes will expand fractionally to 100%. A row of `"0 0 1 2"` will have the widths 50%, 25%, 25%
+
+!!! note
+    If no Layout is provided, the editor will automatically wrap control group boxes. Providing a Layout is not essential
+
 ---
 
 ### Links
@@ -137,23 +153,6 @@ In the example below, the first control group (0) will be placed in the top left
 			"Name": "rh_val_uber_animation"
 			...
 ```
-
-This will result in the following layout, with 2 large boxes (0 and 4), and 3 smaller boxes (1, 2 and 3):
-
-```
-+-0------------+-4--+
-|              |    |
-|-1--+-2--+-3--|    |
-|    |    |    |    |
-|    |    |    |    |
-+----+----+----+----+
-```
-
-The width and height of all group boxes will expand fractionally to 100%. a row of `"0 0 1 2"` will have the widths 50%, 25%, 25%
-
-
-!!! note
-    If no Layout is provided, the editor will automatically wrap control group boxes. Providing a Layout is not essential
 
 ---
 

@@ -9,7 +9,7 @@ using HUDEditor;
 using HUDEditor.Classes;
 using log4net;
 
-namespace TF2HUDEditor.Classes
+namespace HUDEditor.Classes
 {
     public class NullCheckConverter : IValueConverter
     {

@@ -7,14 +7,13 @@ namespace HUDEditor.Classes
 {
     /// <summary>
     ///     <para>Handles the options and priority of a HUD's custom background</para>
-    ///     <c>this.BackgroundManager = new BackgroundManager();</c>
-    ///     <c>this.BackgroundManager.SetStockBackgrounds();</c>
-    ///     <c>this.BackgroundManager.SetCustomBackground("background.png");</c>
-    ///     <c>this.BackgroundManager.Apply();</c>
+    ///     <br><c>this.BackgroundManager = new BackgroundManager();</c></br>
+    ///     <br><c>this.BackgroundManager.SetStockBackgrounds();</c></br>
+    ///     <br><c>this.BackgroundManager.SetCustomBackground("background.png");</c></br>
+    ///     <br><c>this.BackgroundManager.Apply();</c></br>
     ///     <para>
     ///         In this example, we set stock backgrounds AND a custom background.
-    ///         When calling the apply method, the BackgroundManager will override
-    ///         the stock backgrounds with the custom background and apply changes to the HUD.
+    ///         When calling the apply method, the BackgroundManager will override the stock backgrounds with the custom background and apply changes to the HUD.
     ///     </para>
     /// </summary>
     internal class HUDBackground
