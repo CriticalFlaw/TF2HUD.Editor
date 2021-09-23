@@ -402,7 +402,7 @@ namespace HUDEditor
                 // Remove the HUD from the tf/custom directory.
                 Logger.Info($"Start uninstalling {HudSelection}.");
                 Logger.Info($"Removing {HudSelection} from: {HudPath}");
-                Directory.Delete(HudPath + $"\\{HudSelection}", true);
+                if (HudSelection != "") Directory.Delete($"{HudPath}\\{HudSelection}", true);
                 Json.OnPropertyChanged("HighlightedHUD");
                 Json.OnPropertyChanged("HighlightedHUDInstalled");
             }
