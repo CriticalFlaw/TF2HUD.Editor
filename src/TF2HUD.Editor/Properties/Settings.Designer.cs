@@ -114,5 +114,17 @@ namespace HUDEditor.Properties {
                 return ((string)(this["mastercomfig_vpk"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool app_update_auto {
+            get {
+                return ((bool)(this["app_update_auto"]));
+            }
+            set {
+                this["app_update_auto"] = value;
+            }
+        }
     }
 }

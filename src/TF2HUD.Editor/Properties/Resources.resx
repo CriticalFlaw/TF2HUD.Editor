@@ -216,6 +216,9 @@
   <data name="ui_browse" xml:space="preserve">
     <value>Browse</value>
   </data>
+  <data name="ui_check_updates" xml:space="preserve">
+    <value>Automatically check for updates.</value>
+  </data>
   <data name="ui_clear" xml:space="preserve">
     <value>Clear</value>
   </data>

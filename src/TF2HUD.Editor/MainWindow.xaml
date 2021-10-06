@@ -49,6 +49,7 @@
                     <RadioButton x:Name="btnLocalizeRu" Content="Russian" Checked="BtnLocalize_OnClick"
                                  ToolBar.OverflowMode="Always" />
                     <Button Content="{lex:Loc ui_directory}" Click="BtnSetDirectory_OnClick" ToolBar.OverflowMode="Always" />
+                    <ToggleButton x:Name="BtnAutoUpdate" Content="{lex:Loc ui_check_updates}" Click="BtnAutoUpdate_OnClick" ToolBar.OverflowMode="Always" />
                 </ToolBar>
             </Grid>
         </ToolBarPanel>

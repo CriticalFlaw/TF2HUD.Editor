@@ -59,6 +59,10 @@ namespace HUDEditor
             Json.SelectionChanged += SelectionChanged;
 
             // Check for app updates.
+            BtnAutoUpdate.IsChecked = Settings.Default.app_update_auto;
+            if (BtnAutoUpdate.IsChecked == true)
+                CheckSchemaUpdates();
+
             Logger.Info("Checking for app updates.");
             AutoUpdater.Start(Settings.Default.app_update);
         }
@@ -250,6 +254,31 @@ namespace HUDEditor
         public static bool CheckHudInstallation()
         {
             return Directory.Exists($"{HudPath}\\{HudSelection}");
+        }
+
+        /// <summary>
+        ///     Updates the local schema files to the latest version.
+        /// </summary>
+        /// <param name="silent">If true, the user will not be notified if there are no updates on startup.</param>
+        public static void CheckSchemaUpdates(bool silent = true)
+        {
+            // Check for HUD updates.
+            Logger.Info("Checking for schema updates.");
+            Json.UpdateAsync().ContinueWith(restartRequired =>
+            {
+                if (!restartRequired.Result)
+                {
+                    if (!silent)
+                        ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
+                    return;
+                }
+
+                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                Json.Update(true);
+                Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
+                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
+                Environment.Exit(0);
+            });
         }
 
         #endregion
@@ -517,28 +546,10 @@ namespace HUDEditor
         {
             Utilities.OpenWebpage(Settings.Default.app_docs);
         }
-
-        /// <summary>
-        ///     Updates the local schema files to the latest version.
-        /// </summary>
+        
         private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
         {
-            // Check for HUD updates.
-            Logger.Info("Checking for schema updates.");
-            Json.UpdateAsync().ContinueWith(restartRequired =>
-            {
-                if (!restartRequired.Result)
-                {
-                    ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
-                    return;
-                }
-
-                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
-                Json.Update(true);
-                Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
-                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
-                Environment.Exit(0);
-            });
+            CheckSchemaUpdates(false);
         }
 
         private void BtnGitHub_OnClick(object sender, RoutedEventArgs e)
@@ -587,6 +598,12 @@ namespace HUDEditor
             Settings.Default.hud_selected = Json.SelectedHUD.Name;
             Settings.Default.Save();
             SetPageView(Json.GetHUDByName(Settings.Default.hud_selected));
+        }
+
+        private void BtnAutoUpdate_OnClick(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.app_update_auto = BtnAutoUpdate.IsChecked ?? true;
+            Settings.Default.Save();
         }
 
         #endregion

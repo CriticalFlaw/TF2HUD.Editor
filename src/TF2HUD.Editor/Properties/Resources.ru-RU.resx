@@ -144,10 +144,10 @@
   <data name="header_update_none" xml:space="preserve">
     <value>Обновления не найдены.</value>
   </data>
-    <data name="info_add_hud" xml:space="preserve">
+  <data name="info_add_hud" xml:space="preserve">
     <value>Вы уверены, что хотите добавить папку в общий список интерфейсов? Это добавит папку локально, но не загрузит интерфейс в онлайн базу данных TF2HUD.Editor.</value>
   </data>
-    <data name="info_background_override" xml:space="preserve">
+  <data name="info_background_override" xml:space="preserve">
     <value>Установка нового фона отменит текущий. Используйте кнопку «Переустановить», чтобы вернуться к фону по умолчанию.</value>
   </data>
   <data name="header_restart_required" xml:space="preserve">
@@ -189,7 +189,7 @@
   <data name="status_reset" xml:space="preserve">
     <value>Настройки {0} обнуляются в {1}.</value>
   </data>
-    <data name="tooltip_addhud" xml:space="preserve">
+  <data name="tooltip_addhud" xml:space="preserve">
     <value>Добавить новый интерфейс.</value>
   </data>
   <data name="tooltip_docs" xml:space="preserve">
@@ -254,5 +254,8 @@
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Удалить</value>
+  </data>
+  <data name="ui_check_updates" xml:space="preserve">
+    <value>Автоматически проверить обновления</value>
   </data>
 </root>

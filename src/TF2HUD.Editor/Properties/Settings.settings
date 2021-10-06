@@ -29,5 +29,8 @@
     <Setting Name="mastercomfig_vpk" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://github.com/mastercomfig/mastercomfig/releases/download/9.5.2/mastercomfig-transparent-viewmodels-addon.vpk</Value>
     </Setting>
+    <Setting Name="app_update_auto" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

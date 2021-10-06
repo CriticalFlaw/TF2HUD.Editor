@@ -358,6 +358,15 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatically check for updates..
+        /// </summary>
+        public static string ui_check_updates {
+            get {
+                return ResourceManager.GetString("ui_check_updates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear.
         /// </summary>
         public static string ui_clear {
