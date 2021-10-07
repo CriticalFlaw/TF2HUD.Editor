@@ -593,7 +593,7 @@
             "classmodelpanel": {
               "wide": {
                 "true": "0",
-                "false": "100"
+                "false": "150"
               }
             }
           }
@@ -698,8 +698,7 @@
                   "xpos": "25"
                 },
                 "classmodelpanel": {
-                  "ypos": "r200",
-                  "tall": "200"
+                  "xpos": "0"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -734,6 +733,9 @@
                 "DisguiseStatus": {
                   "xpos": "100",
                   "ypos": "r38"
+                },
+                "HudVoiceSelfStatus": {
+                  "ypos": "r90"
                 },
                 "HudMenuSpyDisguise": {
                   "ypos": "c130"
@@ -806,8 +808,7 @@
                   "xpos": "25"
                 },
                 "classmodelpanel": {
-                  "ypos": "r200",
-                  "tall": "200"
+                  "xpos": "0"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -842,6 +843,9 @@
                 "DisguiseStatus": {
                   "xpos": "100",
                   "ypos": "r38"
+                },
+                "HudVoiceSelfStatus": {
+                  "ypos": "r90"
                 },
                 "HudMenuSpyDisguise": {
                   "ypos": "c60"
@@ -899,7 +903,7 @@
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "115",
+                  "xpos": "120",
                   "ypos": "r33"
                 }
               },
@@ -914,8 +918,7 @@
                   "xpos": "r125"
                 },
                 "classmodelpanel": {
-                  "ypos": "r230",
-                  "tall": "180"
+                  "xpos": "c200"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -950,6 +953,9 @@
                 "DisguiseStatus": {
                   "xpos": "115",
                   "ypos": "r62"
+                },
+                "HudVoiceSelfStatus": {
+                  "ypos": "r120"
                 },
                 "HudMenuSpyDisguise": {
                   "ypos": "c130"
@@ -1146,6 +1152,212 @@
                   "true": "../console/background_xmas2020_widescreen",
                   "false": ""
                 }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_old_mode_selection",
+        "Label": "Old Mode Selection",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the matchmaking mode selection to be shown on the side of the screen.",
+        "Value": "false",
+        "Restart": true,
+        "Files": {
+          "resource/ui/mainmenuplaylistentry.res": {
+            "ModeButton": {
+              "tall": {
+                "true": "75",
+                "false": "50"
+              },
+              "wide": {
+                "true": "250",
+                "false": "140"
+              },
+              "font": {
+                "true": "FontBold18",
+                "false": "FontBold12"
+              },
+              "textAlignment": {
+                "true": "center",
+                "false": "north"
+              }
+            }
+          },
+          "resource/ui/matchmakingdashboardplaylist.res": {
+            "ExpandableList": {
+              "ypos": {
+                "true": "10",
+                "false": "r63"
+              },
+              "wide": {
+                "true": "280",
+                "false": "f0"
+              },
+              "tall": {
+                "true": "f70",
+                "false": "f0"
+              }
+            },
+            "Title": {
+              "xpos": {
+                "true": "0",
+                "false": "c-350"
+              },
+              "ypos": {
+                "true": "25",
+                "false": "12"
+              },
+              "wide": {
+                "true": "f0",
+                "false": "130"
+              },
+              "tall": {
+                "true": "20",
+                "false": "40"
+              },
+              "textAlignment": {
+                "true": "center",
+                "false": "west"
+              },
+              "wrap": {
+                "true": "0",
+                "false": "1"
+              }
+            },
+            "playlist": {
+              "xpos": {
+                "true": "8",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "50",
+                "false": "0"
+              },
+              "wide": {
+                "true": "255",
+                "false": "f0"
+              },
+              "tall": {
+                "true": "365",
+                "false": "f0"
+              }
+            },
+            "PlayListDropShadow": {
+              "xpos": {
+                "true": "8",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "50",
+                "false": "0"
+              },
+              "wide": {
+                "true": "255",
+                "false": "f0"
+              },
+              "tall": {
+                "true": "298",
+                "false": "f0"
+              }
+            }
+          },
+          "resource/ui/matchmakingplaylist.res": {
+            "CasualEntry": {
+              "xpos": {
+                "true": "0",
+                "false": "r165"
+              },
+              "tall": {
+                "true": "75",
+                "false": "50"
+              },
+              "wide": {
+                "true": "250",
+                "false": "140"
+              },
+              "proportionaltoparent": {
+                "true": "1",
+                "false": "0"
+              }
+            },
+            "CompetitiveEntry": {
+              "xpos": {
+                "true": "0",
+                "false": "5"
+              },
+              "tall": {
+                "true": "75",
+                "false": "50"
+              },
+              "wide": {
+                "true": "250",
+                "false": "140"
+              },
+              "proportionaltoparent": {
+                "true": "1",
+                "false": "0"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_TOPRIGHT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_BOTTOMLEFT",
+                "false": "PIN_TOPLEFT"
+              }
+            },
+            "MvMEntry": {
+              "xpos": {
+                "true": "0",
+                "false": "5"
+              },
+              "tall": {
+                "true": "75",
+                "false": "50"
+              },
+              "wide": {
+                "true": "250",
+                "false": "140"
+              },
+              "proportionaltoparent": {
+                "true": "1",
+                "false": "0"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_TOPRIGHT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_BOTTOMLEFT",
+                "false": "PIN_TOPLEFT"
+              }
+            },
+            "ServerBrowserEntry": {
+              "xpos": {
+                "true": "0",
+                "false": "5"
+              },
+              "tall": {
+                "true": "75",
+                "false": "50"
+              },
+              "wide": {
+                "true": "250",
+                "false": "140"
+              },
+              "proportionaltoparent": {
+                "true": "1",
+                "false": "0"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_TOPRIGHT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_BOTTOMLEFT",
+                "false": "PIN_TOPLEFT"
               }
             }
           }
