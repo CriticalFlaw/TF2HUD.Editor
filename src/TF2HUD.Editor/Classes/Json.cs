@@ -80,7 +80,7 @@ namespace HUDEditor.Classes
             hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
             HUDList = hudList.ToArray();
 
-            var selectedHud = GetHUDByName(Settings.Default.hud_selected);
+            var selectedHud = this[Settings.Default.hud_selected];
             HighlightedHUD = selectedHud;
             SelectedHUD = selectedHud;
         }
@@ -124,14 +124,9 @@ namespace HUDEditor.Classes
         ///     Find and retrieve a HUD object selected by the user.
         /// </summary>
         /// <param name="name">Name of the HUD the user wants to view.</param>
-        public HUD GetHUDByName(string name)
-        {
-            return HUDList.FirstOrDefault(hud => string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase));
-        }
-
         public HUD this[string index]
         {
-            get => this.GetHUDByName(index);
+            get => HUDList.FirstOrDefault(hud => string.Equals(hud.Name, index, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>

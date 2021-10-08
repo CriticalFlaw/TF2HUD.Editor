@@ -54,7 +54,7 @@ namespace HUDEditor
 
             // Setup the user interface.
             SetPageView(Json.SelectedHUD);
-            SelectionChanged(Json, Json.GetHUDByName(Settings.Default.hud_selected));
+            SelectionChanged(Json, Json[Settings.Default.hud_selected]);
             SetupDirectory();
             Json.SelectionChanged += SelectionChanged;
 
@@ -576,7 +576,7 @@ namespace HUDEditor
             Json.SelectedHUD = Json.HighlightedHUD;
             Settings.Default.hud_selected = Json.SelectedHUD.Name;
             Settings.Default.Save();
-            SetPageView(Json.GetHUDByName(Settings.Default.hud_selected));
+            SetPageView(Json[Settings.Default.hud_selected]);
         }
 
         private void BtnAutoUpdate_OnClick(object sender, RoutedEventArgs e)
