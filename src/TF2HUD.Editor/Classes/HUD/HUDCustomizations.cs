@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows;
 using HUDEditor.Models;
@@ -748,7 +747,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Copy configuration file for transparent viewmodels into the HUD's cfg folder.
         /// </summary>
-        private void CopyTransparentViewmodelAddon(bool enable = false)
+        private async void CopyTransparentViewmodelAddon(bool enable = false)
         {
             try
             {
@@ -760,15 +759,7 @@ namespace HUDEditor.Classes
                     || !enable) return;
 
                 // Download a version of the transparent viewmodels add-on.
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new WebClient();
-                client.DownloadFile(Properties.Settings.Default.mastercomfig_vpk, fileName);
-                client.Dispose();
-
-                // Move the file to the tf/custom folder.
-                File.Move($"{Directory.GetCurrentDirectory()}\\{fileName}", $"{MainWindow.HudPath}\\{fileName}", true);
+                await Utilities.DownloadFile(Properties.Settings.Default.mastercomfig_vpk, $"{MainWindow.HudPath}\\{fileName}");
             }
             catch (Exception e)
             {

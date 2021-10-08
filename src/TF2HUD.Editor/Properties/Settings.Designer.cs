@@ -80,7 +80,8 @@ namespace HUDEditor.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repos/CriticalFlaw/TF2HUD.Editor/contents/src/TF2HUD.Edito" +
+            "r/JSON")]
         public string json_list {
             get {
                 return ((string)(this["json_list"]));

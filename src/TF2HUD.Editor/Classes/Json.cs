@@ -106,6 +106,7 @@ namespace HUDEditor.Classes
                 _selectedHud = value;
                 SelectionChanged?.Invoke(this, value);
                 OnPropertyChanged("SelectedHUD");
+                OnPropertyChanged("SelectedHUDInstalled");
             }
         }
 
@@ -128,6 +129,11 @@ namespace HUDEditor.Classes
             return HUDList.FirstOrDefault(hud => string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase));
         }
 
+        public HUD this[string index]
+        {
+            get => this.GetHUDByName(index);
+        }
+
         /// <summary>
         ///     Invoke a WPF Binding update of a property.
         /// </summary>
@@ -141,84 +147,42 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Synchronize the local HUD schema files with the latest versions on GitHub.
         /// </summary>
-        public static void Update(bool force = false)
+        /// <returns>Whether updates are available</returns>
+        public async Task<bool> Update()
         {
             try
             {
-                // Get the local schema names and file sizes.
-                var localFiles = new DirectoryInfo("JSON").GetFiles().Where(x => x.FullName.EndsWith(".json")).Select(file => new Tuple<string, int>(file.Name.Replace(".json", string.Empty), (int) file.Length)).ToList();
-                if (localFiles.Count <= 0) return;
+                var remoteFiles = (await Utilities.Fetch<GitJson[]>(Settings.Default.json_list))
+                .Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
 
-                // Setup the WebClient for download remote files.
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                var client = new WebClient();
-                client.Headers.Add("User-Agent", "request");
-                var remoteList = client.DownloadString(Settings.Default.json_list);
-                client.Dispose();
+                List<Task> downloads = new();
 
-                // Get the remote schema names and file sizes.
-                var remoteFiles = JsonConvert.DeserializeObject<List<GitJson>>(remoteList)!
-                    .Where(x => x.Name.EndsWith(".json"))
-                    .Select(file => new Tuple<string, int>(file.Name.Replace(".json", string.Empty), file.Size))
-                    .ToList();
-                if (remoteFiles.Count <= 0) return;
-
-                // Compare the local and remote files.
-                foreach (var (remoteName, remoteSize) in remoteFiles)
+                foreach (var remoteFile in remoteFiles)
                 {
-                    if (!force)
+                    var localFilePath = $"JSON\\{remoteFile.Name}";
+                    var newFile = !File.Exists(localFilePath);
+                    var fileChanged = remoteFile.SHA != Utilities.GitHash(localFilePath);
+                    if (newFile || fileChanged)
                     {
-                        var downloadFile = true;
-                        MainWindow.Logger.Info($"{remoteName}: Checking ...");
-                        foreach (var (localName, localSize) in localFiles)
-                            if (string.Equals(remoteName, localName))
-                            {
-                                // The remote file is found locally. Check if the file size has noticeably changed.
-                                downloadFile = !Enumerable.Range(remoteSize - 100, remoteSize + 100).Contains(localSize);
-                                break;
-                            }
-
-                        // If the remote file is not found locally, or the size difference is too great - download the latest version.
-                        if (!downloadFile)
-                        {
-                            MainWindow.Logger.Info($"{remoteName}: No updates...");
-                            continue;
-                        }
+                        MainWindow.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
+                        downloads.Add(Utilities.DownloadFile(remoteFile.Download, localFilePath));
                     }
-
-                    var fileName = $"{remoteName}.json";
-                    MainWindow.Logger.Info($"{remoteName}: Downloading latest version...");
-                    client.DownloadFile(string.Format(Settings.Default.json_file, fileName), fileName);
-                    client.Dispose();
-
-                    // Move the fresh file into the JSON folder, overwriting the previous version.
-                    if (File.Exists(fileName))
-                        File.Move(fileName, $"JSON/{fileName}", true);
                 }
-            }
-            catch (Exception e)
-            {
-                MainWindow.Logger.Error(e.Message);
-                Console.WriteLine(e);
-            }
-        }
 
-        public async Task<bool> UpdateAsync()
-        {
-            try
-            {
-                return (await Task.WhenAll(HUDList.Select(async x =>
+#if !DEBUG
+                // Remove HUD JSONs that aren't available online.
+                foreach (var localFile in new DirectoryInfo("JSON").EnumerateFiles())
                 {
-                    var url = string.Format(Settings.Default.json_file, $"{x.Name}.json");
-                    MainWindow.Logger.Info($"Requesting {x.Name} from {url}");
-                    var response = await Utilities.Fetch(url);
-                    if (response != null)
-                        return !x.TestHUD(new HUD(x.Name, JsonConvert.DeserializeObject<HudJson>(response), true));
-                    MainWindow.Logger.Info($"{x.Name}: Received HTTP error, unable to determine whether HUD has been updated!");
-                    return false;
-                }))).Contains(true);
+                    if (remoteFiles.Count((x) => x.Name == localFile.Name) == 0)
+                    {
+                        MainWindow.Logger.Info($"Deleting {localFile.Name}");
+                        File.Delete(localFile.FullName);
+                    }
+                }
+#endif
+
+                await Task.WhenAll(downloads);
+                return Convert.ToBoolean(downloads.Count);
             }
             catch (Exception e)
             {

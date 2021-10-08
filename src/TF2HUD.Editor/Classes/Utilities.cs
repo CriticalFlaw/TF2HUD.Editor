@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,7 +18,7 @@ namespace HUDEditor.Classes
 {
     public static class Utilities
     {
-        public static List<Tuple<string, string, string>> ItemRarities = new()
+        public static readonly List<Tuple<string, string, string>> ItemRarities = new()
         {
             new Tuple<string, string, string>("QualityColorNormal", "DimmQualityColorNormal",
                 "QualityColorNormal_GreyedOut"),
@@ -52,7 +52,7 @@ namespace HUDEditor.Classes
                 "ItemRarityAncient_GreyedOut")
         };
 
-        public static List<string> CrosshairStyles = new()
+        public static readonly List<string> CrosshairStyles = new()
         {
             "!", "#", "$", "%", "'", "(", ")", "*", "+", ",", ".", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":",
             ";", "=", "<", ">", "?", "@", "|", "}", "`", "_", "^", "]", "[", "A", "B", "C", "D", "E", "F", "G", "H",
@@ -180,21 +180,6 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Download the HUD using the provided URL.
-        /// </summary>
-        /// <param name="url">URL from which to download the HUD.</param>
-        public static void DownloadHud(string url)
-        {
-            MainWindow.Logger.Info($"Downloading from: {url}");
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            var client = new WebClient();
-            client.DownloadFile(url, "temp.zip");
-            client.Dispose();
-        }
-
-        /// <summary>
         ///     Check if Team Fortress 2 is currently running.
         /// </summary>
         /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
@@ -248,6 +233,7 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Converts a HUD/control name into a WPF usable ID
         /// </summary>
+        /// <param name="id">ID to sanitize.</param>
         /// <remarks>
         ///     If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores.
         /// </remarks>
@@ -258,7 +244,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     TODO: Add comment explaining this method.
+        ///     Deep merge keys from one object to another
         /// </summary>
         /// <param name="object1"></param>
         /// <param name="object2"></param>
@@ -289,6 +275,11 @@ namespace HUDEditor.Classes
             }
         }
 
+        /// <summary>
+        ///     Adds the structure for empty nested objects inside a given object
+        /// </summary>
+        /// <param name="obj">Object to add nested objects to.</param>
+        /// <param name="keys">Keys to add.</param>
         public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj, IEnumerable<string> keys)
         {
             try
@@ -311,10 +302,44 @@ namespace HUDEditor.Classes
             }
         }
 
-        public static async Task<string> Fetch(string url)
+        /// <summary>
+        ///     Fetch JSON from specified URL.
+        /// </summary>
+        /// <param name="url">URL to request resource from.</param>
+        public static async Task<T> Fetch<T>(string url)
         {
-            var response = await new HttpClient().GetAsync(url);
-            return response.IsSuccessStatusCode ? response.Content.ReadAsStringAsync().Result : null;
+            using (HttpClient client = new())
+            {
+                client.DefaultRequestHeaders.Add("User-Agent", "request");
+                return await client.GetFromJsonAsync<T>(url);
+            }
+        }
+
+        /// <summary>
+        ///     Downloads a file from URL to the specified file path.
+        /// </summary>
+        /// <param name="url">URL to request resource from.</param>
+        /// <param name="filePath">Relative path to file to save resource to.</param>
+        public static async Task DownloadFile(string url, string filePath)
+        {
+            using (HttpClient client = new())
+            {
+                client.DefaultRequestHeaders.Add("User-Agent", "request");
+                File.WriteAllBytes(filePath, await client.GetByteArrayAsync(url));
+            }
+        }
+
+        /// <summary>
+        ///     Calculates a file hash identical to the output of <c>git hash-object &lt;file&gt;</c>
+        /// </summary>
+        /// <param name="filePath">Path to file to calculate hash of.</param>
+        public static string GitHash(string filePath)
+        {
+            string contents = File.ReadAllText(filePath, System.Text.Encoding.UTF8).Replace("\r\n", "\n");
+            string headerString = $"blob {contents.Length}\0{contents}";
+            byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(headerString);
+            byte[] hashedBytes = System.Security.Cryptography.SHA1.HashData(contentBytes);
+            return hashedBytes.Aggregate("", (string a, byte b) => a + b.ToString("X2").ToLower());
         }
     }
 }

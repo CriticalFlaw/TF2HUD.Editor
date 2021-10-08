@@ -182,7 +182,7 @@
                     Click="BtnSave_OnClick"
                     Content="{lex:Loc ui_apply}"
                     Style="{StaticResource HUDButton}"
-                    IsEnabled="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverter}}" />
+                    IsEnabled="{Binding Json.SelectedHUDInstalled, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     Click="BtnReset_OnClick"
                     Content="{lex:Loc ui_reset}"

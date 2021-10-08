@@ -260,25 +260,23 @@ namespace HUDEditor
         ///     Updates the local schema files to the latest version.
         /// </summary>
         /// <param name="silent">If true, the user will not be notified if there are no updates on startup.</param>
-        public static void CheckSchemaUpdates(bool silent = true)
+        public static async void CheckSchemaUpdates(bool silent = true)
         {
             // Check for HUD updates.
             Logger.Info("Checking for schema updates.");
-            Json.UpdateAsync().ContinueWith(restartRequired =>
+            var restartRequired = await Json.Update();
+            if (restartRequired)
             {
-                if (!restartRequired.Result)
-                {
-                    if (!silent)
-                        ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
-                    return;
-                }
-
                 if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
-                Json.Update(true);
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                 Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
                 Environment.Exit(0);
-            });
+            }
+            else
+            {
+                if (!silent)
+                    ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
+            }
         }
 
         #endregion
@@ -331,7 +329,7 @@ namespace HUDEditor
         /// <summary>
         ///     Invoke HUD installation or setting the tf/custom directory, if not already set.
         /// </summary>
-        private void BtnInstall_OnClick(object sender, RoutedEventArgs args)
+        private async void BtnInstall_OnClick(object sender, RoutedEventArgs args)
         {
             try
             {
@@ -347,67 +345,56 @@ namespace HUDEditor
                 // Stop the process if Team Fortress 2 is still running.
                 if (Utilities.CheckIsGameRunning()) return;
 
-                var worker = new BackgroundWorker();
-                worker.DoWork += (_, _) =>
-                {
-                    Dispatcher.Invoke(() =>
+                // Step 1. Retrieve the HUD object, then download and extract it into the tf/custom directory.
+                Logger.Info($"Start installing {HudSelection}.");
+                await Json.SelectedHUD.Update();
+
+                // Step 2. Clear tf/custom directory of other installed HUDs.
+                Logger.Info("Preparing directories for extraction.");
+                foreach (var x in Json.HUDList)
+                    if (Directory.Exists($"{HudPath}\\{x.Name.ToLowerInvariant()}"))
+                        Directory.Delete($"{HudPath}\\{x.Name.ToLowerInvariant()}", true);
+
+                // Step 3. Record the name of the HUD inside the downloaded folder.
+                var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";
+                if (!File.Exists(tempFile)) tempFile = "temp.zip";
+                using var archive = ZipFile.OpenRead(tempFile);
+                var hudName = archive.Entries.FirstOrDefault(entry =>
+                    entry.FullName.EndsWith("/", StringComparison.OrdinalIgnoreCase) &&
+                    string.IsNullOrWhiteSpace(entry.Name));
+
+                // Step 4. Extract the downloaded HUD and rename it to match the schema.
+                Logger.Info($"Extracting {HudSelection} to: {HudPath}");
+                ZipFile.ExtractToDirectory(tempFile, HudPath);
+                Directory.Move($"{HudPath}\\{hudName}", $"{HudPath}\\{HudSelection}");
+
+                // Step 5. Update the page view.
+                if (string.IsNullOrWhiteSpace(HudSelection)) return;
+                Json.SelectedHUD.Settings.SaveSettings();
+                SetPageView(Json.SelectedHUD);
+                Json.SelectedHUD.ApplyCustomizations();
+                LblStatus.Content = string.Format(Properties.Resources.status_installed_now,
+                                    Settings.Default.hud_selected, DateTime.Now);
+
+                // Update Install/Uninstall/Reset Buttons
+                Json.OnPropertyChanged("HighlightedHUDInstalled");
+
+                // Update Switch HUD Button
+                BtnSwitch.SetBinding(
+                    IsEnabledProperty,
+                    new Binding
                     {
-                        // Step 1. Retrieve the HUD object, then download and extract it into the tf/custom directory.
-                        Logger.Info($"Start installing {HudSelection}.");
-                        Json.SelectedHUD.Update();
+                        Source = Json,
+                        Path = new PropertyPath("SelectedHUD"),
+                        Converter = new NullCheckConverter()
+                    }
+                );
+                Json.OnPropertyChanged("SelectedHUD");
+                Json.OnPropertyChanged("SelectedHUDInstalled");
 
-                        // Step 2. Clear tf/custom directory of other installed HUDs.
-                        Logger.Info("Preparing directories for extraction.");
-                        foreach (var x in Json.HUDList)
-                            if (Directory.Exists(HudPath + "\\" + x.Name?.ToLowerInvariant()))
-                                Directory.Delete(HudPath + "\\" + x.Name?.ToLowerInvariant(), true);
-
-                        // Step 3. Record the name of the HUD inside the downloaded folder.
-                        var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";
-                        if (!File.Exists(tempFile)) tempFile = "temp.zip";
-                        using var archive = ZipFile.OpenRead(tempFile);
-                        var hudName = archive.Entries.FirstOrDefault(entry =>
-                            entry.FullName.EndsWith("/", StringComparison.OrdinalIgnoreCase) &&
-                            string.IsNullOrWhiteSpace(entry.Name));
-
-                        // Step 4. Extract the downloaded HUD and rename it to match the schema.
-                        Logger.Info($"Extracting {HudSelection} to: {HudPath}");
-                        ZipFile.ExtractToDirectory(tempFile, HudPath);
-                        Directory.Move($"{HudPath}\\{hudName}", $"{HudPath}\\{HudSelection}");
-
-                        // Step 5. Update the page view.
-                        if (string.IsNullOrWhiteSpace(HudSelection)) return;
-                        Json.SelectedHUD.Settings.SaveSettings();
-                        SetPageView(Json.SelectedHUD);
-                        Json.SelectedHUD.ApplyCustomizations();
-                    });
-                };
-                worker.RunWorkerCompleted += (_, _) =>
-                {
-                    LblStatus.Content = string.Format(Properties.Resources.status_installed_now,
-                        Settings.Default.hud_selected, DateTime.Now);
-
-                    // Update Install/Uninstall/Reset Buttons
-                    Json.OnPropertyChanged("HighlightedHUDInstalled");
-
-                    // Update Switch HUD Button
-                    BtnSwitch.SetBinding(
-                        IsEnabledProperty,
-                        new Binding
-                        {
-                            Source = Json,
-                            Path = new PropertyPath("SelectedHUD"),
-                            Converter = new NullCheckConverter()
-                        }
-                    );
-                    Json.OnPropertyChanged("SelectedHUD");
-
-                    // Clean the application directory.
-                    var tempPath = $"{Directory.GetCurrentDirectory()}\\temp.zip";
-                    if (File.Exists(tempPath))
-                        File.Delete(tempPath);
-                };
-                worker.RunWorkerAsync();
+                // Clean the application directory.
+                archive.Dispose();
+                File.Delete(tempFile);
             }
             catch (Exception e)
             {
@@ -434,6 +421,8 @@ namespace HUDEditor
                 if (HudSelection != "") Directory.Delete($"{HudPath}\\{HudSelection}", true);
                 Json.OnPropertyChanged("HighlightedHUD");
                 Json.OnPropertyChanged("HighlightedHUDInstalled");
+                Json.OnPropertyChanged("SelectedHUD");
+                Json.OnPropertyChanged("SelectedHUDInstalled");
             }
             catch (Exception e)
             {
@@ -446,32 +435,22 @@ namespace HUDEditor
         /// </summary>
         private void BtnSave_OnClick(object sender, RoutedEventArgs e)
         {
-            var hudObject = Json.GetHUDByName(Settings.Default.hud_selected);
-            if (Process.GetProcessesByName("hl2").Any() && hudObject.DirtyControls.Count > 0)
+            if (string.IsNullOrWhiteSpace(HudSelection)) return;
+
+            var selection = Json[Settings.Default.hud_selected];
+            if (Process.GetProcessesByName("hl2").Any() && selection.DirtyControls.Count > 0)
             {
-                var message = hudObject.DirtyControls.Aggregate(Properties.Resources.info_game_restart, (current, control) => current + $"\n - {control}");
+                var message = selection.DirtyControls.Aggregate(Properties.Resources.info_game_restart, (current, control) => current + $"\n - {control}");
                 if (ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
             }
 
             Logger.Info("Start applying settings.");
-            var worker = new BackgroundWorker();
-            worker.DoWork += (_, _) =>
-            {
-                Dispatcher.Invoke(() =>
-                {
-                    if (string.IsNullOrWhiteSpace(HudSelection)) return;
-                    var selection = Json.GetHUDByName(Settings.Default.hud_selected);
-                    selection.Settings.SaveSettings();
-                    selection.ApplyCustomizations();
-                    selection.DirtyControls.Clear();
-                    Logger.Info("Done applying settings.");
-                });
-            };
-            worker.RunWorkerCompleted += (_, _) =>
-            {
-                LblStatus.Content = string.Format(Properties.Resources.status_applied, hudObject.Name, DateTime.Now);
-            };
-            worker.RunWorkerAsync();
+            selection.Settings.SaveSettings();
+            selection.ApplyCustomizations();
+            selection.DirtyControls.Clear();
+            Logger.Info("Done applying settings.");
+
+            LblStatus.Content = string.Format(Properties.Resources.status_applied, selection.Name, DateTime.Now);
         }
 
         /// <summary>
@@ -546,7 +525,7 @@ namespace HUDEditor
         {
             Utilities.OpenWebpage(Settings.Default.app_docs);
         }
-        
+
         private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
         {
             CheckSchemaUpdates(false);
