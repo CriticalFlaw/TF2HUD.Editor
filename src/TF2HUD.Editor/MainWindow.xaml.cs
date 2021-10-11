@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -174,6 +173,7 @@ namespace HUDEditor
         /// <summary>
         ///     Called when a new HUD has been selected from the list.
         /// </summary>
+        /// <param name="sender">HUD object that initiated this action.</param>
         /// <param name="hud">Selected HUD object.</param>
         private void SelectionChanged(object sender, HUD hud)
         {
@@ -319,7 +319,7 @@ namespace HUDEditor
             else
             {
                 UniqueHUDsButton.Foreground = Brushes.White;
-                foreach (var (hud, border) in HudThumbnails)
+                foreach (var (_, border) in HudThumbnails)
                     border.Visibility = Visibility.Visible;
             }
 

@@ -6,7 +6,6 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -124,9 +123,9 @@ namespace HUDEditor.Classes
         ///     Find and retrieve a HUD object selected by the user.
         /// </summary>
         /// <param name="name">Name of the HUD the user wants to view.</param>
-        public HUD this[string index]
+        public HUD this[string name]
         {
-            get => HUDList.FirstOrDefault(hud => string.Equals(hud.Name, index, StringComparison.InvariantCultureIgnoreCase));
+            get => HUDList.FirstOrDefault(hud => string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
@@ -147,34 +146,31 @@ namespace HUDEditor.Classes
         {
             try
             {
-                var remoteFiles = (await Utilities.Fetch<GitJson[]>(Settings.Default.json_list))
-                .Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
-
+                var remoteFiles = (await Utilities.Fetch<GitJson[]>(Settings.Default.json_list)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
                 List<Task> downloads = new();
 
                 foreach (var remoteFile in remoteFiles)
                 {
                     var localFilePath = $"JSON\\{remoteFile.Name}";
-                    var newFile = !File.Exists(localFilePath);
-                    var fileChanged = remoteFile.SHA != Utilities.GitHash(localFilePath);
-                    if (newFile || fileChanged)
-                    {
-                        MainWindow.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
-                        downloads.Add(Utilities.DownloadFile(remoteFile.Download, localFilePath));
-                    }
+                    bool newFile = false, fileChanged = false;
+
+                    if (!File.Exists(localFilePath))
+                        newFile = true;
+                    else
+                        fileChanged = remoteFile.SHA != Utilities.GitHash(localFilePath);
+
+                    if (!newFile && !fileChanged) continue;
+                    MainWindow.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
+                    downloads.Add(Utilities.DownloadFile(remoteFile.Download, localFilePath));
                 }
 
-#if !DEBUG
                 // Remove HUD JSONs that aren't available online.
                 foreach (var localFile in new DirectoryInfo("JSON").EnumerateFiles())
                 {
-                    if (remoteFiles.Count((x) => x.Name == localFile.Name) == 0)
-                    {
-                        MainWindow.Logger.Info($"Deleting {localFile.Name}");
-                        File.Delete(localFile.FullName);
-                    }
+                    if (remoteFiles.Count((x) => x.Name == localFile.Name) != 0) continue;
+                    MainWindow.Logger.Info($"Deleting {localFile.Name}");
+                    File.Delete(localFile.FullName);
                 }
-#endif
 
                 await Task.WhenAll(downloads);
                 return Convert.ToBoolean(downloads.Count);

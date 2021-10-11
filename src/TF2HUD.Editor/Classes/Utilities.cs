@@ -335,11 +335,11 @@ namespace HUDEditor.Classes
         /// <param name="filePath">Path to file to calculate hash of.</param>
         public static string GitHash(string filePath)
         {
-            string contents = File.ReadAllText(filePath, System.Text.Encoding.UTF8).Replace("\r\n", "\n");
-            string headerString = $"blob {contents.Length}\0{contents}";
-            byte[] contentBytes = System.Text.Encoding.UTF8.GetBytes(headerString);
-            byte[] hashedBytes = System.Security.Cryptography.SHA1.HashData(contentBytes);
-            return hashedBytes.Aggregate("", (string a, byte b) => a + b.ToString("X2").ToLower());
+            var contents = File.ReadAllText(filePath, System.Text.Encoding.UTF8).Replace("\r\n", "\n");
+            var headerString = $"blob {contents.Length}\0{contents}";
+            var contentBytes = System.Text.Encoding.UTF8.GetBytes(headerString);
+            var hashedBytes = System.Security.Cryptography.SHA1.HashData(contentBytes);
+            return hashedBytes.Aggregate("", (a, b) => a + b.ToString("X2").ToLower());
         }
     }
 }

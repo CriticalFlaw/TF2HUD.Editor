@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using HUDEditor.Models;
-using Newtonsoft.Json.Linq;
 using Xceed.Wpf.Toolkit;
 using static HUDEditor.MainWindow;
 
