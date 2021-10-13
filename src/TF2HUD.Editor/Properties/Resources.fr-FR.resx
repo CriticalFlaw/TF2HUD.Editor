@@ -130,7 +130,7 @@
     <value>Une erreur s'est produite lors de la désinstallation de {0}.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
-    <value>Une erreur s’est produite lors de la bascule des "viewmodels" transparents.</value>
+    <value>Une erreur s’est produite lors de l'activation des "viewmodels" transparents.</value>
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Impossible de reconnaître l'extension de fichier '{0}'.</value>
@@ -141,8 +141,14 @@
   <data name="header_update_none" xml:space="preserve">
     <value>Aucune mise à jour trouvée.</value>
   </data>
+  <data name="info_add_hud" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir ajouter un dossier à la liste des HUDs partagés? Ceci ajoutera le dossier localement mais n'enverra pas le HUD sur la base de donnée en ligne de TF2HUD.Editor.</value>
+  </data>
   <data name="info_game_restart" xml:space="preserve">
     <value>Les modifications suivantes nécessitent le redémarrage du jeu:</value>
+  </data>
+  <data name="info_background_override" xml:space="preserve">
+    <value>Ajouter un nouvel arrière-plan va remplacer celui déjà présent. Utilisez l'option "Réinstaller" pour revenir à l'arrière-plan par défaut.</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
     <value>Impossible de continuer, car Team Fortress 2 est toujours en cours d'exécution. Veuillez fermer le jeu puis réessayer.</value>
@@ -183,6 +189,9 @@
   <data name="status_reset" xml:space="preserve">
     <value>Personnalisations de {0} réinitialisées le {1}.</value>
   </data>
+  <data name="tooltip_addhud" xml:space="preserve">
+    <value>Ajouter un nouveau HUD.</value>
+  </data>
   <data name="tooltip_docs" xml:space="preserve">
     <value>Lire la documentation du projet.</value>
   </data>
@@ -198,14 +207,23 @@
   <data name="ui_apply" xml:space="preserve">
     <value>Appliquer les modifications</value>
   </data>
+  <data name="ui_author" xml:space="preserve">
+    <value>Créé par: {0}</value>
+  </data>
   <data name="ui_back" xml:space="preserve">
-    <value>Arrière</value>
+    <value>Précédent</value>
   </data>
   <data name="ui_browse" xml:space="preserve">
     <value>Parcourir</value>
   </data>
+  <data name="ui_check_updates" xml:space="preserve">
+    <value>Check automatiquement les mises à jour.</value>
+  </data>
   <data name="ui_clear" xml:space="preserve">
-    <value>Dégager</value>
+    <value>Effacer</value>
+  </data>
+  <data name="ui_customize" xml:space="preserve">
+    <value>Personnaliser</value>
   </data>
   <data name="ui_directory" xml:space="preserve">
     <value>Définir un répertoire</value>
@@ -233,6 +251,9 @@
   </data>
   <data name="ui_switch" xml:space="preserve">
     <value>Changer de HUD</value>
+  </data>
+  <data name="ui_title" xml:space="preserve">
+    <value>TF2 HUD Editor</value>
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Désinstaller</value>
