@@ -130,7 +130,7 @@
     <value>Une erreur s'est produite lors de la désinstallation de {0}.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
-    <value>Une erreur s’est produite lors de la bascule des "viewmodels" transparents.</value>
+    <value>Une erreur s’est produite lors de l'activation des "viewmodels" transparents.</value>
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Impossible de reconnaître l'extension de fichier '{0}'.</value>
