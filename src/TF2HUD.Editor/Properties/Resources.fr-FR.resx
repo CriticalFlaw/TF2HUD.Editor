@@ -211,7 +211,7 @@
     <value>Créé par: {0}</value>
   </data>
   <data name="ui_back" xml:space="preserve">
-    <value>Arrière</value>
+    <value>Précédent</value>
   </data>
   <data name="ui_browse" xml:space="preserve">
     <value>Parcourir</value>
@@ -220,7 +220,7 @@
     <value>Check automatiquement les mises à jour.</value>
   </data>
   <data name="ui_clear" xml:space="preserve">
-    <value>Dégager</value>
+    <value>Effacer</value>
   </data>
   <data name="ui_customize" xml:space="preserve">
     <value>Personnaliser</value>
