@@ -1191,6 +1191,10 @@
                 "true": "10",
                 "false": "r63"
               },
+              "zpos": {
+                "true": "1001",
+                "false": "2001"
+              },
               "wide": {
                 "true": "280",
                 "false": "f0"
