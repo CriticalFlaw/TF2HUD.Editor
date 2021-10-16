@@ -24,6 +24,7 @@
     <PackageIconUrl />
     <AssemblyName>TF2HUD.Editor</AssemblyName>
     <RootNamespace>HUDEditor</RootNamespace>
+    <PackageTags>tf2</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
