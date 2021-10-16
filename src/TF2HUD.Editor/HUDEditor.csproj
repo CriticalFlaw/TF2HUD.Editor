@@ -11,9 +11,9 @@
     <Company>CriticalFlaw</Company>
     <Copyright>CriticalFlaw</Copyright>
     <PackageProjectUrl>https://www.editor.criticalflaw.ca/</PackageProjectUrl>
-    <AssemblyVersion>2.3.1.0</AssemblyVersion>
-    <FileVersion>2.3.1.0</FileVersion>
-    <Version>2.3.1</Version>
+    <AssemblyVersion>2.4.0.0</AssemblyVersion>
+    <FileVersion>2.4.0.0</FileVersion>
+    <Version>2.4.0</Version>
     <RepositoryUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
