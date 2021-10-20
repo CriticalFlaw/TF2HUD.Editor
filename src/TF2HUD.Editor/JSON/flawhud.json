@@ -1368,6 +1368,200 @@
         }
       },
       {
+        "Name": "fh_toggle_old_loadout",
+        "Label": "Default Loadout Screen",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the loadout screen layout to resemble the default HUD.",
+        "Value": "false",
+        "Restart": true,
+        "Files": {
+          "resource/ui/classloadoutpanel.res": {
+            "class_loadout_panel": {
+              "item_xpos_offcenter_a": {
+                "true": "-300",
+                "false": "70"
+              },
+              "item_xpos_offcenter_b": {
+                "true": "165",
+                "false": "230"
+              },
+              "modelpanels_kv": {
+                "wide": {
+                  "true": "150",
+                  "false": "140"
+                },
+                "inset_eq_y": {
+                  "true": "55",
+                  "false": "0"
+                }
+              }
+            },
+            "ClassLabel": {
+              "font": {
+                "true": "FontBold22",
+                "false": "FontBold37"
+              },
+              "xpos": {
+                "true": "c-120",
+                "false": "c72"
+              },
+              "ypos": {
+                "true": "17",
+                "false": "15"
+              },
+              "wide": {
+                "true": "240",
+                "false": "300"
+              },
+              "tall": {
+                "true": "25",
+                "false": "30"
+              }
+            },
+            "classmodelpanel": {
+              "xpos": {
+                "true": "c-135",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "20",
+                "false": "0"
+              },
+              "wide": {
+                "true": "270",
+                "false": "495"
+              },
+              "tall": {
+                "true": "340",
+                "false": "f0"
+              },
+              "model": {
+                "origin_x": {
+                  "true": "190",
+                  "false": "250"
+                },
+                "origin_y": {
+                  "true": "0",
+                  "false": "10"
+                },
+                "origin_z": {
+                  "true": "-48",
+                  "false": "-30"
+                }
+              }
+            },
+            "PassiveAttribsLabel": {
+              "xpos": {
+                "true": "c-135",
+                "false": "c-65"
+              },
+              "ypos": {
+                "true": "c-117",
+                "false": "130"
+              },
+              "wide": {
+                "true": "270",
+                "false": "130"
+              },
+              "tall": {
+                "true": "240",
+                "false": "195"
+              },
+              "textAlignment": {
+                "true": "south",
+                "false": "north"
+              }
+            },
+            "loadout_preset_panel": {
+              "wide": {
+                "true": "150",
+                "false": "140"
+              }
+            },
+            "RedButton": {
+              "xpos": {
+                "true": "c-155",
+                "false": "c-55"
+              },
+              "ypos": {
+                "true": "c-126",
+                "false": "90"
+              },
+              "wide": {
+                "true": "25",
+                "false": "52"
+              },
+              "autoResize": {
+                "true": "0",
+                "false": "1"
+              },
+              "pinCorner": {
+                "true": "0",
+                "false": "2"
+              },
+              "labelText": {
+                "true": "R",
+                "false": "RED"
+              }
+            },
+            "BlueButton": {
+              "xpos": {
+                "true": "c-155",
+                "false": "c1"
+              },
+              "ypos": {
+                "true": "c-99",
+                "false": "90"
+              },
+              "wide": {
+                "true": "25",
+                "false": "52"
+              },
+              "autoResize": {
+                "true": "0",
+                "false": "1"
+              },
+              "pinCorner": {
+                "true": "0",
+                "false": "2"
+              },
+              "labelText": {
+                "true": "B",
+                "false": "BLU"
+              }
+            },
+            "CharacterLoadoutButton": {
+              "xpos": {
+                "true": "c-155",
+                "false": "c-25"
+              },
+              "ypos": {
+                "true": "c-180",
+                "false": "c90"
+              },
+              "pinCorner": {
+                "true": "0",
+                "false": "3"
+              }
+            },
+            "TauntLoadoutButton": {
+              "xpos": {
+                "true": "c-155",
+                "false": "c2"
+              },
+              "ypos": {
+                "true": "c-153",
+                "false": "c90"
+              },
+              "pinCorner": {
+                "true": "0",
+                "false": "3"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_custom_background",
         "Label": "Set Custom Background",
         "Type": "CustomBackground",

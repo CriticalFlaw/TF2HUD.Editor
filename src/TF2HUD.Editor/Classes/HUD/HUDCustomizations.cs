@@ -366,7 +366,7 @@ namespace HUDEditor.Classes
                             if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
                             {
                                 hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()];
-                                MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
+                                MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\"."); // BUG: Values decided by a true/false are being logged as "true" or "false"
                             }
                             else
                             {
