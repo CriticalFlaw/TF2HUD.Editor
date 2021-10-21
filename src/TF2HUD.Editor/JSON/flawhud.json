@@ -684,7 +684,7 @@
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
                   "xpos": "2",
-                  "ypos": "r28"
+                  "ypos": "r20"
                 }
               },
               "resource/ui/huddamageaccount.res": {
@@ -794,7 +794,7 @@
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
                   "xpos": "2",
-                  "ypos": "r28"
+                  "ypos": "r20"
                 }
               },
               "resource/ui/huddamageaccount.res": {
