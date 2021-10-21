@@ -1368,198 +1368,225 @@
         }
       },
       {
-        "Name": "fh_toggle_old_loadout",
-        "Label": "Default Loadout Screen",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle the loadout screen layout to resemble the default HUD.",
-        "Value": "false",
+        "Name": "fh_val_loadout_style",
+        "Label": "Loadout Style",
+        "Type": "ComboBox",
+        "ToolTip": "Switch between different Loadout screen layouts.",
+        "Width": 200, 
+        "Value": "2",
         "Restart": true,
-        "Files": {
-          "resource/ui/classloadoutpanel.res": {
-            "class_loadout_panel": {
-              "item_xpos_offcenter_a": {
-                "true": "-300",
-                "false": "70"
-              },
-              "item_xpos_offcenter_b": {
-                "true": "165",
-                "false": "230"
-              },
-              "modelpanels_kv": {
-                "wide": {
-                  "true": "150",
-                  "false": "140"
+        "Options": [
+          {
+            "Label": "Default",
+            "Value": "0",
+            "Files": {
+              "resource/ui/classloadoutpanel.res": {
+                "class_loadout_panel": {
+                  "item_xpos_offcenter_a": "-300",
+                  "item_xpos_offcenter_b": "165",
+                  "modelpanels_kv": {
+                    "wide": "140",
+                    "inset_eq_y": "55"
+                  }
                 },
-                "inset_eq_y": {
-                  "true": "55",
-                  "false": "0"
+                "ClassLabel": {
+                  "font": "FontBold22",
+                  "xpos": "c-120",
+                  "ypos": "17",
+                  "wide": "240",
+                  "tall": "25"
+                },
+                "classmodelpanel": {
+                  "xpos": "c-135",
+                  "ypos": "20",
+                  "wide": "270",
+                  "tall": "340",
+                  "model": {
+                    "origin_x": "190",
+                    "origin_y": "0",
+                    "origin_z": "-48"
+                  }
+                },
+                "PassiveAttribsLabel": {
+                  "xpos": "c-135",
+                  "ypos": "c-117",
+                  "wide": "270",
+                  "tall": "240",
+                  "textAlignment": "south"
+                },
+                "loadout_preset_panel": {
+                  "wide": "150"
+                },
+                "RedButton": {
+                  "xpos": "c-155",
+                  "ypos": "c-126",
+                  "wide": "25",
+                  "autoResize": "0",
+                  "pinCorner": "0",
+                  "labelText": "R"
+                },
+                "BlueButton": {
+                  "xpos": "c-155",
+                  "ypos": "c-99",
+                  "wide": "25",
+                  "autoResize": "0",
+                  "pinCorner": "0",
+                  "labelText": "B"
+                },
+                "CharacterLoadoutButton": {
+                  "xpos": "c-155",
+                  "ypos": "c-180",
+                  "pinCorner": "0"
+                },
+                "TauntLoadoutButton": {
+                  "xpos": "c-155",
+                  "ypos": "c-153",
+                  "pinCorner": "0"
                 }
               }
-            },
-            "ClassLabel": {
-              "font": {
-                "true": "FontBold22",
-                "false": "FontBold37"
-              },
-              "xpos": {
-                "true": "c-120",
-                "false": "c72"
-              },
-              "ypos": {
-                "true": "17",
-                "false": "15"
-              },
-              "wide": {
-                "true": "240",
-                "false": "300"
-              },
-              "tall": {
-                "true": "25",
-                "false": "30"
-              }
-            },
-            "classmodelpanel": {
-              "xpos": {
-                "true": "c-135",
-                "false": "0"
-              },
-              "ypos": {
-                "true": "20",
-                "false": "0"
-              },
-              "wide": {
-                "true": "270",
-                "false": "495"
-              },
-              "tall": {
-                "true": "340",
-                "false": "f0"
-              },
-              "model": {
-                "origin_x": {
-                  "true": "190",
-                  "false": "250"
+            }
+          },
+          {
+            "Label": "Reworked Right",
+            "Value": "1",
+            "Files": {
+              "resource/ui/classloadoutpanel.res": {
+                "class_loadout_panel": {
+                  "item_xpos_offcenter_a": "70",
+                  "item_xpos_offcenter_b": "230",
+                  "modelpanels_kv": {
+                    "wide": "140",
+                    "inset_eq_y": "0"
+                  }
                 },
-                "origin_y": {
-                  "true": "0",
-                  "false": "10"
+                "ClassLabel": {
+                  "font": "FontBold37",
+                  "xpos": "c72",
+                  "ypos": "15",
+                  "wide": "300",
+                  "tall": "30"
                 },
-                "origin_z": {
-                  "true": "-48",
-                  "false": "-30"
+                "classmodelpanel": {
+                  "xpos": "0",
+                  "ypos": "0",
+                  "wide": "495",
+                  "tall": "f0",
+                  "model": {
+                    "origin_x": "250",
+                    "origin_y": "10",
+                    "origin_z": "-30"
+                  }
+                },
+                "PassiveAttribsLabel": {
+                  "xpos": "c-65",
+                  "ypos": "130",
+                  "wide": "130",
+                  "tall": "195",
+                  "textAlignment": "north"
+                },
+                "loadout_preset_panel": {
+                  "wide": "140"
+                },
+                "RedButton": {
+                  "xpos": "c-55",
+                  "ypos": "90",
+                  "wide": "52",
+                  "autoResize": "1",
+                  "pinCorner": "2",
+                  "labelText": "RED"
+                },
+                "BlueButton": {
+                  "xpos": "c1",
+                  "ypos": "90",
+                  "wide": "52",
+                  "autoResize": "1",
+                  "pinCorner": "2",
+                  "labelText": "BLU"
+                },
+                "CharacterLoadoutButton": {
+                  "xpos": "c-25",
+                  "ypos": "c90",
+                  "pinCorner": "3"
+                },
+                "TauntLoadoutButton": {
+                  "xpos": "c2",
+                  "ypos": "c90",
+                  "pinCorner": "3"
                 }
               }
-            },
-            "PassiveAttribsLabel": {
-              "xpos": {
-                "true": "c-135",
-                "false": "c-65"
-              },
-              "ypos": {
-                "true": "c-117",
-                "false": "130"
-              },
-              "wide": {
-                "true": "270",
-                "false": "130"
-              },
-              "tall": {
-                "true": "240",
-                "false": "195"
-              },
-              "textAlignment": {
-                "true": "south",
-                "false": "north"
-              }
-            },
-            "loadout_preset_panel": {
-              "wide": {
-                "true": "150",
-                "false": "140"
-              }
-            },
-            "RedButton": {
-              "xpos": {
-                "true": "c-155",
-                "false": "c-55"
-              },
-              "ypos": {
-                "true": "c-126",
-                "false": "90"
-              },
-              "wide": {
-                "true": "25",
-                "false": "52"
-              },
-              "autoResize": {
-                "true": "0",
-                "false": "1"
-              },
-              "pinCorner": {
-                "true": "0",
-                "false": "2"
-              },
-              "labelText": {
-                "true": "R",
-                "false": "RED"
-              }
-            },
-            "BlueButton": {
-              "xpos": {
-                "true": "c-155",
-                "false": "c1"
-              },
-              "ypos": {
-                "true": "c-99",
-                "false": "90"
-              },
-              "wide": {
-                "true": "25",
-                "false": "52"
-              },
-              "autoResize": {
-                "true": "0",
-                "false": "1"
-              },
-              "pinCorner": {
-                "true": "0",
-                "false": "2"
-              },
-              "labelText": {
-                "true": "B",
-                "false": "BLU"
-              }
-            },
-            "CharacterLoadoutButton": {
-              "xpos": {
-                "true": "c-155",
-                "false": "c-25"
-              },
-              "ypos": {
-                "true": "c-180",
-                "false": "c90"
-              },
-              "pinCorner": {
-                "true": "0",
-                "false": "3"
-              }
-            },
-            "TauntLoadoutButton": {
-              "xpos": {
-                "true": "c-155",
-                "false": "c2"
-              },
-              "ypos": {
-                "true": "c-153",
-                "false": "c90"
-              },
-              "pinCorner": {
-                "true": "0",
-                "false": "3"
+            }
+          },
+          {
+            "Label": "Reworked Left",
+            "Value": "2",
+            "Files": {
+              "resource/ui/classloadoutpanel.res": {
+                "class_loadout_panel": {
+                  "item_xpos_offcenter_a": "-220",
+                  "item_xpos_offcenter_b": "-380",
+                  "modelpanels_kv": {
+                    "wide": "140",
+                    "inset_eq_y": "0"
+                  }
+                },
+                "ClassLabel": {
+                  "font": "FontBold37",
+                  "xpos": "50",
+                  "ypos": "15",
+                  "wide": "300",
+                  "tall": "30"
+                },
+                "classmodelpanel": {
+                  "xpos": "c50",
+                  "ypos": "0",
+                  "wide": "495",
+                  "tall": "f0",
+                  "model": {
+                    "origin_x": "250",
+                    "origin_y": "10",
+                    "origin_z": "-30"
+                  }
+                },
+                "PassiveAttribsLabel": {
+                  "xpos": "c-65",
+                  "ypos": "130",
+                  "wide": "130",
+                  "tall": "195",
+                  "textAlignment": "north"
+                },
+                "loadout_preset_panel": {
+                  "wide": "140"
+                },
+                "RedButton": {
+                  "xpos": "c-55",
+                  "ypos": "90",
+                  "wide": "52",
+                  "autoResize": "1",
+                  "pinCorner": "2",
+                  "labelText": "RED"
+                },
+                "BlueButton": {
+                  "xpos": "c1",
+                  "ypos": "90",
+                  "wide": "52",
+                  "autoResize": "1",
+                  "pinCorner": "2",
+                  "labelText": "BLU"
+                },
+                "CharacterLoadoutButton": {
+                  "xpos": "c-25",
+                  "ypos": "c90",
+                  "pinCorner": "3"
+                },
+                "TauntLoadoutButton": {
+                  "xpos": "c2",
+                  "ypos": "c90",
+                  "pinCorner": "3"
+                }
               }
             }
           }
-        }
+        ]
       },
       {
         "Name": "fh_custom_background",
