@@ -722,7 +722,7 @@
                     "angles_y": "200",
                     "origin_y": "0"
                   }
-                },
+                }
               },
               "resource/ui/hudplayerhealth.res": {
                 "HudPlayerHealth": {
