@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {
-    public enum HUDSettingsPreset
+    public enum Preset
     {
         A,
         B,
@@ -25,11 +25,11 @@ namespace HUDEditor.Classes
             ? JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(UserFile))
             : new UserJson();
 
-        private static readonly Dictionary<string, HUDSettingsPreset> Presets = Json.Presets;
+        private static readonly Dictionary<string, Preset> Presets = Json.Presets;
 
         private static readonly List<Setting> UserSettings = Json.Settings;
 
-        private HUDSettingsPreset _Preset;
+        private Preset _Preset;
 
         public string HUDName;
 
@@ -37,10 +37,10 @@ namespace HUDEditor.Classes
         {
             HUDName = name;
 
-            if (!Presets.ContainsKey(name)) Preset = HUDSettingsPreset.A;
+            if (!Presets.ContainsKey(name)) Preset = Preset.A;
         }
 
-        public HUDSettingsPreset Preset
+        public Preset Preset
         {
             get => _Preset;
             set => _Preset = Presets[HUDName] = value;
@@ -54,7 +54,7 @@ namespace HUDEditor.Classes
             if (UserSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset) is null)
                 UserSettings.Add(new Setting
                 {
-                    HUD = HUDName,
+                    Hud = HUDName,
                     Name = name,
                     Type = control.Type,
                     Value = control.Value,

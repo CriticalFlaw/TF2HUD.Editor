@@ -26,7 +26,7 @@ namespace HUDEditor.Models
     {
         [JsonPropertyName("Discord")] public string Discord;
         [JsonPropertyName("GitHub")] public string GitHub;
-        [JsonPropertyName("HudsTF")] public string HudsTF;
+        [JsonPropertyName("HudsTF")] public string HudsTf;
         [JsonPropertyName("Steam")] public string Steam;
         [JsonPropertyName("Update")] public string Update;
     }

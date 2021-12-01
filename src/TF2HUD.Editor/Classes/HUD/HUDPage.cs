@@ -52,11 +52,11 @@ namespace HUDEditor.Classes
                 Margin = new Thickness(0, 10, 0, 5)
             };
 
-            foreach (var preset in Enum.GetValues<HUDSettingsPreset>())
+            foreach (var preset in Enum.GetValues<Preset>())
             {
                 var presetButton = new Button
                 {
-                    Style = (Style)Application.Current.Resources["HUDButton"],
+                    Style = (Style)Application.Current.Resources["HudButton"],
                     Content = preset,
                     FontSize = 25,
                     Width = 35,
@@ -182,7 +182,7 @@ namespace HUDEditor.Classes
                 foreach (var controlItem in ControlOptions[section])
                 {
                     // WPF Control Names cannot start with numbers, add prefix
-                    var id = Utilities.EncodeID(controlItem.Name);
+                    var id = Utilities.EncodeId(controlItem.Name);
                     var label = controlItem.Label;
                     var tooltip = controlItem.Tooltip;
                     Settings.AddSetting(id, controlItem);

@@ -38,7 +38,7 @@ namespace HUDEditor.Classes
             EnabledFolder = schema.EnabledFolder ?? string.Empty;
             UpdateUrl = schema.Links.Update ?? string.Empty;
             GitHubUrl = schema.Links.GitHub ?? string.Empty;
-            HudsTfUrl = schema.Links.HudsTF ?? string.Empty;
+            HudsTfUrl = schema.Links.HudsTf ?? string.Empty;
             SteamUrl = schema.Links.Steam ?? string.Empty;
             DiscordUrl = schema.Links.Discord ?? string.Empty;
             ControlOptions = schema.Controls;
@@ -60,7 +60,7 @@ namespace HUDEditor.Classes
             }
         }
 
-        public event EventHandler<HUDSettingsPreset> PresetChanged;
+        public event EventHandler<Preset> PresetChanged;
 
         /// <summary>
         ///     Call to download the HUD if a URL has been provided.

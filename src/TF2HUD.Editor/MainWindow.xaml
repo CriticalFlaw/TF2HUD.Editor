@@ -24,7 +24,7 @@
         <classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
         <classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
     </Window.Resources>
-    <Grid Background="{Binding Json.SelectedHUD, Converter={StaticResource PageBackgroundConverter}}">
+    <Grid Background="{Binding Json.SelectedHud, Converter={StaticResource PageBackgroundConverter}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -32,7 +32,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <ToolBarPanel Grid.Row="0" Visibility="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverterVisibility}}">
+        <ToolBarPanel Grid.Row="0" Visibility="{Binding Json.SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}">
             <Grid>
                 <!-- HUD Status -->
                 <Label x:Name="LblStatus" Content="..." Height="35" VerticalContentAlignment="Center" Margin="10" />
@@ -42,11 +42,11 @@
                     <Button Content="{lex:Loc ui_refresh}" Foreground="White" Margin="5,0,5,0"
                             Click="BtnRefresh_OnClick" />
                     <!-- Localization -->
-                    <RadioButton x:Name="btnLocalizeEn" Content="English" Checked="BtnLocalize_OnClick"
+                    <RadioButton x:Name="BtnLocalizeEn" Content="English" Checked="BtnLocalize_OnClick"
                                  ToolBar.OverflowMode="Always" />
-                    <RadioButton x:Name="btnLocalizeFr" Content="French" Checked="BtnLocalize_OnClick"
+                    <RadioButton x:Name="BtnLocalizeFr" Content="French" Checked="BtnLocalize_OnClick"
                                  ToolBar.OverflowMode="Always" />
-                    <RadioButton x:Name="btnLocalizeRu" Content="Russian" Checked="BtnLocalize_OnClick"
+                    <RadioButton x:Name="BtnLocalizeRu" Content="Russian" Checked="BtnLocalize_OnClick"
                                  ToolBar.OverflowMode="Always" />
                     <Button Content="{lex:Loc ui_directory}" Click="BtnSetDirectory_OnClick" ToolBar.OverflowMode="Always" />
                     <ToggleButton x:Name="BtnAutoUpdate" Content="{lex:Loc ui_check_updates}" Click="BtnAutoUpdate_OnClick" ToolBar.OverflowMode="Always" />
@@ -55,7 +55,7 @@
         </ToolBarPanel>
         <GroupBox
             Header="{lex:Loc Key=ui_select}" Grid.Row="0"
-            Visibility="{Binding Json.SelectedHUD, Converter={StaticResource NotNullCheckConverterVisibility}}">
+            Visibility="{Binding Json.SelectedHud, Converter={StaticResource NotNullCheckConverterVisibility}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*" />
@@ -76,10 +76,10 @@
                     <TextBox x:Name="SearchBox" TextChanged="TbSearchBox_TextChanged" Foreground="WhiteSmoke"
                              Background="#2B2724" BorderThickness="1" VerticalContentAlignment="Center"
                              Grid.Column="1" Grid.Row="0" />
-                    <Button x:Name="UniqueHUDsButton" Content="B"
+                    <Button x:Name="BtnUniqueHuds" Content="B"
                             FontFamily="../Resources/TF2Icons.ttf #TF2Icons" FontSize="25" Foreground="#FFFFFF"
                             Padding="3,0" Background="Transparent" BorderThickness="0"
-                            Grid.Column="2" Grid.Row="0" Click="UniqueHUDsButton_OnClick" />
+                            Grid.Column="2" Grid.Row="0" Click="BtnUniqueHuds_OnClick" />
                     <ScrollViewer Background="Transparent" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"
                                   Margin="0,10,0,0">
                         <WrapPanel x:Name="GridSelectHud" HorizontalAlignment="Center" />
@@ -87,7 +87,7 @@
                 </Grid>
                 <!-- App Info and Changelog -->
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0"
-                              Visibility="{Binding Json.HighlightedHUD, Converter={StaticResource NotNullCheckConverterVisibility}}">
+                              Visibility="{Binding Json.HighlightedHud, Converter={StaticResource NotNullCheckConverterVisibility}}">
                     <StackPanel Margin="20">
                         <Image Source="Resources/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Center">
@@ -114,17 +114,17 @@
                 </ScrollViewer>
                 <!-- HUD Info and Download -->
                 <ScrollViewer x:Name="HudInfo" VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0"
-                              Visibility="{Binding Json.HighlightedHUD, Converter={StaticResource NullCheckConverterVisibility}}">
+                              Visibility="{Binding Json.HighlightedHud, Converter={StaticResource NullCheckConverterVisibility}}">
                     <StackPanel Margin="20">
-                        <Label Content="{Binding Json.HighlightedHUD.Name}"
+                        <Label Content="{Binding Json.HighlightedHud.Name}"
                                Style="{StaticResource HeaderText}" />
-                        <TextBlock Text="{Binding Json.HighlightedHUD.Author}"
+                        <TextBlock Text="{Binding Json.HighlightedHud.Author}"
                                    Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" />
-                        <TextBlock Text="{Binding Json.HighlightedHUD.Description}"
+                        <TextBlock Text="{Binding Json.HighlightedHud.Description}"
                                    Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center"
                                    Margin="0,15,0,0" Visibility="{Binding Json.HighlightedHUD.Description, Converter={StaticResource NullCheckConverterVisibility}}" />
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-                        <ItemsControl ItemsSource="{Binding Json.HighlightedHUD.Screenshots}">
+                        <ItemsControl ItemsSource="{Binding Json.HighlightedHud.Screenshots}">
                             <!-- Container -->
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -157,7 +157,7 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
                         <Button Content="{lex:Loc ui_customize}" Click="BtnCustomize_OnClick"
-                                Style="{StaticResource HUDButton}" Width="500" FontSize="30px"
+                                Style="{StaticResource HudButton}" Width="500" FontSize="30px"
                                 HorizontalContentAlignment="Center" HorizontalAlignment="Center" />
                     </StackPanel>
                 </ScrollViewer>
@@ -172,36 +172,36 @@
             <WrapPanel HorizontalAlignment="Center">
                 <Button
                     Click="BtnInstall_OnClick"
-                    Content="{Binding Json.HighlightedHUD, Converter={StaticResource BtnInstallContentConverter}}"
-                    Style="{StaticResource HUDButton}"
-                    IsEnabled="{Binding Json.HighlightedHUD, Converter={StaticResource NullCheckConverter}}" />
+                    Content="{Binding Json.HighlightedHud, Converter={StaticResource BtnInstallContentConverter}}"
+                    Style="{StaticResource HudButton}"
+                    IsEnabled="{Binding Json.HighlightedHud, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     Click="BtnUninstall_OnClick"
                     Content="{lex:Loc ui_uninstall}"
-                    Style="{StaticResource HUDButton}"
-                    IsEnabled="{Binding Json.HighlightedHUDInstalled}" />
+                    Style="{StaticResource HudButton}"
+                    IsEnabled="{Binding Json.HighlightedHudInstalled}" />
                 <Button
                     Click="BtnSave_OnClick"
                     Content="{lex:Loc ui_apply}"
-                    Style="{StaticResource HUDButton}"
-                    IsEnabled="{Binding Json.SelectedHUDInstalled, Converter={StaticResource NullCheckConverter}}" />
+                    Style="{StaticResource HudButton}"
+                    IsEnabled="{Binding Json.SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     Click="BtnReset_OnClick"
                     Content="{lex:Loc ui_reset}"
-                    Style="{StaticResource HUDButton}"
-                    IsEnabled="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverter}}" />
+                    Style="{StaticResource HudButton}"
+                    IsEnabled="{Binding Json.SelectedHud, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     x:Name="BtnSwitch"
                     Click="BtnSwitch_OnClick"
                     Content="{lex:Loc ui_switch}"
-                    Style="{StaticResource HUDButton}"
-                    IsEnabled="{Binding Json.SelectedHUD, Converter={StaticResource NullCheckConverter}}" />
+                    Style="{StaticResource HudButton}"
+                    IsEnabled="{Binding Json.SelectedHud, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     Click="BtnAddSharedHUD_OnClick"
                     Content="W"
                     Style="{StaticResource LinkButton}"
                     ToolTip="{lex:Loc tooltip_addhud}"
-                    IsEnabled="{Binding Json.SelectedHUD, Converter={StaticResource NotNullCheckConverter}}" />
+                    IsEnabled="{Binding Json.SelectedHud, Converter={StaticResource NotNullCheckConverter}}" />
                 <Button
                     Click="BtnReportIssue_OnClick"
                     Content="x"
@@ -215,19 +215,19 @@
                 <Button
                     Click="BtnGitHub_OnClick"
                     Style="{StaticResource GitHubButton}"
-                    IsEnabled="{Binding Json.HighlightedHUD.GitHubUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                    IsEnabled="{Binding Json.HighlightedHud.GitHubUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
                 <Button
                     Click="BtnHuds_OnClick"
                     Style="{StaticResource HudsButton}"
-                    IsEnabled="{Binding Json.HighlightedHUD.HudsTfUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                    IsEnabled="{Binding Json.HighlightedHud.HudsTfUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
                 <Button
                     Click="BtnDiscord_OnClick"
                     Style="{StaticResource DiscordButton}"
-                    IsEnabled="{Binding Json.HighlightedHUD.DiscordUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                    IsEnabled="{Binding Json.HighlightedHud.DiscordUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
                 <Button
                     Click="BtnSteam_OnClick"
                     Style="{StaticResource SteamButton}"
-                    IsEnabled="{Binding Json.HighlightedHUD.SteamUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                    IsEnabled="{Binding Json.HighlightedHud.SteamUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
             </WrapPanel>
         </GroupBox>
     </Grid>

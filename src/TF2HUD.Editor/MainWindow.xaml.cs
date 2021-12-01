@@ -48,11 +48,11 @@ namespace HUDEditor
             InitializeComponent();
             DataContext = this;
 
-            foreach (var hud in Json.HUDList)
-                AddHUDToGridView(hud);
+            foreach (var hud in Json.HudList)
+                AddHudToGridView(hud);
 
             // Setup the user interface.
-            SetPageView(Json.SelectedHUD);
+            SetPageView(Json.SelectedHud);
             SelectionChanged(Json, Json[Settings.Default.hud_selected]);
             SetupDirectory();
             Json.SelectionChanged += SelectionChanged;
@@ -117,7 +117,7 @@ namespace HUDEditor
         ///     Add a HUD to the list of available HUDs.
         /// </summary>
         /// <param name="hud">HUd object to add to the list.</param>
-        private void AddHUDToGridView(HUD hud)
+        private void AddHudToGridView(HUD hud)
         {
             Logger.Info($"Loading {hud.Name}");
             var border = new Border
@@ -129,14 +129,14 @@ namespace HUDEditor
             border.MouseLeave += (_, _) => border.BorderBrush = Brushes.LightGray;
             border.MouseUp += (_, _) =>
             {
-                if (Json.HighlightedHUD == hud)
+                if (Json.HighlightedHud == hud)
                 {
-                    Json.SelectedHUD = hud;
+                    Json.SelectedHud = hud;
                 }
                 else
                 {
-                    Json.SelectedHUD = null;
-                    Json.HighlightedHUD = hud;
+                    Json.SelectedHud = null;
+                    Json.HighlightedHud = hud;
                     HudInfo.ScrollToVerticalOffset(0);
                     Logger.Info($"Highlighting {hud.Name}");
                 }
@@ -181,10 +181,10 @@ namespace HUDEditor
             {
                 // Save the selected HUD.
                 HudSelection = hud.Name;
-                if (Json.SelectedHUDInstalled)
-                    LblStatus.Content = string.Format(Properties.Resources.status_installed, Json.SelectedHUD.Name);
+                if (Json.SelectedHudInstalled)
+                    LblStatus.Content = string.Format(Properties.Resources.status_installed, Json.SelectedHud.Name);
                 else if (Directory.Exists(HudPath))
-                    LblStatus.Content = string.Format(Properties.Resources.status_installed_not, Json.SelectedHUD.Name);
+                    LblStatus.Content = string.Format(Properties.Resources.status_installed_not, Json.SelectedHud.Name);
                 else
                     LblStatus.Content = Properties.Resources.status_pathNotSet;
 
@@ -307,18 +307,18 @@ namespace HUDEditor
             }
         }
 
-        private void UniqueHUDsButton_OnClick(object sender, RoutedEventArgs e)
+        private void BtnUniqueHuds_OnClick(object sender, RoutedEventArgs e)
         {
             DisplayUniqueHUDsOnly = !DisplayUniqueHUDsOnly;
             if (DisplayUniqueHUDsOnly)
             {
-                UniqueHUDsButton.Foreground = Brushes.SkyBlue;
+                BtnUniqueHuds.Foreground = Brushes.SkyBlue;
                 foreach (var (hud, border) in HudThumbnails)
                     border.Visibility = hud.Unique ? Visibility.Visible : Visibility.Collapsed;
             }
             else
             {
-                UniqueHUDsButton.Foreground = Brushes.White;
+                BtnUniqueHuds.Foreground = Brushes.White;
                 foreach (var (_, border) in HudThumbnails)
                     border.Visibility = Visibility.Visible;
             }
@@ -335,8 +335,8 @@ namespace HUDEditor
             {
                 // Prevent switching HUD while installing to ensure that HighlightedHUD is the same as SelectedHUD at worker.RunWorkerCompleted
                 BtnSwitch.IsEnabled = false;
-                Json.SelectedHUD = Json.HighlightedHUD;
-                Settings.Default.hud_selected = HudSelection = Json.SelectedHUD.Name;
+                Json.SelectedHud = Json.HighlightedHud;
+                Settings.Default.hud_selected = HudSelection = Json.SelectedHud.Name;
 
                 // Force the user to set a directory before installing.
                 if (!Utilities.CheckUserPath(HudPath))
@@ -347,11 +347,11 @@ namespace HUDEditor
 
                 // Step 1. Retrieve the HUD object, then download and extract it into the tf/custom directory.
                 Logger.Info($"Start installing {HudSelection}.");
-                await Json.SelectedHUD.Update();
+                await Json.SelectedHud.Update();
 
                 // Step 2. Clear tf/custom directory of other installed HUDs.
                 Logger.Info("Preparing directories for extraction.");
-                foreach (var x in Json.HUDList)
+                foreach (var x in Json.HudList)
                     if (Directory.Exists($"{HudPath}\\{x.Name.ToLowerInvariant()}"))
                         Directory.Delete($"{HudPath}\\{x.Name.ToLowerInvariant()}", true);
 
@@ -371,9 +371,9 @@ namespace HUDEditor
 
                 // Step 5. Update the page view.
                 if (string.IsNullOrWhiteSpace(HudSelection)) return;
-                Json.SelectedHUD.Settings.SaveSettings();
-                SetPageView(Json.SelectedHUD);
-                Json.SelectedHUD.ApplyCustomizations();
+                Json.SelectedHud.Settings.SaveSettings();
+                SetPageView(Json.SelectedHud);
+                Json.SelectedHud.ApplyCustomizations();
                 LblStatus.Content = string.Format(Properties.Resources.status_installed_now,
                                     Settings.Default.hud_selected, DateTime.Now);
 
@@ -462,7 +462,7 @@ namespace HUDEditor
             // Ask the user if they want to reset before doing so.
             if (ShowMessageBox(MessageBoxImage.Question, Properties.Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             Logger.Info("Start resetting settings.");
-            var selection = Json.SelectedHUD;
+            var selection = Json.SelectedHud;
             selection.ResetAll();
             selection.Settings.SaveSettings();
             selection.ApplyCustomizations();
@@ -478,8 +478,8 @@ namespace HUDEditor
         {
             Logger.Info("Changing page view to: main menu.");
             EditorContainer.Children.Clear();
-            Json.HighlightedHUD = null;
-            Json.SelectedHUD = null;
+            Json.HighlightedHud = null;
+            Json.SelectedHud = null;
         }
 
         private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
@@ -503,7 +503,7 @@ namespace HUDEditor
                 };
                 if (browser.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
 
-                AddHUDToGridView(Json.Add(browser.SelectedPath));
+                AddHudToGridView(Json.Add(browser.SelectedPath));
             }
             catch (Exception error)
             {
@@ -534,22 +534,22 @@ namespace HUDEditor
 
         private void BtnGitHub_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Json.HighlightedHUD.GitHubUrl);
+            Utilities.OpenWebpage(Json.HighlightedHud.GitHubUrl);
         }
 
         private void BtnHuds_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Json.HighlightedHUD.HudsTfUrl);
+            Utilities.OpenWebpage(Json.HighlightedHud.HudsTfUrl);
         }
 
         private void BtnDiscord_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Json.HighlightedHUD.DiscordUrl);
+            Utilities.OpenWebpage(Json.HighlightedHud.DiscordUrl);
         }
 
         private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
         {
-            Utilities.OpenWebpage(Json.HighlightedHUD.SteamUrl);
+            Utilities.OpenWebpage(Json.HighlightedHud.SteamUrl);
         }
 
         /// <summary>
@@ -557,11 +557,11 @@ namespace HUDEditor
         /// </summary>
         private void BtnLocalize_OnClick(object sender, RoutedEventArgs e)
         {
-            if (btnLocalizeEn.IsChecked == true)
+            if (BtnLocalizeEn.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
-            else if (btnLocalizeFr.IsChecked == true)
+            else if (BtnLocalizeFr.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
-            else if (btnLocalizeRu.IsChecked == true)
+            else if (BtnLocalizeRu.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
 
             // Save language preference to user settings.
@@ -572,10 +572,10 @@ namespace HUDEditor
 
         private void BtnCustomize_OnClick(object sender, RoutedEventArgs e)
         {
-            if (Json.HighlightedHUD is null) return;
+            if (Json.HighlightedHud is null) return;
             EditorContainer.Children.Clear();
-            Json.SelectedHUD = Json.HighlightedHUD;
-            Settings.Default.hud_selected = Json.SelectedHUD.Name;
+            Json.SelectedHud = Json.HighlightedHud;
+            Settings.Default.hud_selected = Json.SelectedHud.Name;
             Settings.Default.Save();
             SetPageView(Json[Settings.Default.hud_selected]);
         }

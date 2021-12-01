@@ -24,7 +24,7 @@ namespace HUDEditor.Classes
         private HUD _selectedHud;
 
         // HUDs to manage
-        public HUD[] HUDList;
+        public HUD[] HudList;
 
         public Json()
         {
@@ -39,29 +39,29 @@ namespace HUDEditor.Classes
 
             // Load all shared huds from JSON/Shared/shared.json, and shared controls from JSON/Shared/controls.json
             // For each hud, assign unique ids for the controls based on the hud name and add to HUDs list.
-            var sharedHUDs = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON\\Shared\\shared.json"), new UTF8Encoding(false)).ReadToEnd());
-            var sharedControlsJSON = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
-            hudList.AddRange(sharedHUDs!.Select(hud =>
+            var sharedHuds = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON\\Shared\\shared.json"), new UTF8Encoding(false)).ReadToEnd());
+            var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
+            hudList.AddRange(sharedHuds!.Select(hud =>
             {
-                var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
+                var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
                 foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
-                    control.Name = $"{Utilities.EncodeID(hud.Name)}_{Utilities.EncodeID(control.Name)}";
+                    control.Name = $"{Utilities.EncodeId(hud.Name)}_{Utilities.EncodeId(control.Name)}";
                 hud.Layout = hudControls.Layout;
                 hud.Controls = hudControls.Controls;
                 return new HUD(hud.Name, hud, false);
             }));
 
             // Local Shared HUDs
-            var _localSharedPath = Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\LocalShared").FullName;
+            var localSharedPath = Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\LocalShared").FullName;
 
-            foreach (var localSharedHUD in Directory.EnumerateDirectories(_localSharedPath))
+            foreach (var sharedHud in Directory.EnumerateDirectories(localSharedPath))
             {
-                var hudName = localSharedHUD.Split('\\')[^1];
-                var hudBackgroundPath = $"{localSharedHUD}\\output.png";
+                var hudName = sharedHud.Split('\\')[^1];
+                var hudBackgroundPath = $"{sharedHud}\\output.png";
                 var hudBackground = File.Exists(hudBackgroundPath)
                     ? $"file://{hudBackgroundPath}"
                     : "https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c47-a17b47cbaf0c.png";
-                var sharedProperties = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
+                var sharedProperties = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
                 hudList.Add(new HUD(hudName, new HudJson
                 {
                     Name = hudName,
@@ -70,21 +70,21 @@ namespace HUDEditor.Classes
                     Layout = sharedProperties.Layout,
                     Links = new Links
                     {
-                        Update = $"file://{localSharedHUD}\\{hudName}.zip"
+                        Update = $"file://{sharedHud}\\{hudName}.zip"
                     },
                     Controls = sharedProperties.Controls
                 }, false));
             }
 
             hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
-            HUDList = hudList.ToArray();
+            HudList = hudList.ToArray();
 
             var selectedHud = this[Settings.Default.hud_selected];
-            HighlightedHUD = selectedHud;
-            SelectedHUD = selectedHud;
+            HighlightedHud = selectedHud;
+            SelectedHud = selectedHud;
         }
 
-        public HUD HighlightedHUD
+        public HUD HighlightedHud
         {
             get => _highlightedHud;
             set
@@ -95,9 +95,9 @@ namespace HUDEditor.Classes
             }
         }
 
-        public bool HighlightedHUDInstalled => HighlightedHUD != null && Directory.Exists($"{MainWindow.HudPath}\\{HighlightedHUD.Name}");
+        public bool HighlightedHudInstalled => HighlightedHud != null && Directory.Exists($"{MainWindow.HudPath}\\{HighlightedHud.Name}");
 
-        public HUD SelectedHUD
+        public HUD SelectedHud
         {
             get => _selectedHud;
             set
@@ -110,7 +110,7 @@ namespace HUDEditor.Classes
         }
 
         // Selected HUD Installed
-        public bool SelectedHUDInstalled => SelectedHUD != null && MainWindow.HudPath != "" &&
+        public bool SelectedHudInstalled => SelectedHud != null && MainWindow.HudPath != "" &&
                                             Directory.Exists(MainWindow.HudPath) &&
                                             Utilities.CheckUserPath(MainWindow.HudPath) &&
                                             MainWindow.CheckHudInstallation();
@@ -125,7 +125,7 @@ namespace HUDEditor.Classes
         /// <param name="name">Name of the HUD the user wants to view.</param>
         public HUD this[string name]
         {
-            get => HUDList.FirstOrDefault(hud => string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase));
+            get => HudList.FirstOrDefault(hud => string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace HUDEditor.Classes
                         if (File.Exists(inputPath))
                         {
                             MainWindow.Logger.Info($"[Json.Add] Found background file background_{backgrounds[backgroundIndex]}_widescreen.vtf");
-                            var vtf2tgaOutputPath = $"{consoleFolder}\\output.tga";
+                            var outputPathTga = $"{consoleFolder}\\output.tga";
                             var outputPath = $"{hudDetailsFolder}\\output";
 
                             string[] args =
@@ -216,7 +216,7 @@ namespace HUDEditor.Classes
                                 "-i",
                                 $"\"{inputPath}\"",
                                 "-o",
-                                $"\"{vtf2tgaOutputPath}\""
+                                $"\"{outputPathTga}\""
                             };
                             var processInfo = new ProcessStartInfo($"{MainWindow.HudPath.Replace("\\tf\\custom", string.Empty)}\\bin\\vtf2tga.exe")
                             {
@@ -229,7 +229,7 @@ namespace HUDEditor.Classes
                             process.WaitForExit();
                             process.Close();
 
-                            File.Move(vtf2tgaOutputPath, $"{outputPath}.tga", true);
+                            File.Move(outputPathTga, $"{outputPath}.tga", true);
 
                             var tga = new TGA($"{outputPath}.tga");
                             var rectImage = new Bitmap(
@@ -261,13 +261,13 @@ namespace HUDEditor.Classes
 
             hudJson.Background = hudJson.Thumbnail;
 
-            var hudList = HUDList.ToList();
-            var sharedControlsJSON = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
+            var hudList = HudList.ToList();
+            var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
 
-            var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJSON);
+            var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
             foreach (var group in hudControls.Controls)
             foreach (var control in hudControls.Controls[group.Key])
-                control.Name = $"{Utilities.EncodeID(hudJson.Name)}_{Utilities.EncodeID(control.Name)}";
+                control.Name = $"{Utilities.EncodeId(hudJson.Name)}_{Utilities.EncodeId(control.Name)}";
 
             hudJson.Layout = hudControls.Layout;
             hudJson.Controls = hudControls.Controls;
@@ -275,9 +275,9 @@ namespace HUDEditor.Classes
             var hud = new HUD(hudName, hudJson, false);
             hudList.Add(hud);
             hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
-            HUDList = hudList.ToArray();
-            HighlightedHUD = hud;
-            SelectedHUD = hud;
+            HudList = hudList.ToArray();
+            HighlightedHud = hud;
+            SelectedHud = hud;
             return hud;
         }
     }

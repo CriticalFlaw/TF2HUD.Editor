@@ -140,7 +140,7 @@ namespace HUDEditor.Classes
 
                 // Get user's settings for the selected HUD.
                 var userSettings = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(HUDSettings.UserFile))
-                    ?.Settings.Where(x => x.HUD == Name);
+                    ?.Settings.Where(x => x.Hud == Name);
 
                 foreach (var group in hudSettings)
                 foreach (var control in group)

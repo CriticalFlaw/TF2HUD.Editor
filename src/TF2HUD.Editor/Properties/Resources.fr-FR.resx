@@ -252,9 +252,6 @@
   <data name="ui_switch" xml:space="preserve">
     <value>Changer de HUD</value>
   </data>
-  <data name="ui_title" xml:space="preserve">
-    <value>TF2 HUD Editor</value>
-  </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Désinstaller</value>
   </data>

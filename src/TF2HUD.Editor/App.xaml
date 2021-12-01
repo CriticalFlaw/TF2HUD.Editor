@@ -126,7 +126,7 @@
             <Setter Property="Foreground" Value="#A49E9E" />
         </Style>
 
-        <Style x:Key="HUDButton" TargetType="Button">
+        <Style x:Key="HudButton" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontFamily" Value="../Resources/TF2Build.ttf #TF2 Build" />
