@@ -16,10 +16,7 @@
     "6 6 3 3 1 1"
   ],
   "Links": {
-    "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
-    "GitHub": "https://github.com/Zeesastrous/ZeesHUD",
-    "HudsTF": "https://huds.tf/site/s-ZeesHUD--2774",
-    "Steam": "https://steamcommunity.com/groups/ZeesHUD"
+    "Update": "https://zeesastrous.com/zeeshud/zeesHud%20final.zip"
   },
   "CustomizationsFolder": "#customizations//addons",
   "EnabledFolder": "#customizations//addons//_enabled",
