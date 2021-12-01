@@ -366,7 +366,8 @@ namespace HUDEditor
                 // Step 4. Extract the downloaded HUD and rename it to match the schema.
                 Logger.Info($"Extracting {HudSelection} to: {HudPath}");
                 ZipFile.ExtractToDirectory(tempFile, HudPath);
-                Directory.Move($"{HudPath}\\{hudName}", $"{HudPath}\\{HudSelection}");
+                Directory.Move($"{HudPath}\\{hudName}", $"{HudPath}\\temp");
+                Directory.Move($"{HudPath}\\temp", $"{HudPath}\\{HudSelection}");
 
                 // Step 5. Update the page view.
                 if (string.IsNullOrWhiteSpace(HudSelection)) return;
