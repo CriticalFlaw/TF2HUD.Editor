@@ -839,6 +839,41 @@
         }
       },
       {
+        "Name": "rh_color_theme",
+        "Label": "Theme Color",
+        "Type": "ColorPicker",
+        "ToolTip": "Thematic color used throughout rayshud.",
+        "Value": "72 255 255 255",
+        "Restart": true,
+        "Shadow": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "ColorCyan": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_val_killfeed_rows",
+        "Label": "Killfeed Rows",
+        "Type": "IntegerUpDown",
+        "ToolTip": "Change the number of rows seen on the killfeed.",
+        "Value": "5",
+        "Minimum": "0",
+        "Maximum": "9",
+        "Increment": "1",
+        "Files": {
+          "scripts/hudlayout-base.res": {
+            "HudDeathNotice": {
+              "MaxDeathNotices": "$value"
+            }
+          }
+        }
+      },
+      {
         "Name": "rh_val_main_menu_bg",
         "Label": "Menu Background",
         "Type": "ComboBox",
@@ -868,23 +903,6 @@
             "Special": "StockBackgrounds"
           }
         ]
-      },
-      {
-        "Name": "rh_val_killfeed_rows",
-        "Label": "Killfeed Rows",
-        "Type": "IntegerUpDown",
-        "ToolTip": "Change the number of rows seen on the killfeed.",
-        "Value": "5",
-        "Minimum": "0",
-        "Maximum": "9",
-        "Increment": "1",
-        "Files": {
-          "scripts/hudlayout-base.res": {
-            "HudDeathNotice": {
-              "MaxDeathNotices": "$value"
-            }
-          }
-        }
       },
       {
         "Name": "rh_custom_background",
