@@ -17,11 +17,11 @@
     "3 6 8 9"
   ],
   "Links": {
-    "Update":  "https://github.com/Jotunn/kbnhud/archive/refs/heads/master.zip",
-    "Issue":   "https://github.com/Jotunn/kbnhud/issues",
-    "GitHub":  "https://github.com/Jotunn/kbnhud-testing",
-    "HudsTF":  "https://huds.tf/site/s-KBNHud",
-    "Steam":   "https://steamcommunity.com/groups/KBNHud",
+    "Update": "https://github.com/Jotunn/kbnhud/archive/refs/heads/master.zip",
+    "Issue": "https://github.com/Jotunn/kbnhud/issues",
+    "GitHub": "https://github.com/Jotunn/kbnhud-testing",
+    "HudsTF": "https://huds.tf/site/s-KBNHud",
+    "Steam": "https://steamcommunity.com/groups/KBNHud",
     "Discord": "https://discord.gg/NhnSysw"
   },
   "CustomizationsFolder": "^customizations",
@@ -124,7 +124,7 @@
         "Value": "false",
         "FileName": "disable_hudplayerclass.res"
       },
-	  {
+      {
         "Name": "kbn_fighterpilot_crosshair",
         "Label": "Fighter Pilot Crosshair",
         "Tooltip": "Places four guide lines across your screen to help you maintain crosshair placement",
@@ -132,7 +132,7 @@
         "Value": "false",
         "FileName": "fighterpilotcrosshair_hudlayout.res"
       },
-	  {
+      {
         "Name": "kbn_classic_classselection",
         "Label": "Old class menu",
         "Tooltip": "Classic KBNHud class menu",
@@ -151,7 +151,7 @@
       {
         "Name": "kbn_playerpanelstop_hudmatchstatus",
         "Label": "Player panels on top",
-	"Tooltip": "Places matchmaking player panels at the top of the screen",
+        "Tooltip": "Places matchmaking player panels at the top of the screen",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "playerpanelstop_hudmatchstatus.res"
@@ -159,7 +159,7 @@
       {
         "Name": "kbn_toprightcorner_huditemeffectmeter_killstreak",
         "Label": "Killstreak over Killfeed",
-	"Tooltip": "Places killstreak counter over the killfeed instead of over the player health",
+        "Tooltip": "Places killstreak counter over the killfeed instead of over the player health",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "toprightcorner_huditemeffectmeter_killstreak.res"
@@ -167,7 +167,7 @@
       {
         "Name": "kbn_transparent_viewmodels_hudlayout",
         "Label": "Transparent Viewmodels",
-	"Tooltip": "Enables transparent viewmodels",
+        "Tooltip": "Enables transparent viewmodels",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "transparent_viewmodels_hudlayout.res"
@@ -185,7 +185,7 @@
       {
         "Name": "kbn_targetid_bg_health_targetid",
         "Label": "Health BG",
-		"Tooltip": "Enables BG on just the health value in TargetID. Full BG overrides this",
+        "Tooltip": "Enables BG on just the health value in TargetID. Full BG overrides this",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "targetid_bg_health_targetid.res"
@@ -211,7 +211,7 @@
       {
         "Name": "kbn_medic_nochargemeter_hudmediccharge",
         "Label": "Disable Über meter",
-		"Tooltip": "Exactly what it says; Don't use with the mini meter",
+        "Tooltip": "Exactly what it says; Don't use with the mini meter",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "medic_nochargemeter_hudmediccharge.res"
@@ -250,7 +250,7 @@
         "Value": "false",
         "FileName": "player_health_outlinedtext_hudplayerhealth.res"
       },
-	  {
+      {
         "Name": "kbn_player_health_teamcolor_hudplayerhealth",
         "Label": "Enable team color bar",
         "Tooltip": "Enables the small team colored bar under your health",
@@ -588,7 +588,7 @@
         }
       },
       {
-         "Name": "kbn_overheal_blink_2",
+        "Name": "kbn_overheal_blink_2",
         "Label": "Overheal Blink 2",
         "Tooltip": "Works best with an A setting of 75 or less",
         "Type": "ColorPicker",
@@ -754,7 +754,7 @@
           }
         }
       },
-	  {
+      {
         "Name": "kbn_ammo_reserve",
         "Label": "Reserve Ammo",
         "Tooltip": "If you set this back to white, use 235 235 235 255; Due to an odd glitch, setting everything to 255 causes it to appear either off red or off blue",
@@ -787,7 +787,7 @@
           }
         }
       },
-	  {
+      {
         "Name": "kbn_low_ammo_blink_1",
         "Label": "Low Ammo Blink 1",
         "Type": "ColorPicker",
