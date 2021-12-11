@@ -16,18 +16,6 @@
     "2 5 8 9",
     "3 6 8 9"
   ],
-//0-General Options
-//1-TargetID Options
-//2-Medic Options
-//3-Player Health Options
-//4-Crosshair 1
-//5-Crosshair 2
-//6-Hitmarker
-//7-Health Color Options
-//8-Über Meter Color Options
-//9-Ammo Color Options
-//10-Spy & Engie Color Options
-//Refer to screenshot of this HUD's options for more visual aid, this file is meant to be a guide for newcomers as well as a working piece of code.
   "Links": {
     "Update":  "https://github.com/Jotunn/kbnhud/archive/refs/heads/master.zip",
     "Issue":   "https://github.com/Jotunn/kbnhud/issues",
