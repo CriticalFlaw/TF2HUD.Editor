@@ -12,31 +12,28 @@ jobs:
   analyze:
     name: Analyze
     runs-on: windows-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
 
     strategy:
       fail-fast: false
-      matrix:
-        language: [ 'csharp' ]
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '6.0'
-        
+
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
       with:
-        languages: ${{ matrix.language }}
+        languages: 'csharp'
 
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.0.0
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.x'
 
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
@@ -46,10 +43,8 @@ jobs:
     - name: Restore NuGet Packages
       run: nuget restore src/TF2HUD.Editor.sln
 
-    - name: Build App
-      run: msbuild src/TF2HUD.Editor.sln /p:Configuration=Debug /p:Platform="Any CPU" /p:UseSharedCompilation=false
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v1
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
-      with:
-        checkout_path: D:\a\TF2HUD.Editor\TF2HUD.Editor\src\TF2HUD.Editor
