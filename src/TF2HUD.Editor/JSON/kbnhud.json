@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
-  "Author": "Jötunn",
+  "Author": "Jotunn",
   "Description": "A TF2 HUD boiled down for competitive play and no-frills streamlining of as many elements as possible. Based on KNHUD with lots of customization from a long life and user suggestions. Pairs best with sniping. Thanks for 10 amazing years of this HUD!",
   "Thumbnail": "https://i.imgur.com/TTlzqfx.png",
   "Screenshots": [
@@ -16,9 +16,20 @@
     "2 5 8 9",
     "3 6 8 9"
   ],
+  //0-General Options
+  //1-TargetID Options
+  //2-Medic Options
+  //3-Player Health Options
+  //4-Crosshair 1
+  //5-Crosshair 2
+  //6-Hitmarker
+  //7-Health Color Options
+  //8-Uber Meter Color Options
+  //9-Ammo Color Options
+  //10-Spy & Engie Color Options
+  //Refer to screenshot of this HUD's options for more visual aid, this file is meant to be a guide for newcomers as well as a working piece of code.
   "Links": {
-    "Update": "https://github.com/Jotunn/kbnhud/archive/refs/heads/master.zip",
-    "Issue": "https://github.com/Jotunn/kbnhud/issues",
+    "Update": "https://github.com/Jotunn/kbnhud/archive/master.zip",
     "GitHub": "https://github.com/Jotunn/kbnhud-testing",
     "HudsTF": "https://huds.tf/site/s-KBNHud",
     "Steam": "https://steamcommunity.com/groups/KBNHud",
@@ -202,15 +213,15 @@
     "Medic Options": [
       {
         "Name": "kbn_medic_minichargemeter_hudmediccharge",
-        "Label": "Mini Über meter",
-        "Tooltip": "Small Über meter below crosshair",
+        "Label": "Mini Uber meter",
+        "Tooltip": "Small Uber meter below crosshair",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "medic_minichargemeter_hudmediccharge.res"
       },
       {
         "Name": "kbn_medic_nochargemeter_hudmediccharge",
-        "Label": "Disable Über meter",
+        "Label": "Disable Uber meter",
         "Tooltip": "Exactly what it says; Don't use with the mini meter",
         "Type": "Checkbox",
         "Value": "false",
@@ -218,8 +229,8 @@
       },
       {
         "Name": "kbn_medic_percentagenearcrosshair_hudmediccharge",
-        "Label": "Mini Über percentage",
-        "Tooltip": "Moves Über percentage below crosshair",
+        "Label": "Mini Uber percentage",
+        "Tooltip": "Moves Uber percentage below crosshair",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "medic_percentagenearcrosshair_hudmediccharge.res"
@@ -654,10 +665,10 @@
         }
       }
     ],
-    "Über Meter Color Options": [
+    "Uber Meter Color Options": [
       {
-        "Name": "kbn_Über_percent",
-        "Label": "Über Percentage",
+        "Name": "kbn_Uber_percent",
+        "Label": "Uber Percentage",
         "Type": "ColorPicker",
         "Value": "255 255 255 255",
         "Restart": true,
@@ -665,15 +676,15 @@
           "^customizations/#colors/ccolors_clientscheme.res": {
             "Scheme": {
               "Colors": {
-                "Übercharge percentage": "$value"
+                "Ubercharge percentage": "$value"
               }
             }
           }
         }
       },
       {
-        "Name": "kbn_Über_meter",
-        "Label": "Über Meter",
+        "Name": "kbn_Uber_meter",
+        "Label": "Uber Meter",
         "Type": "ColorPicker",
         "Value": "255 255 255 255",
         "Restart": true,
@@ -681,15 +692,15 @@
           "^customizations/#colors/ccolors_clientscheme.res": {
             "Scheme": {
               "Colors": {
-                "Übercharge bar": "$value"
+                "Ubercharge bar": "$value"
               }
             }
           }
         }
       },
       {
-        "Name": "kbn_Über_blink_1",
-        "Label": "Full Über Blink 1",
+        "Name": "kbn_Uber_blink_1",
+        "Label": "Full Uber Blink 1",
         "Type": "ColorPicker",
         "Value": "75 175 255 255",
         "Restart": true,
@@ -697,15 +708,15 @@
           "^customizations/#colors/ccolors_clientscheme.res": {
             "Scheme": {
               "Colors": {
-                "Full Übercharge flash 1": "$value"
+                "Full Ubercharge flash 1": "$value"
               }
             }
           }
         }
       },
       {
-        "Name": "kbn_Über_blink_2",
-        "Label": "Full Über Blink 2",
+        "Name": "kbn_Uber_blink_2",
+        "Label": "Full Uber Blink 2",
         "Type": "ColorPicker",
         "Value": "150 200 255 255",
         "Restart": true,
@@ -713,7 +724,7 @@
           "^customizations/#colors/ccolors_clientscheme.res": {
             "Scheme": {
               "Colors": {
-                "Full Übercharge flash 2": "$value"
+                "Full Ubercharge flash 2": "$value"
               }
             }
           }
