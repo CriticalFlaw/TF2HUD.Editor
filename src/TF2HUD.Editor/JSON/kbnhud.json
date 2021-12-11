@@ -1,0 +1,990 @@
+{
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "Jötunn",
+  "Description": "A TF2 HUD boiled down for competitive play and no-frills streamlining of as many elements as possible. Based on KNHUD with lots of customization from a long life and user suggestions. Pairs best with sniping. Thanks for 10 amazing years of this HUD!",
+  "Thumbnail": "https://i.imgur.com/TTlzqfx.png",
+  "Screenshots": [
+    "https://i.imgur.com/TQHTuy3.png",
+    "https://i.imgur.com/ncjKxIo.png",
+    "https://i.imgur.com/mhJGz8z.png",
+    "https://i.imgur.com/wUSF8n3.png"
+  ],
+  "Background": "https://i.imgur.com/cBFURIz.png",
+  "Layout": [
+    "0 1 7 10",
+    "0 4 7 10",
+    "2 5 8 9",
+    "3 6 8 9"
+  ],
+//0-General Options
+//1-TargetID Options
+//2-Medic Options
+//3-Player Health Options
+//4-Crosshair 1
+//5-Crosshair 2
+//6-Hitmarker
+//7-Health Color Options
+//8-Über Meter Color Options
+//9-Ammo Color Options
+//10-Spy & Engie Color Options
+//Refer to screenshot of this HUD's options for more visual aid, this file is meant to be a guide for newcomers as well as a working piece of code.
+  "Links": {
+    "Update":  "https://github.com/Jotunn/kbnhud/archive/refs/heads/master.zip",
+    "Issue":   "https://github.com/Jotunn/kbnhud/issues",
+    "GitHub":  "https://github.com/Jotunn/kbnhud-testing",
+    "HudsTF":  "https://huds.tf/site/s-KBNHud",
+    "Steam":   "https://steamcommunity.com/groups/KBNHud",
+    "Discord": "https://discord.gg/NhnSysw"
+  },
+  "CustomizationsFolder": "^customizations",
+  "EnabledFolder": "^customizations//#enabled",
+  "Controls": {
+    "General Options - Scroll down!": [
+      {
+        "Name": "kbn_aspect_fixes",
+        "Label": "Aspect Ratio",
+        "Tooltip": "16x9 setting works for 16x10, 21x9, and 32x9",
+        "Type": "ComboBox",
+        "Value": "1",
+        "Options": [
+          {
+            "Label": "4x3",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "16x9/16x10",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "kn_edit_mode",
+        "Label": "KN-Edit Layout",
+        "Tooltip": "Widens spacing of health and ammo",
+        "Type": "CheckBox",
+        "Value": "false",
+        "RenameFile": {
+          "OldName": "^customizations/_knedit/",
+          "NewName": "^customizations/knedit/",
+          "Restart": true
+        }
+      },
+      {
+        "Name": "kbn_streamer_mode",
+        "Label": "Streamer Mode",
+        "Tooltip": "Hides information that could be used to streamsnipe/DDoS",
+        "Type": "CheckBox",
+        "Value": "false",
+        "RenameFile": {
+          "OldName": "^customizations/_streaming/",
+          "NewName": "^customizations/streaming/",
+          "Restart": true
+        }
+      },
+      {
+        "Name": "kbn_9v9minmode_scoreboard",
+        "Label": "9v9 minmode",
+        "Tooltip": "Toggles the 6v6 minmode scoreboard for a Highlander one",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "9v9minmode_scoreboard.res"
+      },
+      {
+        "Name": "kbn_aimguide_hudlayout",
+        "Label": "Old KBNHud aim guide",
+        "Tooltip": "Places a black circle around the crosshair",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "aimguide_hudlayout.res"
+      },
+      {
+        "Name": "kbn_damage_colors",
+        "Label": "Damage Numbers",
+        "Tooltip": "Sets color of damage numbers near player health",
+        "Type": "ColorPicker",
+        "Value": "255 0 255 255",
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Damage Numbers": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_boldfont_huddamageaccount",
+        "Label": "Bold Damage",
+        "Tooltip": "Switches Damage Numbers to a bold font",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "boldfont_huddamageaccount.res"
+      },
+      {
+        "Name": "kbn_disable_hudplayerclass",
+        "Label": "Hide class model/image",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "disable_hudplayerclass.res"
+      },
+	  {
+        "Name": "kbn_fighterpilot_crosshair",
+        "Label": "Fighter Pilot Crosshair",
+        "Tooltip": "Places four guide lines across your screen to help you maintain crosshair placement",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "fighterpilotcrosshair_hudlayout.res"
+      },
+	  {
+        "Name": "kbn_classic_classselection",
+        "Label": "Old class menu",
+        "Tooltip": "Classic KBNHud class menu",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "kbnhudclassic_classselection.res"
+      },
+      {
+        "Name": "kbn_killfeedbackground_hudlayout",
+        "Label": "Killfeed background",
+        "Tooltip": "Black background on normally transparent events",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "killfeedbackground_hudlayout.res"
+      },
+      {
+        "Name": "kbn_playerpanelstop_hudmatchstatus",
+        "Label": "Player panels on top",
+	"Tooltip": "Places matchmaking player panels at the top of the screen",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "playerpanelstop_hudmatchstatus.res"
+      },
+      {
+        "Name": "kbn_toprightcorner_huditemeffectmeter_killstreak",
+        "Label": "Killstreak over Killfeed",
+	"Tooltip": "Places killstreak counter over the killfeed instead of over the player health",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "toprightcorner_huditemeffectmeter_killstreak.res"
+      },
+      {
+        "Name": "kbn_transparent_viewmodels_hudlayout",
+        "Label": "Transparent Viewmodels",
+	"Tooltip": "Enables transparent viewmodels",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "transparent_viewmodels_hudlayout.res"
+      }
+    ],
+    "TargetID Options": [
+      {
+        "Name": "kbn_targetid_bg_full_targetid",
+        "Label": "Full BG",
+        "Tooltip": "Enabled BG on the full TargetID box",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "targetid_bg_full_targetid.res"
+      },
+      {
+        "Name": "kbn_targetid_bg_health_targetid",
+        "Label": "Health BG",
+		"Tooltip": "Enables BG on just the health value in TargetID. Full BG overrides this",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "targetid_bg_health_targetid.res"
+      },
+      {
+        "Name": "targetid_health_cross_spectatorguihealth",
+        "Label": "Cross",
+        "Tooltip": "Adds a health cross to TargetID and to Disguise Status",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "targetid_health_cross_spectatorguihealth.res"
+      }
+    ],
+    "Medic Options": [
+      {
+        "Name": "kbn_medic_minichargemeter_hudmediccharge",
+        "Label": "Mini Über meter",
+        "Tooltip": "Small Über meter below crosshair",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "medic_minichargemeter_hudmediccharge.res"
+      },
+      {
+        "Name": "kbn_medic_nochargemeter_hudmediccharge",
+        "Label": "Disable Über meter",
+		"Tooltip": "Exactly what it says; Don't use with the mini meter",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "medic_nochargemeter_hudmediccharge.res"
+      },
+      {
+        "Name": "kbn_medic_percentagenearcrosshair_hudmediccharge",
+        "Label": "Mini Über percentage",
+        "Tooltip": "Moves Über percentage below crosshair",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "medic_percentagenearcrosshair_hudmediccharge.res"
+      }
+    ],
+    "Player Health Options": [
+      {
+        "Name": "kbn_player_health_cross_hudplayerhealth",
+        "Label": "Enable health cross",
+        "Tooltip": "Display cross shaped health meter",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "player_health_cross_hudplayerhealth.res"
+      },
+      {
+        "Name": "kbn_player_health_maxhealth_hudplayerhealth",
+        "Label": "Enable max health",
+        "Tooltip": "Display your max health when hurt",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "player_health_maxhealth_hudplayerhealth.res"
+      },
+      {
+        "Name": "kbn_player_health_outlinedtext_hudplayerhealth",
+        "Label": "Enable health outline",
+        "Tooltip": "Outlines player health numbers with thick black lettering",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "player_health_outlinedtext_hudplayerhealth.res"
+      },
+	  {
+        "Name": "kbn_player_health_teamcolor_hudplayerhealth",
+        "Label": "Enable team color bar",
+        "Tooltip": "Enables the small team colored bar under your health",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "player_health_teamcolor_hudplayerhealth.res"
+      }
+    ],
+    "Crosshair 1": [
+      {
+        "Name": "kbn_crosshair1",
+        "Label": "Enable Crosshair 1",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair 1",
+        "Value": "false",
+        "Files": {
+          "^customizations/#crosshairs/crosshairs_hudlayout.res": {
+            "CustomCrosshair1": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_crosshair1_style",
+        "Label": "Style",
+        "ToolTip": "Style of crosshair 1",
+        "Type": "Crosshair",
+        "Value": "p",
+        "Files": {
+          "^customizations/#crosshairs/crosshairs_hudlayout.res": {
+            "CustomCrosshair1": {
+              "labeltext": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_crosshair1_outline",
+        "Label": "Outline",
+        "Type": "Checkbox",
+        "ToolTip": "Enable outline around crosshair 1",
+        "Value": "false"
+      },
+      {
+        "Name": "kbn_crosshair1_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "15",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "ToolTip": "Size of crosshair 1",
+        "Files": {
+          "^customizations/#crosshairs/crosshairs_hudlayout.res": {
+            "CustomCrosshair1": {
+              "font": "Size:$value | Outline:{$kbn_crosshair1_outline ? ON : OFF}"
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_crosshair1_color",
+        "Label": "Color",
+        "Tooltip": "Color of crosshair 1",
+        "Type": "ColorPicker",
+        "Value": "0 255 0 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair 1": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Crosshair 2": [
+      {
+        "Name": "kbn_crosshair2",
+        "Label": "Enable Crosshair 2",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair 2",
+        "Value": "false",
+        "Files": {
+          "^customizations/#crosshairs/crosshairs_hudlayout.res": {
+            "CustomCrosshair2": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_crosshair2_style",
+        "Label": "Style",
+        "ToolTip": "Style of crosshair 2",
+        "Type": "Crosshair",
+        "Value": "p",
+        "Files": {
+          "^customizations/#crosshairs/crosshairs_hudlayout.res": {
+            "CustomCrosshair2": {
+              "labeltext": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_crosshair2_outline",
+        "Label": "Outline",
+        "Type": "Checkbox",
+        "ToolTip": "Enable outline around crosshair 2",
+        "Value": "false"
+      },
+      {
+        "Name": "kbn_crosshair2_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "15",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "ToolTip": "Size of crosshair 1",
+        "Files": {
+          "^customizations/#crosshairs/crosshairs_hudlayout.res": {
+            "CustomCrosshair1": {
+              "font": "Size:$value | Outline:{$kbn_crosshair2_outline ? ON : OFF}"
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_crosshair2_color",
+        "Label": "Color",
+        "Tooltip": "Color of crosshair 2",
+        "Type": "ColorPicker",
+        "Value": "0 255 0 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair 2": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Hitmarker": [
+      {
+        "Name": "kbn_hitmarker",
+        "Label": "Enable the Hitmarker",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle Hitmarker",
+        "Value": "false",
+        "Files": {
+          "^customizations/#hitmarkers/hitmarkers_hudlayout.res": {
+            "HitMarker": {
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_hitmarker_style",
+        "Label": "Style",
+        "ToolTip": "Style of Hitmarker",
+        "Type": "Crosshair",
+        "Value": ".",
+        "Files": {
+          "^customizations/#hitmarkers/hitmarkers_hudlayout.res": {
+            "HitMarker": {
+              "labeltext": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_hitmarker_outline",
+        "Label": "Outline",
+        "Type": "Checkbox",
+        "ToolTip": "Enable outline around the hitmarker",
+        "Value": "false"
+      },
+      {
+        "Name": "kbn_hitmarker_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "20",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "ToolTip": "Size of the hitmarker",
+        "Files": {
+          "^customizations/#crosshairs/crosshairs_hudlayout.res": {
+            "CustomCrosshair1": {
+              "font": "Size:$value | Outline:{$kbn_hitmarker_outline ? ON : OFF}"
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_hitmarker_color",
+        "Label": "Color",
+        "Tooltip": "Color of Hitmarker",
+        "Type": "ColorPicker",
+        "Value": "255 0 255 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "HitMarker": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Health Color Options": [
+      {
+        "Name": "kbn_health_main",
+        "Label": "Health",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Base Health": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_health_shadow",
+        "Label": "Health Shadow",
+        "Type": "ColorPicker",
+        "Value": "0 0 0 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Base Health Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_healthlow_blink_1",
+        "Label": "Low Health Blink 1",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Low Health flash 1": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_healthlow_blink_2",
+        "Label": "Low Health Blink 2",
+        "Type": "ColorPicker",
+        "Value": "255 100 100 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Low Health flash 2": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_healthlow_blink_3",
+        "Label": "Low Health Blink 3",
+        "Tooltip": "Keep this the same as Blink 2, with an A setting of 75; Used when player health cross is enabled",
+        "Type": "ColorPicker",
+        "Value": "255 100 100 75",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Low Health flash 3": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_overheal_blink_1",
+        "Label": "Overheal Blink 1",
+        "Type": "ColorPicker",
+        "Value": "75 175 255 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Overheal flash 1": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+         "Name": "kbn_overheal_blink_2",
+        "Label": "Overheal Blink 2",
+        "Tooltip": "Works best with an A setting of 75 or less",
+        "Type": "ColorPicker",
+        "Value": "150 200 255 75",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Overheal flash 2": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_targetid_health_main",
+        "Label": "TargetID Health",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "TargetID Base Health": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_targetid_healthlow",
+        "Label": "TargetID Low",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "TargetID Low Health": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_targetid_overheal",
+        "Label": "TargetID O-heal",
+        "Tooltip": "Overheal, ran out of space",
+        "Type": "ColorPicker",
+        "Value": "75 175 255 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "TargetID Overheal": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Über Meter Color Options": [
+      {
+        "Name": "kbn_Über_percent",
+        "Label": "Über Percentage",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Übercharge percentage": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_Über_meter",
+        "Label": "Über Meter",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Übercharge bar": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_Über_blink_1",
+        "Label": "Full Über Blink 1",
+        "Type": "ColorPicker",
+        "Value": "75 175 255 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Full Übercharge flash 1": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_Über_blink_2",
+        "Label": "Full Über Blink 2",
+        "Type": "ColorPicker",
+        "Value": "150 200 255 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Full Übercharge flash 2": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Ammo Color Options": [
+      {
+        "Name": "kbn_ammo_clip",
+        "Label": "Ammo",
+        "Tooltip": "If you set this back to white, use 235 235 235 255; Due to an odd glitch, setting everything to 255 causes it to appear either off red or off blue",
+        "Type": "ColorPicker",
+        "Value": "235 235 235 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo in clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_ammo_clip_shadow",
+        "Label": "Ammo Shadow",
+        "Type": "ColorPicker",
+        "Value": "0 0 0 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo in clip shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "kbn_ammo_reserve",
+        "Label": "Reserve Ammo",
+        "Tooltip": "If you set this back to white, use 235 235 235 255; Due to an odd glitch, setting everything to 255 causes it to appear either off red or off blue",
+        "Type": "ColorPicker",
+        "Value": "235 235 235 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo in reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_ammo_reserve_shadow",
+        "Label": "Reserve Shadow",
+        "Type": "ColorPicker",
+        "Value": "0 0 0 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo in reserve shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+	  {
+        "Name": "kbn_low_ammo_blink_1",
+        "Label": "Low Ammo Blink 1",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Low Ammo flash 1": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_low_ammo_blink_1",
+        "Label": "Low Ammo Blink 2",
+        "Type": "ColorPicker",
+        "Value": "255 100 100 255",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Low Ammo flash 2": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Spy & Engie Color Options": [
+      {
+        "Name": "kbn_metal_base",
+        "Label": "Metal",
+        "Tooltip": "Both this and its shadow are low A due to proximity to the crosshair",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 100",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Metal Base": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_metal_shadow",
+        "Label": "Metal Shadow",
+        "Type": "ColorPicker",
+        "Value": "0 0 0 100",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Metal Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_notbuilt_label",
+        "Label": "Not Built Label",
+        "Tooltip": "Low A value to keep from being too intrusive",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 155",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Not Built Label": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_progressoffwhite",
+        "Label": "Building status",
+        "Tooltip": "Low A value to keep from being too intrusive",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 155",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ProgressOffWhite": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_progressbackground",
+        "Label": "Building progress BG",
+        "Tooltip": "Low A value to keep from being too intrusive",
+        "Type": "ColorPicker",
+        "Value": "0 0 0 155",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "ProgressBackground": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_building_health",
+        "Label": "Building Health meter",
+        "Tooltip": "Low A value to keep from being too intrusive",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 155",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "HealthFg": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_building_health_bg",
+        "Label": "Building Health meter background",
+        "Tooltip": "Low A value to keep from being too intrusive",
+        "Type": "ColorPicker",
+        "Value": "0 0 0 155",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "HealthBgGrey": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_building_healthlow",
+        "Label": "Low Building Health",
+        "Tooltip": "Low A value to keep from being too intrusive",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 155",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "LowHealthRed": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "kbn_building_alert",
+        "Label": "Repair & Sapper Alert",
+        "Tooltip": "Low A value to keep from being too intrusive",
+        "Type": "ColorPicker",
+        "Value": "205 50 50 160",
+        "Restart": true,
+        "Files": {
+          "^customizations/#colors/ccolors_clientscheme.res": {
+            "Scheme": {
+              "Colors": {
+                "AlertBG": "$value"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
