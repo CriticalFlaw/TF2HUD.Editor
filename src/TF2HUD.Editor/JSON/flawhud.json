@@ -956,7 +956,7 @@
             "Files": {
               "resource/ui/hudplayerhealth.res": {
                 "PlayerStatusHealthImage": {
-                  "xpos": "9999"
+                  "visible": "0"
                 },
                 "PlayerStatusHealthImageBG": {
                   "xpos": "9999"
@@ -992,7 +992,7 @@
             "Files": {
               "resource/ui/hudplayerhealth.res": {
                 "PlayerStatusHealthImage": {
-                  "xpos": "9999"
+                  "visible": "0"
                 },
                 "PlayerStatusHealthImageBG": {
                   "xpos": "9999"
@@ -1028,7 +1028,7 @@
             "Files": {
               "resource/ui/hudplayerhealth.res": {
                 "PlayerStatusHealthImage": {
-                  "xpos": "20"
+                  "visible": "1"
                 },
                 "PlayerStatusHealthImageBG": {
                   "xpos": "18"
