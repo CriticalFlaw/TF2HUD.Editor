@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
-  "Author": "Jötunn",
+  "Author": "Jotunn",
   "Description": "A TF2 HUD boiled down for competitive play and no-frills streamlining of as many elements as possible. Based on KNHUD with lots of customization from a long life and user suggestions. Pairs best with sniping. Thanks for 10 amazing years of this HUD!",
   "Thumbnail": "https://i.imgur.com/TTlzqfx.png",
   "Screenshots": [
@@ -16,24 +16,23 @@
     "2 5 8 9",
     "3 6 8 9"
   ],
-//0-General Options
-//1-TargetID Options
-//2-Medic Options
-//3-Player Health Options
-//4-Crosshair 1
-//5-Crosshair 2
-//6-Hitmarker
-//7-Health Color Options
-//8-Über Meter Color Options
-//9-Ammo Color Options
-//10-Spy & Engie Color Options
-//Refer to screenshot of this HUD's options for more visual aid, this file is meant to be a guide for newcomers as well as a working piece of code.
+  //0-General Options
+  //1-TargetID Options
+  //2-Medic Options
+  //3-Player Health Options
+  //4-Crosshair 1
+  //5-Crosshair 2
+  //6-Hitmarker
+  //7-Health Color Options
+  //8-Uber Meter Color Options
+  //9-Ammo Color Options
+  //10-Spy & Engie Color Options
+  //Refer to screenshot of this HUD's options for more visual aid, this file is meant to be a guide for newcomers as well as a working piece of code.
   "Links": {
-    "Update":  "https://github.com/Jotunn/kbnhud/archive/refs/heads/master.zip",
-    "Issue":   "https://github.com/Jotunn/kbnhud/issues",
-    "GitHub":  "https://github.com/Jotunn/kbnhud-testing",
-    "HudsTF":  "https://huds.tf/site/s-KBNHud",
-    "Steam":   "https://steamcommunity.com/groups/KBNHud",
+    "Update": "https://github.com/Jotunn/kbnhud/archive/master.zip",
+    "GitHub": "https://github.com/Jotunn/kbnhud-testing",
+    "HudsTF": "https://huds.tf/site/s-KBNHud",
+    "Steam": "https://steamcommunity.com/groups/KBNHud",
     "Discord": "https://discord.gg/NhnSysw"
   },
   "CustomizationsFolder": "^customizations",
@@ -136,7 +135,7 @@
         "Value": "false",
         "FileName": "disable_hudplayerclass.res"
       },
-	  {
+      {
         "Name": "kbn_fighterpilot_crosshair",
         "Label": "Fighter Pilot Crosshair",
         "Tooltip": "Places four guide lines across your screen to help you maintain crosshair placement",
@@ -144,7 +143,7 @@
         "Value": "false",
         "FileName": "fighterpilotcrosshair_hudlayout.res"
       },
-	  {
+      {
         "Name": "kbn_classic_classselection",
         "Label": "Old class menu",
         "Tooltip": "Classic KBNHud class menu",
@@ -163,7 +162,7 @@
       {
         "Name": "kbn_playerpanelstop_hudmatchstatus",
         "Label": "Player panels on top",
-	"Tooltip": "Places matchmaking player panels at the top of the screen",
+        "Tooltip": "Places matchmaking player panels at the top of the screen",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "playerpanelstop_hudmatchstatus.res"
@@ -171,7 +170,7 @@
       {
         "Name": "kbn_toprightcorner_huditemeffectmeter_killstreak",
         "Label": "Killstreak over Killfeed",
-	"Tooltip": "Places killstreak counter over the killfeed instead of over the player health",
+        "Tooltip": "Places killstreak counter over the killfeed instead of over the player health",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "toprightcorner_huditemeffectmeter_killstreak.res"
@@ -179,7 +178,7 @@
       {
         "Name": "kbn_transparent_viewmodels_hudlayout",
         "Label": "Transparent Viewmodels",
-	"Tooltip": "Enables transparent viewmodels",
+        "Tooltip": "Enables transparent viewmodels",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "transparent_viewmodels_hudlayout.res"
@@ -197,7 +196,7 @@
       {
         "Name": "kbn_targetid_bg_health_targetid",
         "Label": "Health BG",
-		"Tooltip": "Enables BG on just the health value in TargetID. Full BG overrides this",
+        "Tooltip": "Enables BG on just the health value in TargetID. Full BG overrides this",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "targetid_bg_health_targetid.res"
@@ -214,24 +213,24 @@
     "Medic Options": [
       {
         "Name": "kbn_medic_minichargemeter_hudmediccharge",
-        "Label": "Mini Über meter",
-        "Tooltip": "Small Über meter below crosshair",
+        "Label": "Mini Uber meter",
+        "Tooltip": "Small Uber meter below crosshair",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "medic_minichargemeter_hudmediccharge.res"
       },
       {
         "Name": "kbn_medic_nochargemeter_hudmediccharge",
-        "Label": "Disable Über meter",
-		"Tooltip": "Exactly what it says; Don't use with the mini meter",
+        "Label": "Disable Uber meter",
+        "Tooltip": "Exactly what it says; Don't use with the mini meter",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "medic_nochargemeter_hudmediccharge.res"
       },
       {
         "Name": "kbn_medic_percentagenearcrosshair_hudmediccharge",
-        "Label": "Mini Über percentage",
-        "Tooltip": "Moves Über percentage below crosshair",
+        "Label": "Mini Uber percentage",
+        "Tooltip": "Moves Uber percentage below crosshair",
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "medic_percentagenearcrosshair_hudmediccharge.res"
@@ -262,7 +261,7 @@
         "Value": "false",
         "FileName": "player_health_outlinedtext_hudplayerhealth.res"
       },
-	  {
+      {
         "Name": "kbn_player_health_teamcolor_hudplayerhealth",
         "Label": "Enable team color bar",
         "Tooltip": "Enables the small team colored bar under your health",
@@ -600,7 +599,7 @@
         }
       },
       {
-         "Name": "kbn_overheal_blink_2",
+        "Name": "kbn_overheal_blink_2",
         "Label": "Overheal Blink 2",
         "Tooltip": "Works best with an A setting of 75 or less",
         "Type": "ColorPicker",
@@ -666,10 +665,10 @@
         }
       }
     ],
-    "Über Meter Color Options": [
+    "Uber Meter Color Options": [
       {
-        "Name": "kbn_Über_percent",
-        "Label": "Über Percentage",
+        "Name": "kbn_Uber_percent",
+        "Label": "Uber Percentage",
         "Type": "ColorPicker",
         "Value": "255 255 255 255",
         "Restart": true,
@@ -677,15 +676,15 @@
           "^customizations/#colors/ccolors_clientscheme.res": {
             "Scheme": {
               "Colors": {
-                "Übercharge percentage": "$value"
+                "Ubercharge percentage": "$value"
               }
             }
           }
         }
       },
       {
-        "Name": "kbn_Über_meter",
-        "Label": "Über Meter",
+        "Name": "kbn_Uber_meter",
+        "Label": "Uber Meter",
         "Type": "ColorPicker",
         "Value": "255 255 255 255",
         "Restart": true,
@@ -693,15 +692,15 @@
           "^customizations/#colors/ccolors_clientscheme.res": {
             "Scheme": {
               "Colors": {
-                "Übercharge bar": "$value"
+                "Ubercharge bar": "$value"
               }
             }
           }
         }
       },
       {
-        "Name": "kbn_Über_blink_1",
-        "Label": "Full Über Blink 1",
+        "Name": "kbn_Uber_blink_1",
+        "Label": "Full Uber Blink 1",
         "Type": "ColorPicker",
         "Value": "75 175 255 255",
         "Restart": true,
@@ -709,15 +708,15 @@
           "^customizations/#colors/ccolors_clientscheme.res": {
             "Scheme": {
               "Colors": {
-                "Full Übercharge flash 1": "$value"
+                "Full Ubercharge flash 1": "$value"
               }
             }
           }
         }
       },
       {
-        "Name": "kbn_Über_blink_2",
-        "Label": "Full Über Blink 2",
+        "Name": "kbn_Uber_blink_2",
+        "Label": "Full Uber Blink 2",
         "Type": "ColorPicker",
         "Value": "150 200 255 255",
         "Restart": true,
@@ -725,7 +724,7 @@
           "^customizations/#colors/ccolors_clientscheme.res": {
             "Scheme": {
               "Colors": {
-                "Full Übercharge flash 2": "$value"
+                "Full Ubercharge flash 2": "$value"
               }
             }
           }
@@ -766,7 +765,7 @@
           }
         }
       },
-	  {
+      {
         "Name": "kbn_ammo_reserve",
         "Label": "Reserve Ammo",
         "Tooltip": "If you set this back to white, use 235 235 235 255; Due to an odd glitch, setting everything to 255 causes it to appear either off red or off blue",
@@ -799,7 +798,7 @@
           }
         }
       },
-	  {
+      {
         "Name": "kbn_low_ammo_blink_1",
         "Label": "Low Ammo Blink 1",
         "Type": "ColorPicker",

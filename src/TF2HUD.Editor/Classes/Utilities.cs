@@ -308,11 +308,9 @@ namespace HUDEditor.Classes
         /// <param name="url">URL to request resource from.</param>
         public static async Task<T> Fetch<T>(string url)
         {
-            using (HttpClient client = new())
-            {
-                client.DefaultRequestHeaders.Add("User-Agent", "request");
-                return await client.GetFromJsonAsync<T>(url);
-            }
+            using HttpClient client = new();
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
+            return await client.GetFromJsonAsync<T>(url);
         }
 
         /// <summary>
@@ -322,11 +320,9 @@ namespace HUDEditor.Classes
         /// <param name="filePath">Relative path to file to save resource to.</param>
         public static async Task DownloadFile(string url, string filePath)
         {
-            using (HttpClient client = new())
-            {
-                client.DefaultRequestHeaders.Add("User-Agent", "request");
-                File.WriteAllBytes(filePath, await client.GetByteArrayAsync(url));
-            }
+            using HttpClient client = new();
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
+            File.WriteAllBytes(filePath, await client.GetByteArrayAsync(url));
         }
 
         /// <summary>

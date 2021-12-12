@@ -38,6 +38,7 @@
     <None Remove="JSON\flawhud.json" />
     <None Remove="JSON\hexhud.json" />
     <None Remove="JSON\hypnotize-hud.json" />
+    <None Remove="JSON\kbnhud.json" />
     <None Remove="JSON\rayshud.json" />
     <None Remove="JSON\zeeshud.json" />
     <None Remove="log4net.config" />
@@ -56,7 +57,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.1.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.2.0" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="WPFLocalizeExtension" Version="3.9.1" />
