@@ -437,7 +437,7 @@
         "Files": {
           "^customizations/#hitmarkers/hitmarkers_hudlayout.res": {
             "HitMarker": {
-              "enabled": {
+              "visible": {
                 "true": "1",
                 "false": "0"
               }
