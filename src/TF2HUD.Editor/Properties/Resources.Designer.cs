@@ -223,6 +223,15 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unsupported HUD was found in the tf/custom folder. Do you want to delete it to continue with the installation?.
+        /// </summary>
+        public static string info_unsupported_hud_found {
+            get {
+                return ResourceManager.GetString("info_unsupported_hud_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} customizations applied on {1}..
         /// </summary>
         public static string status_applied {

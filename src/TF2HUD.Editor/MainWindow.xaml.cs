@@ -345,17 +345,25 @@ namespace HUDEditor
                 // Stop the process if Team Fortress 2 is still running.
                 if (Utilities.CheckIsGameRunning()) return;
 
-                // Step 1. Retrieve the HUD object, then download and extract it into the tf/custom directory.
-                Logger.Info($"Start installing {HudSelection}.");
-                await Json.SelectedHud.Update();
-
-                // Step 2. Clear tf/custom directory of other installed HUDs.
+                // Clear tf/custom directory of other installed HUDs.
                 Logger.Info("Preparing directories for extraction.");
                 foreach (var x in Json.HudList)
                     if (Directory.Exists($"{HudPath}\\{x.Name.ToLowerInvariant()}"))
                         Directory.Delete($"{HudPath}\\{x.Name.ToLowerInvariant()}", true);
 
-                // Step 3. Record the name of the HUD inside the downloaded folder.
+                // Check for unsupported HUDs in the tf/custom folder. Notify user if found.
+                foreach (var foundHud in Directory.GetDirectories(HudPath))
+                {
+                    if (!foundHud.Remove(0, HudPath.Length).ToLowerInvariant().Contains("hud")) continue;
+                    if (ShowMessageBox(MessageBoxImage.Warning, Properties.Resources.info_unsupported_hud_found, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes) return;
+                    Directory.Delete(foundHud, true);
+                }
+
+                // Retrieve the HUD object, then download and extract it into the tf/custom directory.
+                Logger.Info($"Start installing {HudSelection}.");
+                await Json.SelectedHud.Update();
+
+                // Record the name of the HUD inside the downloaded folder.
                 var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";
                 if (!File.Exists(tempFile)) tempFile = "temp.zip";
                 using var archive = ZipFile.OpenRead(tempFile);
@@ -363,13 +371,13 @@ namespace HUDEditor
                     entry.FullName.EndsWith("/", StringComparison.OrdinalIgnoreCase) &&
                     string.IsNullOrWhiteSpace(entry.Name));
 
-                // Step 4. Extract the downloaded HUD and rename it to match the schema.
+                // Extract the downloaded HUD and rename it to match the schema.
                 Logger.Info($"Extracting {HudSelection} to: {HudPath}");
                 ZipFile.ExtractToDirectory(tempFile, HudPath);
                 Directory.Move($"{HudPath}\\{hudName}", $"{HudPath}\\temp");
                 Directory.Move($"{HudPath}\\temp", $"{HudPath}\\{HudSelection}");
 
-                // Step 5. Update the page view.
+                // Update the page view.
                 if (string.IsNullOrWhiteSpace(HudSelection)) return;
                 Json.SelectedHud.Settings.SaveSettings();
                 SetPageView(Json.SelectedHud);
