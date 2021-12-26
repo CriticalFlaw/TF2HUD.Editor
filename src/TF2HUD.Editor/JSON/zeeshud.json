@@ -15,8 +15,9 @@
     "5 5 2 2 1 1",
     "6 6 3 3 1 1"
   ],
-  "Links": {
-    "Update": "https://zeesastrous.com/zeeshud/zeesHud%20final.zip"
+  "Links": 
+    "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
+    "GitHub": "https://github.com/Zeesastrous/ZeesHUD",
   },
   "CustomizationsFolder": "#customizations//addons",
   "EnabledFolder": "#customizations//addons//_enabled",
