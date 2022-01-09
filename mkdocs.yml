@@ -1,12 +1,25 @@
 site_name: TF2 HUD Editor
 site_author: criticalflaw
+site_url: https://www.editor.criticalflaw.ca/
 theme:
     language: en
     name: material
     logo: resources/logo.png
     favicon: resources/logo.png
     features:
+        - navigation.sections
+        - navigation.top
+        - navigation.tabs
+        - navigation.tabs.sticky
+        - navigation.sections
         - navigation.expand
+        - navigation.indexes
+        - navigation.tracking
+        - toc.integrate
+        - header.autohide
+        - content.tabs.link
+        - search.suggest
+        - search.highlight
     palette:
         - scheme: default
           primary: indigo
@@ -21,7 +34,6 @@ theme:
             icon: material/toggle-switch
             name: Switch to light mode
 repo_name: GitHub
-site_url: https://www.editor.criticalflaw.ca/
 repo_url: https://github.com/CriticalFlaw/TF2HUD.Editor/
 nav:
     - Home: 'index.md'
@@ -37,6 +49,7 @@ nav:
         - HUD Files: 'json/files.md'
         - HUD Animations: 'json/animations.md'
         - Custom Backgrounds: 'json/backgrounds.md'
+    - FlawBOT: 'https://www.flawbot.criticalflaw.ca/'
 hide:
     - toc
 google_analytics:
