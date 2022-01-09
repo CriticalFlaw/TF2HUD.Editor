@@ -52,8 +52,6 @@ nav:
         - HUD Animations: 'json/animations.md'
         - Custom Backgrounds: 'json/backgrounds.md'
     - FlawBOT: 'https://www.flawbot.criticalflaw.ca/'
-hide:
-    - toc
 google_analytics:
     - G-Q532RTS1WC
     - auto
@@ -61,7 +59,7 @@ markdown_extensions:
     - admonition
     - pymdownx.superfences
     - toc:
-        toc_depth: 0
+        permalink: true
 plugins:
     - search
     - git-revision-date-localized:
