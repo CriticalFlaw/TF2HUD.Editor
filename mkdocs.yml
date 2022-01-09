@@ -6,6 +6,8 @@ theme:
     name: material
     logo: resources/logo.png
     favicon: resources/logo.png
+    icon:
+        repo: fontawesome/brands/github
     features:
         - navigation.sections
         - navigation.top
