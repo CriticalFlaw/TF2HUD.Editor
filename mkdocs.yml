@@ -51,7 +51,7 @@ nav:
         - HUD Files: 'json/files.md'
         - HUD Animations: 'json/animations.md'
         - Custom Backgrounds: 'json/backgrounds.md'
-    - Blog: 'https://www.criticalflaw.github.io/'
+    - Blog: 'https://criticalflaw.github.io/'
 google_analytics:
     - G-Q532RTS1WC
     - auto
