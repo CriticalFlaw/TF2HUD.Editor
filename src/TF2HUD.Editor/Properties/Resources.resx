@@ -208,7 +208,7 @@
     <value>Report an Issue.</value>
   </data>
   <data name="ui_apply" xml:space="preserve">
-    <value>Apply Changes</value>
+    <value>Apply</value>
   </data>
   <data name="ui_author" xml:space="preserve">
     <value>Created by: {0}</value>
@@ -244,7 +244,7 @@
     <value>Reinstall</value>
   </data>
   <data name="ui_reset" xml:space="preserve">
-    <value>Reset to Default</value>
+    <value>Reset</value>
   </data>
   <data name="ui_search" xml:space="preserve">
     <value>Search:</value>
@@ -254,6 +254,9 @@
   </data>
   <data name="ui_switch" xml:space="preserve">
     <value>Switch HUDs</value>
+  </data>
+  <data name="ui_title" xml:space="preserve">
+    <value>TF2 HUD Editor</value>
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Uninstall</value>

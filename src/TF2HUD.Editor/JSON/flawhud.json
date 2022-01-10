@@ -16,11 +16,21 @@
     "1 2 4 5"
   ],
   "Links": {
-    "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
+    "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip", // TODO: Remove
     "GitHub": "https://github.com/CriticalFlaw/flawhud",
     "HudsTF": "https://huds.tf/site/s-FlawHUD",
     "Steam": "https://steamcommunity.com/groups/FlawHUD",
-    "Discord": "https://discord.gg/hTdtK9vBhE"
+    "Discord": "https://discord.gg/hTdtK9vBhE",
+    "Download": [
+      {
+        "Source": "GitHub-Master",
+        "Link": "https://github.com/CriticalFlaw/flawhud/archive/master.zip"
+      },
+      {
+        "Source": "GitHub-Flaw",
+        "Link": "https://github.com/CriticalFlaw/flawhud/archive/flaw.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "resource//ui//#customizations",
   "EnabledFolder": "resource//ui//#customizations//_enabled",

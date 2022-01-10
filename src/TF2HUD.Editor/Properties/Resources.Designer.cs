@@ -331,7 +331,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply Changes.
+        ///   Looks up a localized string similar to Apply.
         /// </summary>
         public static string ui_apply {
             get {
@@ -439,7 +439,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset to Default.
+        ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string ui_reset {
             get {
@@ -471,6 +471,15 @@ namespace HUDEditor.Properties {
         public static string ui_switch {
             get {
                 return ResourceManager.GetString("ui_switch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TF2 HUD Editor.
+        /// </summary>
+        public static string ui_title {
+            get {
+                return ResourceManager.GetString("ui_title", resourceCulture);
             }
         }
         

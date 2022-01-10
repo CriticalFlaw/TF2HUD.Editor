@@ -16,8 +16,14 @@
     "6 6 3 3 1 1"
   ],
   "Links": {
-    "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
-    "GitHub": "https://github.com/Zeesastrous/ZeesHUD"
+    "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip", // TODO: Remove
+    "GitHub": "https://github.com/Zeesastrous/ZeesHUD",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "#customizations//addons",
   "EnabledFolder": "#customizations//addons//_enabled",

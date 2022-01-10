@@ -70,7 +70,7 @@ namespace HUDEditor.Classes
                     Layout = sharedProperties.Layout,
                     Links = new Links
                     {
-                        Update = $"file://{sharedHud}\\{hudName}.zip"
+                        Download = new[] { new Download() { Source = "GitHub", Link = $"file://{sharedHud}\\{hudName}.zip" } }
                     },
                     Controls = sharedProperties.Controls
                 }, false));

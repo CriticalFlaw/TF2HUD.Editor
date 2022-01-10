@@ -188,6 +188,17 @@ namespace HUDEditor
                 else
                     LblStatus.Content = Properties.Resources.status_pathNotSet;
 
+                CbBranch.Items.Clear();
+                foreach (var source in hud.Download)
+                {
+                    CbBranch.Items.Add(new ComboBoxItem
+                    {
+                        Tag = source.Source,
+                        Content = source.Link
+                    });
+                }
+                CbBranch.SelectedIndex = 0;
+
                 Application.Current.MainWindow.WindowState = hud.Maximize ? WindowState.Maximized : WindowState.Normal;
                 Settings.Default.hud_selected = hud.Name;
                 Settings.Default.Save();
@@ -361,7 +372,7 @@ namespace HUDEditor
 
                 // Retrieve the HUD object, then download and extract it into the tf/custom directory.
                 Logger.Info($"Start installing {HudSelection}.");
-                await Json.SelectedHud.Update();
+                await Json.SelectedHud.Update(CbBranch.SelectedValue.ToString());
 
                 // Record the name of the HUD inside the downloaded folder.
                 var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";
@@ -485,6 +496,7 @@ namespace HUDEditor
         private void BtnSwitch_OnClick(object sender, RoutedEventArgs e)
         {
             Logger.Info("Changing page view to: main menu.");
+            CbBranch.Visibility = Visibility.Hidden;
             EditorContainer.Children.Clear();
             Json.HighlightedHud = null;
             Json.SelectedHud = null;
