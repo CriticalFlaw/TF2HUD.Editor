@@ -198,55 +198,46 @@ namespace HUDEditor.Classes
                 {
                     var consoleFolder = $"{folderPath}\\materials\\console";
                     var backgrounds = new[] { "2fort", "gravelpit", "mvm", "upward" };
-                    var backgroundIndex = 0;
-                    string backgroundUri = null;
 
-                    while (backgroundUri == null && backgroundIndex < backgrounds.Length)
+                    var backgroundSelection = backgrounds.FirstOrDefault(background => File.Exists($"{consoleFolder}\\background_{background}_widescreen.vtf"));
+                    if (backgroundSelection is null) return backgroundSelection;
+
+                    var inputPath = $"{consoleFolder}\\background_{backgroundSelection}_widescreen.vtf";
+
+                    MainWindow.Logger.Info($"[Json.Add] Found background file background_{backgroundSelection}_widescreen.vtf");
+                    var outputPathTga = $"{consoleFolder}\\output.tga";
+                    var outputPath = $"{hudDetailsFolder}\\output";
+
+                    string[] args =
                     {
-                        var inputPath = $"{consoleFolder}\\background_{backgrounds[backgroundIndex]}_widescreen.vtf";
+                        "-i",
+                        $"\"{inputPath}\"",
+                        "-o",
+                        $"\"{outputPathTga}\""
+                    };
+                    var processInfo = new ProcessStartInfo($"{MainWindow.HudPath.Replace("\\tf\\custom", string.Empty)}\\bin\\vtf2tga.exe")
+                    {
+                        Arguments = string.Join(" ", args),
+                        RedirectStandardOutput = true
+                    };
+                    var process = Process.Start(processInfo);
+                    while (!process.StandardOutput.EndOfStream)
+                        MainWindow.Logger.Info($"[VTF2TGA] {process.StandardOutput.ReadLine()}");
+                    process.WaitForExit();
+                    process.Close();
 
-                        if (File.Exists(inputPath))
-                        {
-                            MainWindow.Logger.Info($"[Json.Add] Found background file background_{backgrounds[backgroundIndex]}_widescreen.vtf");
-                            var outputPathTga = $"{consoleFolder}\\output.tga";
-                            var outputPath = $"{hudDetailsFolder}\\output";
+                    File.Move(outputPathTga, $"{outputPath}.tga", true);
 
-                            string[] args =
-                            {
-                                "-i",
-                                $"\"{inputPath}\"",
-                                "-o",
-                                $"\"{outputPathTga}\""
-                            };
-                            var processInfo = new ProcessStartInfo($"{MainWindow.HudPath.Replace("\\tf\\custom", string.Empty)}\\bin\\vtf2tga.exe")
-                            {
-                                Arguments = string.Join(" ", args),
-                                RedirectStandardOutput = true
-                            };
-                            var process = Process.Start(processInfo);
-                            while (!process.StandardOutput.EndOfStream)
-                                MainWindow.Logger.Info($"[VTF2TGA] {process.StandardOutput.ReadLine()}");
-                            process.WaitForExit();
-                            process.Close();
+                    var tga = new TGA($"{outputPath}.tga");
+                    var rectImage = new Bitmap(
+                        (int) SystemParameters.PrimaryScreenWidth,
+                        (int) SystemParameters.PrimaryScreenHeight
+                    );
+                    var graphics = Graphics.FromImage(rectImage);
+                    graphics.DrawImage((Image) tga, 0, 0, rectImage.Width, rectImage.Height);
+                    rectImage.Save($"{outputPath}.png");
 
-                            File.Move(outputPathTga, $"{outputPath}.tga", true);
-
-                            var tga = new TGA($"{outputPath}.tga");
-                            var rectImage = new Bitmap(
-                                (int)SystemParameters.PrimaryScreenWidth,
-                                (int)SystemParameters.PrimaryScreenHeight
-                            );
-                            var graphics = Graphics.FromImage(rectImage);
-                            graphics.DrawImage((Image)tga, 0, 0, rectImage.Width, rectImage.Height);
-                            rectImage.Save($"{outputPath}.png");
-
-                            backgroundUri = $"file://{outputPath}.png";
-                        }
-
-                        backgroundIndex++;
-                    }
-
-                    return backgroundUri;
+                    return $"file://{outputPath}.png";
                 }).Result,
                 Links = new Links
                 {
