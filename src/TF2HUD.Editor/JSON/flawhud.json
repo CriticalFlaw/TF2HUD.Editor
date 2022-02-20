@@ -551,26 +551,20 @@
           "resource/ui/basechat.res": {
             "HudChat": {
               "ypos": {
-                "true": "r185",
-                "false": "25"
+                "true": "r175",
+                "false": "15"
               }
             }
           },
           "scripts/hudlayout.res": {
             "HudAchievementTracker": {
               "NormalY": {
-                "true": "25",
+                "true": "15",
                 "false": "330"
               },
               "EngineerY": {
-                "true": "25",
-                "false": "330"
-              }
-            },
-            "BuildingStatusAnchor": {
-              "ypos": {
-                "true": "c-130",
-                "false": "c-100"
+                "true": "15",
+                "false": "310"
               }
             }
           }
@@ -779,9 +773,8 @@
                 "HudDemomanPipes": {
                   "ypos": "0"
                 },
-                "HudAchievementTracker": {
-                  "NormalY": "330",
-                  "EngineerY": "330"
+                "HudMannVsMachineStatus": {
+                  "ypos": "0"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -840,7 +833,7 @@
                   "enabled": "0"
                 },
                 "ItemEffectMeterCount": {
-                  "xpos": "25"
+                  "xpos": "20"
                 },
                 "StreakIcon": {
                   "visible": "1",
@@ -903,8 +896,8 @@
                   "ypos": "60"
                 },
                 "CHudAccountPanel": {
-                  "xpos": "0",
-                  "ypos": "c95"
+                  "xpos": "r110",
+                  "ypos": "r73"
                 },
                 "CHealthAccountPanel": {
                   "xpos": "73",
@@ -926,9 +919,8 @@
                 "HudDemomanPipes": {
                   "ypos": "50"
                 },
-                "HudAchievementTracker": {
-                  "NormalY": "300",
-                  "EngineerY": "300"
+                "HudMannVsMachineStatus": {
+                  "ypos": "35"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1372,7 +1364,7 @@
         "Label": "Loadout Style",
         "Type": "ComboBox",
         "ToolTip": "Switch between different Loadout screen layouts.",
-        "Width": 200, 
+        "Width": 200,
         "Value": "1",
         "Restart": true,
         "Options": [
