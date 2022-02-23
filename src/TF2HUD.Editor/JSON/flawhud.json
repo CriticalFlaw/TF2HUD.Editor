@@ -716,6 +716,9 @@
                     "angles_y": "200",
                     "origin_y": "0"
                   }
+                },
+                "CarryingWeapon": {
+                  "xpos": "100"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -862,6 +865,9 @@
                     "angles_y": "180",
                     "origin_y": "-10"
                   }
+                },
+                "CarryingWeapon": {
+                  "xpos": "200"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
