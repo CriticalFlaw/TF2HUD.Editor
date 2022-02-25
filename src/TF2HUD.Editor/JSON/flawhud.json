@@ -560,7 +560,7 @@
             "HudAchievementTracker": {
               "NormalY": {
                 "true": "15",
-                "false": "330"
+                "false": "300"
               },
               "EngineerY": {
                 "true": "15",
@@ -728,6 +728,9 @@
                 }
               },
               "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c110"
+                },
                 "ItemEffectMeter": {
                   "wide": "60"
                 },
@@ -877,6 +880,9 @@
                 }
               },
               "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r75"
+                },
                 "ItemEffectMeter": {
                   "wide": "55"
                 },
