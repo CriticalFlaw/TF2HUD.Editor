@@ -74,7 +74,7 @@ namespace HUDEditor.Classes
 
                                     if (hudContainer.Key is not null)
                                     {
-                                        Utilities.Merge(obj, new Dictionary<string, dynamic>(new[] { hudContainer }));
+                                        Utilities.Merge(obj, new Dictionary<string, dynamic>() { [hudContainer.Key] = folder[property] });
                                         File.WriteAllText(filePath, VDF.Stringify(obj));
                                     }
                                     else
