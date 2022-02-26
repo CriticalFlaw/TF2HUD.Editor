@@ -151,7 +151,7 @@
     <value>As seguintes alterações requerem que o jogo seja reiniciado:</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
-    <value>Não foi possível continuar porque o Team Fortress 2 está sendo executado. Feche o jogo e tente novamente.</value>
+    <value>Não foi possível prosseguir porque o Team Fortress 2 está sendo executado. Feche o jogo e tente novamente.</value>
   </data>
   <data name="info_hud_backup" xml:space="preserve">
     <value>Uma instalação existente da {0} foi encontrada. Para evitar conflitos, um backup foi criado.</value>
