@@ -325,20 +325,6 @@
     ],
     "Crosshair": [
       {
-        "Name": "xhair_style",
-        "Label": "Style",
-        "ToolTip": "Style of crosshair.",
-        "Type": "Crosshair",
-        "Value": "a",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "KnucklesCrosses": {
-              "labelText": "$value"
-            }
-          }
-        }
-      },
-      {
         "Name": "color_xhair_normal",
         "Label": "Crosshair",
         "Type": "ColorPicker",
