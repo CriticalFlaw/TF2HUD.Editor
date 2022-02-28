@@ -76,6 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="JSON\ahud.json" />
     <Content Remove="Resources\banner.png" />
     <Content Remove="Resources\favicon.ico" />
     <Content Remove="Resources\logo.png" />
@@ -119,6 +120,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="JSON\ahud.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="JSON\Shared\controls.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
