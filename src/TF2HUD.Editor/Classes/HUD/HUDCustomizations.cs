@@ -51,7 +51,7 @@ namespace HUDEditor.Classes
                         {
                             if (property.Contains("."))
                             {
-                                var filePath = folderPath + "\\" + property;
+                                var filePath = $"{folderPath}\\{property}";
                                 if (!Directory.Exists(Path.GetDirectoryName(filePath)))
                                     Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
@@ -67,27 +67,14 @@ namespace HUDEditor.Classes
                                     var obj = VDF.Parse(File.ReadAllText(filePath));
 
                                     // Initialize to null to check whether matching element has been found
-                                    Dictionary<string, dynamic> hudContainer = null;
                                     const string pattern = "(Resource/UI/)*.res";
 
-                                    int preventInfinite = 0, len = obj.Keys.Count;
-                                    while (hudContainer is null && preventInfinite < len)
+                                    KeyValuePair<string, dynamic> hudContainer = obj.FirstOrDefault(kv => Regex.IsMatch(kv.Key, pattern) &&
+                                        kv.Value.GetType() == typeof(Dictionary<string, dynamic>));
+
+                                    if (hudContainer.Key is not null)
                                     {
-                                        var key = obj.Keys.ElementAt(preventInfinite);
-
-                                        // Match pattern here, also ensure item is a HUD element
-                                        if (Regex.IsMatch(key, pattern) &&
-                                            obj[key].GetType() == typeof(Dictionary<string, dynamic>))
-                                            // Initialise hudContainer and create inner Dictionary
-                                            //  to contain elements specified
-                                            hudContainer = new Dictionary<string, dynamic> {[key] = folder[property]};
-
-                                        preventInfinite++;
-                                    }
-
-                                    if (hudContainer is not null)
-                                    {
-                                        Utilities.Merge(obj, hudContainer);
+                                        Utilities.Merge(obj, new Dictionary<string, dynamic>() { [hudContainer.Key] = folder[property] });
                                         File.WriteAllText(filePath, VDF.Stringify(obj));
                                     }
                                     else

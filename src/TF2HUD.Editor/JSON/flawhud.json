@@ -561,26 +561,20 @@
           "resource/ui/basechat.res": {
             "HudChat": {
               "ypos": {
-                "true": "r185",
-                "false": "25"
+                "true": "r175",
+                "false": "15"
               }
             }
           },
           "scripts/hudlayout.res": {
             "HudAchievementTracker": {
               "NormalY": {
-                "true": "25",
-                "false": "330"
+                "true": "15",
+                "false": "310"
               },
               "EngineerY": {
-                "true": "25",
-                "false": "330"
-              }
-            },
-            "BuildingStatusAnchor": {
-              "ypos": {
-                "true": "c-130",
-                "false": "c-100"
+                "true": "15",
+                "false": "310"
               }
             }
           }
@@ -732,6 +726,9 @@
                     "angles_y": "200",
                     "origin_y": "0"
                   }
+                },
+                "CarryingWeapon": {
+                  "xpos": "100"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -741,6 +738,9 @@
                 }
               },
               "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c110"
+                },
                 "ItemEffectMeter": {
                   "wide": "60"
                 },
@@ -789,9 +789,8 @@
                 "HudDemomanPipes": {
                   "ypos": "0"
                 },
-                "HudAchievementTracker": {
-                  "NormalY": "330",
-                  "EngineerY": "330"
+                "HudMannVsMachineStatus": {
+                  "ypos": "0"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -850,7 +849,7 @@
                   "enabled": "0"
                 },
                 "ItemEffectMeterCount": {
-                  "xpos": "25"
+                  "xpos": "20"
                 },
                 "StreakIcon": {
                   "visible": "1",
@@ -879,6 +878,9 @@
                     "angles_y": "180",
                     "origin_y": "-10"
                   }
+                },
+                "CarryingWeapon": {
+                  "xpos": "200"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -888,6 +890,9 @@
                 }
               },
               "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r75"
+                },
                 "ItemEffectMeter": {
                   "wide": "55"
                 },
@@ -913,8 +918,8 @@
                   "ypos": "60"
                 },
                 "CHudAccountPanel": {
-                  "xpos": "0",
-                  "ypos": "c95"
+                  "xpos": "r110",
+                  "ypos": "r73"
                 },
                 "CHealthAccountPanel": {
                   "xpos": "73",
@@ -936,9 +941,8 @@
                 "HudDemomanPipes": {
                   "ypos": "50"
                 },
-                "HudAchievementTracker": {
-                  "NormalY": "300",
-                  "EngineerY": "300"
+                "HudMannVsMachineStatus": {
+                  "ypos": "35"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1382,8 +1386,8 @@
         "Label": "Loadout Style",
         "Type": "ComboBox",
         "ToolTip": "Switch between different Loadout screen layouts.",
-        "Width": 200, 
-        "Value": "2",
+        "Width": 200,
+        "Value": "1",
         "Restart": true,
         "Options": [
           {
@@ -1532,8 +1536,8 @@
             "Files": {
               "resource/ui/classloadoutpanel.res": {
                 "class_loadout_panel": {
-                  "item_xpos_offcenter_a": "-220",
-                  "item_xpos_offcenter_b": "-380",
+                  "item_xpos_offcenter_a": "-380",
+                  "item_xpos_offcenter_b": "-220",
                   "modelpanels_kv": {
                     "wide": "140",
                     "inset_eq_y": "0"
