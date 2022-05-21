@@ -475,6 +475,15 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TF2 HUD Editor.
+        /// </summary>
+        public static string ui_title {
+            get {
+                return ResourceManager.GetString("ui_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uninstall.
         /// </summary>
         public static string ui_uninstall {
