@@ -1275,7 +1275,7 @@
             "CasualEntry": {
               "xpos": {
                 "true": "0",
-                "false": "r165"
+                "false": "5"
               },
               "tall": {
                 "true": "75",
@@ -1288,6 +1288,14 @@
               "proportionaltoparent": {
                 "true": "1",
                 "false": "0"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_TOPRIGHT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_BOTTOMLEFT",
+                "false": "PIN_TOPLEFT"
               }
             },
             "CompetitiveEntry": {
@@ -1345,7 +1353,7 @@
             "ServerBrowserEntry": {
               "xpos": {
                 "true": "0",
-                "false": "5"
+                "false": "r165",
               },
               "tall": {
                 "true": "75",
@@ -1358,14 +1366,6 @@
               "proportionaltoparent": {
                 "true": "1",
                 "false": "0"
-              },
-              "pin_corner_to_sibling": {
-                "true": "PIN_TOPLEFT",
-                "false": "PIN_TOPRIGHT"
-              },
-              "pin_to_sibling_corner": {
-                "true": "PIN_BOTTOMLEFT",
-                "false": "PIN_TOPLEFT"
               }
             }
           }
