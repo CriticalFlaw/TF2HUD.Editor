@@ -50,6 +50,7 @@
                                  ToolBar.OverflowMode="Always" />
                     <Button Content="{lex:Loc ui_directory}" Click="BtnSetDirectory_OnClick" ToolBar.OverflowMode="Always" />
                     <ToggleButton x:Name="BtnAutoUpdate" Content="{lex:Loc ui_check_updates}" Click="BtnAutoUpdate_OnClick" ToolBar.OverflowMode="Always" />
+                    <ToggleButton x:Name="BtnPersistXhair" Content="{lex:Loc ui_persist_xhair}" Click="BtnPersistXhair_Click"  ToolBar.OverflowMode="Always" />
                 </ToolBar>
             </Grid>
         </ToolBarPanel>

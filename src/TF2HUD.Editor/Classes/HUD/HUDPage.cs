@@ -511,6 +511,8 @@ namespace HUDEditor.Classes
                             var xhairValue = Settings.GetSetting<string>(id);
                             if (!Regex.IsMatch(xhairValue, "\\D"))
                                 xhairInput.SelectedIndex = int.Parse(xhairValue);
+                            else if (Properties.Settings.Default.app_xhair_persist)
+                                xhairInput.SelectedIndex = Properties.Settings.Default.app_xhair_style;
                             else
                                 xhairInput.SelectedValue = xhairValue;
 

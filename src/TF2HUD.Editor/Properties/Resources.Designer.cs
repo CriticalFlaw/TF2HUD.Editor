@@ -421,6 +421,15 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remember crosshair selection.
+        /// </summary>
+        public static string ui_persist_xhair {
+            get {
+                return ResourceManager.GetString("ui_persist_xhair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check for Updates.
         /// </summary>
         public static string ui_refresh {

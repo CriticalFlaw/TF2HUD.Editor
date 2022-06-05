@@ -237,6 +237,9 @@
   <data name="ui_options" xml:space="preserve">
     <value>Options</value>
   </data>
+  <data name="ui_persist_xhair" xml:space="preserve">
+    <value>Remember crosshair selection</value>
+  </data>
   <data name="ui_refresh" xml:space="preserve">
     <value>Check for Updates</value>
   </data>

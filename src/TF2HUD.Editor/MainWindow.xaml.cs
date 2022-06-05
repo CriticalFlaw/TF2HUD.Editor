@@ -62,6 +62,9 @@ namespace HUDEditor
             if (BtnAutoUpdate.IsChecked == true)
                 CheckSchemaUpdates();
 
+            // Check for persistent crosshair.
+            BtnPersistXhair.IsChecked = Settings.Default.app_xhair_persist;
+
             Logger.Info("Checking for app updates.");
             AutoUpdater.Start(Settings.Default.app_update);
         }
@@ -595,5 +598,11 @@ namespace HUDEditor
         }
 
         #endregion
+
+        private void BtnPersistXhair_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.app_xhair_persist = BtnPersistXhair.IsChecked ?? true;
+            Settings.Default.Save();
+        }
     }
 }
