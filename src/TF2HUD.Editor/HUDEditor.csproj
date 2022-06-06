@@ -33,6 +33,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="JSON\berryhud.json" />
     <None Remove="JSON\budhud.json" />
     <None Remove="JSON\default.json" />
     <None Remove="JSON\flawhud.json" />
