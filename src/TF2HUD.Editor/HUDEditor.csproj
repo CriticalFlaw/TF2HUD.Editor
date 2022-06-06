@@ -57,11 +57,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.2.0" />
-    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.7.2" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
+    <PackageReference Include="log4net" Version="2.0.14" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="WPFLocalizeExtension" Version="3.9.1" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
 
   <ItemGroup>
