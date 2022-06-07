@@ -228,17 +228,18 @@ namespace HUDEditor
         {
             try
             {
-                EditorContainer.Children.Clear();
+                EditorGrid.Children.Clear();
 
                 // If there's a HUD selection, generate the controls for that HUD's page.
                 if (selection is null) return;
 
                 Logger.Info($"Changing page view to: {selection.Name}.");
-                EditorContainer.Children.Add(selection.GetControls());
+                EditorGrid.Children.Add(selection.GetControls());
+                EditorContainer.Visibility = Visibility.Visible;
                 selection.PresetChanged += (_, _) =>
                 {
-                    EditorContainer.Children.Clear();
-                    EditorContainer.Children.Add(selection.GetControls());
+                    EditorGrid.Children.Clear();
+                    EditorGrid.Children.Add(selection.GetControls());
                 };
             }
             catch (Exception e)
@@ -485,7 +486,8 @@ namespace HUDEditor
         private void BtnSwitch_OnClick(object sender, RoutedEventArgs e)
         {
             Logger.Info("Changing page view to: main menu.");
-            EditorContainer.Children.Clear();
+            EditorGrid.Children.Clear();
+            EditorContainer.Visibility = Visibility.Hidden;
             Json.HighlightedHud = null;
             Json.SelectedHud = null;
         }
@@ -581,7 +583,7 @@ namespace HUDEditor
         private void BtnCustomize_OnClick(object sender, RoutedEventArgs e)
         {
             if (Json.HighlightedHud is null) return;
-            EditorContainer.Children.Clear();
+            EditorGrid.Children.Clear();
             Json.SelectedHud = Json.HighlightedHud;
             Settings.Default.hud_selected = Json.SelectedHud.Name;
             Settings.Default.Save();

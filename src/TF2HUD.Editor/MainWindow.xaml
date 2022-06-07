@@ -164,7 +164,9 @@
             </Grid>
         </GroupBox>
         <!-- Editor Controls -->
-        <Grid x:Name="EditorContainer" Grid.Row="0" />
+        <ScrollViewer x:Name="EditorContainer" Grid.Row="0" Visibility="Hidden" >
+            <Grid x:Name="EditorGrid" />
+        </ScrollViewer>
         <!-- Bottom Button Tray -->
         <GroupBox
             Header="{lex:Loc ui_options}"
