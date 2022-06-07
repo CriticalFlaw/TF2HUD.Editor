@@ -241,11 +241,11 @@ namespace HUDEditor.Classes
                 }).Result,
                 Links = new Links
                 {
-                    Update = Task.Run(() =>
+                    Download = Task.Run(() =>
                     {
                         var zipPath = $"{hudDetailsFolder}\\{hudName}.zip";
                         ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
-                        return $"file://{zipPath}";
+                        return new[] { new Download() { Source = "GitHub", Link = $"file://{zipPath}" } };
                     }).Result
                 }
             };

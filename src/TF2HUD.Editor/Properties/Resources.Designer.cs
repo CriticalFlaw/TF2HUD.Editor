@@ -331,7 +331,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply.
+        ///   Looks up a localized string similar to Apply Changes.
         /// </summary>
         public static string ui_apply {
             get {
@@ -439,7 +439,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset.
+        ///   Looks up a localized string similar to Reset to Default.
         /// </summary>
         public static string ui_reset {
             get {

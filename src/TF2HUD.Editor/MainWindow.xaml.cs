@@ -193,11 +193,12 @@ namespace HUDEditor
                 {
                     CbBranch.Items.Add(new ComboBoxItem
                     {
-                        Tag = source.Source,
-                        Content = source.Link
+                        Tag = source.Link,
+                        Content = source.Source
                     });
                 }
                 CbBranch.SelectedIndex = 0;
+                CbBranch.Visibility = CbBranch.Items.Count > 1 ? Visibility.Visible : Visibility.Hidden;
 
                 Application.Current.MainWindow.WindowState = hud.Maximize ? WindowState.Maximized : WindowState.Normal;
                 Settings.Default.hud_selected = hud.Name;
@@ -344,7 +345,10 @@ namespace HUDEditor
         {
             try
             {
-                // Prevent switching HUD while installing to ensure that HighlightedHUD is the same as SelectedHUD at worker.RunWorkerCompleted
+                // Remember the selected download source, otherwise gets reset when SelectedHud is set.
+                var download = (ComboBoxItem)CbBranch.SelectedItem;
+
+                // Prevent switching HUD while installing to ensure that HighlightedHUD is the same as SelectedHUD at worker.
                 BtnSwitch.IsEnabled = false;
                 Json.SelectedHud = Json.HighlightedHud;
                 Settings.Default.hud_selected = HudSelection = Json.SelectedHud.Name;
@@ -372,7 +376,10 @@ namespace HUDEditor
 
                 // Retrieve the HUD object, then download and extract it into the tf/custom directory.
                 Logger.Info($"Start installing {HudSelection}.");
-                await Json.SelectedHud.Update(CbBranch.SelectedValue.ToString());
+                await Json.SelectedHud.Update(download.Tag.ToString());
+
+                // Set back the download source to what it is supposed to be.
+                CbBranch.SelectedItem = download;
 
                 // Record the name of the HUD inside the downloaded folder.
                 var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";

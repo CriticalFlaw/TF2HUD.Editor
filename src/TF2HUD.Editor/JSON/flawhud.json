@@ -23,12 +23,8 @@
     "Discord": "https://discord.gg/hTdtK9vBhE",
     "Download": [
       {
-        "Source": "GitHub-Master",
+        "Source": "GitHub",
         "Link": "https://github.com/CriticalFlaw/flawhud/archive/master.zip"
-      },
-      {
-        "Source": "GitHub-Flaw",
-        "Link": "https://github.com/CriticalFlaw/flawhud/archive/flaw.zip"
       }
     ]
   },

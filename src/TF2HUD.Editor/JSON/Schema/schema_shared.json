@@ -23,9 +23,24 @@
             "type": "object",
             "items": {
               "properties": {
-                "Update": {
-                  "type": "string",
-                  "pattern": "^https?:\/\/.*$"
+                "Download": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "Source": {
+                        "type": "string"
+                      },
+                      "Link": {
+                        "type": "string",
+                        "pattern": "^https?:\/\/.*$"
+                      }
+                    },
+                    "required": [
+                      "Source",
+                      "Link"
+                    ]
+                  }
                 },
                 "GitHub": {
                   "type": "string",

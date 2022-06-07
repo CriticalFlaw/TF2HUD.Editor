@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="error_app_directory" xml:space="preserve">
     <value>A tf/custom directory must be set in order to use this editor.</value>
@@ -208,7 +208,7 @@
     <value>Report an Issue.</value>
   </data>
   <data name="ui_apply" xml:space="preserve">
-    <value>Apply</value>
+    <value>Apply Changes</value>
   </data>
   <data name="ui_author" xml:space="preserve">
     <value>Created by: {0}</value>
@@ -244,7 +244,7 @@
     <value>Reinstall</value>
   </data>
   <data name="ui_reset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Reset to Default</value>
   </data>
   <data name="ui_search" xml:space="preserve">
     <value>Search:</value>

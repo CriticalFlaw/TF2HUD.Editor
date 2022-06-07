@@ -4,9 +4,15 @@
   "Description": "A custom HUD for Team Fortress 2. Inspired from various HUDs, including, but not limited to, rayshud, yahud, and omphud.",
   "Thumbnail": "https://huds.tf/site/xthreads_attach.php/35_1605074316_8287ffb1/b0305f84d3a470e4a31d0d4863fcc94b/ahud.png",
   "Links": {
-    "Update": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip",
+    "Update": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip", // TODO: Remove
     "GitHub": "https://github.com/n0kk/ahud",
-    "HudsTF": "https://huds.tf/site/s-ahud"
+    "HudsTF": "https://huds.tf/site/s-ahud",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip"
+      }
+    ]
   },
   "Screenshots": [
     "https://huds.tf/site/xthreads_attach.php/2612_1605074316_9ec56435/2899c0edb205aaaf22432bd7ea3d3944/Kx70I3P.jpg",
@@ -33,7 +39,7 @@
         "Label": "Chat To Top Left",
         "Type": "Checkbox",
         "ToolTip": "Move the in game chat to the top left of the screen",
-        "Value": false,
+        "Value": "false",
         "Restart": false,
         "Files": {
           "resource/ui/basechat.res": {
