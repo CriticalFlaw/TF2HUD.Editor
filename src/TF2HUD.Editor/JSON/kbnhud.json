@@ -29,11 +29,17 @@
   //10-Spy & Engie Color Options
   //Refer to screenshot of this HUD's options for more visual aid, this file is meant to be a guide for newcomers as well as a working piece of code.
   "Links": {
-    "Update": "https://github.com/Jotunn/kbnhud/archive/master.zip",
+    "Update": "https://github.com/Jotunn/kbnhud/archive/master.zip", // TODO: Remove
     "GitHub": "https://github.com/Jotunn/kbnhud",
     "HudsTF": "https://huds.tf/site/s-KBNHud",
     "Steam": "https://steamcommunity.com/groups/KBNHud",
-    "Discord": "https://discord.gg/NhnSysw"
+    "Discord": "https://discord.gg/NhnSysw",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/Jotunn/kbnhud/archive/master.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "^customizations",
   "EnabledFolder": "^customizations//#enabled",

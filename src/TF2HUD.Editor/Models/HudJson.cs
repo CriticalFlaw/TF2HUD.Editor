@@ -28,7 +28,7 @@ namespace HUDEditor.Models
         [JsonPropertyName("GitHub")] public string GitHub;
         [JsonPropertyName("HudsTF")] public string HudsTf;
         [JsonPropertyName("Steam")] public string Steam;
-        [JsonPropertyName("Update")] public string Update;
+        [JsonPropertyName("Download")] public Download[] Download;
     }
 
     public class Controls
@@ -54,6 +54,12 @@ namespace HUDEditor.Models
         [JsonPropertyName("Type")] public string Type;
         [JsonPropertyName("Value")] public string Value = "0";
         [JsonPropertyName("Width")] public int Width;
+    }
+
+    public class Download
+    {
+        public string Source { get; set; }
+        public string Link { get; set; }
     }
 
     public class RenameFile

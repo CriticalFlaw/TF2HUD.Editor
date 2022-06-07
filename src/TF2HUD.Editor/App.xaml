@@ -130,11 +130,11 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontFamily" Value="../Resources/TF2Build.ttf #TF2 Build" />
-            <Setter Property="FontSize" Value="14px" />
+            <Setter Property="FontSize" Value="16px" />
             <Setter Property="Foreground" Value="#EBE2CA" />
             <Setter Property="Background" Value="#776B5F" />
             <Setter Property="Margin" Value="5" />
-            <Setter Property="Width" Value="160" />
+            <Setter Property="Width" Value="235" />
             <Setter Property="Height" Value="40" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -159,7 +159,7 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontFamily" Value="../Resources/TF2Icons.ttf #TF2Icons" />
-            <Setter Property="Width" Value="50px" />
+            <Setter Property="Width" Value="72px" />
             <Setter Property="FontSize" Value="33px" />
             <Setter Property="Foreground" Value="#FFFFFF" />
             <Setter Property="Background" Value="#776B5F" />

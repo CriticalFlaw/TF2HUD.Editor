@@ -9,9 +9,15 @@
     "0 0 1 1"
   ],
   "Links": {
-    "Update": "https://github.com/CriticalFlaw/TF2HUD.Fixes/archive/refs/heads/community.zip",
+    "Update": "https://github.com/CriticalFlaw/TF2HUD.Fixes/archive/refs/heads/community.zip", // TODO: Remove
     "GitHub": "https://github.com/CriticalFlaw/TF2HUD.Fixes",
-    "Discord": "https://discord.gg/hTdtK9vBhE"
+    "Discord": "https://discord.gg/hTdtK9vBhE",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/CriticalFlaw/TF2HUD.Fixes/archive/refs/heads/community.zip"
+      }
+    ]
   },
   "Controls": {
     "Item Quality": [
