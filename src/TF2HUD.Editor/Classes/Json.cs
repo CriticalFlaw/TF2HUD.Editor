@@ -70,7 +70,7 @@ namespace HUDEditor.Classes
                     Layout = sharedProperties.Layout,
                     Links = new Links
                     {
-                        Update = $"file://{sharedHud}\\{hudName}.zip"
+                        Download = new[] { new Download() { Source = "GitHub", Link = $"file://{sharedHud}\\{hudName}.zip" } }
                     },
                     Controls = sharedProperties.Controls
                 }, false));
@@ -241,11 +241,11 @@ namespace HUDEditor.Classes
                 }).Result,
                 Links = new Links
                 {
-                    Update = Task.Run(() =>
+                    Download = Task.Run(() =>
                     {
                         var zipPath = $"{hudDetailsFolder}\\{hudName}.zip";
                         ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
-                        return $"file://{zipPath}";
+                        return new[] { new Download() { Source = "GitHub", Link = $"file://{zipPath}" } };
                     }).Result
                 }
             };

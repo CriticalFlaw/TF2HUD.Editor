@@ -36,7 +36,7 @@ namespace HUDEditor.Classes
             Author = schema.Author;
             CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
             EnabledFolder = schema.EnabledFolder ?? string.Empty;
-            UpdateUrl = schema.Links.Update ?? string.Empty;
+            Download = schema.Links.Download;
             GitHubUrl = schema.Links.GitHub ?? string.Empty;
             HudsTfUrl = schema.Links.HudsTf ?? string.Empty;
             SteamUrl = schema.Links.Steam ?? string.Empty;
@@ -65,9 +65,9 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Call to download the HUD if a URL has been provided.
         /// </summary>
-        public async Task Update()
+        public async Task Update(string path)
         {
-            await Utilities.DownloadFile(UpdateUrl, "temp.zip");
+            await Utilities.DownloadFile(path, "temp.zip");
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace HUDEditor.Classes
         public string Author { get; set; }
         public string CustomizationsFolder { get; set; }
         public string EnabledFolder { get; set; }
-        public string UpdateUrl { get; set; }
+        public Download[] Download;
         public string GitHubUrl { get; set; }
         public string HudsTfUrl { get; set; }
         public string SteamUrl { get; set; }

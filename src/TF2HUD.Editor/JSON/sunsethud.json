@@ -16,9 +16,15 @@
     "3 4 4"
   ],
   "Links": {
-    "Update": "https://github.com/Hypnootize/Sunset-Hud/archive/refs/heads/dark.zip",
+    "Update": "https://github.com/Hypnootize/Sunset-Hud/archive/refs/heads/dark.zip", // TODO: Remove
     "GitHub": "https://github.com/Hypnootize/Sunset-Hud",
-    "HudsTF": "https://huds.tf/site/s-Sunset-Hud"
+    "HudsTF": "https://huds.tf/site/s-Sunset-Hud",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/Hypnootize/Sunset-Hud/archive/refs/heads/dark.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "customizations",
   "EnabledFolder": "customizations",

@@ -228,6 +228,7 @@
                     Click="BtnSteam_OnClick"
                     Style="{StaticResource SteamButton}"
                     IsEnabled="{Binding Json.HighlightedHud.SteamUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                <ComboBox x:Name="CbBranch" Margin="5,5,5,0" Padding="5" Height="35" Visibility="{Binding Json.HighlightedHUD.Download, Converter={StaticResource NullCheckConverterVisibility}}" />
             </WrapPanel>
         </GroupBox>
     </Grid>

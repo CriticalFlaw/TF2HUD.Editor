@@ -16,9 +16,15 @@
     "3 4 4"
   ],
   "Links": {
-    "Update": "https://github.com/Hypnootize/hypnotize-hud/archive/refs/heads/master.zip",
+    "Update": "https://github.com/Hypnootize/hypnotize-hud/archive/refs/heads/master.zip", // TODO: Remove
     "GitHub": "https://github.com/Hypnootize/hypnotize-hud",
-    "HudsTF": "https://huds.tf/site/s-Hypnotize-Hud"
+    "HudsTF": "https://huds.tf/site/s-Hypnotize-Hud",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/Hypnootize/hypnotize-hud/archive/refs/heads/master.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "customizations",
   "EnabledFolder": "customizations",
