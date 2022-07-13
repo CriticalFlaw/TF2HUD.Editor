@@ -32,27 +32,6 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <ToolBarPanel Grid.Row="0" Visibility="{Binding Json.SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}">
-            <Grid>
-                <!-- HUD Status -->
-                <Label x:Name="LblStatus" Content="..." Height="35" VerticalContentAlignment="Center" Margin="10" />
-                <ToolBar Background="Transparent" ToolBarTray.IsLocked="True" Foreground="White"
-                         HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-                    <!--<Button Content="{lex:Loc ui_options}" Foreground="White" Margin="5,0,5,0"/>-->
-                    <Button Content="{lex:Loc ui_refresh}" Foreground="White" Margin="5,0,5,0"
-                            Click="BtnRefresh_OnClick" />
-                    <!-- Localization -->
-                    <RadioButton x:Name="BtnLocalizeEn" Content="English" Checked="BtnLocalize_OnClick"
-                                 ToolBar.OverflowMode="Always" />
-                    <RadioButton x:Name="BtnLocalizeFr" Content="French" Checked="BtnLocalize_OnClick"
-                                 ToolBar.OverflowMode="Always" />
-                    <RadioButton x:Name="BtnLocalizeRu" Content="Russian" Checked="BtnLocalize_OnClick"
-                                 ToolBar.OverflowMode="Always" />
-                    <Button Content="{lex:Loc ui_directory}" Click="BtnSetDirectory_OnClick" ToolBar.OverflowMode="Always" />
-                    <ToggleButton x:Name="BtnAutoUpdate" Content="{lex:Loc ui_check_updates}" Click="BtnAutoUpdate_OnClick" ToolBar.OverflowMode="Always" />
-                </ToolBar>
-            </Grid>
-        </ToolBarPanel>
         <GroupBox
             Header="{lex:Loc Key=ui_select}" Grid.Row="0"
             Visibility="{Binding Json.SelectedHud, Converter={StaticResource NotNullCheckConverterVisibility}}">
@@ -164,9 +143,30 @@
             </Grid>
         </GroupBox>
         <!-- Editor Controls -->
-        <ScrollViewer x:Name="EditorContainer" Grid.Row="0" Visibility="Hidden" >
+        <Grid x:Name="EditorContainer" >
+            <ToolBarPanel x:Name="EditorHeader" Grid.Row="0">
+                <Grid>
+                    <!-- HUD Status -->
+                    <Label x:Name="LblStatus" Content="..." Height="35" VerticalContentAlignment="Center" Margin="10" />
+                    <ToolBar Background="Transparent" ToolBarTray.IsLocked="True" Foreground="White"
+                         HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                        <!--<Button Content="{lex:Loc ui_options}" Foreground="White" Margin="5,0,5,0"/>-->
+                        <Button Content="{lex:Loc ui_refresh}" Foreground="White" Margin="5,0,5,0"
+                            Click="BtnRefresh_OnClick" />
+                        <!-- Localization -->
+                        <RadioButton x:Name="BtnLocalizeEn" Content="English" Checked="BtnLocalize_OnClick"
+                                 ToolBar.OverflowMode="Always" />
+                        <RadioButton x:Name="BtnLocalizeFr" Content="French" Checked="BtnLocalize_OnClick"
+                                 ToolBar.OverflowMode="Always" />
+                        <RadioButton x:Name="BtnLocalizeRu" Content="Russian" Checked="BtnLocalize_OnClick"
+                                 ToolBar.OverflowMode="Always" />
+                        <Button Content="{lex:Loc ui_directory}" Click="BtnSetDirectory_OnClick" ToolBar.OverflowMode="Always" />
+                        <ToggleButton x:Name="BtnAutoUpdate" Content="{lex:Loc ui_check_updates}" Click="BtnAutoUpdate_OnClick" ToolBar.OverflowMode="Always" />
+                    </ToolBar>
+                </Grid>
+            </ToolBarPanel>
             <Grid x:Name="EditorGrid" />
-        </ScrollViewer>
+        </Grid>
         <!-- Bottom Button Tray -->
         <GroupBox
             Header="{lex:Loc ui_options}"

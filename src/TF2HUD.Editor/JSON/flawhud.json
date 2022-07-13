@@ -639,6 +639,24 @@
         }
       },
       {
+        "Name": "fh_hide_friends_list",
+        "Label": "Hide Friends List",
+        "Type": "Checkbox",
+        "ToolTip": "Hide the friends list seen on the main menu.",
+        "Value": "false",
+        "Restart": true,
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "FriendsContainer": {
+              "visible": {
+                "true": "0",
+                "false": "1"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_val_hud_style",
         "Label": "HUD Style",
         "Type": "ComboBox",
@@ -1083,24 +1101,6 @@
           "scripts/hudlayout.res": {
             "HudDeathNotice": {
               "MaxDeathNotices": "$value"
-            }
-          }
-        }
-      },
-      {
-        "Name": "fh_hide_friends_list",
-        "Label": "Hide Friends List",
-        "Type": "Checkbox",
-        "ToolTip": "Hide the friends list seen on the main menu.",
-        "Value": "false",
-        "Restart": true,
-        "Files": {
-          "resource/ui/mainmenuoverride.res": {
-            "FriendsContainer": {
-              "visible": {
-                "true": "0",
-                "false": "1"
-              }
             }
           }
         }

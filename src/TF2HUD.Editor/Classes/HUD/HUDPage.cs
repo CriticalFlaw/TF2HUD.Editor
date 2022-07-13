@@ -764,7 +764,12 @@ namespace HUDEditor.Classes
                 groupBoxIndex++;
             }
 
-            container.Children.Add(sectionsContainer);
+            var scrollView = new ScrollViewer()
+            {
+                Content = sectionsContainer
+            };
+            Grid.SetRow(scrollView, 1);
+            container.Children.Add(scrollView);
             Controls.Children.Add(container);
 
             isRendered = true;

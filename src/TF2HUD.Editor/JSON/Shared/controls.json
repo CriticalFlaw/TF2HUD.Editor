@@ -32,22 +32,6 @@
         }
       },
       {
-        "Name": "val_killfeed_rows",
-        "Label": "Killfeed Rows",
-        "Type": "IntegerUpDown",
-        "ToolTip": "Change the number of rows seen on the killfeed.",
-        "Value": "5",
-        "Minimum": "0",
-        "Increment": "1",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "HudDeathNotice": {
-              "MaxDeathNotices": "$value"
-            }
-          }
-        }
-      },
-      {
         "Name": "hide_friends_list",
         "Label": "Hide Friends List",
         "Type": "Checkbox",
@@ -61,6 +45,22 @@
                 "true": "0",
                 "false": "1"
               }
+            }
+          }
+        }
+      },
+      {
+        "Name": "val_killfeed_rows",
+        "Label": "Killfeed Rows",
+        "Type": "IntegerUpDown",
+        "ToolTip": "Change the number of rows seen on the killfeed.",
+        "Value": "5",
+        "Minimum": "0",
+        "Increment": "1",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "HudDeathNotice": {
+              "MaxDeathNotices": "$value"
             }
           }
         }
