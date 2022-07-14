@@ -134,7 +134,7 @@
             <Setter Property="Foreground" Value="#EBE2CA" />
             <Setter Property="Background" Value="#776B5F" />
             <Setter Property="Margin" Value="5" />
-            <Setter Property="Width" Value="235" />
+            <Setter Property="Width" Value="170" />
             <Setter Property="Height" Value="40" />
             <Setter Property="Template">
                 <Setter.Value>
@@ -159,7 +159,8 @@
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="FontFamily" Value="../Resources/TF2Icons.ttf #TF2Icons" />
-            <Setter Property="Width" Value="72px" />
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="40" />
             <Setter Property="FontSize" Value="33px" />
             <Setter Property="Foreground" Value="#FFFFFF" />
             <Setter Property="Background" Value="#776B5F" />
@@ -188,6 +189,9 @@
 
         <Style x:Key="GitHubButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
             <Setter Property="Content" Value="Y" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="25" />
             <Setter Property="Background" Value="#171A21" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -199,6 +203,9 @@
         <Style x:Key="HudsButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
             <Setter Property="FontFamily" Value="../Resources/TF2Build.ttf #TF2 Build" />
             <Setter Property="Content" Value="H" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="25" />
             <Setter Property="Background" Value="#42A5F5" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -209,6 +216,9 @@
 
         <Style x:Key="DiscordButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
             <Setter Property="Content" Value="Z" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="25" />
             <Setter Property="Background" Value="#5865F2" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -219,6 +229,9 @@
 
         <Style x:Key="SteamButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
             <Setter Property="Content" Value="X" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="25" />
             <Setter Property="Background" Value="#1B2838" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
