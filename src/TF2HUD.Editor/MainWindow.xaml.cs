@@ -520,7 +520,7 @@ namespace HUDEditor
         /// <summary>
         ///     Add a HUD from folder to the shared HUDs list.
         /// </summary>
-        private void BtnAddSharedHUD_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnAddSharedHUD_OnClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -532,7 +532,7 @@ namespace HUDEditor
                 };
                 if (browser.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
 
-                AddHudToGridView(Json.Add(browser.SelectedPath));
+                AddHudToGridView(await Json.Add(browser.SelectedPath));
             }
             catch (Exception error)
             {

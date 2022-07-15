@@ -127,5 +127,14 @@ namespace HUDEditor.Properties {
                 this["app_update_auto"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/Hypnootize/TF2-HUD-Crosshairs/archive/refs/heads/master.zip")]
+        public string tf2_hud_crosshairs_zip {
+            get {
+                return ((string)(this["tf2_hud_crosshairs_zip"]));
+            }
+        }
     }
 }
