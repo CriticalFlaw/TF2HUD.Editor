@@ -101,7 +101,7 @@
                                    Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center" />
                         <TextBlock Text="{Binding Json.HighlightedHud.Description}"
                                    Style="{StaticResource BodyText}" FontSize="20" TextAlignment="Center"
-                                   Margin="0,15,0,0" Visibility="{Binding Json.HighlightedHUD.Description, Converter={StaticResource NullCheckConverterVisibility}}" />
+                                   Margin="0,15,0,0" Visibility="{Binding Json.HighlightedHud.Description, Converter={StaticResource NullCheckConverterVisibility}}" />
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
                         <ItemsControl ItemsSource="{Binding Json.HighlightedHud.Screenshots}">
                             <!-- Container -->
@@ -172,7 +172,7 @@
                         <Button Content="{lex:Loc ui_directory}" Click="BtnSetDirectory_OnClick" ToolBar.OverflowMode="Always" />
                         <Button Content="{lex:Loc ui_refresh}" Click="BtnRefresh_OnClick" ToolBar.OverflowMode="Always" />
                         <ToggleButton x:Name="BtnAutoUpdate" Content="{lex:Loc ui_check_updates}" Click="BtnAutoUpdate_OnClick" ToolBar.OverflowMode="Always" />
-                        <ComboBox x:Name="CbBranch" Margin="5,5,5,0" Padding="5" Height="35" Visibility="{Binding Json.HighlightedHUD.Download, Converter={StaticResource NullCheckConverterVisibility}}" ToolBar.OverflowMode="Always" />
+                        <ComboBox x:Name="CbBranch" Margin="5,5,5,0" Padding="5" Height="35" Visibility="{Binding Json.HighlightedHud.Download, Converter={StaticResource NullCheckConverterVisibility}}" ToolBar.OverflowMode="Always" />
                     </ToolBar>
                 </Grid>
             </ToolBarPanel>
