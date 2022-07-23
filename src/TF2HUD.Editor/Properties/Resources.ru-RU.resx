@@ -252,7 +252,7 @@
     <value>Перекл. интерф.</value>
   </data>
   <data name="ui_title" xml:space="preserve">
-    <value>Редактор интерф. TF2</value>
+    <value>Редактор интерфейса TF2</value>
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Удалить</value>
