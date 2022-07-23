@@ -76,18 +76,18 @@
                             <Run Foreground="#FFD700" Text="documentation" /><Run Text=" linked below." />
                         </TextBlock>
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-                        <Label Content="Version 2.4" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
+                        <Label Content="Version 2.5" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-                            <Run Text="- Fixed the app being falsely flagged as a virus by multiple AVs." /><LineBreak />
-                            <Run Text="- Fixed the app throwing an exception error when updating." /><LineBreak />
-                            <Run Text="- Fixed a bug where the tf/custom folder would get deleted." /><LineBreak />
-                            <Run Text="- Fixed a crash caused by link buttons on the main menu." /><LineBreak />
-                            <Run Text="- Added a toggle to automatically check for schema updates (enabled by default)." /><LineBreak />
-                            <Run Text="- Added missing French and Russian translations." /><LineBreak />
-                            <Run Text="- Added PeachHUD, m0rehud and collyhud to the HUD list." /><LineBreak />
-                            <Run Text="- Removed zeeshud for the time being." /><LineBreak />
-                            <Run Text="- Schema update will now manage files to match supported versions." /><LineBreak />
-                            <Run Text="- Multiple backend improvements and bug-fixes." />
+                            <Run Text="* Upgraded the project to the latest version of NET (6.0)." /><LineBreak />
+                            <Run Text="* Added support for Sunset Hud and KBNHud." /><LineBreak />
+                            <Run Text="* Added a validation checks for unsupported HUDs." /><LineBreak />
+                            <Run Text="* Added Brazilian Portuguese localization." /><LineBreak />
+                            <Run Text="* Added scrollers to customization screens that don't fit everything." /><LineBreak />
+                            <Run Text="* Added support for multiple download sources of the same HUD." /><LineBreak />
+                            <Run Text="* Added an option to hide the player list to certain HUDS." /><LineBreak />
+                            <Run Text="* Hypnotize's Crosshair Pack can now be installed for certain HUDs." /><LineBreak />
+                            <Run Text="* Changed the icons used in the app to Hypnotize's Icons Pack." /><LineBreak />
+                            <Run Text="* Various backend improvements and optimizations." />
                         </TextBlock>
                     </StackPanel>
                 </ScrollViewer>
