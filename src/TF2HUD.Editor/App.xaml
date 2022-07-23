@@ -10,7 +10,7 @@
         <Setter x:Key="Tf2Secondary" Property="TextElement.FontFamily"
                 Value="../Resources/TF2Secondary.ttf #TF2 Secondary" />
         <Setter x:Key="Tf2Icons" Property="TextElement.FontFamily"
-                Value="../Resources/TF2Icons.ttf #TF2Icons" />
+                Value="../Resources/Icons.ttf #Hypnotize Icons Master" />
         <Setter x:Key="Tf2Crosshairs" Property="TextElement.FontFamily"
                 Value="../Resources/TF2Crosshairs.ttf #TF2Crosshairs" />
 
@@ -158,7 +158,7 @@
         <Style x:Key="LinkButton" TargetType="Button">
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Top" />
-            <Setter Property="FontFamily" Value="../Resources/TF2Icons.ttf #TF2Icons" />
+            <Setter Property="FontFamily" Value="../Resources/Icons.ttf #Hypnotize Icons Master" />
             <Setter Property="Width" Value="50" />
             <Setter Property="Height" Value="40" />
             <Setter Property="FontSize" Value="33px" />
@@ -188,7 +188,7 @@
         </Style>
 
         <Style x:Key="GitHubButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
-            <Setter Property="Content" Value="Y" />
+            <Setter Property="Content" Value="&#x0692;" />
             <Setter Property="Width" Value="35" />
             <Setter Property="Height" Value="35" />
             <Setter Property="FontSize" Value="25" />
@@ -201,8 +201,7 @@
         </Style>
 
         <Style x:Key="HudsButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
-            <Setter Property="FontFamily" Value="../Resources/TF2Build.ttf #TF2 Build" />
-            <Setter Property="Content" Value="H" />
+            <Setter Property="Content" Value="&#x067B;" />
             <Setter Property="Width" Value="35" />
             <Setter Property="Height" Value="35" />
             <Setter Property="FontSize" Value="25" />
@@ -215,7 +214,7 @@
         </Style>
 
         <Style x:Key="DiscordButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
-            <Setter Property="Content" Value="Z" />
+            <Setter Property="Content" Value="&#x0689;" />
             <Setter Property="Width" Value="35" />
             <Setter Property="Height" Value="35" />
             <Setter Property="FontSize" Value="25" />
@@ -228,7 +227,7 @@
         </Style>
 
         <Style x:Key="SteamButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
-            <Setter Property="Content" Value="X" />
+            <Setter Property="Content" Value="&#x0683;" />
             <Setter Property="Width" Value="35" />
             <Setter Property="Height" Value="35" />
             <Setter Property="FontSize" Value="25" />
@@ -243,9 +242,9 @@
         <Style x:Key="PreviewButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="White" />
-            <Setter Property="FontFamily" Value="../Resources/TF2Icons.ttf #TF2Icons" />
+            <Setter Property="FontFamily" Value="../Resources/Icons.ttf #Hypnotize Icons Master" />
             <Setter Property="Height" Value="25" />
-            <Setter Property="Content" Value="?" />
+            <Setter Property="Content" Value="&#x048A;" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="VerticalAlignment" Value="Top" />
             <Style.Triggers>
@@ -359,7 +358,7 @@
         </Style>
 
         <Style x:Key="HudListIcon" TargetType="Label">
-            <Setter Property="FontFamily" Value="../Resources/TF2Icons.ttf #TF2Icons" />
+            <Setter Property="FontFamily" Value="../Resources/Icons.ttf #Hypnotize Icons Master" />
             <Setter Property="FontSize" Value="20" />
             <Setter Property="Foreground" Value="#FFFFFF" />
             <Setter Property="HorizontalAlignment" Value="Right" />

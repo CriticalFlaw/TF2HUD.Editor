@@ -144,7 +144,7 @@ namespace HUDEditor
 
             var thumbnailIcon = new Label
             {
-                Content = hud.Unique ? "B" : "",
+                Content = hud.Unique ? "\u05AE" : "",
                 Style = (Style)Application.Current.Resources["HudListIcon"]
             };
 

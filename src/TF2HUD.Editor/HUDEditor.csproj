@@ -49,7 +49,6 @@
     <None Remove="Resources\favicon.ico" />
     <None Remove="Resources\TF2Build.ttf" />
     <None Remove="Resources\TF2Crosshairs.ttf" />
-    <None Remove="Resources\TF2Icons.ttf" />
     <None Remove="Resources\TF2Secondary.ttf" />
     <None Include="..\..\.github\README.md">
       <Pack>True</Pack>
@@ -62,7 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autoupdater.NET.Official" Version="1.7.3" />
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.7.4" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
     <PackageReference Include="log4net" Version="2.0.14" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -85,22 +84,22 @@
     <Content Remove="JSON\ahud.json" />
     <Content Remove="Resources\banner.png" />
     <Content Remove="Resources\favicon.ico" />
+    <Content Remove="Resources\Icons.ttf" />
     <Content Remove="Resources\logo.png" />
     <Content Remove="Resources\TF2.ttf" />
     <Content Remove="Resources\TF2Build.ttf" />
     <Content Remove="Resources\TF2Crosshairs.ttf" />
-    <Content Remove="Resources\TF2Icons.ttf" />
     <Content Remove="Resources\TF2Professor.ttf" />
     <Content Remove="Resources\TF2Secondary.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\banner.png" />
+    <Resource Include="Resources\Icons.ttf" />
     <Resource Include="Resources\logo.png" />
     <Resource Include="Resources\TF2.ttf" />
     <Resource Include="Resources\TF2Build.ttf" />
     <Resource Include="Resources\TF2Crosshairs.ttf" />
-    <Resource Include="Resources\TF2Icons.ttf" />
     <Resource Include="Resources\TF2Professor.ttf" />
     <Resource Include="Resources\TF2Secondary.ttf" />
   </ItemGroup>

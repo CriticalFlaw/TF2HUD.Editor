@@ -155,7 +155,7 @@ namespace HUDEditor.Classes
                 {
                     Style = (Style)Application.Current.Resources["PreviewButton"],
                     HorizontalAlignment = HorizontalAlignment.Right,
-                    Content = ".",
+                    Content = "\u0157",
                     Opacity = 0.4
                 };
 
