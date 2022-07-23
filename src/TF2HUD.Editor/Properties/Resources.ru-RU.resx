@@ -53,7 +53,6 @@
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
-
     mimetype: application/x-microsoft.net.object.bytearray.base64
     value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
@@ -112,10 +111,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="error_app_directory" xml:space="preserve">
     <value>Для использования этого редактора необходимо установить каталог tf/custom.</value>
@@ -164,6 +163,9 @@
   </data>
   <data name="info_path_invalid" xml:space="preserve">
     <value>Вы либо выбрали один и тот же каталог, либо ваш выбор не закончился на tf/custom. Пожалуйста, попробуйте ещё раз.</value>
+  </data>
+  <data name="info_unsupported_hud_found" xml:space="preserve">
+    <value>В папке tf/custom был обнаружен неподдерживаемый интерфейс. Вы хотите удалить его, чтобы продолжить установку?</value>
   </data>
   <data name="info_hud_update_none" xml:space="preserve">
     <value>У вас последние версии схемы интерфейса. Пожалуйста, проверьте позже.</value>
@@ -250,7 +252,7 @@
     <value>Перекл. интерф.</value>
   </data>
   <data name="ui_title" xml:space="preserve">
-    <value>Редактор интерфейса TF2</value>
+    <value>Редактор интерф. TF2</value>
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Удалить</value>
