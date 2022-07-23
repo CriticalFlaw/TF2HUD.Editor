@@ -1,7 +1,7 @@
 ﻿<Window x:Class="HUDEditor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
         xmlns:classes="clr-namespace:HUDEditor.Classes"
@@ -143,7 +143,7 @@
             </Grid>
         </GroupBox>
         <!-- Editor Controls -->
-        <Grid x:Name="EditorContainer" >
+        <Grid x:Name="EditorContainer">
             <ToolBarPanel x:Name="EditorHeader" Grid.Row="0">
                 <Grid>
                     <!-- HUD Status -->

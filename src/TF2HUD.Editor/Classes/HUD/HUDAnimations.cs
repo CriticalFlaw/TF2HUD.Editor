@@ -47,7 +47,7 @@ namespace HUDEditor.Classes
         public static Dictionary<string, List<HUDAnimation>> Parse(string text)
         {
             var index = 0;
-            char[] ignoredCharacters = {' ', '\t', '\r', '\n'};
+            char[] ignoredCharacters = { ' ', '\t', '\r', '\n' };
 
             string Next(bool lookAhead = false)
             {
@@ -149,7 +149,7 @@ namespace HUDEditor.Classes
                     animation.Interpolator = interpolator;
                     animation.Frequency = Next();
                 }
-                else if (new[] {"gain", "bias"}.Contains(interpolator))
+                else if (new[] { "gain", "bias" }.Contains(interpolator))
                 {
                     animation.Interpolator = interpolator[0].ToString().ToUpper() + interpolator[1..];
                     animation.Bias = Next();
@@ -177,18 +177,21 @@ namespace HUDEditor.Classes
                         animation.Delay = Next();
                         animation.Duration = Next();
                         break;
+
                     case "runevent":
                         animation = new RunEvent();
                         animation.Type = type;
                         animation.Event = Next();
                         animation.Delay = Next();
                         break;
+
                     case "stopevent":
                         animation = new StopEvent();
                         animation.Type = type;
                         animation.Event = Next();
                         animation.Delay = Next();
                         break;
+
                     case "setvisible":
                         animation = new SetVisible();
                         animation.Type = type;
@@ -196,12 +199,14 @@ namespace HUDEditor.Classes
                         animation.Delay = Next();
                         animation.Duration = Next();
                         break;
+
                     case "firecommand":
                         animation = new FireCommand();
                         animation.Type = type;
                         animation.Delay = Next();
                         animation.Command = Next();
                         break;
+
                     case "runeventchild":
                         animation = new RunEventChild();
                         animation.Type = type;
@@ -209,22 +214,26 @@ namespace HUDEditor.Classes
                         animation.Event = Next();
                         animation.Delay = Next();
                         break;
+
                     case "setinputenabled":
                         animation = new SetInputEnabled();
                         animation.Element = Next();
                         animation.Visible = int.Parse(Next());
                         animation.Delay = Next();
                         break;
+
                     case "playsound":
                         animation = new PlaySound();
                         animation.Delay = Next();
                         animation.Sound = Next();
                         break;
+
                     case "stoppanelanimations":
                         animation = new StopPanelAnimations();
                         animation.Element = Next();
                         animation.Delay = Next();
                         break;
+
                     default:
                         Debug.WriteLine(text.Substring(index - 25, 25));
                         throw new Exception($"Unexpected {type} at position {index}");

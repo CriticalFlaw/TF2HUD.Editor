@@ -714,39 +714,41 @@ namespace HUDEditor.Classes
                     var groupBoxItemEvaluated = false;
 
                     for (var i = 0; i < Layout.Length; i++)
-                    for (var j = 0; j < Layout[i].Length; j++)
                     {
-                        // Allow index and grid area for grid coordinates.
-                        if (groupBoxIndex.ToString() == Layout[i][j] && !groupBoxItemEvaluated)
+                        for (var j = 0; j < Layout[i].Length; j++)
                         {
-                            // Don't set column or row if it has already been set.
-                            // Setting the column/row every time will break spans.
-                            if (Grid.GetColumn(sectionContainer) == 0) Grid.SetColumn(sectionContainer, j);
-                            if (Grid.GetRow(sectionContainer) == 0) Grid.SetRow(sectionContainer, i);
+                            // Allow index and grid area for grid coordinates.
+                            if (groupBoxIndex.ToString() == Layout[i][j] && !groupBoxItemEvaluated)
+                            {
+                                // Don't set column or row if it has already been set.
+                                // Setting the column/row every time will break spans.
+                                if (Grid.GetColumn(sectionContainer) == 0) Grid.SetColumn(sectionContainer, j);
+                                if (Grid.GetRow(sectionContainer) == 0) Grid.SetRow(sectionContainer, i);
 
-                            // These are not optimal speed but the code should be easier to understand:
-                            // Counts the occurrences of the current item id/index
-                            var columnSpan = 0;
-                            // Iterate current row
-                            for (var index = 0; index < Layout[i].Length; index++)
-                                if (groupBoxIndex.ToString() == Layout[i][index] || section == Layout[i][index])
-                                    columnSpan++;
-                            Grid.SetColumnSpan(sectionContainer, columnSpan);
+                                // These are not optimal speed but the code should be easier to understand:
+                                // Counts the occurrences of the current item id/index
+                                var columnSpan = 0;
+                                // Iterate current row
+                                for (var index = 0; index < Layout[i].Length; index++)
+                                    if (groupBoxIndex.ToString() == Layout[i][index] || section == Layout[i][index])
+                                        columnSpan++;
+                                Grid.SetColumnSpan(sectionContainer, columnSpan);
 
-                            var rowSpan = 0;
-                            foreach (var sections in Layout)
-                                if (groupBoxIndex.ToString() == sections[j] ||
-                                    section == sections[j])
-                                    rowSpan++;
+                                var rowSpan = 0;
+                                foreach (var sections in Layout)
+                                    if (groupBoxIndex.ToString() == sections[j] ||
+                                        section == sections[j])
+                                        rowSpan++;
 
-                            Grid.SetRowSpan(sectionContainer, rowSpan);
+                                Grid.SetRowSpan(sectionContainer, rowSpan);
 
-                            // Break parent loop
-                            groupBoxItemEvaluated = true;
-                            break;
+                                // Break parent loop
+                                groupBoxItemEvaluated = true;
+                                break;
+                            }
+
+                            if (groupBoxItemEvaluated) break;
                         }
-
-                        if (groupBoxItemEvaluated) break;
                     }
                 }
 

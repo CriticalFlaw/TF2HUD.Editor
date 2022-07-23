@@ -116,7 +116,7 @@ namespace HUDEditor.Classes
                         break;
 
                     case ComboBox combo:
-                        if (((ComboBoxItem) combo.Items[0]).Style == (Style) Application.Current.Resources["Crosshair"])
+                        if (((ComboBoxItem)combo.Items[0]).Style == (Style)Application.Current.Resources["Crosshair"])
                             combo.SelectedValue = control.Value;
                         else
                             combo.SelectedIndex = int.Parse(control.Value);
@@ -159,6 +159,6 @@ namespace HUDEditor.Classes
         public List<object> Screenshots { get; set; } = new();
         public bool Unique;
 
-        #endregion
+        #endregion HUD PROPERTIES
     }
 }

@@ -164,7 +164,7 @@ namespace HUDEditor
             hudIconContainer.Children.Add(thumbnailImage);
             hudIconContainer.Children.Add(thumbnailIcon);
             hudIconContainer.Children.Add(new Label
-                { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
+            { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
             border.Child = hudIconContainer;
             GridSelectHud.Children.Add(border);
             HudThumbnails.Add((hud, border));
@@ -225,6 +225,7 @@ namespace HUDEditor
                 case MessageBoxImage.Error:
                     Logger.Error(message);
                     break;
+
                 case MessageBoxImage.Warning:
                     Logger.Warn(message);
                     break;
@@ -292,7 +293,7 @@ namespace HUDEditor
             }
         }
 
-        #endregion
+        #endregion PAGE_EVENTS
 
         #region CLICK_EVENTS
 
@@ -598,7 +599,6 @@ namespace HUDEditor
             Settings.Default.Save();
         }
 
-
         private void BtnCustomize_OnClick(object sender, RoutedEventArgs e)
         {
             if (Json.HighlightedHud is null) return;
@@ -615,6 +615,6 @@ namespace HUDEditor
             Settings.Default.Save();
         }
 
-        #endregion
+        #endregion CLICK_EVENTS
     }
 }
