@@ -1,5 +1,29 @@
 [
   {
+    "Name": "ahud",
+    "Description": "A custom HUD for Team Fortress 2. Inspired from various HUDs, including, but not limited to, rayshud, yahud, and omphud.",
+    "Author": "Nokk",
+    "InstallCrosshairs": true,
+    "Thumbnail": "https://huds.tf/site/xthreads_attach.php/35_1605074316_8287ffb1/b0305f84d3a470e4a31d0d4863fcc94b/ahud.png",
+    "Links": {
+      "Update": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip", // TODO: Remove
+      "GitHub": "https://github.com/n0kk/ahud",
+      "HudsTF": "https://huds.tf/site/s-ahud",
+      "Download": [
+        {
+          "Source": "GitHub",
+          "Link": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip"
+        }
+      ]
+    },
+    "Screenshots": [
+      "https://huds.tf/site/xthreads_attach.php/2612_1605074316_9ec56435/2899c0edb205aaaf22432bd7ea3d3944/Kx70I3P.jpg",
+      "https://huds.tf/site/xthreads_attach.php/2613_1605074316_93a76d66/94bee2d8a943e8cd1c70686270445d18/WgR6jeE.jpg",
+      "https://huds.tf/site/xthreads_attach.php/2614_1605074316_9f5a9f10/46e49e50425d7b968b240e30ddeeca0a/cigUnUo.jpg",
+      "https://huds.tf/site/xthreads_attach.php/3256_1605074316_078a5eff/0839958068085ca1cb6957b3fad92c4b/xya3Hkg.jpg"
+    ]
+  },
+  {
     "Name": "PeachHUD",
     "Description": "A Team Fortress 2 HUD made by Peaches and streamlined for competitive, while maintaining a clean and minimalistic look.",
     "Author": "PeachesTV",
@@ -71,6 +95,7 @@
     "Name": "7HUD",
     "Description": "Originally based off an old yA version. Hope you guys like it. Updates are typically delayed because I'm a full-time student, but I love TF2 and can't live without this HUD anymore, so you can always expect an update at some point. You should grab 4Plug to take full advantage of the customization of this hud.",
     "Author": "sevin",
+    "InstallCrosshairs": true,
     "Thumbnail": "https://huds.tf/site/xthreads_attach.php/287_1517885994_ad8b68b6/94d1eb4fd3ad5ab90f998dde1870be18/0W4Jl83.jpg",
     "Links": {
       "Update": "https://github.com/Sevin7/7HUD/archive/refs/heads/master.zip", // TODO: Remove
