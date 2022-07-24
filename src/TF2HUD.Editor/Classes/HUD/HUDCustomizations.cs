@@ -100,7 +100,7 @@ namespace HUDEditor.Classes
                     }
                 }
 
-                // write hudFolders to the HUD once instead of each WriteToFile call reading and writing
+                // Write hudFolders to the HUD once instead of each WriteToFile call reading and writing
                 var hudPath = MainWindow.HudPath + "\\" + Name;
                 IterateProperties(hudFolders, hudPath);
                 HudBackground.Apply();

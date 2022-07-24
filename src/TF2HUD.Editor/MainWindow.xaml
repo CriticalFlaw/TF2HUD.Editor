@@ -168,7 +168,6 @@
                         <Button Content="{lex:Loc ui_directory}" Click="BtnSetDirectory_OnClick" ToolBar.OverflowMode="Always" />
                         <Button Content="{lex:Loc ui_refresh}" Click="BtnRefresh_OnClick" ToolBar.OverflowMode="Always" />
                         <ToggleButton x:Name="BtnAutoUpdate" Content="{lex:Loc ui_check_updates}" Click="BtnAutoUpdate_OnClick" ToolBar.OverflowMode="Always" />
-                        <ComboBox x:Name="CbBranch" Margin="5,5,5,0" Padding="5" Height="35" Visibility="{Binding Json.HighlightedHud.Download, Converter={StaticResource NullCheckConverterVisibility}}" ToolBar.OverflowMode="Always" />
                     </ToolBar>
                 </Grid>
             </ToolBarPanel>
@@ -219,6 +218,7 @@
                     Style="{StaticResource LinkButton}"
                     ToolTip="{lex:Loc tooltip_addhud}"
                     IsEnabled="{Binding Json.SelectedHud, Converter={StaticResource NotNullCheckConverter}}" />
+                <ComboBox x:Name="CbBranch" Margin="5,5,5,0" Padding="5" Height="35" Width="100" Visibility="{Binding Json.HighlightedHud.Download, Converter={StaticResource NullCheckConverterVisibility}}" ToolBar.OverflowMode="Always" />
             </WrapPanel>
         </GroupBox>
     </Grid>
