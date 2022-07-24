@@ -20,6 +20,7 @@ namespace HUDEditor.Models
         [JsonPropertyName("Opacity")] public double Opacity = 0.5;
         [JsonPropertyName("Screenshots")] public string[] Screenshots;
         [JsonPropertyName("Thumbnail")] public string Thumbnail;
+        [JsonPropertyName("InstallCrosshairs")] public bool InstallCrosshairs;
     }
 
     public class Links

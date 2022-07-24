@@ -253,6 +253,34 @@ namespace HUDEditor.Classes
             hudJson.Background = hudJson.Thumbnail;
 
             // TF2 HUD Crosshairs
+            await InstallCrosshairs(folderPath);
+
+            var hudList = HudList.ToList();
+            var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
+
+            var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
+            foreach (var group in hudControls.Controls)
+                foreach (var control in hudControls.Controls[group.Key])
+                    control.Name = $"{Utilities.EncodeId(hudJson.Name)}_{Utilities.EncodeId(control.Name)}";
+
+            hudJson.Layout = hudControls.Layout;
+            hudJson.Controls = hudControls.Controls;
+
+            var hud = new HUD(hudName, hudJson, false);
+            hudList.Add(hud);
+            hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
+            HudList = hudList.ToArray();
+            HighlightedHud = hud;
+            SelectedHud = hud;
+            return hud;
+        }
+
+        /// <summary>
+        ///     Install the Hypnotize TF2 HUD Crosshairs to a given HUD folder
+        /// </summary>
+        /// <param name="folderPath">Absolute folder path to HUD to install crosshairs to</param>
+        public async Task InstallCrosshairs(string folderPath)
+        {
             const string crosshairsName = "TF2-HUD-Crosshairs-master";
             var crosshairsZipFileName = $"{crosshairsName}.zip";
 
@@ -297,7 +325,6 @@ namespace HUDEditor.Classes
                 await File.WriteAllTextAsync(absoluteFilePath, VDF.Stringify(obj));
             }
 
-
             await Task.WhenAll(
                 // Add #base statements to HUD files as per https://github.com/Hypnootize/TF2-HUD-Crosshairs#installation
                 AddBaseReference("resource\\clientscheme.res", "../resource/crosshairs/crosshair_scheme.res"),
@@ -331,25 +358,6 @@ namespace HUDEditor.Classes
                     await File.WriteAllTextAsync(filePath, VDF.Stringify(hudAnimationsManifest));
                 })
             );
-
-            var hudList = HudList.ToList();
-            var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
-
-            var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
-            foreach (var group in hudControls.Controls)
-            foreach (var control in hudControls.Controls[group.Key])
-                control.Name = $"{Utilities.EncodeId(hudJson.Name)}_{Utilities.EncodeId(control.Name)}";
-
-            hudJson.Layout = hudControls.Layout;
-            hudJson.Controls = hudControls.Controls;
-
-            var hud = new HUD(hudName, hudJson, false);
-            hudList.Add(hud);
-            hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
-            HudList = hudList.ToArray();
-            HighlightedHud = hud;
-            SelectedHud = hud;
-            return hud;
         }
     }
 }

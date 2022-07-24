@@ -45,6 +45,7 @@ namespace HUDEditor.Classes
             LayoutOptions = schema.Layout;
             DirtyControls = new List<string>();
             Unique = unique;
+            InstallCrosshairs = schema.InstallCrosshairs;
 
             if (schema.Screenshots is null) return;
             var index = 0;
@@ -158,6 +159,7 @@ namespace HUDEditor.Classes
         public List<string> DirtyControls;
         public List<object> Screenshots { get; set; } = new();
         public bool Unique;
+        public readonly bool InstallCrosshairs;
 
         #endregion HUD PROPERTIES
     }

@@ -397,6 +397,13 @@ namespace HUDEditor
                 Directory.Move($"{HudPath}\\{hudName}", $"{HudPath}\\temp");
                 Directory.Move($"{HudPath}\\temp", $"{HudPath}\\{HudSelection}");
 
+                // Install Crosshairs
+                if (Json.SelectedHud.InstallCrosshairs)
+                {
+                    Logger.Info($"Installing Crosshairs to {Json.SelectedHud.Name}.");
+                    await Json.InstallCrosshairs($"{HudPath}\\{HudSelection}");
+                }
+
                 // Update the page view.
                 if (string.IsNullOrWhiteSpace(HudSelection)) return;
                 Json.SelectedHud.Settings.SaveSettings();
