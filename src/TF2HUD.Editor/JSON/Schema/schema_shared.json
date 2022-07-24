@@ -15,6 +15,9 @@
           "Author": {
             "type": "string"
           },
+          "InstallCrosshairs": {
+            "type": "boolean"
+          },
           "Thumbnail": {
             "type": "string",
             "pattern": "^https?:\/\/.*$"
