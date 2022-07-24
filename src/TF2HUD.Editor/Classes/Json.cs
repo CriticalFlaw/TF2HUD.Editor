@@ -187,9 +187,7 @@ namespace HUDEditor.Classes
         {
             var hudName = folderPath.Split('\\')[^1];
 
-            var hudDetailsFolder = $@"{Directory.CreateDirectory($@"{
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
-            }\TF2HUD.Editor\LocalShared\{hudName}").FullName}";
+            var hudDetailsFolder = $@"{Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\TF2HUD.Editor\LocalShared\{hudName}").FullName}";
 
             var hudJson = new HudJson
             {
@@ -230,11 +228,11 @@ namespace HUDEditor.Classes
 
                     var tga = new TGA($"{outputPath}.tga");
                     var rectImage = new Bitmap(
-                        (int) SystemParameters.PrimaryScreenWidth,
-                        (int) SystemParameters.PrimaryScreenHeight
+                        (int)SystemParameters.PrimaryScreenWidth,
+                        (int)SystemParameters.PrimaryScreenHeight
                     );
                     var graphics = Graphics.FromImage(rectImage);
-                    graphics.DrawImage((Image) tga, 0, 0, rectImage.Width, rectImage.Height);
+                    graphics.DrawImage((Image)tga, 0, 0, rectImage.Width, rectImage.Height);
                     rectImage.Save($"{outputPath}.png");
 
                     return $"file://{outputPath}.png";
@@ -285,14 +283,15 @@ namespace HUDEditor.Classes
             var crosshairsZipFileName = $"{crosshairsName}.zip";
 
             // Download TF2 HUD Crosshairs
-            await Utilities.DownloadFile(Properties.Settings.Default.tf2_hud_crosshairs_zip, crosshairsZipFileName);
+            await Utilities.DownloadFile(Settings.Default.tf2_hud_crosshairs_zip, crosshairsZipFileName);
             if (Directory.Exists(crosshairsName)) Directory.Delete(crosshairsName, true);
-            ZipFile.ExtractToDirectory(crosshairsZipFileName, Directory.GetCurrentDirectory());
+            ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath);
 
             // Move crosshairs folder to HUD
             string targetDirectory = Path.Join(folderPath, "resource\\crosshairs");
             if (Directory.Exists(targetDirectory)) Directory.Delete(targetDirectory, true);
-            Directory.Move(Path.Join(crosshairsName, "crosshairs"), targetDirectory);
+            Directory.Move(Path.Join(folderPath, Path.Join(crosshairsName, "crosshairs")), targetDirectory);
+            Directory.Delete(Path.Join(folderPath, crosshairsName), true);
 
             async Task AddBaseReference(string relativeFilePath, string baseFilePath)
             {
@@ -310,7 +309,7 @@ namespace HUDEditor.Classes
                     var baseType = obj["#base"].GetType();
                     if (baseType == typeof(string))
                     {
-                        obj["#base"] = new List<dynamic> { (string) obj["#base"], baseFilePath };
+                        obj["#base"] = new List<dynamic> { (string)obj["#base"], baseFilePath };
                     }
                     else if (baseType == typeof(List<dynamic>))
                     {
