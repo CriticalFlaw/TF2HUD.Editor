@@ -34,6 +34,7 @@ namespace HUDEditor
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly List<(HUD, Border)> HudThumbnails = new();
         private bool DisplayUniqueHUDsOnly;
+        private int LastDownloadSource = 0;
 
         public MainWindow()
         {
@@ -197,7 +198,7 @@ namespace HUDEditor
                         Content = source.Source
                     });
                 }
-                CbBranch.SelectedIndex = 0;
+                CbBranch.SelectedIndex = LastDownloadSource;
                 CbBranch.Visibility = CbBranch.Items.Count > 1 ? Visibility.Visible : Visibility.Hidden;
 
                 Application.Current.MainWindow.WindowState = hud.Maximize ? WindowState.Maximized : WindowState.Normal;
@@ -348,6 +349,7 @@ namespace HUDEditor
             try
             {
                 // Remember the selected download source, otherwise gets reset when SelectedHud is set.
+                LastDownloadSource = CbBranch.SelectedIndex < 0 ? 0 : CbBranch.SelectedIndex;
                 var download = (ComboBoxItem)CbBranch.SelectedItem;
 
                 // Prevent switching HUD while installing to ensure that HighlightedHUD is the same as SelectedHUD at worker.

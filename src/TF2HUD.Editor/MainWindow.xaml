@@ -218,7 +218,7 @@
                     Style="{StaticResource LinkButton}"
                     ToolTip="{lex:Loc tooltip_addhud}"
                     IsEnabled="{Binding Json.SelectedHud, Converter={StaticResource NotNullCheckConverter}}" />
-                <ComboBox x:Name="CbBranch" Margin="5,5,5,0" Padding="5" Height="35" Width="100" Visibility="{Binding Json.HighlightedHud.Download, Converter={StaticResource NullCheckConverterVisibility}}" ToolBar.OverflowMode="Always" />
+                <ComboBox x:Name="CbBranch" Margin="5,5,5,0" Padding="5" Height="35" Width="150" Visibility="{Binding Json.HighlightedHud.Download, Converter={StaticResource NullCheckConverterVisibility}}" />
             </WrapPanel>
         </GroupBox>
     </Grid>
