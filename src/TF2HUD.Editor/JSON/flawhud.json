@@ -1155,7 +1155,7 @@
           "resource/links.res": {
             "BGPanel": {
               "ypos": {
-                "true": "205",
+                "true": "10",
                 "false": "9999"
               }
             }
