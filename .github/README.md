@@ -57,7 +57,8 @@ If you need help, report a bug or ask a question related to the project...
 Contributions towards the project are welcomed and encouraged. Some ways you can contribute include:
 * Code changes towards new features, enhancements and bug fixes. For on-going tasks, see our [issue tracker][issues-link].
 * Adding support for other HUDs by creating schema files. See [this section of our documentation][json-link] for instructions.
-* Maintaining, expanding and improving the documentation to help to other users.
+* Maintaining, expanding and improving [this documentation][docs-link] to help to other users.
+* Adding localizations of missing languages or improving them [here][localizations-link].
 * Sponsor this project through [GitHub Sponsors][sponsors-link].
 
 <!-- MARKDOWN LINKS -->
@@ -69,6 +70,7 @@ Contributions towards the project are welcomed and encouraged. Some ways you can
 [license-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/blob/master/.github/LICENSE
 [docs-shield]: https://readthedocs.org/projects/tf2hudeditor/badge/?version=latest&style=flat-square
 [docs-link]: https://www.editor.criticalflaw.ca/
+[localizations-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/tree/master/src/TF2HUD.Editor/Properties
 [json-link]: https://www.editor.criticalflaw.ca/json/intro/
 [screenshots-link]: https://www.editor.criticalflaw.ca/screenshots/
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
