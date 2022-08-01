@@ -41,6 +41,7 @@
 * French Localization: [tacokete](https://github.com/tacokete)
 * Russian Localization: [Blueberryy](https://github.com/Blueberryy)
 * Brazilian Portuguese Localization: [Tiagoquix](https://github.com/Tiagoquix)
+* Spanish Localization: [thejaviertc](https://github.com/thejaviertc)
 ---
 
 ### Help/Support
