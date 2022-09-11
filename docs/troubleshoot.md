@@ -26,9 +26,16 @@ To see your selected changes in-game, open the console and input `hud_reloadsche
 ### Error when applying or resetting HUD customizations.
 Most errors you'll encounter will be caused by an outdated version of the HUD being installed. An outdated HUD may not have the latest changes that the editor would expect and when that happens, an error is returned. Best thing to do is reinstall the HUD through the editor and reapply the customizations.
 
+---
+
+### Access to the path ... temp.zip is denied.
+Try running the editor as administrator.
+
+If that didn't work, double-check that your antivirus program isn't denying access to the editor program. [For example,][example-avast-issue] Avast has been known to prevent the editor from creating files in certain paths.
 
 <!-- MARKDOWN LINKS -->
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [discord-link]: https://discord.gg/hTdtK9vBhE
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
 [runtime-link]: https://dotnet.microsoft.com/download/dotnet/5.0/runtime
+[example-avast-issue]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues/107
