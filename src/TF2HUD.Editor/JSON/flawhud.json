@@ -747,6 +747,9 @@
                 },
                 "CarryingWeapon": {
                   "xpos": "100"
+                },
+                "PlayerStatusClassImage": {
+                  "ypos": "r75"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -899,6 +902,9 @@
                 },
                 "CarryingWeapon": {
                   "xpos": "200"
+                },
+                "PlayerStatusClassImage": {
+                  "ypos": "r125"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
