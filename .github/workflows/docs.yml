@@ -8,9 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-node@v3
         with:
-          python-version: 3.x
-      - run: pip install mkdocs-material
-      - run: pip3 install mkdocs-git-revision-date-localized-plugin
-      - run: mkdocs gh-deploy --force
+          node-version: 18
+      - run: npm install
+      - run: npm run build
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./build

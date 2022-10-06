@@ -1,3 +1,7 @@
+---
+title: Troubleshooting
+---
+
 This section is for common issues you may encounter and how to resolve them.
 
 * For issues not on this page, please [open a ticket on our issue tracker][issues-link].
@@ -18,8 +22,9 @@ Make sure to install the version of [Microsoft .NET 5.0 Runtime][runtime-link] i
 ### Customization changes are not being shown in-game.
 To see your selected changes in-game, open the console and input `hud_reloadscheme`. This will refresh the HUD with your selected customizations.
 
-!!! note
-    Certain settings may require the game to be restarted, this mainly applies to color and main menu changes. If the game is running, a message will display notifying you that a game restart is required.
+:::note
+Certain settings may require the game to be restarted, this mainly applies to color and main menu changes. If the game is running, a message will display notifying you that a game restart is required.
+:::
 
 ---
 

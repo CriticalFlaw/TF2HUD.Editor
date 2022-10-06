@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start-docs": "docusaurus start",
+    "build-docs": "docusaurus build",
+    "serve-docs": "docusaurus serve"
+  },
+  "dependencies": {
+    "@docusaurus/core": "^2.1.0",
+    "@docusaurus/preset-classic": "^2.1.0",
+    "@easyops-cn/docusaurus-search-local": "^0.32.0"
+  }
+}

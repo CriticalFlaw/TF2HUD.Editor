@@ -1,3 +1,6 @@
+---
+title: Screenshots
+---
 
 ## Main Menu
 ![main](https://user-images.githubusercontent.com/6818236/137660056-dac36504-4069-4c92-a854-cf28a7c36252.png)

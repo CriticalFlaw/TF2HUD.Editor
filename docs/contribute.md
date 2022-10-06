@@ -1,3 +1,7 @@
+---
+title: How to Contribute
+---
+
 This project is open-source and contributions towards the code and documentation are welcomed and encouraged.
 
 Some of the ways you can contribute to the project include:

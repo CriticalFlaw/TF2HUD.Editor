@@ -1,3 +1,7 @@
+---
+title: User Controls
+---
+
 This section covers the controls that are displayed on the HUD page, grouped with other controls of similar purpose. This will include properties only available to specific types of controls.
 
 ```json
@@ -73,8 +77,9 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Required**. Name of the control. This name must be unique, have no spaces and suggest the control's purpose.
 
-!!! note
-    To avoid conflicts, prefix each name with an abbreviation for the HUD. Example; budhud is bh, flawhud is fh.
+:::note
+To avoid conflicts, prefix each name with an abbreviation for the HUD. Example; budhud is bh, flawhud is fh.
+:::
 
 ```json
 "Name": "fh_color_health_buff"
@@ -176,8 +181,9 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 For in depth documentation on File editing, see [this section][docs-files].
 
-!!! warning
-    Each nested object within the file path has to match the contents of the HUD file, otherwise the editor will not be able to apply the changes.
+:::caution
+Each nested object within the file path has to match the contents of the HUD file, otherwise the editor will not be able to apply the changes.
+:::
 
 ---
 

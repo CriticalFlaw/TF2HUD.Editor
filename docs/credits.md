@@ -1,3 +1,7 @@
+---
+title: Credits
+---
+
 ## Development
 * [CriticalFlaw](https://github.com/CriticalFlaw) - Design, Code, Documentation
 * [Revan](https://github.com/cooolbros) - Design, Code, Documentation

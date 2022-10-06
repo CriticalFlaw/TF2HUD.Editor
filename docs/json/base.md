@@ -1,4 +1,8 @@
-This section defines the base settings like the HUD author, description, screenshots, customization folders, links and more. 
+---
+title: Main Settings
+---
+
+This section defines the base settings like the HUD author, description, screenshots, customization folders, links and more.
 
 ```json
 {
@@ -114,8 +118,9 @@ This will result in the following layout, with 2 large boxes (0 and 4), and 3 sm
 
 The width and height of all group boxes will expand fractionally to 100%. A row of `"0 0 1 2"` will have the widths 50%, 25%, 25%
 
-!!! note
-    If no Layout is provided, the editor will automatically wrap control group boxes. Providing a Layout is not essential
+:::note
+If no Layout is provided, the editor will automatically wrap control group boxes. Providing a Layout is not essential
+:::
 
 ---
 
@@ -123,8 +128,9 @@ The width and height of all group boxes will expand fractionally to 100%. A row 
 
 **Required**. Contains links related to the HUD, such as the download link and social media sites.
 
-!!! warning
-    The **Update** link is used for downloading the HUD, so unlike the rest it must be provided!
+:::caution
+The **Update** link is used for downloading the HUD, so unlike the rest it must be provided!
+:::
 
 ```json
 "Links": {
@@ -143,8 +149,9 @@ The width and height of all group boxes will expand fractionally to 100%. A row 
 
 **Required**. Contains controls that will appear on the page, grouped by similar purpose.
 
-!!! info
-    Individual control properties and options are covered in the [next section][docs-controls].
+:::info
+Individual control properties and options are covered in the [next section][docs-controls].
+:::
 
 ```json
 "Controls": {
