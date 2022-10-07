@@ -6,15 +6,12 @@ const config = {
     tagline: "Install and customize your favorite custom Team Fortress 2 HUDs.",
     url: "https://cooolbros.github.io",
     baseUrl: "/TF2HUD.Editor/",
-    favicon: "./docs/resources/logo.png",
 
     // GitHub pages deployment config.
     // If you aren"t using GitHub pages, you don"t need these.
     organizationName: "cooolbros", // Usually your GitHub org/user name.
     projectName: "TF2HUD.Editor", // Usually your repo name.
     deploymentBranch: "gh-pages",
-
-    trailingSlash: true,
 
     // Even if you don"t use internalization, you can use this field to set useful
     // metadata like html lang. For example, if your site is Chinese, you may want
