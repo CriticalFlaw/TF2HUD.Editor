@@ -9,6 +9,9 @@ using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using Gameloop.Vdf;
+using Gameloop.Vdf.JsonConverter;
+using Gameloop.Vdf.Linq;
 using HUDEditor.Models;
 using HUDEditor.Properties;
 using Microsoft.Win32;
@@ -198,18 +201,30 @@ namespace HUDEditor.Classes
         {
             // Try to find the Steam library path in the registry.
             var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-            var registry = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null);
+            var pathFile = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "\\steamapps\\libraryfolders.vdf";
+            if (!File.Exists(pathFile)) return false;
 
-            if (string.IsNullOrWhiteSpace(registry)) return false;
+            // Read the file and attempt to extract all library paths.
+            using var reader = new StreamReader(pathFile);
+            var steamPaths = new List<string>();
+            foreach (Match match in Regex.Matches(reader.ReadToEnd(), "\"(.*)\"\t*\"(.*)\""))
+            {
+                if (match.Groups[1].Value.Equals("path"))
+                    steamPaths.Add(match.Groups[2].Value);
+            }
 
-            // Found the Steam library path, now try to find the TF2 path.
-            registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
-
-            if (!Directory.Exists(registry)) return false;
-            MainWindow.Logger.Info("tf/custom directory found in the registry: " + registry);
-            Settings.Default.hud_directory = registry;
-            Settings.Default.Save();
-            return true;
+            // Loop through all known libary paths to try and find TF2.
+            foreach (var path in steamPaths)
+            {
+                if (Directory.Exists(path + "\\steamapps\\common\\Team Fortress 2\\tf\\custom"))
+                {
+                    MainWindow.Logger.Info("tf/custom directory found in the registry: " + path);
+                    Settings.Default.hud_directory = path;
+                    Settings.Default.Save();
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
