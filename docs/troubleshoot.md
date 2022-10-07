@@ -38,9 +38,9 @@ If that didn't work, double-check that your antivirus program isn't denying acce
 ### Could not find a part of the path "..tf/custom".
 This can happen when TF2 is installed on a separate drive from your main Steam installation.
 
-If the app does not prompt you to set the path to `tf/custom` upon launch; you'll need to click on the dropdown button at the top right corner of the screen and select "Set path to tf/custom" then navigate to your TF2 installation folder, select tf/custom and click Select Folder.
+If the app does not find the directory to `tf/custom`, it should prompt you to set the path manually. If that does not happen, users will have to click on the wrench icon at near the bottom of screen to open the Options menu then select "Set path to tf/custom". You'll then need to navigate to your TF2 installation folder, select tf/custom and click Select Folder.
 
-For video instructions, check out this video by Hakej: https://www.youtube.com/watch?v=NqSqLyROBwk
+For HUD Editor versions 2.5 and lower, please refer to this video: https://www.youtube.com/watch?v=NqSqLyROBwk
 
 <!-- MARKDOWN LINKS -->
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
