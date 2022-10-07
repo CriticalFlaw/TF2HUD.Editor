@@ -9,10 +9,11 @@
         lex:ResxLocalizationProvider.DefaultAssembly="TF2HUD.Editor"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
-        Title="{lex:Loc ui_title}"
-        Width="1320"
-        Height="850"
+        Title="{lex:Loc ui_options}"
+        Width="1000"
+        Height="600"
         WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px"
         Background="#2B2724">
@@ -36,10 +37,29 @@
                             <Run Foreground="#FFD700" Text="documentation" /><Run Text=" linked below." />
                 </TextBlock>
                 <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-                <Label Content="Version 2.6" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
-                <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-                    <Run Text="* TOOOOOODOOOOOOOO" /><LineBreak />
-                </TextBlock>
+                <GroupBox Header="Language" Grid.Row="1" Foreground="White">
+                    <WrapPanel HorizontalAlignment="Center">
+                        <RadioButton x:Name="BtnLocalizeEn" Content="English" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
+                        <RadioButton x:Name="BtnLocalizeFr" Content="French" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
+                        <RadioButton x:Name="BtnLocalizeRu" Content="Russian" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
+                    </WrapPanel>
+                </GroupBox>
+                <GroupBox Header="{lex:Loc ui_options}" Grid.Row="1">
+                    <WrapPanel HorizontalAlignment="Center">
+                        <Button
+                            Content="{lex:Loc ui_directory}"
+                            Click="BtnSetDirectory_OnClick"
+                            Style="{StaticResource HudButton}" />
+                        <Button
+                            Content="{lex:Loc ui_refresh}"
+                            Click="BtnRefresh_OnClick"
+                            Style="{StaticResource HudButton}" />
+                        <ToggleButton
+                            x:Name="BtnAutoUpdate"
+                            Content="{lex:Loc ui_check_updates}"
+                            Click="BtnAutoUpdate_OnClick" />
+                    </WrapPanel>
+                </GroupBox>
             </StackPanel>
         </ScrollViewer>
     </Grid>

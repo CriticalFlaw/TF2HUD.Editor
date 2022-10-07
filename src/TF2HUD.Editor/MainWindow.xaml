@@ -135,34 +135,23 @@
         </GroupBox>
         <!-- Editor Controls -->
         <Grid x:Name="EditorContainer">
-            <ToolBarPanel x:Name="EditorHeader" Grid.Row="0">
-                <Grid>
-                    <!-- HUD Status -->
-                    <Label x:Name="LblStatus" Content="..." Height="35" VerticalContentAlignment="Center" Margin="10" />
-                    <ToolBar Background="Transparent" ToolBarTray.IsLocked="True" Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-                        <Button
-                            Click="BtnGitHub_OnClick" Style="{StaticResource GitHubButton}"
-                            IsEnabled="{Binding Json.HighlightedHud.GitHubUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
-                        <Button
-                            Click="BtnHuds_OnClick" Style="{StaticResource HudsButton}"
-                            IsEnabled="{Binding Json.HighlightedHud.HudsTfUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
-                        <Button
-                            Click="BtnDiscord_OnClick" Style="{StaticResource DiscordButton}"
-                            IsEnabled="{Binding Json.HighlightedHud.DiscordUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
-                        <Button
-                            Click="BtnSteam_OnClick" Style="{StaticResource SteamButton}"
-                            IsEnabled="{Binding Json.HighlightedHud.SteamUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
-                        <Button Click="BtnSettings_Click" Style="{StaticResource SettingsButton}" />
-                        <!-- Localization -->
-                        <RadioButton x:Name="BtnLocalizeEn" Content="English" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
-                        <RadioButton x:Name="BtnLocalizeFr" Content="French" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
-                        <RadioButton x:Name="BtnLocalizeRu" Content="Russian" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
-                        <Button Content="{lex:Loc ui_directory}" Click="BtnSetDirectory_OnClick" ToolBar.OverflowMode="Always" />
-                        <Button Content="{lex:Loc ui_refresh}" Click="BtnRefresh_OnClick" ToolBar.OverflowMode="Always" />
-                        <ToggleButton x:Name="BtnAutoUpdate" Content="{lex:Loc ui_check_updates}" Click="BtnAutoUpdate_OnClick" ToolBar.OverflowMode="Always" />
-                    </ToolBar>
-                </Grid>
-            </ToolBarPanel>
+            <Label x:Name="LblStatus" Content="..." Height="35" VerticalContentAlignment="Center" Margin="10" />
+            <WrapPanel HorizontalAlignment="Right" Margin="0,5,15,0">
+                <Label x:Name="LblDownload" Content="{lex:Loc ui_download}" Margin="0,8,0,10" Visibility="{Binding Json.HighlightedHud.Download, Converter={StaticResource NullCheckConverterVisibility}}" />
+                <ComboBox x:Name="CbBranch" Margin="5,5,5,0" Padding="5" Height="35" Width="150" Visibility="{Binding Json.HighlightedHud.Download, Converter={StaticResource NullCheckConverterVisibility}}" />
+                <Button
+                    Click="BtnGitHub_OnClick" Style="{StaticResource GitHubButton}"
+                    IsEnabled="{Binding Json.HighlightedHud.GitHubUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                <Button
+                    Click="BtnHuds_OnClick" Style="{StaticResource HudsButton}"
+                    IsEnabled="{Binding Json.HighlightedHud.HudsTfUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                <Button
+                    Click="BtnDiscord_OnClick" Style="{StaticResource DiscordButton}"
+                    IsEnabled="{Binding Json.HighlightedHud.DiscordUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                <Button
+                    Click="BtnSteam_OnClick" Style="{StaticResource SteamButton}"
+                    IsEnabled="{Binding Json.HighlightedHud.SteamUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+            </WrapPanel>
             <Grid x:Name="EditorGrid" />
         </Grid>
         <!-- Bottom Button Tray -->
@@ -195,6 +184,11 @@
                     Style="{StaticResource HudButton}"
                     IsEnabled="{Binding Json.SelectedHud, Converter={StaticResource NullCheckConverter}}" />
                 <Button
+                    Click="BtnSettings_OnClick"
+                    Content="="
+                    ToolTip="{lex:Loc ui_options}"
+                    Style="{StaticResource LinkButton}" />
+                <Button
                     Click="BtnReportIssue_OnClick"
                     Content="&#x03C6;"
                     ToolTip="{lex:Loc tooltip_report}"
@@ -205,12 +199,16 @@
                     ToolTip="{lex:Loc tooltip_docs}"
                     Style="{StaticResource LinkButton}" />
                 <Button
+                    Click="BtnPlayTF2_OnClick"
+                    Content="!"
+                    ToolTip="{lex:Loc ui_launch_tf2}"
+                    Style="{StaticResource LinkButton}" />
+                <Button
                     Click="BtnAddSharedHUD_OnClick"
                     Content="&#x0583;"
                     Style="{StaticResource LinkButton}"
                     ToolTip="{lex:Loc tooltip_addhud}"
                     IsEnabled="{Binding Json.SelectedHud, Converter={StaticResource NotNullCheckConverter}}" />
-                <ComboBox x:Name="CbBranch" Margin="5,5,5,0" Padding="5" Height="35" Width="150" Visibility="{Binding Json.HighlightedHud.Download, Converter={StaticResource NullCheckConverterVisibility}}" />
             </WrapPanel>
         </GroupBox>
     </Grid>

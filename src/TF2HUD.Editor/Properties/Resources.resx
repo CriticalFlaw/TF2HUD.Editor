@@ -231,8 +231,14 @@
   <data name="ui_directory" xml:space="preserve">
     <value>Set path to tf/custom</value>
   </data>
+  <data name="ui_download" xml:space="preserve">
+    <value>Download:</value>
+  </data>
   <data name="ui_install" xml:space="preserve">
     <value>Install</value>
+  </data>
+  <data name="ui_launch_tf2" xml:space="preserve">
+    <value>Launch Team Fortress 2.</value>
   </data>
   <data name="ui_options" xml:space="preserve">
     <value>Options</value>
