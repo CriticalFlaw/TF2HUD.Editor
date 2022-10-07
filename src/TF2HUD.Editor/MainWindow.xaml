@@ -76,18 +76,9 @@
                             <Run Foreground="#FFD700" Text="documentation" /><Run Text=" linked below." />
                         </TextBlock>
                         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-                        <Label Content="Version 2.5" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
+                        <Label Content="Version 2.6" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
                         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-                            <Run Text="* Upgraded the project to the latest version of NET (6.0)." /><LineBreak />
-                            <Run Text="* Added support for Sunset Hud and KBNHud." /><LineBreak />
-                            <Run Text="* Added a validation checks for unsupported HUDs." /><LineBreak />
-                            <Run Text="* Added Brazilian Portuguese localization." /><LineBreak />
-                            <Run Text="* Added scrollers to customization screens that don't fit everything." /><LineBreak />
-                            <Run Text="* Added support for multiple download sources of the same HUD." /><LineBreak />
-                            <Run Text="* Added an option to hide the player list to certain HUDS." /><LineBreak />
-                            <Run Text="* Hypnotize's Crosshair Pack can now be installed for certain HUDs." /><LineBreak />
-                            <Run Text="* Changed the icons used in the app to Hypnotize's Icons Pack." /><LineBreak />
-                            <Run Text="* Various backend improvements and optimizations." />
+                            <Run Text="* TOOOOOODOOOOOOOO" /><LineBreak />
                         </TextBlock>
                     </StackPanel>
                 </ScrollViewer>
@@ -161,6 +152,7 @@
                         <Button
                             Click="BtnSteam_OnClick" Style="{StaticResource SteamButton}"
                             IsEnabled="{Binding Json.HighlightedHud.SteamUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                        <Button Click="BtnSettings_Click" Style="{StaticResource SettingsButton}" />
                         <!-- Localization -->
                         <RadioButton x:Name="BtnLocalizeEn" Content="English" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
                         <RadioButton x:Name="BtnLocalizeFr" Content="French" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />

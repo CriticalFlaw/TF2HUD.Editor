@@ -239,6 +239,19 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="SettingsButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
+            <Setter Property="Content" Value="&#x0683;" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Background" Value="#1B2838" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#384452" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <Style x:Key="PreviewButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="White" />

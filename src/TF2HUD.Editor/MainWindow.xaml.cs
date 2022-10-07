@@ -17,6 +17,7 @@ using HUDEditor.Properties;
 using log4net;
 using log4net.Config;
 using WPFLocalizeExtension.Engine;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
 using Label = System.Windows.Controls.Label;
@@ -25,7 +26,7 @@ using MessageBox = System.Windows.MessageBox;
 namespace HUDEditor
 {
     /// <summary>
-    ///     Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
@@ -589,6 +590,12 @@ namespace HUDEditor
         private void BtnSteam_OnClick(object sender, RoutedEventArgs e)
         {
             Utilities.OpenWebpage(Json.HighlightedHud.SteamUrl);
+        }
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e)
+        {
+            var settings = new SettingsWindow();
+            settings.Show();
         }
 
         /// <summary>
