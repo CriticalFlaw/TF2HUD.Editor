@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
         xmlns:classes="clr-namespace:HUDEditor.Classes"
+        xmlns:cf="clr-namespace:CountryFlag;assembly=CountryFlag"
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="TF2HUD.Editor"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
@@ -39,9 +40,15 @@
                 <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
                 <GroupBox Header="Language" Grid.Row="1" Foreground="White">
                     <WrapPanel HorizontalAlignment="Center">
-                        <RadioButton x:Name="BtnLocalizeEn" Content="English" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
-                        <RadioButton x:Name="BtnLocalizeFr" Content="French" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
-                        <RadioButton x:Name="BtnLocalizeRu" Content="Russian" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" />
+                        <RadioButton x:Name="BtnLocalizeEn" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
+                            <cf:CountryFlag Code="US" Width="60" />
+                        </RadioButton>
+                        <RadioButton x:Name="BtnLocalizeFr" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
+                            <cf:CountryFlag Code="FR" Width="50" />
+                        </RadioButton>
+                        <RadioButton x:Name="BtnLocalizeRu" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
+                            <cf:CountryFlag Code="RU" Width="50" />
+                        </RadioButton>
                     </WrapPanel>
                 </GroupBox>
                 <GroupBox Header="{lex:Loc ui_options}" Grid.Row="1">
@@ -49,15 +56,16 @@
                         <Button
                             Content="{lex:Loc ui_directory}"
                             Click="BtnSetDirectory_OnClick"
-                            Style="{StaticResource HudButton}" />
+                            Style="{StaticResource SettingButton}" />
                         <Button
                             Content="{lex:Loc ui_refresh}"
                             Click="BtnRefresh_OnClick"
-                            Style="{StaticResource HudButton}" />
+                            Style="{StaticResource SettingButton}" />
                         <ToggleButton
                             x:Name="BtnAutoUpdate"
                             Content="{lex:Loc ui_check_updates}"
-                            Click="BtnAutoUpdate_OnClick" />
+                            Click="BtnAutoUpdate_OnClick"
+                            Style="{StaticResource ToggleButton}" />
                     </WrapPanel>
                 </GroupBox>
             </StackPanel>
