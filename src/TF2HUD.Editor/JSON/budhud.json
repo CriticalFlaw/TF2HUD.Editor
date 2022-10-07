@@ -17,11 +17,17 @@
     "4 7 7 7"
   ],
   "Links": {
-    "Update": "https://github.com/rbjaxter/budhud/archive/master.zip",
+    "Update": "https://github.com/rbjaxter/budhud/archive/master.zip", // TODO: Remove
     "GitHub": "https://github.com/rbjaxter/budhud",
     "HudsTF": "https://huds.tf/site/s-budhud",
     "Steam": "https://steamcommunity.com/groups/budhud",
-    "Discord": "https://discord.com/invite/TkxNKU2"
+    "Discord": "https://discord.com/invite/TkxNKU2",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/rbjaxter/budhud/archive/master.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "#customization",
   "EnabledFolder": "#customization//_enabled",

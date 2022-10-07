@@ -1,13 +1,43 @@
 [
   {
+    "Name": "ahud",
+    "Description": "A custom HUD for Team Fortress 2. Inspired from various HUDs, including, but not limited to, rayshud, yahud, and omphud.",
+    "Author": "Nokk",
+    "InstallCrosshairs": true,
+    "Thumbnail": "https://huds.tf/site/xthreads_attach.php/35_1605074316_8287ffb1/b0305f84d3a470e4a31d0d4863fcc94b/ahud.png",
+    "Links": {
+      "Update": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip", // TODO: Remove
+      "GitHub": "https://github.com/n0kk/ahud",
+      "HudsTF": "https://huds.tf/site/s-ahud",
+      "Download": [
+        {
+          "Source": "GitHub",
+          "Link": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip"
+        }
+      ]
+    },
+    "Screenshots": [
+      "https://huds.tf/site/xthreads_attach.php/2612_1605074316_9ec56435/2899c0edb205aaaf22432bd7ea3d3944/Kx70I3P.jpg",
+      "https://huds.tf/site/xthreads_attach.php/2613_1605074316_93a76d66/94bee2d8a943e8cd1c70686270445d18/WgR6jeE.jpg",
+      "https://huds.tf/site/xthreads_attach.php/2614_1605074316_9f5a9f10/46e49e50425d7b968b240e30ddeeca0a/cigUnUo.jpg",
+      "https://huds.tf/site/xthreads_attach.php/3256_1605074316_078a5eff/0839958068085ca1cb6957b3fad92c4b/xya3Hkg.jpg"
+    ]
+  },
+  {
     "Name": "PeachHUD",
     "Description": "A Team Fortress 2 HUD made by Peaches and streamlined for competitive, while maintaining a clean and minimalistic look.",
     "Author": "PeachesTV",
     "Thumbnail": "https://huds.tf/site/xthreads_attach.php/3151_1601749117_3bbd70f3/8b9e290bc3bd43fa3a78b4b2d8cacaed/PeachMountainBlurHUDSTF.png",
     "Links": {
-      "Update": "https://github.com/PapaPeach/PeachHUD/archive/refs/heads/master.zip",
+      "Update": "https://github.com/PapaPeach/PeachHUD/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/PapaPeach/PeachHUD",
-      "HudsTF": "https://huds.tf/site/s-PeachHUD"
+      "HudsTF": "https://huds.tf/site/s-PeachHUD",
+      "Download": [
+        {
+          "Source": "GitHub",
+          "Link": "https://github.com/PapaPeach/PeachHUD/archive/refs/heads/master.zip"
+        }
+      ]
     },
     "Screenshots": [
       "https://i.imgur.com/4c3nhSV.jpeg",
@@ -21,9 +51,15 @@
     "Author": "omnibombulator",
     "Thumbnail": "https://huds.tf/site/xthreads_attach.php/3420_1610890758_652bc68e/ec8c1fb5d4553dbb8e8dc0d8df64299c/collyhud-logo.jpg",
     "Links": {
-      "Update": "https://github.com/omnibombulator/collyhud/archive/refs/heads/master.zip",
+      "Update": "https://github.com/omnibombulator/collyhud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/omnibombulator/collyhud",
-      "HudsTF": "https://huds.tf/site/s-collyhud"
+      "HudsTF": "https://huds.tf/site/s-collyhud",
+      "Download": [
+        {
+          "Source": "GitHub",
+          "Link": "https://github.com/omnibombulator/collyhud/archive/refs/heads/master.zip"
+        }
+      ]
     },
     "Screenshots": [
       "https://huds.tf/site/xthreads_attach.php/3422_1610890758_9b89263a/b0b281edb5d4442e6ae731a302f33b3c/main-menu.jpg",
@@ -38,9 +74,15 @@
     "Author": "Hypnotize",
     "Thumbnail": "https://huds.tf/site/xthreads_attach.php/244_1575132372_f2b65a9e/69ce71dfb6eb377f69f18d9f5cf505de/tZsHgRf.png",
     "Links": {
-      "Update": "https://github.com/Hypnootize/m0rehud/archive/refs/heads/master.zip",
+      "Update": "https://github.com/Hypnootize/m0rehud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/Hypnootize/m0rehud",
-      "HudsTF": "https://huds.tf/site/s-m0re-Hud"
+      "HudsTF": "https://huds.tf/site/s-m0re-Hud",
+      "Download": [
+        {
+          "Source": "GitHub",
+          "Link": "https://github.com/Hypnootize/m0rehud/archive/refs/heads/master.zip"
+        }
+      ]
     },
     "Screenshots": [
       "https://huds.tf/site/xthreads_attach.php/245_1629748124_7320d20f/d75ca2baeb429f8e56e399b709186133/FCPZxX1.jpg",
@@ -53,12 +95,19 @@
     "Name": "7HUD",
     "Description": "Originally based off an old yA version. Hope you guys like it. Updates are typically delayed because I'm a full-time student, but I love TF2 and can't live without this HUD anymore, so you can always expect an update at some point. You should grab 4Plug to take full advantage of the customization of this hud.",
     "Author": "sevin",
+    "InstallCrosshairs": true,
     "Thumbnail": "https://huds.tf/site/xthreads_attach.php/287_1517885994_ad8b68b6/94d1eb4fd3ad5ab90f998dde1870be18/0W4Jl83.jpg",
     "Links": {
-      "Update": "https://github.com/Sevin7/7HUD/archive/refs/heads/master.zip",
+      "Update": "https://github.com/Sevin7/7HUD/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/Sevin7/7HUD",
       "HudsTF": "https://huds.tf/site/s-7HUD",
-      "Steam": "https://steamcommunity.com/groups/7HUD"
+      "Steam": "https://steamcommunity.com/groups/7HUD",
+      "Download": [
+        {
+          "Source": "GitHub",
+          "Link": "https://github.com/Sevin7/7HUD/archive/refs/heads/master.zip"
+        }
+      ]
     },
     "Screenshots": [
       "https://huds.tf/site/xthreads_attach.php/288_1599103773_83aafed7/e8125e88da73575361be0c1171bcec54/WJlr2wB.jpg",
@@ -73,10 +122,16 @@
     "Author": "flatline",
     "Thumbnail": "https://huds.tf/site/xthreads_attach.php/183_1589906946_b0997177/668f0762c806292d1f6250d5ca442498/ompredux.png",
     "Links": {
-      "Update": "https://github.com/flatlinee/omphudedit/archive/refs/heads/master.zip",
+      "Update": "https://github.com/flatlinee/omphudedit/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/flatlinee/omphudedit",
       "Steam": "https://steamcommunity.com/groups/omphudredux",
-      "HudsTF": "https://huds.tf/site/s-omphud-redux"
+      "HudsTF": "https://huds.tf/site/s-omphud-redux",
+      "Download": [
+        {
+          "Source": "GitHub",
+          "Link": "https://github.com/flatlinee/omphudedit/archive/refs/heads/master.zip"
+        }
+      ]
     },
     "Screenshots": [
       "https://huds.tf/site/xthreads_attach.php/184_1589731402_3a5f187e/f4dd154950058ebc088b2d5562dcf3b5/hl2_AEv6jrVfuL.jpg",
@@ -91,9 +146,15 @@
     "Author": "flatline",
     "Thumbnail": "https://huds.tf/site/xthreads_attach.php/2889_1589906478_5ca05758/2534c1f999d376f7e774285adfcecec2/cliphudlogo.png",
     "Links": {
-      "Update": "https://github.com/flatlinee/cliphud/archive/refs/heads/master.zip",
+      "Update": "https://github.com/flatlinee/cliphud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/flatlinee/cliphud",
-      "HudsTF": "https://huds.tf/site/s-cliphud--2175"
+      "HudsTF": "https://huds.tf/site/s-cliphud--2175",
+      "Download": [
+        {
+          "Source": "GitHub",
+          "Link": "https://github.com/flatlinee/cliphud/archive/refs/heads/master.zip"
+        }
+      ]
     },
     "Screenshots": [
       "https://huds.tf/site/xthreads_attach.php/2890_1589735040_d4ab575b/5fd0e7267145bdf50b4eadaff58a11f8/hl2_eG1FxavHdl.jpg",
@@ -108,10 +169,16 @@
     "Author": "flatline",
     "Thumbnail": "https://huds.tf/site/xthreads_attach.php/41_1589907522_90a9a980/af69128b77fd75cf580b25b3acdef47f/flathudlogooo2.png",
     "Links": {
-      "Update": "https://github.com/flatlinee/flathud/archive/refs/heads/master.zip",
+      "Update": "https://github.com/flatlinee/flathud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/flatlinee/flathud",
       "Steam": "https://steamcommunity.com/groups/flathud",
-      "HudsTF": "https://huds.tf/site/s-flathud"
+      "HudsTF": "https://huds.tf/site/s-flathud",
+      "Download": [
+        {
+          "Source": "GitHub",
+          "Link": "https://github.com/flatlinee/flathud/archive/refs/heads/master.zip"
+        }
+      ]
     },
     "Screenshots": [
       "https://huds.tf/site/xthreads_attach.php/42_1589729867_7fb9a0eb/778ba698510b64b4cef5ed2fb4f596eb/hl2_f2tMtjL5c1.png",
@@ -126,9 +193,15 @@
     "Author": "Broesel, Hypnotize",
     "Thumbnail": "https://huds.tf/site/xthreads_attach.php/2113_1592073837_94a362ba/0424be29ee076d1d76c25cc785a4bb43/zaguUvP.png",
     "Links": {
-      "Update": "https://github.com/Hypnootize/Broesel-Hud/archive/refs/heads/master.zip",
+      "Update": "https://github.com/Hypnootize/Broesel-Hud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/Hypnootize/Broesel-Hud",
-      "HudsTF": "https://huds.tf/site/s-Broesel-Hud"
+      "HudsTF": "https://huds.tf/site/s-Broesel-Hud",
+      "Download": [
+        {
+          "Source": "GitHub",
+          "Link": "https://github.com/Hypnootize/Broesel-Hud/archive/refs/heads/master.zip"
+        }
+      ]
     },
     "Screenshots": [
       "https://huds.tf/site/xthreads_attach.php/2115_1592073837_b79fd8e7/dc1828c5a652b2af2ec869ba268a7084/BKNQ0er.jpg",

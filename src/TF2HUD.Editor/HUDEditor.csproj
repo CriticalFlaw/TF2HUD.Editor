@@ -11,9 +11,9 @@
     <Company>CriticalFlaw</Company>
     <Copyright>CriticalFlaw</Copyright>
     <PackageProjectUrl>https://www.editor.criticalflaw.ca/</PackageProjectUrl>
-    <AssemblyVersion>2.4.0.0</AssemblyVersion>
-    <FileVersion>2.4.0.0</FileVersion>
-    <Version>2.4.0</Version>
+    <AssemblyVersion>2.5.0.0</AssemblyVersion>
+    <FileVersion>2.5.0.0</FileVersion>
+    <Version>2.5.0</Version>
     <RepositoryUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -25,6 +25,7 @@
     <AssemblyName>TF2HUD.Editor</AssemblyName>
     <RootNamespace>HUDEditor</RootNamespace>
     <PackageTags>tf2</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -33,6 +34,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="JSON\berryhud.json" />
     <None Remove="JSON\budhud.json" />
     <None Remove="JSON\default.json" />
     <None Remove="JSON\flawhud.json" />
@@ -47,8 +49,11 @@
     <None Remove="Resources\favicon.ico" />
     <None Remove="Resources\TF2Build.ttf" />
     <None Remove="Resources\TF2Crosshairs.ttf" />
-    <None Remove="Resources\TF2Icons.ttf" />
     <None Remove="Resources\TF2Secondary.ttf" />
+    <None Include="..\..\.github\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -56,11 +61,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autoupdater.NET.Official" Version="1.7.0" />
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.2.0" />
-    <PackageReference Include="log4net" Version="2.0.13" />
+    <PackageReference Include="Autoupdater.NET.Official" Version="1.7.5" />
+    <PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.103" />
+    <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="WPFLocalizeExtension" Version="3.9.1" />
+    <PackageReference Include="WPFLocalizeExtension" Version="3.9.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,25 +81,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="JSON\ahud.json" />
     <Content Remove="Resources\banner.png" />
     <Content Remove="Resources\favicon.ico" />
+    <Content Remove="Resources\Icons.ttf" />
     <Content Remove="Resources\logo.png" />
     <Content Remove="Resources\TF2.ttf" />
     <Content Remove="Resources\TF2Build.ttf" />
     <Content Remove="Resources\TF2Crosshairs.ttf" />
-    <Content Remove="Resources\TF2Icons.ttf" />
     <Content Remove="Resources\TF2Professor.ttf" />
     <Content Remove="Resources\TF2Secondary.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\banner.png" />
+    <Resource Include="Resources\Icons.ttf" />
     <Resource Include="Resources\logo.png" />
     <Resource Include="Resources\TF2.ttf" />
     <Resource Include="Resources\TF2Build.ttf" />
     <Resource Include="Resources\TF2Crosshairs.ttf" />
-    <Resource Include="Resources\TF2Icons.ttf" />
     <Resource Include="Resources\TF2Professor.ttf" />
     <Resource Include="Resources\TF2Secondary.ttf" />
   </ItemGroup>
@@ -120,9 +124,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="JSON\ahud.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="JSON\Shared\controls.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

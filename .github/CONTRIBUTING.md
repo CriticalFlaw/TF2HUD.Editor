@@ -4,8 +4,9 @@ Some of the ways you can contribute to the project include:
 
 1. Code changes towards new features, enhancements and bug fixes, for on-going tasks see our [Issue Tracker][issues-link].
 2. Adding support for custom HUDs by creating JSON schema files, for details read the [JSON Documentation][json-link].
-3. Maintaining, expanding and improving this documentation to help to other users.
-4. Sponsor this project through [GitHub Sponsors][sponsors-link].
+3. Maintaining, expanding and improving [this documentation][docs-link] to help to other users.
+4. Adding localizations of missing languages or improving them [here][localizations-link].
+5. Sponsor this project through [GitHub Sponsors][sponsors-link].
 
 ---
 
@@ -21,5 +22,6 @@ To contribute code changes to the project:
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [json-link]: https://www.editor.criticalflaw.ca/json/base/
 [docs-link]: https://www.editor.criticalflaw.ca/
+[localizations-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/tree/master/src/TF2HUD.Editor/Properties
 [sponsors-link]: https://github.com/sponsors/CriticalFlaw
 [vs-link]: https://visualstudio.microsoft.com/

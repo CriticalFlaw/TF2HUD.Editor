@@ -32,9 +32,8 @@
       "args": [
         "watch",
         "run",
-        "${workspaceFolder}/src/TF2HUD.Editor/HUDEditor.csproj",
-        "/property:GenerateFullPaths=true",
-        "/consoleloggerparameters:NoSummary"
+        "--project",
+        "${workspaceFolder}/src/TF2HUD.Editor/HUDEditor.csproj"
       ],
       "problemMatcher": "$msCompile"
     }

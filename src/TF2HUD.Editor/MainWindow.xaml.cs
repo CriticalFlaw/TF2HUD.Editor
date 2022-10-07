@@ -34,6 +34,7 @@ namespace HUDEditor
         public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
         private readonly List<(HUD, Border)> HudThumbnails = new();
         private bool DisplayUniqueHUDsOnly;
+        private int LastDownloadSource = 0;
 
         public MainWindow()
         {
@@ -147,7 +148,7 @@ namespace HUDEditor
 
             var thumbnailIcon = new Label
             {
-                Content = hud.Unique ? "B" : "",
+                Content = hud.Unique ? "\u05AE" : "",
                 Style = (Style)Application.Current.Resources["HudListIcon"]
             };
 
@@ -167,7 +168,7 @@ namespace HUDEditor
             hudIconContainer.Children.Add(thumbnailImage);
             hudIconContainer.Children.Add(thumbnailIcon);
             hudIconContainer.Children.Add(new Label
-                { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
+            { Content = hud.Name, Style = (Style)Application.Current.Resources["HudListLabel"] });
             border.Child = hudIconContainer;
             GridSelectHud.Children.Add(border);
             HudThumbnails.Add((hud, border));
@@ -190,6 +191,18 @@ namespace HUDEditor
                     LblStatus.Content = string.Format(Properties.Resources.status_installed_not, Json.SelectedHud.Name);
                 else
                     LblStatus.Content = Properties.Resources.status_pathNotSet;
+
+                CbBranch.Items.Clear();
+                foreach (var source in hud.Download)
+                {
+                    CbBranch.Items.Add(new ComboBoxItem
+                    {
+                        Tag = source.Link,
+                        Content = source.Source
+                    });
+                }
+                CbBranch.SelectedIndex = LastDownloadSource;
+                CbBranch.Visibility = CbBranch.Items.Count > 1 ? Visibility.Visible : Visibility.Hidden;
 
                 Application.Current.MainWindow.WindowState = hud.Maximize ? WindowState.Maximized : WindowState.Normal;
                 Settings.Default.hud_selected = hud.Name;
@@ -216,6 +229,7 @@ namespace HUDEditor
                 case MessageBoxImage.Error:
                     Logger.Error(message);
                     break;
+
                 case MessageBoxImage.Warning:
                     Logger.Warn(message);
                     break;
@@ -231,17 +245,18 @@ namespace HUDEditor
         {
             try
             {
-                EditorContainer.Children.Clear();
+                EditorGrid.Children.Clear();
 
                 // If there's a HUD selection, generate the controls for that HUD's page.
                 if (selection is null) return;
 
                 Logger.Info($"Changing page view to: {selection.Name}.");
-                EditorContainer.Children.Add(selection.GetControls());
+                EditorGrid.Children.Add(selection.GetControls());
+                EditorContainer.Visibility = Visibility.Visible;
                 selection.PresetChanged += (_, _) =>
                 {
-                    EditorContainer.Children.Clear();
-                    EditorContainer.Children.Add(selection.GetControls());
+                    EditorGrid.Children.Clear();
+                    EditorGrid.Children.Add(selection.GetControls());
                 };
             }
             catch (Exception e)
@@ -282,7 +297,7 @@ namespace HUDEditor
             }
         }
 
-        #endregion
+        #endregion PAGE_EVENTS
 
         #region CLICK_EVENTS
 
@@ -336,7 +351,11 @@ namespace HUDEditor
         {
             try
             {
-                // Prevent switching HUD while installing to ensure that HighlightedHUD is the same as SelectedHUD at worker.RunWorkerCompleted
+                // Remember the selected download source, otherwise gets reset when SelectedHud is set.
+                LastDownloadSource = CbBranch.SelectedIndex < 0 ? 0 : CbBranch.SelectedIndex;
+                var download = (ComboBoxItem)CbBranch.SelectedItem;
+
+                // Prevent switching HUD while installing to ensure that HighlightedHUD is the same as SelectedHUD at worker.
                 BtnSwitch.IsEnabled = false;
                 Json.SelectedHud = Json.HighlightedHud;
                 Settings.Default.hud_selected = HudSelection = Json.SelectedHud.Name;
@@ -364,7 +383,10 @@ namespace HUDEditor
 
                 // Retrieve the HUD object, then download and extract it into the tf/custom directory.
                 Logger.Info($"Start installing {HudSelection}.");
-                await Json.SelectedHud.Update();
+                await Json.SelectedHud.Update(download.Tag.ToString());
+
+                // Set back the download source to what it is supposed to be.
+                CbBranch.SelectedItem = download;
 
                 // Record the name of the HUD inside the downloaded folder.
                 var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";
@@ -379,6 +401,13 @@ namespace HUDEditor
                 ZipFile.ExtractToDirectory(tempFile, HudPath);
                 Directory.Move($"{HudPath}\\{hudName}", $"{HudPath}\\temp");
                 Directory.Move($"{HudPath}\\temp", $"{HudPath}\\{HudSelection}");
+
+                // Install Crosshairs
+                if (Json.SelectedHud.InstallCrosshairs)
+                {
+                    Logger.Info($"Installing Crosshairs to {Json.SelectedHud.Name}.");
+                    await Json.InstallCrosshairs($"{HudPath}\\{HudSelection}");
+                }
 
                 // Update the page view.
                 if (string.IsNullOrWhiteSpace(HudSelection)) return;
@@ -488,7 +517,9 @@ namespace HUDEditor
         private void BtnSwitch_OnClick(object sender, RoutedEventArgs e)
         {
             Logger.Info("Changing page view to: main menu.");
-            EditorContainer.Children.Clear();
+            EditorGrid.Children.Clear();
+            EditorContainer.Visibility = Visibility.Hidden;
+            CbBranch.Visibility = Visibility.Hidden;
             Json.HighlightedHud = null;
             Json.SelectedHud = null;
         }
@@ -502,7 +533,7 @@ namespace HUDEditor
         /// <summary>
         ///     Add a HUD from folder to the shared HUDs list.
         /// </summary>
-        private void BtnAddSharedHUD_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnAddSharedHUD_OnClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -514,7 +545,7 @@ namespace HUDEditor
                 };
                 if (browser.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
 
-                AddHudToGridView(Json.Add(browser.SelectedPath));
+                AddHudToGridView(await Json.Add(browser.SelectedPath));
             }
             catch (Exception error)
             {
@@ -580,11 +611,10 @@ namespace HUDEditor
             Settings.Default.Save();
         }
 
-
         private void BtnCustomize_OnClick(object sender, RoutedEventArgs e)
         {
             if (Json.HighlightedHud is null) return;
-            EditorContainer.Children.Clear();
+            EditorGrid.Children.Clear();
             Json.SelectedHud = Json.HighlightedHud;
             Settings.Default.hud_selected = Json.SelectedHud.Name;
             Settings.Default.Save();
@@ -597,12 +627,6 @@ namespace HUDEditor
             Settings.Default.Save();
         }
 
-        #endregion
-
-        private void BtnPersistXhair_Click(object sender, RoutedEventArgs e)
-        {
-            Settings.Default.app_xhair_persist = BtnPersistXhair.IsChecked ?? true;
-            Settings.Default.Save();
-        }
+        #endregion CLICK_EVENTS
     }
 }

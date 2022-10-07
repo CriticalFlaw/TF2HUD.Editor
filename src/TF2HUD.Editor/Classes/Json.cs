@@ -70,7 +70,7 @@ namespace HUDEditor.Classes
                     Layout = sharedProperties.Layout,
                     Links = new Links
                     {
-                        Update = $"file://{sharedHud}\\{hudName}.zip"
+                        Download = new[] { new Download() { Source = "GitHub", Link = $"file://{sharedHud}\\{hudName}.zip" } }
                     },
                     Controls = sharedProperties.Controls
                 }, false));
@@ -183,13 +183,11 @@ namespace HUDEditor.Classes
             }
         }
 
-        public HUD Add(string folderPath)
+        public async Task<HUD> Add(string folderPath)
         {
             var hudName = folderPath.Split('\\')[^1];
 
-            var hudDetailsFolder = $@"{Directory.CreateDirectory($@"{
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
-            }\TF2HUD.Editor\LocalShared\{hudName}").FullName}";
+            var hudDetailsFolder = $@"{Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\TF2HUD.Editor\LocalShared\{hudName}").FullName}";
 
             var hudJson = new HudJson
             {
@@ -230,35 +228,38 @@ namespace HUDEditor.Classes
 
                     var tga = new TGA($"{outputPath}.tga");
                     var rectImage = new Bitmap(
-                        (int) SystemParameters.PrimaryScreenWidth,
-                        (int) SystemParameters.PrimaryScreenHeight
+                        (int)SystemParameters.PrimaryScreenWidth,
+                        (int)SystemParameters.PrimaryScreenHeight
                     );
                     var graphics = Graphics.FromImage(rectImage);
-                    graphics.DrawImage((Image) tga, 0, 0, rectImage.Width, rectImage.Height);
+                    graphics.DrawImage((Image)tga, 0, 0, rectImage.Width, rectImage.Height);
                     rectImage.Save($"{outputPath}.png");
 
                     return $"file://{outputPath}.png";
                 }).Result,
                 Links = new Links
                 {
-                    Update = Task.Run(() =>
+                    Download = Task.Run(() =>
                     {
                         var zipPath = $"{hudDetailsFolder}\\{hudName}.zip";
                         ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
-                        return $"file://{zipPath}";
+                        return new[] { new Download() { Source = "GitHub", Link = $"file://{zipPath}" } };
                     }).Result
                 }
             };
 
             hudJson.Background = hudJson.Thumbnail;
 
+            // TF2 HUD Crosshairs
+            await InstallCrosshairs(folderPath);
+
             var hudList = HudList.ToList();
             var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
 
             var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
             foreach (var group in hudControls.Controls)
-            foreach (var control in hudControls.Controls[group.Key])
-                control.Name = $"{Utilities.EncodeId(hudJson.Name)}_{Utilities.EncodeId(control.Name)}";
+                foreach (var control in hudControls.Controls[group.Key])
+                    control.Name = $"{Utilities.EncodeId(hudJson.Name)}_{Utilities.EncodeId(control.Name)}";
 
             hudJson.Layout = hudControls.Layout;
             hudJson.Controls = hudControls.Controls;
@@ -270,6 +271,92 @@ namespace HUDEditor.Classes
             HighlightedHud = hud;
             SelectedHud = hud;
             return hud;
+        }
+
+        /// <summary>
+        ///     Install the Hypnotize TF2 HUD Crosshairs to a given HUD folder
+        /// </summary>
+        /// <param name="folderPath">Absolute folder path to HUD to install crosshairs to</param>
+        public async Task InstallCrosshairs(string folderPath)
+        {
+            const string crosshairsName = "TF2-HUD-Crosshairs-master";
+            var crosshairsZipFileName = $"{crosshairsName}.zip";
+
+            // Download TF2 HUD Crosshairs
+            await Utilities.DownloadFile(Settings.Default.tf2_hud_crosshairs_zip, crosshairsZipFileName);
+            if (Directory.Exists(crosshairsName)) Directory.Delete(crosshairsName, true);
+            ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath);
+
+            // Move crosshairs folder to HUD
+            string targetDirectory = Path.Join(folderPath, "resource\\crosshairs");
+            if (Directory.Exists(targetDirectory)) Directory.Delete(targetDirectory, true);
+            Directory.Move(Path.Join(folderPath, Path.Join(crosshairsName, "crosshairs")), targetDirectory);
+            Directory.Delete(Path.Join(folderPath, crosshairsName), true);
+
+            async Task AddBaseReference(string relativeFilePath, string baseFilePath)
+            {
+                var absoluteFilePath = Path.Join(folderPath, relativeFilePath);
+
+                // Assume absoluteFilePath exists in the HUD
+                var obj = VDF.Parse(await File.ReadAllTextAsync(absoluteFilePath));
+
+                if (!obj.ContainsKey("#base"))
+                {
+                    obj["#base"] = baseFilePath;
+                }
+                else
+                {
+                    var baseType = obj["#base"].GetType();
+                    if (baseType == typeof(string))
+                    {
+                        obj["#base"] = new List<dynamic> { (string)obj["#base"], baseFilePath };
+                    }
+                    else if (baseType == typeof(List<dynamic>))
+                    {
+                        obj["#base"].Add(baseFilePath);
+                    }
+                    else
+                    {
+                        throw new Exception($"Unexpected #base value type in {relativeFilePath}. Expected string or list");
+                    }
+                }
+
+                await File.WriteAllTextAsync(absoluteFilePath, VDF.Stringify(obj));
+            }
+
+            await Task.WhenAll(
+                // Add #base statements to HUD files as per https://github.com/Hypnootize/TF2-HUD-Crosshairs#installation
+                AddBaseReference("resource\\clientscheme.res", "../resource/crosshairs/crosshair_scheme.res"),
+                AddBaseReference("scripts\\hudlayout.res", "../resource/crosshairs/crosshair.res"),
+
+                // Add "file" reference to hudanimations_manifest.txt
+                Task.Run(async () =>
+                {
+                    var filePath = Path.Join(folderPath, "scripts\\hudanimations_manifest.txt");
+
+                    // If the HUD does not contain a hudanimations_manifest.txt,
+                    // use the string from tf2_misc_dir.vpk scripts/hudanimations_manifest.txt
+                    var fileContents = File.Exists(filePath)
+                    ? await File.ReadAllTextAsync(filePath)
+                    : @"
+                    hudanimations_manifest
+                    {
+                        file scripts/hudanimations.txt
+                        file scripts/hudanimations_tf.txt
+                    }
+                    ";
+
+                    var hudAnimationsManifest = VDF.Parse(fileContents);
+                    List<dynamic> files = hudAnimationsManifest["hudanimations_manifest"]["file"];
+
+                    const string animationsBasePath = "resource/crosshairs/crosshair_animation.txt";
+
+                    if (!files.Contains(animationsBasePath))
+                        files.Insert(0, animationsBasePath);
+
+                    await File.WriteAllTextAsync(filePath, VDF.Stringify(hudAnimationsManifest));
+                })
+            );
         }
     }
 }

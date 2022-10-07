@@ -16,11 +16,17 @@
     "5 5 4 4 6 6"
   ],
   "Links": {
-    "Update": "https://github.com/raysfire/rayshud/archive/master.zip",
+    "Update": "https://github.com/raysfire/rayshud/archive/master.zip", // TODO: Remove
     "GitHub": "https://github.com/raysfire/rayshud",
     "HudsTF": "https://huds.tf/site/s-rayshud--377",
     "Steam": "https://steamcommunity.com/groups/rayshud",
-    "Discord": "https://discord.gg/hTdtK9vBhE"
+    "Discord": "https://discord.gg/hTdtK9vBhE",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/raysfire/rayshud/archive/master.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "#customizations",
   "EnabledFolder": "#customizations//_enabled",

@@ -32,6 +32,24 @@
         }
       },
       {
+        "Name": "hide_friends_list",
+        "Label": "Hide Friends List",
+        "Type": "Checkbox",
+        "ToolTip": "Hide the friends list seen on the main menu.",
+        "Value": false,
+        "Restart": true,
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "FriendsContainer": {
+              "visible": {
+                "true": "0",
+                "false": "1"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "val_killfeed_rows",
         "Label": "Killfeed Rows",
         "Type": "IntegerUpDown",
@@ -302,6 +320,74 @@
             "Scheme": {
               "Colors": {
                 "ItemRarityAncient": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Crosshair": [
+      {
+        "Name": "xhair_style",
+        "Label": "Style",
+        "ToolTip": "Style of crosshair.",
+        "Type": "Crosshair",
+        "Value": "<",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_xhair_normal",
+        "Label": "Crosshair",
+        "Type": "ColorPicker",
+        "ToolTip": "Default crosshair color.",
+        "Value": "255 255 255 255",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "fgcolor": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "val_xhair_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "ToolTip": "Size of the crosshair.",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "font": "Size:$value | Outline:OFF"
+            }
+          }
+        }
+      },
+      {
+        "Name": "toggle_xhair_enable",
+        "Label": "Toggle Crosshair",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair feature.",
+        "Value": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
               }
             }
           }

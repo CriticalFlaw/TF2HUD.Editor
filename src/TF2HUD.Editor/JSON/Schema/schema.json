@@ -12,6 +12,9 @@
       "type": "string",
       "pattern": "(^https?:\/\/.*$)|(^\\d{1,3} \\d{1,3} \\d{1,3} \\d{1,3}$)"
     },
+    "InstallCrosshairs": {
+      "type": "boolean"
+    },
     "Layout": {
       "type": "array",
       "items": {
@@ -21,9 +24,24 @@
     "Links": {
       "type": "object",
       "properties": {
-        "Update": {
-          "type": "string",
-          "pattern": "^https?:\/\/.*$"
+        "Download": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "Source": {
+                "type": "string"
+              },
+              "Link": {
+                "type": "string",
+                "pattern": "^https?:\/\/.*$"
+              }
+            },
+            "required": [
+              "Source",
+              "Link"
+            ]
+          }
         },
         "GitHub": {
           "type": "string",
@@ -43,7 +61,7 @@
         }
       },
       "required": [
-        "Update"
+        "Download"
       ]
     },
     "Controls": {

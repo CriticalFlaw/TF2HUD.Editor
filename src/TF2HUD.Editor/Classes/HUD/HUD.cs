@@ -36,7 +36,7 @@ namespace HUDEditor.Classes
             Author = schema.Author;
             CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
             EnabledFolder = schema.EnabledFolder ?? string.Empty;
-            UpdateUrl = schema.Links.Update ?? string.Empty;
+            Download = schema.Links.Download;
             GitHubUrl = schema.Links.GitHub ?? string.Empty;
             HudsTfUrl = schema.Links.HudsTf ?? string.Empty;
             SteamUrl = schema.Links.Steam ?? string.Empty;
@@ -45,6 +45,7 @@ namespace HUDEditor.Classes
             LayoutOptions = schema.Layout;
             DirtyControls = new List<string>();
             Unique = unique;
+            InstallCrosshairs = schema.InstallCrosshairs;
 
             if (schema.Screenshots is null) return;
             var index = 0;
@@ -65,9 +66,9 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Call to download the HUD if a URL has been provided.
         /// </summary>
-        public async Task Update()
+        public async Task Update(string path)
         {
-            await Utilities.DownloadFile(UpdateUrl, "temp.zip");
+            await Utilities.DownloadFile(path, "temp.zip");
         }
 
         /// <summary>
@@ -116,7 +117,7 @@ namespace HUDEditor.Classes
                         break;
 
                     case ComboBox combo:
-                        if (((ComboBoxItem) combo.Items[0]).Style == (Style) Application.Current.Resources["Crosshair"])
+                        if (((ComboBoxItem)combo.Items[0]).Style == (Style)Application.Current.Resources["Crosshair"])
                             combo.SelectedValue = control.Value;
                         else
                             combo.SelectedIndex = int.Parse(control.Value);
@@ -148,7 +149,7 @@ namespace HUDEditor.Classes
         public string Author { get; set; }
         public string CustomizationsFolder { get; set; }
         public string EnabledFolder { get; set; }
-        public string UpdateUrl { get; set; }
+        public Download[] Download;
         public string GitHubUrl { get; set; }
         public string HudsTfUrl { get; set; }
         public string SteamUrl { get; set; }
@@ -158,7 +159,8 @@ namespace HUDEditor.Classes
         public List<string> DirtyControls;
         public List<object> Screenshots { get; set; } = new();
         public bool Unique;
+        public readonly bool InstallCrosshairs;
 
-        #endregion
+        #endregion HUD PROPERTIES
     }
 }

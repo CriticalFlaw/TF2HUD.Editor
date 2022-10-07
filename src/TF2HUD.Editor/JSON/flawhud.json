@@ -16,11 +16,21 @@
     "1 2 4 5"
   ],
   "Links": {
-    "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
+    "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip", // TODO: Remove
     "GitHub": "https://github.com/CriticalFlaw/flawhud",
     "HudsTF": "https://huds.tf/site/s-FlawHUD",
     "Steam": "https://steamcommunity.com/groups/FlawHUD",
-    "Discord": "https://discord.gg/hTdtK9vBhE"
+    "Discord": "https://discord.gg/hTdtK9vBhE",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/CriticalFlaw/flawhud/archive/master.zip"
+      },
+      {
+        "Source": "GameBanana",
+        "Link": "https://gamebanana.com/dl/705744"
+      }
+    ]
   },
   "CustomizationsFolder": "resource//ui//#customizations",
   "EnabledFolder": "resource//ui//#customizations//_enabled",
@@ -633,6 +643,24 @@
         }
       },
       {
+        "Name": "fh_hide_friends_list",
+        "Label": "Hide Friends List",
+        "Type": "Checkbox",
+        "ToolTip": "Hide the friends list seen on the main menu.",
+        "Value": "false",
+        "Restart": true,
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "FriendsContainer": {
+              "visible": {
+                "true": "0",
+                "false": "1"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_val_hud_style",
         "Label": "HUD Style",
         "Type": "ComboBox",
@@ -719,6 +747,9 @@
                 },
                 "CarryingWeapon": {
                   "xpos": "100"
+                },
+                "PlayerStatusClassImage": {
+                  "ypos": "r75"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -871,6 +902,9 @@
                 },
                 "CarryingWeapon": {
                   "xpos": "200"
+                },
+                "PlayerStatusClassImage": {
+                  "ypos": "r125"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -1127,7 +1161,7 @@
           "resource/links.res": {
             "BGPanel": {
               "ypos": {
-                "true": "205",
+                "true": "10",
                 "false": "9999"
               }
             }
@@ -1275,7 +1309,7 @@
             "CasualEntry": {
               "xpos": {
                 "true": "0",
-                "false": "5"
+                "false": "r165"
               },
               "tall": {
                 "true": "75",
@@ -1288,14 +1322,6 @@
               "proportionaltoparent": {
                 "true": "1",
                 "false": "0"
-              },
-              "pin_corner_to_sibling": {
-                "true": "PIN_TOPLEFT",
-                "false": "PIN_TOPRIGHT"
-              },
-              "pin_to_sibling_corner": {
-                "true": "PIN_BOTTOMLEFT",
-                "false": "PIN_TOPLEFT"
               }
             },
             "CompetitiveEntry": {
@@ -1353,7 +1379,7 @@
             "ServerBrowserEntry": {
               "xpos": {
                 "true": "0",
-                "false": "r165",
+                "false": "5"
               },
               "tall": {
                 "true": "75",
@@ -1366,6 +1392,14 @@
               "proportionaltoparent": {
                 "true": "1",
                 "false": "0"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_TOPRIGHT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_BOTTOMLEFT",
+                "false": "PIN_TOPLEFT"
               }
             }
           }

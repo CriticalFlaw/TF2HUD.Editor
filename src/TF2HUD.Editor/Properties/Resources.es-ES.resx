@@ -53,6 +53,7 @@
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
+
     mimetype: application/x-microsoft.net.object.bytearray.base64
     value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
@@ -117,147 +118,147 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="error_app_directory" xml:space="preserve">
-    <value>Для использования этого редактора необходимо установить каталог tf/custom.</value>
+    <value>Se debe configurar el directorio tf/custom para usar este editor.</value>
   </data>
   <data name="error_hud_install" xml:space="preserve">
-    <value>Произошла ошибка при установке {0}.</value>
-  </data>
-  <data name="error_hud_uninstall" xml:space="preserve">
-    <value>Произошла ошибка при удалении {0}.</value>
+    <value>Ha ocurrido un error mientras se instalaba {0}.</value>
   </data>
   <data name="error_hud_missing" xml:space="preserve">
-    <value>Невозможно найти интерфейс {0}!</value>
+    <value>No se puede encontrar el HUD {0}!</value>
+  </data>
+  <data name="error_hud_uninstall" xml:space="preserve">
+    <value>Ha ocurrido un error mientras se desinstalaba {0}.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
-    <value>Произошла ошибка при переключении прозрачных видовых моделей.</value>
+    <value>Ha ocurrido un error mientras se alternaba los modelos transparentes.</value>
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
-    <value>Не удалось распознать расширение файла '{0}'.</value>
-  </data>
-  <data name="info_game_restart" xml:space="preserve">
-    <value>Следующие изменения требуют перезапуска игры:</value>
-  </data>
-  <data name="info_game_running" xml:space="preserve">
-    <value>Невозможно продолжить, потому что Team Fortress 2 всё ещё запущен. Пожалуйста, закройте игру и повторите попытку.</value>
-  </data>
-  <data name="header_update_none" xml:space="preserve">
-    <value>Обновления не найдены.</value>
-  </data>
-  <data name="info_add_hud" xml:space="preserve">
-    <value>Вы уверены, что хотите добавить папку в общий список интерфейсов? Это добавит папку локально, но не загрузит интерфейс в онлайн базу данных TF2HUD.Editor.</value>
-  </data>
-  <data name="info_background_override" xml:space="preserve">
-    <value>Установка нового фона отменит текущий. Используйте кнопку «Переустановить», чтобы вернуться к фону по умолчанию.</value>
+    <value>No se ha podido reconocer la extensión del archivo '{0}'.</value>
   </data>
   <data name="header_restart_required" xml:space="preserve">
-    <value>Требуется перезапуск.</value>
+    <value>Se Requiere Reiniciar.</value>
+  </data>
+  <data name="header_update_none" xml:space="preserve">
+    <value>No Se Encontraron Actualizaciones.</value>
+  </data>
+  <data name="info_add_hud" xml:space="preserve">
+    <value>¿Estás seguro de que quieres añadir un directorio a la lista de HUDs compartidos? Esto añadirá el directorio localmente pero no subirá el HUD a la base de datos de TF2HUD.Editor.</value>
+  </data>
+  <data name="info_background_override" xml:space="preserve">
+    <value>Al establecer un fondo de pantalla nuevo sobreescribirá el actual. Usa la opción de "Reinstalar" para volver al fondo de pantalla predeterminado.</value>
+  </data>
+  <data name="info_game_restart" xml:space="preserve">
+    <value>Los siguientes cambios necesitan que el juego se reinicie para aplicarse:</value>
+  </data>
+  <data name="info_game_running" xml:space="preserve">
+    <value>No se puede continuar porque Team Fortress 2 sigue ejecutándose. Por favor, cierra el juego e inténtalo de nuevo.</value>
   </data>
   <data name="info_hud_backup" xml:space="preserve">
-    <value>Найдена существующая установка {0}. Чтобы избежать конфликтов, была создана резервная копия.</value>
+    <value>Se ha encontrado una instalación de {0}. Para evitar conflictos, se ha creado una copia de seguridad.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
-    <value>Вы уверены, что хотите вернуть все настройки к значениям по умолчанию?</value>
-  </data>
-  <data name="info_path_browser" xml:space="preserve">
-    <value>Пожалуйста, выберите каталог tf/custom. Если не указан правильный каталог, несколько вариантов редактора будут недоступны.</value>
-  </data>
-  <data name="info_path_invalid" xml:space="preserve">
-    <value>Вы либо выбрали один и тот же каталог, либо ваш выбор не закончился на tf/custom. Пожалуйста, попробуйте ещё раз.</value>
-  </data>
-  <data name="info_unsupported_hud_found" xml:space="preserve">
-    <value>В папке tf/custom был обнаружен неподдерживаемый интерфейс. Вы хотите удалить его, чтобы продолжить установку?</value>
-  </data>
-  <data name="info_hud_update_none" xml:space="preserve">
-    <value>У вас последние версии схемы интерфейса. Пожалуйста, проверьте позже.</value>
+    <value>¿Estás seguro de que quieres reiniciar todas las personalizaciones a su valor por defecto?</value>
   </data>
   <data name="info_hud_update" xml:space="preserve">
-    <value>Доступно новое обновление схемы интерфейса. Хотите ли вы перезагрузиться сейчас, чтобы применить новые изменения?</value>
+    <value>Hay una nueva actualización del HUD disponible. ¿Quieres reiniciar ahora para aplicar los nuevos cambios?</value>
+  </data>
+  <data name="info_hud_update_none" xml:space="preserve">
+    <value>Tienes la última versión del HUD. Por favor, compruebelo más tarde.</value>
+  </data>
+  <data name="info_path_browser" xml:space="preserve">
+    <value>Seleccione su directorio tf/custom. Si proporciona un directorio no válido, no estarán disponibles varias opciones.</value>
+  </data>
+  <data name="info_path_invalid" xml:space="preserve">
+    <value>La ruta que has seleccionado no acaba en tf/custom. Por favor, inténtelo de nuevo.</value>
+  </data>
+  <data name="info_unsupported_hud_found" xml:space="preserve">
+    <value>Se ha encontrado un HUD no soportado en tf/custom. ¿Quieres eliminarlo para continuar con la instalación?</value>
   </data>
   <data name="status_applied" xml:space="preserve">
-    <value>Настройки {0}, применяемые в {1}.</value>
-  </data>
-  <data name="status_installed_now" xml:space="preserve">
-    <value>Установка {0} завершена в {1}.</value>
+    <value>Las personalizaciones {0} se han aplicado en {1}.</value>
   </data>
   <data name="status_installed" xml:space="preserve">
-    <value>{0} установлен!</value>
+    <value>{0} ya está instalado!</value>
   </data>
   <data name="status_installed_not" xml:space="preserve">
-    <value>{0} не установлен!</value>
+    <value>{0} no está instalado!</value>
+  </data>
+  <data name="status_installed_now" xml:space="preserve">
+    <value>{0} ha acabado su instalación en {1}.</value>
   </data>
   <data name="status_pathNotSet" xml:space="preserve">
-    <value>Каталог tf/custom не установлен!</value>
+    <value>El directorio tf/custom no está configurado!</value>
   </data>
   <data name="status_reset" xml:space="preserve">
-    <value>Настройки {0} обнуляются в {1}.</value>
+    <value>Las personalizaciones {0} se han reiniciado en {1}.</value>
   </data>
   <data name="tooltip_addhud" xml:space="preserve">
-    <value>Добавить новый интерфейс.</value>
+    <value>Añadir nuevo HUD.</value>
   </data>
   <data name="tooltip_docs" xml:space="preserve">
-    <value>Прочитайте документацию проекта.</value>
+    <value>Leer la documentación.</value>
   </data>
   <data name="tooltip_path" xml:space="preserve">
-    <value>Проверка обновлений схемы интерфейса.</value>
+    <value>Cambiar el directorio tf/custom.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Обновить схемы интерфейса.</value>
+    <value>Buscar nuevas actualizaciones para el HUD.</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
-    <value>Сообщить об ошибке.</value>
+    <value>Reportar un Problema.</value>
   </data>
   <data name="ui_apply" xml:space="preserve">
-    <value>Применить изменения</value>
+    <value>Aplicar Cambios</value>
   </data>
   <data name="ui_author" xml:space="preserve">
-    <value>Создатель: {0}</value>
+    <value>Creado por: {0}</value>
   </data>
   <data name="ui_back" xml:space="preserve">
-    <value>Назад</value>
+    <value>Volver Atrás</value>
   </data>
   <data name="ui_browse" xml:space="preserve">
-    <value>Обзор</value>
-  </data>
-  <data name="ui_clear" xml:space="preserve">
-    <value>Очистить</value>
-  </data>
-  <data name="ui_customize" xml:space="preserve">
-    <value>Настроить</value>
-  </data>
-  <data name="ui_install" xml:space="preserve">
-    <value>Установить</value>
-  </data>
-  <data name="ui_options" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
-  <data name="ui_directory" xml:space="preserve">
-    <value>Установить путь</value>
-  </data>
-  <data name="ui_refresh" xml:space="preserve">
-    <value>Обновить</value>
-  </data>
-  <data name="ui_reinstall" xml:space="preserve">
-    <value>Переустановить</value>
-  </data>
-  <data name="ui_reset" xml:space="preserve">
-    <value>Сброс настроек</value>
-  </data>
-  <data name="ui_search" xml:space="preserve">
-    <value>Поиск:</value>
-  </data>
-  <data name="ui_select" xml:space="preserve">
-    <value>Выбор интерф.</value>
-  </data>
-  <data name="ui_switch" xml:space="preserve">
-    <value>Перекл. интерф.</value>
-  </data>
-  <data name="ui_title" xml:space="preserve">
-    <value>Редактор интерфейса TF2</value>
-  </data>
-  <data name="ui_uninstall" xml:space="preserve">
-    <value>Удалить</value>
+    <value>Buscar</value>
   </data>
   <data name="ui_check_updates" xml:space="preserve">
-    <value>Автоматически проверить обновления</value>
+    <value>Buscar actualizaciones automáticamente.</value>
+  </data>
+  <data name="ui_clear" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="ui_customize" xml:space="preserve">
+    <value>Personalizar</value>
+  </data>
+  <data name="ui_directory" xml:space="preserve">
+    <value>Seleccionar ruta para tf/custom</value>
+  </data>
+  <data name="ui_install" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
+  <data name="ui_options" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="ui_refresh" xml:space="preserve">
+    <value>Buscar Actualizaciones</value>
+  </data>
+  <data name="ui_reinstall" xml:space="preserve">
+    <value>Reinstalar</value>
+  </data>
+  <data name="ui_reset" xml:space="preserve">
+    <value>Reiniciar por Defecto</value>
+  </data>
+  <data name="ui_search" xml:space="preserve">
+    <value>Buscar:</value>
+  </data>
+  <data name="ui_select" xml:space="preserve">
+    <value>Seleccione un HUD</value>
+  </data>
+  <data name="ui_switch" xml:space="preserve">
+    <value>Cambiar HUDs</value>
+  </data>
+  <data name="ui_title" xml:space="preserve">
+    <value>Editor de HUDs de TF2</value>
+  </data>
+  <data name="ui_uninstall" xml:space="preserve">
+    <value>Desinstalar</value>
   </data>
 </root>
