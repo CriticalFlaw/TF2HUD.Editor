@@ -1,5 +1,5 @@
 ---
-title: "Animations"
+title: Animations
 ---
 
 A definition of a HUD animations file contains event names and values, where each value contains a list of HUD animation objects.

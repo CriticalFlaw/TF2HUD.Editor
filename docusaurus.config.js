@@ -39,6 +39,7 @@ const config = {
 
                     showLastUpdateTime: true
                 },
+                pages: false,
                 blog: false,
                 theme: {
                     customCss: require.resolve("./docs/resources/custom.css"),
@@ -51,7 +52,7 @@ const config = {
         [
             require.resolve("@easyops-cn/docusaurus-search-local"),
             {
-                docsRouteBasePath: "/",
+                docsRouteBasePath: "/"
             }
         ]
     ],
