@@ -20,6 +20,7 @@
         <classes:NullCheckConverter x:Key="NullCheckConverter" />
         <classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
         <classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+        <classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
         <classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
         <classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
         <classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
@@ -141,21 +142,21 @@
                 <ComboBox x:Name="CbBranch" Margin="5,5,5,0" Padding="5" Height="35" Width="150" Visibility="{Binding Json.HighlightedHud.Download, Converter={StaticResource NullCheckConverterVisibility}}" />
                 <Button
                     Click="BtnGitHub_OnClick" Style="{StaticResource GitHubButton}"
-                    IsEnabled="{Binding Json.HighlightedHud.GitHubUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                    Visibility="{Binding Json.HighlightedHud.GitHubUrl, Converter={StaticResource LinkCheckConverterVisibility}}" />
                 <Button
                     Click="BtnHuds_OnClick" Style="{StaticResource HudsButton}"
-                    IsEnabled="{Binding Json.HighlightedHud.HudsTfUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                    Visibility="{Binding Json.HighlightedHud.HudsTfUrl, Converter={StaticResource LinkCheckConverterVisibility}}" />
                 <Button
                     Click="BtnDiscord_OnClick" Style="{StaticResource DiscordButton}"
-                    IsEnabled="{Binding Json.HighlightedHud.DiscordUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                    Visibility="{Binding Json.HighlightedHud.DiscordUrl, Converter={StaticResource LinkCheckConverterVisibility}}" />
                 <Button
                     Click="BtnSteam_OnClick" Style="{StaticResource SteamButton}"
-                    IsEnabled="{Binding Json.HighlightedHud.SteamUrl, Converter={StaticResource NullCheckConverter}, FallbackValue=False}" />
+                    Visibility="{Binding Json.HighlightedHud.SteamUrl, Converter={StaticResource LinkCheckConverterVisibility}}" />
             </WrapPanel>
             <Grid x:Name="EditorGrid" />
         </Grid>
         <!-- Bottom Button Tray -->
-        <GroupBox Header="{lex:Loc ui_options}" Grid.Row="1">
+        <GroupBox Header="{lex:Loc ui_options}" Grid.Row="1" Margin="10">
             <WrapPanel HorizontalAlignment="Center">
                 <Button
                     Click="BtnInstall_OnClick"

@@ -245,7 +245,7 @@ namespace HUDEditor
                 // If there's a HUD selection, generate the controls for that HUD's page.
                 if (selection is null) return;
 
-                Logger.Info($"Changing page view to: {selection.Name}.");
+                Logger.Info($"Changing page view to: {selection.Name}");
                 EditorGrid.Children.Add(selection.GetControls());
                 EditorContainer.Visibility = Visibility.Visible;
                 selection.PresetChanged += (_, _) =>
