@@ -304,6 +304,24 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Launch Team Fortress 2..
+        /// </summary>
+        public static string tooltip_launch {
+            get {
+                return ResourceManager.GetString("tooltip_launch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View options menu..
+        /// </summary>
+        public static string tooltip_options {
+            get {
+                return ResourceManager.GetString("tooltip_options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change the tf/custom directory..
         /// </summary>
         public static string tooltip_path {
@@ -313,7 +331,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for HUD schema updates..
+        ///   Looks up a localized string similar to Check for schema updates..
         /// </summary>
         public static string tooltip_refresh {
             get {
@@ -322,7 +340,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report an Issue..
+        ///   Looks up a localized string similar to Report an issue..
         /// </summary>
         public static string tooltip_report {
             get {
@@ -421,20 +439,20 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Launch Team Fortress 2..
-        /// </summary>
-        public static string ui_launch_tf2 {
-            get {
-                return ResourceManager.GetString("ui_launch_tf2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string ui_options {
             get {
                 return ResourceManager.GetString("ui_options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember crosshair selection.
+        /// </summary>
+        public static string ui_persist_xhair {
+            get {
+                return ResourceManager.GetString("ui_persist_xhair", resourceCulture);
             }
         }
         
@@ -457,7 +475,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset to Default.
+        ///   Looks up a localized string similar to Reset Changes.
         /// </summary>
         public static string ui_reset {
             get {

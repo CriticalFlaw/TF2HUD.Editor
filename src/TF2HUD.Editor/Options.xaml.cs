@@ -1,6 +1,6 @@
-﻿using System.Globalization;
+﻿using HUDEditor.Properties;
+using System.Globalization;
 using System.Windows;
-using HUDEditor.Properties;
 using WPFLocalizeExtension.Engine;
 
 namespace HUDEditor
@@ -8,14 +8,15 @@ namespace HUDEditor
     /// <summary>
     /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class SettingsWindow : Window
+    public partial class Options : Window
     {
-        public SettingsWindow()
+        public Options()
         {
             InitializeComponent();
 
-            // Check for app updates.
+            // Check for user selected settings.
             BtnAutoUpdate.IsChecked = Settings.Default.app_update_auto;
+            BtnPersistXhair.IsChecked = Settings.Default.app_xhair_persist;
         }
 
         /// <summary>
@@ -49,6 +50,12 @@ namespace HUDEditor
         private void BtnAutoUpdate_OnClick(object sender, RoutedEventArgs e)
         {
             Settings.Default.app_update_auto = BtnAutoUpdate.IsChecked ?? true;
+            Settings.Default.Save();
+        }
+
+        private void BtnPersistXhair_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.app_xhair_persist = BtnPersistXhair.IsChecked ?? true;
             Settings.Default.Save();
         }
     }

@@ -1,4 +1,9 @@
-﻿using System;
+﻿using AutoUpdaterDotNET;
+using HUDEditor.Classes;
+using HUDEditor.Properties;
+using log4net;
+using log4net.Config;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -10,11 +15,6 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using AutoUpdaterDotNET;
-using HUDEditor.Classes;
-using HUDEditor.Properties;
-using log4net;
-using log4net.Config;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
 using Label = System.Windows.Controls.Label;
@@ -245,7 +245,7 @@ namespace HUDEditor
                 // If there's a HUD selection, generate the controls for that HUD's page.
                 if (selection is null) return;
 
-                Logger.Info($"Changing page view to: {selection.Name}.");
+                Logger.Info($"Changing page view to: {selection.Name}");
                 EditorGrid.Children.Add(selection.GetControls());
                 EditorContainer.Visibility = Visibility.Visible;
                 selection.PresetChanged += (_, _) =>
@@ -556,7 +556,7 @@ namespace HUDEditor
         /// </summary>
         private void BtnSettings_OnClick(object sender, RoutedEventArgs e)
         {
-            var settings = new SettingsWindow();
+            var settings = new Options();
             settings.Show();
         }
 

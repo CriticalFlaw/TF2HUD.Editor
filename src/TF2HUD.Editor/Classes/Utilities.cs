@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HUDEditor.Models;
+using HUDEditor.Properties;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -9,13 +12,9 @@ using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using Gameloop.Vdf;
-using Gameloop.Vdf.JsonConverter;
-using Gameloop.Vdf.Linq;
-using HUDEditor.Models;
-using HUDEditor.Properties;
-using Microsoft.Win32;
+using System.Windows.Media;
 using WPFLocalizeExtension.Extensions;
+using Color = System.Windows.Media.Color;
 
 namespace HUDEditor.Classes
 {
@@ -161,6 +160,26 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
+        ///     Convert an RGBA color code to Color object.
+        /// </summary>
+        /// <param name="rgba">RGBA color code to process.</param>
+        public static Color ConvertToColor(string rgba)
+        {
+            var colors = Array.ConvertAll(rgba.Split(' '), byte.Parse);
+            return Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+        }
+
+        /// <summary>
+        ///     Convert an RGBA color code to ColorBrush object.
+        /// </summary>
+        /// <param name="rgba">RGBA color code to process.</param>
+        public static SolidColorBrush ConvertToColorBrush(string rgba)
+        {
+            var colors = Array.ConvertAll(rgba.Split(' '), byte.Parse);
+            return new SolidColorBrush(Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
+        }
+
+        /// <summary>
         ///     Open the provided path in browser or Windows Explorer.
         /// </summary>
         /// <param name="url">URL link to open.</param>
@@ -216,10 +235,11 @@ namespace HUDEditor.Classes
             // Loop through all known libary paths to try and find TF2.
             foreach (var path in steamPaths)
             {
-                if (Directory.Exists(path + "\\steamapps\\common\\Team Fortress 2\\tf\\custom"))
+                var pathTF = path + "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
+                if (Directory.Exists(pathTF))
                 {
-                    MainWindow.Logger.Info("tf/custom directory found in the registry: " + path);
-                    Settings.Default.hud_directory = path;
+                    MainWindow.Logger.Info($"tf/custom directory found in the registry: {pathTF}");
+                    Settings.Default.hud_directory = pathTF;
                     Settings.Default.Save();
                     return true;
                 }

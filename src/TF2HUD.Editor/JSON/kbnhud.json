@@ -281,7 +281,7 @@
         "Name": "kbn_crosshair1",
         "Label": "Enable Crosshair 1",
         "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair 1",
+        "ToolTip": "Toggle Crosshair 1",
         "Value": "false",
         "Files": {
           "^customizations/#crosshairs/crosshairs_hudlayout.res": {
@@ -359,7 +359,7 @@
         "Name": "kbn_crosshair2",
         "Label": "Enable Crosshair 2",
         "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair 2",
+        "ToolTip": "Toggle Crosshair 2",
         "Value": "false",
         "Files": {
           "^customizations/#crosshairs/crosshairs_hudlayout.res": {

@@ -1,10 +1,10 @@
-﻿using System.Globalization;
+﻿using HUDEditor.Properties;
+using log4net;
+using log4net.Config;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows;
-using HUDEditor.Properties;
-using log4net;
-using log4net.Config;
 using WPFLocalizeExtension.Engine;
 
 namespace HUDEditor

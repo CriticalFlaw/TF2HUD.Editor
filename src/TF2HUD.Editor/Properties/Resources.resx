@@ -198,14 +198,20 @@
   <data name="tooltip_docs" xml:space="preserve">
     <value>Read the documentation.</value>
   </data>
+  <data name="tooltip_launch" xml:space="preserve">
+    <value>Launch Team Fortress 2.</value>
+  </data>
+  <data name="tooltip_options" xml:space="preserve">
+    <value>View options menu.</value>
+  </data>
   <data name="tooltip_path" xml:space="preserve">
     <value>Change the tf/custom directory.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Check for HUD schema updates.</value>
+    <value>Check for schema updates.</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
-    <value>Report an Issue.</value>
+    <value>Report an issue.</value>
   </data>
   <data name="ui_apply" xml:space="preserve">
     <value>Apply Changes</value>
@@ -237,11 +243,11 @@
   <data name="ui_install" xml:space="preserve">
     <value>Install</value>
   </data>
-  <data name="ui_launch_tf2" xml:space="preserve">
-    <value>Launch Team Fortress 2.</value>
-  </data>
   <data name="ui_options" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="ui_persist_xhair" xml:space="preserve">
+    <value>Remember crosshair selection</value>
   </data>
   <data name="ui_refresh" xml:space="preserve">
     <value>Check for Updates</value>
@@ -250,7 +256,7 @@
     <value>Reinstall</value>
   </data>
   <data name="ui_reset" xml:space="preserve">
-    <value>Reset to Default</value>
+    <value>Reset Changes</value>
   </data>
   <data name="ui_search" xml:space="preserve">
     <value>Search:</value>
