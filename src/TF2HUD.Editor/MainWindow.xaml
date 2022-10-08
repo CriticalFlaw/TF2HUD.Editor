@@ -187,7 +187,7 @@
                 <Button
                     Click="BtnSettings_OnClick"
                     Content="="
-                    ToolTip="{lex:Loc ui_options}"
+                    ToolTip="{lex:Loc tooltip_options}"
                     Style="{StaticResource LinkButton}" />
                 <Button
                     Click="BtnReportIssue_OnClick"
@@ -202,7 +202,7 @@
                 <Button
                     Click="BtnPlayTF2_OnClick"
                     Content="!"
-                    ToolTip="{lex:Loc ui_launch_tf2}"
+                    ToolTip="{lex:Loc tooltip_launch}"
                     Style="{StaticResource LinkButton}"
                     Visibility="{Binding Json.SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}" />
                 <Button
