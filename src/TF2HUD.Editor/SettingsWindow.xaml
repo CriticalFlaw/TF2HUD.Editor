@@ -66,6 +66,11 @@
                             Content="{lex:Loc ui_check_updates}"
                             Click="BtnAutoUpdate_OnClick"
                             Style="{StaticResource ToggleButton}" />
+                        <ToggleButton
+                            x:Name="BtnPersistXhair"
+                            Content="{lex:Loc ui_persist_xhair}"
+                            Click="BtnPersistXhair_Click"
+                            Style="{StaticResource ToggleButton}" />
                     </WrapPanel>
                 </GroupBox>
             </StackPanel>

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using HUDEditor.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -43,6 +44,12 @@ namespace HUDEditor.Classes
                         var setting = Settings.GetSetting(control.Name);
                         if (setting is null) continue;
                         WriteToFile(control, setting, hudFolders);
+
+                        if (control.Label.Contains("Toggle Crosshair") && Properties.Settings.Default.app_xhair_persist)
+                        {
+                            Properties.Settings.Default.app_xhair_enabled = Boolean.Parse(setting.Value);
+
+                        }
                     }
                 }
 
