@@ -203,13 +203,14 @@
                     Click="BtnPlayTF2_OnClick"
                     Content="!"
                     ToolTip="{lex:Loc ui_launch_tf2}"
-                    Style="{StaticResource LinkButton}" />
+                    Style="{StaticResource LinkButton}"
+                    Visibility="{Binding Json.SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}" />
                 <Button
                     Click="BtnAddSharedHUD_OnClick"
                     Content="&#x0583;"
                     Style="{StaticResource LinkButton}"
                     ToolTip="{lex:Loc tooltip_addhud}"
-                    IsEnabled="{Binding Json.SelectedHud, Converter={StaticResource NotNullCheckConverter}}" />
+                    Visibility="{Binding Json.SelectedHud, Converter={StaticResource NotNullCheckConverterVisibility}}" />
             </WrapPanel>
         </GroupBox>
     </Grid>
