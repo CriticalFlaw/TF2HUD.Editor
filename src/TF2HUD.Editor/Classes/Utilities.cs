@@ -9,13 +9,12 @@ using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using Gameloop.Vdf;
-using Gameloop.Vdf.JsonConverter;
-using Gameloop.Vdf.Linq;
+using System.Windows.Media;
 using HUDEditor.Models;
 using HUDEditor.Properties;
 using Microsoft.Win32;
 using WPFLocalizeExtension.Extensions;
+using Color = System.Windows.Media.Color;
 
 namespace HUDEditor.Classes
 {
@@ -158,6 +157,26 @@ namespace HUDEditor.Classes
             for (var x = 0; x < colors.Length; x++)
                 colors[x] = Convert.ToInt32(colors[x] * 0.25);
             return $"{colors[0]} {colors[1]} {colors[2]} 255";
+        }
+
+        /// <summary>
+        ///     Convert an RGBA color code to Color object.
+        /// </summary>
+        /// <param name="rgba">RGBA color code to process.</param>
+        public static Color ConvertToColor(string rgba)
+        {
+            var colors = Array.ConvertAll(rgba.Split(' '), byte.Parse);
+            return Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+        }
+
+        /// <summary>
+        ///     Convert an RGBA color code to ColorBrush object.
+        /// </summary>
+        /// <param name="rgba">RGBA color code to process.</param>
+        public static SolidColorBrush ConvertToColorBrush(string rgba)
+        {
+            var colors = Array.ConvertAll(rgba.Split(' '), byte.Parse);
+            return new SolidColorBrush(Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
         }
 
         /// <summary>

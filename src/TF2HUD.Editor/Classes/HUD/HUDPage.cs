@@ -64,12 +64,9 @@ namespace HUDEditor.Classes
                     Margin = new Thickness(1, 0, 1, 0)
                 };
 
+                // LighterRed
                 if (Settings.Preset == preset)
-                {
-                    // LighterRed
-                    var colors = Array.ConvertAll("220 100 80 255".Split(' '), byte.Parse);
-                    presetButton.Background = new SolidColorBrush(Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
-                }
+                    presetButton.Background = Utilities.ConvertToColorBrush("220 100 80 255");
 
                 presetButton.Click += (_, _) =>
                 {
@@ -218,6 +215,9 @@ namespace HUDEditor.Classes
                                 CheckIsDirty(controlItem);
                             };
 
+                            if (Properties.Settings.Default.app_xhair_persist && label.Contains("Toggle Crosshair"))
+                                checkBoxInput.IsChecked = Properties.Settings.Default.app_xhair_enabled;
+
                             // Add to Page.
                             sectionContent.Children.Add(checkBoxInput);
                             controlItem.Control = checkBoxInput;
@@ -274,7 +274,10 @@ namespace HUDEditor.Classes
                             // Attempt to bind the color from the settings.
                             try
                             {
-                                colorInput.SelectedColor = Settings.GetSetting<Color>(id);
+                                if (Properties.Settings.Default.app_xhair_persist && label.Contains("Crosshair"))
+                                    colorInput.SelectedColor = Utilities.ConvertToColor(Properties.Settings.Default.app_xhair_color);
+                                else
+                                    colorInput.SelectedColor = Settings.GetSetting<Color>(id);
                             }
                             catch
                             {
@@ -440,6 +443,9 @@ namespace HUDEditor.Classes
                                 integerLabel.Width = controlItem.Width;
                                 integerInput.Width = controlItem.Width;
                             }
+                            
+                            if (Properties.Settings.Default.app_xhair_persist && label.Contains("Size"))
+                                integerInput.Value = Properties.Settings.Default.app_xhair_size;
 
                             // Add Events.
                             integerInput.ValueChanged += (sender, _) =>
@@ -511,10 +517,11 @@ namespace HUDEditor.Classes
                             var xhairValue = Settings.GetSetting<string>(id);
                             if (!Regex.IsMatch(xhairValue, "\\D"))
                                 xhairInput.SelectedIndex = int.Parse(xhairValue);
-                            else if (Properties.Settings.Default.app_xhair_persist)
-                                xhairInput.SelectedIndex = Properties.Settings.Default.app_xhair_style;
                             else
                                 xhairInput.SelectedValue = xhairValue;
+
+                            if (Properties.Settings.Default.app_xhair_persist && label.Contains("Style"))
+                                xhairInput.SelectedValue = Properties.Settings.Default.app_xhair_style;
 
                             // Add Events.
                             xhairInput.SelectionChanged += (sender, _) =>

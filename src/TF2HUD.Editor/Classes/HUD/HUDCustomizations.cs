@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using HUDEditor.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Xceed.Wpf.Toolkit;
 
 namespace HUDEditor.Classes
 {
@@ -48,9 +49,25 @@ namespace HUDEditor.Classes
                         // Apply persistent crosshair settings, where possible.
                         if (Properties.Settings.Default.app_xhair_persist)
                         {
-                            if (control.Label.Contains("Toggle Crosshair"))
-                                Properties.Settings.Default.app_xhair_enabled = Boolean.Parse(setting.Value);
-                            // TODO: Add other controls...
+                            switch (control.Type.ToLowerInvariant())
+                            {
+                                case "checkbox":
+                                    if (control.Label.Contains("Toggle Crosshair"))
+                                        Properties.Settings.Default.app_xhair_enabled = Boolean.Parse(setting.Value);
+                                    break;
+                                case "crosshair":
+                                    if (control.Label.Contains("Style"))
+                                        Properties.Settings.Default.app_xhair_style = setting.Value;
+                                    break;
+                                case "colorpicker":
+                                    if (control.Label.Contains("Crosshair"))
+                                        Properties.Settings.Default.app_xhair_color = setting.Value;
+                                    break;
+                                case "integerupdown":
+                                    if (control.Label.Contains("Size"))
+                                        Properties.Settings.Default.app_xhair_size = int.Parse(setting.Value);
+                                    break;
+                            }
                         }
                     }
                 }

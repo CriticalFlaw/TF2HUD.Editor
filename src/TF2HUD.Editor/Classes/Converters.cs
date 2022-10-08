@@ -123,8 +123,7 @@ namespace HUDEditor.Classes
                 };
 
             // The background is an RGBA color code, change it to ARGB and set it as the background.
-            var colors = Array.ConvertAll(selection.Background.Split(' '), byte.Parse);
-            return new SolidColorBrush(Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
+            return Utilities.ConvertToColorBrush(selection.Background);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

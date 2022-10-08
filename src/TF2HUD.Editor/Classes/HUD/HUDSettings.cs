@@ -86,8 +86,7 @@ namespace HUDEditor.Classes
                     return (T)(object)evaluatedValue;
 
                 case "Color":
-                    var colors = Array.ConvertAll(value.Split(' '), byte.Parse);
-                    return (T)(object)Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                    return (T)(object)Utilities.ConvertToColor(value);
 
                 case "Int32":
                     return (T)(object)int.Parse(value);
