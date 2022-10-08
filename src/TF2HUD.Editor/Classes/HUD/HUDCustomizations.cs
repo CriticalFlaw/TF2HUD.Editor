@@ -55,14 +55,17 @@ namespace HUDEditor.Classes
                                     if (control.Label.Contains("Toggle Crosshair"))
                                         Properties.Settings.Default.app_xhair_enabled = Boolean.Parse(setting.Value);
                                     break;
+
                                 case "crosshair":
                                     if (control.Label.Contains("Style"))
                                         Properties.Settings.Default.app_xhair_style = setting.Value;
                                     break;
+
                                 case "colorpicker":
                                     if (control.Label.Contains("Crosshair"))
                                         Properties.Settings.Default.app_xhair_color = setting.Value;
                                     break;
+
                                 case "integerupdown":
                                     if (control.Label.Contains("Size"))
                                         Properties.Settings.Default.app_xhair_size = int.Parse(setting.Value);

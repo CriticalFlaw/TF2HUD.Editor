@@ -1,6 +1,6 @@
-﻿using System.Globalization;
+﻿using HUDEditor.Properties;
+using System.Globalization;
 using System.Windows;
-using HUDEditor.Properties;
 using WPFLocalizeExtension.Engine;
 
 namespace HUDEditor

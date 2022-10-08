@@ -1,3 +1,5 @@
+using HUDEditor.Models;
+using HUDEditor.Properties;
 using System;
 using System.IO;
 using System.Linq;
@@ -7,8 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using HUDEditor.Models;
-using HUDEditor.Properties;
 using Xceed.Wpf.Toolkit;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
@@ -443,7 +443,7 @@ namespace HUDEditor.Classes
                                 integerLabel.Width = controlItem.Width;
                                 integerInput.Width = controlItem.Width;
                             }
-                            
+
                             if (Properties.Settings.Default.app_xhair_persist && label.Contains("Size"))
                                 integerInput.Value = Properties.Settings.Default.app_xhair_size;
 

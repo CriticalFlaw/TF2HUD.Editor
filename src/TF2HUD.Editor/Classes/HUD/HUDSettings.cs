@@ -1,10 +1,9 @@
+using HUDEditor.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Media;
-using HUDEditor.Models;
-using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {

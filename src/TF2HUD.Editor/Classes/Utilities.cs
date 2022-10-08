@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HUDEditor.Models;
+using HUDEditor.Properties;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -10,9 +13,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using HUDEditor.Models;
-using HUDEditor.Properties;
-using Microsoft.Win32;
 using WPFLocalizeExtension.Extensions;
 using Color = System.Windows.Media.Color;
 
@@ -235,10 +235,11 @@ namespace HUDEditor.Classes
             // Loop through all known libary paths to try and find TF2.
             foreach (var path in steamPaths)
             {
-                if (Directory.Exists(path + "\\steamapps\\common\\Team Fortress 2\\tf\\custom"))
+                var pathTF = path + "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
+                if (Directory.Exists(pathTF))
                 {
-                    MainWindow.Logger.Info("tf/custom directory found in the registry: " + path);
-                    Settings.Default.hud_directory = path;
+                    MainWindow.Logger.Info($"tf/custom directory found in the registry: {pathTF}");
+                    Settings.Default.hud_directory = pathTF;
                     Settings.Default.Save();
                     return true;
                 }

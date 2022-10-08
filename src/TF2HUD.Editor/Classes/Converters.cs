@@ -1,3 +1,4 @@
+using HUDEditor.Properties;
 using System;
 using System.Globalization;
 using System.IO;
@@ -139,7 +140,7 @@ namespace HUDEditor.Classes
             var hud = (HUD)value;
             if (hud is not null)
             {
-                if (Directory.Exists($"{MainWindow.HudPath}\\{hud.Name}"))
+                if (Directory.Exists($"{Settings.Default.hud_directory}\\{hud.Name}"))
                 {
                     MainWindow.Logger.Info($"[BtnInstallContentConverter] {hud.Name} is installed");
                     return Utilities.GetLocalizedString("ui_reinstall") ?? "Reinstall";

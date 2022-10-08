@@ -1,9 +1,9 @@
+using HUDEditor.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
-using HUDEditor.Models;
 
 namespace HUDEditor.Classes
 {
