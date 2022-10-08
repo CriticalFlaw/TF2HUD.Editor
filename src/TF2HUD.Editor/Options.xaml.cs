@@ -8,9 +8,9 @@ namespace HUDEditor
     /// <summary>
     /// Interaction logic for Settings.xaml
     /// </summary>
-    public partial class SettingsWindow : Window
+    public partial class Options : Window
     {
-        public SettingsWindow()
+        public Options()
         {
             InitializeComponent();
 

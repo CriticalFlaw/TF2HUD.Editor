@@ -101,11 +101,7 @@ namespace HUDEditor.Classes
                 {
                     case CheckBox check:
                         if (bool.TryParse(control.Value, out var value))
-                        {
-                            if (check.Content.Contains("Toggle Crosshair") && Properties.Settings.Default.app_xhair_persist)
-                                check.IsChecked = Properties.Settings.Default.app_xhair_enabled;
-                            else check.IsChecked = value;
-                        }
+                            check.IsChecked = value;
                         Logger.Info($"Reset {control.Name} to {value}");
                         break;
 

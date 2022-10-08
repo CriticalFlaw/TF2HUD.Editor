@@ -556,7 +556,7 @@ namespace HUDEditor
         /// </summary>
         private void BtnSettings_OnClick(object sender, RoutedEventArgs e)
         {
-            var settings = new SettingsWindow();
+            var settings = new Options();
             settings.Show();
         }
 

@@ -45,10 +45,12 @@ namespace HUDEditor.Classes
                         if (setting is null) continue;
                         WriteToFile(control, setting, hudFolders);
 
-                        if (control.Label.Contains("Toggle Crosshair") && Properties.Settings.Default.app_xhair_persist)
+                        // Apply persistent crosshair settings, where possible.
+                        if (Properties.Settings.Default.app_xhair_persist)
                         {
-                            Properties.Settings.Default.app_xhair_enabled = Boolean.Parse(setting.Value);
-
+                            if (control.Label.Contains("Toggle Crosshair"))
+                                Properties.Settings.Default.app_xhair_enabled = Boolean.Parse(setting.Value);
+                            // TODO: Add other controls...
                         }
                     }
                 }
