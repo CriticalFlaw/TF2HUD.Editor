@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -16,7 +15,6 @@ using HUDEditor.Classes;
 using HUDEditor.Properties;
 using log4net;
 using log4net.Config;
-using WPFLocalizeExtension.Engine;
 using Application = System.Windows.Application;
 using Binding = System.Windows.Data.Binding;
 using Label = System.Windows.Controls.Label;
@@ -25,7 +23,7 @@ using MessageBox = System.Windows.MessageBox;
 namespace HUDEditor
 {
     /// <summary>
-    ///     Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
@@ -59,8 +57,7 @@ namespace HUDEditor
             Json.SelectionChanged += SelectionChanged;
 
             // Check for app updates.
-            BtnAutoUpdate.IsChecked = Settings.Default.app_update_auto;
-            if (BtnAutoUpdate.IsChecked == true)
+            if (Settings.Default.app_update_auto == true)
                 CheckSchemaUpdates();
 
             Logger.Info("Checking for app updates.");
@@ -73,7 +70,7 @@ namespace HUDEditor
         ///     Setup the tf/custom directory, if it's not already set.
         /// </summary>
         /// <param name="userSet">Flags the process as being user initiated, skip right to the folder browser.</param>
-        private void SetupDirectory(bool userSet = false)
+        public static void SetupDirectory(bool userSet = false)
         {
             if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
             // Display a folder browser, ask the user to provide the tf/custom directory.
@@ -200,6 +197,7 @@ namespace HUDEditor
                 }
                 CbBranch.SelectedIndex = LastDownloadSource;
                 CbBranch.Visibility = CbBranch.Items.Count > 1 ? Visibility.Visible : Visibility.Hidden;
+                LblDownload.Visibility = CbBranch.Visibility;
 
                 Application.Current.MainWindow.WindowState = hud.Maximize ? WindowState.Maximized : WindowState.Normal;
                 Settings.Default.hud_selected = hud.Name;
@@ -516,15 +514,10 @@ namespace HUDEditor
             Logger.Info("Changing page view to: main menu.");
             EditorGrid.Children.Clear();
             EditorContainer.Visibility = Visibility.Hidden;
+            LblDownload.Visibility = Visibility.Hidden;
             CbBranch.Visibility = Visibility.Hidden;
             Json.HighlightedHud = null;
             Json.SelectedHud = null;
-        }
-
-        private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
-        {
-            Logger.Info("Attempting to change the 'tf/custom' directory.");
-            SetupDirectory(true);
         }
 
         /// <summary>
@@ -559,16 +552,28 @@ namespace HUDEditor
         }
 
         /// <summary>
+        ///     Opens the settings menu for the editor.
+        /// </summary>
+        private void BtnSettings_OnClick(object sender, RoutedEventArgs e)
+        {
+            var settings = new SettingsWindow();
+            settings.Show();
+        }
+
+        /// <summary>
+        ///     Opens the settings menu for the editor.
+        /// </summary>
+        private void BtnPlayTF2_OnClick(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"steam://rungameid/440");
+        }
+
+        /// <summary>
         ///     Opens the project documentation site.
         /// </summary>
         private void BtnDocumentation_OnClick(object sender, RoutedEventArgs e)
         {
             Utilities.OpenWebpage(Settings.Default.app_docs);
-        }
-
-        private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
-        {
-            CheckSchemaUpdates(false);
         }
 
         private void BtnGitHub_OnClick(object sender, RoutedEventArgs e)
@@ -591,23 +596,6 @@ namespace HUDEditor
             Utilities.OpenWebpage(Json.HighlightedHud.SteamUrl);
         }
 
-        /// <summary>
-        ///     Updates localization to the selected language.
-        /// </summary>
-        private void BtnLocalize_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (BtnLocalizeEn.IsChecked == true)
-                LocalizeDictionary.Instance.Culture = new CultureInfo("en-US");
-            else if (BtnLocalizeFr.IsChecked == true)
-                LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
-            else if (BtnLocalizeRu.IsChecked == true)
-                LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
-
-            // Save language preference to user settings.
-            Settings.Default.user_language = LocalizeDictionary.Instance.Culture.ToString();
-            Settings.Default.Save();
-        }
-
         private void BtnCustomize_OnClick(object sender, RoutedEventArgs e)
         {
             if (Json.HighlightedHud is null) return;
@@ -616,12 +604,6 @@ namespace HUDEditor
             Settings.Default.hud_selected = Json.SelectedHud.Name;
             Settings.Default.Save();
             SetPageView(Json[Settings.Default.hud_selected]);
-        }
-
-        private void BtnAutoUpdate_OnClick(object sender, RoutedEventArgs e)
-        {
-            Settings.Default.app_update_auto = BtnAutoUpdate.IsChecked ?? true;
-            Settings.Default.Save();
         }
 
         #endregion CLICK_EVENTS

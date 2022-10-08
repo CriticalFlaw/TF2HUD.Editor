@@ -403,11 +403,29 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download:.
+        /// </summary>
+        public static string ui_download {
+            get {
+                return ResourceManager.GetString("ui_download", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Install.
         /// </summary>
         public static string ui_install {
             get {
                 return ResourceManager.GetString("ui_install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Launch Team Fortress 2..
+        /// </summary>
+        public static string ui_launch_tf2 {
+            get {
+                return ResourceManager.GetString("ui_launch_tf2", resourceCulture);
             }
         }
         
