@@ -1,7 +1,7 @@
 ---
 name: Bug Report
 about: Report an issue found in the HUD editor.
-title: ''
+title: '[BUG] '
 labels: bug
 assignees: ''
 
@@ -22,5 +22,5 @@ If applicable, add screenshots of the editor settings used.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. Windows 10, x64]
- - App Version: [e.g. 2.2]
+ - App Version: [e.g. 2.6]
  - Selected HUD: [e.g. flawhud]
