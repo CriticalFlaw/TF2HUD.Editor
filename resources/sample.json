@@ -1,0 +1,119 @@
+{
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Background": "30 30 30 255",
+  "Links": {
+    "Update": "https://github.com/rbjaxter/budhud/archive/master.zip",
+    "Issue": "https://github.com/rbjaxter/budhud/issues",
+    "GitHub": "https://github.com/rbjaxter/budhud"
+  },
+  "CustomizationsFolder": "#customization",
+  "EnabledFolder": "#customization//_enabled",
+  "Controls": {
+    "General": [
+      {
+        "Name": "bh_player_hideclassmodel",
+        "Label": "Disable 3D Player Model",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_player_hideclassmodel.res"
+      },
+      {
+        "Name": "bh_chat_lowerleft",
+        "Label": "Chat Location",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_chat_lowerleft.res"
+      },
+      {
+        "Name": "bh_youtuber_select",
+        "Label": "Youtuber HUD",
+        "Type": "Select",
+        "Path": "#users"
+      },
+      {
+        "Name": "bh_player_transparentviewmodels",
+        "Label": "Transparent Viewmodels",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_player_transparentviewmodels.res"
+      }
+    ],
+    "Colors": [
+      {
+        "Name": "bh_Health_Main",
+        "Label": "Health Normal",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "bh_Health_Main": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_Health_Low",
+        "Label": "Health Low",
+        "Type": "ColorPicker",
+        "Value": "186 032 032 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "bh_Health_Low": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_Ammo_Main",
+        "Label": "Ammo Normal",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "bh_Ammo_Main": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_Ammo_Reserve",
+        "Label": "Ammo Reserve",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "bh_Ammo_Reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_Ammo_Low",
+        "Label": "Ammo Low",
+        "Type": "ColorPicker",
+        "Value": "186 032 032 255",
+        "Files": {
+          "#customization/_enabled/bh_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "bh_Ammo_Low": "$value"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}
