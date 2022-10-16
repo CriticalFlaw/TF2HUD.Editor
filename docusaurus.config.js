@@ -44,7 +44,7 @@ const config = {
                 },
                 googleAnalytics: {
                     trackingID: "UA-141789564-1",
-                    anonymizeIP: true,
+                    anonymizeIP: true
                 }
             })
         ]
@@ -73,31 +73,31 @@ const config = {
                     label: "Screenshots",
                     type: "doc",
                     docId: "screenshots",
-                    position: "left",
+                    position: "left"
                 },
                 {
                     label: "Troubleshooting",
                     type: "doc",
                     docId: "troubleshoot",
-                    position: "left",
+                    position: "left"
                 },
                 {
                     label: "How to Contribute",
                     type: "doc",
                     docId: "contribute",
-                    position: "left",
+                    position: "left"
                 },
                 {
                     label: "Credits",
                     type: "doc",
                     docId: "credits",
-                    position: "left",
+                    position: "left"
                 },
                 {
                     label: "Adding your HUD",
                     type: "doc",
                     docId: "json/intro",
-                    position: "left",
+                    position: "left"
                 },
                 {
                     label: "Blog",
@@ -106,9 +106,9 @@ const config = {
                 {
                     href: "https://github.com/CriticalFlaw/TF2HUD.Editor/",
                     position: "right",
-                    className: "header-github-link",
-                },
-            ],
+                    className: "header-github-link"
+                }
+            ]
         },
         footer: {
             links: [
@@ -126,11 +126,11 @@ const config = {
                         {
                             label: "Discord",
                             href: "https://github.com/CriticalFlaw/TF2HUD.Editor",
-                        },
-                    ],
+                        }
+                    ]
                 }
             ],
-            copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+            copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`
         }
     }
 }
