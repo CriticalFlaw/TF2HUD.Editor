@@ -1,10 +1,9 @@
-﻿using System;
+﻿using HUDEditor.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using HUDEditor.Models;
 using Xceed.Wpf.Toolkit;
 using static HUDEditor.MainWindow;
 
@@ -111,8 +110,7 @@ namespace HUDEditor.Classes
                         break;
 
                     case ColorPicker color:
-                        var colors = Array.ConvertAll(control.Value.Split(' '), byte.Parse);
-                        color.SelectedColor = Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                        color.SelectedColor = Utilities.ConvertToColor(control.Value);
                         Logger.Info($"Reset {control.Name} to {color.SelectedColor}");
                         break;
 

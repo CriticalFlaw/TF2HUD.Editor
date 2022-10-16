@@ -740,7 +740,7 @@
       },
       {
         "Name": "zh_toggle_xhair_enable",
-        "Label": "Enable Crosshair",
+        "Label": "Toggle Crosshair",
         "Type": "Checkbox",
         "Value": "false",
         "ToolTip": "Toggle crosshair visibility.",

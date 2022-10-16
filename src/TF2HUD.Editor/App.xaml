@@ -139,7 +139,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
@@ -150,6 +150,31 @@
                     <Setter Property="Background" Value="#934739" />
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#2B2724" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SettingButton" TargetType="Button" BasedOn="{StaticResource HudButton}">
+            <Setter Property="Width" Value="400" />
+        </Style>
+
+        <Style x:Key="ToggleButton" TargetType="ToggleButton">
+            <Setter Property="FontFamily" Value="../Resources/TF2Build.ttf #TF2 Build" />
+            <Setter Property="FontSize" Value="16px" />
+            <Setter Property="Foreground" Value="#EBE2CA" />
+            <Setter Property="Background" Value="#776B5F" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Width" Value="400" />
+            <Setter Property="Height" Value="40" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#934739" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Foreground" Value="#2B2724" />
+                </Trigger>
+                <Trigger Property="IsChecked" Value="True">
                     <Setter Property="Foreground" Value="#2B2724" />
                 </Trigger>
             </Style.Triggers>
@@ -169,7 +194,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
@@ -227,6 +252,19 @@
         </Style>
 
         <Style x:Key="SteamButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
+            <Setter Property="Content" Value="&#x0683;" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="FontSize" Value="25" />
+            <Setter Property="Background" Value="#1B2838" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#384452" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SettingsButton" TargetType="Button" BasedOn="{StaticResource LinkButton}">
             <Setter Property="Content" Value="&#x0683;" />
             <Setter Property="Width" Value="35" />
             <Setter Property="Height" Value="35" />

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.Windows;
-using Newtonsoft.Json.Linq;
 
 namespace HUDEditor.Models
 {
@@ -78,13 +78,5 @@ namespace HUDEditor.Models
         [JsonPropertyName("Special")] public string Special;
         [JsonPropertyName("SpecialParameters")] public string[] SpecialParameters;
         [JsonPropertyName("Value")] public string Value;
-    }
-
-    public class GitJson
-    {
-        [JsonPropertyName("name")] public string Name { get; set; }
-        [JsonPropertyName("sha")] public string SHA { get; set; }
-        [JsonPropertyName("download_url")] public string Download { get; set; }
-        [JsonPropertyName("type")] public string Type { get; set; }
     }
 }
