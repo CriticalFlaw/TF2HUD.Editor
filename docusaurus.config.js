@@ -104,8 +104,8 @@ const config = {
                 },
                 {
                     href: "https://github.com/CriticalFlaw/TF2HUD.Editor/",
-                    label: "GitHub",
                     position: "right",
+                    className: "header-github-link",
                 },
             ],
         },
