@@ -4,13 +4,13 @@
 const config = {
     title: "TF2 HUD Editor",
     tagline: "Install and customize your favorite custom Team Fortress 2 HUDs.",
-    url: "https://cooolbros.github.io",
-    baseUrl: "/TF2HUD.Editor/",
+    url: "https://www.editor.criticalflaw.ca/",
+    baseUrl: "/",
     favicon: "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/docs/resources/logo.png",
 
     // GitHub pages deployment config.
     // If you aren"t using GitHub pages, you don"t need these.
-    organizationName: "cooolbros", // Usually your GitHub org/user name.
+    organizationName: "CriticalFlaw", // Usually your GitHub org/user name.
     projectName: "TF2HUD.Editor", // Usually your repo name.
     deploymentBranch: "gh-pages",
 
@@ -121,11 +121,11 @@ const config = {
                         },
                         {
                             label: "Twitter",
-                            href: "https://github.com/CriticalFlaw/TF2HUD.Editor",
+                            href: "https://twitter.com/CriticalFlaw_",
                         },
                         {
                             label: "Discord",
-                            href: "https://github.com/CriticalFlaw/TF2HUD.Editor",
+                            href: "https://discord.gg/hTdtK9vBhE",
                         }
                     ]
                 }
