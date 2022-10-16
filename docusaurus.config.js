@@ -6,6 +6,7 @@ const config = {
     tagline: "Install and customize your favorite custom Team Fortress 2 HUDs.",
     url: "https://cooolbros.github.io",
     baseUrl: "/TF2HUD.Editor/",
+    favicon: "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/docs/resources/logo.png",
 
     // GitHub pages deployment config.
     // If you aren"t using GitHub pages, you don"t need these.
