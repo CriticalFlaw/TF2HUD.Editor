@@ -65,8 +65,8 @@ const config = {
             style: "dark",
             title: "TF2 HUD Editor",
             logo: {
-                alt: "My Site Logo",
-                src: "https://www.editor.criticalflaw.ca/resources/logo.png",
+                alt: "TF2HUD.Editor Logo",
+                src: "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/docs/resources/logo.png",
             },
             items: [
                 {
