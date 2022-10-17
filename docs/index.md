@@ -1,10 +1,7 @@
-<!-- TITLE -->
-<style>
-  .md-typeset h1,
-  .md-content__button {
-    display: none;
-  }
-</style>
+---
+title: ""
+slug: /
+---
 
 ![image](https://user-images.githubusercontent.com/6818236/115637633-a0d9cd80-a2de-11eb-89f8-48373c34d740.png)
 <p align="center">
@@ -12,13 +9,13 @@
     Install and customize your favorite custom Team Fortress 2 HUDs.
     <br />
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases/latest">Download</a>
-    ·
+    &nbsp;·&nbsp;
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor">Source Code</a>
-    ·
+    &nbsp;·&nbsp;
     <a href="https://www.editor.criticalflaw.ca/screenshots/">Screenshots</a>
-    ·
+    &nbsp;·&nbsp;
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/issues">Issue Tracker</a>
-    ·
+    &nbsp;·&nbsp;
     <a href="https://discord.gg/hTdtK9vBhE">Discord</a>
   </p>
 </p>
@@ -42,7 +39,7 @@
 ---
 
 ## How to Update
-The editor will check for updates every time it launches. If an update is available, you will receive a notification. 
+The editor will check for updates every time it launches. If an update is available, you will receive a notification.
 
 Always use to the latest version of the editor for best compatability with supported HUDs.
 
