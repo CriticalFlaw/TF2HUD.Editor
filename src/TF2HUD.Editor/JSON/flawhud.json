@@ -48,8 +48,7 @@
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
-                "Overheal": "$value",
-                "PositiveValue": "$value"
+                "Overheal": "$value"
               }
             }
           }
@@ -85,8 +84,7 @@
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
-                "LowHealth": "$value",
-                "NegativeValue": "$value"
+                "LowHealth": "$value"
               }
             }
           }
@@ -432,7 +430,7 @@
         "Files": {
           "scripts/hudlayout.res": {
             "CustomCrosshair": {
-              "font": "Size:$value | Outline:{$fh_val_xhair_outline ? ON : OFF}"
+              "font": "Size:$value"
             }
           }
         }
@@ -499,19 +497,13 @@
         "ToolTip": "Toggle hitmarker animation.",
         "Value": "true",
         "Files": {
-          "scripts/hudanimations_custom.txt": {
+          "scripts/hudanimations_hitmarker.txt": {
             "uncomment": [
               "StopEvent HitMarker",
               "RunEvent HitMarker"
             ]
           }
         }
-      },
-      {
-        "Name": "fh_val_xhair_outline",
-        "Label": "Crosshair Outline",
-        "Type": "Checkbox",
-        "Value": "false"
       }
     ],
     "Customizations": [
@@ -589,54 +581,15 @@
         "Files": {
           "resource/ui/hudplayerclass.res": {
             "PlayerStatusClassImage": {
-              "ypos": {
-                "true": "9999",
-                "false": "r75"
+              "wide": {
+                "true": "0",
+                "false": "75"
               }
             },
             "classmodelpanel": {
               "wide": {
                 "true": "0",
                 "false": "150"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "fh_toggle_fullscreen_scoreboard",
-        "Label": "Fullscreen Scoreboard",
-        "Type": "Checkbox",
-        "ToolTip": "Expands the scoreboard to fill the whole screen. Requires a restart to apply font changes.",
-        "Value": "false",
-        "Restart": true,
-        "FileName": "scoreboard-full.res",
-        "Files": {
-          "resource/scheme/clientscheme_fonts.res": {
-            "Scheme": {
-              "Fonts": {
-                "Default": {
-                  "1": {
-                    "tall": {
-                      "true": "20",
-                      "false": "10"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "resource/scheme/clientscheme_fonts_pro.res": {
-            "Scheme": {
-              "Fonts": {
-                "Default": {
-                  "1": {
-                    "tall": {
-                      "true": "20",
-                      "false": "10"
-                    }
-                  }
-                }
               }
             }
           }
@@ -662,18 +615,18 @@
       },
       {
         "Name": "fh_val_hud_style",
-        "Label": "HUD Style",
+        "Label": "Health & Ammo",
         "Type": "ComboBox",
         "ToolTip": "Change to different UI styles where health and ammo are moved.",
-        "Value": "0",
+        "Value": "1",
         "Options": [
           {
-            "Label": "Default",
+            "Label": "Centered",
             "Value": "0",
             "Files": {
               "resource/ui/hudammoweapons.res": {
                 "AmmoBG": {
-                  "bgcolor_override": "Blank"
+                  "bgcolor_override": "Transparent"
                 }
               },
               "resource/ui/huddamageaccount.res": {
@@ -728,8 +681,7 @@
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "2",
-                  "ypos": "r20"
+                  "ypos": "r100"
                 }
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
@@ -739,11 +691,7 @@
               },
               "resource/ui/hudplayerclass.res": {
                 "classmodelpanel": {
-                  "xpos": "0",
-                  "model": {
-                    "angles_y": "200",
-                    "origin_y": "0"
-                  }
+                  "ypos": "r200"
                 },
                 "CarryingWeapon": {
                   "xpos": "100"
@@ -816,14 +764,14 @@
               },
               "scripts/hudanimations_custom.txt": {
                 "replace": [
-                  "Blank",
+                  "Transparent",
                   "HudBlack"
                 ]
               }
             }
           },
           {
-            "Label": "Alternate",
+            "Label": "Cornered",
             "Value": "1",
             "Files": {
               "resource/ui/hudammoweapons.res": {
@@ -839,7 +787,7 @@
               },
               "resource/ui/huddemomanpipes.res": {
                 "PipesPresentPanel": {
-                  "ypos": "c102"
+                  "ypos": "c100"
                 }
               },
               "resource/ui/huditemeffectmeter.res": {
@@ -862,8 +810,8 @@
               },
               "resource/ui/huditemeffectmeter_demoman.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c-300",
-                  "ypos": "r50"
+                  "xpos": "125",
+                  "ypos": "r30"
                 },
                 "ItemEffectMeterLabel": {
                   "visible": "0",
@@ -883,8 +831,7 @@
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c-300",
-                  "ypos": "r30"
+                  "ypos": "r52"
                 }
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
@@ -894,17 +841,13 @@
               },
               "resource/ui/hudplayerclass.res": {
                 "classmodelpanel": {
-                  "xpos": "c170",
-                  "model": {
-                    "angles_y": "180",
-                    "origin_y": "-10"
-                  }
+                  "ypos": "r252"
                 },
                 "CarryingWeapon": {
                   "xpos": "200"
                 },
                 "PlayerStatusClassImage": {
-                  "ypos": "r125"
+                  "ypos": "r127"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -972,7 +915,7 @@
               "scripts/hudanimations_custom.txt": {
                 "replace": [
                   "HudBlack",
-                  "Blank"
+                  "Transparent"
                 ]
               }
             }
