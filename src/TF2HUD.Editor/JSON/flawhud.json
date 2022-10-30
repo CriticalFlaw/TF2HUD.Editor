@@ -1414,6 +1414,7 @@
                 },
                 "ClassLabel": {
                   "font": "FontBold22",
+                  "textAlignment":	"center",
                   "xpos": "c-120",
                   "ypos": "17",
                   "wide": "240",
