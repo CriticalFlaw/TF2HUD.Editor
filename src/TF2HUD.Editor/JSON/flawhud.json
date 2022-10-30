@@ -723,7 +723,7 @@
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "r100"
+                  "ypos": "r85"
                 }
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
