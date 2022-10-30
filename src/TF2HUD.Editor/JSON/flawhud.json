@@ -41,7 +41,7 @@
         "Label": "Buffed Health",
         "Type": "ColorPicker",
         "ToolTip": "Color of player's health, when buffed.",
-        "Value": "0 170 127 255",
+        "Value": "0 225 165 255",
         "Restart": true,
         "Shadow": true,
         "Files": {
@@ -59,7 +59,7 @@
         "Label": "UberCharge",
         "Type": "ColorPicker",
         "ToolTip": "Color of the UberCharge meter.",
-        "Value": "0 170 127 255",
+        "Value": "0 225 165 255",
         "Restart": true,
         "Pulse": true,
         "Files": {
@@ -77,7 +77,7 @@
         "Label": "Low Health",
         "Type": "ColorPicker",
         "ToolTip": "Color of player's health when low.",
-        "Value": "190 20 20 255",
+        "Value": "215 25 25 255",
         "Restart": true,
         "Shadow": true,
         "Files": {
@@ -95,7 +95,7 @@
         "Label": "Low Ammo",
         "Type": "ColorPicker",
         "ToolTip": "Color of player's ammo when low.",
-        "Value": "190 20 20 255",
+        "Value": "215 25 25 255",
         "Restart": true,
         "Shadow": true,
         "Files": {
@@ -113,7 +113,7 @@
         "Label": "Health Healed",
         "Type": "ColorPicker",
         "ToolTip": "Color of the health amount healed.",
-        "Value": "0 170 127 255",
+        "Value": "0 225 165 255",
         "Restart": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
@@ -608,6 +608,48 @@
               "visible": {
                 "true": "0",
                 "false": "1"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_large_scoreboard",
+        "Label": "32 Player Scoreboard",
+        "Type": "Checkbox",
+        "ToolTip": "Expand the scoreboard to show 32 players.",
+        "Value": "false",
+        "Restart": false,
+        "Files": {
+          "resource/ui/scoreboard.res": {
+            "scores": {
+              "tall": {
+                "true": "420",
+                "false": "360"
+              }
+            },
+            "BluePlayerBG": {
+              "tall": {
+                "true": "270",
+                "false": "210"
+              }
+            },
+            "RedPlayerBG": {
+              "tall": {
+                "true": "270",
+                "false": "210"
+              }
+            },
+            "BluePlayerList": {
+              "tall": {
+                "true": "270",
+                "false": "210"
+              }
+            },
+            "RedPlayerList": {
+              "tall": {
+                "true": "270",
+                "false": "210"
               }
             }
           }
