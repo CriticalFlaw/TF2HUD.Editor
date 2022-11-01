@@ -49,6 +49,9 @@
                         <RadioButton x:Name="BtnLocalizeRu" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
                             <cf:CountryFlag Code="RU" Width="50" />
                         </RadioButton>
+                        <RadioButton x:Name="BtnLocalizeBr" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
+                            <cf:CountryFlag Code="BR" Width="50" />
+                        </RadioButton>
                     </WrapPanel>
                 </GroupBox>
                 <GroupBox Header="{lex:Loc ui_options}" Grid.Row="1">

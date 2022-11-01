@@ -30,6 +30,8 @@ namespace HUDEditor
                 LocalizeDictionary.Instance.Culture = new CultureInfo("fr-FR");
             else if (BtnLocalizeRu.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("ru-RU");
+            else if (BtnLocalizeBr.IsChecked == true)
+                LocalizeDictionary.Instance.Culture = new CultureInfo("pt-BR");
 
             // Save language preference to user settings.
             Settings.Default.user_language = LocalizeDictionary.Instance.Culture.ToString();
