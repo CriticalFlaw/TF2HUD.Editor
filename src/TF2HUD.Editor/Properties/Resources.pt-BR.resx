@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="error_app_directory" xml:space="preserve">
     <value>O diretório de tf/custom deve ser definido para usar este editor.</value>
@@ -130,7 +130,7 @@
     <value>Ocorreu um erro ao desinstalar {0}.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
-    <value>Ocorreu um erro ao alternar os Viewmodels Transparentes.</value>
+    <value>Ocorreu um erro ao alternar os viewmodels transparentes.</value>
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Não foi possível reconhecer a extensão de arquivo '{0}'.</value>
@@ -142,16 +142,16 @@
     <value>Nenhuma atualização encontrada.</value>
   </data>
   <data name="info_add_hud" xml:space="preserve">
-    <value>Tem certeza de que deseja adicionar uma pasta à lista de HUDs compartilhadas? Isto adicionará a pasta localmente, mas não enviará a HUD ao banco de dados online do TF2HUD.Editor.</value>
+    <value>Tem certeza de que deseja adicionar uma pasta à lista de HUDs compartilhadas? A pasta será adicionada localmente, mas a HUD não será enviada ao banco de dados on-line do TF2HUD.Editor.</value>
   </data>
   <data name="info_background_override" xml:space="preserve">
     <value>Definir um novo plano de fundo substituirá o atual. Use a opção "Reinstalar" para reverter ao plano de fundo padrão.</value>
   </data>
   <data name="info_game_restart" xml:space="preserve">
-    <value>As seguintes alterações requerem que o jogo seja reiniciado:</value>
+    <value>As seguintes alterações exigem que o jogo seja reiniciado:</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
-    <value>Não foi possível prosseguir porque o Team Fortress 2 está sendo executado. Feche o jogo e tente novamente.</value>
+    <value>Não foi possível prosseguir porque o Team Fortress 2 está em execução. Feche o jogo e tente novamente.</value>
   </data>
   <data name="info_hud_backup" xml:space="preserve">
     <value>Uma instalação existente da {0} foi encontrada. Para evitar conflitos, um backup foi criado.</value>
@@ -172,7 +172,7 @@
     <value>O caminho que você escolheu não termina em tf/custom. Tente novamente.</value>
   </data>
   <data name="info_unsupported_hud_found" xml:space="preserve">
-    <value>Uma HUD não suportada foi encontrada em tf/custom. Deseja deletá-la para prosseguir com a instalação?</value>
+    <value>Uma HUD incompatível foi encontrada em tf/custom. Deseja excluí-la para prosseguir com a instalação?</value>
   </data>
   <data name="status_applied" xml:space="preserve">
     <value>As personalizações da {0} foram aplicadas em {1}.</value>
@@ -197,6 +197,12 @@
   </data>
   <data name="tooltip_docs" xml:space="preserve">
     <value>Ler a documentação.</value>
+  </data>
+  <data name="tooltip_launch" xml:space="preserve">
+    <value>Abrir o Team Fortress 2.</value>
+  </data>
+  <data name="tooltip_options" xml:space="preserve">
+    <value>Ver o menu de opções.</value>
   </data>
   <data name="tooltip_path" xml:space="preserve">
     <value>Alterar diretório de tf/custom.</value>
@@ -231,11 +237,17 @@
   <data name="ui_directory" xml:space="preserve">
     <value>Definir caminho para tf/custom</value>
   </data>
+  <data name="ui_download" xml:space="preserve">
+    <value>Download:</value>
+  </data>
   <data name="ui_install" xml:space="preserve">
     <value>Instalar</value>
   </data>
   <data name="ui_options" xml:space="preserve">
     <value>Opções</value>
+  </data>
+  <data name="ui_persist_xhair" xml:space="preserve">
+    <value>Lembrar seleção de mira</value>
   </data>
   <data name="ui_refresh" xml:space="preserve">
     <value>Verificar atualizações</value>
@@ -254,6 +266,9 @@
   </data>
   <data name="ui_switch" xml:space="preserve">
     <value>Trocar HUDs</value>
+  </data>
+  <data name="ui_title" xml:space="preserve">
+    <value>TF2 HUD Editor</value>
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Desinstalar</value>
