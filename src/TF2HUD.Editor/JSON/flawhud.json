@@ -1154,6 +1154,23 @@
         }
       },
       {
+        "Name": "fh_toggle_supporters_panel",
+        "Label": "Hide Supporters Panel",
+        "Type": "Checkbox",
+        "ToolTip": "Hides the supporters panels seen on the Stats screen.",
+        "Value": "false",
+        "Files": {
+          "resource/support.res": {
+            "SupportersPanel": {
+              "wide": {
+                "true": "0",
+                "false": "595"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_toggle_background_stock",
         "Label": "Default Backgrounds",
         "Type": "Checkbox",
@@ -1414,7 +1431,7 @@
                 },
                 "ClassLabel": {
                   "font": "FontBold22",
-                  "textAlignment":	"center",
+                  "textAlignment": "center",
                   "xpos": "c-120",
                   "ypos": "17",
                   "wide": "240",
