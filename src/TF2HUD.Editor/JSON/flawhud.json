@@ -656,6 +656,28 @@
         }
       },
       {
+        "Name": "fh_smaller_damage",
+        "Label": "Small Damage Numbers",
+        "Type": "Checkbox",
+        "ToolTip": "Reduces the size of the font used for floating damage numbers.",
+        "Value": "false",
+        "Restart": true,
+        "Files": {
+          "resource/ui/huddamageaccount.res": {
+            "CDamageAccountPanel": {
+              "delta_item_font": {
+                "true": "FontBold14Outline",
+                "false": "FontBold20Outline"
+              },
+              "delta_item_font_big": {
+                "true": "FontBold14Outline",
+                "false": "FontBold20Outline"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_val_hud_style",
         "Label": "Health & Ammo",
         "Type": "ComboBox",
