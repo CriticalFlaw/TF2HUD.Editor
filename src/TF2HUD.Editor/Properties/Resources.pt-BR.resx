@@ -268,7 +268,7 @@
     <value>Trocar HUDs</value>
   </data>
   <data name="ui_title" xml:space="preserve">
-    <value>Editor de HUDs do TF2</value>
+    <value>TF2 HUD Editor</value>
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Desinstalar</value>
