@@ -142,7 +142,7 @@
     <value>Nenhuma atualização encontrada.</value>
   </data>
   <data name="info_add_hud" xml:space="preserve">
-    <value>Tem certeza de que deseja adicionar uma pasta à lista de HUDs compartilhadas? A pasta será adicionada localmente, mas não enviará a HUD ao banco de dados on-line do TF2HUD.Editor.</value>
+    <value>Tem certeza de que deseja adicionar uma pasta à lista de HUDs compartilhadas? A pasta será adicionada localmente, mas a HUD não será enviada ao banco de dados on-line do TF2HUD.Editor.</value>
   </data>
   <data name="info_background_override" xml:space="preserve">
     <value>Definir um novo plano de fundo substituirá o atual. Use a opção "Reinstalar" para reverter ao plano de fundo padrão.</value>
