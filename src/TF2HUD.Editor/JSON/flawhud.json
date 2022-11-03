@@ -821,9 +821,6 @@
                 },
                 "HudDemomanPipes": {
                   "ypos": "0"
-                },
-                "HudMannVsMachineStatus": {
-                  "ypos": "0"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -971,9 +968,6 @@
                 },
                 "HudDemomanPipes": {
                   "ypos": "50"
-                },
-                "HudMannVsMachineStatus": {
-                  "ypos": "35"
                 }
               },
               "scripts/hudanimations_custom.txt": {
