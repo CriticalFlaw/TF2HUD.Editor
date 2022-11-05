@@ -596,24 +596,6 @@
         }
       },
       {
-        "Name": "fh_hide_friends_list",
-        "Label": "Hide Friends List",
-        "Type": "Checkbox",
-        "ToolTip": "Hide the friends list seen on the main menu.",
-        "Value": "false",
-        "Restart": true,
-        "Files": {
-          "resource/ui/mainmenuoverride.res": {
-            "FriendsContainer": {
-              "visible": {
-                "true": "0",
-                "false": "1"
-              }
-            }
-          }
-        }
-      },
-      {
         "Name": "fh_large_scoreboard",
         "Label": "32 Player Scoreboard",
         "Type": "Checkbox",
@@ -681,20 +663,20 @@
         "Name": "fh_full_player_model",
         "Label": "Full Player Model",
         "Type": "Checkbox",
-        "ToolTip": "Increases how much is shown of the playermodel on the HUD. Helps with Heavy's Minigun clipping on the Cornered style of Health & Ammo.",
+        "ToolTip": "Increases how much of the 3D player model is shown on the HUD. Helps reduce clipping for certain weapons.",
         "Value": "false",
         "Restart": false,
         "Files": {
           "resource/ui/hudplayerclass.res": {
-            "HudPlayerClass":
-            {
-             "classmodelpanel":
-              {
-                "wide":	"130",
-                "model":
-                {
-                  "origin_x": 			"180",
-                  "origin_z":	"-74"
+            "classmodelpanel": {
+              "fov": {
+                "true": "22",
+                "false": "20"
+              },
+              "model": {
+                "origin_z": {
+                  "true": "-60",
+                  "false": "-80"
                 }
               }
             }
@@ -1205,6 +1187,24 @@
               "wide": {
                 "true": "0",
                 "false": "595"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_hide_friends_list",
+        "Label": "Hide Friends List",
+        "Type": "Checkbox",
+        "ToolTip": "Hide the friends list seen on the main menu.",
+        "Value": "false",
+        "Restart": true,
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "FriendsContainer": {
+              "visible": {
+                "true": "0",
+                "false": "1"
               }
             }
           }
