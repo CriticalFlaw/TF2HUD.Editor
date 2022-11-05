@@ -686,15 +686,15 @@
         "Restart": false,
         "Files": {
           "resource/ui/hudplayerclass.res": {
-            "HudPlayerClass"
+            "HudPlayerClass":
             {
-              "classmodelpanel"
+             "classmodelpanel":
               {
                 "wide":	"130",
-                "model"
+                "model":
                 {
-                  "origin_x" 			"180",
-                  "origin_z"	"-74"
+                  "origin_x": 			"180",
+                  "origin_z":	"-74"
                 }
               }
             }
