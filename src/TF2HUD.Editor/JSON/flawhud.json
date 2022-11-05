@@ -678,6 +678,30 @@
         }
       },
       {
+        "Name": "fh_full_player_model",
+        "Label": "Full Player Model",
+        "Type": "Checkbox",
+        "ToolTip": "Increases how much is shown of the playermodel on the HUD. Helps with Heavy's Minigun clipping on the Cornered style of Health & Ammo.",
+        "Value": "false",
+        "Restart": false,
+        "Files": {
+          "resource/ui/hudplayerclass.res": {
+            "HudPlayerClass"
+            {
+              "classmodelpanel"
+              {
+                "wide":	"130",
+                "model"
+                {
+                  "origin_x" 			"180",
+                  "origin_z"	"-74"
+                }
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_val_hud_style",
         "Label": "Health & Ammo",
         "Type": "ComboBox",
