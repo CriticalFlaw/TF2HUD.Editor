@@ -957,10 +957,10 @@
                   "xpos": "c135"
                 },
                 "CSpectatorTargetID": {
-                  "ypos": "335"
+                  "ypos": "350"
                 },
                 "CSecondaryTargetID": {
-                  "ypos": "335"
+                  "ypos": "350"
                 },
                 "HudSpellMenu": {
                   "xpos": "c-240",
