@@ -683,7 +683,27 @@
               },
               "resource/ui/huddemomanpipes.res": {
                 "PipesPresentPanel": {
-                  "ypos": "c92"
+                  "xpos": "0",
+                  "ypos": "c102",
+                  "NumPipesLabel": {
+                    "xpos": "2",
+                    "wide": "24",
+                    "textAlignment": "west"
+                  },
+                  "NumPipesLabelDropshadow": {
+                    "wide": "24",
+                    "textAlignment": "west"
+                  },
+                  "StickyIcon": {
+                    "xpos": "c-25",
+                    "ypos": "20"
+                  }
+                }
+              },
+              "resource/ui/huddemomancharge.res": {
+                "ChargeMeter": {
+                  "xpos": "c-55",
+                  "ypos": "c110"
                 }
               },
               "resource/ui/huditemeffectmeter.res": {
@@ -843,7 +863,27 @@
               },
               "resource/ui/huddemomanpipes.res": {
                 "PipesPresentPanel": {
-                  "ypos": "c100"
+                  "xpos": "300",
+                  "ypos": "c91",
+                  "NumPipesLabel": {
+                    "xpos": "-37",
+                    "wide": "18",
+                    "textAlignment": "east"
+                  },
+                  "NumPipesLabelDropshadow": {
+                    "wide": "18",
+                    "textAlignment": "east"
+                  },
+                  "StickyIcon": {
+                    "xpos": "c-13",
+                    "ypos": "21"
+                  }
+                }
+              },
+              "resource/ui/huddemomancharge.res": {
+                "ChargeMeter": {
+                  "xpos": "r120",
+                  "ypos": "c105"
                 }
               },
               "resource/ui/huditemeffectmeter.res": {
