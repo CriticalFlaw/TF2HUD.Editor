@@ -799,6 +799,9 @@
                 },
                 "ChargeMeter": {
                   "ypos": "30"
+                },
+                "ResistIconAnchor": {
+                  "ypos": "25"
                 }
               },
               "scripts/hudlayout.res": {
@@ -979,6 +982,9 @@
                 },
                 "ChargeMeter": {
                   "ypos": "0"
+                },
+                "ResistIconAnchor": {
+                  "ypos": "-5"
                 }
               },
               "scripts/hudlayout.res": {
