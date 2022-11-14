@@ -146,5 +146,5 @@ Do not use this property in conjuction with **Files** or **FileName**. Only use 
 ```
 
 <!-- MARKDOWN LINKS -->
-[docs-special]: https://www.editor.criticalflaw.ca/json/special/
-[docs-files]: https://www.editor.criticalflaw.ca/json/files/
+[docs-special]: http://www.criticalflaw.ca/TF2HUD.Editor/json/special/
+[docs-files]: http://www.criticalflaw.ca/TF2HUD.Editor/json/files/

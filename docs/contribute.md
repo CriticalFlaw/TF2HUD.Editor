@@ -13,5 +13,5 @@ Some of the ways you can contribute to the project include:
 
 <!-- MARKDOWN LINKS -->
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
-[json-link]: https://www.editor.criticalflaw.ca/json/intro/
+[json-link]: http://www.criticalflaw.ca/TF2HUD.Editor/json/intro/
 [sponsors-link]: https://github.com/sponsors/CriticalFlaw

@@ -10,7 +10,7 @@
     <Authors>Igor Nikitin, Peter Wobcke</Authors>
     <Company>CriticalFlaw</Company>
     <Copyright>CriticalFlaw</Copyright>
-    <PackageProjectUrl>https://www.editor.criticalflaw.ca/</PackageProjectUrl>
+    <PackageProjectUrl>http://www.criticalflaw.ca/TF2HUD.Editor/</PackageProjectUrl>
     <AssemblyVersion>2.5.0.0</AssemblyVersion>
     <FileVersion>2.5.0.0</FileVersion>
     <Version>2.5.0</Version>

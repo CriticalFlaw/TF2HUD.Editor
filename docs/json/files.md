@@ -208,5 +208,5 @@ After being written to the HUD, this will be represented as:
 ```
 
 <!-- MARKDOWN LINKS -->
-[docs-controls]: https://www.editor.criticalflaw.ca/json/controls/
-[docs-animations]: https://www.editor.criticalflaw.ca/json/animations/
+[docs-controls]: http://www.criticalflaw.ca/TF2HUD.Editor/json/controls/
+[docs-animations]: http://www.criticalflaw.ca/TF2HUD.Editor/json/animations/

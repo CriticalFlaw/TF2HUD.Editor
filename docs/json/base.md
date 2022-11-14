@@ -202,4 +202,4 @@ Individual control properties and options are covered in the [next section][docs
 ```
 
 <!-- MARKDOWN LINKS -->
-[docs-controls]: https://www.editor.criticalflaw.ca/json/controls/
+[docs-controls]: http://www.criticalflaw.ca/TF2HUD.Editor/json/controls/
