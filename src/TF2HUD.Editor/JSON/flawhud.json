@@ -683,8 +683,8 @@
               },
               "resource/ui/huddemomanpipes.res": {
                 "PipesPresentPanel": {
-                  "xpos": "0",
-                  "ypos": "c102",
+                  "xpos": "c-55",
+                  "ypos": "c120",
                   "NumPipesLabel": {
                     "xpos": "2",
                     "wide": "24",
@@ -708,7 +708,7 @@
               },
               "resource/ui/huditemeffectmeter.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c-60",
+                  "xpos": "c-54",
                   "ypos": "c120"
                 }
               },
