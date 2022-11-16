@@ -43,6 +43,22 @@
         }
       },
       {
+        "Name": "hex_toggle_speedometer",
+        "Label": "Speedometer",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/speedometer.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/speedometer.res",
+                "false": "../resource/ui/speedometer_off.res"
+              }
+            ]
+          }
+        }
+      },
+      {
         "Name": "hex_toggle_transparent_viewmodels",
         "Label": "Transparent Viewmodel",
         "Type": "CheckBox",
@@ -51,47 +67,12 @@
           "customizations/transparent viewmodels.res": {
             "#base": [
               {
-                "true": "../scripts/transparent_viewmodels.res",
-                "false": "../scripts/transparent_viewmodels_off.res"
+                "true": "../resource/ui/transparent_viewmodels.res",
+                "false": "../resource/ui/transparent_viewmodels_off.res"
               }
             ]
           }
         }
-      },
-      {
-        "Name": "hex_toggle_friends_list",
-        "Label": "Friends List",
-        "Type": "ComboBox",
-        "Value": "0",
-        "Options": [
-          {
-            "Label": "Short",
-            "Value": "0",
-            "Files": {
-              "customizations/friends list.res": {
-                "#base": "../resource/ui/mainmenu_friendlist_small.res"
-              }
-            }
-          },
-          {
-            "Label": "Extended",
-            "Value": "1",
-            "Files": {
-              "customizations/friends list.res": {
-                "#base": "../resource/ui/mainmenu_friendlist_extended.res"
-              }
-            }
-          },
-          {
-            "Label": "Disabled",
-            "Value": "2",
-            "Files": {
-              "customizations/friends list.res": {
-                "#base": "../resource/ui/scoreboard_disabled.res"
-              }
-            }
-          }
-        ]
       },
       {
         "Name": "hex_toggle_spectator_bars",
