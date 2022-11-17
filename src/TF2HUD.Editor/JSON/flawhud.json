@@ -545,7 +545,7 @@
       },
       {
         "Name": "fh_toggle_lower_chat",
-        "Label": "Move Chat to the Bottom",
+        "Label": "Lower In-Game Chat",
         "Type": "Checkbox",
         "ToolTip": "Changes the in-game chat position to be near the bottom.",
         "Value": "false",
@@ -1171,6 +1171,23 @@
             }
           }
         }
+      },
+      {
+        "Name": "fh_favorite_server",
+        "Label": "Favorite Server",
+        "Type": "TextBox",
+        "ToolTip": "Set the path for the home server button.",
+        "Value": "",
+        "Restart": true,
+        "Files": {
+          "resource/gamemenu.res": {
+            "GameMenu": {
+              "HomeServerButton": {
+                "command": "engine connect $value"
+              }
+            }
+          }
+        }
       }
     ],
     "Main Menu": [
@@ -1728,17 +1745,24 @@
         "Restart": true
       },
       {
-        "Name": "fh_favorite_server",
-        "Label": "Favorite Server",
-        "Type": "TextBox",
-        "ToolTip": "Set the path for the home server button.",
-        "Value": "",
+        "Name": "fh_toggle_loading_bg",
+        "Label": "Show on Map Load",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle displaying the background when loading into a map.",
+        "Value": "false",
         "Restart": true,
         "Files": {
-          "resource/gamemenu.res": {
-            "GameMenu": {
-              "HomeServerButton": {
-                "command": "engine connect $value"
+          "resource/ui/statsummary.res": {
+            "Background": {
+              "wide": {
+                "true": "f0",
+                "false": "0"
+              }
+            },
+            "StatData": {
+              "wide": {
+                "true": "0",
+                "false": "f0"
               }
             }
           }
