@@ -682,6 +682,10 @@
                 }
               },
               "resource/ui/huddemomanpipes.res": {
+                "ChargeMeter": {
+                  "xpos": "c-55",
+                  "ypos": "c70"
+                },
                 "PipesPresentPanel": {
                   "xpos": "0",
                   "ypos": "c102",
@@ -836,9 +840,6 @@
                 "HudSpellMenu": {
                   "xpos": "c-210",
                   "ypos": "r75"
-                },
-                "HudDemomanPipes": {
-                  "ypos": "0"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -865,6 +866,10 @@
                 }
               },
               "resource/ui/huddemomanpipes.res": {
+                "ChargeMeter": {
+                  "xpos": "r120",
+                  "ypos": "c125"
+                },
                 "PipesPresentPanel": {
                   "xpos": "300",
                   "ypos": "c91",
@@ -1019,9 +1024,6 @@
                 "HudSpellMenu": {
                   "xpos": "c-240",
                   "ypos": "r30"
-                },
-                "HudDemomanPipes": {
-                  "ypos": "50"
                 }
               },
               "scripts/hudanimations_custom.txt": {
