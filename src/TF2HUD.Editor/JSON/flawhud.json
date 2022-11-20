@@ -804,8 +804,24 @@
                 "ChargeMeter": {
                   "ypos": "30"
                 },
+                "IndividualChargesLabel": {
+                  "ypos": "0",
+                  "tall": "30"
+                },
+                "ChargeMeter1": {
+                  "tall": "26"
+                },
+                "ChargeMeter2": {
+                  "tall": "26"
+                },
+                "ChargeMeter3": {
+                  "tall": "26"
+                },
+                "ChargeMeter4": {
+                  "tall": "26"
+                },
                 "ResistIconAnchor": {
-                  "ypos": "25"
+                  "ypos": "35"
                 }
               },
               "scripts/hudlayout.res": {
@@ -987,6 +1003,22 @@
                 },
                 "ChargeMeter": {
                   "ypos": "0"
+                },
+                "IndividualChargesLabel": {
+                  "ypos": "5",
+                  "tall": "43"
+                },
+                "ChargeMeter1": {
+                  "tall": "39"
+                },
+                "ChargeMeter2": {
+                  "tall": "39"
+                },
+                "ChargeMeter3": {
+                  "tall": "39"
+                },
+                "ChargeMeter4": {
+                  "tall": "39"
                 },
                 "ResistIconAnchor": {
                   "ypos": "-5"
