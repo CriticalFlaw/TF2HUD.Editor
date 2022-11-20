@@ -133,7 +133,7 @@
     <value>Ocorreu um erro ao alternar os viewmodels transparentes.</value>
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
-    <value>Não foi possível reconhecer a extensão de arquivo '{0}'.</value>
+    <value>Não foi possível reconhecer a extensão de arquivo "{0}".</value>
   </data>
   <data name="header_restart_required" xml:space="preserve">
     <value>Reinicialização necessária.</value>
@@ -154,28 +154,28 @@
     <value>Não foi possível prosseguir porque o Team Fortress 2 está em execução. Feche o jogo e tente novamente.</value>
   </data>
   <data name="info_hud_backup" xml:space="preserve">
-    <value>Uma instalação existente da {0} foi encontrada. Para evitar conflitos, um backup foi criado.</value>
+    <value>Uma instalação existente de {0} foi encontrada. Para evitar conflitos, um backup foi criado.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
     <value>Tem certeza de que deseja redefinir todas as personalizações para os seus padrões?</value>
   </data>
   <data name="info_hud_update" xml:space="preserve">
-    <value>Há uma nova atualização disponível para o esquema de HUDs. Você gostaria de reiniciar agora para aplicar as novas alterações?</value>
+    <value>Há uma nova atualização disponível para o esquema de HUDs. Deseja reiniciar agora para aplicar as novas alterações?</value>
   </data>
   <data name="info_hud_update_none" xml:space="preserve">
-    <value>Você tem a última versão do esquema de HUDs. Verifique novamente mais tarde.</value>
+    <value>A última versão do esquema de HUDs está instalada. Verifique novamente mais tarde.</value>
   </data>
   <data name="info_path_browser" xml:space="preserve">
     <value>Selecione o diretório de tf/custom. Se um diretório inválido for especificado, várias opções estarão indisponíveis.</value>
   </data>
   <data name="info_path_invalid" xml:space="preserve">
-    <value>O caminho que você escolheu não termina em tf/custom. Tente novamente.</value>
+    <value>O caminho escolhido não termina em tf/custom. Tente novamente.</value>
   </data>
   <data name="info_unsupported_hud_found" xml:space="preserve">
     <value>Uma HUD incompatível foi encontrada em tf/custom. Deseja excluí-la para prosseguir com a instalação?</value>
   </data>
   <data name="status_applied" xml:space="preserve">
-    <value>As personalizações da {0} foram aplicadas em {1}.</value>
+    <value>As personalizações de {0} foram aplicadas em {1}.</value>
   </data>
   <data name="status_installed" xml:space="preserve">
     <value>{0} está instalada!</value>
@@ -184,13 +184,13 @@
     <value>{0} não está instalada!</value>
   </data>
   <data name="status_installed_now" xml:space="preserve">
-    <value>A instalação da {0} foi finalizada em {1}.</value>
+    <value>A instalação de {0} foi finalizada em {1}.</value>
   </data>
   <data name="status_pathNotSet" xml:space="preserve">
     <value>O diretório de tf/custom não está definido!</value>
   </data>
   <data name="status_reset" xml:space="preserve">
-    <value>As personalizações da {0} foram redefinidas em {1}.</value>
+    <value>As personalizações de {0} foram redefinidas em {1}.</value>
   </data>
   <data name="tooltip_addhud" xml:space="preserve">
     <value>Adicionar nova HUD.</value>
