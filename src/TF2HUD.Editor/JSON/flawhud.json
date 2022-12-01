@@ -664,7 +664,7 @@
         "Label": "Health & Ammo",
         "Type": "ComboBox",
         "ToolTip": "Change to different UI styles where health and ammo are moved.",
-        "Value": "1",
+        "Value": "0",
         "Options": [
           {
             "Label": "Centered",
