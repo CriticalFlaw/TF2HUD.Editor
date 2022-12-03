@@ -712,7 +712,7 @@
               },
               "resource/ui/huditemeffectmeter.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c-60",
+                  "xpos": "c-55",
                   "ypos": "c120"
                 }
               },
@@ -831,7 +831,7 @@
                 },
                 "HudMedicCharge": {
                   "xpos": "c-55",
-                  "ypos": "r165"
+                  "ypos": "r170"
                 },
                 "HudDemomanCharge": {
                   "ypos": "0"
