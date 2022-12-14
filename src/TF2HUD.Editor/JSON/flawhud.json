@@ -684,24 +684,11 @@
               "resource/ui/huddemomanpipes.res": {
                 "ChargeMeter": {
                   "xpos": "c-55",
-                  "ypos": "c70"
+                  "ypos": "c65"
                 },
                 "PipesPresentPanel": {
-                  "xpos": "0",
-                  "ypos": "c82",
-                  "NumPipesLabel": {
-                    "xpos": "2",
-                    "wide": "24",
-                    "textAlignment": "west"
-                  },
-                  "NumPipesLabelDropshadow": {
-                    "wide": "24",
-                    "textAlignment": "west"
-                  },
-                  "StickyIcon": {
-                    "xpos": "c-25",
-                    "ypos": "20"
-                  }
+                  "xpos": "c-20",
+                  "ypos": "c90"
                 }
               },
               "resource/ui/huddemomancharge.res": {
@@ -887,21 +874,8 @@
                   "ypos": "c125"
                 },
                 "PipesPresentPanel": {
-                  "xpos": "300",
-                  "ypos": "c91",
-                  "NumPipesLabel": {
-                    "xpos": "-37",
-                    "wide": "18",
-                    "textAlignment": "east"
-                  },
-                  "NumPipesLabelDropshadow": {
-                    "wide": "18",
-                    "textAlignment": "east"
-                  },
-                  "StickyIcon": {
-                    "xpos": "c-13",
-                    "ypos": "21"
-                  }
+                  "xpos": "125",
+                  "ypos": "r70"
                 }
               },
               "resource/ui/huddemomancharge.res": {
