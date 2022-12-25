@@ -1,11 +1,13 @@
-using HUDEditor.Properties;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using HUDEditor.Properties;
 
 namespace HUDEditor.Classes
 {
@@ -90,19 +92,6 @@ namespace HUDEditor.Classes
         }
     }
 
-    public class InvertBooleanConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return !(bool)value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return !(bool)value;
-        }
-    }
-
     public class PageBackgroundConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -133,6 +122,19 @@ namespace HUDEditor.Classes
         }
     }
 
+    public class DisplayUniqueHudsOnlyForegroundConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (bool)value ? Brushes.SkyBlue : Brushes.White;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class BtnInstallContentConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -152,6 +154,32 @@ namespace HUDEditor.Classes
 
             MainWindow.Logger.Info("[BtnInstallContentConverter] Highlighted HUD is null");
             return Utilities.GetLocalizedString("ui_install") ?? "Install";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PresetSelectedStyleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Application.Current.Resources[$"HudButton{((bool)value ? "Selected" : "")}"];
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ComboBoxItemsConverterVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value is not null && ((IEnumerable<object>)value).Count() > 1 ? Visibility.Visible : Visibility.Hidden;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

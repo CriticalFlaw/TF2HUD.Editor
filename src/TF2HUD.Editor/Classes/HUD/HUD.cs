@@ -1,9 +1,9 @@
-﻿using HUDEditor.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using HUDEditor.Models;
 using Xceed.Wpf.Toolkit;
 using static HUDEditor.MainWindow;
 
@@ -45,22 +45,8 @@ namespace HUDEditor.Classes
             DirtyControls = new List<string>();
             Unique = unique;
             InstallCrosshairs = schema.InstallCrosshairs;
-
-            if (schema.Screenshots is null) return;
-            var index = 0;
-            foreach (var screenshot in schema.Screenshots)
-            {
-                Screenshots.Add(new
-                {
-                    ImageSource = screenshot,
-                    Column = index % 2,
-                    Row = index / 2
-                });
-                index++;
-            }
+            Screenshots = schema.Screenshots;
         }
-
-        public event EventHandler<Preset> PresetChanged;
 
         /// <summary>
         ///     Call to download the HUD if a URL has been provided.
@@ -68,6 +54,14 @@ namespace HUDEditor.Classes
         public async Task Update(string path)
         {
             await Utilities.DownloadFile(path, "temp.zip");
+        }
+
+        public void SetPreset(Preset preset)
+        {
+            Settings.Preset = preset;
+            isRendered = false;
+            Controls = new Grid();
+            MainWindow.Logger.Info($"Changed preset for {Name} to HUDSettingsPreset.{Settings.Preset}");
         }
 
         /// <summary>
@@ -155,7 +149,7 @@ namespace HUDEditor.Classes
         public Dictionary<string, Controls[]> ControlOptions;
         public readonly string[] LayoutOptions;
         public List<string> DirtyControls;
-        public List<object> Screenshots { get; set; } = new();
+        public string[] Screenshots { get; set; }
         public bool Unique;
         public readonly bool InstallCrosshairs;
 
