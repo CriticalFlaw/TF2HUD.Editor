@@ -25,6 +25,7 @@ Make sure TF2HUD.Editor is located on your main drive instead of an external dri
 :::note
 If your TF2 installation is located on an external drive you may need to set your tf/custom directory in the editor.
 :::
+
 ---
 
 ### Customization changes are not being shown in-game.
