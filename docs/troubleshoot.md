@@ -19,6 +19,14 @@ Make sure to install the version of [Microsoft .NET 6.0 Runtime][runtime-link] i
 
 ---
 
+### Access to the path ... .dll is denied.
+Make sure TF2HUD.Editor is located on your main drive instead of an external drive.
+
+:::note
+If your TF2 installation is located on an external drive you may need to set your tf/custom directory in the editor.
+:::
+---
+
 ### Customization changes are not being shown in-game.
 To see your selected changes in-game, open the console and input `hud_reloadscheme`. This will refresh the HUD with your selected customizations.
 
