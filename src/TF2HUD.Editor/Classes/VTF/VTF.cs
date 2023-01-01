@@ -115,6 +115,7 @@ namespace HUDEditor.Classes
                 MainWindow.Logger.Info($"[VTEX] {process.StandardOutput.ReadLine()}");
             process.WaitForExit();
             process.Close();
+            process.Dispose();
         }
     }
 }

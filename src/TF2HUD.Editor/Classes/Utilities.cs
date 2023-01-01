@@ -1,11 +1,9 @@
-﻿using HUDEditor.Models;
-using HUDEditor.Properties;
-using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -13,6 +11,9 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using HUDEditor.Models;
+using HUDEditor.Properties;
+using Microsoft.Win32;
 using WPFLocalizeExtension.Extensions;
 using Color = System.Windows.Media.Color;
 
@@ -371,6 +372,92 @@ namespace HUDEditor.Classes
             var contentBytes = System.Text.Encoding.UTF8.GetBytes(headerString);
             var hashedBytes = System.Security.Cryptography.SHA1.HashData(contentBytes);
             return hashedBytes.Aggregate("", (a, b) => a + b.ToString("X2").ToLower());
+        }
+
+        /// <summary>
+        ///     Install the Hypnotize TF2 HUD Crosshairs to a given HUD folder
+        /// </summary>
+        /// <param name="folderPath">Absolute folder path to HUD to install crosshairs to</param>
+        public static async Task InstallCrosshairs(string folderPath)
+        {
+            const string crosshairsName = "TF2-HUD-Crosshairs-master";
+            var crosshairsZipFileName = $"{crosshairsName}.zip";
+
+            // Download TF2 HUD Crosshairs
+            await Utilities.DownloadFile(Settings.Default.tf2_hud_crosshairs_zip, crosshairsZipFileName);
+            if (Directory.Exists(crosshairsName)) Directory.Delete(crosshairsName, true);
+            ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath);
+
+            // Move crosshairs folder to HUD
+            string targetDirectory = Path.Join(folderPath, "resource\\crosshairs");
+            if (Directory.Exists(targetDirectory)) Directory.Delete(targetDirectory, true);
+            Directory.Move(Path.Join(folderPath, Path.Join(crosshairsName, "crosshairs")), targetDirectory);
+            Directory.Delete(Path.Join(folderPath, crosshairsName), true);
+
+            async Task AddBaseReference(string relativeFilePath, string baseFilePath)
+            {
+                var absoluteFilePath = Path.Join(folderPath, relativeFilePath);
+
+                // Assume absoluteFilePath exists in the HUD
+                var obj = VDF.Parse(await File.ReadAllTextAsync(absoluteFilePath));
+
+                if (!obj.ContainsKey("#base"))
+                {
+                    obj["#base"] = baseFilePath;
+                }
+                else
+                {
+                    var baseType = obj["#base"].GetType();
+                    if (baseType == typeof(string))
+                    {
+                        obj["#base"] = new List<dynamic> { (string)obj["#base"], baseFilePath };
+                    }
+                    else if (baseType == typeof(List<dynamic>))
+                    {
+                        obj["#base"].Add(baseFilePath);
+                    }
+                    else
+                    {
+                        throw new Exception($"Unexpected #base value type in {relativeFilePath}. Expected string or list");
+                    }
+                }
+
+                await File.WriteAllTextAsync(absoluteFilePath, VDF.Stringify(obj));
+            }
+
+            await Task.WhenAll(
+                // Add #base statements to HUD files as per https://github.com/Hypnootize/TF2-HUD-Crosshairs#installation
+                AddBaseReference("resource\\clientscheme.res", "../resource/crosshairs/crosshair_scheme.res"),
+                AddBaseReference("scripts\\hudlayout.res", "../resource/crosshairs/crosshair.res"),
+
+                // Add "file" reference to hudanimations_manifest.txt
+                Task.Run(async () =>
+                {
+                    var filePath = Path.Join(folderPath, "scripts\\hudanimations_manifest.txt");
+
+                    // If the HUD does not contain a hudanimations_manifest.txt,
+                    // use the string from tf2_misc_dir.vpk scripts/hudanimations_manifest.txt
+                    var fileContents = File.Exists(filePath)
+                    ? await File.ReadAllTextAsync(filePath)
+                    : @"
+                    hudanimations_manifest
+                    {
+                        file scripts/hudanimations.txt
+                        file scripts/hudanimations_tf.txt
+                    }
+                    ";
+
+                    var hudAnimationsManifest = VDF.Parse(fileContents);
+                    List<dynamic> files = hudAnimationsManifest["hudanimations_manifest"]["file"];
+
+                    const string animationsBasePath = "resource/crosshairs/crosshair_animation.txt";
+
+                    if (!files.Contains(animationsBasePath))
+                        files.Insert(0, animationsBasePath);
+
+                    await File.WriteAllTextAsync(filePath, VDF.Stringify(hudAnimationsManifest));
+                })
+            );
         }
     }
 }

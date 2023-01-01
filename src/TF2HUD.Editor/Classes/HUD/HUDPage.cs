@@ -1,5 +1,3 @@
-using HUDEditor.Models;
-using HUDEditor.Properties;
 using System;
 using System.IO;
 using System.Linq;
@@ -9,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using HUDEditor.Models;
+using HUDEditor.Properties;
 using Xceed.Wpf.Toolkit;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
@@ -35,55 +35,10 @@ namespace HUDEditor.Classes
             // Define the container that will hold the title and content.
             var container = new Grid();
 
-            var titleContainer = new Grid { VerticalAlignment = VerticalAlignment.Center };
-            for (var i = 0; i < 3; i++)
-                titleContainer.ColumnDefinitions.Add(new ColumnDefinition());
-
             var contentRow = new RowDefinition();
             if (Layout is not null) contentRow.Height = GridLength.Auto;
             container.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             container.RowDefinitions.Add(contentRow);
-
-            // Create preset buttons
-            var presetsContainer = new WrapPanel
-            {
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 10, 0, 5)
-            };
-
-            foreach (var preset in Enum.GetValues<Preset>())
-            {
-                var presetButton = new Button
-                {
-                    Style = (Style)Application.Current.Resources["HudButton"],
-                    Content = preset,
-                    FontSize = 25,
-                    Width = 35,
-                    Height = 35,
-                    Margin = new Thickness(1, 0, 1, 0)
-                };
-
-                // LighterRed
-                if (Settings.Preset == preset)
-                    presetButton.Background = Utilities.ConvertToColorBrush("220 100 80 255");
-
-                presetButton.Click += (_, _) =>
-                {
-                    // Settings.Preset = Enum.Parse<Classes.HUDSettingsPreset>(presetButton.Name.Split('_')[^1]);
-                    Settings.Preset = preset;
-                    MainWindow.Logger.Info($"Changed preset for {Name} to HUDSettingsPreset.{Settings.Preset}");
-
-                    isRendered = false;
-                    Controls = new Grid();
-                    PresetChanged.Invoke(this, Settings.Preset);
-                };
-                presetsContainer.Children.Add(presetButton);
-            }
-
-            Grid.SetColumn(presetsContainer, 1);
-            titleContainer.Children.Add(presetsContainer);
-            container.Children.Add(titleContainer);
 
             // Create the preview modal
             var preview = new ChildWindow
@@ -166,7 +121,7 @@ namespace HUDEditor.Classes
                     if (!MainWindow.HudSelection.Equals(Name)) return;
                     ResetSection(section);
                     Settings.SaveSettings();
-                    if (MainWindow.CheckHudInstallation()) ApplyCustomizations();
+                    if (MainWindow.CheckHudInstallation(this)) ApplyCustomizations();
                     DirtyControls.Clear();
                 };
 

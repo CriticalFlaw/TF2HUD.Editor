@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="HUDEditor.Views.HUDButtonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:HUDEditor.Views"
+             xmlns:viewmodels="clr-namespace:HUDEditor.ViewModels"
+             mc:Ignorable="d"
+             d:DesignWidth="200"
+             d:DesignHeight="150"
+             d:DataContext="{d:DesignInstance Type={x:Type viewmodels:HUDButtonViewModel}}">
+    <Border Style="{StaticResource HudListBorder}">
+        <Border.InputBindings>
+            <MouseBinding
+                MouseAction="LeftClick"
+                Command="{Binding DataContext.HighlightHUDCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MainWindowView}}}"
+                CommandParameter="{Binding Hud}"
+            />
+            <MouseBinding
+                MouseAction="LeftDoubleClick"
+                Command="{Binding DataContext.SelectHUDCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MainWindowView}}}"
+                CommandParameter="{Binding Hud}"
+            />
+        </Border.InputBindings>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Image Source="{Binding Thumbnail}" Style="{StaticResource HudListImage}" RenderOptions.BitmapScalingMode="Fant" />
+            <Label Content="{Binding Icon}" Style="{StaticResource HudListIcon}" />
+            <Label Content="{Binding Name}" Style="{StaticResource HudListLabel}" Grid.Row="1" />
+        </Grid>
+    </Border>
+</UserControl>
