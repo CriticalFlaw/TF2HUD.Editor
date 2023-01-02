@@ -482,7 +482,7 @@
         "Value": "false",
         "Files": {
           "resource/ui/hudplayerhealth.res": {
-            "PlayerStatusHealthValue": {
+            "PlayerHealthValue": {
               "font": {
                 "true": "HudFontMediumSmallBold",
                 "false": "HudClassHealth"
@@ -886,7 +886,7 @@
         "Label": "Killfeed Rows",
         "Type": "IntegerUpDown",
         "ToolTip": "Change the number of rows seen on the killfeed.",
-        "Value": "5",
+        "Value": "4",
         "Minimum": "0",
         "Maximum": "9",
         "Increment": "1",
