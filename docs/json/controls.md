@@ -199,10 +199,51 @@ Each nested object within the file path has to match the contents of the HUD fil
 
 ### RenameFile
 
-**Optional**. TODO
+**Optional**. Name of a file or folder that will be renamed or moved based on the value of the associated control. This property can be useful for performing a large number of customizations that are already implemented using folder based customization. Folder renames or moves should end with a `/`.
+
+Only applies to:
+ - `CheckBox`
+ - `ComboBox`
+
+**CheckBox:**
+
+If the CheckBox is checked, the `example-customization` folder will be moved into the `enabled` folder, else it will be moved out.
 
 ```json
-"RenameFile": ""
+"Label": "Enable complicated customization",
+"Type": "CheckBox",
+"RenameFile": {
+	"OldName": "customizations/example-customization/",
+	"NewName": "customizations/enabled/example-customization/"
+}
+```
+
+**ComboBox:**
+
+Only the selected ComboBox value RenameFile.NewName will be enabled, other options will be renamed or moved back to the RenameFile.OldName.
+
+```json
+"Label": "Resolution",
+"Type": "ComboBox",
+"Options": [
+	{
+		"Label": "4x3",
+		"Value": "0",
+		"RenameFile": {
+			"OldName": "customizations/4x3-customization/",
+			"NewName": "customizations/enabled/4x3-customization/"
+		}
+	},
+	{
+		"Label": "16x9",
+		"Value": "1",
+		"RenameFile": {
+			"OldName": "customizations/16x9-customization/",
+			"NewName": "customizations/enabled/16x9-customization/"
+		}
+	}
+]
+
 ```
 
 ---

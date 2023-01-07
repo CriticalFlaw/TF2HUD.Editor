@@ -126,20 +126,24 @@ If no Layout is provided, the editor will automatically wrap control group boxes
 
 ### Links
 
-**Required**. Contains links related to the HUD, such as the download link and social media sites.
+**Required**. Contains links related to the HUD, such as the download links and social media sites.
 
 :::caution
-The **Update** link is used for downloading the HUD, so unlike the rest it must be provided!
+The **Download** links are used for downloading the HUD, so unlike the rest it must be provided!
 :::
 
 ```json
 "Links": {
-	"Update": "https://github.com/raysfire/rayshud/archive/master.zip",
-	"Issue": "https://github.com/raysfire/rayshud/issues",
 	"GitHub": "https://github.com/raysfire/rayshud",
 	"HudsTF": "https://huds.tf/site/s-rayshud--377",
 	"Steam": "https://steamcommunity.com/groups/rayshud",
-	"Discord": "https://discord.gg/hTdtK9vBhE"
+	"Discord": "https://discord.gg/hTdtK9vBhE",
+	"Download": [
+		{
+			"Source": "GitHub",
+			"Link": "https://github.com/raysfire/rayshud/archive/master.zip"
+		}
+	]
 }
 ```
 
