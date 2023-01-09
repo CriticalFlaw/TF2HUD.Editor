@@ -24,6 +24,7 @@ The frequency parameter of a HUD animation with the interpolator `Pulse` can be 
 
 The bias parameter of a HUD animation with the interpolators `Gain` and `Bias` can be passed via the `Bias` property
 
+The randomness parameter of a HUD animation with the interpolator `Flicker` can be passed via the `Randomness` property
 
 ## Example HUD Animation
 
