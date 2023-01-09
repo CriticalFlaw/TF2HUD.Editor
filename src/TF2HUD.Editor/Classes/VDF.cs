@@ -1,153 +1,297 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace HUDEditor.Classes
 {
-    internal static class VDF
+    internal class VDFTokeniser
     {
-        public static Dictionary<string, dynamic> Parse(string text, string osTagDelimiter = "^")
+        public static readonly char[] IgnoredChars = { ' ', '\t', '\r', '\n' };
+        public static readonly char[] TokenTerminate = { '"', '{', '}' };
+
+        private readonly string Text;
+        public int Index { get; private set; } = 0;
+        public int Line { get; private set; } = 1;
+        public int Character { get; private set; } = 1;
+        private bool EOFRead = false;
+
+        public VDFTokeniser(string text)
         {
-            var index = 0;
-            char[] ignoredChars = { ' ', '\t', '\r', '\n' };
+            Text = text;
+        }
 
-            string Next(bool lookAhead = false)
+        public VDFToken? Next(bool peek = false)
+        {
+            int index = Index;
+            int line = Line;
+            int character = Character;
+
+            while (index < Text.Length && (IgnoredChars.Contains(Text[index]) || Text[index] == '/'))
             {
-                var token = "";
-                var x = index;
-
-                // Return EOF if we've reached the end of the text file.
-                if (x >= text.Length - 1) return "EOF";
-
-                // Discard any text that is preempted by a comment tag (//) until the next line.
-                while ((ignoredChars.Contains(text[x]) || text[x] == '/') && x <= text.Length - 1)
+                if (Text[index] == '\n')
                 {
-                    if (text[x] == '/')
+                    line++;
+                    character = 1;
+                }
+                else if (Text[index] == '/')
+                {
+                    index++;
+                    if (index < Text.Length && Text[index] == '/')
                     {
-                        if (text[x + 1] == '/')
-                            while (text[x] is not '\n')
-                                x++;
+                        while (index < Text.Length && Text[index] != '\n')
+                        {
+                            index++;
+                        }
+                        line++;
+                        character = 1;
                     }
                     else
                     {
-                        x++;
+                        break;
                     }
-
-                    if (x >= text.Length) return "EOF";
-                }
-
-                // If we encounter a quote, read the enclosed text until the next quotation mark.
-                if (text[x] == '"')
-                {
-                    // Skip the opening quotation mark.
-                    x++;
-
-                    while (text[x] is not '"' && x < text.Length)
-                    {
-                        if (text[x] == '\n') throw new Exception($"Unexpected end of line at position {x}");
-                        token += text[x];
-                        x++;
-                    }
-
-                    // Skip the closing quotation mark.
-                    x++;
                 }
                 else
                 {
-                    // Read the text until reaching whitespace or an end of the file.
-                    while (!ignoredChars.Contains(text[x]) && x < text.Length - 1)
-                    {
-                        if (text[x] == '"') throw new Exception($"Unexpected double quote at position {x}");
-                        token += text[x];
-                        x++;
-                    }
+                    character++;
                 }
-
-                if (!lookAhead) index = x;
-
-                return token;
+                index++;
             }
 
-            Dictionary<string, dynamic> ParseObject()
+            // Return EOF if we've reached the end of the text file.
+            if (index >= Text.Length)
+            {
+                if (EOFRead) throw new EndOfStreamException();
+                if (!peek) EOFRead = true;
+                return null;
+            }
+
+            VDFToken token;
+
+            switch (Text[index])
+            {
+                case '{':
+                case '}':
+                    {
+                        token = new VDFToken
+                        {
+                            Type = VDFTokenType.ControlCharacter,
+                            Value = Text[index].ToString(),
+                        };
+
+                        index++;
+                        character++;
+                        break;
+                    }
+                case '"':
+                    {
+                        // If we encounter a quote, read the enclosed text until the next quotation mark.
+
+                        // Skip the opening quotation mark.
+                        index++;
+                        character++;
+
+                        var start = index;
+
+                        while (Text[index] != '"')
+                        {
+                            if (index >= Text.Length)
+                            {
+                                throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "closing double quote" }, index, line, character);
+                            }
+                            index++;
+                            character++;
+                        }
+
+                        var end = index;
+
+                        // Skip the closing quotation mark.
+                        index++;
+                        character++;
+
+                        token = new VDFToken
+                        {
+                            Type = VDFTokenType.String,
+                            Value = Text[start..end],
+                        };
+
+                        break;
+                    }
+                default:
+                    {
+                        var start = index;
+
+                        while (index < Text.Length && !IgnoredChars.Contains(Text[index]))
+                        {
+                            if (TokenTerminate.Contains(Text[index]))
+                            {
+                                break;
+                            }
+                            index++;
+                            character++;
+                        }
+
+                        var end = index;
+
+                        var str = Text[start..end];
+
+                        token = new VDFToken
+                        {
+                            Type = str.StartsWith('[') && str.EndsWith(']') ? VDFTokenType.Conditional : VDFTokenType.String,
+                            Value = str,
+                        };
+
+                        break;
+                    }
+            }
+
+            if (!peek)
+            {
+                Index = index;
+                Line = line;
+                Character = character;
+            }
+
+            return token;
+        }
+    }
+
+    internal record struct VDFToken
+    {
+        public required VDFTokenType Type { get; init; }
+        public required string Value { get; init; }
+    }
+
+    internal enum VDFTokenType
+    {
+        String,
+        Conditional,
+        ControlCharacter,
+    }
+
+    internal class VDFSyntaxException : Exception
+    {
+        public VDFSyntaxException(VDFTokenType type, string unexpected, string[] expected, int index, int line, int character) : base($"Unexpected {type} '{unexpected}' at position {index} (line {line}, character {character}). Expected {String.Join(" | ", expected)}")
+        {
+        }
+    }
+
+    internal static class VDF
+    {
+        public static string ConditionalDelimiter = "^";
+
+        public static Dictionary<string, dynamic> Parse(string text)
+        {
+            var tokeniser = new VDFTokeniser(text);
+
+            Dictionary<string, dynamic> ParseObject(bool isObject)
             {
                 Dictionary<string, dynamic> objectRef = new();
-                var currentToken = Next();
-                var nextToken = Next(true);
 
-                while (currentToken is not "}" && nextToken is not "EOF")
+                VDFToken? objectTerminator = isObject ? new VDFToken { Type = VDFTokenType.ControlCharacter, Value = "}" } : null;
+
+                while (true)
                 {
-                    if (Next(true).StartsWith('['))
-                    {
-                        // Object with an OS tag
-                        currentToken += $"{osTagDelimiter}{Next()}";
-                        Next(); // Skip over opening brace
-                        objectRef[currentToken] = ParseObject();
-                    }
-                    else if (nextToken == "{")
-                    {
-                        // Skip over opening brace
-                        Next();
+                    string key;
+                    dynamic value;
+                    string conditional;
 
-                        if (objectRef.TryGetValue(currentToken, out var value))
+                    var keyToken = tokeniser.Next();
+
+                    if (keyToken == objectTerminator) break;
+                    if (keyToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "key" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+
+                    switch (keyToken.Value.Type)
+                    {
+                        case VDFTokenType.String:
+                            {
+                                key = keyToken.Value.Value;
+
+                                var valueToken = tokeniser.Next();
+                                if (valueToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "value", "{", "conditional" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+
+                                if (valueToken.Value.Type == VDFTokenType.Conditional)
+                                {
+                                    conditional = valueToken.Value.Value;
+                                    valueToken = tokeniser.Next();
+                                    if (valueToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "value", "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                }
+
+                                switch (valueToken.Value.Type)
+                                {
+                                    case VDFTokenType.ControlCharacter:
+                                        {
+
+                                            if (valueToken.Value.Value == "{")
+                                            {
+                                                // Object
+                                                value = ParseObject(true);
+                                                conditional = null;
+                                                break;
+                                            }
+                                            else
+                                                throw new VDFSyntaxException(VDFTokenType.ControlCharacter, valueToken.Value.Value, new[] { "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                        }
+                                    case VDFTokenType.String:
+                                        {
+                                            value = valueToken.Value.Value;
+
+                                            var conditionalToken = tokeniser.Next(true);
+                                            if (conditionalToken?.Type == VDFTokenType.Conditional)
+                                            {
+                                                conditional = conditionalToken.Value.Value;
+                                                tokeniser.Next();
+                                            }
+                                            else
+                                            {
+                                                conditional = null;
+                                            }
+                                            break;
+                                        }
+                                    case VDFTokenType.Conditional:
+                                        throw new VDFSyntaxException(VDFTokenType.Conditional, valueToken.Value.Value, new[] { "value", "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                    default:
+                                        throw new Exception();
+                                }
+                                break;
+                            }
+                        case VDFTokenType.ControlCharacter:
+                            throw new VDFSyntaxException(VDFTokenType.ControlCharacter, keyToken.Value.Value, new[] { "key" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                        case VDFTokenType.Conditional:
+                            throw new VDFSyntaxException(VDFTokenType.Conditional, keyToken.Value.Value, new[] { "key" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                        default:
+                            throw new Exception();
+                    }
+
+                    if (conditional is not null)
+                    {
+                        key += $"{VDF.ConditionalDelimiter}${conditional}";
+                    }
+
+                    if (objectRef.TryGetValue(key, out var existing))
+                    {
+                        if (existing is List<dynamic> existingList)
                         {
-                            if (objectRef[currentToken].GetType() == typeof(List<dynamic>))
-                            {
-                                // Object list exists
-                                objectRef[currentToken].Add(ParseObject());
-                            }
-                            else
-                            {
-                                // Object already exists
-                                objectRef[currentToken] = new List<dynamic>();
-                                objectRef[currentToken].Add(value);
-                                objectRef[currentToken].Add(ParseObject());
-                            }
+                            // Object list exists
+                            existingList.Add(value);
                         }
                         else
                         {
-                            // Object does not exist
-                            objectRef[currentToken] = ParseObject();
+                            // Object already exists
+                            objectRef[key] = new List<dynamic> { existing, value };
                         }
                     }
                     else
                     {
-                        // Primitive
-                        Next(); // Skip over value
-
-                        // Check primitive OS tag
-                        if (Next(true).StartsWith('[')) currentToken += $"{osTagDelimiter}{Next()}";
-
-                        if (objectRef.TryGetValue(currentToken, out var value))
-                        {
-                            // dynamic property exists
-                            if (objectRef[currentToken].GetType() == typeof(List<dynamic>))
-                            {
-                                // Array already exists
-                                objectRef[currentToken].Add(nextToken);
-                            }
-                            else
-                            {
-                                // Primitive type already exists
-                                objectRef[currentToken] = new List<dynamic>();
-                                objectRef[currentToken].Add(value);
-                                objectRef[currentToken].Add(nextToken);
-                            }
-                        }
-                        else
-                        {
-                            // Property doesn't exist
-                            objectRef[currentToken] = nextToken;
-                        }
+                        // Object does not exist
+                        objectRef[key] = value;
                     }
-
-                    currentToken = Next();
-                    nextToken = Next(true);
                 }
 
                 return objectRef;
             }
 
-            return ParseObject();
+            return ParseObject(false);
         }
 
         public static string Stringify(Dictionary<string, dynamic> obj, int tabs = 0)
@@ -163,7 +307,7 @@ namespace HUDEditor.Classes
                     foreach (var item in obj[key])
                         if (item.GetType() == typeof(Dictionary<string, dynamic>))
                         {
-                            // Check for an OS tag.
+                            // Check for conditional.
                             var keyTokens = key.Split('^');
                             if (keyTokens.Length > 1)
                                 stringValue += $"{new string(tab, tabs)}\"{key}\" {keyTokens[1]}{newLine}";
@@ -175,7 +319,7 @@ namespace HUDEditor.Classes
                         }
                         else
                         {
-                            // Check for an OS tag.
+                            // Check for conditional.
                             var keyTokens = key.Split('^');
                             if (keyTokens.Length > 1)
                                 stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{item}\" {keyTokens[1]}{newLine}";
@@ -188,7 +332,7 @@ namespace HUDEditor.Classes
                     // There is only one object object/value
                     if (obj[key] is IDictionary<string, dynamic>)
                     {
-                        // Check for an OS tag.
+                        // Check for conditional.
                         var keyTokens = key.Split('^');
                         if (keyTokens.Length > 1)
                         {
@@ -205,7 +349,7 @@ namespace HUDEditor.Classes
                     }
                     else
                     {
-                        // Check for an OS tag.
+                        // Check for an conditional.
                         var keyTokens = key.Split('^');
                         if (keyTokens.Length > 1)
                             stringValue +=
