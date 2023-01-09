@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -80,6 +81,7 @@ namespace HUDEditor.ViewModels
                 _installing = value;
                 OnPropertyChanged(nameof(Installing));
                 BtnInstall_ClickCommand.NotifyCanExecuteChanged();
+                BtnUninstall_ClickCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -205,28 +207,37 @@ namespace HUDEditor.ViewModels
                 // Check for unsupported HUDs in the tf/custom folder. Notify user if found.
                 foreach (var foundHud in Directory.GetDirectories(MainWindow.HudPath))
                 {
-                    if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud")) continue;
+                    if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}\\info.vdf")) continue;
                     if (MainWindow.ShowMessageBox(MessageBoxImage.Warning, Properties.Resources.info_unsupported_hud_found, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes) return;
                     Directory.Delete(foundHud, true);
                 }
 
                 // Retrieve the HUD object, then download and extract it into the tf/custom directory.
                 MainWindow.Logger.Info($"Start installing {SelectedHud.Name} from {download.Link}.");
-                await SelectedHud.Update(download.Link);
+                HttpClient client = new();
+                client.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                // Record the name of the HUD inside the downloaded folder.
-                var tempFile = $"{AppDomain.CurrentDomain.BaseDirectory}temp.zip";
-                if (!File.Exists(tempFile)) tempFile = "temp.zip";
-                using var archive = ZipFile.OpenRead(tempFile);
-                var hudName = archive.Entries.FirstOrDefault(entry =>
-                    entry.FullName.EndsWith("/", StringComparison.OrdinalIgnoreCase) &&
-                    string.IsNullOrWhiteSpace(entry.Name));
+                var bytes = await client.GetByteArrayAsync(download.Link);
 
-                // Extract the downloaded HUD and rename it to match the schema.
-                MainWindow.Logger.Info($"Extracting {SelectedHud.Name} to: {MainWindow.HudPath}");
-                ZipFile.ExtractToDirectory(tempFile, MainWindow.HudPath);
-                Directory.Move($"{MainWindow.HudPath}\\{hudName}", $"{MainWindow.HudPath}\\temp");
-                Directory.Move($"{MainWindow.HudPath}\\temp", $"{MainWindow.HudPath}\\{SelectedHud.Name}");
+                if (bytes.Length == 0)
+                {
+                    // GameBanana returns 200 with an empty response for missing download links.
+                    throw new HttpRequestException($"Response from {download.Source} did not return a valid zip file.");
+                }
+
+                // Create new ZIP object from bytes.
+                var stream = new MemoryStream(bytes);
+                var archive = new ZipArchive(stream);
+
+                foreach (var entry in archive.Entries)
+                {
+                    // Remove first folder name from entry.FullName e.g. "flawhud-master" => "".
+                    var path = String.Join('\\', entry.FullName.Split("/")[1..]);
+                    if (entry.FullName.EndsWith("/"))
+                        Directory.CreateDirectory($"{MainWindow.HudPath}\\{SelectedHud.Name}\\{path}");
+                    else
+                        entry.ExtractToFile($"{MainWindow.HudPath}\\{SelectedHud.Name}\\{path}");
+                }
 
                 // Install Crosshairs
                 if (SelectedHud.InstallCrosshairs)
@@ -252,12 +263,10 @@ namespace HUDEditor.ViewModels
 
                 OnPropertyChanged(nameof(SelectedHud));
                 OnPropertyChanged(nameof(SelectedHudInstalled));
+                Installing = false;
 
                 // Clean the application directory.
                 archive.Dispose();
-                File.Delete(tempFile);
-
-                Installing = false;
             }
             catch (Exception e)
             {

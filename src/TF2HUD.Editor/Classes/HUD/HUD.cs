@@ -48,14 +48,6 @@ namespace HUDEditor.Classes
             Screenshots = schema.Screenshots;
         }
 
-        /// <summary>
-        ///     Call to download the HUD if a URL has been provided.
-        /// </summary>
-        public async Task Update(string path)
-        {
-            await Utilities.DownloadFile(path, "temp.zip");
-        }
-
         public void SetPreset(Preset preset)
         {
             Settings.Preset = preset;
