@@ -388,7 +388,7 @@ namespace HUDEditor.Classes
                             if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
                             {
                                 hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()];
-                                MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\"."); // BUG: Values decided by a true/false are being logged as "true" or "false"
+                                MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{hudElement[property.Key]}\".");
                             }
                             else
                             {
@@ -469,62 +469,64 @@ namespace HUDEditor.Classes
                         {
                             "animate" => new Animate
                             {
-                                Type = "Animate",
                                 Element = EvaluateValue(animation["Element"]),
                                 Property = EvaluateValue(animation["Property"]),
                                 Value = EvaluateValue(animation["Value"]),
-                                Interpolator = EvaluateValue(animation["Interpolator"]),
+                                Interpolator = ((string)animation["Interpolator"]).ToLower().Split(' ') switch
+                                {
+                                    ["linear"] => new LinearInterpolator(),
+                                    ["accel"] => new AccelInterpolator(),
+                                    ["deaccel"] => new DeAccelInterpolator(),
+                                    ["spline"] => new SplineInterpolator(),
+                                    ["pulse", string frequency] => new PulseInterpolator { Frequency = frequency },
+                                    ["flicker", string randomness] => new FlickerInterpolator { Randomness = randomness },
+                                    ["bias", string bias] => new BiasInterpolator { Bias = bias },
+                                    ["gain", string bias] => new GainInterpolator { Bias = bias },
+                                    var interpolator => throw new Exception($"Invalid Interpolator '{interpolator}'"),
+                                },
                                 Delay = EvaluateValue(animation["Delay"]),
                                 Duration = EvaluateValue(animation["Duration"])
                             },
                             "runevent" => new RunEvent
                             {
-                                Type = "RunEvent",
                                 Event = EvaluateValue(animation["Event"]),
                                 Delay = EvaluateValue(animation["Delay"])
                             },
                             "stopevent" => new StopEvent
                             {
-                                Type = "StopEvent",
                                 Event = EvaluateValue(animation["Event"]),
                                 Delay = EvaluateValue(animation["Delay"])
                             },
                             "setvisible" => new SetVisible
                             {
-                                Type = "StopEvent",
                                 Element = EvaluateValue(animation["Element"]),
                                 Delay = EvaluateValue(animation["Delay"]),
                                 Duration = EvaluateValue(animation["Duration"])
                             },
                             "firecommand" => new FireCommand
                             {
-                                Type = "FireCommand",
                                 Delay = EvaluateValue(animation["Delay"]),
                                 Command = EvaluateValue(animation["Command"])
                             },
                             "runeventchild" => new RunEventChild
                             {
-                                Type = "RunEventChild",
                                 Element = EvaluateValue(animation["Element"]),
                                 Event = EvaluateValue(animation["Event"]),
                                 Delay = EvaluateValue(animation["Delay"])
                             },
                             "setinputenabled" => new SetInputEnabled
                             {
-                                Type = "SetInputEnabled",
                                 Element = EvaluateValue(animation["Element"]),
                                 Visible = EvaluateValue(animation["Visible"]),
                                 Delay = EvaluateValue(animation["Delay"])
                             },
                             "playsound" => new PlaySound
                             {
-                                Type = "PlaySound",
                                 Delay = EvaluateValue(animation["Delay"]),
                                 Sound = EvaluateValue(animation["Sound"])
                             },
                             "stoppanelanimations" => new StopPanelAnimations
                             {
-                                Type = "StopPanelAnimations",
                                 Element = EvaluateValue(animation["Element"]),
                                 Delay = EvaluateValue(animation["Delay"])
                             },
