@@ -4,9 +4,9 @@
   "Description": "A Team Fortress 2 hud inspired by whayay's yahud and rays' rayshud.",
   "Thumbnail": "https://i.imgur.com/w3ztZdz.png",
   "Screenshots": [
-    "https://i.imgur.com/uxVF5wv.png",
+    "https://i.imgur.com/AitQ5wC.png",
     "https://i.imgur.com/eB7U5OB.png",
-    "https://i.imgur.com/C0LTVAs.png",
+    "https://i.imgur.com/VnR64vs.jpg",
     "https://i.imgur.com/RsxVFw2.jpeg"
   ],
   "Background": "https://user-images.githubusercontent.com/6818236/130701922-c21590b2-ebb6-47d8-99db-807d6e7a471d.png",
@@ -17,44 +17,22 @@
     "4 7 7 7"
   ],
   "Links": {
-    "Update": "https://github.com/rbjaxter/budhud/archive/master.zip",
+    "Update": "https://github.com/rbjaxter/budhud/archive/master.zip", // TODO: Remove
     "GitHub": "https://github.com/rbjaxter/budhud",
     "HudsTF": "https://huds.tf/site/s-budhud",
     "Steam": "https://steamcommunity.com/groups/budhud",
-    "Discord": "https://discord.com/invite/TkxNKU2"
+    "Discord": "https://discord.com/invite/TkxNKU2",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/rbjaxter/budhud/archive/master.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "#customization",
   "EnabledFolder": "#customization//_enabled",
   "Controls": {
     "General UI": [
-      {
-        "Name": "bh_player_hideclassmodel",
-        "Label": "Disable 3D Player Model",
-        "Type": "Checkbox",
-        "Value": "false",
-        "FileName": "bh_player_hideclassmodel.res"
-      },
-      {
-        "Name": "bh_chat_lowerleft",
-        "Label": "Move Chat to Bottom",
-        "Type": "Checkbox",
-        "Value": "false",
-        "FileName": "bh_chat_lowerleft.res"
-      },
-      {
-        "Name": "bh_player_teamindicator",
-        "Label": "Team Indicator",
-        "Type": "Checkbox",
-        "Value": "false",
-        "FileName": "bh_player_teamindicator.res"
-      },
-      {
-        "Name": "bh_player_transparentviewmodels",
-        "Label": "Transparent Viewmodels",
-        "Type": "Checkbox",
-        "Value": "false",
-        "FileName": "bh_player_transparentviewmodels.res"
-      },
       {
         "Name": "bh_youtuber_select",
         "Label": "YouTuber Profile",
@@ -91,14 +69,6 @@
             }
           },
           {
-            "Label": "TotH",
-            "Value": "4",
-            "RenameFile": {
-              "OldName": "#users/toth_/",
-              "NewName": "#users/toth/"
-            }
-          },
-          {
             "Label": "truktruk",
             "Value": "5",
             "RenameFile": {
@@ -115,23 +85,44 @@
             }
           }
         ]
+      },
+      {
+        "Name": "bh_player_hideclassmodel",
+        "Label": "Disable 3D Player Model",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_player_hideclassmodel.res"
+      },
+      {
+        "Name": "bh_chat_lowerleft",
+        "Label": "Move Chat to Bottom",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_chat_lowerleft.res"
+      },
+      {
+        "Name": "bh_player_teamindicator",
+        "Label": "Team Indicator",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_player_teamindicator.res"
+      },
+      {
+        "Name": "bh_player_transparentviewmodels",
+        "Label": "Transparent Viewmodels",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_player_transparentviewmodels.res"
+      },
+      {
+        "Name": "bh_game_hidecontracker",
+        "Label": "Hide Contracker",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_game_hidecontracker.res"
       }
     ],
     "Health and Ammo": [
-      {
-        "Name": "bh_player_largehealth",
-        "Label": "Larger Health",
-        "Type": "Checkbox",
-        "Value": "false",
-        "FileName": "bh_player_largehealth.res"
-      },
-      {
-        "Name": "bh_player_largeammo",
-        "Label": "Larger Ammo",
-        "Type": "Checkbox",
-        "Value": "false",
-        "FileName": "bh_player_largeammo.res"
-      },
       {
         "Name": "bh_player_healthcross_inset",
         "Label": "Health Cross",
@@ -229,6 +220,20 @@
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_menu_hidefavorites.res"
+      },
+      {
+        "Name": "bh_feeling_festive",
+        "Label": "Enable Festive Menu",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_feeling_festive.res"
+      },
+      {
+        "Name": "bh_feeling_spooky",
+        "Label": "Enable Spooky Menu",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_feeling_spooky.res"
       }
     ],
     "TargetIDs": [
@@ -354,7 +359,7 @@
         }
       }
     ],
-    "Crosshair": [
+    "Crosshair (Hypnotize's Unified Crosshair Pack)": [
       {
         "Name": "bh_toggle_xhair_enable",
         "Label": "Enable the Crosshair",
@@ -409,7 +414,7 @@
       },
       {
         "Name": "bh_hud_crosshair_1",
-        "Label": "Normal",
+        "Label": "Color (Normal)",
         "Type": "ColorPicker",
         "Value": "255 255 255 255",
         "Restart": true,
@@ -425,7 +430,7 @@
       },
       {
         "Name": "bh_hud_crosshair_1_flash",
-        "Label": "Flash",
+        "Label": "Color (Damage)",
         "Type": "ColorPicker",
         "Value": "240 134 049 255",
         "Restart": true,
