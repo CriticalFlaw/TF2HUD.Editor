@@ -1062,6 +1062,9 @@
                 "PlayerStatusHealthImageBG": {
                   "xpos": "9999"
                 },
+                "HealthBG": {
+                  "bgcolor_override": "HudBlack"
+                },
                 "PlayerStatusHealthBonusImage": {
                   "xpos": "9999"
                 },
@@ -1098,6 +1101,9 @@
                 "PlayerStatusHealthImageBG": {
                   "xpos": "9999"
                 },
+                "HealthBG": {
+                  "bgcolor_override": "Transparent"
+                },
                 "PlayerStatusHealthBonusImage": {
                   "xpos": "9999"
                 },
@@ -1133,6 +1139,9 @@
                 },
                 "PlayerStatusHealthImageBG": {
                   "xpos": "18"
+                },
+                "HealthBG": {
+                  "bgcolor_override": "Transparent"
                 },
                 "PlayerStatusHealthBonusImage": {
                   "xpos": "23"
