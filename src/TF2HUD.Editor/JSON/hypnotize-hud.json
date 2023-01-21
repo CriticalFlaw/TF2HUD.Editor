@@ -16,9 +16,15 @@
     "3 4 4"
   ],
   "Links": {
-    "Update": "https://github.com/Hypnootize/hypnotize-hud/archive/refs/heads/master.zip",
-    "GitHub": "https://github.com/Hypnootize/hypnotize-hud",
-    "HudsTF": "https://huds.tf/site/s-Hypnotize-Hud"
+    "Update": "https://github.com/Hypnootize/hypnotizehud/archive/refs/heads/master.zip", // TODO: Remove
+    "GitHub": "https://github.com/Hypnootize/hypnotizehud",
+    "HudsTF": "https://huds.tf/site/s-Hypnotize-Hud",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/Hypnootize/hypnotizehud/archive/refs/heads/master.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "customizations",
   "EnabledFolder": "customizations",
@@ -26,15 +32,15 @@
     "General": [
       {
         "Name": "hh_toggle_scoreboard",
-        "Label": "Full Stats Scoreboard",
+        "Label": "Short Stats Scoreboard",
         "Type": "CheckBox",
         "Value": "false",
         "Files": {
           "customizations/scoreboards.res": {
             "#base": [
               {
-                "true": "../resource/ui/scoreboard_fullstats.res",
-                "false": "../resource/ui/scoreboard_nostats.res"
+                "true": "../resource/ui/scoreboard_nostats.res",
+                "false": "../resource/ui/scoreboard_fullstats.res"
               }
             ]
           }
@@ -76,8 +82,24 @@
           "customizations/transparent viewmodels.res": {
             "#base": [
               {
-                "true": "../scripts/transparent_viewmodels.res",
-                "false": "../scripts/transparent_viewmodels_off.res"
+                "true": "../resource/ui/transparent_viewmodels.res",
+                "false": "../resource/ui/transparent_viewmodels_off.res"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_speedometer",
+        "Label": "Speedometer",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/speedometer.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/speedometer.res",
+                "false": "../resource/ui/speedometer_off.res"
               }
             ]
           }
@@ -392,21 +414,6 @@
           }
         }
       },
-      //{
-      //  "Name": "hh_color_health_buff_spec",
-      //  "Label": "Buffed Health Spec",
-      //  "Type": "ColorPicker",
-      //  "Value": "31 143 255 255",
-      //  "Files": {
-      //    "customizations/colors.res": {
-      //      "Scheme": {
-      //        "Colors": {
-      //          "Buffed Health Spec": "$value"
-      //        }
-      //      }
-      //    }
-      //  }
-      //},
       {
         "Name": "hh_color_health_low",
         "Label": "Health Low",
@@ -437,21 +444,6 @@
           }
         }
       },
-      //{
-      //  "Name": "hh_color_health_low_spec",
-      //  "Label": "Low Health Spec",
-      //  "Type": "ColorPicker",
-      //  "Value": "225 41 41 255",
-      //  "Files": {
-      //    "customizations/colors.res": {
-      //      "Scheme": {
-      //        "Colors": {
-      //          "Low Health Spec": "$value"
-      //        }
-      //      }
-      //    }
-      //  }
-      //},
       {
         "Name": "hh_color_health_gain",
         "Label": "Health Gained",

@@ -4,10 +4,10 @@
   "Description": "ZeesHUD is a stylish and ambitious HUD inspired by retro punk aesthetics.",
   "Thumbnail": "https://i.imgur.com/RC89MAt.png",
   "Screenshots": [
-    "https://huds.tf/site/xthreads_attach.php/3408_1614729681_a0a4f030/12fca271f4d402d684f995aa8479a5f1/main_menu.png",
-    "https://huds.tf/site/xthreads_attach.php/3404_1618475363_46b1a661/0f9a219d6fd0b181f60650828ea40367/main_hud.png",
-    "https://huds.tf/site/xthreads_attach.php/3406_1622089359_04ee0ee3/c8326f71c2fbd8e7df180cac486fc3b4/Minmode.jpg",
-    "https://huds.tf/site/xthreads_attach.php/3407_1618475312_220fc9d5/1e0106801421ae2de86ec96ee15215c4/classicstyle.jpg"
+    "https://i.imgur.com/yZCBMhF.jpeg",
+    "https://i.imgur.com/AwM4vuu.jpeg",
+    "https://i.imgur.com/MzN1XSn.jpeg",
+    "https://i.imgur.com/9niNBz2.jpeg"
   ],
   "Background": "https://i.imgur.com/U4m1mOx.png",
   "Layout": [
@@ -16,10 +16,14 @@
     "6 6 3 3 1 1"
   ],
   "Links": {
-    "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
+    "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip", // TODO: Remove
     "GitHub": "https://github.com/Zeesastrous/ZeesHUD",
-    "HudsTF": "https://huds.tf/site/s-ZeesHUD--2774",
-    "Steam": "https://steamcommunity.com/groups/ZeesHUD"
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "#customizations//addons",
   "EnabledFolder": "#customizations//addons//_enabled",
@@ -736,7 +740,7 @@
       },
       {
         "Name": "zh_toggle_xhair_enable",
-        "Label": "Enable Crosshair",
+        "Label": "Toggle Crosshair",
         "Type": "Checkbox",
         "Value": "false",
         "ToolTip": "Toggle crosshair visibility.",

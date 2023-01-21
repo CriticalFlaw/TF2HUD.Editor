@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
   "Author": "Raysfire",
   "Description": "A simplistic yet bold hud for TF2 made to cut out a lot of clutter included that of the stock hud. Comes with a range of various vivid colors associated with both low health as well as ammo to make important information easily accessible and noticeable.",
@@ -16,11 +16,17 @@
     "5 5 4 4 6 6"
   ],
   "Links": {
-    "Update": "https://github.com/raysfire/rayshud/archive/master.zip",
+    "Update": "https://github.com/raysfire/rayshud/archive/master.zip", // TODO: Remove
     "GitHub": "https://github.com/raysfire/rayshud",
     "HudsTF": "https://huds.tf/site/s-rayshud--377",
     "Steam": "https://steamcommunity.com/groups/rayshud",
-    "Discord": "https://discord.gg/hTdtK9vBhE"
+    "Discord": "https://discord.gg/hTdtK9vBhE",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/raysfire/rayshud/archive/master.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "#customizations",
   "EnabledFolder": "#customizations//_enabled",
@@ -839,6 +845,41 @@
         }
       },
       {
+        "Name": "rh_color_theme",
+        "Label": "Theme Color",
+        "Type": "ColorPicker",
+        "ToolTip": "Thematic color used throughout rayshud.",
+        "Value": "72 255 255 255",
+        "Restart": true,
+        "Shadow": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "ColorCyan": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_val_killfeed_rows",
+        "Label": "Killfeed Rows",
+        "Type": "IntegerUpDown",
+        "ToolTip": "Change the number of rows seen on the killfeed.",
+        "Value": "5",
+        "Minimum": "0",
+        "Maximum": "9",
+        "Increment": "1",
+        "Files": {
+          "scripts/hudlayout-base.res": {
+            "HudDeathNotice": {
+              "MaxDeathNotices": "$value"
+            }
+          }
+        }
+      },
+      {
         "Name": "rh_val_main_menu_bg",
         "Label": "Menu Background",
         "Type": "ComboBox",
@@ -868,23 +909,6 @@
             "Special": "StockBackgrounds"
           }
         ]
-      },
-      {
-        "Name": "rh_val_killfeed_rows",
-        "Label": "Killfeed Rows",
-        "Type": "IntegerUpDown",
-        "ToolTip": "Change the number of rows seen on the killfeed.",
-        "Value": "5",
-        "Minimum": "0",
-        "Maximum": "9",
-        "Increment": "1",
-        "Files": {
-          "scripts/hudlayout-base.res": {
-            "HudDeathNotice": {
-              "MaxDeathNotices": "$value"
-            }
-          }
-        }
       },
       {
         "Name": "rh_custom_background",

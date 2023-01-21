@@ -32,6 +32,24 @@
         }
       },
       {
+        "Name": "hide_friends_list",
+        "Label": "Hide Friends List",
+        "Type": "Checkbox",
+        "ToolTip": "Hide the friends list seen on the main menu.",
+        "Value": false,
+        "Restart": true,
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "FriendsContainer": {
+              "visible": {
+                "true": "0",
+                "false": "1"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "val_killfeed_rows",
         "Label": "Killfeed Rows",
         "Type": "IntegerUpDown",
@@ -329,13 +347,10 @@
         "Type": "ColorPicker",
         "ToolTip": "Default crosshair color.",
         "Value": "255 255 255 255",
-        "Restart": true,
         "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "Crosshair": "$value"
-              }
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "fgcolor": "$value"
             }
           }
         }
@@ -352,7 +367,7 @@
         "Files": {
           "scripts/hudlayout.res": {
             "CustomCrosshair": {
-              "font": "Size: $value"
+              "font": "Size:$value | Outline:OFF"
             }
           }
         }

@@ -1,3 +1,7 @@
+---
+title: User Controls
+---
+
 This section covers the controls that are displayed on the HUD page, grouped with other controls of similar purpose. This will include properties only available to specific types of controls.
 
 ```json
@@ -73,8 +77,9 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 **Required**. Name of the control. This name must be unique, have no spaces and suggest the control's purpose.
 
-!!! note
-    To avoid conflicts, prefix each name with an abbreviation for the HUD. Example; budhud is bh, flawhud is fh.
+:::note
+To avoid conflicts, prefix each name with an abbreviation for the HUD. Example; budhud is bh, flawhud is fh.
+:::
 
 ```json
 "Name": "fh_color_health_buff"
@@ -84,7 +89,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 ### Label
 
-**Required**. Text displayed near the control. This space is limited, so save longer explanations for the [Tooltip](https://www.editor.criticalflaw.ca/json/controls/#tooltip) property.
+**Required**. Text displayed near the control. This space is limited, so save longer explanations for the [Tooltip](http://www.criticalflaw.ca/TF2HUD.Editor/json/controls/#tooltip) property.
 
 ```json
 "Label": "Buffed Health"
@@ -98,7 +103,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 * **CheckBox** - Toggling this will either enable or disablee the customization option attached to this control.
 * **ColorPicker** - Opens a color picker for the user to select an RGBA color. Can also use **Color**, **Colour** or **ColourPicker**.
-* **ComboBox** - Contains a list of [options](https://www.editor.criticalflaw.ca/json/controls/#options), each with their own customization instructions. Can also use **DropDown**, **DropDownMenu** or **Select**.
+* **ComboBox** - Contains a list of [options](http://www.criticalflaw.ca/TF2HUD.Editor/json/controls/#options), each with their own customization instructions. Can also use **DropDown**, **DropDownMenu** or **Select**.
 * **Number** - An integer counter ranging between set minimum and maximum values. Commonly to be used for crosshair sizes and number of rows on the killfeed. Can also use **Integer** or **IntegerUpDown**.
 * **Crosshair** - Contains a list of styles from [Hypnotize's Crosshair Pack][repo-crosshairs] that are applied to the HUD's `hudlayout.res` file. Can also use **CustomCrosshair**.
 * **Background** - Provides the user with the option to select an image file to convert into VTF as a replacement for the HUD's background. Can also use **CustomBackground**.
@@ -108,7 +113,7 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 ### Value
 
-**Required**. Default value for the control, compatible with the selected control [type](https://www.editor.criticalflaw.ca/json/controls/#type). Allowed values per type are listed below:
+**Required**. Default value for the control, compatible with the selected control [type](http://www.criticalflaw.ca/TF2HUD.Editor/json/controls/#type). Allowed values per type are listed below:
 
 * **CheckBox** - true, false.
 * **ColorPicker** - RGBA color code, **30 30 30 200**.
@@ -176,8 +181,9 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 
 For in depth documentation on File editing, see [this section][docs-files].
 
-!!! warning
-    Each nested object within the file path has to match the contents of the HUD file, otherwise the editor will not be able to apply the changes.
+:::caution
+Each nested object within the file path has to match the contents of the HUD file, otherwise the editor will not be able to apply the changes.
+:::
 
 ---
 
@@ -193,10 +199,51 @@ For in depth documentation on File editing, see [this section][docs-files].
 
 ### RenameFile
 
-**Optional**. TODO
+**Optional**. Name of a file or folder that will be renamed or moved based on the value of the associated control. This property can be useful for performing a large number of customizations that are already implemented using folder based customization. Folder renames or moves should end with a `/`.
+
+Only applies to:
+ - `CheckBox`
+ - `ComboBox`
+
+**CheckBox:**
+
+If the CheckBox is checked, the `example-customization` folder will be moved into the `enabled` folder, else it will be moved out.
 
 ```json
-"RenameFile": ""
+"Label": "Enable complicated customization",
+"Type": "CheckBox",
+"RenameFile": {
+	"OldName": "customizations/example-customization/",
+	"NewName": "customizations/enabled/example-customization/"
+}
+```
+
+**ComboBox:**
+
+Only the selected ComboBox value RenameFile.NewName will be enabled, other options will be renamed or moved back to the RenameFile.OldName.
+
+```json
+"Label": "Resolution",
+"Type": "ComboBox",
+"Options": [
+	{
+		"Label": "4x3",
+		"Value": "0",
+		"RenameFile": {
+			"OldName": "customizations/4x3-customization/",
+			"NewName": "customizations/enabled/4x3-customization/"
+		}
+	},
+	{
+		"Label": "16x9",
+		"Value": "1",
+		"RenameFile": {
+			"OldName": "customizations/16x9-customization/",
+			"NewName": "customizations/enabled/16x9-customization/"
+		}
+	}
+]
+
 ```
 
 ---
@@ -290,9 +337,9 @@ For in depth documentation on File editing, see [this section][docs-files].
 ```
 
 <!-- MARKDOWN LINKS -->
-[docs-files]: https://www.editor.criticalflaw.ca/json/files/
-[docs-special]: https://www.editor.criticalflaw.ca/json/special/
-[docs-options]: https://www.editor.criticalflaw.ca/json/options/
-[docs-animations]: https://www.editor.criticalflaw.ca/json/animations/
-[docs-backgrounds]: https://www.editor.criticalflaw.ca/json/backgrounds/
+[docs-files]: http://www.criticalflaw.ca/TF2HUD.Editor/json/files/
+[docs-special]: http://www.criticalflaw.ca/TF2HUD.Editor/json/special/
+[docs-options]: http://www.criticalflaw.ca/TF2HUD.Editor/json/options/
+[docs-animations]: http://www.criticalflaw.ca/TF2HUD.Editor/json/animations/
+[docs-backgrounds]: http://www.criticalflaw.ca/TF2HUD.Editor/json/backgrounds/
 [repo-crosshairs]: https://github.com/Hypnootize/TF2-Hud-Crosshairs

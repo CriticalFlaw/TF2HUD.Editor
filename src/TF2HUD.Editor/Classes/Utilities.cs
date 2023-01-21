@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using HUDEditor.Models;
 using HUDEditor.Properties;
 using Microsoft.Win32;
 using WPFLocalizeExtension.Extensions;
+using Color = System.Windows.Media.Color;
 
 namespace HUDEditor.Classes
 {
     public static class Utilities
     {
-        public static List<Tuple<string, string, string>> ItemRarities = new()
+        public static readonly List<Tuple<string, string, string>> ItemRarities = new()
         {
             new Tuple<string, string, string>("QualityColorNormal", "DimmQualityColorNormal",
                 "QualityColorNormal_GreyedOut"),
@@ -52,7 +55,7 @@ namespace HUDEditor.Classes
                 "ItemRarityAncient_GreyedOut")
         };
 
-        public static List<string> CrosshairStyles = new()
+        public static readonly List<string> CrosshairStyles = new()
         {
             "!", "#", "$", "%", "'", "(", ")", "*", "+", ",", ".", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":",
             ";", "=", "<", ">", "?", "@", "|", "}", "`", "_", "^", "]", "[", "A", "B", "C", "D", "E", "F", "G", "H",
@@ -158,6 +161,26 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
+        ///     Convert an RGBA color code to Color object.
+        /// </summary>
+        /// <param name="rgba">RGBA color code to process.</param>
+        public static Color ConvertToColor(string rgba)
+        {
+            var colors = Array.ConvertAll(rgba.Split(' '), byte.Parse);
+            return Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+        }
+
+        /// <summary>
+        ///     Convert an RGBA color code to ColorBrush object.
+        /// </summary>
+        /// <param name="rgba">RGBA color code to process.</param>
+        public static SolidColorBrush ConvertToColorBrush(string rgba)
+        {
+            var colors = Array.ConvertAll(rgba.Split(' '), byte.Parse);
+            return new SolidColorBrush(Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
+        }
+
+        /// <summary>
         ///     Open the provided path in browser or Windows Explorer.
         /// </summary>
         /// <param name="url">URL link to open.</param>
@@ -180,21 +203,6 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Download the HUD using the provided URL.
-        /// </summary>
-        /// <param name="url">URL from which to download the HUD.</param>
-        public static void DownloadHud(string url)
-        {
-            MainWindow.Logger.Info($"Downloading from: {url}");
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-            var client = new WebClient();
-            client.DownloadFile(url, "temp.zip");
-            client.Dispose();
-        }
-
-        /// <summary>
         ///     Check if Team Fortress 2 is currently running.
         /// </summary>
         /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
@@ -213,18 +221,31 @@ namespace HUDEditor.Classes
         {
             // Try to find the Steam library path in the registry.
             var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-            var registry = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null);
+            var pathFile = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "\\steamapps\\libraryfolders.vdf";
+            if (!File.Exists(pathFile)) return false;
 
-            if (string.IsNullOrWhiteSpace(registry)) return false;
+            // Read the file and attempt to extract all library paths.
+            using var reader = new StreamReader(pathFile);
+            var steamPaths = new List<string>();
+            foreach (Match match in Regex.Matches(reader.ReadToEnd(), "\"(.*)\"\t*\"(.*)\""))
+            {
+                if (match.Groups[1].Value.Equals("path"))
+                    steamPaths.Add(match.Groups[2].Value);
+            }
 
-            // Found the Steam library path, now try to find the TF2 path.
-            registry += "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
-
-            if (!Directory.Exists(registry)) return false;
-            MainWindow.Logger.Info("tf/custom directory found in the registry: " + registry);
-            Settings.Default.hud_directory = registry;
-            Settings.Default.Save();
-            return true;
+            // Loop through all known libary paths to try and find TF2.
+            foreach (var path in steamPaths)
+            {
+                var pathTF = path + "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
+                if (Directory.Exists(pathTF))
+                {
+                    MainWindow.Logger.Info($"tf/custom directory found in the registry: {pathTF}");
+                    Settings.Default.hud_directory = pathTF;
+                    Settings.Default.Save();
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>
@@ -248,17 +269,18 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Converts a HUD/control name into a WPF usable ID
         /// </summary>
+        /// <param name="id">ID to sanitize.</param>
         /// <remarks>
         ///     If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores.
         /// </remarks>
-        public static string EncodeID(string id)
+        public static string EncodeId(string id)
         {
             // If first character is a digit, add an underscore, then replace all dashes and whitespace characters with underscores
             return $"{(Regex.IsMatch(id[0].ToString(), "\\d") ? "_" : "")}{string.Join('_', Regex.Split(id, "[- ]"))}";
         }
 
         /// <summary>
-        ///     TODO: Add comment explaining this method.
+        ///     Deep merge keys from one object to another
         /// </summary>
         /// <param name="object1"></param>
         /// <param name="object2"></param>
@@ -289,6 +311,11 @@ namespace HUDEditor.Classes
             }
         }
 
+        /// <summary>
+        ///     Adds the structure for empty nested objects inside a given object
+        /// </summary>
+        /// <param name="obj">Object to add nested objects to.</param>
+        /// <param name="keys">Keys to add.</param>
         public static Dictionary<string, dynamic> CreateNestedObject(Dictionary<string, dynamic> obj, IEnumerable<string> keys)
         {
             try
@@ -311,10 +338,126 @@ namespace HUDEditor.Classes
             }
         }
 
-        public static async Task<string> Fetch(string url)
+        /// <summary>
+        ///     Fetch JSON from specified URL.
+        /// </summary>
+        /// <param name="url">URL to request resource from.</param>
+        public static async Task<T> Fetch<T>(string url)
         {
-            var response = await new HttpClient().GetAsync(url);
-            return response.IsSuccessStatusCode ? response.Content.ReadAsStringAsync().Result : null;
+            using HttpClient client = new();
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
+            return await client.GetFromJsonAsync<T>(url);
+        }
+
+        /// <summary>
+        ///     Downloads a file from URL to the specified file path.
+        /// </summary>
+        /// <param name="url">URL to request resource from.</param>
+        /// <param name="filePath">Relative path to file to save resource to.</param>
+        public static async Task DownloadFile(string url, string filePath)
+        {
+            using HttpClient client = new();
+            client.DefaultRequestHeaders.Add("User-Agent", "request");
+            File.WriteAllBytes(filePath, await client.GetByteArrayAsync(url));
+        }
+
+        /// <summary>
+        ///     Calculates a file hash identical to the output of <c>git hash-object &lt;file&gt;</c>
+        /// </summary>
+        /// <param name="filePath">Path to file to calculate hash of.</param>
+        public static string GitHash(string filePath)
+        {
+            var contents = File.ReadAllText(filePath, System.Text.Encoding.UTF8).Replace("\r\n", "\n");
+            var headerString = $"blob {contents.Length}\0{contents}";
+            var contentBytes = System.Text.Encoding.UTF8.GetBytes(headerString);
+            var hashedBytes = System.Security.Cryptography.SHA1.HashData(contentBytes);
+            return hashedBytes.Aggregate("", (a, b) => a + b.ToString("X2").ToLower());
+        }
+
+        /// <summary>
+        ///     Install the Hypnotize TF2 HUD Crosshairs to a given HUD folder
+        /// </summary>
+        /// <param name="folderPath">Absolute folder path to HUD to install crosshairs to</param>
+        public static async Task InstallCrosshairs(string folderPath)
+        {
+            const string crosshairsName = "TF2-HUD-Crosshairs-master";
+            var crosshairsZipFileName = $"{crosshairsName}.zip";
+
+            // Download TF2 HUD Crosshairs
+            await Utilities.DownloadFile(Settings.Default.tf2_hud_crosshairs_zip, crosshairsZipFileName);
+            if (Directory.Exists(crosshairsName)) Directory.Delete(crosshairsName, true);
+            ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath);
+
+            // Move crosshairs folder to HUD
+            string targetDirectory = Path.Join(folderPath, "resource\\crosshairs");
+            if (Directory.Exists(targetDirectory)) Directory.Delete(targetDirectory, true);
+            Directory.Move(Path.Join(folderPath, Path.Join(crosshairsName, "crosshairs")), targetDirectory);
+            Directory.Delete(Path.Join(folderPath, crosshairsName), true);
+
+            async Task AddBaseReference(string relativeFilePath, string baseFilePath)
+            {
+                var absoluteFilePath = Path.Join(folderPath, relativeFilePath);
+
+                // Assume absoluteFilePath exists in the HUD
+                var obj = VDF.Parse(await File.ReadAllTextAsync(absoluteFilePath));
+
+                if (!obj.ContainsKey("#base"))
+                {
+                    obj["#base"] = baseFilePath;
+                }
+                else
+                {
+                    var baseType = obj["#base"].GetType();
+                    if (baseType == typeof(string))
+                    {
+                        obj["#base"] = new List<dynamic> { (string)obj["#base"], baseFilePath };
+                    }
+                    else if (baseType == typeof(List<dynamic>))
+                    {
+                        obj["#base"].Add(baseFilePath);
+                    }
+                    else
+                    {
+                        throw new Exception($"Unexpected #base value type in {relativeFilePath}. Expected string or list");
+                    }
+                }
+
+                await File.WriteAllTextAsync(absoluteFilePath, VDF.Stringify(obj));
+            }
+
+            await Task.WhenAll(
+                // Add #base statements to HUD files as per https://github.com/Hypnootize/TF2-HUD-Crosshairs#installation
+                AddBaseReference("resource\\clientscheme.res", "../resource/crosshairs/crosshair_scheme.res"),
+                AddBaseReference("scripts\\hudlayout.res", "../resource/crosshairs/crosshair.res"),
+
+                // Add "file" reference to hudanimations_manifest.txt
+                Task.Run(async () =>
+                {
+                    var filePath = Path.Join(folderPath, "scripts\\hudanimations_manifest.txt");
+
+                    // If the HUD does not contain a hudanimations_manifest.txt,
+                    // use the string from tf2_misc_dir.vpk scripts/hudanimations_manifest.txt
+                    var fileContents = File.Exists(filePath)
+                    ? await File.ReadAllTextAsync(filePath)
+                    : @"
+                    hudanimations_manifest
+                    {
+                        file scripts/hudanimations.txt
+                        file scripts/hudanimations_tf.txt
+                    }
+                    ";
+
+                    var hudAnimationsManifest = VDF.Parse(fileContents);
+                    List<dynamic> files = hudAnimationsManifest["hudanimations_manifest"]["file"];
+
+                    const string animationsBasePath = "resource/crosshairs/crosshair_animation.txt";
+
+                    if (!files.Contains(animationsBasePath))
+                        files.Insert(0, animationsBasePath);
+
+                    await File.WriteAllTextAsync(filePath, VDF.Stringify(hudAnimationsManifest));
+                })
+            );
         }
     }
 }

@@ -1,7 +1,12 @@
+---
+title: Introduction
+---
+
 Every HUD supported by the editor has a dedicated schema file that defines the page layout and instructions for each customization option. This section will act as a reference guide for the structure of said schema file, what control options are available and things to keep in mind as you're building the schema for your custom HUD.
 
-!!! note
-    Use this sample [schema file][json-sample] as a starting point. For reference, also see schemas for [budhud][json-budhud], [flawhud][json-flawhud] and [rayshud][json-rayshud].
+:::note
+Use this sample [schema file][json-sample] as a starting point. For reference, also see schemas for [budhud][json-budhud], [flawhud][json-flawhud] and [rayshud][json-rayshud].
+:::
 
 ### Table of Contents
 
@@ -19,9 +24,9 @@ Every HUD supported by the editor has a dedicated schema file that defines the p
 [json-budhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/budhud.json
 [json-flawhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/flawhud.json
 [json-rayshud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/rayshud.json
-[docs-main]: https://www.editor.criticalflaw.ca/json/base
-[docs-controls]: https://www.editor.criticalflaw.ca/json/controls
-[docs-options]: https://www.editor.criticalflaw.ca/json/options
-[docs-files]: https://www.editor.criticalflaw.ca/json/files/
-[docs-animations]: https://www.editor.criticalflaw.ca/json/animations/
-[docs-background]: https://www.editor.criticalflaw.ca/json/backgrounds/
+[docs-main]: http://www.criticalflaw.ca/TF2HUD.Editor/json/base
+[docs-controls]: http://www.criticalflaw.ca/TF2HUD.Editor/json/controls
+[docs-options]: http://www.criticalflaw.ca/TF2HUD.Editor/json/options
+[docs-files]: http://www.criticalflaw.ca/TF2HUD.Editor/json/files/
+[docs-animations]: http://www.criticalflaw.ca/TF2HUD.Editor/json/animations/
+[docs-background]: http://www.criticalflaw.ca/TF2HUD.Editor/json/backgrounds/

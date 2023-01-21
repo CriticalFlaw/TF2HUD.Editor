@@ -12,7 +12,7 @@ namespace HUDEditor.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -61,7 +61,7 @@ namespace HUDEditor.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://www.editor.criticalflaw.ca/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.criticalflaw.ca/TF2HUD.Editor/")]
         public string app_docs {
             get {
                 return ((string)(this["app_docs"]));
@@ -80,7 +80,8 @@ namespace HUDEditor.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repos/CriticalFlaw/TF2HUD.Editor/contents/src/TF2HUD.Edito" +
+            "r/JSON")]
         public string json_list {
             get {
                 return ((string)(this["json_list"]));
@@ -112,6 +113,87 @@ namespace HUDEditor.Properties {
         public string mastercomfig_vpk {
             get {
                 return ((string)(this["mastercomfig_vpk"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool app_update_auto {
+            get {
+                return ((bool)(this["app_update_auto"]));
+            }
+            set {
+                this["app_update_auto"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool app_xhair_persist {
+            get {
+                return ((bool)(this["app_xhair_persist"]));
+            }
+            set {
+                this["app_xhair_persist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool app_xhair_enabled {
+            get {
+                return ((bool)(this["app_xhair_enabled"]));
+            }
+            set {
+                this["app_xhair_enabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("$")]
+        public string app_xhair_style {
+            get {
+                return ((string)(this["app_xhair_style"]));
+            }
+            set {
+                this["app_xhair_style"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string app_xhair_color {
+            get {
+                return ((string)(this["app_xhair_color"]));
+            }
+            set {
+                this["app_xhair_color"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int app_xhair_size {
+            get {
+                return ((int)(this["app_xhair_size"]));
+            }
+            set {
+                this["app_xhair_size"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/Hypnootize/TF2-HUD-Crosshairs/archive/refs/heads/master.zip")]
+        public string tf2_hud_crosshairs_zip {
+            get {
+                return ((string)(this["tf2_hud_crosshairs_zip"]));
             }
         }
     }

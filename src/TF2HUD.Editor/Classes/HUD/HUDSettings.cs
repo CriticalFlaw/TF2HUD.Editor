@@ -1,14 +1,13 @@
+using HUDEditor.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Media;
-using HUDEditor.Models;
-using Newtonsoft.Json;
 
 namespace HUDEditor.Classes
 {
-    public enum HUDSettingsPreset
+    public enum Preset
     {
         A,
         B,
@@ -25,11 +24,11 @@ namespace HUDEditor.Classes
             ? JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(UserFile))
             : new UserJson();
 
-        private static readonly Dictionary<string, HUDSettingsPreset> Presets = Json.Presets;
+        private static readonly Dictionary<string, Preset> Presets = Json.Presets;
 
         private static readonly List<Setting> UserSettings = Json.Settings;
 
-        private HUDSettingsPreset _Preset;
+        private Preset _Preset;
 
         public string HUDName;
 
@@ -37,10 +36,10 @@ namespace HUDEditor.Classes
         {
             HUDName = name;
 
-            if (!Presets.ContainsKey(name)) Preset = HUDSettingsPreset.A;
+            if (!Presets.ContainsKey(name)) Preset = Preset.A;
         }
 
-        public HUDSettingsPreset Preset
+        public Preset Preset
         {
             get => _Preset;
             set => _Preset = Presets[HUDName] = value;
@@ -54,7 +53,7 @@ namespace HUDEditor.Classes
             if (UserSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset) is null)
                 UserSettings.Add(new Setting
                 {
-                    HUD = HUDName,
+                    Hud = HUDName,
                     Name = name,
                     Type = control.Type,
                     Value = control.Value,
@@ -84,13 +83,16 @@ namespace HUDEditor.Classes
                 case "Boolean":
                     var evaluatedValue = value is "1" or "True" or "true";
                     return (T)(object)evaluatedValue;
+
                 case "Color":
-                    var colors = Array.ConvertAll(value.Split(' '), byte.Parse);
-                    return (T)(object)Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]);
+                    return (T)(object)Utilities.ConvertToColor(value);
+
                 case "Int32":
                     return (T)(object)int.Parse(value);
+
                 case "String":
                     return (T)(object)value;
+
                 default:
                     throw new Exception($"Unexpected setting type {typeof(T).Name}!");
             }

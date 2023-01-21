@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using HUDEditor.Properties;
 
 namespace HUDEditor.Classes
 {
@@ -46,6 +49,23 @@ namespace HUDEditor.Classes
         }
     }
 
+    public class LinkCheckConverterVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value switch
+            {
+                string s => !string.IsNullOrWhiteSpace(s) ? Visibility.Visible : Visibility.Collapsed,
+                _ => Visibility.Hidden
+            };
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class NullCheckConverterVisibility : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -72,19 +92,6 @@ namespace HUDEditor.Classes
         }
     }
 
-    public class InvertBooleanConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return !(bool)value;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return !(bool)value;
-        }
-    }
-
     public class PageBackgroundConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -106,8 +113,20 @@ namespace HUDEditor.Classes
                 };
 
             // The background is an RGBA color code, change it to ARGB and set it as the background.
-            var colors = Array.ConvertAll(selection.Background.Split(' '), byte.Parse);
-            return new SolidColorBrush(Color.FromArgb(colors[^1], colors[0], colors[1], colors[2]));
+            return Utilities.ConvertToColorBrush(selection.Background);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class DisplayUniqueHudsOnlyForegroundConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (bool)value ? Brushes.SkyBlue : Brushes.White;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -123,7 +142,7 @@ namespace HUDEditor.Classes
             var hud = (HUD)value;
             if (hud is not null)
             {
-                if (Directory.Exists($"{MainWindow.HudPath}\\{hud.Name}"))
+                if (Directory.Exists($"{Settings.Default.hud_directory}\\{hud.Name}"))
                 {
                     MainWindow.Logger.Info($"[BtnInstallContentConverter] {hud.Name} is installed");
                     return Utilities.GetLocalizedString("ui_reinstall") ?? "Reinstall";
@@ -135,6 +154,32 @@ namespace HUDEditor.Classes
 
             MainWindow.Logger.Info("[BtnInstallContentConverter] Highlighted HUD is null");
             return Utilities.GetLocalizedString("ui_install") ?? "Install";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PresetSelectedStyleConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return Application.Current.Resources[$"HudButton{((bool)value ? "Selected" : "")}"];
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ComboBoxItemsConverterVisibility : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value is not null && ((IEnumerable<object>)value).Count() > 1 ? Visibility.Visible : Visibility.Hidden;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

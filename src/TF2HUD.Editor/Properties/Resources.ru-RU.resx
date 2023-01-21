@@ -53,7 +53,6 @@
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
-
     mimetype: application/x-microsoft.net.object.bytearray.base64
     value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
@@ -112,10 +111,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="error_app_directory" xml:space="preserve">
     <value>Для использования этого редактора необходимо установить каталог tf/custom.</value>
@@ -144,10 +143,10 @@
   <data name="header_update_none" xml:space="preserve">
     <value>Обновления не найдены.</value>
   </data>
-    <data name="info_add_hud" xml:space="preserve">
+  <data name="info_add_hud" xml:space="preserve">
     <value>Вы уверены, что хотите добавить папку в общий список интерфейсов? Это добавит папку локально, но не загрузит интерфейс в онлайн базу данных TF2HUD.Editor.</value>
   </data>
-    <data name="info_background_override" xml:space="preserve">
+  <data name="info_background_override" xml:space="preserve">
     <value>Установка нового фона отменит текущий. Используйте кнопку «Переустановить», чтобы вернуться к фону по умолчанию.</value>
   </data>
   <data name="header_restart_required" xml:space="preserve">
@@ -164,6 +163,9 @@
   </data>
   <data name="info_path_invalid" xml:space="preserve">
     <value>Вы либо выбрали один и тот же каталог, либо ваш выбор не закончился на tf/custom. Пожалуйста, попробуйте ещё раз.</value>
+  </data>
+  <data name="info_unsupported_hud_found" xml:space="preserve">
+    <value>В папке tf/custom был обнаружен неподдерживаемый интерфейс. Вы хотите удалить его, чтобы продолжить установку?</value>
   </data>
   <data name="info_hud_update_none" xml:space="preserve">
     <value>У вас последние версии схемы интерфейса. Пожалуйста, проверьте позже.</value>
@@ -189,7 +191,7 @@
   <data name="status_reset" xml:space="preserve">
     <value>Настройки {0} обнуляются в {1}.</value>
   </data>
-    <data name="tooltip_addhud" xml:space="preserve">
+  <data name="tooltip_addhud" xml:space="preserve">
     <value>Добавить новый интерфейс.</value>
   </data>
   <data name="tooltip_docs" xml:space="preserve">
@@ -254,5 +256,8 @@
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Удалить</value>
+  </data>
+  <data name="ui_check_updates" xml:space="preserve">
+    <value>Автоматически проверить обновления</value>
   </data>
 </root>

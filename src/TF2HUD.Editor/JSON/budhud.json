@@ -362,7 +362,7 @@
     "Crosshair (Hypnotize's Unified Crosshair Pack)": [
       {
         "Name": "bh_toggle_xhair_enable",
-        "Label": "Enable the Crosshair",
+        "Label": "Toggle Crosshair",
         "Type": "Checkbox",
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",

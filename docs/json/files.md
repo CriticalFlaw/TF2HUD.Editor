@@ -1,9 +1,14 @@
+---
+title: HUD Files
+---
+
 The `Files` property defines a list of instructions made up of HUD elements and values to apply to the HUD.
 
 The files property can contain 0 or more file paths relative to the root of the HUD. Each file path can be seperated by slash (/), backslash (\\) or double backslash (\\\\).
 
-!!! note
-    Files that have the extensions `.res`, `.vmt` and `.vdf` are treated as HUD files, files that have the `.txt` extension are treated as HUD Animations files.
+:::note
+Files that have the extensions `.res`, `.vmt` and `.vdf` are treated as HUD files, files that have the `.txt` extension are treated as HUD Animations files.
+:::
 
 For more information on HUD animations, see [HUD Animations][docs-animations].
 
@@ -108,8 +113,9 @@ Always ensure your `replace` usage is as greedy as possible, for example the fol
 
 After being run multiple times, this code will result in `HUD_Font_Lato_Lato_Lato_Lato_`
 
-!!! warning
-    It is not recommended to write VDF in the parameters of a special key, as the formatting of the HUD will change when the editor writed the specified properties
+:::caution
+It is not recommended to write VDF in the parameters of a special key, as the formatting of the HUD will change when the editor writed the specified properties
+:::
 
 ## HUD Element Keywords
 
@@ -202,5 +208,5 @@ After being written to the HUD, this will be represented as:
 ```
 
 <!-- MARKDOWN LINKS -->
-[docs-controls]: https://www.editor.criticalflaw.ca/json/controls/
-[docs-animations]: https://www.editor.criticalflaw.ca/json/animations/
+[docs-controls]: http://www.criticalflaw.ca/TF2HUD.Editor/json/controls/
+[docs-animations]: http://www.criticalflaw.ca/TF2HUD.Editor/json/animations/

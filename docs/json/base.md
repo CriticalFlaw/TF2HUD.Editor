@@ -1,4 +1,8 @@
-This section defines the base settings like the HUD author, description, screenshots, customization folders, links and more. 
+---
+title: Main Settings
+---
+
+This section defines the base settings like the HUD author, description, screenshots, customization folders, links and more.
 
 ```json
 {
@@ -101,43 +105,6 @@ In the example below, the first control group (0) will be placed in the top left
 ]
 ```
 
----
-
-### Links
-
-**Required**. Contains links related to the HUD, such as the download link and social media sites.
-
-!!! warning
-    The **Update** link is used for downloading the HUD, so unlike the rest it must be provided!
-
-```json
-"Links": {
-	"Update": "https://github.com/raysfire/rayshud/archive/master.zip",
-	"Issue": "https://github.com/raysfire/rayshud/issues",
-	"GitHub": "https://github.com/raysfire/rayshud",
-	"HudsTF": "https://huds.tf/site/s-rayshud--377",
-	"Steam": "https://steamcommunity.com/groups/rayshud",
-	"Discord": "https://discord.gg/hTdtK9vBhE"
-}
-```
-
----
-
-### Controls
-
-**Required**. Contains controls that will appear on the page, grouped by similar purpose.
-
-!!! info
-    Individual control properties and options are covered in the [next section][docs-controls].
-
-```json
-"Controls": {
-	"UberCharge": [
-		{
-			"Name": "rh_val_uber_animation"
-			...
-```
-
 This will result in the following layout, with 2 large boxes (0 and 4), and 3 smaller boxes (1, 2 and 3):
 
 ```
@@ -149,11 +116,54 @@ This will result in the following layout, with 2 large boxes (0 and 4), and 3 sm
 +----+----+----+----+
 ```
 
-The width and height of all group boxes will expand fractionally to 100%. a row of `"0 0 1 2"` will have the widths 50%, 25%, 25%
+The width and height of all group boxes will expand fractionally to 100%. A row of `"0 0 1 2"` will have the widths 50%, 25%, 25%
 
+:::note
+If no Layout is provided, the editor will automatically wrap control group boxes. Providing a Layout is not essential
+:::
 
-!!! note
-    If no Layout is provided, the editor will automatically wrap control group boxes. Providing a Layout is not essential
+---
+
+### Links
+
+**Required**. Contains links related to the HUD, such as the download links and social media sites.
+
+:::caution
+The **Download** links are used for downloading the HUD, so unlike the rest it must be provided!
+:::
+
+```json
+"Links": {
+	"GitHub": "https://github.com/raysfire/rayshud",
+	"HudsTF": "https://huds.tf/site/s-rayshud--377",
+	"Steam": "https://steamcommunity.com/groups/rayshud",
+	"Discord": "https://discord.gg/hTdtK9vBhE",
+	"Download": [
+		{
+			"Source": "GitHub",
+			"Link": "https://github.com/raysfire/rayshud/archive/master.zip"
+		}
+	]
+}
+```
+
+---
+
+### Controls
+
+**Required**. Contains controls that will appear on the page, grouped by similar purpose.
+
+:::info
+Individual control properties and options are covered in the [next section][docs-controls].
+:::
+
+```json
+"Controls": {
+	"UberCharge": [
+		{
+			"Name": "rh_val_uber_animation"
+			...
+```
 
 ---
 
@@ -196,4 +206,4 @@ The width and height of all group boxes will expand fractionally to 100%. a row 
 ```
 
 <!-- MARKDOWN LINKS -->
-[docs-controls]: https://www.editor.criticalflaw.ca/json/controls/
+[docs-controls]: http://www.criticalflaw.ca/TF2HUD.Editor/json/controls/

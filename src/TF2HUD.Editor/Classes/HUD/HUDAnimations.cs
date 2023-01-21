@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text.RegularExpressions;
 using HUDEditor.Models;
 
 namespace HUDEditor.Classes
@@ -46,76 +43,33 @@ namespace HUDEditor.Classes
     {
         public static Dictionary<string, List<HUDAnimation>> Parse(string text)
         {
-            var index = 0;
-            char[] ignoredCharacters = {' ', '\t', '\r', '\n'};
-
-            string Next(bool lookAhead = false)
-            {
-                var currentToken = "";
-                var x = index;
-
-                // Return EOF if we've reached the end of the text file.
-                if (x >= text.Length - 1) return "EOF";
-
-                // Discard any text that is preempted by a comment tag (//) until the next line.
-                while ((ignoredCharacters.Contains(text[x]) || text[x] == '/') && x < text.Length - 1)
-                {
-                    if (text[x] == '/')
-                    {
-                        if (text[x + 1] is '/')
-                            while (text[x] is not '\n' && x < text.Length - 1)
-                                x++;
-                    }
-                    else
-                    {
-                        x++;
-                    }
-
-                    if (x >= text.Length) return "EOF";
-                }
-
-                // If we encounter a quote, read the enclosed text until the next quotation mark.
-                if (text[x] == '"')
-                {
-                    // Skip the opening quotation mark.
-                    x++;
-
-                    while (text[x] is not '"' && x < text.Length - 1)
-                    {
-                        if (text[x] == '\n') throw new Exception($"Unexpected end of line at position {x}");
-                        currentToken += text[x];
-                        x++;
-                    }
-
-                    // Skip the closing quotation mark.
-                    x++;
-                }
-                else
-                {
-                    // Read the text until reaching whitespace or an end of the file.
-                    while (x < text.Length && !ignoredCharacters.Contains(text[x]))
-                    {
-                        if (text[x] == '"') throw new Exception($"Unexpected double quote at position {x}");
-                        currentToken += text[x];
-                        x++;
-                    }
-                }
-
-                if (!lookAhead) index = x;
-
-                return currentToken;
-            }
+            VDFTokeniser tokeniser = new VDFTokeniser(text);
 
             Dictionary<string, List<HUDAnimation>> ParseFile()
             {
                 Dictionary<string, List<HUDAnimation>> animations = new();
-                var currentToken = Next();
 
-                while (string.Equals(currentToken, "event", StringComparison.CurrentCultureIgnoreCase))
+                while (true)
                 {
-                    var eventName = Next();
-                    animations[eventName] = ParseEvent();
-                    currentToken = Next();
+                    var token = tokeniser.Next();
+                    if (token == null) break;
+                    switch (token.Value.Type)
+                    {
+                        case VDFTokenType.String:
+                            {
+                                if (string.Equals(token.Value.Value, "event", StringComparison.CurrentCultureIgnoreCase))
+                                {
+                                    var eventName = tokeniser.Next();
+                                    if (eventName == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "event name" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                    if (eventName.Value.Type == VDFTokenType.String) animations[eventName.Value.Value] = ParseEvent();
+                                    else throw new VDFSyntaxException(eventName.Value.Type, eventName.Value.Value, new[] { "event name" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                }
+                                else throw new VDFSyntaxException(token.Value.Type, token.Value.Value, new[] { "\"event\"", "EOF" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                break;
+                            }
+                        default:
+                            throw new VDFSyntaxException(token.Value.Type, token.Value.Value, new[] { "\"event\"", "EOF" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                    }
                 }
 
                 return animations;
@@ -124,113 +78,150 @@ namespace HUDEditor.Classes
             List<HUDAnimation> ParseEvent()
             {
                 List<HUDAnimation> events = new();
-                var nextToken = Next();
+                var token = tokeniser.Next();
+                if (token == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                if (token.Value.Type != VDFTokenType.Conditional || token.Value.Value != "{") throw new VDFSyntaxException(token.Value.Type, token.Value.Value, new[] { "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
 
-                if (string.Equals(nextToken, "{"))
-                    while (nextToken is not "}" && nextToken is not "EOF")
-                    {
-                        // NextToken is not a closing brace therefore it is the animation type.
-                        // Pass the animation type to the animation.
-                        nextToken = Next();
-                        if (nextToken is not "}") events.Add(ParseAnimation(nextToken));
-                    }
-                else
-                    throw new Exception(
-                        $"Unexpected ${nextToken} at position {index}! Are you missing an opening brace?");
+                while (true)
+                {
+                    var animationCommandToken = tokeniser.Next();
+                    if (animationCommandToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "animation command", "}" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                    if (animationCommandToken.Value.Type != VDFTokenType.String) throw new VDFSyntaxException(animationCommandToken.Value.Type, animationCommandToken.Value.Value, new[] { "animation command", "}" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                    if (animationCommandToken.Value.Value == "}") break;
+
+                    events.Add(ParseAnimation(animationCommandToken.Value.Value));
+                }
 
                 return events;
             }
 
-            void SetInterpolator(Animate animation)
+            string ReadString()
             {
-                var interpolator = Next().ToLower();
-                if (string.Equals(interpolator, "pulse", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    animation.Interpolator = interpolator;
-                    animation.Frequency = Next();
-                }
-                else if (new[] {"gain", "bias"}.Contains(interpolator))
-                {
-                    animation.Interpolator = interpolator[0].ToString().ToUpper() + interpolator[1..];
-                    animation.Bias = Next();
-                }
-                else
-                {
-                    animation.Interpolator = interpolator;
-                }
+                var token = tokeniser.Next();
+                if (token == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "string" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                if (token.Value.Type != VDFTokenType.String) throw new VDFSyntaxException(token.Value.Type, token.Value.Value, new[] { "string" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                return token.Value.Value;
+            }
+
+            string ReadNumber()
+            {
+                return float.Parse(ReadString()).ToString();
+            }
+
+            string ReadBool()
+            {
+                var token = ReadString();
+                if (token != "0" || token != "1") throw new VDFSyntaxException(VDFTokenType.String, token, new[] { "0", "1" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                return token;
             }
 
             HUDAnimation ParseAnimation(string type)
             {
-                dynamic animation;
-                type = type.ToLower();
+                HUDAnimation animation;
 
-                switch (type)
+                switch (type.ToLower())
                 {
                     case "animate":
-                        animation = new Animate();
-                        animation.Type = type;
-                        animation.Element = Next();
-                        animation.Property = Next();
-                        animation.Value = Next();
-                        SetInterpolator(animation);
-                        animation.Delay = Next();
-                        animation.Duration = Next();
+                        animation = new Animate
+                        {
+                            Element = ReadString(),
+                            Property = ReadString(),
+                            Value = ReadString(),
+                            Interpolator = ReadString().ToLower() switch
+                            {
+                                "linear" => new LinearInterpolator(),
+                                "accel" => new AccelInterpolator(),
+                                "deaccel" => new DeAccelInterpolator(),
+                                "spline" => new SplineInterpolator(),
+                                "pulse" => new PulseInterpolator { Frequency = ReadString() },
+                                "flicker" => new FlickerInterpolator { Randomness = ReadString() },
+                                "bias" => new BiasInterpolator { Bias = ReadString() },
+                                "gain" => new GainInterpolator { Bias = ReadString() },
+                                var interpolator => throw new VDFSyntaxException(VDFTokenType.String, interpolator, new[] { "interpolator" }, tokeniser.Index, tokeniser.Line, tokeniser.Character),
+                            },
+                            Delay = ReadNumber(),
+                            Duration = ReadNumber(),
+                        };
                         break;
+
                     case "runevent":
-                        animation = new RunEvent();
-                        animation.Type = type;
-                        animation.Event = Next();
-                        animation.Delay = Next();
+                        animation = new RunEvent
+                        {
+                            Event = ReadString(),
+                            Delay = ReadNumber(),
+                        };
                         break;
+
                     case "stopevent":
-                        animation = new StopEvent();
-                        animation.Type = type;
-                        animation.Event = Next();
-                        animation.Delay = Next();
+                        animation = new StopEvent
+                        {
+                            Event = ReadString(),
+                            Delay = ReadNumber(),
+                        };
                         break;
+
                     case "setvisible":
-                        animation = new SetVisible();
-                        animation.Type = type;
-                        animation.Element = Next();
-                        animation.Delay = Next();
-                        animation.Duration = Next();
+                        animation = new SetVisible
+                        {
+                            Element = ReadString(),
+                            Delay = ReadNumber(),
+                            Duration = ReadNumber(),
+                        };
                         break;
+
                     case "firecommand":
-                        animation = new FireCommand();
-                        animation.Type = type;
-                        animation.Delay = Next();
-                        animation.Command = Next();
+                        animation = new FireCommand
+                        {
+                            Delay = ReadNumber(),
+                            Command = ReadString(),
+                        };
                         break;
+
                     case "runeventchild":
-                        animation = new RunEventChild();
-                        animation.Type = type;
-                        animation.Element = Next();
-                        animation.Event = Next();
-                        animation.Delay = Next();
+                        animation = new RunEventChild
+                        {
+                            Element = ReadString(),
+                            Event = ReadString(),
+                            Delay = ReadNumber(),
+                        };
                         break;
+
                     case "setinputenabled":
-                        animation = new SetInputEnabled();
-                        animation.Element = Next();
-                        animation.Visible = int.Parse(Next());
-                        animation.Delay = Next();
+                        animation = new SetInputEnabled
+                        {
+                            Element = ReadString(),
+                            Visible = ReadBool(),
+                            Delay = ReadNumber(),
+                        };
                         break;
+
                     case "playsound":
-                        animation = new PlaySound();
-                        animation.Delay = Next();
-                        animation.Sound = Next();
+                        animation = new PlaySound
+                        {
+                            Delay = ReadNumber(),
+                            Sound = ReadString(),
+                        };
                         break;
+
                     case "stoppanelanimations":
-                        animation = new StopPanelAnimations();
-                        animation.Element = Next();
-                        animation.Delay = Next();
+                        animation = new StopPanelAnimations
+                        {
+                            Element = ReadString(),
+                            Delay = ReadNumber(),
+                        };
                         break;
+
                     default:
-                        Debug.WriteLine(text.Substring(index - 25, 25));
-                        throw new Exception($"Unexpected {type} at position {index}");
+                        throw new VDFSyntaxException(VDFTokenType.String, type, new[] { "animation command" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
                 }
 
-                if (Next(true).StartsWith('[')) animation.OSTag = Next();
+                var conditionalToken = tokeniser.Next(true);
+                if (conditionalToken != null && conditionalToken.Value.Type == VDFTokenType.Conditional)
+                {
+                    animation.Conditional = conditionalToken.Value.Value;
+                    tokeniser.Next();
+                }
+
                 return animation;
             }
 
@@ -240,61 +231,16 @@ namespace HUDEditor.Classes
         public static string Stringify(Dictionary<string, List<HUDAnimation>> animations)
         {
             var stringValue = "";
-            const char tab = '\t';
             const string newLine = "\r\n";
-
-            static string FormatWhiteSpace(string text)
-            {
-                return Regex.IsMatch(text, "\\s") ? $"\"{text}\"" : text;
-            }
-
-            static string GetInterpolator(Animate animation)
-            {
-                return animation.Interpolator.ToLower() switch
-                {
-                    "Pulse" => $"Pulse {animation.Frequency}",
-                    "Gain" or "Bias" => $"Gain {animation.Bias}",
-                    _ => $"{animation.Interpolator}"
-                };
-            }
-
             foreach (var key in animations.Keys)
             {
                 stringValue += $"event {key}{newLine}{{{newLine}";
-                foreach (dynamic animation in animations[key])
+                foreach (var animation in animations[key])
                 {
-                    stringValue += tab;
-                    Type T = animation.GetType();
-
-                    if (T == typeof(Animate))
-                        stringValue +=
-                            $"Animate {FormatWhiteSpace(animation.Element)} {FormatWhiteSpace(animation.Property)} {FormatWhiteSpace(animation.Value)} {GetInterpolator(animation)} {animation.Delay} {animation.Duration}";
-                    else if (T == typeof(RunEvent) || T == typeof(StopEvent))
-                        stringValue += $"RunEvent {FormatWhiteSpace(animation.Event)} {animation.Delay}";
-                    else if (T == typeof(StopEvent))
-                        stringValue += $"StopEvent {FormatWhiteSpace(animation.Event)} {animation.Delay}";
-                    else if (T == typeof(SetVisible))
-                        stringValue +=
-                            $"SetVisible {FormatWhiteSpace(animation.Element)} {animation.Delay} {animation.Duration}";
-                    else if (T == typeof(FireCommand))
-                        stringValue += $"FireCommand {animation.Delay} {FormatWhiteSpace(animation.Command)}";
-                    else if (T == typeof(RunEventChild))
-                        stringValue +=
-                            $"RunEventChild {FormatWhiteSpace(animation.Element)} {FormatWhiteSpace(animation.Event)} {animation.Delay}";
-                    else if (T == typeof(SetVisible))
-                        stringValue +=
-                            $"SetVisible {FormatWhiteSpace(animation.Element)} {animation.Visible} {animation.Delay}";
-                    else if (T == typeof(PlaySound))
-                        stringValue += $"PlaySound {animation.Delay} {FormatWhiteSpace(animation.Sound)}";
-
-                    if (animation.OSTag is not null) stringValue += " " + animation.OSTag;
-
-                    stringValue += newLine;
+                    stringValue += $"\t{animation}{newLine}";
                 }
-
                 stringValue += $"}}{newLine}";
             }
-
             return stringValue;
         }
     }

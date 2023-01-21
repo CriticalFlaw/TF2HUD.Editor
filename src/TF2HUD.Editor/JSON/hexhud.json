@@ -16,30 +16,20 @@
     "4 3 3"
   ],
   "Links": {
-    "Update": "https://github.com/Hypnootize/hexhud/archive/refs/heads/master.zip",
+    "Update": "https://github.com/Hypnootize/hexhud/archive/refs/heads/master.zip", // TODO: Remove
     "GitHub": "https://github.com/Hypnootize/hexhud",
-    "HudsTF": "https://huds.tf/site/s-HExHUD--3435"
+    "HudsTF": "https://huds.tf/site/s-HExHUD--3435",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/Hypnootize/hexhud/archive/refs/heads/master.zip"
+      }
+    ]
   },
   "CustomizationsFolder": "customizations",
   "EnabledFolder": "customizations",
   "Controls": {
     "General": [
-      {
-        "Name": "hex_toggle_scoreboard",
-        "Label": "Full Stats Scoreboard",
-        "Type": "CheckBox",
-        "Value": "false",
-        "Files": {
-          "customizations/scoreboards.res": {
-            "#base": [
-              {
-                "true": "../resource/ui/scoreboard_full.res",
-                "false": "../resource/ui/scoreboard_short.res"
-              }
-            ]
-          }
-        }
-      },
       {
         "Name": "hex_toggle_streamer_mode",
         "Label": "Streamer Mode",
@@ -53,6 +43,22 @@
         }
       },
       {
+        "Name": "hex_toggle_speedometer",
+        "Label": "Speedometer",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/speedometer.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/speedometer.res",
+                "false": "../resource/ui/speedometer_off.res"
+              }
+            ]
+          }
+        }
+      },
+      {
         "Name": "hex_toggle_transparent_viewmodels",
         "Label": "Transparent Viewmodel",
         "Type": "CheckBox",
@@ -61,47 +67,12 @@
           "customizations/transparent viewmodels.res": {
             "#base": [
               {
-                "true": "../scripts/transparent_viewmodels.res",
-                "false": "../scripts/transparent_viewmodels_off.res"
+                "true": "../resource/ui/transparent_viewmodels.res",
+                "false": "../resource/ui/transparent_viewmodels_off.res"
               }
             ]
           }
         }
-      },
-      {
-        "Name": "hex_toggle_friends_list",
-        "Label": "Friends List",
-        "Type": "ComboBox",
-        "Value": "0",
-        "Options": [
-          {
-            "Label": "Short",
-            "Value": "0",
-            "Files": {
-              "customizations/friends list.res": {
-                "#base": "../resource/ui/mainmenu_friendlist_small.res"
-              }
-            }
-          },
-          {
-            "Label": "Extended",
-            "Value": "1",
-            "Files": {
-              "customizations/friends list.res": {
-                "#base": "../resource/ui/mainmenu_friendlist_extended.res"
-              }
-            }
-          },
-          {
-            "Label": "Disabled",
-            "Value": "2",
-            "Files": {
-              "customizations/friends list.res": {
-                "#base": "../resource/ui/scoreboard_disabled.res"
-              }
-            }
-          }
-        ]
       },
       {
         "Name": "hex_toggle_spectator_bars",
@@ -332,6 +303,87 @@
             "Files": {
               "customizations/damage.res": {
                 "#base": "../resource/ui/huddamage_big_outline.res"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Name": "hex_toggle_scoreboard",
+        "Label": "Scoreboard Type",
+        "Type": "ComboBox",
+        "Value": "4",
+        "Width": 220,
+        "Options": [
+          {
+            "Label": "6v6, Short Stats",
+            "Value": "0",
+            "Files": {
+              "customizations/scoreboards.res": {
+                "#base": "../resource/ui/scoreboard_short_6v6.res"
+              }
+            }
+          },
+          {
+            "Label": "6v6, Full Stats",
+            "Value": "1",
+            "Files": {
+              "customizations/scoreboards.res": {
+                "#base": "../resource/ui/scoreboard_full_6v6.res"
+              }
+            }
+          },
+          {
+            "Label": "9v9, Short Stats",
+            "Value": "2",
+            "Files": {
+              "customizations/scoreboards.res": {
+                "#base": "../resource/ui/scoreboard_short_9v9.res"
+              }
+            }
+          },
+          {
+            "Label": "9v9, Full Stats",
+            "Value": "3",
+            "Files": {
+              "customizations/scoreboards.res": {
+                "#base": "../resource/ui/scoreboard_full_9v9.res"
+              }
+            }
+          },
+          {
+            "Label": "12v12, Short Stats",
+            "Value": "4",
+            "Files": {
+              "customizations/scoreboards.res": {
+                "#base": "../resource/ui/scoreboard_short_12v12.res"
+              }
+            }
+          },
+          {
+            "Label": "12v12, Full Stats",
+            "Value": "5",
+            "Files": {
+              "customizations/scoreboards.res": {
+                "#base": "../resource/ui/scoreboard_full_12v12.res"
+              }
+            }
+          },
+          {
+            "Label": "16v16, Short Stats",
+            "Value": "6",
+            "Files": {
+              "customizations/scoreboards.res": {
+                "#base": "../resource/ui/scoreboard_short_16v16.res"
+              }
+            }
+          },
+          {
+            "Label": "16v16, Full Stats",
+            "Value": "7",
+            "Files": {
+              "customizations/scoreboards.res": {
+                "#base": "../resource/ui/scoreboard_full_16v16.res"
               }
             }
           }

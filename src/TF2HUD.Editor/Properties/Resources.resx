@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="error_app_directory" xml:space="preserve">
     <value>A tf/custom directory must be set in order to use this editor.</value>
@@ -171,6 +171,9 @@
   <data name="info_path_invalid" xml:space="preserve">
     <value>The path you have selected does not end with tf/custom. Please try again.</value>
   </data>
+  <data name="info_unsupported_hud_found" xml:space="preserve">
+    <value>An unsupported HUD was found in the tf/custom folder. Do you want to delete it to continue with the installation?</value>
+  </data>
   <data name="status_applied" xml:space="preserve">
     <value>{0} customizations applied on {1}.</value>
   </data>
@@ -195,14 +198,20 @@
   <data name="tooltip_docs" xml:space="preserve">
     <value>Read the documentation.</value>
   </data>
+  <data name="tooltip_launch" xml:space="preserve">
+    <value>Launch Team Fortress 2.</value>
+  </data>
+  <data name="tooltip_options" xml:space="preserve">
+    <value>View options menu.</value>
+  </data>
   <data name="tooltip_path" xml:space="preserve">
     <value>Change the tf/custom directory.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Check for HUD schema updates.</value>
+    <value>Check for schema updates.</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
-    <value>Report an Issue</value>
+    <value>Report an issue.</value>
   </data>
   <data name="ui_apply" xml:space="preserve">
     <value>Apply Changes</value>
@@ -216,6 +225,9 @@
   <data name="ui_browse" xml:space="preserve">
     <value>Browse</value>
   </data>
+  <data name="ui_check_updates" xml:space="preserve">
+    <value>Automatically check for updates.</value>
+  </data>
   <data name="ui_clear" xml:space="preserve">
     <value>Clear</value>
   </data>
@@ -225,11 +237,17 @@
   <data name="ui_directory" xml:space="preserve">
     <value>Set path to tf/custom</value>
   </data>
+  <data name="ui_download" xml:space="preserve">
+    <value>Download:</value>
+  </data>
   <data name="ui_install" xml:space="preserve">
     <value>Install</value>
   </data>
   <data name="ui_options" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="ui_persist_xhair" xml:space="preserve">
+    <value>Remember crosshair selection</value>
   </data>
   <data name="ui_refresh" xml:space="preserve">
     <value>Check for Updates</value>
@@ -238,7 +256,7 @@
     <value>Reinstall</value>
   </data>
   <data name="ui_reset" xml:space="preserve">
-    <value>Reset to Default</value>
+    <value>Reset Changes</value>
   </data>
   <data name="ui_search" xml:space="preserve">
     <value>Search:</value>

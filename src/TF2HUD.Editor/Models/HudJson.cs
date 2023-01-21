@@ -20,15 +20,16 @@ namespace HUDEditor.Models
         [JsonPropertyName("Opacity")] public double Opacity = 0.5;
         [JsonPropertyName("Screenshots")] public string[] Screenshots;
         [JsonPropertyName("Thumbnail")] public string Thumbnail;
+        [JsonPropertyName("InstallCrosshairs")] public bool InstallCrosshairs;
     }
 
     public class Links
     {
         [JsonPropertyName("Discord")] public string Discord;
         [JsonPropertyName("GitHub")] public string GitHub;
-        [JsonPropertyName("HudsTF")] public string HudsTF;
+        [JsonPropertyName("HudsTF")] public string HudsTf;
         [JsonPropertyName("Steam")] public string Steam;
-        [JsonPropertyName("Update")] public string Update;
+        [JsonPropertyName("Download")] public Download[] Download;
     }
 
     public class Controls
@@ -56,6 +57,13 @@ namespace HUDEditor.Models
         [JsonPropertyName("Width")] public int Width;
     }
 
+    public class Download
+    {
+        public string Content => Source;
+        public string Source { get; set; }
+        public string Link { get; set; }
+    }
+
     public class RenameFile
     {
         [JsonPropertyName("NewName")] public string NewName;
@@ -71,11 +79,5 @@ namespace HUDEditor.Models
         [JsonPropertyName("Special")] public string Special;
         [JsonPropertyName("SpecialParameters")] public string[] SpecialParameters;
         [JsonPropertyName("Value")] public string Value;
-    }
-
-    public class GitJson
-    {
-        [JsonPropertyName("name")] public string Name;
-        [JsonPropertyName("size")] public int Size;
     }
 }

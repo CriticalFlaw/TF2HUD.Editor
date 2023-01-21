@@ -1,33 +1,54 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HUDEditor.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="hud_selected" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="hud_directory" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="user_language" Type="System.String" Scope="User">
-      <Value Profile="(Default)">en-US</Value>
-    </Setting>
-    <Setting Name="app_docs" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://www.editor.criticalflaw.ca/</Value>
-    </Setting>
-    <Setting Name="json_file" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{0}</Value>
-    </Setting>
-    <Setting Name="json_list" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://api.github.com/repositories/331154113/contents/src/TF2HUD.Editor/JSON</Value>
-    </Setting>
-    <Setting Name="app_tracker" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://github.com/CriticalFlaw/TF2HUD.Editor/issues</Value>
-    </Setting>
-    <Setting Name="app_update" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</Value>
-    </Setting>
-    <Setting Name="mastercomfig_vpk" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://github.com/mastercomfig/mastercomfig/releases/download/9.5.2/mastercomfig-transparent-viewmodels-addon.vpk</Value>
-    </Setting>
-  </Settings>
+	<Profiles />
+	<Settings>
+		<Setting Name="hud_selected" Type="System.String" Scope="User">
+			<Value Profile="(Default)" />
+		</Setting>
+		<Setting Name="hud_directory" Type="System.String" Scope="User">
+			<Value Profile="(Default)" />
+		</Setting>
+		<Setting Name="user_language" Type="System.String" Scope="User">
+			<Value Profile="(Default)">en-US</Value>
+		</Setting>
+		<Setting Name="app_docs" Type="System.String" Scope="Application">
+			<Value Profile="(Default)">http://www.criticalflaw.ca/TF2HUD.Editor/</Value>
+		</Setting>
+		<Setting Name="json_file" Type="System.String" Scope="Application">
+			<Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{0}</Value>
+		</Setting>
+		<Setting Name="json_list" Type="System.String" Scope="Application">
+			<Value Profile="(Default)">https://api.github.com/repos/CriticalFlaw/TF2HUD.Editor/contents/src/TF2HUD.Editor/JSON</Value>
+		</Setting>
+		<Setting Name="app_tracker" Type="System.String" Scope="Application">
+			<Value Profile="(Default)">https://github.com/CriticalFlaw/TF2HUD.Editor/issues</Value>
+		</Setting>
+		<Setting Name="app_update" Type="System.String" Scope="Application">
+			<Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml</Value>
+		</Setting>
+		<Setting Name="mastercomfig_vpk" Type="System.String" Scope="Application">
+			<Value Profile="(Default)">https://github.com/mastercomfig/mastercomfig/releases/download/9.5.2/mastercomfig-transparent-viewmodels-addon.vpk</Value>
+		</Setting>
+		<Setting Name="app_update_auto" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">True</Value>
+		</Setting>
+		<Setting Name="app_xhair_persist" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">False</Value>
+		</Setting>
+		<Setting Name="app_xhair_enabled" Type="System.Boolean" Scope="User">
+			<Value Profile="(Default)">False</Value>
+		</Setting>
+		<Setting Name="app_xhair_style" Type="System.String" Scope="User">
+			<Value Profile="(Default)">$</Value>
+		</Setting>
+		<Setting Name="app_xhair_color" Type="System.String" Scope="User">
+			<Value Profile="(Default)" />
+		</Setting>
+		<Setting Name="app_xhair_size" Type="System.Int32" Scope="User">
+			<Value Profile="(Default)">0</Value>
+		</Setting>
+		<Setting Name="tf2_hud_crosshairs_zip" Type="System.String" Scope="Application">
+			<Value Profile="(Default)">https://github.com/Hypnootize/TF2-HUD-Crosshairs/archive/refs/heads/master.zip</Value>
+		</Setting>
+	</Settings>
 </SettingsFile>

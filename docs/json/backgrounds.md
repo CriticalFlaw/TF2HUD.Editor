@@ -1,3 +1,7 @@
+---
+title: Background
+---
+
 There are 3 special commands that control the management of backgrounds
 
  - `StockBackgrounds`
@@ -28,8 +32,9 @@ To allow the user to set a custom background from a jpg or png, use the `CustomB
   }
 ```
 
-!!! warning
-    You must use the `CustomBackground` type AND the `CustomBackground` Special property for custom backgrounds to work properly
+:::caution
+You must use the `CustomBackground` type AND the `CustomBackground` Special property for custom backgrounds to work properly
+:::
 
 ## Priority
 
