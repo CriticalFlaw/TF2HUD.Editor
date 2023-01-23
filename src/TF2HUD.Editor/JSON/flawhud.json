@@ -1341,10 +1341,6 @@
                 "true": "FontBold18",
                 "false": "FontBold12"
               },
-              "textAlignment": {
-                "true": "center",
-                "false": "north"
-              }
             }
           },
           "resource/ui/matchmakingdashboardplaylist.res": {
