@@ -80,7 +80,7 @@ namespace HUDEditor.Classes
                 List<HUDAnimation> events = new();
                 var token = tokeniser.Next();
                 if (token == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
-                if (token.Value.Type != VDFTokenType.Conditional || token.Value.Value != "{") throw new VDFSyntaxException(token.Value.Type, token.Value.Value, new[] { "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                if (token.Value.Type != VDFTokenType.ControlCharacter || token.Value.Value != "{") throw new VDFSyntaxException(token.Value.Type, token.Value.Value, new[] { "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
 
                 while (true)
                 {
