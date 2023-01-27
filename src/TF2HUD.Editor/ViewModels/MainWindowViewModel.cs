@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -14,6 +15,7 @@ using CommunityToolkit.Mvvm.Input;
 using HUDEditor.Classes;
 using HUDEditor.Models;
 using HUDEditor.Properties;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 
 namespace HUDEditor.ViewModels
@@ -393,7 +395,9 @@ namespace HUDEditor.ViewModels
         [RelayCommand]
         public void BtnPlayTF2_Click()
         {
-            System.Diagnostics.Process.Start(@"steam://rungameid/440");
+            var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
+            var steamPath = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "\\steam.exe";
+            Process.Start(steamPath, "steam://rungameid/440");
         }
 
         /// <summary>
