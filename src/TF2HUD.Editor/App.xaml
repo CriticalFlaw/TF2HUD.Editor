@@ -239,10 +239,10 @@
             <Setter Property="Width" Value="35" />
             <Setter Property="Height" Value="35" />
             <Setter Property="FontSize" Value="25" />
-            <Setter Property="Background" Value="#42A5F5" />
+            <Setter Property="Background" Value="#439388" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#68A8DC" />
+                    <Setter Property="Background" Value="#2B5E56" />
                 </Trigger>
             </Style.Triggers>
         </Style>

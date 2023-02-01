@@ -82,8 +82,9 @@
                         Command="{Binding OpenWebpageCommand}"
                         CommandParameter="{Binding HudsTfUrl}"
                         Style="{StaticResource HudsButton}"
-                        Visibility="{Binding HudsTfUrl, Converter={StaticResource LinkCheckConverterVisibility}}"
-                    />
+                        Visibility="{Binding HudsTfUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
+                        <Image Source="..\Resources\mastercomfig.png"></Image>
+                    </Button>
                     <Button
                         Command="{Binding OpenWebpageCommand}"
                         CommandParameter="{Binding DiscordUrl}"

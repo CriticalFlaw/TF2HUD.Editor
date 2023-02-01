@@ -87,6 +87,7 @@
     <Content Remove="Resources\favicon.ico" />
     <Content Remove="Resources\Icons.ttf" />
     <Content Remove="Resources\logo.png" />
+    <Content Remove="Resources\mastercomfig.png" />
     <Content Remove="Resources\TF2.ttf" />
     <Content Remove="Resources\TF2Build.ttf" />
     <Content Remove="Resources\TF2Crosshairs.ttf" />
@@ -98,6 +99,7 @@
     <Resource Include="Resources\banner.png" />
     <Resource Include="Resources\Icons.ttf" />
     <Resource Include="Resources\logo.png" />
+    <Resource Include="Resources\mastercomfig.png" />
     <Resource Include="Resources\TF2.ttf" />
     <Resource Include="Resources\TF2Build.ttf" />
     <Resource Include="Resources\TF2Crosshairs.ttf" />
