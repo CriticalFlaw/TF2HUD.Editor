@@ -196,5 +196,18 @@ namespace HUDEditor.Properties {
                 return ((string)(this["tf2_hud_crosshairs_zip"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c" +
+            "47-a17b47cbaf0c.png")]
+        public string app_default_bg {
+            get {
+                return ((string)(this["app_default_bg"]));
+            }
+            set {
+                this["app_default_bg"] = value;
+            }
+        }
     }
 }

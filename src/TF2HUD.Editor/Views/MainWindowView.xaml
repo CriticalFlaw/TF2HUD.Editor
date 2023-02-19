@@ -43,15 +43,14 @@
             <WrapPanel HorizontalAlignment="Center">
                 <Button
                     Command="{Binding BtnInstall_ClickCommand}"
-                    Content="{Binding HighlightedHud, Converter={StaticResource BtnInstallContentConverter}}"
+                    Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}"
                     Style="{StaticResource HudButton}"
-                    IsEnabled="{Binding HighlightedHud, Converter={StaticResource NullCheckConverter}}"
-                />
+                    IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     Command="{Binding BtnUninstall_ClickCommand}"
                     Content="{lex:Loc ui_uninstall}"
                     Style="{StaticResource HudButton}"
-                    IsEnabled="{Binding HighlightedHudInstalled}" />
+                    IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     Command="{Binding BtnSave_ClickCommand}"
                     Content="{lex:Loc ui_apply}"
@@ -64,7 +63,6 @@
                     IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}" />
                 <Button
                     Command="{Binding BtnSwitch_ClickCommand}"
-                    x:Name="BtnSwitch"
                     Content="{lex:Loc ui_switch}"
                     Style="{StaticResource HudButton}"
                     IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}" />
@@ -88,8 +86,7 @@
                     Content="!"
                     ToolTip="{lex:Loc tooltip_launch}"
                     Style="{StaticResource LinkButton}"
-                    Visibility="{Binding SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}"
-                />
+                    Visibility="{Binding SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}" />
                 <Button
                     Command="{Binding BtnAddSharedHUD_ClickCommand}"
                     Content="&#x0583;"
