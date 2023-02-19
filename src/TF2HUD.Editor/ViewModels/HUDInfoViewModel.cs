@@ -11,7 +11,6 @@ namespace HUDEditor.ViewModels
     {
         private readonly MainWindowViewModel _mainWindowViewModel;
         public HUD Hud { get; }
-
         public string Name => Hud.Name;
         public string Author => Hud.Author;
         public string Description => Hud.Description;

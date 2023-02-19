@@ -5,11 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 using HUDEditor.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Xceed.Wpf.Toolkit;
 
 namespace HUDEditor.Classes
 {

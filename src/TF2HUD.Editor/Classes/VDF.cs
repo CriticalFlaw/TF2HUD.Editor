@@ -171,7 +171,7 @@ namespace HUDEditor.Classes
 
     internal class VDFSyntaxException : Exception
     {
-        public VDFSyntaxException(VDFTokenType type, string unexpected, string[] expected, int index, int line, int character) : base($"Unexpected {type} '{unexpected}' at position {index} (line {line}, character {character}). Expected {String.Join(" | ", expected)}")
+        public VDFSyntaxException(VDFTokenType type, string unexpected, string[] expected, int index, int line, int character) : base($"Unexpected {type} '{unexpected}' at position {index} (line {line}, character {character}). Expected {string.Join(" | ", expected)}")
         {
         }
     }

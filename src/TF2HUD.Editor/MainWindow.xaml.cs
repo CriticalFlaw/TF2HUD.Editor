@@ -60,7 +60,7 @@ namespace HUDEditor
         {
             if (e.PropertyName == nameof(MainWindowViewModel.SelectedHud))
             {
-                HudSelection = ((MainWindowViewModel)sender).SelectedHud?.Name ?? String.Empty;
+                HudSelection = ((MainWindowViewModel)sender).SelectedHud?.Name ?? string.Empty;
             }
         }
 

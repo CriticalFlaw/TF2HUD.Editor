@@ -1,12 +1,10 @@
-﻿using System;
-using HUDEditor.Classes;
+﻿using HUDEditor.Classes;
 
 namespace HUDEditor.ViewModels
 {
     public class HUDButtonViewModel : ViewModelBase
     {
         public HUD Hud { get; }
-
         public string Name => Hud.Name;
         public string Author => Hud.Author;
         public string Thumbnail => Hud.Thumbnail;

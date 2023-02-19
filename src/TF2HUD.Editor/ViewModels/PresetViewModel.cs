@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using HUDEditor.Classes;
 
 namespace HUDEditor.ViewModels
@@ -31,9 +30,7 @@ namespace HUDEditor.ViewModels
         private void EditHUDViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(EditHUDViewModel.SelectedPreset))
-            {
                 Selected = _editHudViewModel.SelectedPreset == Preset;
-            }
         }
 
         public override void Dispose()
