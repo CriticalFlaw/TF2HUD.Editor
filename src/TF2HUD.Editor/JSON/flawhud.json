@@ -12,11 +12,12 @@
   "Background": "https://user-images.githubusercontent.com/6818236/123523046-34d56600-d68f-11eb-8838-fbf112c45ea7.png",
   "Layout": [
     "0 0 3 3",
-    "1 2 4 5",
-    "1 2 4 5"
+    "1 1 4 5",
+    "2 2 4 5",
+    "2 2 4 5",
+    "2 2 4 5"
   ],
   "Links": {
-    "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip", // TODO: Remove
     "GitHub": "https://github.com/CriticalFlaw/flawhud",
     "HudsTF": "https://comfig.app/huds/page/flawhud/",
     "Steam": "https://steamcommunity.com/groups/FlawHUD",
@@ -25,30 +26,26 @@
       {
         "Source": "GitHub",
         "Link": "https://github.com/CriticalFlaw/flawhud/archive/master.zip"
-      },
-      {
-        "Source": "GameBanana",
-        "Link": "https://gamebanana.com/dl/705744"
       }
     ]
   },
   "CustomizationsFolder": "resource//ui//#customizations",
   "EnabledFolder": "resource//ui//#customizations//_enabled",
   "Controls": {
-    "Colors": [
+    "HUD Colors": [
       {
-        "Name": "fh_color_health_buff",
-        "Label": "Buffed Health",
+        "Name": "fh_color_primary",
+        "Label": "Primary Color",
         "Type": "ColorPicker",
-        "ToolTip": "Color of player's health, when buffed.",
-        "Value": "0 191 121 255",
+        "ToolTip": "Primary theme and text color.",
+        "Value": "235 226 202 255",
         "Restart": true,
-        "Shadow": true,
+        "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
               "Colors": {
-                "Overheal": "$value"
+                "TanLight": "$value"
               }
             }
           }
@@ -67,6 +64,44 @@
             "Scheme": {
               "Colors": {
                 "UberCharge": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_color_target_damage",
+        "Label": "Damage Dealt",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of the damage amount dealt to another player.",
+        "Value": "255 255 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "TargetDamage": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Player Colors": [
+      {
+        "Name": "fh_color_health_buff",
+        "Label": "Buffed Health",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player's health, when buffed.",
+        "Value": "0 191 121 255",
+        "Restart": true,
+        "Shadow": true,
+        "Files": {
+          "resource/scheme/clientscheme_colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Overheal": "$value",
+                "TargetHealth": "$value"
               }
             }
           }
@@ -107,59 +142,9 @@
             }
           }
         }
-      },
-      {
-        "Name": "fh_color_target_health",
-        "Label": "Health Healed",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of the health amount healed.",
-        "Value": "0 191 121 255",
-        "Restart": true,
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "TargetHealth": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "fh_color_target_damage",
-        "Label": "Damage Dealt",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of the damage amount dealt to another player.",
-        "Value": "255 255 0 255",
-        "Restart": true,
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "TargetDamage": "$value"
-              }
-            }
-          }
-        }
       }
     ],
     "Item Quality": [
-      {
-        "Name": "fh_color_normal",
-        "Label": "Normal",
-        "Type": "ColorPicker",
-        "Value": "178 178 178 255",
-        "Restart": true,
-        "Files": {
-          "resource/scheme/clientscheme_colors.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorNormal": "$value"
-              }
-            }
-          }
-        }
-      },
       {
         "Name": "fh_color_unique",
         "Label": "Unique",
@@ -303,9 +288,7 @@
             }
           }
         }
-      }
-    ],
-    "Item Rarity": [
+      },
       {
         "Name": "fh_color_civilian",
         "Label": "Civilian",
@@ -470,6 +453,21 @@
         }
       },
       {
+        "Name": "fh_toggle_xhair_pulse",
+        "Label": "Toggle Hitmarker",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle hitmarker animation.",
+        "Value": "true",
+        "Files": {
+          "scripts/hudanimations_hitmarker.txt": {
+            "uncomment": [
+              "StopEvent HitMarker",
+              "RunEvent HitMarker"
+            ]
+          }
+        }
+      },
+      {
         "Name": "fh_toggle_xhair_enable",
         "Label": "Toggle Crosshair",
         "Type": "Checkbox",
@@ -487,21 +485,6 @@
                 "false": "0"
               }
             }
-          }
-        }
-      },
-      {
-        "Name": "fh_toggle_xhair_pulse",
-        "Label": "Toggle Hitmarker",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle hitmarker animation.",
-        "Value": "true",
-        "Files": {
-          "scripts/hudanimations_hitmarker.txt": {
-            "uncomment": [
-              "StopEvent HitMarker",
-              "RunEvent HitMarker"
-            ]
           }
         }
       }
@@ -1340,7 +1323,7 @@
               "font": {
                 "true": "FontBold18",
                 "false": "FontBold12"
-              },
+              }
             }
           },
           "resource/ui/matchmakingdashboardplaylist.res": {
