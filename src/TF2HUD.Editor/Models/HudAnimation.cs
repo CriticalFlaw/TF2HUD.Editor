@@ -113,12 +113,12 @@ namespace HUDEditor.Models
     {
         public override string Type => nameof(SetVisible);
         public required string Element { get; set; }
+        public required string Visible { get; set; }
         public required string Delay { get; set; }
-        public required string Duration { get; set; }
 
         public override string ToString()
         {
-            return $"{Type} {Print(Element)} {Delay} {Duration}" + PrintConditional();
+            return $"{Type} {Print(Element)} {Visible} {Delay}" + PrintConditional();
         }
     }
 

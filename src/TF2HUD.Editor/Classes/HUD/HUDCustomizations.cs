@@ -498,8 +498,8 @@ namespace HUDEditor.Classes
                             "setvisible" => new SetVisible
                             {
                                 Element = EvaluateValue(animation["Element"]),
+                                Visible = EvaluateValue(animation["Visible"]),
                                 Delay = EvaluateValue(animation["Delay"]),
-                                Duration = EvaluateValue(animation["Duration"])
                             },
                             "firecommand" => new FireCommand
                             {

@@ -164,8 +164,8 @@ namespace HUDEditor.Classes
                         animation = new SetVisible
                         {
                             Element = ReadString(),
+                            Visible = ReadString(),
                             Delay = ReadNumber(),
-                            Duration = ReadNumber(),
                         };
                         break;
 
