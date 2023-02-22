@@ -135,7 +135,7 @@ The **Download** links are used for downloading the HUD, so unlike the rest it m
 ```json
 "Links": {
 	"GitHub": "https://github.com/raysfire/rayshud",
-	"HudsTF": "https://huds.tf/site/s-rayshud--377",
+	"TF2Huds": "https://tf2huds.dev/hud/rayshud",
 	"Steam": "https://steamcommunity.com/groups/rayshud",
 	"Discord": "https://discord.gg/hTdtK9vBhE",
 	"Download": [

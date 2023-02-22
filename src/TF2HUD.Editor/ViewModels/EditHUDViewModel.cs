@@ -54,7 +54,8 @@ namespace HUDEditor.ViewModels
         }
 
         public string GitHubUrl => _hud.GitHubUrl;
-        public string HudsTfUrl => _hud.HudsTfUrl;
+        public string TF2HudsUrl => _hud.TF2HudsUrl;
+        public string ComfigHudsUrl => _hud.ComfigHudsUrl;
         public string DiscordUrl => _hud.DiscordUrl;
         public string SteamUrl => _hud.SteamUrl;
 

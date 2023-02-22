@@ -36,7 +36,8 @@ namespace HUDEditor.Classes
             EnabledFolder = schema.EnabledFolder ?? string.Empty;
             Download = schema.Links.Download;
             GitHubUrl = schema.Links.GitHub ?? string.Empty;
-            HudsTfUrl = schema.Links.HudsTf ?? string.Empty;
+            TF2HudsUrl = schema.Links.TF2Huds ?? string.Empty;
+            ComfigHudsUrl = schema.Links.ComfigHuds ?? string.Empty;
             SteamUrl = schema.Links.Steam ?? string.Empty;
             DiscordUrl = schema.Links.Discord ?? string.Empty;
             ControlOptions = schema.Controls;
@@ -134,7 +135,8 @@ namespace HUDEditor.Classes
         public string EnabledFolder { get; set; }
         public Download[] Download;
         public string GitHubUrl { get; set; }
-        public string HudsTfUrl { get; set; }
+        public string TF2HudsUrl { get; set; }
+        public string ComfigHudsUrl { get; set; }
         public string SteamUrl { get; set; }
         public string DiscordUrl { get; set; }
         public Dictionary<string, Controls[]> ControlOptions;

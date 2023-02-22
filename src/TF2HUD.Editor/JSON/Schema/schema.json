@@ -47,7 +47,11 @@
           "type": "string",
           "pattern": "^https?:\/\/.*$"
         },
-        "HudsTF": {
+        "TF2Huds": {
+          "type": "string",
+          "pattern": "^https?:\/\/.*$"
+        },
+        "ComfigHuds": {
           "type": "string",
           "pattern": "^https?:\/\/.*$"
         },

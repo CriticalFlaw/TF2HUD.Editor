@@ -8,7 +8,7 @@
     "Links": {
       "Update": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/n0kk/ahud",
-      "HudsTF": "https://huds.tf/site/s-ahud",
+      "TF2Huds": "https://tf2huds.dev/hud/ahud",
       "Download": [
         {
           "Source": "GitHub",
@@ -31,7 +31,7 @@
     "Links": {
       "Update": "https://github.com/PapaPeach/PeachHUD/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/PapaPeach/PeachHUD",
-      "HudsTF": "https://huds.tf/site/s-PeachHUD",
+      "TF2Huds": "https://tf2huds.dev/hud/PeachHUD",
       "Download": [
         {
           "Source": "GitHub",
@@ -53,7 +53,7 @@
     "Links": {
       "Update": "https://github.com/omnibombulator/collyhud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/omnibombulator/collyhud",
-      "HudsTF": "https://huds.tf/site/s-collyhud",
+      "TF2Huds": "https://tf2huds.dev/hud/collyhud",
       "Download": [
         {
           "Source": "GitHub",
@@ -76,7 +76,7 @@
     "Links": {
       "Update": "https://github.com/Hypnootize/m0rehud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/Hypnootize/m0rehud",
-      "HudsTF": "https://huds.tf/site/s-m0re-Hud",
+      "TF2Huds": "https://tf2huds.dev/hud/m0re-Hud",
       "Download": [
         {
           "Source": "GitHub",
@@ -100,7 +100,7 @@
     "Links": {
       "Update": "https://github.com/Sevin7/7HUD/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/Sevin7/7HUD",
-      "HudsTF": "https://huds.tf/site/s-7HUD",
+      "TF2Huds": "https://tf2huds.dev/hud/7HUD",
       "Steam": "https://steamcommunity.com/groups/7HUD",
       "Download": [
         {
@@ -125,7 +125,7 @@
       "Update": "https://github.com/flatlinee/omphudedit/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/flatlinee/omphudedit",
       "Steam": "https://steamcommunity.com/groups/omphudredux",
-      "HudsTF": "https://huds.tf/site/s-omphud-redux",
+      "TF2Huds": "https://tf2huds.dev/hud/omphud-redux",
       "Download": [
         {
           "Source": "GitHub",
@@ -148,7 +148,7 @@
     "Links": {
       "Update": "https://github.com/flatlinee/cliphud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/flatlinee/cliphud",
-      "HudsTF": "https://huds.tf/site/s-cliphud--2175",
+      "TF2Huds": "https://tf2huds.dev/hud/cliphud",
       "Download": [
         {
           "Source": "GitHub",
@@ -171,8 +171,8 @@
     "Links": {
       "Update": "https://github.com/flatlinee/flathud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/flatlinee/flathud",
+      "TF2Huds": "https://tf2huds.dev/hud/flathud",
       "Steam": "https://steamcommunity.com/groups/flathud",
-      "HudsTF": "https://huds.tf/site/s-flathud",
       "Download": [
         {
           "Source": "GitHub",
@@ -195,7 +195,7 @@
     "Links": {
       "Update": "https://github.com/Hypnootize/Broesel-Hud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/Hypnootize/Broesel-Hud",
-      "HudsTF": "https://huds.tf/site/s-Broesel-Hud",
+      "TF2Huds": "https://tf2huds.dev/hud/Broesel-Hud",
       "Download": [
         {
           "Source": "GitHub",

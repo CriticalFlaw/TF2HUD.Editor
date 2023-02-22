@@ -18,7 +18,8 @@
   "Links": {
     "Update": "https://github.com/Hypnootize/hypnotizehud/archive/refs/heads/master.zip", // TODO: Remove
     "GitHub": "https://github.com/Hypnootize/hypnotizehud",
-    "HudsTF": "https://comfig.app/huds/page/hypnotizehud/",
+    "TF2Huds": "https://tf2huds.dev/hud/Hypnotize-Hud",
+    "ComfigHuds": "https://comfig.app/huds/page/hypnotizehud/",
     "Download": [
       {
         "Source": "GitHub",

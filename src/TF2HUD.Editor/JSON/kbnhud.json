@@ -31,7 +31,8 @@
   "Links": {
     "Update": "https://github.com/Jotunn/kbnhud/archive/master.zip", // TODO: Remove
     "GitHub": "https://github.com/Jotunn/kbnhud",
-    "HudsTF": "https://comfig.app/huds/page/kbnhud/",
+    "TF2Huds": "https://tf2huds.dev/hud/KBNHud",
+    "ComfigHuds": "https://comfig.app/huds/page/kbnhud/",
     "Steam": "https://steamcommunity.com/groups/KBNHud",
     "Discord": "https://discord.gg/NhnSysw",
     "Download": [

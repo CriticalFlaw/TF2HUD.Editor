@@ -19,7 +19,8 @@
   "Links": {
     "Update": "https://github.com/Hypnootize/sunsethud/archive/refs/heads/master.zip", // TODO: Remove
     "GitHub": "https://github.com/Hypnootize/sunsethud",
-    "HudsTF": "https://comfig.app/huds/page/sunsethud/",
+    "TF2Huds": "https://tf2huds.dev/hud/Sunset-Hud",
+    "ComfigHuds": "https://comfig.app/huds/page/sunsethud/",
     "Download": [
       {
         "Source": "GitHub",

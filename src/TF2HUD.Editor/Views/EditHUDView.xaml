@@ -80,10 +80,17 @@
                     />
                     <Button
                         Command="{Binding OpenWebpageCommand}"
-                        CommandParameter="{Binding HudsTfUrl}"
-                        Style="{StaticResource HudsButton}"
-                        Visibility="{Binding HudsTfUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
-                        <Image Source="..\Resources\mastercomfig.png"></Image>
+                        CommandParameter="{Binding TF2HudsUrl}"
+                        Style="{StaticResource TF2HudsButton}"
+                        Visibility="{Binding TF2HudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
+                        <Image Source="..\Resources\tf2huds.png" Margin="5"></Image>
+                    </Button>
+                    <Button
+                        Command="{Binding OpenWebpageCommand}"
+                        CommandParameter="{Binding ComfigHudsUrl}"
+                        Style="{StaticResource ComfigHudsButton}"
+                        Visibility="{Binding ComfigHudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
+                        <Image Source="..\Resources\mastercomfig.png" Margin="5"></Image>
                     </Button>
                     <Button
                         Command="{Binding OpenWebpageCommand}"
