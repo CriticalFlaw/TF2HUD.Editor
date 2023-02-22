@@ -27,7 +27,16 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Image Source="{Binding Thumbnail}" Style="{StaticResource HudListImage}" RenderOptions.BitmapScalingMode="Fant" />
+            <Border Style="{StaticResource HudListImage}" RenderOptions.BitmapScalingMode="Fant" >
+                <Border.Background>
+                    <ImageBrush
+                        ImageSource="{Binding Thumbnail}"
+                        Stretch="UniformToFill"
+                        AlignmentX="Center"
+                        AlignmentY="Center"
+                    />
+                </Border.Background>
+            </Border>
             <Label Content="{Binding Icon}" Style="{StaticResource HudListIcon}" />
             <Label Content="{Binding Name}" Style="{StaticResource HudListLabel}" Grid.Row="1" />
         </Grid>

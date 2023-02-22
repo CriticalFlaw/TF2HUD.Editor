@@ -136,6 +136,7 @@
             <Setter Property="Margin" Value="5" />
             <Setter Property="Width" Value="170" />
             <Setter Property="Height" Value="40" />
+            <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -200,6 +201,7 @@
             <Setter Property="Background" Value="#776B5F" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Margin" Value="5" />
+            <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -405,15 +407,16 @@
 
         <Style x:Key="HudListBorder" TargetType="Border">
             <Setter Property="Background" Value="#FFFFFF" />
-            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="5" />
             <Setter Property="Width" Value="220" />
             <Setter Property="Margin" Value="5" />
             <Setter Property="Padding" Value="5" />
             <Setter Property="Cursor" Value="Hand" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderBrush" Value="LightGray" />
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -428,11 +431,9 @@
             <Setter Property="Grid.Row" Value="0" />
         </Style>
 
-        <Style x:Key="HudListImage" TargetType="Image">
+        <Style x:Key="HudListImage" TargetType="Border">
             <Setter Property="Height" Value="118" />
-            <Setter Property="Stretch" Value="UniformToFill" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="CornerRadius" Value="5" />
             <Setter Property="Grid.Row" Value="0" />
         </Style>
 

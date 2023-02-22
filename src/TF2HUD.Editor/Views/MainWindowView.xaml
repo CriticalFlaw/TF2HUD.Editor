@@ -39,7 +39,7 @@
         <GroupBox
             Header="{lex:Loc ui_options}"
             Grid.Row="1"
-            Margin="10">
+            Margin="10,0,10,10">
             <WrapPanel HorizontalAlignment="Center">
                 <Button
                     Command="{Binding BtnInstall_ClickCommand}"
