@@ -190,7 +190,7 @@ namespace HUDEditor.Classes
                         animation = new SetInputEnabled
                         {
                             Element = ReadString(),
-                            Visible = ReadBool(),
+                            Enabled = ReadBool(),
                             Delay = ReadNumber(),
                         };
                         break;

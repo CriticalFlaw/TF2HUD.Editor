@@ -515,7 +515,7 @@ namespace HUDEditor.Classes
                             "setinputenabled" => new SetInputEnabled
                             {
                                 Element = EvaluateValue(animation["Element"]),
-                                Visible = EvaluateValue(animation["Visible"]),
+                                Enabled = EvaluateValue(animation["Enabled"]),
                                 Delay = EvaluateValue(animation["Delay"])
                             },
                             "playsound" => new PlaySound

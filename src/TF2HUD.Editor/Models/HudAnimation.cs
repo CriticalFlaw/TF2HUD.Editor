@@ -151,12 +151,12 @@ namespace HUDEditor.Models
     {
         public override string Type => nameof(SetInputEnabled);
         public required string Element { get; set; }
-        public required string Visible { get; set; }
+        public required string Enabled { get; set; }
         public required string Delay { get; set; }
 
         public override string ToString()
         {
-            return $"{Type} {Print(Element)} {Visible} {Delay}" + PrintConditional();
+            return $"{Type} {Print(Element)} {Enabled} {Delay}" + PrintConditional();
         }
     }
 
