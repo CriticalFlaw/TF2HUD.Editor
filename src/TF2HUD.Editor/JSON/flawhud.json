@@ -2,12 +2,12 @@
   "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
   "Author": "CriticalFlaw",
   "Description": "Custom HUD for Team Fortress 2, with the focus on minimalistic design and dark themed colors.",
-  "Thumbnail": "https://i.imgur.com/2UnYNH8.png",
+  "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/flawhud/banner.webp",
   "Screenshots": [
-    "https://huds.tf/site/xthreads_attach.php/265_1633476134_c9cd6545/083b3c72d964faec61c7ebec065989c0/20211005191920_1.jpg",
-    "https://huds.tf/site/xthreads_attach.php/266_1635206547_012f5a77/345610ed920f49990c65f11f71c4e340/20211025194716_1.jpg",
-    "https://huds.tf/site/xthreads_attach.php/267_1635206547_1d03157d/e83efcab08a5c2b08d07a36f7880b65a/20211025195029_1.jpg",
-    "https://huds.tf/site/xthreads_attach.php/268_1635206547_94dfd7f4/5b0cc69436e295a94d9dd853acfe6d9c/20211025195206_1.jpg"
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/flawhud/menu.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/flawhud/hud.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/flawhud/scoreboard.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/flawhud/spectator.webp"
   ],
   "Background": "https://user-images.githubusercontent.com/6818236/123523046-34d56600-d68f-11eb-8838-fbf112c45ea7.png",
   "Layout": [

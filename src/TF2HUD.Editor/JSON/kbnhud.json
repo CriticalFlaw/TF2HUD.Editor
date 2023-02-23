@@ -4,10 +4,10 @@
   "Description": "A TF2 HUD boiled down for competitive play and no-frills streamlining of as many elements as possible. Based on KNHUD with lots of customization from a long life and user suggestions. Pairs best with sniping. Thanks for 10 amazing years of this HUD!",
   "Thumbnail": "https://i.imgur.com/ehYUnaI.png",
   "Screenshots": [
-    "https://i.imgur.com/Qx6PZMM.png",
-    "https://i.imgur.com/HXDx0hb.png",
-    "https://i.imgur.com/xzdCu4D.png",
-    "https://i.imgur.com/QmLjpoq.png"
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/kbnhud/02-kbnhud-main-menu.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/kbnhud/05-kbnhud-in-game.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/kbnhud/10-kbnhud-32p-scoreboard.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/kbnhud/11-kbnhud-tournament-spectator.webp"
   ],
   "Background": "https://i.imgur.com/cBFURIz.png",
   "Layout": [

@@ -4,10 +4,10 @@
   "Description": "A Very Bright TF2 Hud",
   "Thumbnail": "https://i.imgur.com/BL2wVRe.png",
   "Screenshots": [
-    "https://huds.tf/site/xthreads_attach.php/2457_1668621375_ca025606/1423a14cd1c81b3ee141be8d2058b309/ivQ4YvR.jpg",
-    "https://huds.tf/site/xthreads_attach.php/2458_1668621375_83c15c65/8fd2663878d66739c80858d39cd60273/Xdnnusn.jpg",
-    "https://huds.tf/site/xthreads_attach.php/2460_1668621375_4a994bcd/d1b1720181688c787d6c164bc598ccab/VGFG9eh.jpg",
-    "https://huds.tf/site/xthreads_attach.php/2461_1668622428_2c6c8a3d/9281f8835dde02a556a43565169cab41/zzJiOm0.jpg"
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/sunsethud/sunsethud-menu.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/sunsethud/sunsethud-normal.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/sunsethud/sunsethud-scoreboard.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/sunsethud/sunsethud-spectator.webp"
   ],
   "Background": "https://i.imgur.com/4063Tfc.png",
   "Layout": [

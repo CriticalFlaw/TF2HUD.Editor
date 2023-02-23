@@ -4,10 +4,10 @@
   "Description": "TF2 HUD based on hexagon shapes.",
   "Thumbnail": "https://i.imgur.com/bftu1ep.png",
   "Screenshots": [
-    "https://huds.tf/site/xthreads_attach.php/4201_1624480708_c072b6a4/582b89dcb67895876ac7e2b9ae952b7f/u6OEUT6.jpg",
-    "https://huds.tf/site/xthreads_attach.php/4202_1624480708_6dcc259b/2291a31d33ab8effa69af72a8ba1852b/2f06dnO.jpg",
-    "https://huds.tf/site/xthreads_attach.php/4204_1624480708_033024ed/2ff4e8735877749f83d0d149f8c90052/865uXJt.jpg",
-    "https://huds.tf/site/xthreads_attach.php/4205_1624480708_a5064267/b9446464e43d43dd1a30e5315de33836/wVzfPvp.png"
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hexhud/hexhud-menu.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hexhud/hexhud-buff.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hexhud/hexhud-scoreboard.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hexhud/hexhud-spectator.webp"
   ],
   "Background": "8 7 12 255",
   "Layout": [
