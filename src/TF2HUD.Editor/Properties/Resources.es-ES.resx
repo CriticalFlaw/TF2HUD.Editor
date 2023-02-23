@@ -198,6 +198,12 @@
   <data name="tooltip_docs" xml:space="preserve">
     <value>Leer la documentación.</value>
   </data>
+  <data name="tooltip_launch" xml:space="preserve">
+    <value>Iniciar Team Fortress 2.</value>
+  </data>
+  <data name="tooltip_options" xml:space="preserve">
+    <value>Ver menú de opciones.</value>
+  </data>
   <data name="tooltip_path" xml:space="preserve">
     <value>Cambiar el directorio tf/custom.</value>
   </data>
@@ -231,11 +237,17 @@
   <data name="ui_directory" xml:space="preserve">
     <value>Seleccionar ruta para tf/custom</value>
   </data>
+  <data name="ui_download" xml:space="preserve">
+    <value>Descargar:</value>
+  </data>
   <data name="ui_install" xml:space="preserve">
     <value>Instalar</value>
   </data>
   <data name="ui_options" xml:space="preserve">
     <value>Opciones</value>
+  </data>
+  <data name="ui_persist_xhair" xml:space="preserve">
+    <value>Recordar punto de mira seleccionado</value>
   </data>
   <data name="ui_refresh" xml:space="preserve">
     <value>Buscar Actualizaciones</value>
