@@ -29,6 +29,7 @@
             <Run Text="* Migrated the documentation site to Docusaurus." /><LineBreak />
             <Run Text="* Improved path finding to the tf/custom folder." /><LineBreak />
             <Run Text="* Crosshair selection can now be persistent across HUDs." /><LineBreak />
+            <Run Text="* Multiple backend improvements and optimizations." /><LineBreak />
             <Run Text="* Miscellenaous UI changes. Too many to list because we lost track." />
             <LineBreak />
         </TextBlock>
