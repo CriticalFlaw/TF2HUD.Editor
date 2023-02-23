@@ -51,7 +51,7 @@
       <Value Profile="(Default)">https://github.com/Hypnootize/TF2-HUD-Crosshairs/archive/refs/heads/master.zip</Value>
     </Setting>
     <Setting Name="app_default_bg" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c47-a17b47cbaf0c.png</Value>
+      <Value Profile="(Default)">https://user-images.githubusercontent.com/6818236/220803776-12f85855-a409-4555-8f76-e3877d04bab9.png</Value>
     </Setting>
   </Settings>
 </SettingsFile>

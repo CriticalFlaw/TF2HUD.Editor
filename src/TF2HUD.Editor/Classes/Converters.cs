@@ -96,13 +96,11 @@ namespace HUDEditor.Classes
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var defaultBackground = new BrushConverter().ConvertFromString("#2B2724");
-
-            if (value is null) return defaultBackground;
+            if (value is null) return new BrushConverter().ConvertFromString("#2B2724");
 
             var selection = (HUD)value;
 
-            if (selection.Background is null) return defaultBackground;
+            selection.Background ??= Settings.Default.app_default_bg;
 
             if (selection.Background.StartsWith("http") || selection.Background.StartsWith("file"))
                 return new ImageBrush

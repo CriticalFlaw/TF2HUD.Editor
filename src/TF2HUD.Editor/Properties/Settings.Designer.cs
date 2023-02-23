@@ -12,7 +12,7 @@ namespace HUDEditor.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.4.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -199,8 +199,8 @@ namespace HUDEditor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c" +
-            "47-a17b47cbaf0c.png")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://user-images.githubusercontent.com/6818236/220803776-12f85855-a409-4555-8f" +
+            "76-e3877d04bab9.png")]
         public string app_default_bg {
             get {
                 return ((string)(this["app_default_bg"]));
