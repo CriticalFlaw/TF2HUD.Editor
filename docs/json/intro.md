@@ -10,7 +10,7 @@ Use this sample [schema file][json-sample] as a starting point. For reference, a
 
 ### Table of Contents
 
-1. [Main][docs-main] - Base settings like the HUD page layout, path of customization folders, links to download, GitHub, HUDS.TF and more.
+1. [Main][docs-main] - Base settings like the HUD page layout, path of customization folders, links to download, GitHub, Mastercomfig and more.
 2. [Controls][docs-controls] - Controls that will be displayed on the form and carry instructions for where and how to apply customizations.
 3. [Lists][docs-options] - Options available for the user to choose from a list. Each option can have its own name and specific instructions.
 4. [Files][docs-files] - Defines HUD files with instructions on they should be manipulated to apply various customization options.
