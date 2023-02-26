@@ -117,7 +117,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="error_app_directory" xml:space="preserve">
-    <value>La cartella tf/custom deve essere selezionate per poter usare questo modificatore.</value>
+    <value>La cartella tf/custom deve essere selezionata per poter usare questo modificatore.</value>
   </data>
   <data name="error_hud_install" xml:space="preserve">
     <value>C'è stato un errore durante l'installamento {0}.</value>
@@ -153,13 +153,13 @@
     <value>Impossibile continuare perchè Team Fortress 2 è ancora attivo. Chiudi il gioco e riprova.</value>
   </data>
   <data name="info_hud_backup" xml:space="preserve">
-    <value>Un esistente {0} installazione è stata trovata.per evitare conflitti è stato creato un backup.</value>
+    <value>Un installazione di {0}  è è stata trovata.per evitare conflitti è stato creato un backup.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
     <value>Sei sicuro di voler resettare tutte le modifiche alle impostazioni base?</value>
   </data>
   <data name="info_hud_update" xml:space="preserve">
-    <value>C'è un nuovo There's a new HUD schema update available. Would you like to restart now to apply the new changes?</value>
+    <value>C'è un nuovo schema di HUD disponibile. Vuoi restartare il programma per applicare i nuovi cambiamenti?</value>
   </data>
   <data name="info_hud_update_none" xml:space="preserve">
     <value>Hai l'ultima versione dello schema delle HUD. Controlla in futuro.</value>
@@ -255,7 +255,7 @@
     <value>Ri-installa</value>
   </data>
   <data name="ui_reset" xml:space="preserve">
-    <value>Resetta Cambiamente</value>
+    <value>Resetta Cambiamenti</value>
   </data>
   <data name="ui_search" xml:space="preserve">
     <value>cerca:</value>
