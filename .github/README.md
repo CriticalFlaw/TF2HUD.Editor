@@ -42,6 +42,7 @@
 * Russian Localization: [Blueberryy](https://github.com/Blueberryy)
 * Brazilian Portuguese Localization: [Tiagoquix](https://github.com/Tiagoquix)
 * Spanish Localization: [thejaviertc](https://github.com/thejaviertc)
+* Italian Localization: [SignorUpB](https://github.com/SignorUpB)
 ---
 
 ### Help/Support
