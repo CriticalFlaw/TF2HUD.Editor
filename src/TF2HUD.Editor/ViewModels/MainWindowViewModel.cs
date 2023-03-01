@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -233,14 +233,24 @@ namespace HUDEditor.ViewModels
                 var stream = new MemoryStream(bytes);
                 var archive = new ZipArchive(stream);
 
+                // Zip files made with ZipFile.CreateFromDirectory do not include directory entries,
+                // so create root directory*
+                Directory.CreateDirectory($"{MainWindow.HudPath}\\{SelectedHud.Name}");
+
                 foreach (var entry in archive.Entries)
                 {
                     // Remove first folder name from entry.FullName e.g. "flawhud-master" => "".
                     var path = String.Join('\\', entry.FullName.Split("/")[1..]);
-                    if (entry.FullName.EndsWith("/"))
-                        Directory.CreateDirectory($"{MainWindow.HudPath}\\{SelectedHud.Name}\\{path}");
-                    else
+
+                    // Ignore directory entries
+                    // path == "" is root directory entry
+                    if (path != "" && !path.EndsWith('\\'))
+                    {
+                        // *and ensure directory exists for each file
+                        Directory.CreateDirectory($"{MainWindow.HudPath}\\{SelectedHud.Name}\\{Path.GetDirectoryName(path)}");
+
                         entry.ExtractToFile($"{MainWindow.HudPath}\\{SelectedHud.Name}\\{path}");
+                    }
                 }
 
                 // Install Crosshairs
