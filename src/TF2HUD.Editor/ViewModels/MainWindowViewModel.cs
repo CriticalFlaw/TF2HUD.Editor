@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -217,7 +217,12 @@ namespace HUDEditor.ViewModels
                 HttpClient client = new();
                 client.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var bytes = await client.GetByteArrayAsync(download.Link);
+                var uri = new Uri(download.Link);
+
+                var bytes = uri.Scheme == "file"
+                    ? await File.ReadAllBytesAsync(uri.AbsolutePath)
+                    : await client.GetByteArrayAsync(uri);
+
                 if (bytes.Length == 0)
                 {
                     // GameBanana returns 200 with an empty response for missing download links.
