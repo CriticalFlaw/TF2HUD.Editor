@@ -10,7 +10,7 @@
       "request": "launch",
       "preLaunchTask": "build",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/src/TF2HUD.Editor/bin/Debug/net6.0-windows/TF2HUD.Editor.dll",
+      "program": "${workspaceFolder}/src/TF2HUD.Editor/bin/Debug/net7.0-windows/TF2HUD.Editor.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/TF2HUD.Editor",
       // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
