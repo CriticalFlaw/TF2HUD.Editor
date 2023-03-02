@@ -32,7 +32,7 @@ slug: /
 
 ## How to Install
 
-1. Download and install the [Microsoft .NET 6.0 Runtime][runtime-link] for desktop apps.
+1. Download and install the [Microsoft .NET 7.0 Runtime][runtime-link] for desktop apps.
 2. Download and extract the [latest version of the editor][releases-link].
 3. Run the executable **TF2HUD.Editor.exe**
 
@@ -57,4 +57,4 @@ Always use to the latest version of the editor for best compatability with suppo
 [discord-link]: https://discord.gg/hTdtK9vBhE
 [downloads-shield]: https://img.shields.io/github/downloads/criticalflaw/tf2hud.editor/total?style=flat-square
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
-[runtime-link]: https://dotnet.microsoft.com/download/dotnet/6.0/runtime
+[runtime-link]: https://dotnet.microsoft.com/download/dotnet/7.0/runtime
