@@ -265,7 +265,7 @@ namespace HUDEditor.Classes
 
                     if (conditional is not null)
                     {
-                        key += $"{VDF.ConditionalDelimiter}${conditional}";
+                        key += $"{VDF.ConditionalDelimiter}{conditional}";
                     }
 
                     if (objectRef.TryGetValue(key, out var existing))
