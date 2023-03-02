@@ -644,6 +644,28 @@
         }
       },
       {
+        "Name": "fh_speedometer",
+        "Label": "Display Speedometer",
+        "Type": "Checkbox",
+        "ToolTip": "Displays a speedometer under the crosshair",
+        "Value": "false",
+        "Restart": false,
+        "Files": {
+          "resource/ui/hudplayerclass.res": {
+            "Speedometer": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_val_hud_style",
         "Label": "Health & Ammo",
         "Type": "ComboBox",
