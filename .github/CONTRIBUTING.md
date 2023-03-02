@@ -20,8 +20,8 @@ To contribute code changes to the project:
 <!-- MARKDOWN LINKS -->
 [repo-link]: https://github.com/CriticalFlaw/TF2HUD.Editor
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
-[json-link]: https://www.editor.criticalflaw.ca/json/base/
-[docs-link]: https://www.editor.criticalflaw.ca/
+[json-link]: https://www.criticalflaw.ca/TF2HUD.Editor/json/base/
+[docs-link]: https://www.criticalflaw.ca/TF2HUD.Editor
 [localizations-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/tree/master/src/TF2HUD.Editor/Properties
 [sponsors-link]: https://github.com/sponsors/CriticalFlaw
 [vs-link]: https://visualstudio.microsoft.com/

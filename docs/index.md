@@ -10,9 +10,9 @@ slug: /
     <br />
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases/latest">Download</a>
     ·
-    <a href="https://www.editor.criticalflaw.ca/">Documentation</a>
+    <a href="https://www.criticalflaw.ca/TF2HUD.Editor">Documentation</a>
     ·
-    <a href="https://www.editor.criticalflaw.ca/screenshots/">Screenshots</a>
+    <a href="https://www.criticalflaw.ca/TF2HUD.Editor/screenshots/">Screenshots</a>
     ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/issues">Issue Tracker</a>
     ·
