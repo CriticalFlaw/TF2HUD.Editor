@@ -19,18 +19,13 @@
             <Run Text="linked below." />
         </TextBlock>
         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-        <Label Content="Version 3.0" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
+        <Label Content="Version 3.1" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-            <Run Text="* Migrated the application to MVVM architecture." /><LineBreak />
-            <Run Text="* Added Spanish translations. (Thank you thejaviertc)" /><LineBreak />
-            <Run Text="* Added a button for launching Team Fortress 2." /><LineBreak />
-            <Run Text="* Added a dedicated settings page." /><LineBreak />
-            <Run Text="* Fixed Portugese-Brazillion translation not displaying as an option." /><LineBreak />
-            <Run Text="* Migrated the documentation site to Docusaurus." /><LineBreak />
-            <Run Text="* Improved path finding to the tf/custom folder." /><LineBreak />
-            <Run Text="* Crosshair selection can now be persistent across HUDs." /><LineBreak />
-            <Run Text="* Multiple backend improvements and optimizations." /><LineBreak />
-            <Run Text="* Miscellenaous UI changes. Too many to list because we lost track." />
+            <Run Text="* Added Italian translations and missing Spanish text." /><LineBreak />
+            <Run Text="* Fixed updates being suggested when on the latest app version." /><LineBreak />
+            <Run Text="* Fixed 'The file scheme is not supported.' error." /><LineBreak />
+            <Run Text="* Fixed the editor incorrectly processing OS tags." /><LineBreak />
+            <Run Text="* Updated documentation. Corrected outdated links." />
             <LineBreak />
         </TextBlock>
     </StackPanel>
