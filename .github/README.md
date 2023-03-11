@@ -33,16 +33,19 @@
 3. Run the executable **TF2HUD.Editor.exe**
 ---
 
-### Credits
+### Acknowledgements
 * Code, Design and Documentation: [CriticalFlaw](https://github.com/CriticalFlaw) and [Revan](https://github.com/cooolbros)
-* Project Logo and Banner: [Zeesastrous](https://github.com/Zeesastrous)
+* Logo and Banner: [Zeesastrous](https://github.com/Zeesastrous)
 * Transparent Viewmodels Add-on: [mastercoms](https://github.com/mastercoms)
-* Icons and Crosshair Packs: [Hypnotize](https://github.com/Hypnootize)
-* French Localization: [tacokete](https://github.com/tacokete). [KayaDLX](https://github.com/KayaDLX)
-* Russian Localization: [Blueberryy](https://github.com/Blueberryy)
-* Brazilian Portuguese Localization: [Tiagoquix](https://github.com/Tiagoquix)
-* Spanish Localization: [thejaviertc](https://github.com/thejaviertc)
-* Italian Localization: [SignorUpB](https://github.com/SignorUpB)
+* Icons and Crosshairs Add-on: [Hypnotize](https://github.com/Hypnootize)
+
+#### Localizations
+* French: [tacokete](https://github.com/tacokete). [KayaDLX](https://github.com/KayaDLX)
+* Russian: [Blueberryy](https://github.com/Blueberryy)
+* Brazilian Portuguese: [Tiagoquix](https://github.com/Tiagoquix)
+* Spanish: [thejaviertc](https://github.com/thejaviertc)
+* Italian: [SignorUpB](https://github.com/SignorUpB)
+* Simplified Chinese: [HotoCocoaco](https://github.com/HotoCocoaco)
 ---
 
 ### Help/Support
