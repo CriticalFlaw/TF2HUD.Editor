@@ -229,7 +229,7 @@
     <value>自动检查更新。</value>
   </data>
   <data name="ui_clear" xml:space="preserve">
-    <value>清楚</value>
+    <value>清除</value>
   </data>
   <data name="ui_customize" xml:space="preserve">
     <value>自定义</value>
