@@ -99,7 +99,7 @@ namespace HUDEditor.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/Update.xml")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://github.com/CriticalFlaw/TF2HUD.Editor/releases/latest")]
         public string app_update {
             get {
                 return ((string)(this["app_update"]));

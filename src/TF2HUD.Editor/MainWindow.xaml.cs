@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using AutoUpdaterDotNET;
 using HUDEditor.Classes;
 using HUDEditor.Models;
 using HUDEditor.Properties;
@@ -31,29 +30,23 @@ namespace HUDEditor
 
         public MainWindow()
         {
-            // Initialize the logger.
+            // Initialize the logger, main window.
             var repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
             Logger.Info("=======================================================");
             Logger.Info("Initializing.");
-
-            // Get the list of HUD JSONs.
-
             InitializeComponent();
-
             var mainWindowViewModel = new MainWindowViewModel();
             mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
             DataContext = mainWindowViewModel;
-
-            // Setup the user interface.
             SetupDirectory();
 
-            // Check for app updates.
+            // Check for updates.
             if (Settings.Default.app_update_auto == true)
-                CheckSchemaUpdates();
-
-            Logger.Info("Checking for app updates.");
-            AutoUpdater.Start(Settings.Default.app_update);
+            {
+                UpdateSchema();
+                UpdateApp();
+            }
         }
 
         private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -65,12 +58,13 @@ namespace HUDEditor
         }
 
         /// <summary>
-        ///     Setup the tf/custom directory, if it's not already set.
+        /// Setup the tf/custom directory.
         /// </summary>
-        /// <param name="userSet">Flags the process as being user initiated, skip right to the folder browser.</param>
+        /// <param name="userSet">If true, prompts the user to select the tf/custom using the folder browser.</param>
         public static void SetupDirectory(bool userSet = false)
         {
             if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
+
             // Display a folder browser, ask the user to provide the tf/custom directory.
             Logger.Info("tf/custom directory is not set. Asking the user...");
             using (var browser = new FolderBrowserDialog
@@ -110,7 +104,7 @@ namespace HUDEditor
         }
 
         /// <summary>
-        ///     Display a message box with a message to the user and log it.
+        /// Displays a set type of message box to the user.
         /// </summary>
         public static MessageBoxResult ShowMessageBox(MessageBoxImage type, string message, MessageBoxButton buttons = MessageBoxButton.OK)
         {
@@ -129,28 +123,26 @@ namespace HUDEditor
         }
 
         /// <summary>
-        ///     Check if the selected hud is installed in tf/custom.
+        /// Checks if the selected HUD is installed correctly.
         /// </summary>
         /// <returns>True if the selected hud is installed.</returns>
         public static bool CheckHudInstallation(HUD hud)
         {
             return hud != null &&
-                MainWindow.HudPath != null &&
-                Directory.Exists(MainWindow.HudPath) &&
-                Utilities.CheckUserPath(MainWindow.HudPath) &&
-                Directory.Exists($"{MainWindow.HudPath}\\{hud.Name}");
+                HudPath != null &&
+                Directory.Exists(HudPath) &&
+                Utilities.CheckUserPath(HudPath) &&
+                Directory.Exists($"{HudPath}\\{hud.Name}");
         }
 
         /// <summary>
-        ///     Updates the local schema files to the latest version.
+        /// Updates the local schema files to the latest version.
         /// </summary>
         /// <param name="silent">If true, the user will not be notified if there are no updates on startup.</param>
-        public static async void CheckSchemaUpdates(bool silent = true)
+        public static async void UpdateSchema(bool silent = true)
         {
-            // Check for HUD updates.
             Logger.Info("Checking for schema updates.");
-            var restartRequired = await Update();
-            if (restartRequired)
+            if (await CheckSchemaUpdate())
             {
                 if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
@@ -165,10 +157,24 @@ namespace HUDEditor
         }
 
         /// <summary>
-        ///     Synchronize the local HUD schema files with the latest versions on GitHub.
+        /// Checks GitHub for the latest version of the app.
+        /// </summary>
+        /// <param name="silent">If true, the user will not be notified if there are no updates on startup.</param>
+        public static async void UpdateApp()
+        {
+            Logger.Info("Checking for app updates.");
+            if (await CheckAppUpdate())
+            {
+                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                Utilities.OpenWebpage(Settings.Default.app_update);
+            }
+        }
+
+        /// <summary>
+        /// Synchronize the local HUD schema files with the latest versions on GitHub.
         /// </summary>
         /// <returns>Whether updates are available</returns>
-        public static async Task<bool> Update()
+        public static async Task<bool> CheckSchemaUpdate()
         {
             try
             {
@@ -186,7 +192,7 @@ namespace HUDEditor
                         fileChanged = remoteFile.SHA != Utilities.GitHash(localFilePath);
 
                     if (!newFile && !fileChanged) continue;
-                    MainWindow.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
+                    Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
                     downloads.Add(Utilities.DownloadFile(remoteFile.Download, localFilePath));
                 }
 
@@ -194,7 +200,7 @@ namespace HUDEditor
                 foreach (var localFile in new DirectoryInfo("JSON").EnumerateFiles())
                 {
                     if (remoteFiles.Count((x) => x.Name == localFile.Name) != 0) continue;
-                    MainWindow.Logger.Info($"Deleting {localFile.Name}");
+                    Logger.Info($"Deleting {localFile.Name}");
                     File.Delete(localFile.FullName);
                 }
 
@@ -203,7 +209,25 @@ namespace HUDEditor
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e.Message);
+                Logger.Error(e.Message);
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Synchronize the local HUD schema files with the latest versions on GitHub.
+        /// </summary>
+        /// <returns>Whether updates are available</returns>
+        public static async Task<bool> CheckAppUpdate()
+        {
+            try
+            {
+                return true;    // TODO
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e.Message);
                 Console.WriteLine(e);
                 return false;
             }

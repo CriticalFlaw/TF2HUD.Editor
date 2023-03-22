@@ -142,6 +142,15 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There&apos;s a new HUD Editor update available. Would you like to download the latest release?.
+        /// </summary>
+        public static string info_app_update {
+            get {
+                return ResourceManager.GetString("info_app_update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setting a new background will override the current one. Use the &quot;Reinstall&quot; option to go revert to the default background..
         /// </summary>
         public static string info_background_override {

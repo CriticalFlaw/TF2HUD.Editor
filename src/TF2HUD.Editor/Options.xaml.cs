@@ -51,6 +51,7 @@ namespace HUDEditor
         private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
         {
             MainWindow.CheckSchemaUpdates(false);
+            MainWindow.CheckAppUpdates(false);
         }
 
         private void BtnAutoUpdate_OnClick(object sender, RoutedEventArgs e)
