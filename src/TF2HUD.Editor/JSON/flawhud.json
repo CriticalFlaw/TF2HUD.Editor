@@ -683,8 +683,8 @@
               },
               "resource/ui/huddamageaccount.res": {
                 "DamageAccountValue": {
-                  "xpos": "c-110",
-                  "ypos": "c70"
+                  "xpos": "c-135",
+                  "ypos": "c73"
                 }
               },
               "resource/ui/huddemomanpipes.res": {
@@ -870,7 +870,7 @@
               },
               "resource/ui/huddamageaccount.res": {
                 "DamageAccountValue": {
-                  "xpos": "100",
+                  "xpos": "10",
                   "ypos": "r75"
                 }
               },
