@@ -205,7 +205,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have the latest HUD schema versions. Please check back later..
+        ///   Looks up a localized string similar to No updates are currently available. Please check back later..
         /// </summary>
         public static string info_hud_update_none {
             get {

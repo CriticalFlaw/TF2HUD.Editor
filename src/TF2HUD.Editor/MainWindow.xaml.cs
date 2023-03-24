@@ -14,6 +14,7 @@ using HUDEditor.Properties;
 using HUDEditor.ViewModels;
 using log4net;
 using log4net.Config;
+using Octokit;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 
@@ -42,11 +43,7 @@ namespace HUDEditor
             SetupDirectory();
 
             // Check for updates.
-            if (Settings.Default.app_update_auto == true)
-            {
-                UpdateSchema();
-                UpdateApp();
-            }
+            if (Settings.Default.app_update_auto == true) UpdateAppSchema();
         }
 
         private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -136,50 +133,15 @@ namespace HUDEditor
         }
 
         /// <summary>
-        /// Updates the local schema files to the latest version.
-        /// </summary>
-        /// <param name="silent">If true, the user will not be notified if there are no updates on startup.</param>
-        public static async void UpdateSchema(bool silent = true)
-        {
-            Logger.Info("Checking for schema updates.");
-            if (await CheckSchemaUpdate())
-            {
-                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
-                Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
-                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
-                Environment.Exit(0);
-            }
-            else
-            {
-                if (!silent)
-                    ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
-            }
-        }
-
-        /// <summary>
-        /// Checks GitHub for the latest version of the app.
-        /// </summary>
-        /// <param name="silent">If true, the user will not be notified if there are no updates on startup.</param>
-        public static async void UpdateApp()
-        {
-            Logger.Info("Checking for app updates.");
-            if (await CheckAppUpdate())
-            {
-                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
-                Utilities.OpenWebpage(Settings.Default.app_update);
-            }
-        }
-
-        /// <summary>
         /// Synchronize the local HUD schema files with the latest versions on GitHub.
         /// </summary>
-        /// <returns>Whether updates are available</returns>
-        public static async Task<bool> CheckSchemaUpdate()
+        /// <param name="silent">If true, the user will not be notified if there are no updates on startup.</param>
+        public static async void UpdateAppSchema(bool silent = true)
         {
             try
             {
+                var downloads = new List<Task>();
                 var remoteFiles = (await Utilities.Fetch<GitJson[]>(Settings.Default.json_list)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
-                List<Task> downloads = new();
 
                 foreach (var remoteFile in remoteFiles)
                 {
@@ -199,37 +161,57 @@ namespace HUDEditor
                 // Remove HUD JSONs that aren't available online.
                 foreach (var localFile in new DirectoryInfo("JSON").EnumerateFiles())
                 {
-                    if (remoteFiles.Count((x) => x.Name == localFile.Name) != 0) continue;
-                    Logger.Info($"Deleting {localFile.Name}");
-                    File.Delete(localFile.FullName);
+                    if (remoteFiles.Count((x) => x.Name == localFile.Name) == 0)
+                    {
+                        Logger.Info($"Deleting {localFile.Name}");
+                        File.Delete(localFile.FullName);
+                    }
                 }
 
                 await Task.WhenAll(downloads);
-                return Convert.ToBoolean(downloads.Count);
+                if (Convert.ToBoolean(downloads.Count))
+                {
+                    if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                    Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
+                    Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    if (!silent) ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
+                }
             }
             catch (Exception e)
             {
                 Logger.Error(e.Message);
                 Console.WriteLine(e);
-                return false;
+            }
+            finally
+            {
+                UpdateAppVersion();
             }
         }
 
         /// <summary>
-        /// Synchronize the local HUD schema files with the latest versions on GitHub.
+        /// Check if there's a new version of the app available.
         /// </summary>
-        /// <returns>Whether updates are available</returns>
-        public static async Task<bool> CheckAppUpdate()
+        public static async void UpdateAppVersion()
         {
             try
             {
-                return true;    // TODO
+                string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0,3);
+                var latestVersion = await new GitHubClient(new ProductHeaderValue("TF2HUD.Editor")).Repository.Release.GetLatest("CriticalFlaw", "TF2HUD.Editor");
+                Logger.Info($"Comparing version numbers: Local version {appVersion} | Live version {latestVersion.TagName}");
+
+                if (appVersion.Equals(latestVersion.TagName)) return;
+                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                Utilities.OpenWebpage(Settings.Default.app_update);
+
             }
             catch (Exception e)
             {
                 Logger.Error(e.Message);
                 Console.WriteLine(e);
-                return false;
             }
         }
     }

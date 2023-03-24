@@ -166,7 +166,7 @@
     <value>There's a new HUD schema update available. Would you like to restart now to apply the new changes?</value>
   </data>
   <data name="info_hud_update_none" xml:space="preserve">
-    <value>You have the latest HUD schema versions. Please check back later.</value>
+    <value>No updates are currently available. Please check back later.</value>
   </data>
   <data name="info_path_browser" xml:space="preserve">
     <value>Select your tf/custom directory. If an invalid directory is provided, multiple options will be unavailable.</value>
