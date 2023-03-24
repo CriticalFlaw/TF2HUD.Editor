@@ -588,12 +588,6 @@
         "Restart": false,
         "Files": {
           "resource/ui/scoreboard.res": {
-            "scores": {
-              "tall": {
-                "true": "420",
-                "false": "360"
-              }
-            },
             "BluePlayerBG": {
               "tall": {
                 "true": "270",
