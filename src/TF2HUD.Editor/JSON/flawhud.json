@@ -832,7 +832,7 @@
                   "ypos": "c27"
                 },
                 "DisguiseStatus": {
-                  "xpos": "100"
+                  "ypos": "c0"
                 },
                 "CSpectatorTargetID": {
                   "ypos": "355"
@@ -1019,7 +1019,7 @@
                   "ypos": "r120"
                 },
                 "DisguiseStatus": {
-                  "xpos": "c135"
+                  "ypos": "c0"
                 },
                 "CSpectatorTargetID": {
                   "ypos": "350"
