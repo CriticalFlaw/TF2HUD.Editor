@@ -817,7 +817,7 @@
                   "ypos": "c92"
                 },
                 "HudMedicCharge": {
-                  "xpos": "c-55",
+                  "xpos": "c-70",
                   "ypos": "r170"
                 },
                 "HudDemomanCharge": {
@@ -832,7 +832,7 @@
                   "ypos": "c27"
                 },
                 "DisguiseStatus": {
-                  "ypos": "c0"
+                  "ypos": "c70"
                 },
                 "CSpectatorTargetID": {
                   "ypos": "355"
