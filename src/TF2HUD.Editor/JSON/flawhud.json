@@ -588,6 +588,12 @@
         "Restart": false,
         "Files": {
           "resource/ui/scoreboard.res": {
+            "BlueBG": {
+              "ypos": {
+                "true": "50",
+                "false": "100"
+              }
+            },
             "BluePlayerBG": {
               "tall": {
                 "true": "270",
@@ -601,12 +607,20 @@
               }
             },
             "BluePlayerList": {
+              "ypos": {
+                "true": "c-138",
+                "false": "c-88"
+              },
               "tall": {
                 "true": "270",
                 "false": "210"
               }
             },
             "RedPlayerList": {
+              "ypos": {
+                "true": "c-138",
+                "false": "c-88"
+              },
               "tall": {
                 "true": "270",
                 "false": "210"
@@ -681,6 +695,12 @@
                   "ypos": "c73"
                 }
               },
+              "resource/ui/huddemomancharge.res": {
+                "ChargeMeter": {
+                  "xpos": "c-55",
+                  "ypos": "c110"
+                }
+              },
               "resource/ui/huddemomanpipes.res": {
                 "ChargeMeter": {
                   "xpos": "c-55",
@@ -689,12 +709,6 @@
                 "PipesPresentPanel": {
                   "xpos": "c-20",
                   "ypos": "c90"
-                }
-              },
-              "resource/ui/huddemomancharge.res": {
-                "ChargeMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c110"
                 }
               },
               "resource/ui/huditemeffectmeter.res": {
@@ -739,40 +753,6 @@
                   "ypos": "c100"
                 }
               },
-              "resource/ui/hudplayerclass.res": {
-                "classmodelpanel": {
-                  "ypos": "r200"
-                },
-                "CarryingWeapon": {
-                  "xpos": "100"
-                },
-                "PlayerStatusClassImage": {
-                  "ypos": "r75"
-                }
-              },
-              "resource/ui/hudplayerhealth.res": {
-                "HudPlayerHealth": {
-                  "xpos": "c-200",
-                  "ypos": "c68"
-                }
-              },
-              "resource/ui/hudrocketpack.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "c110"
-                },
-                "ItemEffectMeter": {
-                  "wide": "60"
-                },
-                "ItemEffectMeter2": {
-                  "xpos": "60",
-                  "wide": "60"
-                }
-              },
-              "resource/ui/hudspellselection.res": {
-                "ActionText": {
-                  "tall": "10"
-                }
-              },
               "resource/ui/hudmediccharge.res": {
                 "UberBG": {
                   "wide": "0"
@@ -809,6 +789,40 @@
                 },
                 "ResistIconAnchor": {
                   "ypos": "35"
+                }
+              },
+              "resource/ui/hudplayerclass.res": {
+                "classmodelpanel": {
+                  "ypos": "r200"
+                },
+                "CarryingWeapon": {
+                  "xpos": "100"
+                },
+                "PlayerStatusClassImage": {
+                  "ypos": "r75"
+                }
+              },
+              "resource/ui/hudplayerhealth.res": {
+                "HudPlayerHealth": {
+                  "xpos": "c-200",
+                  "ypos": "c68"
+                }
+              },
+              "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c110"
+                },
+                "ItemEffectMeter": {
+                  "wide": "60"
+                },
+                "ItemEffectMeter2": {
+                  "xpos": "60",
+                  "wide": "60"
+                }
+              },
+              "resource/ui/hudspellselection.res": {
+                "ActionText": {
+                  "tall": "10"
                 }
               },
               "scripts/hudlayout.res": {
