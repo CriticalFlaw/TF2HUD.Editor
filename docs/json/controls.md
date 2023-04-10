@@ -89,7 +89,7 @@ To avoid conflicts, prefix each name with an abbreviation for the HUD. Example; 
 
 ### Label
 
-**Required**. Text displayed near the control. This space is limited, so save longer explanations for the [Tooltip](http://www.criticalflaw.ca/TF2HUD.Editor/json/controls/#tooltip) property.
+**Required**. Text displayed near the control. This space is limited, so save longer explanations for the [Tooltip](http://criticalflaw.ca/TF2HUD.Editor/json/controls/#tooltip) property.
 
 ```json
 "Label": "Buffed Health"
@@ -103,7 +103,7 @@ To avoid conflicts, prefix each name with an abbreviation for the HUD. Example; 
 
 * **CheckBox** - Toggling this will either enable or disablee the customization option attached to this control.
 * **ColorPicker** - Opens a color picker for the user to select an RGBA color. Can also use **Color**, **Colour** or **ColourPicker**.
-* **ComboBox** - Contains a list of [options](http://www.criticalflaw.ca/TF2HUD.Editor/json/controls/#options), each with their own customization instructions. Can also use **DropDown**, **DropDownMenu** or **Select**.
+* **ComboBox** - Contains a list of [options](http://criticalflaw.ca/TF2HUD.Editor/json/controls/#options), each with their own customization instructions. Can also use **DropDown**, **DropDownMenu** or **Select**.
 * **Number** - An integer counter ranging between set minimum and maximum values. Commonly to be used for crosshair sizes and number of rows on the killfeed. Can also use **Integer** or **IntegerUpDown**.
 * **Crosshair** - Contains a list of styles from [Hypnotize's Crosshair Pack][repo-crosshairs] that are applied to the HUD's `hudlayout.res` file. Can also use **CustomCrosshair**.
 * **Background** - Provides the user with the option to select an image file to convert into VTF as a replacement for the HUD's background. Can also use **CustomBackground**.
@@ -113,7 +113,7 @@ To avoid conflicts, prefix each name with an abbreviation for the HUD. Example; 
 
 ### Value
 
-**Required**. Default value for the control, compatible with the selected control [type](http://www.criticalflaw.ca/TF2HUD.Editor/json/controls/#type). Allowed values per type are listed below:
+**Required**. Default value for the control, compatible with the selected control [type](http://criticalflaw.ca/TF2HUD.Editor/json/controls/#type). Allowed values per type are listed below:
 
 * **CheckBox** - true, false.
 * **ColorPicker** - RGBA color code, **30 30 30 200**.
@@ -337,9 +337,9 @@ Only the selected ComboBox value RenameFile.NewName will be enabled, other optio
 ```
 
 <!-- MARKDOWN LINKS -->
-[docs-files]: http://www.criticalflaw.ca/TF2HUD.Editor/json/files/
-[docs-special]: http://www.criticalflaw.ca/TF2HUD.Editor/json/special/
-[docs-options]: http://www.criticalflaw.ca/TF2HUD.Editor/json/options/
-[docs-animations]: http://www.criticalflaw.ca/TF2HUD.Editor/json/animations/
-[docs-backgrounds]: http://www.criticalflaw.ca/TF2HUD.Editor/json/backgrounds/
+[docs-files]: http://criticalflaw.ca/TF2HUD.Editor/json/files/
+[docs-special]: http://criticalflaw.ca/TF2HUD.Editor/json/special/
+[docs-options]: http://criticalflaw.ca/TF2HUD.Editor/json/options/
+[docs-animations]: http://criticalflaw.ca/TF2HUD.Editor/json/animations/
+[docs-backgrounds]: http://criticalflaw.ca/TF2HUD.Editor/json/backgrounds/
 [repo-crosshairs]: https://github.com/Hypnootize/TF2-Hud-Crosshairs

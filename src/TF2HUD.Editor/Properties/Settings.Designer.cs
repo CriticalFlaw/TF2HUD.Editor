@@ -61,7 +61,7 @@ namespace HUDEditor.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://www.criticalflaw.ca/TF2HUD.Editor/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://criticalflaw.ca/TF2HUD.Editor/")]
         public string app_docs {
             get {
                 return ((string)(this["app_docs"]));

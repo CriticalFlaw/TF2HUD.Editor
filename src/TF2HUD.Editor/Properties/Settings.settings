@@ -12,7 +12,7 @@
       <Value Profile="(Default)">en-US</Value>
     </Setting>
     <Setting Name="app_docs" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://www.criticalflaw.ca/TF2HUD.Editor/</Value>
+      <Value Profile="(Default)">https://criticalflaw.ca/TF2HUD.Editor/</Value>
     </Setting>
     <Setting Name="json_file" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/{0}</Value>

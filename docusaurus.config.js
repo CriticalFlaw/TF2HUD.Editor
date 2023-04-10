@@ -4,7 +4,7 @@
 const config = {
     title: "TF2 HUD Editor",
     tagline: "Install and customize your favorite custom Team Fortress 2 HUDs.",
-    url: "https://www.criticalflaw.ca",
+    url: "https://criticalflaw.ca",
     baseUrl: "/TF2HUD.Editor/",
     favicon: "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/docs/resources/logo.png",
 
@@ -101,7 +101,7 @@ const config = {
                 },
                 {
                     label: "Blog",
-                    href: "https://www.criticalflaw.ca/"
+                    href: "https://criticalflaw.ca/"
                 },
                 {
                     href: "https://github.com/CriticalFlaw/TF2HUD.Editor/",

@@ -24,9 +24,9 @@ Use this sample [schema file][json-sample] as a starting point. For reference, a
 [json-budhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/budhud.json
 [json-flawhud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/flawhud.json
 [json-rayshud]: https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/rayshud.json
-[docs-main]: http://www.criticalflaw.ca/TF2HUD.Editor/json/base
-[docs-controls]: http://www.criticalflaw.ca/TF2HUD.Editor/json/controls
-[docs-options]: http://www.criticalflaw.ca/TF2HUD.Editor/json/options
-[docs-files]: http://www.criticalflaw.ca/TF2HUD.Editor/json/files/
-[docs-animations]: http://www.criticalflaw.ca/TF2HUD.Editor/json/animations/
-[docs-background]: http://www.criticalflaw.ca/TF2HUD.Editor/json/backgrounds/
+[docs-main]: http://criticalflaw.ca/TF2HUD.Editor/json/base
+[docs-controls]: http://criticalflaw.ca/TF2HUD.Editor/json/controls
+[docs-options]: http://criticalflaw.ca/TF2HUD.Editor/json/options
+[docs-files]: http://criticalflaw.ca/TF2HUD.Editor/json/files/
+[docs-animations]: http://criticalflaw.ca/TF2HUD.Editor/json/animations/
+[docs-background]: http://criticalflaw.ca/TF2HUD.Editor/json/backgrounds/

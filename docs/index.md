@@ -10,9 +10,9 @@ slug: /
     <br />
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases/latest">Download</a>
     ·
-    <a href="https://www.criticalflaw.ca/TF2HUD.Editor">Documentation</a>
+    <a href="https://criticalflaw.ca/TF2HUD.Editor">Documentation</a>
     ·
-    <a href="https://www.criticalflaw.ca/TF2HUD.Editor/screenshots/">Screenshots</a>
+    <a href="https://criticalflaw.ca/TF2HUD.Editor/screenshots/">Screenshots</a>
     ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/issues">Issue Tracker</a>
     ·
@@ -51,7 +51,7 @@ Always use to the latest version of the editor for best compatability with suppo
 [license-shield]: https://img.shields.io/github/license/CriticalFlaw/TF2HUD.Editor?style=flat-square
 [license-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/blob/master/.github/LICENSE
 [docs-shield]: https://readthedocs.org/projects/tf2hudeditor/badge/?version=latest&style=flat-square
-[docs-link]: http://www.criticalflaw.ca/TF2HUD.Editor
+[docs-link]: http://criticalflaw.ca/TF2HUD.Editor
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [discord-shield]: https://img.shields.io/badge/Discord-criticalflaw-7289da.svg?style=flat-square&logo=discord
 [discord-link]: https://discord.gg/hTdtK9vBhE
