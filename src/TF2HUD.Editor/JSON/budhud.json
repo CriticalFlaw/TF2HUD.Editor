@@ -84,6 +84,14 @@
               "OldName": "#users/whisker_/",
               "NewName": "#users/whisker/"
             }
+          },
+          {
+            "Label": "Zenith",
+            "Value": "7",
+            "RenameFile": {
+              "OldName": "#users/zenith_/",
+              "NewName": "#users/zenith/"
+            }
           }
         ]
       },
