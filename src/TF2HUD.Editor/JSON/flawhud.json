@@ -1794,6 +1794,47 @@
         }
       },
       {
+        "Name": "fh_toggle_damage_font",
+        "Label": "Alternate Damage Font",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle damage font between TF2 Build and TF2 Secondary.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/huddamageaccount.res": {
+            "CDamageAccountPanel": {
+              "delta_item_font": {
+                "true": "FontRegular20",
+                "false": "FontBold20Outline"
+              },
+              "delta_item_font_big": {
+                "true": "FontRegular20",
+                "false": "FontBold20Outline"
+              }
+            },
+            "DamageAccountValue": {
+              "font": {
+                "true": "FontRegular20",
+                "false": "FontBold22"
+              }
+            },
+            "DamageAccountValueShadow": {
+              "xpos": {
+                "true": "-1",
+                "false": "-2"
+              },
+              "ypos": {
+                "true": "-1",
+                "false": "-2"
+              },
+              "font": {
+                "true": "FontRegular20",
+                "false": "FontBold22"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_centered_mvm_currency",
         "Label": "Centered MvM Currency",
         "Type": "Checkbox",
