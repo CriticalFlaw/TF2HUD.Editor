@@ -1792,6 +1792,61 @@
             }
           }
         }
+      },
+      {
+        "Name": "fh_centered_mvm_currency",
+        "Label": "Centered MvM Currency",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle Mann vs. Machine currency position.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/hudmannvsmachinestatus.res": {
+            "InWorldCurrencyPanel": {
+              "xpos": {
+                "true": "c-50",
+                "false": "c-210"
+              },
+              "ypos": {
+                "true": "c10",
+                "false": "r25"
+              }
+            }
+          },
+          "resource/ui/mvminworldcurrency.res": {
+            "CurrencyBG": {
+              "visible": {
+                "true": "0",
+                "false": "1"
+              },
+              "enabled": {
+                "true": "0",
+                "false": "1"
+              }
+            },
+            "CurrencyLabel": {
+              "visible": {
+                "true": "0",
+                "false": "1"
+              },
+              "enabled": {
+                "true": "0",
+                "false": "1"
+              }
+            },
+            "CurrencyGood": {
+              "textAlignment": {
+                "true": "center",
+                "false": "east"
+              }
+            },
+            "CurrencyBad": {
+              "textAlignment": {
+                "true": "center",
+                "false": "east"
+              }
+            }
+          }
+        }
       }
     ]
   }
