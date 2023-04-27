@@ -529,15 +529,15 @@
       },
       {
         "Name": "tf_larger_damage_numbers",
-        "Label": "Use Larger Font",
+        "Label": "Use TF2 Build Font",
         "Type": "Checkbox",
-        "ToolTip": "Toggle larger damage numbers.",
+        "ToolTip": "Toggle damage number font between TF2 Secondary and TF2 Build.",
         "Value": "false",
         "Files": {
           "resource/ui/huddamageaccount.res": {
             "CDamageAccountPanel": {
               "delta_item_font": {
-                "true": "HudFontMediumSmallBold",
+                "true": "HudFontSmallBold",
                 "false": "HudFontSmall"
               },
               "delta_item_font_big": {
