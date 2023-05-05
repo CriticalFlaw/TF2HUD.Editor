@@ -195,7 +195,11 @@ namespace HUDEditor.ViewModels
                     MainWindow.SetupDirectory(true);
 
                 // Stop the process if Team Fortress 2 is still running.
-                if (Utilities.CheckIsGameRunning()) return;
+                if (Utilities.CheckIsGameRunning())
+                {
+                    Installing = false;
+                    return;
+                }
 
                 // Clear tf/custom directory of other installed HUDs.
                 MainWindow.Logger.Info("Preparing directories for extraction.");
@@ -208,7 +212,11 @@ namespace HUDEditor.ViewModels
                 foreach (var foundHud in Directory.GetDirectories(MainWindow.HudPath))
                 {
                     if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}\\info.vdf")) continue;
-                    if (MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.info_unsupported_hud_found, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes) return;
+                    if (MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.info_unsupported_hud_found, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes)
+                    {
+                        Installing = false;
+                        return;
+                    }
                     Directory.Delete(foundHud, true);
                 }
 
@@ -261,7 +269,11 @@ namespace HUDEditor.ViewModels
                 }
 
                 // Update the page view.
-                if (string.IsNullOrWhiteSpace(SelectedHud.Name)) return;
+                if (string.IsNullOrWhiteSpace(SelectedHud.Name))
+                {
+                    Installing = false;
+                    return;
+                }
                 SelectedHud.Settings.SaveSettings();
                 SelectedHud.ApplyCustomizations();
 
