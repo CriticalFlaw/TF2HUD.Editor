@@ -813,7 +813,7 @@
               },
               "resource/ui/huddamageaccount.res": {
                 "DamageAccountValue": {
-                  "xpos": "c-135",
+                  "xpos": "c-200",
                   "ypos": "c73"
                 }
               },
