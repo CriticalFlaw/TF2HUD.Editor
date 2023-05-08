@@ -630,28 +630,6 @@
         }
       },
       {
-        "Name": "fh_smaller_damage",
-        "Label": "Small Damage Numbers",
-        "Type": "Checkbox",
-        "ToolTip": "Reduces the size of the font used for floating damage numbers.",
-        "Value": "false",
-        "Restart": true,
-        "Files": {
-          "resource/ui/huddamageaccount.res": {
-            "CDamageAccountPanel": {
-              "delta_item_font": {
-                "true": "FontBold14Outline",
-                "false": "FontBold20Outline"
-              },
-              "delta_item_font_big": {
-                "true": "FontBold14Outline",
-                "false": "FontBold20Outline"
-              }
-            }
-          }
-        }
-      },
-      {
         "Name": "fh_speedometer",
         "Label": "Display Speedometer",
         "Type": "Checkbox",
@@ -668,47 +646,6 @@
               "enabled": {
                 "true": "1",
                 "false": "0"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "fh_toggle_damage_font",
-        "Label": "Alternate Damage Font",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle damage font between TF2 Build and TF2 Secondary.",
-        "Value": "false",
-        "Files": {
-          "resource/ui/huddamageaccount.res": {
-            "CDamageAccountPanel": {
-              "delta_item_font": {
-                "true": "FontRegular20",
-                "false": "FontBold20Outline"
-              },
-              "delta_item_font_big": {
-                "true": "FontRegular20",
-                "false": "FontBold20Outline"
-              }
-            },
-            "DamageAccountValue": {
-              "font": {
-                "true": "FontRegular20",
-                "false": "FontBold22"
-              }
-            },
-            "DamageAccountValueShadow": {
-              "xpos": {
-                "true": "-1",
-                "false": "-2"
-              },
-              "ypos": {
-                "true": "-1",
-                "false": "-2"
-              },
-              "font": {
-                "true": "FontRegular20",
-                "false": "FontBold22"
               }
             }
           }
@@ -768,6 +705,95 @@
             }
           }
         }
+      },
+      {
+        "Name": "fh_val_damage_values",
+        "Label": "Alternate Damage Numbers",
+        "Type": "ComboBox",
+        "ToolTip": "Change the style of damage numbers.",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "Bold, Large",
+            "Value": "0",
+            "Files": {
+              "resource/ui/huddamageaccount.res": {
+                "CDamageAccountPanel": {
+                  "delta_item_font": "FontBold20Outline",
+                  "delta_item_font_big": "FontBold20Outline"
+                },
+                "DamageAccountValue": {
+                  "font": "FontBold22"
+                },
+                "DamageAccountValueShadow": {
+                  "xpos": "-2",
+                  "ypos": "-2",
+                  "font": "FontBold22"
+                }
+              }
+            }
+          },
+          {
+            "Label": "Bold, Small",
+            "Value": "1",
+            "Files": {
+              "resource/ui/huddamageaccount.res": {
+                "CDamageAccountPanel": {
+                  "delta_item_font": "FontBold14Outline",
+                  "delta_item_font_big": "FontBold14Outline"
+                },
+                "DamageAccountValue": {
+                  "font": "FontBold22"
+                },
+                "DamageAccountValueShadow": {
+                  "xpos": "-2",
+                  "ypos": "-2",
+                  "font": "FontBold22"
+                }
+              }
+            }
+          },
+          {
+            "Label": "Thin, Large",
+            "Value": "2",
+            "Files": {
+              "resource/ui/huddamageaccount.res": {
+                "CDamageAccountPanel": {
+                  "delta_item_font": "FontRegular20",
+                  "delta_item_font_big": "FontRegular20"
+                },
+                "DamageAccountValue": {
+                  "font": "FontRegular20"
+                },
+                "DamageAccountValueShadow": {
+                  "xpos": "-1",
+                  "ypos": "-1",
+                  "font": "FontRegular20"
+                }
+              }
+            }
+          },
+          {
+            "Label": "Thin, Small",
+            "Value": "3",
+            "Files": {
+              "resource/ui/huddamageaccount.res": {
+                "CDamageAccountPanel": {
+                  "delta_item_font": "FontRegular14",
+                  "delta_item_font_big": "FontRegular14"
+                },
+                "DamageAccountValue": {
+                  "font": "FontRegular20"
+                },
+                "DamageAccountValueShadow": {
+                  "xpos": "-1",
+                  "ypos": "-1",
+                  "font": "FontRegular20"
+                }
+              }
+            }
+          }
+        ]
       },
       {
         "Name": "fh_val_hud_style",
