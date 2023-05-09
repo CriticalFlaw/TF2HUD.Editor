@@ -164,7 +164,7 @@
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout-base.res": {
+          "#customizations/_base/hudlayout.res": {
             "CustomCrosshair": {
               "visible": {
                 "true": "1",
@@ -200,7 +200,7 @@
         "ToolTip": "Style of crosshair.",
         "Value": "<",
         "Files": {
-          "scripts/hudlayout-base.res": {
+          "#customizations/_base/hudlayout.res": {
             "CustomCrosshair": {
               "labelText": "$value"
             }
@@ -217,7 +217,7 @@
         "Increment": "1",
         "ToolTip": "Size of the crosshair.",
         "Files": {
-          "scripts/hudlayout-base.res": {
+          "#customizations/_base/hudlayout.res": {
             "CustomCrosshair": {
               "font": "Size:$value | Outline:OFF"
             }
@@ -750,7 +750,7 @@
         "ToolTip": "Toggle position of the game chat to be near the bottom.",
         "Value": "false",
         "Files": {
-          "resource/ui/basechat-base.res": {
+          "#customizations/_base/basechat.res": {
             "HudChat": {
               "ypos": {
                 "true": "315",
@@ -783,7 +783,7 @@
         "ToolTip": "Toggle the position of the Engineer's metal counter to be near the middle.",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout-base.res": {
+          "#customizations/_base/hudlayout.res": {
             "CHudAccountPanel": {
               "xpos": {
                 "true": "c-20",
@@ -813,7 +813,7 @@
         "Special": "TransparentViewmodels",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout-base.res": {
+          "#customizations/_base/hudlayout.res": {
             "TransparentViewmodel": {
               "visible": {
                 "true": "1",
@@ -835,7 +835,7 @@
         "Value": "false",
         "FileName": "hudplayerclass-left.res",
         "Files": {
-          "scripts/hudlayout-base.res": {
+          "#customizations/_base/hudlayout.res": {
             "DisguiseStatus": {
               "xpos": {
                 "true": "100",
@@ -873,7 +873,7 @@
         "Maximum": "9",
         "Increment": "1",
         "Files": {
-          "scripts/hudlayout-base.res": {
+          "#customizations/_base/hudlayout.res": {
             "HudDeathNotice": {
               "MaxDeathNotices": "$value"
             }
