@@ -806,21 +806,16 @@
             "Label": "Centered",
             "Value": "0",
             "Files": {
-              "resource/ui/hudammoweapons.res": {
-                "AmmoBG": {
-                  "bgcolor_override": "Transparent"
-                }
-              },
               "resource/ui/huddamageaccount.res": {
                 "DamageAccountValue": {
-                  "xpos": "c-200",
-                  "ypos": "c73"
+                  "xpos": "c-250",
+                  "ypos": "c100"
                 }
               },
               "resource/ui/huddemomancharge.res": {
                 "ChargeMeter": {
                   "xpos": "c-55",
-                  "ypos": "c110"
+                  "ypos": "c135"
                 }
               },
               "resource/ui/huddemomanpipes.res": {
@@ -830,24 +825,24 @@
                 },
                 "PipesPresentPanel": {
                   "xpos": "c-20",
-                  "ypos": "c90"
+                  "ypos": "c115"
                 }
               },
               "resource/ui/huditemeffectmeter.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c120"
+                  "xpos": "c150",
+                  "ypos": "c110"
                 }
               },
               "resource/ui/huditemeffectmeter_cleaver.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c110"
+                  "ypos": "c100"
                 }
               },
               "resource/ui/huditemeffectmeter_demoman.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c122",
-                  "ypos": "375"
+                  "xpos": "c140",
+                  "ypos": "r75"
                 },
                 "ItemEffectMeterLabel": {
                   "visible": "1",
@@ -867,12 +862,12 @@
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "r85"
+                  "xpos": "c200"
                 }
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c100"
+                  "ypos": "c90"
                 }
               },
               "resource/ui/hudmediccharge.res": {
@@ -890,12 +885,12 @@
                   "textAlignment": "center",
                   "font": "FontBold22"
                 },
-                "ChargeMeter": {
-                  "ypos": "30"
-                },
                 "IndividualChargesLabel": {
                   "ypos": "0",
                   "tall": "30"
+                },
+                "ChargeMeter": {
+                  "ypos": "30"
                 },
                 "ChargeMeter1": {
                   "tall": "26"
@@ -914,32 +909,43 @@
                 }
               },
               "resource/ui/hudplayerclass.res": {
+                "PlayerStatusClassImage": {
+                  "ypos": "r75"
+                },
                 "classmodelpanel": {
+                  "xpos": "0",
                   "ypos": "r200"
                 },
                 "CarryingWeapon": {
-                  "xpos": "100"
-                },
-                "PlayerStatusClassImage": {
-                  "ypos": "r75"
+                  "ypos": "100"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
                 "HudPlayerHealth": {
-                  "xpos": "c-200",
-                  "ypos": "c68"
+                  "xpos": "c-250",
+                  "ypos": "c95"
+                },
+                "PlayerStatusAnchor": {
+                  "xpos": "30"
                 }
               },
               "resource/ui/hudrocketpack.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c110"
+                  "xpos": "c-55",
+                  "ypos": "c120",
+                  "tall": "110"
+                },
+                "ItemEffectIcon": {
+                  "xpos": "42"
+                },
+                "ItemEffectMeterLabel": {
+                  "xpos": "20"
                 },
                 "ItemEffectMeter": {
-                  "wide": "60"
+                  "ypos": "20"
                 },
                 "ItemEffectMeter2": {
-                  "xpos": "60",
-                  "wide": "60"
+                  "ypos": "20"
                 }
               },
               "resource/ui/hudspellselection.res": {
@@ -949,12 +955,12 @@
               },
               "scripts/hudlayout.res": {
                 "HudWeaponAmmo": {
-                  "xpos": "c91",
-                  "ypos": "c92"
+                  "xpos": "c150",
+                  "ypos": "c119"
                 },
                 "HudMedicCharge": {
                   "xpos": "c-55",
-                  "ypos": "r170"
+                  "ypos": "r130"
                 },
                 "HudDemomanCharge": {
                   "ypos": "0"
@@ -964,8 +970,8 @@
                   "ypos": "c87"
                 },
                 "CHealthAccountPanel": {
-                  "xpos": "c-145",
-                  "ypos": "c27"
+                  "xpos": "c-195",
+                  "ypos": "c54"
                 },
                 "DisguiseStatus": {
                   "ypos": "c70"
@@ -980,12 +986,6 @@
                   "xpos": "c-210",
                   "ypos": "r75"
                 }
-              },
-              "scripts/hudanimations_custom.txt": {
-                "replace": [
-                  "Transparent",
-                  "HudBlack"
-                ]
               }
             }
           },
@@ -993,15 +993,16 @@
             "Label": "Cornered",
             "Value": "1",
             "Files": {
-              "resource/ui/hudammoweapons.res": {
-                "AmmoBG": {
-                  "bgcolor_override": "HudBlack"
-                }
-              },
               "resource/ui/huddamageaccount.res": {
                 "DamageAccountValue": {
                   "xpos": "10",
                   "ypos": "r75"
+                }
+              },
+              "resource/ui/huddemomancharge.res": {
+                "ChargeMeter": {
+                  "xpos": "r120",
+                  "ypos": "c105"
                 }
               },
               "resource/ui/huddemomanpipes.res": {
@@ -1012,12 +1013,6 @@
                 "PipesPresentPanel": {
                   "xpos": "125",
                   "ypos": "r68"
-                }
-              },
-              "resource/ui/huddemomancharge.res": {
-                "ChargeMeter": {
-                  "xpos": "r120",
-                  "ypos": "c105"
                 }
               },
               "resource/ui/huditemeffectmeter.res": {
@@ -1054,7 +1049,7 @@
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "r52"
+                  "xpos": "c200"
                 }
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
@@ -1063,37 +1058,24 @@
                 }
               },
               "resource/ui/hudplayerclass.res": {
+                "PlayerStatusClassImage": {
+                  "ypos": "r127"
+                },
                 "classmodelpanel": {
+                  "xpos": "0",
                   "ypos": "r252"
                 },
                 "CarryingWeapon": {
                   "xpos": "200"
-                },
-                "PlayerStatusClassImage": {
-                  "ypos": "r127"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
                 "HudPlayerHealth": {
                   "xpos": "10",
                   "ypos": "r77"
-                }
-              },
-              "resource/ui/hudrocketpack.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "r75"
                 },
-                "ItemEffectMeter": {
-                  "wide": "55"
-                },
-                "ItemEffectMeter2": {
-                  "xpos": "55",
-                  "wide": "55"
-                }
-              },
-              "resource/ui/hudspellselection.res": {
-                "ActionText": {
-                  "tall": "0"
+                "PlayerStatusAnchor": {
+                  "xpos": "30"
                 }
               },
               "resource/ui/hudmediccharge.res": {
@@ -1111,12 +1093,12 @@
                   "textAlignment": "east",
                   "font": "FontBold50"
                 },
-                "ChargeMeter": {
-                  "ypos": "0"
-                },
                 "IndividualChargesLabel": {
                   "ypos": "5",
                   "tall": "43"
+                },
+                "ChargeMeter": {
+                  "ypos": "0"
                 },
                 "ChargeMeter1": {
                   "tall": "39"
@@ -1132,6 +1114,31 @@
                 },
                 "ResistIconAnchor": {
                   "ypos": "-5"
+                }
+              },
+              "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "c-55",
+                  "ypos": "r75",
+                  "tall": "110"
+                },
+                "ItemEffectIcon": {
+                  "xpos": "42"
+                },
+                "ItemEffectMeterLabel": {
+                  "xpos": "20"
+                },
+                "ItemEffectMeter": {
+                  "wide": "55"
+                },
+                "ItemEffectMeter2": {
+                  "xpos": "55",
+                  "wide": "55"
+                }
+              },
+              "resource/ui/hudspellselection.res": {
+                "ActionText": {
+                  "tall": "0"
                 }
               },
               "scripts/hudlayout.res": {
@@ -1167,12 +1174,6 @@
                   "xpos": "c-240",
                   "ypos": "r30"
                 }
-              },
-              "scripts/hudanimations_custom.txt": {
-                "replace": [
-                  "HudBlack",
-                  "Transparent"
-                ]
               }
             }
           }
