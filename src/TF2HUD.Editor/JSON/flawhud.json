@@ -977,10 +977,10 @@
                   "ypos": "c70"
                 },
                 "CSpectatorTargetID": {
-                  "ypos": "355"
+                  "ypos": "c50"
                 },
                 "CSecondaryTargetID": {
-                  "ypos": "355"
+                  "ypos": "c50"
                 },
                 "HudSpellMenu": {
                   "xpos": "c-210",
