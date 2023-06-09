@@ -543,6 +543,12 @@
             }
           },
           "scripts/hudlayout.res": {
+            "DisguiseStatus": {
+              "ypos": {
+                "true": "r45",
+                "false": "r160"
+              }
+            },
             "HudAchievementTracker": {
               "NormalY": {
                 "true": "15",
@@ -662,7 +668,7 @@
             "InWorldCurrencyPanel": {
               "xpos": {
                 "true": "c-50",
-                "false": "c-210"
+                "false": "c-245"
               },
               "ypos": {
                 "true": "c10",
@@ -708,7 +714,7 @@
       },
       {
         "Name": "fh_val_damage_values",
-        "Label": "Alternate Damage Numbers",
+        "Label": "Damage Numbers",
         "Type": "ComboBox",
         "ToolTip": "Change the style of damage numbers.",
         "Value": "0",
@@ -830,13 +836,13 @@
               },
               "resource/ui/huditemeffectmeter.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c150",
-                  "ypos": "c110"
+                  "xpos": "c-55",
+                  "ypos": "c135"
                 }
               },
               "resource/ui/huditemeffectmeter_cleaver.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c100"
+                  "ypos": "c145"
                 }
               },
               "resource/ui/huditemeffectmeter_demoman.res": {
@@ -862,12 +868,31 @@
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c200"
+                  "xpos": "c200",
+                  "ypos": "r75"
                 }
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c90"
+                  "ypos": "c125"
+                }
+              },
+              "resource/ui/hudplayerclass.res": {
+                "PlayerStatusClassImage": {
+                  "ypos": "r75"
+                },
+                "classmodelpanel": {
+                  "xpos": "0",
+                  "ypos": "r200"
+                },
+                "CarryingWeapon": {
+                  "xpos": "100"
+                }
+              },
+              "resource/ui/hudplayerhealth.res": {
+                "HudPlayerHealth": {
+                  "xpos": "c-250",
+                  "ypos": "c95"
                 }
               },
               "resource/ui/hudmediccharge.res": {
@@ -886,7 +911,7 @@
                   "font": "FontBold22"
                 },
                 "IndividualChargesLabel": {
-                  "ypos": "0",
+                  "ypos": "13",
                   "tall": "30"
                 },
                 "ChargeMeter": {
@@ -905,47 +930,13 @@
                   "tall": "26"
                 },
                 "ResistIconAnchor": {
-                  "ypos": "35"
-                }
-              },
-              "resource/ui/hudplayerclass.res": {
-                "PlayerStatusClassImage": {
-                  "ypos": "r75"
-                },
-                "classmodelpanel": {
-                  "xpos": "0",
-                  "ypos": "r200"
-                },
-                "CarryingWeapon": {
-                  "ypos": "100"
-                }
-              },
-              "resource/ui/hudplayerhealth.res": {
-                "HudPlayerHealth": {
-                  "xpos": "c-250",
-                  "ypos": "c95"
-                },
-                "PlayerStatusAnchor": {
-                  "xpos": "30"
+                  "ypos": "0"
                 }
               },
               "resource/ui/hudrocketpack.res": {
                 "HudItemEffectMeter": {
                   "xpos": "c-55",
-                  "ypos": "c120",
-                  "tall": "110"
-                },
-                "ItemEffectIcon": {
-                  "xpos": "42"
-                },
-                "ItemEffectMeterLabel": {
-                  "xpos": "20"
-                },
-                "ItemEffectMeter": {
-                  "ypos": "20"
-                },
-                "ItemEffectMeter2": {
-                  "ypos": "20"
+                  "ypos": "c115"
                 }
               },
               "resource/ui/hudspellselection.res": {
@@ -956,10 +947,10 @@
               "scripts/hudlayout.res": {
                 "HudWeaponAmmo": {
                   "xpos": "c150",
-                  "ypos": "c119"
+                  "ypos": "c120"
                 },
                 "HudMedicCharge": {
-                  "xpos": "c-55",
+                  "xpos": "c-60",
                   "ypos": "r130"
                 },
                 "HudDemomanCharge": {
@@ -967,14 +958,14 @@
                 },
                 "CHudAccountPanel": {
                   "xpos": "c-50",
-                  "ypos": "c87"
+                  "ypos": "c120"
                 },
                 "CHealthAccountPanel": {
                   "xpos": "c-195",
                   "ypos": "c54"
                 },
                 "DisguiseStatus": {
-                  "ypos": "c70"
+                  "ypos": "r160"
                 },
                 "CSpectatorTargetID": {
                   "ypos": "c50"
@@ -1049,7 +1040,8 @@
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c200"
+                  "xpos": "125",
+                  "ypos": "r50"
                 }
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
@@ -1066,16 +1058,13 @@
                   "ypos": "r252"
                 },
                 "CarryingWeapon": {
-                  "xpos": "200"
+                  "xpos": "180"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
                 "HudPlayerHealth": {
                   "xpos": "10",
                   "ypos": "r77"
-                },
-                "PlayerStatusAnchor": {
-                  "xpos": "30"
                 }
               },
               "resource/ui/hudmediccharge.res": {
@@ -1113,27 +1102,13 @@
                   "tall": "39"
                 },
                 "ResistIconAnchor": {
-                  "ypos": "-5"
+                  "ypos": "-35"
                 }
               },
               "resource/ui/hudrocketpack.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c-55",
-                  "ypos": "r75",
-                  "tall": "110"
-                },
-                "ItemEffectIcon": {
-                  "xpos": "42"
-                },
-                "ItemEffectMeterLabel": {
-                  "xpos": "20"
-                },
-                "ItemEffectMeter": {
-                  "wide": "55"
-                },
-                "ItemEffectMeter2": {
-                  "xpos": "55",
-                  "wide": "55"
+                  "xpos": "r120",
+                  "ypos": "r110"
                 }
               },
               "resource/ui/hudspellselection.res": {
@@ -1189,7 +1164,7 @@
         "Preview": "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
         "Options": [
           {
-            "Label": "Default",
+            "Label": "Colored Text",
             "Value": "0",
             "Files": {
               "resource/ui/hudplayerhealth.res": {
@@ -1209,66 +1184,27 @@
                   "font": "FontBold50"
                 },
                 "PlayerHealthShadow": {
-                  "font": "FontBold50"
+                  "font": "ScanlineShadow"
                 }
               },
               "scripts/hudanimations_custom.txt": {
                 "comment": [
+                  "Animate HealthBG",
+                  "Animate AmmoBG"
+                ],
+                "uncomment": [
                   "Animate PlayerHealthValue",
                   "Animate PlayerHealthShadow",
                   "Animate AmmoInClip",
                   "Animate AmmoInReserve",
                   "Animate AmmoNoClip"
-                ],
-                "uncomment": [
-                  "Animate HealthBG",
-                  "Animate AmmoBG"
                 ]
               }
             }
           },
           {
-            "Label": "Colored Text",
+            "Label": "Health Cross",
             "Value": "1",
-            "Files": {
-              "resource/ui/hudplayerhealth.res": {
-                "PlayerStatusHealthImage": {
-                  "visible": "0"
-                },
-                "PlayerStatusHealthImageBG": {
-                  "xpos": "9999"
-                },
-                "HealthBG": {
-                  "bgcolor_override": "HudBlack"
-                },
-                "PlayerStatusHealthBonusImage": {
-                  "xpos": "9999"
-                },
-                "PlayerHealthValue": {
-                  "font": "FontBold50"
-                },
-                "PlayerHealthShadow": {
-                  "font": "FontBold50"
-                }
-              },
-              "scripts/hudanimations_custom.txt": {
-                "comment": [
-                  "Animate HealthBG",
-                  "Animate AmmoBG"
-                ],
-                "uncomment": [
-                  "Animate PlayerHealthValue",
-                  "Animate PlayerHealthShadow",
-                  "Animate AmmoInClip",
-                  "Animate AmmoInReserve",
-                  "Animate AmmoNoClip"
-                ]
-              }
-            }
-          },
-          {
-            "Label": "Cross",
-            "Value": "2",
             "Files": {
               "resource/ui/hudplayerhealth.res": {
                 "PlayerStatusHealthImage": {
