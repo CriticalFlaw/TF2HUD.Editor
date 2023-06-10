@@ -821,7 +821,7 @@
               "resource/ui/huddemomancharge.res": {
                 "ChargeMeter": {
                   "xpos": "c-55",
-                  "ypos": "c135"
+                  "ypos": "c145"
                 }
               },
               "resource/ui/huddemomanpipes.res": {
@@ -831,7 +831,7 @@
                 },
                 "PipesPresentPanel": {
                   "xpos": "c-20",
-                  "ypos": "c115"
+                  "ypos": "c125"
                 }
               },
               "resource/ui/huditemeffectmeter.res": {
