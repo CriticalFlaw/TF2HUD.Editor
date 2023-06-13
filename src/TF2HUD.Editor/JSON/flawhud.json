@@ -619,7 +619,7 @@
               },
               "tall": {
                 "true": "270",
-                "false": "210"
+                "false": "204"
               }
             },
             "RedPlayerList": {
@@ -629,7 +629,7 @@
               },
               "tall": {
                 "true": "270",
-                "false": "210"
+                "false": "204"
               }
             }
           }
