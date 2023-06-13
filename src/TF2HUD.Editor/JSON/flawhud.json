@@ -664,6 +664,60 @@
         "ToolTip": "Toggle Mann vs. Machine currency position.",
         "Value": "false",
         "Files": {
+          "resource/ui/huditemeffectmeter_powerupbottle.res": {
+            "HudItemEffectMeter": {
+              "xpos": {
+                "true": "152",
+                "false": "142"
+              },
+              "wide": {
+                "true": "30",
+                "false": "40"
+              }
+            },
+            "PowerupBG": {
+              "tall": {
+                "true": "15",
+                "false": "30"
+              }
+            },
+            "ItemEffectIcon": {
+              "xpos": {
+                "true": "1",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "2",
+                "false": "3"
+              },
+              "wide": {
+                "true": "12",
+                "false": "25"
+              },
+              "tall": {
+                "true": "12",
+                "false": "25"
+              }
+            },
+            "ItemEffectMeterCount": {
+              "xpos": {
+                "true": "15",
+                "false": "25"
+              },
+              "ypos": {
+                "true": "2",
+                "false": "0"
+              },
+              "tall": {
+                "true": "12",
+                "false": "30"
+              },
+              "font": {
+                "true": "FontBold14",
+                "false": "FontBold22"
+              }
+            }
+          },
           "resource/ui/hudmannvsmachinestatus.res": {
             "InWorldCurrencyPanel": {
               "xpos": {
@@ -707,6 +761,12 @@
               "textAlignment": {
                 "true": "center",
                 "false": "east"
+              }
+            },
+            "CurrencyBadShadow": {
+              "visible": {
+                "true": "1",
+                "false": "0"
               }
             }
           }
