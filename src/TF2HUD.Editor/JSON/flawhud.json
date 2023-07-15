@@ -971,7 +971,7 @@
                   "font": "FontBold22"
                 },
                 "IndividualChargesLabel": {
-                  "ypos": "13",
+                  "ypos": "5",
                   "tall": "30"
                 },
                 "ChargeMeter": {
@@ -990,6 +990,7 @@
                   "tall": "26"
                 },
                 "ResistIconAnchor": {
+                  "xpos": "70",
                   "ypos": "0"
                 }
               },
@@ -1010,8 +1011,8 @@
                   "ypos": "c120"
                 },
                 "HudMedicCharge": {
-                  "xpos": "c-60",
-                  "ypos": "r130"
+                  "xpos": "c-55",
+                  "ypos": "r135"
                 },
                 "HudDemomanCharge": {
                   "ypos": "0"
@@ -1143,7 +1144,7 @@
                   "font": "FontBold50"
                 },
                 "IndividualChargesLabel": {
-                  "ypos": "5",
+                  "ypos": "13",
                   "tall": "43"
                 },
                 "ChargeMeter": {
@@ -1162,7 +1163,8 @@
                   "tall": "39"
                 },
                 "ResistIconAnchor": {
-                  "ypos": "-35"
+                  "xpos": "0",
+                  "ypos": "-5"
                 }
               },
               "resource/ui/hudrocketpack.res": {
