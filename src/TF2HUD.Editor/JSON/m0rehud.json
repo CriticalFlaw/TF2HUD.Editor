@@ -1,0 +1,1000 @@
+{
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "m0re, Hypnotize",
+  "Description": "Clean, functional and minimalistic HUD created by m0re.",
+  "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-banner.webp",
+  "Screenshots": [
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-menu.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-buff.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-scoreboard.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-spectator.webp"
+  ],
+  "Background": "https://i.imgur.com/cBFURIz.png",
+  "Layout": [
+    "0 0 0 0",
+    "0 0 0 0",
+    "0 0 0 0"
+  ],
+  "Links": {
+    "Update": "https://github.com/Hypnootize/m0rehud/archive/refs/heads/master.zip", // TODO: Remove
+    "GitHub": "https://github.com/Hypnootize/m0rehud",
+    "ComfigHuds": "https://comfig.app/huds/page/m0rehud/",
+    "TF2Huds": "https://tf2huds.dev/hud/m0re-Hud",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/Hypnootize/m0rehud/archive/refs/heads/master.zip"
+      }
+    ]
+  },
+  "CustomizationsFolder": "customizations",
+  "EnabledFolder": "",
+  "Controls": {
+    "Damage": [
+      {
+        "Name": "mh_damage_numbers",
+        "Label": "Damage Numbers",
+        "Type": "ComboBox",
+        "Value": "4",
+        "Options": [
+          {
+            "Label": "Big",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Big Minusless",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Medium",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Medium Minusless",
+            "Value": "3",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Small",
+            "Value": "4",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Small Minusless",
+            "Value": "5",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_damage_done",
+        "Label": "Last Damage Done",
+        "Type": "ComboBox",
+        "Value": "3",
+        "Options": [
+          {
+            "Label": "Health Cross",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Minmode",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Normal",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Off",
+            "Value": "3",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_font",
+        "Label": "Font",
+        "Type": "ComboBox",
+        "Value": "15",
+        "Options": [
+          {
+            "Label": "Alternate Gothic",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Avenir",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Catamaran",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Cerbetica",
+            "Value": "3",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Days",
+            "Value": "4",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Handel Gothic",
+            "Value": "5",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Lato",
+            "Value": "6",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Maven Pro",
+            "Value": "7",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Neutra",
+            "Value": "8",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Noto",
+            "Value": "9",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Product",
+            "Value": "10",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Product Bold",
+            "Value": "11",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Renogare",
+            "Value": "12",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Roboto",
+            "Value": "13",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Rubik",
+            "Value": "14",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Surface",
+            "Value": "15",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Surface Bold",
+            "Value": "16",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Surface Sharpened",
+            "Value": "17",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "TF2",
+            "Value": "18",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "TF2 Bold",
+            "Value": "19",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Ubuntu",
+            "Value": "20",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_damage_numbers",
+        "Label": "Damage Numbers",
+        "Type": "ComboBox",
+        "Value": "4",
+        "Options": [
+          {
+            "Label": "Big",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Big Minusless",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Medium",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Medium Minusless",
+            "Value": "3",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Small",
+            "Value": "4",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Small Minusless",
+            "Value": "5",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_counter",
+        "Label": "Head Counter",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "Bottom Right",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Under Ammo",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_ammo_style",
+        "Label": "Flashing Ammo Colors",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "scripts/hudanimations_hitmarker.txt": {
+            "uncomment": [
+              "StopEvent HitMarker",
+              "RunEvent HitMarker"
+            ]
+          }
+        }
+      },
+      {
+        "Name": "mh_general_style",
+        "Label": "General Style",
+        "Type": "ComboBox",
+        "Value": "1",
+        "Options": [
+          {
+            "Label": "Colored Nunmber",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Colored Shadow",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_health_buff",
+        "Label": "Health Buff",
+        "Type": "ComboBox",
+        "Value": "2",
+        "Options": [
+          {
+            "Label": "Buff Rectangle, Big Font",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Buff Rectangle, Small Font",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Buff Cross, Big Font",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Buff Cross, Small Font",
+            "Value": "3",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "No Cross, Big Font",
+            "Value": "4",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "No Cross, Small Font",
+            "Value": "5",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Static Rectangle, Big Font",
+            "Value": "6",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Static Rectangle, Small Font",
+            "Value": "7",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_ammo_uber_style",
+        "Label": "Health, Ammo, Uber",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "Default Style, Big Font",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Default Style, Small Font",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Health Cross",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Health Cross w/Team Colors",
+            "Value": "3",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Old m0rehud Style",
+            "Value": "4",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Uber Meter & Small Label Off",
+            "Value": "5",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_ammo_uber_style",
+        "Label": "Killstreak",
+        "Type": "ComboBox",
+        "Value": "2",
+        "Options": [
+          {
+            "Label": "Bottom Left",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Close to Killfeed",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Disabled",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_minmode",
+        "Label": "Toggle Minmode",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "scripts/hudanimations_hitmarker.txt": {
+            "uncomment": [
+              "StopEvent HitMarker",
+              "RunEvent HitMarker"
+            ]
+          }
+        }
+      },
+      {
+        "Name": "mh_scoreboard",
+        "Label": "Killstreak",
+        "Type": "ComboBox",
+        "Value": "1",
+        "Options": [
+          {
+            "Label": "Fosters",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "m0re",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_source_scheme",
+        "Label": "Source Scheme",
+        "Type": "ComboBox",
+        "Value": "3",
+        "Options": [
+          {
+            "Label": "Blue",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Cyan",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Fuchsia",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Green",
+            "Value": "3",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Orange",
+            "Value": "4",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Pink",
+            "Value": "5",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Purple",
+            "Value": "6",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Teal",
+            "Value": "7",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Yellow",
+            "Value": "8",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_source_scheme",
+        "Label": "Spectator",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "Left and Right Side",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Left Side Only",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_speedometer",
+        "Label": "Speedometer",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "ON - Absolute Speed",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "ON - Horizontal Speed",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_spy_disguise",
+        "Label": "Spy Disguise Image",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "ON",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_targetId",
+        "Label": "TargetId",
+        "Type": "ComboBox",
+        "Value": "1",
+        "Options": [
+          {
+            "Label": "Health Cross",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Health Numbers",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_themes",
+        "Label": "Themes",
+        "Type": "ComboBox",
+        "Value": "3",
+        "Options": [
+          {
+            "Label": "Blue",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Cyan",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Green",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Green & Fuchsia",
+            "Value": "3",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Orange",
+            "Value": "4",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Pink",
+            "Value": "5",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Purple",
+            "Value": "6",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Teal",
+            "Value": "7",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Yellow",
+            "Value": "8",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_match_status",
+        "Label": "Match Status",
+        "Type": "ComboBox",
+        "Value": "2",
+        "Options": [
+          {
+            "Label": "Health Bar Big",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "Health Bar Small",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Health Bar Static",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "Names ON",
+            "Value": "3",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_timer",
+        "Label": "Timer Background",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "ON",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_transparent_viewmodels",
+        "Label": "Transparent Viewmodels",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "ON",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "mh_uber_counters",
+        "Label": "Uber Counters",
+        "Type": "ComboBox",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_4x3/",
+              "NewName": "^customizations/#resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "ON",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "^customizations/#resolutions/_16x9/",
+              "NewName": "^customizations/#resolutions/16x9/"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
