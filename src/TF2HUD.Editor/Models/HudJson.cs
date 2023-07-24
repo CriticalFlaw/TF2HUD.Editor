@@ -36,6 +36,7 @@ namespace HUDEditor.Models
     public class Controls
     {
         [JsonPropertyName("ComboFiles")] public string[] ComboFiles;
+        [JsonPropertyName("ComboDirectories")] public string[] ComboDirectories;
         public UIElement Control;
         [JsonPropertyName("FileName")] public string FileName;
         [JsonPropertyName("Files")] public JObject Files;

@@ -228,12 +228,10 @@ namespace HUDEditor.Classes
                                     if (option.RenameFile.OldName.EndsWith('/'))
                                     {
                                         if (Directory.Exists(path + option.RenameFile.NewName))
-                                            Directory.Move(path + option.RenameFile.NewName,
-                                                path + option.RenameFile.OldName);
+                                            Directory.Move(path + option.RenameFile.NewName, path + option.RenameFile.OldName);
 
                                         if (string.Equals(option.Value, setting.Value))
-                                            Directory.Move(path + option.RenameFile.OldName,
-                                                path + option.RenameFile.NewName);
+                                            Directory.Move(path + option.RenameFile.OldName, path + option.RenameFile.NewName);
                                     }
                                     else
                                     {
@@ -250,25 +248,26 @@ namespace HUDEditor.Classes
                                 // Move every file assigned to this control back to the customization folder first.
                                 foreach (string file in fileNames)
                                 {
-                                    var name = file.Replace(".res", string.Empty);
-                                    if (Directory.Exists(enabled + $"\\{name}"))
-                                        Directory.Move(enabled + $"\\{name}", custom + $"\\{name}");
-                                    else if (File.Exists(enabled + $"\\{name}.res"))
-                                        File.Move(enabled + $"\\{name}.res", custom + $"\\{name}.res", true);
+                                    var dir = file.Replace(".res", string.Empty);
+                                    if (Directory.Exists(enabled + $"\\{dir}"))
+                                        Directory.Move(enabled + $"\\{dir}", custom + $"\\{dir}");
+                                    else if (File.Exists(enabled + $"\\{file}"))
+                                        File.Move(enabled + $"\\{file}", custom + $"\\{file}", true);
                                 }
 
-                                // Only move the files for the control option selected by the user.
-                                if (!string.Equals(setting.Value, "0"))
+                                var name = control.Options[int.Parse(setting.Value)].FileName;
+                                if (string.IsNullOrWhiteSpace(name)) break;
+
+                                name = name.Replace(".res", string.Empty);
+                                if (Directory.Exists(custom + $"\\{name}"))
                                 {
-                                    var name = control.Options[int.Parse(setting.Value)].FileName;
-                                    if (string.IsNullOrWhiteSpace(name)) break;
-
-                                    name = name.Replace(".res", string.Empty);
-                                    if (Directory.Exists(custom + $"\\{name}"))
+                                    if (control.ComboDirectories is not null)
+                                        CopyDirectory(custom + $"\\{name}", enabled);
+                                    else
                                         Directory.Move(custom + $"\\{name}", enabled + $"\\{name}");
-                                    else if (File.Exists(custom + $"\\{name}.res"))
-                                        File.Move(custom + $"\\{name}.res", enabled + $"\\{name}.res", true);
                                 }
+                                else if (File.Exists(custom + $"\\{name}.res"))
+                                    File.Move(custom + $"\\{name}.res", enabled + $"\\{name}.res", true);
 
                                 break;
                         }
@@ -784,6 +783,33 @@ namespace HUDEditor.Classes
             catch (Exception e)
             {
                 MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString("error_transparent_vm"), e.Message));
+            }
+        }
+
+        /// <summary>
+        ///     Function for copying multiple files and subdirectories, recursively.
+        /// </summary>
+        static void CopyDirectory(string source, string destination)
+        {
+            // Get information about the source directory.
+            var dir = new DirectoryInfo(source);
+
+            // Cache directories before we start copying.
+            var dirs = dir.GetDirectories();
+
+            // Get the files in the source directory and copy to the destination directory
+            foreach (var file in dir.GetFiles())
+            {
+                string targetFilePath = Path.Combine(destination, file.Name);
+                if (file.Name.Contains(".jpg") || file.Name.Contains(".png")) continue;
+                file.CopyTo(targetFilePath, true);
+            }
+
+            // Recursively call this method copy subdirectories.
+            foreach (var subDir in dirs)
+            {
+                string newDestinationDir = Path.Combine(destination, subDir.Name);
+                CopyDirectory(subDir.FullName, newDestinationDir);
             }
         }
     }

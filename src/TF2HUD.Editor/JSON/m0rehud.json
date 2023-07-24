@@ -37,7 +37,7 @@
         "Label": "Font",
         "Type": "ComboBox",
         "Value": "15",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Fonts\\[Font] Alternate Gothic",
           "Fonts\\[Font] Avenir",
           "Fonts\\[Font] Catamaran",
@@ -173,7 +173,7 @@
         "Label": "Head Counter",
         "Type": "ComboBox",
         "Value": "0",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Heads Counter\\[Counter] Bottom Right (Default ON)",
           "Heads Counter\\[Counter] Under Ammo"
         ],
@@ -210,7 +210,7 @@
         "Label": "Scoreboard",
         "Type": "ComboBox",
         "Value": "1",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Scoreboards\\[Scoreboard] Fosters",
           "Scoreboards\\[Scoreboard] m0re (Default ON)"
         ],
@@ -232,7 +232,7 @@
         "Label": "Source Scheme",
         "Type": "ComboBox",
         "Value": "3",
-        "ComboFiles": [
+        "ComboDirectories": [
           "SourceSchemes\\[SourceScheme] Blue",
           "SourceSchemes\\[SourceScheme] Cyan",
           "SourceSchemes\\[SourceScheme] Fuchsia",
@@ -296,7 +296,7 @@
         "Label": "Spectator",
         "Type": "ComboBox",
         "Value": "0",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Spectator\\[SpectatorHUD] Leftside and Right Side (Default ON)",
           "Spectator\\[SpectatorHUD] Leftside Only"
         ],
@@ -318,7 +318,7 @@
         "Label": "Speedometer",
         "Type": "ComboBox",
         "Value": "0",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Speedometer\\[Speed] Speedometer OFF (Default ON)",
           "Speedometer\\[Speed] Speedometer ON - Absolute Speed",
           "Speedometer\\[Speed] Speedometer ON - Horizontal Speed"
@@ -346,7 +346,7 @@
         "Label": "Spy Disguise Image",
         "Type": "ComboBox",
         "Value": "0",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Spy Disguise\\[Disguise] Spy Disguise Image OFF (Default ON)",
           "Spy Disguise\\[Disguise] Spy Disguise Image ON"
         ],
@@ -368,7 +368,7 @@
         "Label": "TargetId",
         "Type": "ComboBox",
         "Value": "1",
-        "ComboFiles": [
+        "ComboDirectories": [
           "TargetID\\[TargetID] Health Cross",
           "TargetID\\[TargetID] Health Numbers (Default ON)"
         ],
@@ -390,7 +390,7 @@
         "Label": "Themes",
         "Type": "ComboBox",
         "Value": "3",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Themes\\[Theme] Blue",
           "Themes\\[Theme] Cyan",
           "Themes\\[Theme] Green",
@@ -460,7 +460,7 @@
         "Label": "Match Status",
         "Type": "ComboBox",
         "Value": "2",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Timers & Match Status\\[MatchStatus] HealthBar Big",
           "Timers & Match Status\\[MatchStatus] HealthBar Small",
           "Timers & Match Status\\[MatchStatus] HealthBar Static (DefaultON)",
@@ -494,7 +494,7 @@
         "Label": "Timer Background",
         "Type": "ComboBox",
         "Value": "0",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Timers & Match Status\\[Timer] Background OFF (DefaultON)",
           "Timers & Match Status\\[Timer] Background ON"
         ],
@@ -516,7 +516,7 @@
         "Label": "Transparent Viewmodels",
         "Type": "ComboBox",
         "Value": "0",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Transparent Viewmodels\\[Viewmodel] Transparent Viewmodels OFF (Default ON)",
           "Transparent Viewmodels\\[Viewmodel] Transparent Viewmodels ON"
         ],
@@ -684,7 +684,7 @@
         "Label": "Health Buff",
         "Type": "ComboBox",
         "Value": "2",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Health Ammo Uber Animation Style\\[Health Buff] Animated Buff Rectangle + Big Font",
           "Health Ammo Uber Animation Style\\[Health Buff] Animated Buff Rectangle + Small Font",
           "Health Ammo Uber Animation Style\\[Health Buff] Buff Cross + Big Font (Default ON)",
@@ -840,7 +840,7 @@
         "Label": "General Style",
         "Type": "ComboBox",
         "Value": "1",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Health Ammo Uber Animation Style\\[General Style] Colored Number",
           "Health Ammo Uber Animation Style\\[General Style] Colored Shadow (Default ON)"
         ],
@@ -862,7 +862,7 @@
         "Label": "Health, Ammo, Uber",
         "Type": "ComboBox",
         "Value": "0",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Health Ammo Uber Style\\[Health - Ammo - Uber] Default Style, Big Font (Default ON)",
           "Health Ammo Uber Style\\[Health - Ammo - Uber] Default Style, Small Font",
           "Health Ammo Uber Style\\[Health] Health Cross",
@@ -908,7 +908,7 @@
         "Label": "Killstreak",
         "Type": "ComboBox",
         "Value": "2",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Killstreak\\[Killstreak] Counter Bottom Left",
           "Killstreak\\[Killstreak] Counter Close To The Killfeed",
           "Killstreak\\[Killstreak] Counter Disabled (Default ON)"
@@ -977,7 +977,7 @@
         "Label": "Uber Counters",
         "Type": "ComboBox",
         "Value": "0",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Uber Counter\\[Counter] Uber Counter OFF (Default ON)",
           "Uber Counter\\[Counter] Uber Counter ON"
         ],
@@ -1096,7 +1096,7 @@
         "Label": "Damage Numbers",
         "Type": "ComboBox",
         "Value": "4",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Damage\\[Damage Numbers] Big",
           "Damage\\[Damage Numbers] Big Minusless",
           "Damage\\[Damage Numbers] Medium",
@@ -1142,7 +1142,7 @@
         "Label": "Last Damage Done",
         "Type": "ComboBox",
         "Value": "3",
-        "ComboFiles": [
+        "ComboDirectories": [
           "Damage\\[Last Damage Done] Health Cross",
           "Damage\\[Last Damage Done] Minmode",
           "Damage\\[Last Damage Done] Normal",
