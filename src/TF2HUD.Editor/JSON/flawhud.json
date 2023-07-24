@@ -662,6 +662,54 @@
         }
       },
       {
+        "Name": "fh_min_item_meters",
+        "Label": "Minimal Item Meters",
+        "Type": "Checkbox",
+        "ToolTip": "Expand the scoreboard to show 32 players.",
+        "Value": "true",
+        "Restart": false,
+        "Files": {
+          "resource/ui/huditemeffectmeter.res": {
+            "HudItemEffectMeter": {
+              "xpos": {
+                "true": "c150",
+                "false": "c-55"
+              },
+              "ypos": {
+                "true": "c97",
+                "false": "c125"
+              }
+            },
+            "ItemEffectMeter": {
+              "ypos": {
+                "true": "8",
+                "false": "0"
+              },
+              "tall": {
+                "true": "2",
+                "false": "8"
+              }
+            }
+          },
+          "resource/ui/huditemeffectmeter_cleaver.res": {
+            "HudItemEffectMeter": {
+              "ypos": {
+                "true": "c108",
+                "false": "c115"
+              }
+            }
+          },
+          "resource/ui/huditemeffectmeter_sodapopper.res": {
+            "HudItemEffectMeter": {
+              "ypos": {
+                "true": "c86",
+                "false": "c135"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_centered_mvm_currency",
         "Label": "Centered MvM Currency",
         "Type": "Checkbox",
