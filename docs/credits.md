@@ -7,6 +7,7 @@ title: Credits
 * [Revan](https://github.com/cooolbros) - Design, Code, Documentation
 * [mastercoms](https://github.com/mastercoms) - Transparent Viewmodels Add-On
 * [Zeesastrous](https://github.com/Zeesastrous) - Project Banner
+* [hypnotize](https://github.com/Hypnootize) - Crosshairs and Icons
 
 ## HUD Support
 * [hypnotize](https://github.com/Hypnootize) - hypnotize-hud
@@ -15,6 +16,10 @@ title: Credits
 * [Zeesastrous](https://github.com/Zeesastrous) - zeeshud
 
 ## Localization
-* [Blueberryy](https://github.com/Blueberryy) - Russian Translations
-* [tacokete](https://github.com/tacokete) - French Translations
-* [KayaDLX](https://github.com/KayaDLX) - French Translations
+* [Blueberryy](https://github.com/Blueberryy) - Russian
+* [tacokete](https://github.com/tacokete) - French
+* [KayaDLX](https://github.com/KayaDLX) - French
+* [Tiagonix](https://github.com/Tiagonix) - Brazillian Portuguese
+* [thejaviertc](https://github.com/thejaviertc) - Spanish
+* [SignorUpB](https://github.com/SignorUpB) - Italian
+* [HotoCocoaco](https://github.com/HotoCocoaco) - Simplified Chinese
