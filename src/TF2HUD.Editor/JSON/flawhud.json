@@ -862,8 +862,8 @@
               },
               "resource/ui/huddemomancharge.res": {
                 "ChargeMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c145"
+                  "xpos": "0",
+                  "ypos": "8"
                 }
               },
               "resource/ui/huddemomanpipes.res": {
@@ -872,32 +872,28 @@
                   "ypos": "c100"
                 },
                 "PipesPresentPanel": {
-                  "xpos": "c-20",
-                  "ypos": "c125"
+                  "xpos": "c147",
+                  "ypos": "r74"
                 }
               },
               "resource/ui/huditemeffectmeter.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c135"
+                  "xpos": "c150",
+                  "ypos": "c108"
                 }
               },
               "resource/ui/huditemeffectmeter_cleaver.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c145"
+                  "ypos": "c97"
                 }
               },
               "resource/ui/huditemeffectmeter_demoman.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c140",
+                  "xpos": "c190",
                   "ypos": "r75"
                 },
-                "ItemEffectMeterLabel": {
-                  "visible": "1",
-                  "enabled": "1"
-                },
                 "ItemEffectMeterCount": {
-                  "xpos": "46"
+                  "xpos": "17"
                 },
                 "StreakIcon": {
                   "visible": "0",
@@ -910,13 +906,13 @@
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c200",
+                  "xpos": "c227",
                   "ypos": "r75"
                 }
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c125"
+                  "ypos": "c86"
                 }
               },
               "resource/ui/hudplayerclass.res": {
@@ -928,7 +924,7 @@
                   "ypos": "r200"
                 },
                 "CarryingWeapon": {
-                  "xpos": "100"
+                  "xpos": "0"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -978,8 +974,8 @@
               },
               "resource/ui/hudrocketpack.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c115"
+                  "xpos": "c85",
+                  "ypos": "110"
                 }
               },
               "resource/ui/hudspellselection.res": {
@@ -1065,10 +1061,6 @@
                   "xpos": "125",
                   "ypos": "r30"
                 },
-                "ItemEffectMeterLabel": {
-                  "visible": "0",
-                  "enabled": "0"
-                },
                 "ItemEffectMeterCount": {
                   "xpos": "20"
                 },
@@ -1117,13 +1109,13 @@
                 "ChargeLabel": {
                   "ypos": "0",
                   "textAlignment": "east",
-                  "font": "FontBold50",
+                  "font": "FontBold48",
                   "pin_corner_to_sibling": "PIN_TOPLEFT",
                   "pin_to_sibling_corner": "PIN_TOPLEFT"
                 },
                 "ChargeLabelShadow": {
                   "textAlignment": "east",
-                  "font": "FontBold50"
+                  "font": "FontBold48"
                 },
                 "IndividualChargesLabel": {
                   "ypos": "13",
@@ -1219,13 +1211,13 @@
                   "xpos": "9999"
                 },
                 "HealthBG": {
-                  "bgcolor_override": "HudBlack"
+                  "bgcolor_override": "BGBlack"
                 },
                 "PlayerStatusHealthBonusImage": {
                   "xpos": "9999"
                 },
                 "PlayerHealthValue": {
-                  "font": "FontBold50"
+                  "font": "FontBold48"
                 },
                 "PlayerHealthShadow": {
                   "font": "ScanlineShadow"
@@ -1233,7 +1225,7 @@
               },
               "resource/ui/hudammoweapons.res": {
                 "AmmoBG": {
-                  "bgcolor_override": "HudBlack"
+                  "bgcolor_override": "BGBlack"
                 },
                 "AmmoInClipShadow": {
                   "font": "ScanlineShadow"
@@ -1278,10 +1270,10 @@
                   "xpos": "9999"
                 },
                 "PlayerHealthValue": {
-                  "font": "FontBold50"
+                  "font": "FontBold48"
                 },
                 "PlayerHealthShadow": {
-                  "font": "FontBold50"
+                  "font": "FontBold48"
                 }
               },
               "resource/ui/hudammoweapons.res": {
@@ -1289,13 +1281,13 @@
                   "bgcolor_override": "Transparent"
                 },
                 "AmmoInClipShadow": {
-                  "font": "FontBold50"
+                  "font": "FontBold48"
                 },
                 "AmmoInReserveShadow": {
                   "font": "FontBold22"
                 },
                 "AmmoNoClipShadow": {
-                  "font": "FontBold50"
+                  "font": "FontBold48"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1339,7 +1331,7 @@
               },
               "resource/ui/hudammoweapons.res": {
                 "AmmoBG": {
-                  "bgcolor_override": "HudBlack"
+                  "bgcolor_override": "BGBlack"
                 },
                 "AmmoInClipShadow": {
                   "font": "ScanlineShadow"
