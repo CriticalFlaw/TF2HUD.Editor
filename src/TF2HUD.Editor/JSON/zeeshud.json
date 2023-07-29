@@ -16,7 +16,6 @@
     "6 6 3 3 1 1"
   ],
   "Links": {
-    "Update": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip", // TODO: Remove
     "GitHub": "https://github.com/Zeesastrous/ZeesHUD",
     "TF2Huds": "https://tf2huds.dev/hud/ZeesHUD",
     "ComfigHuds": "https://comfig.app/huds/page/zeeshud/",

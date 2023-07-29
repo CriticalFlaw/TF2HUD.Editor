@@ -156,6 +156,12 @@
                   "type": "string"
                 }
               },
+              "ComboDirectories": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "Restart": {
                 "type": "boolean"
               },

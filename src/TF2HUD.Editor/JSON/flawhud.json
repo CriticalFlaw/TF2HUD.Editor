@@ -40,7 +40,7 @@
     "HUD Colors": [
       {
         "Name": "fh_color_primary",
-        "Label": "Primary Color",
+        "Label": "Theme Color",
         "Type": "ColorPicker",
         "ToolTip": "Primary theme and text color.",
         "Value": "235 226 202 255",
@@ -61,7 +61,7 @@
         "Label": "UberCharge",
         "Type": "ColorPicker",
         "ToolTip": "Color of the UberCharge meter.",
-        "Value": "0 191 121 255",
+        "Value": "0 225 165 255",
         "Restart": true,
         "Pulse": true,
         "Files": {
@@ -484,10 +484,6 @@
               "visible": {
                 "true": "1",
                 "false": "0"
-              },
-              "enabled": {
-                "true": "1",
-                "false": "0"
               }
             }
           }
@@ -522,10 +518,6 @@
               "visible": {
                 "true": "1",
                 "false": "0"
-              },
-              "enabled": {
-                "true": "1",
-                "false": "0"
               }
             }
           }
@@ -541,26 +533,16 @@
           "resource/ui/basechat.res": {
             "HudChat": {
               "ypos": {
-                "true": "r175",
+                "true": "c-55",
                 "false": "15"
               }
             }
           },
           "scripts/hudlayout.res": {
-            "DisguiseStatus": {
+            "BuildingStatusAnchor": {
               "ypos": {
-                "true": "r45",
-                "false": "r160"
-              }
-            },
-            "HudAchievementTracker": {
-              "NormalY": {
-                "true": "15",
-                "false": "310"
-              },
-              "EngineerY": {
-                "true": "15",
-                "false": "310"
+                "true": "0",
+                "false": "c-130"
               }
             }
           }
@@ -652,10 +634,74 @@
               "visible": {
                 "true": "1",
                 "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_min_item_meters",
+        "Label": "Minimal Item Meters",
+        "Type": "Checkbox",
+        "ToolTip": "Use a minimal style for the item meters.",
+        "Value": "true",
+        "Restart": false,
+        "Files": {
+          "resource/ui/huditemeffectmeter.res": {
+            "HudItemEffectMeter": {
+              "xpos": {
+                "true": "c150",
+                "false": "c-55"
               },
-              "enabled": {
-                "true": "1",
+              "ypos": {
+                "true": "c97",
+                "false": "c125"
+              }
+            },
+            "ItemEffectMeter": {
+              "ypos": {
+                "true": "8",
                 "false": "0"
+              },
+              "tall": {
+                "true": "2",
+                "false": "8"
+              }
+            }
+          },
+          "resource/ui/huditemeffectmeter_cleaver.res": {
+            "HudItemEffectMeter": {
+              "ypos": {
+                "true": "c108",
+                "false": "c115"
+              }
+            }
+          },
+          "resource/ui/huditemeffectmeter_sodapopper.res": {
+            "HudItemEffectMeter": {
+              "ypos": {
+                "true": "c86",
+                "false": "c135"
+              }
+            }
+          },
+          "scripts/hudlayout.res": {
+            "CMainTargetID": {
+              "ypos": {
+                "true": "c50",
+                "false": "c30"
+              }
+            },
+            "CSpectatorTargetID": {
+              "ypos": {
+                "true": "c80",
+                "false": "c60"
+              }
+            },
+            "CSecondaryTargetID": {
+              "ypos": {
+                "true": "c80",
+                "false": "c60"
               }
             }
           }
@@ -668,89 +714,21 @@
         "ToolTip": "Toggle Mann vs. Machine currency position.",
         "Value": "false",
         "Files": {
-          "resource/ui/huditemeffectmeter_powerupbottle.res": {
-            "HudItemEffectMeter": {
-              "xpos": {
-                "true": "152",
-                "false": "142"
-              },
-              "wide": {
-                "true": "30",
-                "false": "40"
-              }
-            },
-            "PowerupBG": {
-              "tall": {
-                "true": "15",
-                "false": "30"
-              }
-            },
-            "ItemEffectIcon": {
-              "xpos": {
-                "true": "1",
-                "false": "0"
-              },
-              "ypos": {
-                "true": "2",
-                "false": "3"
-              },
-              "wide": {
-                "true": "12",
-                "false": "25"
-              },
-              "tall": {
-                "true": "12",
-                "false": "25"
-              }
-            },
-            "ItemEffectMeterCount": {
-              "xpos": {
-                "true": "15",
-                "false": "25"
-              },
-              "ypos": {
-                "true": "2",
-                "false": "0"
-              },
-              "tall": {
-                "true": "12",
-                "false": "30"
-              },
-              "font": {
-                "true": "FontBold14",
-                "false": "FontBold22"
-              }
-            }
-          },
           "resource/ui/hudmannvsmachinestatus.res": {
             "InWorldCurrencyPanel": {
               "xpos": {
-                "true": "c-50",
-                "false": "c-245"
+                "true": "c-52",
+                "false": "c-250"
               },
               "ypos": {
-                "true": "c10",
-                "false": "r25"
+                "true": "c5",
+                "false": "r60"
               }
             }
           },
           "resource/ui/mvminworldcurrency.res": {
-            "CurrencyBG": {
-              "visible": {
-                "true": "0",
-                "false": "1"
-              },
-              "enabled": {
-                "true": "0",
-                "false": "1"
-              }
-            },
             "CurrencyLabel": {
               "visible": {
-                "true": "0",
-                "false": "1"
-              },
-              "enabled": {
                 "true": "0",
                 "false": "1"
               }
@@ -768,9 +746,9 @@
               }
             },
             "CurrencyBadShadow": {
-              "visible": {
-                "true": "1",
-                "false": "0"
+              "textAlignment": {
+                "true": "center",
+                "false": "east"
               }
             }
           }
@@ -882,63 +860,42 @@
                   "ypos": "c100"
                 }
               },
-              "resource/ui/huddemomancharge.res": {
-                "ChargeMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c145"
-                }
-              },
               "resource/ui/huddemomanpipes.res": {
                 "ChargeMeter": {
                   "xpos": "c-55",
                   "ypos": "c100"
                 },
                 "PipesPresentPanel": {
-                  "xpos": "c-20",
-                  "ypos": "c125"
+                  "xpos": "c147",
+                  "ypos": "r74"
                 }
               },
               "resource/ui/huditemeffectmeter.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c135"
+                  "xpos": "c150",
+                  "ypos": "c108"
                 }
               },
               "resource/ui/huditemeffectmeter_cleaver.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c145"
+                  "ypos": "c97"
                 }
               },
               "resource/ui/huditemeffectmeter_demoman.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c140",
+                  "xpos": "c190",
                   "ypos": "r75"
-                },
-                "ItemEffectMeterLabel": {
-                  "visible": "1",
-                  "enabled": "1"
-                },
-                "ItemEffectMeterCount": {
-                  "xpos": "46"
-                },
-                "StreakIcon": {
-                  "visible": "0",
-                  "enabled": "0"
-                },
-                "StreakIconShadow": {
-                  "visible": "0",
-                  "enabled": "0"
                 }
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c200",
+                  "xpos": "c227",
                   "ypos": "r75"
                 }
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c125"
+                  "ypos": "c86"
                 }
               },
               "resource/ui/hudplayerclass.res": {
@@ -950,7 +907,7 @@
                   "ypos": "r200"
                 },
                 "CarryingWeapon": {
-                  "xpos": "100"
+                  "xpos": "0"
                 }
               },
               "resource/ui/hudplayerhealth.res": {
@@ -1000,8 +957,8 @@
               },
               "resource/ui/hudrocketpack.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c115"
+                  "xpos": "c85",
+                  "ypos": "110"
                 }
               },
               "resource/ui/hudspellselection.res": {
@@ -1019,7 +976,7 @@
                   "ypos": "r135"
                 },
                 "HudDemomanCharge": {
-                  "ypos": "0"
+                  "ypos": "c97"
                 },
                 "CHudAccountPanel": {
                   "xpos": "c-50",
@@ -1030,13 +987,14 @@
                   "ypos": "c54"
                 },
                 "DisguiseStatus": {
-                  "ypos": "r160"
+                  "xpos": "c150",
+                  "ypos": "c97"
                 },
                 "CSpectatorTargetID": {
-                  "ypos": "c50"
+                  "ypos": "c60"
                 },
                 "CSecondaryTargetID": {
-                  "ypos": "c50"
+                  "ypos": "c60"
                 },
                 "HudSpellMenu": {
                   "xpos": "c-210",
@@ -1053,12 +1011,6 @@
                 "DamageAccountValue": {
                   "xpos": "10",
                   "ypos": "r75"
-                }
-              },
-              "resource/ui/huddemomancharge.res": {
-                "ChargeMeter": {
-                  "xpos": "r120",
-                  "ypos": "c105"
                 }
               },
               "resource/ui/huddemomanpipes.res": {
@@ -1086,21 +1038,6 @@
                 "HudItemEffectMeter": {
                   "xpos": "125",
                   "ypos": "r30"
-                },
-                "ItemEffectMeterLabel": {
-                  "visible": "0",
-                  "enabled": "0"
-                },
-                "ItemEffectMeterCount": {
-                  "xpos": "20"
-                },
-                "StreakIcon": {
-                  "visible": "1",
-                  "enabled": "1"
-                },
-                "StreakIconShadow": {
-                  "visible": "1",
-                  "enabled": "1"
                 }
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
@@ -1192,7 +1129,8 @@
                   "ypos": "r65"
                 },
                 "HudDemomanCharge": {
-                  "ypos": "60"
+                  "xpos": "r120",
+                  "ypos": "r75"
                 },
                 "CHudAccountPanel": {
                   "xpos": "r110",
@@ -1241,7 +1179,7 @@
                   "xpos": "9999"
                 },
                 "HealthBG": {
-                  "bgcolor_override": "HudBlack"
+                  "bgcolor_override": "BGBlack"
                 },
                 "PlayerStatusHealthBonusImage": {
                   "xpos": "9999"
@@ -1255,7 +1193,7 @@
               },
               "resource/ui/hudammoweapons.res": {
                 "AmmoBG": {
-                  "bgcolor_override": "HudBlack"
+                  "bgcolor_override": "BGBlack"
                 },
                 "AmmoInClipShadow": {
                   "font": "ScanlineShadow"
@@ -1361,7 +1299,7 @@
               },
               "resource/ui/hudammoweapons.res": {
                 "AmmoBG": {
-                  "bgcolor_override": "HudBlack"
+                  "bgcolor_override": "BGBlack"
                 },
                 "AmmoInClipShadow": {
                   "font": "ScanlineShadow"

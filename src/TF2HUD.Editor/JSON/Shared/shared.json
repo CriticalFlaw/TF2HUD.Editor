@@ -69,29 +69,6 @@
     ]
   },
   {
-    "Name": "m0rehud",
-    "Description": "Clean, functional and minimalistic HUD created by m0re.",
-    "Author": "Hypnotize",
-    "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-banner.webp",
-    "Links": {
-      "Update": "https://github.com/Hypnootize/m0rehud/archive/refs/heads/master.zip", // TODO: Remove
-      "GitHub": "https://github.com/Hypnootize/m0rehud",
-      "TF2Huds": "https://tf2huds.dev/hud/m0re-Hud",
-      "Download": [
-        {
-          "Source": "GitHub",
-          "Link": "https://github.com/Hypnootize/m0rehud/archive/refs/heads/master.zip"
-        }
-      ]
-    },
-    "Screenshots": [
-      "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-menu.webp",
-      "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-buff.webp",
-      "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-scoreboard.webp",
-      "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-spectator.webp"
-    ]
-  },
-  {
     "Name": "7HUD",
     "Description": "Originally based off an old yA version. Hope you guys like it. Updates are typically delayed because I'm a full-time student, but I love TF2 and can't live without this HUD anymore, so you can always expect an update at some point. You should grab 4Plug to take full advantage of the customization of this hud.",
     "Author": "sevin",

@@ -199,7 +199,7 @@ namespace HUDEditor.Classes
         {
             if (!string.IsNullOrWhiteSpace(control.FileName))
                 return control.FileName.Replace(".res", string.Empty);
-            return control.ComboFiles;
+            return (control.ComboDirectories is not null) ? control.ComboDirectories : control.ComboFiles;
         }
 
         /// <summary>

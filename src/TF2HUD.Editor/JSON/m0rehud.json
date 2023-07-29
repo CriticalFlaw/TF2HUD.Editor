@@ -1,0 +1,1257 @@
+{
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "m0re, Hypnotize",
+  "Description": "Clean, functional and minimalistic HUD created by m0re.",
+  "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-banner.webp",
+  "Screenshots": [
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-menu.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-buff.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-scoreboard.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-spectator.webp"
+  ],
+  "Background": "https://i.imgur.com/vZmMuKh.png",
+  "Layout": [
+    "0 0 1 1",
+    "6 6 1 1",
+    "4 4 2 2",
+    "5 3 2 2"
+  ],
+  "Links": {
+    "GitHub": "https://github.com/Hypnootize/m0rehud",
+    "ComfigHuds": "https://comfig.app/huds/page/m0rehud/",
+    "TF2Huds": "https://tf2huds.dev/hud/m0re-Hud",
+    "Download": [
+      {
+        "Source": "GitHub",
+        "Link": "https://github.com/Hypnootize/m0rehud/archive/refs/heads/master.zip"
+      }
+    ]
+  },
+  "CustomizationsFolder": "customizations",
+  "EnabledFolder": "",
+  "Controls": {
+    "Customizations": [
+      {
+        "Name": "mh_font",
+        "Label": "Font",
+        "Type": "ComboBox",
+        "Value": "15",
+        "ComboDirectories": [
+          "Fonts\\[Font] Alternate Gothic",
+          "Fonts\\[Font] Avenir",
+          "Fonts\\[Font] Catamaran",
+          "Fonts\\[Font] Cerbetica",
+          "Fonts\\[Font] Days",
+          "Fonts\\[Font] Handel Gothic",
+          "Fonts\\[Font] Lato",
+          "Fonts\\[Font] Maven Pro",
+          "Fonts\\[Font] Neutra",
+          "Fonts\\[Font] Noto",
+          "Fonts\\[Font] Product",
+          "Fonts\\[Font] Product Bold",
+          "Fonts\\[Font] Renogare",
+          "Fonts\\[Font] Roboto",
+          "Fonts\\[Font] Rubik",
+          "Fonts\\[Font] Surface (Default ON)",
+          "Fonts\\[Font] Surface Bold",
+          "Fonts\\[Font] Surface Sharpened",
+          "Fonts\\[Font] TF2",
+          "Fonts\\[Font] TF2 Bold",
+          "Fonts\\[Font] Ubuntu"
+        ],
+        "Options": [
+          {
+            "Label": "Alternate Gothic",
+            "Value": "0",
+            "FileName": "Fonts\\[Font] Alternate Gothic"
+          },
+          {
+            "Label": "Avenir",
+            "Value": "1",
+            "FileName": "Fonts\\[Font] Avenir"
+          },
+          {
+            "Label": "Catamaran",
+            "Value": "2",
+            "FileName": "Fonts\\[Font] Catamaran"
+          },
+          {
+            "Label": "Cerbetica",
+            "Value": "3",
+            "FileName": "Fonts\\[Font] Cerbetica"
+          },
+          {
+            "Label": "Days",
+            "Value": "4",
+            "FileName": "Fonts\\[Font] Days"
+          },
+          {
+            "Label": "Handel Gothic",
+            "Value": "5",
+            "FileName": "Fonts\\[Font] Handel Gothic"
+          },
+          {
+            "Label": "Lato",
+            "Value": "6",
+            "FileName": "Fonts\\[Font] Lato"
+          },
+          {
+            "Label": "Maven Pro",
+            "Value": "7",
+            "FileName": "Fonts\\[Font] Maven Pro"
+          },
+          {
+            "Label": "Neutra",
+            "Value": "8",
+            "FileName": "Fonts\\[Font] Neutra"
+          },
+          {
+            "Label": "Noto",
+            "Value": "9",
+            "FileName": "Fonts\\[Font] Noto"
+          },
+          {
+            "Label": "Product",
+            "Value": "10",
+            "FileName": "Fonts\\[Font] Product"
+          },
+          {
+            "Label": "Product Bold",
+            "Value": "11",
+            "FileName": "Fonts\\[Font] Product Bold"
+          },
+          {
+            "Label": "Renogare",
+            "Value": "12",
+            "FileName": "Fonts\\[Font] Renogare"
+          },
+          {
+            "Label": "Roboto",
+            "Value": "13",
+            "FileName": "Fonts\\[Font] Roboto"
+          },
+          {
+            "Label": "Rubik",
+            "Value": "14",
+            "FileName": "Fonts\\[Font] Rubik"
+          },
+          {
+            "Label": "Surface",
+            "Value": "15",
+            "FileName": "Fonts\\[Font] Surface (Default ON)"
+          },
+          {
+            "Label": "Surface Bold",
+            "Value": "16",
+            "FileName": "Fonts\\[Font] Surface Bold"
+          },
+          {
+            "Label": "Surface Sharpened",
+            "Value": "17",
+            "FileName": "Fonts\\[Font] Surface Sharpened"
+          },
+          {
+            "Label": "TF2",
+            "Value": "18",
+            "FileName": "Fonts\\[Font] TF2"
+          },
+          {
+            "Label": "TF2 Bold",
+            "Value": "19",
+            "FileName": "Fonts\\[Font] TF2 Bold"
+          },
+          {
+            "Label": "Ubuntu",
+            "Value": "20",
+            "FileName": "Fonts\\[Font] Ubuntu"
+          }
+        ]
+      },
+      {
+        "Name": "mh_counter",
+        "Label": "Head Counter",
+        "Type": "ComboBox",
+        "Value": "0",
+        "ComboDirectories": [
+          "Heads Counter\\[Counter] Bottom Right (Default ON)",
+          "Heads Counter\\[Counter] Under Ammo"
+        ],
+        "Options": [
+          {
+            "Label": "Bottom Right",
+            "Value": "0",
+            "FileName": "Heads Counter\\[Counter] Bottom Right (Default ON)"
+          },
+          {
+            "Label": "Under Ammo",
+            "Value": "1",
+            "FileName": "Heads Counter\\[Counter] Under Ammo"
+          }
+        ]
+      },
+
+      //{
+      //  "Name": "mh_minmode",
+      //  "Label": "Toggle Minmode",
+      //  "Type": "Checkbox",
+      //  "Value": "false",
+      //  "Files": {
+      //    "scripts/hudanimations_hitmarker.txt": {
+      //      "uncomment": [
+      //        "StopEvent HitMarker",
+      //        "RunEvent HitMarker"
+      //      ]
+      //    }
+      //  }
+      //},
+      {
+        "Name": "mh_scoreboard",
+        "Label": "Scoreboard",
+        "Type": "ComboBox",
+        "Value": "1",
+        "ComboDirectories": [
+          "Scoreboards\\[Scoreboard] Fosters",
+          "Scoreboards\\[Scoreboard] m0re (Default ON)"
+        ],
+        "Options": [
+          {
+            "Label": "Fosters",
+            "Value": "0",
+            "FileName": "Scoreboards\\[Scoreboard] Fosters"
+          },
+          {
+            "Label": "m0re",
+            "Value": "1",
+            "FileName": "Scoreboards\\[Scoreboard] m0re (Default ON)"
+          }
+        ]
+      },
+      {
+        "Name": "mh_source_scheme",
+        "Label": "Source Scheme",
+        "Type": "ComboBox",
+        "Value": "3",
+        "ComboDirectories": [
+          "SourceSchemes\\[SourceScheme] Blue",
+          "SourceSchemes\\[SourceScheme] Cyan",
+          "SourceSchemes\\[SourceScheme] Fuchsia",
+          "SourceSchemes\\[SourceScheme] Green",
+          "SourceSchemes\\[SourceScheme] Orange",
+          "SourceSchemes\\[SourceScheme] Pink",
+          "SourceSchemes\\[SourceScheme] Purple",
+          "SourceSchemes\\[SourceScheme] Teal",
+          "SourceSchemes\\[SourceScheme] Yellow"
+        ],
+        "Options": [
+          {
+            "Label": "Blue",
+            "Value": "0",
+            "FileName": "SourceSchemes\\[SourceScheme] Blue"
+          },
+          {
+            "Label": "Cyan",
+            "Value": "1",
+            "FileName": "SourceSchemes\\[SourceScheme] Cyan"
+          },
+          {
+            "Label": "Fuchsia",
+            "Value": "2",
+            "FileName": "SourceSchemes\\[SourceScheme] Fuchsia"
+          },
+          {
+            "Label": "Green",
+            "Value": "3",
+            "FileName": "SourceSchemes\\[SourceScheme] Green"
+          },
+          {
+            "Label": "Orange",
+            "Value": "4",
+            "FileName": "SourceSchemes\\[SourceScheme] Orange"
+          },
+          {
+            "Label": "Pink",
+            "Value": "5",
+            "FileName": "SourceSchemes\\[SourceScheme] Pink"
+          },
+          {
+            "Label": "Purple",
+            "Value": "6",
+            "FileName": "SourceSchemes\\[SourceScheme] Purple"
+          },
+          {
+            "Label": "Teal",
+            "Value": "7",
+            "FileName": "SourceSchemes\\[SourceScheme] Teal"
+          },
+          {
+            "Label": "Yellow",
+            "Value": "8",
+            "FileName": "SourceSchemes\\[SourceScheme] Yellow"
+          }
+        ]
+      },
+      {
+        "Name": "mh_spectator",
+        "Label": "Spectator",
+        "Type": "ComboBox",
+        "Value": "0",
+        "ComboDirectories": [
+          "Spectator\\[SpectatorHUD] Leftside and Right Side (Default ON)",
+          "Spectator\\[SpectatorHUD] Leftside Only"
+        ],
+        "Options": [
+          {
+            "Label": "Left and Right Side",
+            "Value": "0",
+            "FileName": "Spectator\\[SpectatorHUD] Leftside and Right Side (Default ON)"
+          },
+          {
+            "Label": "Left Side Only",
+            "Value": "1",
+            "FileName": "Spectator\\[SpectatorHUD] Leftside Only"
+          }
+        ]
+      },
+      {
+        "Name": "mh_speedometer",
+        "Label": "Speedometer",
+        "Type": "ComboBox",
+        "Value": "0",
+        "ComboDirectories": [
+          "Speedometer\\[Speed] Speedometer OFF (Default ON)",
+          "Speedometer\\[Speed] Speedometer ON - Absolute Speed",
+          "Speedometer\\[Speed] Speedometer ON - Horizontal Speed"
+        ],
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "FileName": "Speedometer\\[Speed] Speedometer OFF (Default ON)"
+          },
+          {
+            "Label": "ON - Absolute Speed",
+            "Value": "1",
+            "FileName": "Speedometer\\[Speed] Speedometer ON - Absolute Speed"
+          },
+          {
+            "Label": "ON - Horizontal Speed",
+            "Value": "2",
+            "FileName": "Speedometer\\[Speed] Speedometer ON - Horizontal Speed"
+          }
+        ]
+      },
+      {
+        "Name": "mh_spy_disguise",
+        "Label": "Spy Disguise Image",
+        "Type": "ComboBox",
+        "Value": "0",
+        "ComboDirectories": [
+          "Spy Disguise\\[Disguise] Spy Disguise Image OFF (Default ON)",
+          "Spy Disguise\\[Disguise] Spy Disguise Image ON"
+        ],
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "FileName": "Spy Disguise\\[Disguise] Spy Disguise Image OFF (Default ON)"
+          },
+          {
+            "Label": "ON",
+            "Value": "1",
+            "FileName": "Spy Disguise\\[Disguise] Spy Disguise Image ON"
+          }
+        ]
+      },
+      {
+        "Name": "mh_targetId",
+        "Label": "TargetId",
+        "Type": "ComboBox",
+        "Value": "1",
+        "ComboDirectories": [
+          "TargetID\\[TargetID] Health Cross",
+          "TargetID\\[TargetID] Health Numbers (Default ON)"
+        ],
+        "Options": [
+          {
+            "Label": "Health Cross",
+            "Value": "0",
+            "FileName": "TargetID\\[TargetID] Health Cross"
+          },
+          {
+            "Label": "Health Numbers",
+            "Value": "1",
+            "FileName": "TargetID\\[TargetID] Health Numbers (Default ON)"
+          }
+        ]
+      },
+      {
+        "Name": "mh_themes",
+        "Label": "Themes",
+        "Type": "ComboBox",
+        "Value": "3",
+        "ComboDirectories": [
+          "Themes\\[Theme] Blue",
+          "Themes\\[Theme] Cyan",
+          "Themes\\[Theme] Green",
+          "Themes\\[Theme] Green & Fuchsia (Default ON)",
+          "Themes\\[Theme] Orange",
+          "Themes\\[Theme] Pink",
+          "Themes\\[Theme] Purple",
+          "Themes\\[Theme] Teal",
+          "Themes\\[Theme] White",
+          "Themes\\[Theme] Yellow"
+        ],
+        "Options": [
+          {
+            "Label": "Blue",
+            "Value": "0",
+            "FileName": "Themes\\[Theme] Blue"
+          },
+          {
+            "Label": "Cyan",
+            "Value": "1",
+            "FileName": "Themes\\[Theme] Cyan"
+          },
+          {
+            "Label": "Green",
+            "Value": "2",
+            "FileName": "Themes\\[Theme] Green"
+          },
+          {
+            "Label": "Green & Fuchsia",
+            "Value": "3",
+            "FileName": "Themes\\[Theme] Green & Fuchsia (Default ON)"
+          },
+          {
+            "Label": "Orange",
+            "Value": "4",
+            "FileName": "Themes\\[Theme] Orange"
+          },
+          {
+            "Label": "Pink",
+            "Value": "5",
+            "FileName": "Themes\\[Theme] Pink"
+          },
+          {
+            "Label": "Purple",
+            "Value": "6",
+            "FileName": "Themes\\[Theme] Purple"
+          },
+          {
+            "Label": "Teal",
+            "Value": "7",
+            "FileName": "Themes\\[Theme] Teal"
+          },
+          {
+            "Label": "White",
+            "Value": "8",
+            "FileName": "Themes\\[Theme] White"
+          },
+          {
+            "Label": "Yellow",
+            "Value": "9",
+            "FileName": "Themes\\[Theme] Yellow"
+          }
+        ]
+      },
+      {
+        "Name": "mh_match_status",
+        "Label": "Match Status",
+        "Type": "ComboBox",
+        "Value": "2",
+        "ComboDirectories": [
+          "Timers & Match Status\\[MatchStatus] HealthBar Big",
+          "Timers & Match Status\\[MatchStatus] HealthBar Small",
+          "Timers & Match Status\\[MatchStatus] HealthBar Static (DefaultON)",
+          "Timers & Match Status\\[MatchStatus] Names ON"
+        ],
+        "Options": [
+          {
+            "Label": "Health Bar Big",
+            "Value": "0",
+            "FileName": "Timers & Match Status\\[MatchStatus] HealthBar Big"
+          },
+          {
+            "Label": "Health Bar Small",
+            "Value": "1",
+            "FileName": "Timers & Match Status\\[MatchStatus] HealthBar Small"
+          },
+          {
+            "Label": "Health Bar Static",
+            "Value": "2",
+            "FileName": "Timers & Match Status\\[MatchStatus] HealthBar Static (DefaultON)"
+          },
+          {
+            "Label": "Names ON",
+            "Value": "3",
+            "FileName": "Timers & Match Status\\[MatchStatus] Names ON"
+          }
+        ]
+      },
+      {
+        "Name": "mh_timer",
+        "Label": "Timer Background",
+        "Type": "ComboBox",
+        "Value": "0",
+        "ComboDirectories": [
+          "Timers & Match Status\\[Timer] Background OFF (DefaultON)",
+          "Timers & Match Status\\[Timer] Background ON"
+        ],
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "FileName": "Timers & Match Status\\[Timer] Background OFF (DefaultON)"
+          },
+          {
+            "Label": "ON",
+            "Value": "1",
+            "FileName": "Timers & Match Status\\[Timer] Background ON"
+          }
+        ]
+      },
+      {
+        "Name": "mh_transparent_viewmodels",
+        "Label": "Transparent Viewmodels",
+        "Type": "ComboBox",
+        "Value": "0",
+        "ComboDirectories": [
+          "Transparent Viewmodels\\[Viewmodel] Transparent Viewmodels OFF (Default ON)",
+          "Transparent Viewmodels\\[Viewmodel] Transparent Viewmodels ON"
+        ],
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "FileName": "Transparent Viewmodels\\[Viewmodel] Transparent Viewmodels OFF (Default ON)"
+          },
+          {
+            "Label": "ON",
+            "Value": "1",
+            "FileName": "Transparent Viewmodels\\[Viewmodel] Transparent Viewmodels ON"
+          }
+        ]
+      }
+    ],
+    "Health": [
+      {
+        "Name": "mh_health_numbers",
+        "Label": "Health Numbers",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Numbers": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_health_buff",
+        "Label": "Health Buff",
+        "Type": "ColorPicker",
+        "Value": "0 185 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Buff": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_health_buff_target",
+        "Label": "Health Buff Target",
+        "Type": "ColorPicker",
+        "Value": "0 215 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Buff Target": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_health_buff_spec",
+        "Label": "Health Buff Spec",
+        "Type": "ColorPicker",
+        "Value": "0 215 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Buff Spec": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_health_buff_killer",
+        "Label": "Health Buff Killer",
+        "Type": "ColorPicker",
+        "Value": "0 215 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Buff Killer": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_health_hurt",
+        "Label": "Health Hurt",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Hurt": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_health_hurt_target",
+        "Label": "Health Hurt Target",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Hurt Target": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_health_hurt_spec",
+        "Label": "Health Hurt Spec",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Hurt Spec": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_health_hurt_killer",
+        "Label": "Health Hurt Killer",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Hurt Killer": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_health_buff",
+        "Label": "Health Buff",
+        "Type": "ComboBox",
+        "Value": "2",
+        "ComboDirectories": [
+          "Health Ammo Uber Animation Style\\[Health Buff] Animated Buff Rectangle + Big Font",
+          "Health Ammo Uber Animation Style\\[Health Buff] Animated Buff Rectangle + Small Font",
+          "Health Ammo Uber Animation Style\\[Health Buff] Buff Cross + Big Font (Default ON)",
+          "Health Ammo Uber Animation Style\\[Health Buff] Buff Cross + Small Font",
+          "Health Ammo Uber Animation Style\\[Health Buff] No Buff Cross + Big Font",
+          "Health Ammo Uber Animation Style\\[Health Buff] No Buff Cross + Small Font",
+          "Health Ammo Uber Animation Style\\[Health Buff] Static Buff Rectangle + Big Font",
+          "Health Ammo Uber Animation Style\\[Health Buff] Static Buff Rectangle + Small Font"
+        ],
+        "Options": [
+          {
+            "Label": "Buff Rectangle, Big Font",
+            "Value": "0",
+            "FileName": "Health Ammo Uber Animation Style\\[Health Buff] Animated Buff Rectangle + Big Font"
+          },
+          {
+            "Label": "Buff Rectangle, Small Font",
+            "Value": "1",
+            "FileName": "Health Ammo Uber Animation Style\\[Health Buff] Animated Buff Rectangle + Small Font"
+          },
+          {
+            "Label": "Buff Cross, Big Font",
+            "Value": "2",
+            "FileName": "Health Ammo Uber Animation Style\\[Health Buff] Buff Cross + Big Font (Default ON)"
+          },
+          {
+            "Label": "Buff Cross, Small Font",
+            "Value": "3",
+            "FileName": "Health Ammo Uber Animation Style\\[Health Buff] Buff Cross + Small Font"
+          },
+          {
+            "Label": "No Cross, Big Font",
+            "Value": "4",
+            "FileName": "Health Ammo Uber Animation Style\\[Health Buff] No Buff Cross + Big Font"
+          },
+          {
+            "Label": "No Cross, Small Font",
+            "Value": "5",
+            "FileName": "Health Ammo Uber Animation Style\\[Health Buff] No Buff Cross + Small Font"
+          },
+          {
+            "Label": "Static Rectangle, Big Font",
+            "Value": "6",
+            "FileName": "Health Ammo Uber Animation Style\\[Health Buff] Static Buff Rectangle + Big Font"
+          },
+          {
+            "Label": "Static Rectangle, Small Font",
+            "Value": "7",
+            "FileName": "Health Ammo Uber Animation Style\\[Health Buff] Static Buff Rectangle + Small Font"
+          }
+        ]
+      }
+    ],
+    "Ammo": [
+      {
+        "Name": "mh_ammo_in_clip",
+        "Label": "Ammo In Clip",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_ammo_in_reserve",
+        "Label": "Ammo In Reserve",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_ammo_no_clip",
+        "Label": "Ammo No Clip",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo No Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_ammo_in_clip_low",
+        "Label": "Ammo In Clip Low",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Clip Low": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_ammo_in_reserve_low",
+        "Label": "Ammo In Reserve Low",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Reserve Low": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_ammo_no_clip_low",
+        "Label": "Ammo No Clip Low",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo No Clip Low": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_general_style",
+        "Label": "General Style",
+        "Type": "ComboBox",
+        "Value": "1",
+        "ComboDirectories": [
+          "Health Ammo Uber Animation Style\\[General Style] Colored Number",
+          "Health Ammo Uber Animation Style\\[General Style] Colored Shadow (Default ON)"
+        ],
+        "Options": [
+          {
+            "Label": "Colored Number",
+            "Value": "0",
+            "FileName": "Health Ammo Uber Animation Style\\[General Style] Colored Number"
+          },
+          {
+            "Label": "Colored Shadow",
+            "Value": "1",
+            "FileName": "Health Ammo Uber Animation Style\\[General Style] Colored Shadow (Default ON)"
+          }
+        ]
+      },
+      {
+        "Name": "mh_ammo_uber_style",
+        "Label": "Health, Ammo, Uber",
+        "Type": "ComboBox",
+        "Value": "0",
+        "ComboDirectories": [
+          "Health Ammo Uber Style\\[Health - Ammo - Uber] Default Style, Big Font (Default ON)",
+          "Health Ammo Uber Style\\[Health - Ammo - Uber] Default Style, Small Font",
+          "Health Ammo Uber Style\\[Health] Health Cross",
+          "Health Ammo Uber Style\\[Health] Health Cross With Team Colored Border",
+          "Health Ammo Uber Style\\[Ubercharge] Old m0rehud Style",
+          "Health Ammo Uber Style\\[Ubercharge] Uber Meter & Small Label Off"
+        ],
+        "Options": [
+          {
+            "Label": "Default Style, Big Font",
+            "Value": "0",
+            "FileName": "Health Ammo Uber Style\\[Health - Ammo - Uber] Default Style, Big Font (Default ON)"
+          },
+          {
+            "Label": "Default Style, Small Font",
+            "Value": "1",
+            "FileName": "Health Ammo Uber Style\\[Health - Ammo - Uber] Default Style, Small Font"
+          },
+          {
+            "Label": "Health Cross",
+            "Value": "2",
+            "FileName": "Health Ammo Uber Style\\[Health] Health Cross"
+          },
+          {
+            "Label": "Health Cross w/Team Colors",
+            "Value": "3",
+            "FileName": "Health Ammo Uber Style\\[Health] Health Cross With Team Colored Border"
+          },
+          {
+            "Label": "Old m0rehud Style",
+            "Value": "4",
+            "FileName": "Health Ammo Uber Style\\[Ubercharge] Old m0rehud Style"
+          },
+          {
+            "Label": "Uber Meter & Small Label Off",
+            "Value": "5",
+            "FileName": "Health Ammo Uber Style\\[Ubercharge] Uber Meter & Small Label Off"
+          }
+        ]
+      },
+      {
+        "Name": "mh_ammo_uber_style",
+        "Label": "Killstreak",
+        "Type": "ComboBox",
+        "Value": "2",
+        "ComboDirectories": [
+          "Killstreak\\[Killstreak] Counter Bottom Left",
+          "Killstreak\\[Killstreak] Counter Close To The Killfeed",
+          "Killstreak\\[Killstreak] Counter Disabled (Default ON)"
+        ],
+        "Options": [
+          {
+            "Label": "Bottom Left",
+            "Value": "0",
+            "FileName": "Killstreak\\[Killstreak] Counter Bottom Left"
+          },
+          {
+            "Label": "Close to Killfeed",
+            "Value": "1",
+            "FileName": "Killstreak\\[Killstreak] Counter Close To The Killfeed"
+          },
+          {
+            "Label": "Disabled",
+            "Value": "2",
+            "FileName": "Killstreak\\[Killstreak] Counter Disabled (Default ON)"
+          }
+        ]
+      },
+      {
+        "Name": "mh_ammo_style",
+        "Label": "Flashing Ammo Colors",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "Health Ammo Uber Animation Style\\[Ammo Style] Flashing Colors"
+      }
+    ],
+    "Ubercharge": [
+      {
+        "Name": "mh_ubercharge",
+        "Label": "Ubercharge",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ubercharge": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_ubercharge_full",
+        "Label": "Ubercharge Full",
+        "Type": "ColorPicker",
+        "Value": "255 0 127 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Ubercharge Full": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_uber_counters",
+        "Label": "Uber Counters",
+        "Type": "ComboBox",
+        "Value": "0",
+        "ComboDirectories": [
+          "Uber Counter\\[Counter] Uber Counter OFF (Default ON)",
+          "Uber Counter\\[Counter] Uber Counter ON"
+        ],
+        "Options": [
+          {
+            "Label": "OFF",
+            "Value": "0",
+            "FileName": "Uber Counter\\[Counter] Uber Counter OFF (Default ON)"
+          },
+          {
+            "Label": "ON",
+            "Value": "1",
+            "FileName": "Uber Counter\\[Counter] Uber Counter ON"
+          }
+        ]
+      }
+    ],
+    "Crosshair": [
+      {
+        "Name": "mh_crosshair",
+        "Label": "Crosshair",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_crosshair_flash",
+        "Label": "Crosshair Flash",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair Flash": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_crosshair_style",
+        "Label": "Style",
+        "Type": "Crosshair",
+        "Value": "?",
+        "Files": {
+          "scripts/crosshairs/crosshairs.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_crosshair_toggle",
+        "Label": "Toggle",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "scripts/crosshairs/crosshairs.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Damage": [
+      {
+        "Name": "mh_heal_numbers",
+        "Label": "Heal Numbers",
+        "Type": "ColorPicker",
+        "Value": "0 255 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Heal Numbers": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_last_damage_done",
+        "Label": "Last Damage Done",
+        "Type": "ColorPicker",
+        "Value": "255 255 255 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Last Damage Done": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_damage_numbers",
+        "Label": "Damage Numbers",
+        "Type": "ComboBox",
+        "Value": "4",
+        "ComboDirectories": [
+          "Damage\\[Damage Numbers] Big",
+          "Damage\\[Damage Numbers] Big Minusless",
+          "Damage\\[Damage Numbers] Medium",
+          "Damage\\[Damage Numbers] Medium Minusless",
+          "Damage\\[Damage Numbers] Small (Default ON)",
+          "Damage\\[Damage Numbers] Small Minusless"
+        ],
+        "Options": [
+          {
+            "Label": "Big",
+            "Value": "0",
+            "FileName": "Damage\\[Damage Numbers] Big"
+          },
+          {
+            "Label": "Big Minusless",
+            "Value": "1",
+            "FileName": "Damage\\[Damage Numbers] Big Minusless"
+          },
+          {
+            "Label": "Medium",
+            "Value": "2",
+            "FileName": "Damage\\[Damage Numbers] Medium"
+          },
+          {
+            "Label": "Medium Minusless",
+            "Value": "3",
+            "FileName": "Damage\\[Damage Numbers] Medium Minusless"
+          },
+          {
+            "Label": "Small",
+            "Value": "4",
+            "FileName": "Damage\\[Damage Numbers] Small (Default ON)"
+          },
+          {
+            "Label": "Small Minusless",
+            "Value": "5",
+            "FileName": "Damage\\[Damage Numbers] Small Minusless"
+          }
+        ]
+      },
+      {
+        "Name": "mh_damage_done",
+        "Label": "Last Damage Done",
+        "Type": "ComboBox",
+        "Value": "3",
+        "ComboDirectories": [
+          "Damage\\[Last Damage Done] Health Cross",
+          "Damage\\[Last Damage Done] Minmode",
+          "Damage\\[Last Damage Done] Normal",
+          "Damage\\[Last Damage Done] OFF (Default ON)"
+        ],
+        "Options": [
+          {
+            "Label": "Health Cross",
+            "Value": "0",
+            "FileName": "Damage\\[Last Damage Done] Health Cross"
+          },
+          {
+            "Label": "Minmode",
+            "Value": "1",
+            "FileName": "Damage\\[Last Damage Done] Minmode"
+          },
+          {
+            "Label": "Normal",
+            "Value": "2",
+            "FileName": "Damage\\[Last Damage Done] Normal"
+          },
+          {
+            "Label": "OFF",
+            "Value": "3",
+            "FileName": "Damage\\[Last Damage Done] OFF (Default ON)"
+          }
+        ]
+      }
+    ],
+    "Colors": [
+      {
+        "Name": "mh_extra_shadow",
+        "Label": "Extra Shadow",
+        "Type": "ColorPicker",
+        "Value": "0 0 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Extra Shadow": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_menu_labels",
+        "Label": "Menu Labels",
+        "Type": "ColorPicker",
+        "Value": "255 0 127 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Menu Labels": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_class_selection",
+        "Label": "Class Selection",
+        "Type": "ColorPicker",
+        "Value": "0 215 0 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "Class Selection": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_m0reBlue",
+        "Label": "m0reBlue",
+        "Type": "ColorPicker",
+        "Value": "0 120 201 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "m0reBlue": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "mh_m0reRed",
+        "Label": "m0reRed",
+        "Type": "ColorPicker",
+        "Value": "235 58 58 255",
+        "Restart": true,
+        "Files": {
+          "resource/scheme/colors_scheme.res": {
+            "Scheme": {
+              "Colors": {
+                "m0reRed": "$value"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

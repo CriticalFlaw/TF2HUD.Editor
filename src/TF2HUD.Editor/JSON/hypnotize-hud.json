@@ -16,7 +16,6 @@
     "3 4 4"
   ],
   "Links": {
-    "Update": "https://github.com/Hypnootize/hypnotizehud/archive/refs/heads/master.zip", // TODO: Remove
     "GitHub": "https://github.com/Hypnootize/hypnotizehud",
     "TF2Huds": "https://tf2huds.dev/hud/Hypnotize-Hud",
     "ComfigHuds": "https://comfig.app/huds/page/hypnotizehud/",
