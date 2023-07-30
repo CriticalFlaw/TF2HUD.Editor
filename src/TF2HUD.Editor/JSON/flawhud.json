@@ -533,7 +533,7 @@
           "resource/ui/basechat.res": {
             "HudChat": {
               "ypos": {
-                "true": "c-55",
+                "true": "c-35",
                 "false": "15"
               }
             }
