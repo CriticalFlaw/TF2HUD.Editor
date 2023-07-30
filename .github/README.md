@@ -34,18 +34,18 @@
 ---
 
 ### Acknowledgements
-* Code, Design and Documentation: [CriticalFlaw](https://github.com/CriticalFlaw) and [Revan](https://github.com/cooolbros)
-* Logo and Banner: [Zeesastrous](https://github.com/Zeesastrous)
-* Transparent Viewmodels Add-on: [mastercoms](https://github.com/mastercoms)
-* Icons and Crosshairs Add-on: [Hypnotize](https://github.com/Hypnootize)
+* [CriticalFlaw](https://github.com/CriticalFlaw) and [Revan](https://github.com/cooolbros) - Code, Design and Documentation.
+* [Zeesastrous](https://github.com/Zeesastrous) - Project Logo and Banner.
+* [mastercoms](https://github.com/mastercoms) - Transparent Viewmodels Add-on.
+* [Hypnotize](https://github.com/Hypnootize) - Icons and Crosshairs Add-on.
 
 #### Localizations
-* French: [tacokete](https://github.com/tacokete). [KayaDLX](https://github.com/KayaDLX)
-* Russian: [Blueberryy](https://github.com/Blueberryy)
-* Brazilian Portuguese: [Tiagoquix](https://github.com/Tiagoquix)
-* Spanish: [thejaviertc](https://github.com/thejaviertc)
-* Italian: [SignorUpB](https://github.com/SignorUpB)
-* Simplified Chinese: [HotoCocoaco](https://github.com/HotoCocoaco)
+* [tacokete](https://github.com/tacokete). [KayaDLX](https://github.com/KayaDLX) - French
+* [Blueberryy](https://github.com/Blueberryy) - Russian
+* [Tiagoquix](https://github.com/Tiagoquix) - Brazilian Portuguese
+* [thejaviertc](https://github.com/thejaviertc) - Spanish
+* [SignorUpB](https://github.com/SignorUpB) - Italian
+* [HotoCocoaco](https://github.com/HotoCocoaco) - Simplified Chinese
 ---
 
 ### Help/Support
