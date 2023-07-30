@@ -684,26 +684,6 @@
                 "false": "c135"
               }
             }
-          },
-          "scripts/hudlayout.res": {
-            "CMainTargetID": {
-              "ypos": {
-                "true": "c50",
-                "false": "c30"
-              }
-            },
-            "CSpectatorTargetID": {
-              "ypos": {
-                "true": "c80",
-                "false": "c60"
-              }
-            },
-            "CSecondaryTargetID": {
-              "ypos": {
-                "true": "c80",
-                "false": "c60"
-              }
-            }
           }
         }
       },
