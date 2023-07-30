@@ -967,8 +967,8 @@
                   "ypos": "c54"
                 },
                 "DisguiseStatus": {
-                  "xpos": "c150",
-                  "ypos": "c97"
+                  "xpos": "r25",
+                  "ypos": "10"
                 },
                 "CSpectatorTargetID": {
                   "ypos": "c60"
