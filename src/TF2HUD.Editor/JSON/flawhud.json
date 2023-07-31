@@ -937,8 +937,8 @@
               },
               "resource/ui/hudrocketpack.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c85",
-                  "ypos": "110"
+                  "xpos": "c150",
+                  "ypos": "c85"
                 }
               },
               "resource/ui/hudspellselection.res": {
