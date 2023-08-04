@@ -731,6 +731,81 @@
         }
       },
       {
+        "Name": "fh_centered_item_meters",
+        "Label": "Item Meters Pos.",
+        "Type": "ComboBox",
+        "ToolTip": "Change the position of the item meters.",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "Under Ammo",
+            "Value": "0",
+            "Files": {
+              "resource/ui/huditemeffectmeter.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "c150",
+                  "ypos": "c155"
+                }
+              },
+              "resource/ui/huditemeffectmeter_cleaver.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c167"
+                }
+              },
+              "resource/ui/huditemeffectmeter_sodapopper.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c179"
+                }
+              }
+            }
+          },
+          {
+            "Label": "Centered",
+            "Value": "1",
+            "Files": {
+              "resource/ui/huditemeffectmeter.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "c-55",
+                  "ypos": "c135"
+                }
+              },
+              "resource/ui/huditemeffectmeter_cleaver.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c147"
+                }
+              },
+              "resource/ui/huditemeffectmeter_sodapopper.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c159"
+                }
+              }
+            }
+          },
+          {
+            "Label": "Cornered",
+            "Value": "2",
+            "Files": {
+              "resource/ui/huditemeffectmeter.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "r120",
+                  "ypos": "r65"
+                }
+              },
+              "resource/ui/huditemeffectmeter_cleaver.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r75"
+                }
+              },
+              "resource/ui/huditemeffectmeter_sodapopper.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r85"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
         "Name": "fh_val_damage_values",
         "Label": "Damage Numbers",
         "Type": "ComboBox",
@@ -842,17 +917,6 @@
                   "ypos": "c100"
                 }
               },
-              "resource/ui/huditemeffectmeter.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "c150",
-                  "ypos": "c155"
-                }
-              },
-              "resource/ui/huditemeffectmeter_cleaver.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "c167"
-                }
-              },
               "resource/ui/huditemeffectmeter_demoman.res": {
                 "HudItemEffectMeter": {
                   "xpos": "5",
@@ -863,11 +927,6 @@
                 "HudItemEffectMeter": {
                   "xpos": "5",
                   "ypos": "r23"
-                }
-              },
-              "resource/ui/huditemeffectmeter_sodapopper.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "c179"
                 }
               },
               "resource/ui/hudmediccharge.res": {
@@ -990,17 +1049,6 @@
                   "ypos": "c155"
                 }
               },
-              "resource/ui/huditemeffectmeter.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "r120",
-                  "ypos": "r65"
-                }
-              },
-              "resource/ui/huditemeffectmeter_cleaver.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "r75"
-                }
-              },
               "resource/ui/huditemeffectmeter_demoman.res": {
                 "HudItemEffectMeter": {
                   "xpos": "125",
@@ -1011,11 +1059,6 @@
                 "HudItemEffectMeter": {
                   "xpos": "125",
                   "ypos": "r50"
-                }
-              },
-              "resource/ui/huditemeffectmeter_sodapopper.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "r85"
                 }
               },
               "resource/ui/hudmediccharge.res": {
