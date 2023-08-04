@@ -489,7 +489,7 @@
     "Customizations": [
       {
         "Name": "fh_toggle_disguise_image",
-        "Label": "Spy Disguise Image",
+        "Label": "Show Disguise Image",
         "Type": "Checkbox",
         "ToolTip": "Toggle the spy silhouette seen when changing the disguise.",
         "Value": "true",
@@ -703,7 +703,7 @@
       },
       {
         "Name": "fh_centered_mvm_currency",
-        "Label": "Centered MvM Currency",
+        "Label": "Center MvM Currency",
         "Type": "Checkbox",
         "ToolTip": "Toggle Mann vs. Machine currency position.",
         "Value": "false",
@@ -747,81 +747,6 @@
             }
           }
         }
-      },
-      {
-        "Name": "fh_centered_item_meters",
-        "Label": "Item Meters Pos.",
-        "Type": "ComboBox",
-        "ToolTip": "Change the position of the item meters.",
-        "Value": "0",
-        "Options": [
-          {
-            "Label": "Under Ammo",
-            "Value": "0",
-            "Files": {
-              "resource/ui/huditemeffectmeter.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "c150",
-                  "ypos": "c155"
-                }
-              },
-              "resource/ui/huditemeffectmeter_cleaver.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "c167"
-                }
-              },
-              "resource/ui/huditemeffectmeter_sodapopper.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "c179"
-                }
-              }
-            }
-          },
-          {
-            "Label": "Centered",
-            "Value": "1",
-            "Files": {
-              "resource/ui/huditemeffectmeter.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c135"
-                }
-              },
-              "resource/ui/huditemeffectmeter_cleaver.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "c147"
-                }
-              },
-              "resource/ui/huditemeffectmeter_sodapopper.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "c159"
-                }
-              }
-            }
-          },
-          {
-            "Label": "Cornered",
-            "Value": "2",
-            "Files": {
-              "resource/ui/huditemeffectmeter.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "r120",
-                  "ypos": "r65"
-                }
-              },
-              "resource/ui/huditemeffectmeter_cleaver.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "r75"
-                }
-              },
-              "resource/ui/huditemeffectmeter_sodapopper.res": {
-                "HudItemEffectMeter": {
-                  "ypos": "r85"
-                }
-              }
-            }
-          }
-        ]
       },
       {
         "Name": "fh_val_damage_values",
@@ -914,7 +839,7 @@
       },
       {
         "Name": "fh_val_hud_style",
-        "Label": "Health & Ammo",
+        "Label": "Health/Ammo Pos.",
         "Type": "ComboBox",
         "ToolTip": "Change to different UI styles where health and ammo are moved.",
         "Value": "0",
@@ -1167,6 +1092,81 @@
                 "HudSpellMenu": {
                   "xpos": "c-240",
                   "ypos": "r30"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Name": "fh_centered_item_meters",
+        "Label": "Item Meters Pos.",
+        "Type": "ComboBox",
+        "ToolTip": "Change the position of the item meters.",
+        "Value": "0",
+        "Options": [
+          {
+            "Label": "Under Ammo",
+            "Value": "0",
+            "Files": {
+              "resource/ui/huditemeffectmeter.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "c150",
+                  "ypos": "c155"
+                }
+              },
+              "resource/ui/huditemeffectmeter_cleaver.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c167"
+                }
+              },
+              "resource/ui/huditemeffectmeter_sodapopper.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c179"
+                }
+              }
+            }
+          },
+          {
+            "Label": "Centered",
+            "Value": "1",
+            "Files": {
+              "resource/ui/huditemeffectmeter.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "c-55",
+                  "ypos": "c135"
+                }
+              },
+              "resource/ui/huditemeffectmeter_cleaver.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c147"
+                }
+              },
+              "resource/ui/huditemeffectmeter_sodapopper.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "c159"
+                }
+              }
+            }
+          },
+          {
+            "Label": "Cornered",
+            "Value": "2",
+            "Files": {
+              "resource/ui/huditemeffectmeter.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "r120",
+                  "ypos": "r65"
+                }
+              },
+              "resource/ui/huditemeffectmeter_cleaver.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r75"
+                }
+              },
+              "resource/ui/huditemeffectmeter_sodapopper.res": {
+                "HudItemEffectMeter": {
+                  "ypos": "r85"
                 }
               }
             }
