@@ -25,12 +25,8 @@
     "Discord": "https://discord.gg/hTdtK9vBhE",
     "Download": [
       {
-        "Source": "Stable",
-        "Link": "https://github.com/CriticalFlaw/flawhud/releases/download/2023.0730/flawhud.zip"
-      },
-      {
-        "Source": "Dev",
-        "Link": "https://github.com/CriticalFlaw/flawhud/archive/master.zip"
+        "Source": "GitHub",
+        "Link": "https://github.com/CriticalFlaw/flawhud/archive/refs/heads/master.zip"
       }
     ]
   },
