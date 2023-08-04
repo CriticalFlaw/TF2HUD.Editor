@@ -643,6 +643,24 @@
         "Value": "true",
         "Restart": false,
         "Files": {
+          "resource/ui/huddemomanpipes.res": {
+            "ChargeLabel": {
+              "ypos": {
+                "true": "8",
+                "false": "10"
+              }
+            },
+            "ChargeMeter": {
+              "ypos": {
+                "true": "18",
+                "false": "10"
+              },
+              "tall": {
+                "true": "2",
+                "false": "8"
+              }
+            }
+          },
           "resource/ui/huditemeffectmeter.res": {
             "HudItemEffectMeter": {
               "xpos": {
@@ -911,12 +929,6 @@
                   "ypos": "c90"
                 }
               },
-              "resource/ui/huddemomanpipes.res": {
-                "ChargeMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c100"
-                }
-              },
               "resource/ui/huditemeffectmeter_demoman.res": {
                 "HudItemEffectMeter": {
                   "xpos": "5",
@@ -1011,7 +1023,7 @@
                   "ypos": "c135"
                 },
                 "HudDemomanPipes": {
-                  "xpos": "c-15",
+                  "xpos": "c-55",
                   "ypos": "c120"
                 },
                 "CHudAccountPanel": {
@@ -1041,12 +1053,6 @@
                 "DamageAccountValue": {
                   "xpos": "10",
                   "ypos": "r75"
-                }
-              },
-              "resource/ui/huddemomanpipes.res": {
-                "ChargeMeter": {
-                  "xpos": "r120",
-                  "ypos": "c155"
                 }
               },
               "resource/ui/huditemeffectmeter_demoman.res": {
@@ -1143,8 +1149,8 @@
                   "ypos": "r75"
                 },
                 "HudDemomanPipes": {
-                  "xpos": "r85",
-                  "ypos": "r87"
+                  "xpos": "r120",
+                  "ypos": "r90"
                 },
                 "CHudAccountPanel": {
                   "xpos": "r110",
