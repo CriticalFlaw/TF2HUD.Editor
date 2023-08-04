@@ -529,16 +529,52 @@
           "resource/ui/basechat.res": {
             "HudChat": {
               "ypos": {
-                "true": "c-35",
+                "true": "c5",
                 "false": "15"
+              }
+            }
+          },
+          "resource/ui/votehud.res": {
+            "VotePassed": {
+              "ypos": {
+                "true": "20",
+                "false": "r315"
+              }
+            },
+            "VoteActive": {
+              "ypos": {
+                "true": "20",
+                "false": "r315"
+              }
+            },
+            "CallVoteFailed": {
+              "ypos": {
+                "true": "20",
+                "false": "r315"
+              }
+            },
+            "VoteFailed": {
+              "ypos": {
+                "true": "20",
+                "false": "r315"
               }
             }
           },
           "scripts/hudlayout.res": {
             "BuildingStatusAnchor": {
               "ypos": {
-                "true": "0",
+                "true": "20",
                 "false": "c-130"
+              }
+            },
+            "HudAchievementTracker": {
+              "NormalY": {
+                "true": "15",
+                "false": "125"
+              },
+              "EngineerY": {
+                "true": "350",
+                "false": "310"
               }
             }
           }
