@@ -1376,6 +1376,59 @@
                 ]
               }
             }
+          },
+          {
+            "Label": "Colored Text, No Box",
+            "Value": "3",
+            "Files": {
+              "resource/ui/hudplayerhealth.res": {
+                "PlayerStatusHealthImage": {
+                  "visible": "0"
+                },
+                "PlayerStatusHealthImageBG": {
+                  "xpos": "9999"
+                },
+                "HealthBG": {
+                  "bgcolor_override": "Transparent"
+                },
+                "PlayerStatusHealthBonusImage": {
+                  "xpos": "9999"
+                },
+                "PlayerHealthValue": {
+                  "font": "FontBold50"
+                },
+                "PlayerHealthShadow": {
+                  "font": "ScanlineShadow"
+                }
+              },
+              "resource/ui/hudammoweapons.res": {
+                "AmmoBG": {
+                  "bgcolor_override": "Transparent"
+                },
+                "AmmoInClipShadow": {
+                  "font": "ScanlineShadow"
+                },
+                "AmmoInReserveShadow": {
+                  "font": "ScanlineShadowSmall"
+                },
+                "AmmoNoClipShadow": {
+                  "font": "ScanlineShadow"
+                }
+              },
+              "scripts/hudanimations_custom.txt": {
+                "comment": [
+                  "Animate HealthBG",
+                  "Animate AmmoBG"
+                ],
+                "uncomment": [
+                  "Animate PlayerHealthValue",
+                  "Animate PlayerHealthShadow",
+                  "Animate AmmoInClip",
+                  "Animate AmmoInReserve",
+                  "Animate AmmoNoClip"
+                ]
+              }
+            }
           }
         ]
       },
