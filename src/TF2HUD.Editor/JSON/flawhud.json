@@ -570,7 +570,7 @@
             "HudAchievementTracker": {
               "NormalY": {
                 "true": "15",
-                "false": "125"
+                "false": "275"
               },
               "EngineerY": {
                 "true": "350",
