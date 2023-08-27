@@ -395,7 +395,7 @@
         "Type": "Crosshair",
         "Value": "<",
         "Files": {
-          "scripts/hudlayout.res": {
+          "resource/ui/hudplayerclass.res": {
             "CustomCrosshair": {
               "labelText": "$value"
             }
@@ -412,7 +412,7 @@
         "Increment": "1",
         "ToolTip": "Size of the crosshair.",
         "Files": {
-          "scripts/hudlayout.res": {
+          "resource/ui/hudplayerclass.res": {
             "CustomCrosshair": {
               "font": "Size:$value"
             }
@@ -475,7 +475,7 @@
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout.res": {
+          "resource/ui/hudplayerclass.res": {
             "CustomCrosshair": {
               "visible": {
                 "true": "1",
