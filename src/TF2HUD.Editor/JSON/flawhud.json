@@ -530,7 +530,7 @@
             "HudChat": {
               "ypos": {
                 "true": "c5",
-                "false": "15"
+                "false": "20"
               }
             }
           },
