@@ -538,25 +538,25 @@
             "VotePassed": {
               "ypos": {
                 "true": "20",
-                "false": "r315"
+                "false": "c-110"
               }
             },
             "VoteActive": {
               "ypos": {
                 "true": "20",
-                "false": "r315"
+                "false": "c-110"
               }
             },
             "CallVoteFailed": {
               "ypos": {
                 "true": "20",
-                "false": "r315"
+                "false": "c-110"
               }
             },
             "VoteFailed": {
               "ypos": {
                 "true": "20",
-                "false": "r315"
+                "false": "c-110"
               }
             }
           },
@@ -677,7 +677,7 @@
         "Type": "Checkbox",
         "ToolTip": "Use a minimal style for the item meters.",
         "Value": "true",
-        "Restart": false,
+        "Restart": true,
         "Files": {
           "resource/ui/huddemomanpipes.res": {
             "ChargeLabel": {
@@ -688,7 +688,7 @@
             },
             "ChargeMeter": {
               "ypos": {
-                "true": "18",
+                "true": "16",
                 "false": "10"
               },
               "tall": {
@@ -697,15 +697,25 @@
               }
             }
           },
+          "resource/scheme/clientscheme_settings.res": {
+            "Scheme": {
+              "BaseSettings": {
+                "Label.DisabledFgColor2": {
+                  "true": "White",
+                  "false": "DullWhite"
+                }
+              }
+            }
+          },
           "resource/ui/huditemeffectmeter.res": {
             "HudItemEffectMeter": {
               "xpos": {
-                "true": "c150",
-                "false": "c-55"
+                "false": "c-55",
+                "true": "c150"
               },
               "ypos": {
-                "true": "c97",
-                "false": "c125"
+                "false": "c124",
+                "true": "c97"
               }
             },
             "ItemEffectMeter": {
@@ -714,7 +724,7 @@
                 "false": "0"
               },
               "tall": {
-                "true": "2",
+                "true": "10",
                 "false": "8"
               }
             }
@@ -722,16 +732,16 @@
           "resource/ui/huditemeffectmeter_cleaver.res": {
             "HudItemEffectMeter": {
               "ypos": {
-                "true": "c108",
-                "false": "c115"
+                "false": "c112",
+                "true": "c108"
               }
             }
           },
           "resource/ui/huditemeffectmeter_sodapopper.res": {
             "HudItemEffectMeter": {
               "ypos": {
-                "true": "c86",
-                "false": "c135"
+                "false": "c136",
+                "true": "c86"
               }
             }
           }
@@ -752,7 +762,7 @@
               },
               "ypos": {
                 "true": "c5",
-                "false": "r60"
+                "false": "r70"
               }
             }
           },
@@ -892,13 +902,13 @@
               },
               "resource/ui/huditemeffectmeter_demoman.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "5",
-                  "ypos": "r45"
+                  "xpos": "c155",
+                  "ypos": "r85"
                 }
               },
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "5",
+                  "xpos": "c220",
                   "ypos": "r23"
                 }
               },
@@ -907,7 +917,6 @@
                   "wide": "0"
                 },
                 "ChargeLabel": {
-                  "ypos": "2",
                   "textAlignment": "center",
                   "font": "FontBold22",
                   "pin_corner_to_sibling": "PIN_BOTTOMLEFT",
@@ -961,8 +970,8 @@
               },
               "resource/ui/hudrocketpack.res": {
                 "HudItemEffectMeter": {
-                  "xpos": "c150",
-                  "ypos": "c85"
+                  "xpos": "c-55",
+                  "ypos": "c124"
                 }
               },
               "resource/ui/hudspellselection.res": {
@@ -977,15 +986,15 @@
                 },
                 "HudMedicCharge": {
                   "xpos": "c-55",
-                  "ypos": "r140"
+                  "ypos": "r127"
                 },
                 "HudDemomanCharge": {
                   "xpos": "c-55",
-                  "ypos": "c135"
+                  "ypos": "c136"
                 },
                 "HudDemomanPipes": {
                   "xpos": "c-55",
-                  "ypos": "c120"
+                  "ypos": "c124"
                 },
                 "CHudAccountPanel": {
                   "xpos": "c-50",
@@ -1033,7 +1042,6 @@
                   "wide": "110"
                 },
                 "ChargeLabel": {
-                  "ypos": "0",
                   "textAlignment": "east",
                   "font": "FontBold50",
                   "pin_corner_to_sibling": "PIN_TOPLEFT",
@@ -1139,7 +1147,7 @@
         "Label": "Item Meters Pos.",
         "Type": "ComboBox",
         "ToolTip": "Change the position of the item meters.",
-        "Value": "0",
+        "Value": "1",
         "Options": [
           {
             "Label": "Under Ammo",
@@ -1170,17 +1178,17 @@
               "resource/ui/huditemeffectmeter.res": {
                 "HudItemEffectMeter": {
                   "xpos": "c-55",
-                  "ypos": "c135"
+                  "ypos": "c124"
                 }
               },
               "resource/ui/huditemeffectmeter_cleaver.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c147"
+                  "ypos": "c112"
                 }
               },
               "resource/ui/huditemeffectmeter_sodapopper.res": {
                 "HudItemEffectMeter": {
-                  "ypos": "c159"
+                  "ypos": "c136"
                 }
               }
             }
