@@ -986,12 +986,6 @@
                   "ypos": "c85"
                 }
               },
-              "resource/ui/hudrocketpack.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "c-55",
-                  "ypos": "c124"
-                }
-              },
               "resource/ui/hudspellselection.res": {
                 "ActionText": {
                   "tall": "10"
@@ -1111,12 +1105,6 @@
                   "ypos": "r77"
                 }
               },
-              "resource/ui/hudrocketpack.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "r120",
-                  "ypos": "r110"
-                }
-              },
               "resource/ui/hudspellselection.res": {
                 "ActionText": {
                   "tall": "0"
@@ -1186,6 +1174,12 @@
                 "HudItemEffectMeter": {
                   "ypos": "c179"
                 }
+              },
+              "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "c150",
+                  "ypos": "c84"
+                }
               }
             }
           },
@@ -1208,6 +1202,12 @@
                 "HudItemEffectMeter": {
                   "ypos": "c136"
                 }
+              },
+              "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "c-55",
+                  "ypos": "c124"
+                }
               }
             }
           },
@@ -1229,6 +1229,12 @@
               "resource/ui/huditemeffectmeter_sodapopper.res": {
                 "HudItemEffectMeter": {
                   "ypos": "r85"
+                }
+              },
+              "resource/ui/hudrocketpack.res": {
+                "HudItemEffectMeter": {
+                  "xpos": "r120",
+                  "ypos": "r110"
                 }
               }
             }
