@@ -909,7 +909,7 @@
               "resource/ui/huditemeffectmeter_killstreak.res": {
                 "HudItemEffectMeter": {
                   "xpos": "c220",
-                  "ypos": "r23"
+                  "ypos": "r85"
                 }
               },
               "resource/ui/hudmediccharge.res": {
@@ -1890,9 +1890,9 @@
                 },
                 "ClassLabel": {
                   "font": "FontBold37",
-                  "xpos": "c72",
+                  "xpos": "100",
                   "ypos": "15",
-                  "wide": "300",
+                  "wide": "600",
                   "tall": "30"
                 },
                 "classmodelpanel": {
