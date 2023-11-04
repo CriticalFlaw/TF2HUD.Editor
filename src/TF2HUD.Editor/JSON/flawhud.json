@@ -697,6 +697,24 @@
               }
             }
           },
+          "resource/ui/huddemomancharge.res": {
+            "ItemEffectMeterLabel": {
+              "ypos": {
+                "true": "0",
+                "false": "2"
+              },
+              "visible": {
+                "true": "1",
+                "false": "1"
+              }
+            },
+            "ChargeMeter": {
+              "ypos": {
+                "true": "8",
+                "false": "2"
+              }
+            }
+          },
           "resource/scheme/clientscheme_settings.res": {
             "Scheme": {
               "BaseSettings": {
