@@ -672,44 +672,52 @@
         }
       },
       {
-        "Name": "fh_min_item_meters",
-        "Label": "Minimal Item Meters",
+        "Name": "fh_big_item_meters",
+        "Label": "Bulky Item Meters",
         "Type": "Checkbox",
-        "ToolTip": "Use a minimal style for the item meters.",
-        "Value": "true",
+        "ToolTip": "Use the bulky style of item meters.",
+        "Value": "false",
         "Restart": true,
         "Files": {
-          "resource/ui/huddemomanpipes.res": {
-            "ChargeLabel": {
-              "ypos": {
-                "true": "8",
-                "false": "10"
-              }
-            },
-            "ChargeMeter": {
-              "ypos": {
-                "true": "16",
-                "false": "10"
-              },
-              "tall": {
-                "true": "2",
-                "false": "8"
-              }
-            }
-          },
           "resource/ui/huddemomancharge.res": {
             "ItemEffectMeterLabel": {
               "ypos": {
-                "true": "0",
+                "true": "7",
+                "false": "0"
+              },
+              "tall": {
+                "true": "8",
                 "false": "2"
               },
               "visible": {
                 "true": "1",
-                "false": "1"
+                "false": "0"
               }
             },
             "ChargeMeter": {
               "ypos": {
+                "true": "7",
+                "false": "8"
+              },
+              "tall": {
+                "true": "8",
+                "false": "2"
+              }
+            }
+          },
+          "resource/ui/huddemomanpipes.res": {
+            "ChargeLabel": {
+              "ypos": {
+                "true": "2",
+                "false": "8"
+              }
+            },
+            "ChargeMeter": {
+              "ypos": {
+                "true": "2",
+                "false": "16"
+              },
+              "tall": {
                 "true": "8",
                 "false": "2"
               }
@@ -719,47 +727,23 @@
             "Scheme": {
               "BaseSettings": {
                 "Label.DisabledFgColor2": {
-                  "true": "White",
-                  "false": "DullWhite"
+                  "true": "DullWhite",
+                  "false": "White"
                 }
               }
             }
           },
           "resource/ui/huditemeffectmeter.res": {
-            "HudItemEffectMeter": {
-              "xpos": {
-                "false": "c-55",
-                "true": "c150"
-              },
+            "ItemEffectMeterLabel": {
               "ypos": {
-                "false": "c124",
-                "true": "c97"
+                "true": "2",
+                "false": "0"
               }
             },
             "ItemEffectMeter": {
               "ypos": {
-                "true": "8",
-                "false": "0"
-              },
-              "tall": {
-                "true": "10",
+                "true": "2",
                 "false": "8"
-              }
-            }
-          },
-          "resource/ui/huditemeffectmeter_cleaver.res": {
-            "HudItemEffectMeter": {
-              "ypos": {
-                "false": "c112",
-                "true": "c108"
-              }
-            }
-          },
-          "resource/ui/huditemeffectmeter_sodapopper.res": {
-            "HudItemEffectMeter": {
-              "ypos": {
-                "false": "c136",
-                "true": "c86"
               }
             }
           }
@@ -1121,11 +1105,11 @@
                 },
                 "HudDemomanCharge": {
                   "xpos": "r120",
-                  "ypos": "r75"
+                  "ypos": "r73"
                 },
                 "HudDemomanPipes": {
                   "xpos": "r120",
-                  "ypos": "r90"
+                  "ypos": "r88"
                 },
                 "CHudAccountPanel": {
                   "xpos": "r135",
