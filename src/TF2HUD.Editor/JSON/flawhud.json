@@ -797,6 +797,94 @@
         }
       },
       {
+        "Name": "fh_chat_font",
+        "Label": "Default Chat Font",
+        "Type": "Checkbox",
+        "ToolTip": "Changes the in-game chat font back to Verdana",
+        "Value": "false",
+        "Restart": true,
+        "Files": {
+          "resource/chatscheme.res": {
+            "Scheme": {
+              "Fonts": {
+                "ChatFont": {
+                  "1": {
+                    "name": {
+                      "true": "Verdana",
+                      "false": "Verdana Bold"
+                    },
+                    "tall": {
+                      "true": "12",
+                      "false": "19"
+                    },
+                    "weight": {
+                      "true": "700",
+                      "false": "400"
+                    }
+                  },
+                  "2": {
+                    "name": {
+                      "true": "Verdana",
+                      "false": "Verdana Bold"
+                    },
+                    "tall": {
+                      "true": "14",
+                      "false": "19"
+                    },
+                    "weight": {
+                      "true": "700",
+                      "false": "400"
+                    }
+                  },
+                  "3": {
+                    "name": {
+                      "true": "Verdana",
+                      "false": "Verdana Bold"
+                    },
+                    "tall": {
+                      "true": "15",
+                      "false": "19"
+                    },
+                    "weight": {
+                      "true": "700",
+                      "false": "400"
+                    }
+                  },
+                  "4": {
+                    "name": {
+                      "true": "Verdana",
+                      "false": "Verdana Bold"
+                    },
+                    "tall": {
+                      "true": "17",
+                      "false": "19"
+                    },
+                    "weight": {
+                      "true": "700",
+                      "false": "400"
+                    }
+                  },
+                  "5": {
+                    "name": {
+                      "true": "Verdana",
+                      "false": "Verdana Bold"
+                    },
+                    "tall": {
+                      "true": "22",
+                      "false": "19"
+                    },
+                    "weight": {
+                      "true": "700",
+                      "false": "400"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_val_damage_values",
         "Label": "Damage Numbers",
         "Type": "ComboBox",
