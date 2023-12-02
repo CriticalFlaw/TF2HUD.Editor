@@ -891,6 +891,7 @@
         "Type": "ComboBox",
         "ToolTip": "Change to different UI styles where health and ammo are moved.",
         "Value": "0",
+        "Preview": "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
         "Options": [
           {
             "Label": "Centered",
@@ -1232,7 +1233,6 @@
         "ToolTip": "Change to different health styles options.",
         "Value": "0",
         "Command": "HealthStyle",
-        "Preview": "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
         "Options": [
           {
             "Label": "Colored Text",
