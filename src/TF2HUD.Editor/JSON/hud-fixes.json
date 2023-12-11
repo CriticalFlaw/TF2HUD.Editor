@@ -14,7 +14,7 @@
     "Download": [
       {
         "Source": "GitHub",
-        "Link": "https://github.com/CriticalFlaw/TF2HUD.Fixes/archive/refs/heads/complete.zip"
+        "Link": "https://github.com/CriticalFlaw/TF2HUD.Fixes/archive/refs/heads/main.zip"
       }
     ]
   },
@@ -287,13 +287,9 @@
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout.res": {
+          "resource/ui/#customizations/crosshair/crosshair_base.res": {
             "CustomCrosshair": {
               "visible": {
-                "true": "1",
-                "false": "0"
-              },
-              "enabled": {
                 "true": "1",
                 "false": "0"
               }
@@ -322,7 +318,7 @@
         "Type": "Crosshair",
         "Value": "<",
         "Files": {
-          "scripts/hudlayout.res": {
+          "resource/ui/#customizations/crosshair/crosshair_base.res": {
             "CustomCrosshair": {
               "labelText": "$value"
             }
@@ -339,7 +335,7 @@
         "Increment": "1",
         "ToolTip": "Size of the crosshair.",
         "Files": {
-          "scripts/hudlayout.res": {
+          "resource/ui/#customizations/crosshair/crosshair_base.res": {
             "CustomCrosshair": {
               "font": "Size:$value"
             }
@@ -354,7 +350,7 @@
         "Value": "255 255 255 255",
         "Restart": true,
         "Files": {
-          "resource/crosshairs.res": {
+          "resource/ui/#customizations/crosshair/crosshair_scheme.res": {
             "Scheme": {
               "Colors": {
                 "Crosshair": "$value"
@@ -371,7 +367,7 @@
         "Value": "255 0 0 255",
         "Restart": true,
         "Files": {
-          "resource/crosshairs.res": {
+          "resource/ui/#customizations/crosshair/crosshair_scheme.res": {
             "Scheme": {
               "Colors": {
                 "Hitmarker": "$value"
@@ -417,10 +413,13 @@
         "ToolTip": "Toggle the spy silhouette seen while changing disguises.",
         "Value": "true",
         "Files": {
-          "scripts/hudanimations_custom.txt": {
-            "uncomment": [
-              "RunEvent HudSpyDisguiseChanged"
-            ]
+          "resource/ui/#customizations/spy_disguise/spy_disguise_base.res": {
+            "PlayerStatusSpyOutlineImage": {
+              "image": {
+                "true": "../hud/class_spy_outline",
+                "false": "replay/thumbnails/blank"
+              }
+            }
           }
         }
       },
@@ -431,7 +430,7 @@
         "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
         "Value": "false",
         "Files": {
-          "resource/ui/hudplayerclass.res": {
+          "resource/ui/#customizations/player_model/player_model_base.res": {
             "classmodelpanelBG": {
               "wide": {
                 "true": "0",
@@ -459,13 +458,9 @@
         "Special": "TransparentViewmodels",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout.res": {
+          "resource/ui/#customizations/transparent_viewmodels/transparent_viewmodels_base.res": {
             "TransparentViewmodel": {
               "visible": {
-                "true": "1",
-                "false": "0"
-              },
-              "enabled": {
                 "true": "1",
                 "false": "0"
               }
@@ -500,7 +495,7 @@
         "Maximum": "9",
         "Increment": "1",
         "Files": {
-          "scripts/hudlayout.res": {
+          "resource/ui/#customizations/killfeed/killfeed_base.res": {
             "HudDeathNotice": {
               "MaxDeathNotices": "$value"
             }
@@ -516,7 +511,7 @@
         "ToolTip": "Toggle displaying the damage number near the player's health.",
         "Value": "true",
         "Files": {
-          "resource/ui/huddamageaccount.res": {
+          "resource/ui/#customizations/damage/last_damage_base.res": {
             "DamageAccountValue": {
               "visible": {
                 "true": "1",
@@ -533,7 +528,7 @@
         "ToolTip": "Toggle damage number font between TF2 Secondary and TF2 Build.",
         "Value": "false",
         "Files": {
-          "resource/ui/huddamageaccount.res": {
+          "resource/ui/#customizations/damage/float_damage_base.res": {
             "CDamageAccountPanel": {
               "delta_item_font": {
                 "true": "HudFontSmallBold",
@@ -543,7 +538,9 @@
                 "true": "HudFontMediumBold",
                 "false": "HudFontMedium"
               }
-            },
+            }
+          },
+          "resource/ui/#customizations/damage/last_damage_base.res": {
             "DamageAccountValue": {
               "font": {
                 "true": "HudFontMediumBold",
@@ -560,7 +557,7 @@
         "Value": "255 255 0 255",
         "Restart": false,
         "Files": {
-          "resource/ui/huddamageaccount.res": {
+          "resource/ui/#customizations/damage/last_damage_base.res": {
             "DamageAccountValue": {
               "fgcolor": "$value"
             }
