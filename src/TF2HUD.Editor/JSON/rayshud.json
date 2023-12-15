@@ -28,8 +28,8 @@
       }
     ]
   },
-  "CustomizationsFolder": "#customizations",
-  "EnabledFolder": "#customizations//_enabled",
+  "CustomizationsFolder": "resource//ui//#customizations",
+  "EnabledFolder": "resource//ui//#customizations//_enabled",
   "Controls": {
     "UberCharge": [
       {
@@ -163,7 +163,7 @@
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
         "Files": {
-          "#customizations/_base/hudlayout.res": {
+          "resource/ui/hudlayout_base.res": {
             "CustomCrosshair": {
               "visible": {
                 "true": "1",
@@ -199,7 +199,7 @@
         "ToolTip": "Style of crosshair.",
         "Value": "<",
         "Files": {
-          "#customizations/_base/hudlayout.res": {
+          "resource/ui/hudlayout_base.res": {
             "CustomCrosshair": {
               "labelText": "$value"
             }
@@ -216,7 +216,7 @@
         "Increment": "1",
         "ToolTip": "Size of the crosshair.",
         "Files": {
-          "#customizations/_base/hudlayout.res": {
+          "resource/ui/hudlayout_base.res": {
             "CustomCrosshair": {
               "font": "Size:$value | Outline:OFF"
             }
@@ -319,8 +319,8 @@
         "Value": "0",
         "ToolTip": "Change to different health styles options.",
         "ComboFiles": [
-          "hudplayerhealth-broesel.res",
-          "hudplayerhealth-cross.res"
+          "hudplayerhealth_broesel.res",
+          "hudplayerhealth_cross.res"
         ],
         "Options": [
           {
@@ -330,12 +330,12 @@
           {
             "Label": "Broesel",
             "Value": "1",
-            "FileName": "hudplayerhealth-broesel.res"
+            "FileName": "hudplayerhealth_broesel.res"
           },
           {
             "Label": "Cross",
             "Value": "2",
-            "FileName": "hudplayerhealth-cross.res"
+            "FileName": "hudplayerhealth_cross.res"
           }
         ]
       }
@@ -678,7 +678,7 @@
         "Value": "false",
         "Restart": true,
         "ToolTip": "Toggle to the classic main menu style.",
-        "FileName": "mainmenuoverride-classic.res"
+        "FileName": "mainmenuoverride_classic.res"
       },
       {
         "Name": "rh_toggle_min_scoreboard",
@@ -686,7 +686,7 @@
         "Type": "Checkbox",
         "Value": "false",
         "ToolTip": "Toggle to a minimal scoreboard style.",
-        "FileName": "scoreboard-minimal.res"
+        "FileName": "scoreboard_minimal.res"
       },
       {
         "Name": "rh_toggle_disguise_image",
@@ -711,7 +711,7 @@
         "Value": "false",
         "Restart": true,
         "Files": {
-          "resource/ui/mainmenuoverride.res": {
+          "resource/ui/mainmenuoverride_base.res": {
             "TFCharacterImage": {
               "ypos": {
                 "true": "-80",
@@ -749,7 +749,7 @@
         "ToolTip": "Toggle position of the game chat to be near the bottom.",
         "Value": "false",
         "Files": {
-          "#customizations/_base/basechat.res": {
+          "resource/ui/basechat_base.res": {
             "HudChat": {
               "ypos": {
                 "true": "315",
@@ -765,7 +765,7 @@
         "Type": "Checkbox",
         "ToolTip": "Toggle style of the class select to be center-oriented.",
         "Value": "false",
-        "FileName": "classselection-center.res"
+        "FileName": "classselection_center.res"
       },
       {
         "Name": "rh_toggle_center_class",
@@ -773,7 +773,7 @@
         "Type": "Checkbox",
         "ToolTip": "Toggle style of the team select to be center-oriented.",
         "Value": "false",
-        "FileName": "teammenu-center.res"
+        "FileName": "teammenu_center.res"
       },
       {
         "Name": "rh_toggle_metal_pos",
@@ -782,7 +782,7 @@
         "ToolTip": "Toggle the position of the Engineer's metal counter to be near the middle.",
         "Value": "false",
         "Files": {
-          "#customizations/_base/hudlayout.res": {
+          "scripts/hudlayout_base.res": {
             "CHudAccountPanel": {
               "xpos": {
                 "true": "c-20",
@@ -812,7 +812,7 @@
         "Special": "TransparentViewmodels",
         "Value": "false",
         "Files": {
-          "#customizations/_base/hudlayout.res": {
+          "scripts/hudlayout_base.res": {
             "TransparentViewmodel": {
               "visible": {
                 "true": "1",
@@ -832,9 +832,9 @@
         "Type": "Checkbox",
         "ToolTip": "Toggle the position of the player's mini 3D model to be on the left.",
         "Value": "false",
-        "FileName": "hudplayerclass-left.res",
+        "FileName": "hudplayerclass_left.res",
         "Files": {
-          "#customizations/_base/hudlayout.res": {
+          "scripts/hudlayout_base.res": {
             "DisguiseStatus": {
               "xpos": {
                 "true": "100",
@@ -872,7 +872,7 @@
         "Maximum": "9",
         "Increment": "1",
         "Files": {
-          "#customizations/_base/hudlayout.res": {
+          "scripts/hudlayout_base.res": {
             "HudDeathNotice": {
               "MaxDeathNotices": "$value"
             }
