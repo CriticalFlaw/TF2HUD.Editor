@@ -166,7 +166,7 @@
     <value>Hay una nueva actualización del HUD disponible. ¿Quieres reiniciar ahora para aplicar los nuevos cambios?</value>
   </data>
   <data name="info_hud_update_none" xml:space="preserve">
-    <value>Tienes la última versión del HUD. Por favor, compruebelo más tarde.</value>
+    <value>No hay actualizaciones disponibles. Por favor, compruebelo más tarde.</value>
   </data>
   <data name="info_path_browser" xml:space="preserve">
     <value>Seleccione su directorio tf/custom. Si proporciona un directorio no válido, no estarán disponibles varias opciones.</value>
