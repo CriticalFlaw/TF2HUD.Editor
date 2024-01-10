@@ -144,6 +144,9 @@
   <data name="info_add_hud" xml:space="preserve">
     <value>¿Estás seguro de que quieres añadir un directorio a la lista de HUDs compartidos? Esto añadirá el directorio localmente pero no subirá el HUD a la base de datos de TF2HUD.Editor.</value>
   </data>
+  <data name="info_app_update" xml:space="preserve">
+    <value>Está disponible una nueva actualización del Editor de HUDs. ¿Te gustaría descargar la última versión?</value>
+  </data>
   <data name="info_background_override" xml:space="preserve">
     <value>Al establecer un fondo de pantalla nuevo sobreescribirá el actual. Usa la opción de "Reinstalar" para volver al fondo de pantalla predeterminado.</value>
   </data>
@@ -163,7 +166,7 @@
     <value>Hay una nueva actualización del HUD disponible. ¿Quieres reiniciar ahora para aplicar los nuevos cambios?</value>
   </data>
   <data name="info_hud_update_none" xml:space="preserve">
-    <value>Tienes la última versión del HUD. Por favor, compruebelo más tarde.</value>
+    <value>No hay actualizaciones disponibles. Por favor, compruebelo más tarde.</value>
   </data>
   <data name="info_path_browser" xml:space="preserve">
     <value>Seleccione su directorio tf/custom. Si proporciona un directorio no válido, no estarán disponibles varias opciones.</value>
