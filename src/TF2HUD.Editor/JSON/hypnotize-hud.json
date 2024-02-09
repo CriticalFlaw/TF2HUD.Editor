@@ -63,7 +63,7 @@
         "Type": "CheckBox",
         "Value": "false",
         "Files": {
-          "customizations/health style.res": {
+          "customizations/health_styles.res": {
             "#base": [
               {
                 "true": "../resource/ui/hudplayerhealth_box.res",
@@ -79,7 +79,7 @@
         "Type": "CheckBox",
         "Value": "false",
         "Files": {
-          "customizations/transparent viewmodels.res": {
+          "customizations/transparent_viewmodels.res": {
             "#base": [
               {
                 "true": "../resource/ui/transparent_viewmodels.res",
@@ -111,7 +111,7 @@
         "Type": "CheckBox",
         "Value": "false",
         "Files": {
-          "customizations/team status.res": {
+          "customizations/team_status.res": {
             "#base": [
               {
                 "true": "../resource/ui/hudmatchstatus_smallhealth.res",
@@ -127,7 +127,7 @@
         "Type": "CheckBox",
         "Value": "false",
         "Files": {
-          "customizations/pausemenu background.res": {
+          "customizations/pausemenu_background.res": {
             "#base": [
               {
                 "true": "../resource/ui/pausemenutransparent.res",
@@ -189,7 +189,7 @@
             "Label": "Avenir",
             "Value": "0",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_avenir.res"
               }
             }
@@ -198,7 +198,7 @@
             "Label": "Cerbetica",
             "Value": "1",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_cerbetica.res"
               }
             }
@@ -207,7 +207,7 @@
             "Label": "Futura",
             "Value": "2",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_futura.res"
               }
             }
@@ -216,7 +216,7 @@
             "Label": "Lato",
             "Value": "3",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_lato.res"
               }
             }
@@ -225,7 +225,7 @@
             "Label": "Neutra",
             "Value": "4",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_neutra.res"
               }
             }
@@ -234,7 +234,7 @@
             "Label": "Nexa",
             "Value": "5",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_nexa.res"
               }
             }
@@ -243,7 +243,7 @@
             "Label": "Product",
             "Value": "6",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_product.res"
               }
             }
@@ -252,7 +252,7 @@
             "Label": "Quake",
             "Value": "7",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_quake.res"
               }
             }
@@ -261,7 +261,7 @@
             "Label": "Renogare",
             "Value": "8",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_renogare.res"
               }
             }
@@ -270,7 +270,7 @@
             "Label": "Roboto",
             "Value": "9",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_roboto.res"
               }
             }
@@ -279,7 +279,7 @@
             "Label": "Rubik",
             "Value": "10",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_rubik.res"
               }
             }
@@ -288,7 +288,7 @@
             "Label": "Surface",
             "Value": "11",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_surface.res"
               }
             }
@@ -297,7 +297,7 @@
             "Label": "TF2",
             "Value": "12",
             "Files": {
-              "customizations/alternative fonts.res": {
+              "customizations/alternative_fonts.res": {
                 "#base": "../resource/scheme/alternative_fonts/fonts_tf2.res"
               }
             }
@@ -378,7 +378,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Health Numbers": "$value"
+                "Health_Numbers": "$value"
               }
             }
           }
@@ -393,7 +393,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Buffed Health": "$value"
+                "Buffed_Health": "$value"
               }
             }
           }
@@ -408,7 +408,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Buffed Health Pulse": "$value"
+                "Buffed_Health_Pulse": "$value"
               }
             }
           }
@@ -423,7 +423,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Low Health": "$value"
+                "Low_Health": "$value"
               }
             }
           }
@@ -438,7 +438,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Low Health Pulse": "$value"
+                "Low_Health_Pulse": "$value"
               }
             }
           }
@@ -453,7 +453,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Health Gained": "$value"
+                "Health_Gained": "$value"
               }
             }
           }
@@ -468,7 +468,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Health Lost": "$value"
+                "Health_Lost": "$value"
               }
             }
           }
@@ -485,7 +485,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Ammo In Clip": "$value"
+                "Ammo_In_Clip": "$value"
               }
             }
           }
@@ -500,7 +500,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Ammo In Reserve": "$value"
+                "Ammo_In_Reserve": "$value"
               }
             }
           }
@@ -515,7 +515,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Ammo No Clip": "$value"
+                "Ammo_No_Clip": "$value"
               }
             }
           }
@@ -530,7 +530,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Low Ammo In Clip": "$value"
+                "Low_Ammo_In_Clip": "$value"
               }
             }
           }
@@ -545,7 +545,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Low Ammo In Clip Pulse": "$value"
+                "Low_Ammo_In_Clip_Pulse": "$value"
               }
             }
           }
@@ -560,7 +560,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Low Ammo In Reserve": "$value"
+                "Low_Ammo_In_Reserve": "$value"
               }
             }
           }
@@ -575,7 +575,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Low Ammo In Reserve Pulse": "$value"
+                "Low_Ammo_In_Reserve_Pulse": "$value"
               }
             }
           }
@@ -590,7 +590,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Low Ammo No Clip": "$value"
+                "Low_Ammo_No_Clip": "$value"
               }
             }
           }
@@ -605,7 +605,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Low Ammo No Clip Pulse": "$value"
+                "Low_Ammo_No_Clip_Pulse": "$value"
               }
             }
           }
@@ -622,7 +622,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Full Ubercharge": "$value"
+                "Full_Ubercharge": "$value"
               }
             }
           }
@@ -637,7 +637,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Full Ubercharge Pulse": "$value"
+                "Full_Ubercharge_Pulse": "$value"
               }
             }
           }
@@ -652,7 +652,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Heal Numbers": "$value"
+                "Heal_Numbers": "$value"
               }
             }
           }
@@ -667,7 +667,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Last Damage Done": "$value"
+                "Last_Damage_Done": "$value"
               }
             }
           }
@@ -682,7 +682,7 @@
         "Type": "Crosshair",
         "Value": "A",
         "Files": {
-          "customizations/crosshairs and hitmarker.res": {
+          "customizations/crosshairs_and_hitmarker.res": {
             "CustomCrosshair": {
               "labelText": "$value"
             },
@@ -716,7 +716,7 @@
           "customizations/colors.res": {
             "Scheme": {
               "Colors": {
-                "Crosshair Pulse": "$value"
+                "Crosshair_Pulse": "$value"
               }
             }
           }
@@ -746,7 +746,7 @@
         "Maximum": "30",
         "Increment": "1",
         "Files": {
-          "customizations/crosshairs and hitmarker.res": {
+          "customizations/crosshairs_and_hitmarker.res": {
             "CustomCrosshair": {
               "font": "Size:$value | Outline:{$hh_val_xhair_outline ? ON : OFF}"
             },
@@ -762,7 +762,7 @@
         "Type": "Checkbox",
         "Value": "false",
         "Files": {
-          "customizations/crosshairs and hitmarker.res": {
+          "customizations/crosshairs_and_hitmarker.res": {
             "CustomCrosshair": {
               "visible": {
                 "true": "1",
@@ -784,7 +784,7 @@
         "Type": "Checkbox",
         "Value": "false",
         "Files": {
-          "customizations/crosshairs and hitmarker.res": {
+          "customizations/crosshairs_and_hitmarker.res": {
             "CustomCrosshairBlurShadow": {
               "visible": {
                 "true": "1",
@@ -800,7 +800,7 @@
         "Type": "Checkbox",
         "Value": "false",
         "Files": {
-          "customizations/crosshairs and hitmarker animation.txt": {
+          "customizations/crosshairs_and_hitmarker_animation.txt": {
             "uncomment": [
               "Animate \t\"CustomCrosshair\""
             ]
@@ -813,7 +813,7 @@
         "Type": "Checkbox",
         "Value": "false",
         "Files": {
-          "customizations/crosshairs and hitmarker animation.txt": {
+          "customizations/crosshairs_and_hitmarker_animation.txt": {
             "uncomment": [
               "Animate \t\"Hitmarker\""
             ]
