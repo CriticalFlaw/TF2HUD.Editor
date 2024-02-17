@@ -498,7 +498,7 @@
             "PlayerStatusSpyOutlineImage": {
               "image": {
                 "true": "../hud/class_spy_outline",
-                "false": "../vgui/replay/thumbnails/transparent"
+                "false": "replay/thumbnails/transparent"
               }
             }
           }
