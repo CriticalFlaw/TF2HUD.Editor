@@ -494,10 +494,13 @@
         "ToolTip": "Toggle the spy silhouette seen when changing the disguise.",
         "Value": "true",
         "Files": {
-          "scripts/hudanimations_custom.txt": {
-            "uncomment": [
-              "RunEvent HudSpyDisguiseChanged"
-            ]
+          "resource/ui/hudplayerclass.res": {
+            "PlayerStatusSpyOutlineImage": {
+              "image": {
+                "true": "../hud/class_spy_outline",
+                "false": "../vgui/replay/thumbnails/transparent"
+              }
+            }
           }
         }
       },
@@ -1018,7 +1021,7 @@
                   "font": "FontBold22"
                 },
                 "IndividualChargesLabel": {
-                  "ypos": "5",
+                  "ypos": "15",
                   "tall": "30"
                 },
                 "ChargeMeter": {
