@@ -3,6 +3,12 @@
   "Author": "CriticalFlaw",
   "Description": "Bug fixes and minor visual improvements to the default Team Fortress 2 HUD.",
   "Thumbnail": "https://user-images.githubusercontent.com/6818236/135371575-a5a7697c-a5d1-43e7-ae59-0369affe99f0.png",
+  "Screenshots": [
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/menu.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/loadout.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/hud.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/customizations.webp"
+  ],
   "Background": "https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c47-a17b47cbaf0c.png",
   "Layout": [
     "3 4 5 2",
@@ -10,6 +16,7 @@
   ],
   "Links": {
     "GitHub": "https://github.com/CriticalFlaw/TF2HUD.Fixes",
+    "ComfigHuds": "https://comfig.app/huds/page/hud-fixes/",
     "Discord": "https://discord.gg/hTdtK9vBhE",
     "Download": [
       {
@@ -337,7 +344,7 @@
         "Files": {
           "resource/ui/#customizations/crosshair/crosshair_base.res": {
             "CustomCrosshair": {
-              "font": "Size:$value"
+              "font": "Size-$value"
             }
           }
         }
@@ -431,12 +438,6 @@
         "Value": "false",
         "Files": {
           "resource/ui/#customizations/player_model/player_model_base.res": {
-            "classmodelpanelBG": {
-              "wide": {
-                "true": "0",
-                "false": "109"
-              }
-            },
             "classmodelpanel": {
               "wide": {
                 "true": "0",
@@ -445,6 +446,12 @@
               "wide_minmode": {
                 "true": "0",
                 "false": "52"
+              }
+            },
+            "classmodelpanelBG": {
+              "wide": {
+                "true": "0",
+                "false": "109"
               }
             }
           }
