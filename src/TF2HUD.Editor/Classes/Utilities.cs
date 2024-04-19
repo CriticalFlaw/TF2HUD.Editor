@@ -205,10 +205,10 @@ namespace HUDEditor.Classes
         /// <summary>
         ///     Check if Team Fortress 2 is currently running.
         /// </summary>
-        /// <returns>False if there's no active process named hl2, otherwise return true and a warning message.</returns>
+        /// <returns>False if there's no active process named hl2, tf, or tf_win64, otherwise return true and a warning message.</returns>
         public static bool CheckIsGameRunning()
         {
-            if (!Process.GetProcessesByName("hl2").Any()) return false;
+            if (!Process.GetProcessesByName("hl2").Any() && !Process.GetProcessesByName("tf").Any() && !Process.GetProcessesByName("tf_win64").Any()) return false;
             MainWindow.ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString("info_game_running"));
             return true;
         }

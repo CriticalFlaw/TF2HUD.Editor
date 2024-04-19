@@ -337,7 +337,7 @@ namespace HUDEditor.ViewModels
             if (SelectedHud == null) return;
 
             var selection = SelectedHud;
-            if (Process.GetProcessesByName("hl2").Any() && selection.DirtyControls.Count > 0)
+            if ((Process.GetProcessesByName("hl2").Any() || Process.GetProcessesByName("tf").Any() || Process.GetProcessesByName("tf_win64").Any()) && selection.DirtyControls.Count > 0)
             {
                 var message = selection.DirtyControls.Aggregate(Resources.info_game_restart, (current, control) => current + $"\n - {control}");
                 if (MainWindow.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
