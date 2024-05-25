@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
@@ -65,10 +65,10 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="CountryFlag" Version="2.1.0" />
-		<PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.113" />
-		<PackageReference Include="log4net" Version="2.0.15" />
+		<PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.115" />
+		<PackageReference Include="log4net" Version="2.0.17" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="Octokit" Version="9.0.0" />
+		<PackageReference Include="Octokit" Version="11.0.1" />
 		<PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />
 	</ItemGroup>
 
@@ -145,6 +145,28 @@
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="RD /S /Q &quot;$(TargetDir)ar&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)cs&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)cs-CZ&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)da&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)de&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)es&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)fr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)hu&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)it&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ja-JP&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ko&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)nl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pt&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ro&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ru&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sk&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)th&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)tr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sv&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-Hans&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-tw&quot;" />
+		<Exec Command="RD /S /Q &quot;$(TargetDir)ar&quot;
+RD /S /Q &quot;$(TargetDir)cs&quot;
+RD /S /Q &quot;$(TargetDir)cs-CZ&quot;
+RD /S /Q &quot;$(TargetDir)da&quot;
+RD /S /Q &quot;$(TargetDir)de&quot;
+RD /S /Q &quot;$(TargetDir)es&quot;
+RD /S /Q &quot;$(TargetDir)fr&quot;
+RD /S /Q &quot;$(TargetDir)hu&quot;
+RD /S /Q &quot;$(TargetDir)it&quot;
+RD /S /Q &quot;$(TargetDir)ja-JP&quot;
+RD /S /Q &quot;$(TargetDir)ko&quot;
+RD /S /Q &quot;$(TargetDir)nl&quot;
+RD /S /Q &quot;$(TargetDir)pl&quot;
+RD /S /Q &quot;$(TargetDir)pt&quot;
+RD /S /Q &quot;$(TargetDir)ro&quot;
+RD /S /Q &quot;$(TargetDir)ru&quot;
+RD /S /Q &quot;$(TargetDir)sk&quot;
+RD /S /Q &quot;$(TargetDir)th&quot;
+RD /S /Q &quot;$(TargetDir)tr&quot;
+RD /S /Q &quot;$(TargetDir)sv&quot;
+RD /S /Q &quot;$(TargetDir)zh&quot;
+RD /S /Q &quot;$(TargetDir)zh-Hans&quot;
+RD /S /Q &quot;$(TargetDir)zh-tw&quot;" />
 	</Target>
 </Project>
