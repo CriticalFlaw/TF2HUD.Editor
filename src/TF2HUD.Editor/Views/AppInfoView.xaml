@@ -19,15 +19,11 @@
             <Run Text="linked below." />
         </TextBlock>
         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-        <Label Content="Version 3.2" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
+        <Label Content="Version 3.3" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-            <Run Text="* Added m0rehud customizations." /><LineBreak />
-            <Run Text="* Added Simplified Chinese translations. (Thanks HotoCocoaco)" /><LineBreak />
-            <Run Text="* Added the Zenith user setting for budhud. (Thanks KaineWooten)" /><LineBreak />
-            <Run Text="* Fixed the install button staying disabled. (Thanks cooolbros)" /><LineBreak />
-            <Run Text="* Updated how the editor checks for new version releases." /><LineBreak />
-            <Run Text="* Updated the editor to be able to copy multiple subfolders." /><LineBreak />
-            <Run Text="* Updated Russian translations. (Thanks Blueberryy)" />
+            <Run Text="* Upgraded to .NET 8.0" /><LineBreak />
+            <Run Text="* Updated to recognize TF2 following the 64-bit Update" /><LineBreak />
+            <Run Text="* Updated Spanish translations" />
             <LineBreak />
         </TextBlock>
     </StackPanel>
