@@ -1689,11 +1689,11 @@
             "ModeButton": {
               "tall": {
                 "true": "75",
-                "false": "50"
+                "false": "40"
               },
               "wide": {
                 "true": "250",
-                "false": "140"
+                "false": "115"
               },
               "font": {
                 "true": "FontBold18",
@@ -1705,7 +1705,7 @@
             "ExpandableList": {
               "ypos": {
                 "true": "10",
-                "false": "r63"
+                "false": "r75"
               },
               "zpos": {
                 "true": "1001",
@@ -1721,29 +1721,9 @@
               }
             },
             "Title": {
-              "xpos": {
-                "true": "0",
-                "false": "c-350"
-              },
-              "ypos": {
-                "true": "25",
-                "false": "12"
-              },
-              "wide": {
-                "true": "f0",
-                "false": "130"
-              },
-              "tall": {
-                "true": "20",
-                "false": "40"
-              },
-              "textAlignment": {
-                "true": "center",
-                "false": "west"
-              },
-              "wrap": {
-                "true": "0",
-                "false": "1"
+              "visible": {
+                "true": "1",
+                "false": "0"
               }
             },
             "playlist": {
