@@ -1685,22 +1685,6 @@
         "Value": "false",
         "Restart": true,
         "Files": {
-          "resource/ui/mainmenuplaylistentry.res": {
-            "ModeButton": {
-              "tall": {
-                "true": "75",
-                "false": "40"
-              },
-              "wide": {
-                "true": "250",
-                "false": "115"
-              },
-              "font": {
-                "true": "FontBold18",
-                "false": "FontBold12"
-              }
-            }
-          },
           "resource/ui/matchmakingdashboardplaylist.res": {
             "ExpandableList": {
               "ypos": {
@@ -1764,100 +1748,68 @@
             }
           },
           "resource/ui/matchmakingplaylist.res": {
-            "CasualEntry": {
+            "CasualLabel": {
               "xpos": {
+                "true": "10",
+                "false": "r-40"
+              },
+              "ypos": {
                 "true": "0",
-                "false": "r165"
-              },
-              "tall": {
-                "true": "75",
-                "false": "50"
-              },
-              "wide": {
-                "true": "250",
-                "false": "140"
-              },
-              "proportionaltoparent": {
-                "true": "1",
-                "false": "0"
+                "false": "5"
               }
             },
-            "CompetitiveEntry": {
+            "CompetitiveLabel": {
+              "xpos": {
+                "true": "10",
+                "false": "5"
+              }
+            },
+            "MvMLabel": {
               "xpos": {
                 "true": "0",
                 "false": "5"
               },
-              "tall": {
-                "true": "75",
-                "false": "50"
-              },
-              "wide": {
-                "true": "250",
-                "false": "140"
-              },
-              "proportionaltoparent": {
-                "true": "1",
+              "ypos": {
+                "true": "10",
                 "false": "0"
               },
-              "pin_corner_to_sibling": {
-                "true": "PIN_TOPLEFT",
-                "false": "PIN_TOPRIGHT"
+              "pin_to_sibling": {
+                "true": "CasualEntry",
+                "false": "CompetitiveLabel"
               },
               "pin_to_sibling_corner": {
                 "true": "PIN_BOTTOMLEFT",
-                "false": "PIN_TOPLEFT"
+                "false": "PIN_TOPRIGHT"
               }
             },
-            "MvMEntry": {
+            "ServerBrowserLabel": {
+              "xpos": {
+                "true": "10",
+                "false": "5"
+              }
+            },
+            "QuickplayLabel": {
               "xpos": {
                 "true": "0",
                 "false": "5"
               },
-              "tall": {
-                "true": "75",
-                "false": "50"
-              },
-              "wide": {
-                "true": "250",
-                "false": "140"
-              },
-              "proportionaltoparent": {
-                "true": "1",
+              "ypos": {
+                "true": "10",
                 "false": "0"
               },
-              "pin_corner_to_sibling": {
-                "true": "PIN_TOPLEFT",
-                "false": "PIN_TOPRIGHT"
+              "pin_to_sibling": {
+                "true": "MvMEntry",
+                "false": "ServerBrowserLabel"
               },
               "pin_to_sibling_corner": {
                 "true": "PIN_BOTTOMLEFT",
-                "false": "PIN_TOPLEFT"
+                "false": "PIN_TOPRIGHT"
               }
             },
-            "ServerBrowserEntry": {
+            "QuickplayArenaLabel": {
               "xpos": {
-                "true": "0",
+                "true": "10",
                 "false": "5"
-              },
-              "tall": {
-                "true": "75",
-                "false": "50"
-              },
-              "wide": {
-                "true": "250",
-                "false": "140"
-              },
-              "proportionaltoparent": {
-                "true": "1",
-                "false": "0"
-              },
-              "pin_corner_to_sibling": {
-                "true": "PIN_TOPLEFT",
-                "false": "PIN_TOPRIGHT"
-              },
-              "pin_to_sibling_corner": {
-                "true": "PIN_BOTTOMLEFT",
-                "false": "PIN_TOPLEFT"
               }
             }
           }
