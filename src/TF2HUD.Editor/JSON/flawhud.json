@@ -800,6 +800,115 @@
         }
       },
       {
+        "Name": "fh_centered_vacc_icon",
+        "Label": "Center Vaccinator Icon",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle Mann vs. Machine currency position.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/hudmannvsmachinestatus.res": {
+            "ChargeLabelShadow": {
+              "visible": {
+                "true": "1",
+                "false": "1"
+              },
+              "xpos": {
+                "true": "c-10",
+                "false": "-2"
+              },
+              "ypos": {
+                "true": "c15",
+                "false": "-2"
+              },
+              "wide": {
+                "true": "48",
+                "false": "110"
+              },
+              "tall": {
+                "true": "27",
+                "false": "43"
+              },
+              "labelText": {
+                "true": "#TF_IndividualUberchargesMinHUD",
+                "false": ""
+              },
+              "bgcolor_override": {
+                "true": "HudBlack",
+                "false": "Black"
+              }
+            },
+            "ChargeMeter1": {
+              "ypos": {
+                "true": "-20",
+                "false": "-2"
+              },
+              "wide": {
+                "true": "10",
+                "false": "25"
+              },
+              "tall": {
+                "true": "5",
+                "false": "26"
+              }
+            },
+            "ChargeMeter2": {
+              "wide": {
+                "true": "10",
+                "false": "25"
+              },
+              "tall": {
+                "true": "5",
+                "false": "26"
+              }
+            },
+            "ChargeMeter3": {
+              "wide": {
+                "true": "10",
+                "false": "25"
+              },
+              "tall": {
+                "true": "5",
+                "false": "26"
+              }
+            },
+            "ChargeMeter4": {
+              "wide": {
+                "true": "10",
+                "false": "25"
+              },
+              "tall": {
+                "true": "5",
+                "false": "26"
+              }
+            },
+            "ResistIconAnchor": {
+              "xpos": {
+                "true": "0",
+                "false": "70"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPRIGHT",
+                "false": "PIN_CENTER_TOP"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_CENTER_TOP"
+              }
+            },
+            "ResistIcon": {
+              "wide": {
+                "true": "25",
+                "false": "30"
+              },
+              "tall": {
+                "true": "25",
+                "false": "30"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "fh_chat_font",
         "Label": "Default Chat Font",
         "Type": "Checkbox",
@@ -807,7 +916,7 @@
         "Value": "false",
         "Restart": true,
         "Files": {
-          "resource/chatscheme.res": {
+          "resource/ui/hudmediccharge.res": {
             "Scheme": {
               "Fonts": {
                 "ChatFont": {
@@ -882,6 +991,263 @@
                     }
                   }
                 }
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_val_hud_style",
+        "Label": "Cornered Health/Ammo",
+        "Type": "Checkbox",
+        "ToolTip": "Position the player health and ammo in the corners of the screen.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/huddamageaccount.res": {
+            "DamageAccountValue": {
+              "xpos": {
+                "true": "10",
+                "false": "c-250"
+              },
+              "ypos": {
+                "true": "r75",
+                "false": "c90"
+              }
+            }
+          },
+          "resource/ui/huditemeffectmeter_demoman.res": {
+            "HudItemEffectMeter": {
+              "xpos": {
+                "true": "125",
+                "false": "c155"
+              },
+              "ypos": {
+                "true": "r30",
+                "false": "r85"
+              }
+            }
+          },
+          "resource/ui/huditemeffectmeter_killstreak.res": {
+            "HudItemEffectMeter": {
+              "xpos": {
+                "true": "125",
+                "false": "c220"
+              },
+              "ypos": {
+                "true": "r50",
+                "false": "r85"
+              }
+            }
+          },
+          "resource/ui/hudmediccharge.res": {
+            "UberBG": {
+              "wide": {
+                "true": "110",
+                "false": "0"
+              }
+            },
+            "ChargeLabel": {
+              "textAlignment": {
+                "true": "east",
+                "false": "center"
+              },
+              "font": {
+                "true": "FontBold50",
+                "false": "FontBold22"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_BOTTOMLEFT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_TOPLEFT"
+              }
+            },
+            "ChargeLabelShadow": {
+              "textAlignment": {
+                "true": "east",
+                "false": "center"
+              },
+              "font": {
+                "true": "FontBold50",
+                "false": "FontBold22"
+              }
+            },
+            "IndividualChargesLabel": {
+              "ypos": {
+                "true": "13",
+                "false": "15"
+              },
+              "tall": {
+                "true": "43",
+                "false": "30"
+              }
+            },
+            "ChargeMeter": {
+              "ypos": {
+                "true": "0",
+                "false": "30"
+              }
+            },
+            "ChargeMeter1": {
+              "tall": {
+                "true": "39",
+                "false": "26"
+              }
+            },
+            "ChargeMeter2": {
+              "tall": {
+                "true": "39",
+                "false": "26"
+              }
+            },
+            "ChargeMeter3": {
+              "tall": {
+                "true": "39",
+                "false": "26"
+              }
+            },
+            "ChargeMeter4": {
+              "tall": {
+                "true": "39",
+                "false": "26"
+              }
+            },
+            "ResistIconAnchor": {
+              "xpos": {
+                "true": "0",
+                "false": "70"
+              },
+              "ypos": {
+                "true": "-5",
+                "false": "0"
+              }
+            }
+          },
+          "resource/ui/hudplayerclass.res": {
+            "PlayerStatusClassImage": {
+              "ypos": {
+                "true": "r127",
+                "false": "r75"
+              }
+            },
+            "classmodelpanel": {
+              "xpos": {
+                "true": "0",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "r252",
+                "false": "r200"
+              }
+            },
+            "CarryingWeapon": {
+              "xpos": {
+                "true": "180",
+                "false": "100"
+              }
+            }
+          },
+          "resource/ui/hudplayerhealth.res": {
+            "HudPlayerHealth": {
+              "xpos": {
+                "true": "10",
+                "false": "c-250"
+              },
+              "ypos": {
+                "true": "r77",
+                "false": "c85"
+              }
+            }
+          },
+          "resource/ui/hudspellselection.res": {
+            "ActionText": {
+              "tall": {
+                "true": "0",
+                "false": "10"
+              }
+            }
+          },
+          "scripts/hudlayout.res": {
+            "HudWeaponAmmo": {
+              "xpos": {
+                "true": "r120",
+                "false": "c150"
+              },
+              "ypos": {
+                "true": "r53",
+                "false": "c110"
+              }
+            },
+            "HudMedicCharge": {
+              "xpos": {
+                "true": "r120",
+                "false": "c-55"
+              },
+              "ypos": {
+                "true": "r65",
+                "false": "r127"
+              }
+            },
+            "HudDemomanCharge": {
+              "xpos": {
+                "true": "r120",
+                "false": "c-55"
+              },
+              "ypos": {
+                "true": "r73",
+                "false": "c136"
+              }
+            },
+            "HudDemomanPipes": {
+              "xpos": {
+                "true": "r120",
+                "false": "c-55"
+              },
+              "ypos": {
+                "true": "r88",
+                "false": "c124"
+              }
+            },
+            "CHudAccountPanel": {
+              "xpos": {
+                "true": "r135",
+                "false": "c-50"
+              },
+              "ypos": {
+                "true": "r97",
+                "false": "c120"
+              }
+            },
+            "CHealthAccountPanel": {
+              "xpos": {
+                "true": "73",
+                "false": "c-195"
+              },
+              "ypos": {
+                "true": "r120",
+                "false": "c44"
+              }
+            },
+            "DisguiseStatus": {
+              "xpos": {
+                "true": "c135",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "r35",
+                "false": "r25"
+              }
+            },
+            "HudSpellMenu": {
+              "xpos": {
+                "true": "c-240",
+                "false": "c-210"
+              },
+              "ypos": {
+                "true": "r30",
+                "false": "r75"
               }
             }
           }
@@ -970,254 +1336,6 @@
                   "xpos": "-1",
                   "ypos": "-1",
                   "font": "FontRegular20"
-                }
-              }
-            }
-          }
-        ]
-      },
-      {
-        "Name": "fh_val_hud_style",
-        "Label": "Health/Ammo Pos.",
-        "Type": "ComboBox",
-        "ToolTip": "Change to different UI styles where health and ammo are moved.",
-        "Value": "0",
-        "Preview": "https://user-images.githubusercontent.com/6818236/114957712-9bd4d400-9e2f-11eb-8612-479313086c47.jpg",
-        "Options": [
-          {
-            "Label": "Centered",
-            "Value": "0",
-            "Files": {
-              "resource/ui/huddamageaccount.res": {
-                "DamageAccountValue": {
-                  "xpos": "c-250",
-                  "ypos": "c90"
-                }
-              },
-              "resource/ui/huditemeffectmeter_demoman.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "c155",
-                  "ypos": "r85"
-                }
-              },
-              "resource/ui/huditemeffectmeter_killstreak.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "c220",
-                  "ypos": "r85"
-                }
-              },
-              "resource/ui/hudmediccharge.res": {
-                "UberBG": {
-                  "wide": "0"
-                },
-                "ChargeLabel": {
-                  "textAlignment": "center",
-                  "font": "FontBold22",
-                  "pin_corner_to_sibling": "PIN_BOTTOMLEFT",
-                  "pin_to_sibling_corner": "PIN_TOPLEFT"
-                },
-                "ChargeLabelShadow": {
-                  "textAlignment": "center",
-                  "font": "FontBold22"
-                },
-                "IndividualChargesLabel": {
-                  "ypos": "15",
-                  "tall": "30"
-                },
-                "ChargeMeter": {
-                  "ypos": "30"
-                },
-                "ChargeMeter1": {
-                  "tall": "26"
-                },
-                "ChargeMeter2": {
-                  "tall": "26"
-                },
-                "ChargeMeter3": {
-                  "tall": "26"
-                },
-                "ChargeMeter4": {
-                  "tall": "26"
-                },
-                "ResistIconAnchor": {
-                  "xpos": "70",
-                  "ypos": "0"
-                }
-              },
-              "resource/ui/hudplayerclass.res": {
-                "PlayerStatusClassImage": {
-                  "ypos": "r75"
-                },
-                "classmodelpanel": {
-                  "xpos": "0",
-                  "ypos": "r200"
-                },
-                "CarryingWeapon": {
-                  "xpos": "100"
-                }
-              },
-              "resource/ui/hudplayerhealth.res": {
-                "HudPlayerHealth": {
-                  "xpos": "c-250",
-                  "ypos": "c85"
-                }
-              },
-              "resource/ui/hudspellselection.res": {
-                "ActionText": {
-                  "tall": "10"
-                }
-              },
-              "scripts/hudlayout.res": {
-                "HudWeaponAmmo": {
-                  "xpos": "c150",
-                  "ypos": "c110"
-                },
-                "HudMedicCharge": {
-                  "xpos": "c-55",
-                  "ypos": "r127"
-                },
-                "HudDemomanCharge": {
-                  "xpos": "c-55",
-                  "ypos": "c136"
-                },
-                "HudDemomanPipes": {
-                  "xpos": "c-55",
-                  "ypos": "c124"
-                },
-                "CHudAccountPanel": {
-                  "xpos": "c-50",
-                  "ypos": "c120"
-                },
-                "CHealthAccountPanel": {
-                  "xpos": "c-195",
-                  "ypos": "c44"
-                },
-                "DisguiseStatus": {
-                  "xpos": "0",
-                  "ypos": "r25"
-                },
-                "HudSpellMenu": {
-                  "xpos": "c-210",
-                  "ypos": "r75"
-                }
-              }
-            }
-          },
-          {
-            "Label": "Cornered",
-            "Value": "1",
-            "Files": {
-              "resource/ui/huddamageaccount.res": {
-                "DamageAccountValue": {
-                  "xpos": "10",
-                  "ypos": "r75"
-                }
-              },
-              "resource/ui/huditemeffectmeter_demoman.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "125",
-                  "ypos": "r30"
-                }
-              },
-              "resource/ui/huditemeffectmeter_killstreak.res": {
-                "HudItemEffectMeter": {
-                  "xpos": "125",
-                  "ypos": "r50"
-                }
-              },
-              "resource/ui/hudmediccharge.res": {
-                "UberBG": {
-                  "wide": "110"
-                },
-                "ChargeLabel": {
-                  "textAlignment": "east",
-                  "font": "FontBold50",
-                  "pin_corner_to_sibling": "PIN_TOPLEFT",
-                  "pin_to_sibling_corner": "PIN_TOPLEFT"
-                },
-                "ChargeLabelShadow": {
-                  "textAlignment": "east",
-                  "font": "FontBold50"
-                },
-                "IndividualChargesLabel": {
-                  "ypos": "13",
-                  "tall": "43"
-                },
-                "ChargeMeter": {
-                  "ypos": "0"
-                },
-                "ChargeMeter1": {
-                  "tall": "39"
-                },
-                "ChargeMeter2": {
-                  "tall": "39"
-                },
-                "ChargeMeter3": {
-                  "tall": "39"
-                },
-                "ChargeMeter4": {
-                  "tall": "39"
-                },
-                "ResistIconAnchor": {
-                  "xpos": "0",
-                  "ypos": "-5"
-                }
-              },
-              "resource/ui/hudplayerclass.res": {
-                "PlayerStatusClassImage": {
-                  "ypos": "r127"
-                },
-                "classmodelpanel": {
-                  "xpos": "0",
-                  "ypos": "r252"
-                },
-                "CarryingWeapon": {
-                  "xpos": "180"
-                }
-              },
-              "resource/ui/hudplayerhealth.res": {
-                "HudPlayerHealth": {
-                  "xpos": "10",
-                  "ypos": "r77"
-                }
-              },
-              "resource/ui/hudspellselection.res": {
-                "ActionText": {
-                  "tall": "0"
-                }
-              },
-              "scripts/hudlayout.res": {
-                "HudWeaponAmmo": {
-                  "xpos": "r120",
-                  "ypos": "r53"
-                },
-                "HudMedicCharge": {
-                  "xpos": "r120",
-                  "ypos": "r65"
-                },
-                "HudDemomanCharge": {
-                  "xpos": "r120",
-                  "ypos": "r73"
-                },
-                "HudDemomanPipes": {
-                  "xpos": "r120",
-                  "ypos": "r88"
-                },
-                "CHudAccountPanel": {
-                  "xpos": "r135",
-                  "ypos": "r97"
-                },
-                "CHealthAccountPanel": {
-                  "xpos": "73",
-                  "ypos": "r120"
-                },
-                "DisguiseStatus": {
-                  "xpos": "c135",
-                  "ypos": "r35"
-                },
-                "HudSpellMenu": {
-                  "xpos": "c-240",
-                  "ypos": "r30"
                 }
               }
             }
