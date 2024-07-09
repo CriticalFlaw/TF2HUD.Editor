@@ -31,9 +31,10 @@ jobs:
     - name: Restore NuGet Packages
       run: nuget restore src/TF2HUD.Editor.sln
         
-    - name: Install dependencies
+    - name: .NET Restore
       run: dotnet restore
       working-directory: src/TF2HUD.Editor
         
-    - name: Build Solution
+    - name: .NET Build
       run: dotnet build -c Debug
+      working-directory: src/TF2HUD.Editor
