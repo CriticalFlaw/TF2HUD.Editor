@@ -1,10 +1,7 @@
 <!-- BADGES -->
-[![Downloads][downloads-shield]][releases-link]
 [![Build][build-shield]][build-link]
 [![Docs][docs-shield]][docs-link]
-[![License][license-shield]][license-link]
-[![Stars][stars-shield]][stars-link]
-[![Issues][issues-shield]][issues-link]
+[![Downloads][download-shield]][download-link]
 [![Discord][discord-shield]][discord-link]
 
 <!-- TITLE -->
@@ -29,8 +26,8 @@
 
 ### Installation
 
-1. Download and install the [Microsoft .NET 8.0 Runtime][runtime-link] for desktop apps.
-2. Download and extract the [latest version of the editor][releases-link].
+1. Download and install the [Microsoft .NET 8.0 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0/runtime) for desktop apps.
+2. Download and extract the [latest version of the editor][download-link].
 3. Run the executable **TF2HUD.Editor.exe**
 ---
 
@@ -61,29 +58,18 @@ If you need help, report a bug or ask a question related to the project...
 
 Contributions towards the project are welcomed and encouraged. Some ways you can contribute include:
 * Code changes towards new features, enhancements and bug fixes. For on-going tasks, see our [issue tracker][issues-link].
-* Adding support for other HUDs by creating schema files. See [this section of our documentation][json-link] for instructions.
+* Adding support for other HUDs by creating schema files. See [this section of our documentation](https://www.criticalflaw.ca/TF2HUD.Editor/json/intro/) for instructions.
 * Maintaining, expanding and improving [this documentation][docs-link] to help to other users.
-* Adding localizations of missing languages or improving them [here][localizations-link].
-* Sponsor this project through [GitHub Sponsors][sponsors-link].
+* Adding localizations of missing languages or improving them [here](https://github.com/CriticalFlaw/TF2HUD.Editor/tree/master/src/TF2HUD.Editor/Properties).
+* Sponsor this project through [GitHub Sponsors](https://github.com/sponsors/CriticalFlaw).
 
 <!-- MARKDOWN LINKS -->
-[stars-shield]: https://img.shields.io/github/stars/CriticalFlaw/TF2HUD.Editor?style=flat-square
-[stars-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/stargazers
 [build-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/build.yml/badge.svg
 [build-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/build.yml
 [docs-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml/badge.svg
 [docs-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml
-[issues-shield]: https://img.shields.io/github/issues/CriticalFlaw/TF2HUD.Editor?style=flat-square
-[issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
-[license-shield]: https://img.shields.io/github/license/CriticalFlaw/TF2HUD.Editor?style=flat-square
-[license-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/blob/master/.github/LICENSE
-[localizations-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/tree/master/src/TF2HUD.Editor/Properties
-[json-link]: https://www.criticalflaw.ca/TF2HUD.Editor/json/intro/
-[screenshots-link]: https://www.criticalflaw.ca/TF2HUD.Editor/screenshots/
-[issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
+[download-shield]: https://img.shields.io/github/downloads/criticalflaw/tf2hud.editor/total?style=flat-square
+[download-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
 [discord-shield]: https://img.shields.io/badge/Discord-criticalflaw-7289da.svg?style=flat-square&logo=discord
 [discord-link]: https://discord.gg/hTdtK9vBhE
-[downloads-shield]: https://img.shields.io/github/downloads/criticalflaw/tf2hud.editor/total?style=flat-square
-[releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
-[sponsors-link]: https://github.com/sponsors/CriticalFlaw
-[runtime-link]: https://dotnet.microsoft.com/download/dotnet/8.0/runtime
+[issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
