@@ -28,13 +28,9 @@ jobs:
       env:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
-    - name: Restore NuGet Packages
+    - name: Restore dependencies
       run: nuget restore src/TF2HUD.Editor.sln
         
-    - name: .NET Restore
-      run: dotnet restore
-      working-directory: src/TF2HUD.Editor
-        
-    - name: .NET Build
+    - name: Build solution
       run: dotnet build -c Debug
       working-directory: src/TF2HUD.Editor
