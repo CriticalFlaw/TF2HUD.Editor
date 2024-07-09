@@ -1,6 +1,6 @@
 <!-- BADGES -->
 [![Downloads][downloads-shield]][releases-link]
-[![Scan][scan-shield]][scan-link]
+[![Build][build-shield]][build-link]
 [![Docs][docs-shield]][docs-link]
 [![License][license-shield]][license-link]
 [![Stars][stars-shield]][stars-link]
@@ -69,8 +69,8 @@ Contributions towards the project are welcomed and encouraged. Some ways you can
 <!-- MARKDOWN LINKS -->
 [stars-shield]: https://img.shields.io/github/stars/CriticalFlaw/TF2HUD.Editor?style=flat-square
 [stars-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/stargazers
-[scan-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/code.yml/badge.svg
-[scan-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/code.yml
+[scan-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/build.yml/badge.svg
+[scan-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/build.yml
 [docs-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml/badge.svg
 [docs-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml
 [issues-shield]: https://img.shields.io/github/issues/CriticalFlaw/TF2HUD.Editor?style=flat-square
