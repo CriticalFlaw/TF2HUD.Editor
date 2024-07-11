@@ -916,7 +916,7 @@
         "Value": "false",
         "Restart": true,
         "Files": {
-          "resource/ui/hudmediccharge.res": {
+          "resource/scheme/clientscheme_fonts.res": {
             "Scheme": {
               "Fonts": {
                 "ChatFont": {
@@ -1077,7 +1077,7 @@
             "IndividualChargesLabel": {
               "ypos": {
                 "true": "13",
-                "false": "15"
+                "false": "r120"
               },
               "tall": {
                 "true": "43",
@@ -1085,9 +1085,13 @@
               }
             },
             "ChargeMeter": {
+              "xpos": {
+                "true": "r120",
+                "false": "c-55"
+              },
               "ypos": {
-                "true": "0",
-                "false": "30"
+                "true": "r65",
+                "false": "r105"
               }
             },
             "ChargeMeter1": {
@@ -1178,16 +1182,6 @@
               "ypos": {
                 "true": "r53",
                 "false": "c110"
-              }
-            },
-            "HudMedicCharge": {
-              "xpos": {
-                "true": "r120",
-                "false": "c-55"
-              },
-              "ypos": {
-                "true": "r65",
-                "false": "r127"
               }
             },
             "HudDemomanCharge": {
