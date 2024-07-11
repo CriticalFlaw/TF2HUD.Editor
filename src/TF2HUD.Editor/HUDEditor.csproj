@@ -68,7 +68,7 @@
 		<PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.115" />
 		<PackageReference Include="log4net" Version="2.0.17" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="Octokit" Version="13.0.0" />
+		<PackageReference Include="Octokit" Version="13.0.1" />
 		<PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />
 	</ItemGroup>
 
