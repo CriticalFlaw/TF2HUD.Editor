@@ -13,9 +13,9 @@
     <br />
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases/latest">Download</a>
     ·
-    <a href="https://www.criticalflaw.ca/TF2HUD.Editor">Documentation</a>
+    <a href="https://criticalflaw.ca/TF2HUD.Editor">Documentation</a>
     ·
-    <a href="https://www.criticalflaw.ca/TF2HUD.Editor/screenshots/">Screenshots</a>
+    <a href="https://criticalflaw.ca/TF2HUD.Editor/screenshots/">Screenshots</a>
     ·
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/issues">Issue Tracker</a>
     ·
@@ -59,7 +59,7 @@ If you need help, report a bug or ask a question related to the project...
 
 Contributions towards the project are welcomed and encouraged. Some ways you can contribute include:
 * Code changes towards new features, enhancements and bug fixes. For on-going tasks, see our [issue tracker][issues-link].
-* Adding support for other HUDs by creating schema files. See [this section of our documentation](https://www.criticalflaw.ca/TF2HUD.Editor/json/intro/) for instructions.
+* Adding support for other HUDs by creating schema files. See [this section of our documentation](https://criticalflaw.ca/TF2HUD.Editor/json/intro/) for instructions.
 * Maintaining, expanding and improving [this documentation][docs-link] to help to other users.
 * Adding localizations of missing languages or improving them [here](https://github.com/CriticalFlaw/TF2HUD.Editor/tree/master/src/TF2HUD.Editor/Properties).
 * Sponsor this project through [GitHub Sponsors](https://github.com/sponsors/CriticalFlaw).

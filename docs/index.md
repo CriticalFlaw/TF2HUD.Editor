@@ -29,19 +29,18 @@ slug: /
 </p>
 
 <!-- BADGES -->
-[![Downloads][downloads-shield]][releases-link]
+[![Build][build-shield]][build-link]
+[![Package][package-shield]][package-link]
 [![Docs][docs-shield]][docs-link]
-[![License][license-shield]][license-link]
-[![Stars][stars-shield]][stars-link]
-[![Issues][issues-shield]][issues-link]
+[![Downloads][download-shield]][download-link]
 [![Discord][discord-shield]][discord-link]
 
 <!-- CONTENT -->
 
 ## How to Install
 
-1. Download and install the [Microsoft .NET 7.0 Runtime][runtime-link] for desktop apps.
-2. Download and extract the [latest version of the editor][releases-link].
+1. Download and install the [Microsoft .NET 8.0 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0/runtime) for desktop apps.
+2. Download and extract the [latest version of the editor][download-link].
 3. Run the executable **TF2HUD.Editor.exe**
 
 ---
@@ -52,17 +51,13 @@ The editor will check for updates every time it launches. If an update is availa
 Always use to the latest version of the editor for best compatability with supported HUDs.
 
 <!-- MARKDOWN LINKS -->
-[stars-shield]: https://img.shields.io/github/stars/CriticalFlaw/TF2HUD.Editor?style=flat-square
-[stars-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/stargazers
-[issues-shield]: https://img.shields.io/github/issues/CriticalFlaw/TF2HUD.Editor?style=flat-square
-[issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
-[license-shield]: https://img.shields.io/github/license/CriticalFlaw/TF2HUD.Editor?style=flat-square
-[license-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/blob/master/.github/LICENSE
-[docs-shield]: https://readthedocs.org/projects/tf2hudeditor/badge/?version=latest&style=flat-square
-[docs-link]: http://criticalflaw.ca/TF2HUD.Editor
-[issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
+[build-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/build.yml/badge.svg
+[build-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/build.yml
+[package-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/package.yml/badge.svg
+[package-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/package.yml
+[docs-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml/badge.svg
+[docs-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml
+[download-shield]: https://img.shields.io/github/downloads/criticalflaw/tf2hud.editor/total?style=flat-square
+[download-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
 [discord-shield]: https://img.shields.io/badge/Discord-criticalflaw-7289da.svg?style=flat-square&logo=discord
 [discord-link]: https://discord.gg/hTdtK9vBhE
-[downloads-shield]: https://img.shields.io/github/downloads/criticalflaw/tf2hud.editor/total?style=flat-square
-[releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
-[runtime-link]: https://dotnet.microsoft.com/download/dotnet/7.0/runtime
