@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  package:
     runs-on: windows-latest
     
     env:
