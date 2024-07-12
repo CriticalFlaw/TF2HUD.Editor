@@ -34,5 +34,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: tf2hud-editor
-        path: ./publish
+        name: TF2HUD-Editor
+        path: D:\a\TF2HUD.Editor\TF2HUD.Editor\src\TF2HUD.Editor\publish\
