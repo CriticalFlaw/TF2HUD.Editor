@@ -34,14 +34,15 @@
 
 ### Acknowledgements
 * [CriticalFlaw](https://github.com/CriticalFlaw) and [Revan](https://github.com/cooolbros) - Code, Design and Documentation.
-* [Zeesastrous](https://github.com/Zeesastrous) - Project Logo and Banner.
-* [mastercoms](https://github.com/mastercoms) - Transparent Viewmodels Add-on.
-* [Hypnotize](https://github.com/Hypnootize) - Icons and Crosshairs Add-on.
+* [mastercoms](https://github.com/mastercoms) - Transparent Viewmodels Add-On
+* [Zeesastrous](https://github.com/Zeesastrous) - Project Banner
+* [hypnotize](https://github.com/Hypnootize) - Crosshairs and Icons
 
 #### Localizations
-* [tacokete](https://github.com/tacokete). [KayaDLX](https://github.com/KayaDLX) - French
 * [Blueberryy](https://github.com/Blueberryy) - Russian
-* [Tiagoquix](https://github.com/Tiagoquix) - Brazilian Portuguese
+* [tacokete](https://github.com/tacokete) - French
+* [KayaDLX](https://github.com/KayaDLX) - French
+* [Tiagonix](https://github.com/Tiagonix) - Brazillian Portuguese
 * [thejaviertc](https://github.com/thejaviertc) - Spanish
 * [SignorUpB](https://github.com/SignorUpB) - Italian
 * [HotoCocoaco](https://github.com/HotoCocoaco) - Simplified Chinese

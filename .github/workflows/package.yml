@@ -32,5 +32,5 @@ jobs:
       working-directory: src/TF2HUD.Editor
         
     - name: Publish solution
-      run: dotnet publish -c Release --no-restore
+      run: dotnet publish -c Release
       working-directory: src/TF2HUD.Editor

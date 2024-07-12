@@ -15,7 +15,7 @@ You most likely downloaded the source code instead of the editor. On the [releas
 ---
 
 ### The editor does not launch after downloading and extracting it.
-Make sure to install the version of [Microsoft .NET 7.0 Runtime][runtime-link] intended for running **desktop apps**. If you just installed it and the editor still does not launch, then restart your system.
+Make sure to install the version of [Microsoft .NET 8.0 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0/runtime) intended for running **desktop apps**. If you just installed it and the editor still does not launch, then restart your system.
 
 ---
 
@@ -60,5 +60,4 @@ For HUD Editor versions 2.5 and lower, please refer to this video: https://www.y
 [issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
 [discord-link]: https://discord.gg/hTdtK9vBhE
 [releases-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
-[runtime-link]: https://dotnet.microsoft.com/download/dotnet/7.0/runtime
 [example-avast-issue]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues/107
