@@ -32,5 +32,11 @@ jobs:
       working-directory: src/TF2HUD.Editor
         
     - name: Publish solution
-      run: dotnet publish -c Release
+      run: dotnet publish -c Release --no-build --output ./publish
       working-directory: src/TF2HUD.Editor
+        
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: tf2hud-editor
+        path: ./publish
