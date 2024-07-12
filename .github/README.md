@@ -1,5 +1,6 @@
 <!-- BADGES -->
 [![Build][build-shield]][build-link]
+[![Package][package-shield]][package-link]
 [![Docs][docs-shield]][docs-link]
 [![Downloads][download-shield]][download-link]
 [![Discord][discord-shield]][discord-link]
