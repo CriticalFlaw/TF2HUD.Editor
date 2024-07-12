@@ -1,0 +1,36 @@
+name: package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    env:
+      Solution_Name: TF2HUD.Editor.sln
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+        
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.x'
+
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v2
+      env:
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
+    - name: Restore dependencies
+      run: nuget restore src/TF2HUD.Editor.sln
+        
+    - name: Build solution
+      run: dotnet build -c Release --no-restore
+      working-directory: src/TF2HUD.Editor
+        
+    - name: Publish solution
+      run: dotnet publish -c Release --no-restore
+      working-directory: src/TF2HUD.Editor
