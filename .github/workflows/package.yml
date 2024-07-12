@@ -27,12 +27,8 @@ jobs:
     - name: Restore dependencies
       run: nuget restore src/TF2HUD.Editor.sln
         
-    - name: Build solution
-      run: dotnet build -c Release --no-restore
-      working-directory: src/TF2HUD.Editor
-        
     - name: Publish solution
-      run: dotnet publish -c Release --no-build --output ./publish
+      run: dotnet publish -c Release --output ./publish
       working-directory: src/TF2HUD.Editor
         
     - name: Upload artifact
