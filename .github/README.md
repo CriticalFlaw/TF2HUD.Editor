@@ -66,6 +66,8 @@ Contributions towards the project are welcomed and encouraged. Some ways you can
 <!-- MARKDOWN LINKS -->
 [build-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/build.yml/badge.svg
 [build-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/build.yml
+[package-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/package.yml/badge.svg
+[package-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/package.yml
 [docs-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml/badge.svg
 [docs-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml
 [download-shield]: https://img.shields.io/github/downloads/criticalflaw/tf2hud.editor/total?style=flat-square
