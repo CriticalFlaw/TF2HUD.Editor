@@ -6,7 +6,7 @@ using HUDEditor.Models;
 using Xceed.Wpf.Toolkit;
 using static HUDEditor.MainWindow;
 
-namespace HUDEditor.Classes
+namespace HUDEditor.Core
 {
     public partial class HUD
     {

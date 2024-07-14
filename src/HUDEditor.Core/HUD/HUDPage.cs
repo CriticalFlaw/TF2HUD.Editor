@@ -20,7 +20,7 @@ using Label = System.Windows.Controls.Label;
 using Panel = System.Windows.Controls.Panel;
 using TextBox = System.Windows.Controls.TextBox;
 
-namespace HUDEditor.Classes
+namespace HUDEditor.Core
 {
     public partial class HUD
     {

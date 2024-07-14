@@ -9,7 +9,7 @@ using HUDEditor.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace HUDEditor.Classes
+namespace HUDEditor.Core
 {
     public partial class HUD
     {

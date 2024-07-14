@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using HUDEditor.Models;
 
-namespace HUDEditor.Classes
+namespace HUDEditor.Core
 {
     /// <summary>
     ///     Sample Animation Script
