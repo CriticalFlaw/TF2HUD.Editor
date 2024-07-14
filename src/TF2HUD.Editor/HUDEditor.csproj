@@ -6,7 +6,7 @@
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<StartupObject>HUDEditor.App</StartupObject>
-		<ApplicationIcon>favicon.ico</ApplicationIcon>
+		<ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
 		<Authors>Igor Nikitin, Peter Wobcke</Authors>
 		<Company>CriticalFlaw</Company>
 		<Copyright>CriticalFlaw</Copyright>
@@ -49,18 +49,9 @@
 		<None Remove="log4net.config" />
 		<None Remove="Resources\banner.png" />
 		<None Remove="Resources\chapterbackgrounds.txt" />
-		<None Remove="Resources\favicon.ico" />
 		<None Remove="Resources\TF2Build.ttf" />
 		<None Remove="Resources\TF2Crosshairs.ttf" />
 		<None Remove="Resources\TF2Secondary.ttf" />
-		<None Include="..\..\.github\README.md">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
-		<None Include="..\..\LICENSE">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
 	</ItemGroup>
 
 	<ItemGroup>
