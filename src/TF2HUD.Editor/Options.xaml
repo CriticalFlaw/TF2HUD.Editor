@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
         xmlns:cf="clr-namespace:CountryFlag;assembly=CountryFlag"
-        xmlns:classes="clr-namespace:HUDEditor.Classes"
+        xmlns:classes="clr-namespace:HUDEditor.Core"
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="TF2HUD.Editor"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"

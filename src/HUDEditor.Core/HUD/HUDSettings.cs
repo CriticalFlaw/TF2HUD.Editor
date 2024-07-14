@@ -7,14 +7,6 @@ using System.Linq;
 
 namespace HUDEditor.Classes
 {
-    public enum Preset
-    {
-        A,
-        B,
-        C,
-        D
-    }
-
     public class HUDSettings
     {
         public static readonly string UserFile =

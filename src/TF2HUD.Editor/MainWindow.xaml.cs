@@ -199,7 +199,7 @@ namespace HUDEditor
         {
             try
             {
-                string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0,3);
+                string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, 3);
                 var latestVersion = await new GitHubClient(new ProductHeaderValue("TF2HUD.Editor")).Repository.Release.GetLatest("CriticalFlaw", "TF2HUD.Editor");
                 Logger.Info($"Comparing version numbers: Local version {appVersion} | Live version {latestVersion.TagName}");
 
