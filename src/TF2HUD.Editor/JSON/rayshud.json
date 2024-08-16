@@ -163,7 +163,7 @@
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
         "Files": {
-          "resource/ui/hudlayout_base.res": {
+          "scripts/hudlayout_base.res": {
             "CustomCrosshair": {
               "visible": {
                 "true": "1",
@@ -199,7 +199,7 @@
         "ToolTip": "Style of crosshair.",
         "Value": "<",
         "Files": {
-          "resource/ui/hudlayout_base.res": {
+          "scripts/hudlayout_base.res": {
             "CustomCrosshair": {
               "labelText": "$value"
             }
@@ -216,7 +216,7 @@
         "Increment": "1",
         "ToolTip": "Size of the crosshair.",
         "Files": {
-          "resource/ui/hudlayout_base.res": {
+          "scripts/hudlayout_base.res": {
             "CustomCrosshair": {
               "font": "Size:$value | Outline:OFF"
             }
