@@ -1688,7 +1688,7 @@
       },
       {
         "Name": "fh_toggle_menu_image",
-        "Label": "Main Menu Class Images",
+        "Label": "Show Character Images",
         "Type": "Checkbox",
         "ToolTip": "Toggle the character images seen on the main menu.",
         "Value": "true",
