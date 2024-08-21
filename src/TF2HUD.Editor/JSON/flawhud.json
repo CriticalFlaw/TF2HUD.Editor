@@ -421,11 +421,12 @@
       },
       {
         "Name": "fh_color_xhair_normal",
-        "Label": "Crosshair",
+        "Label": "Base Color",
         "Type": "ColorPicker",
         "ToolTip": "Default crosshair color.",
         "Value": "242 242 242 255",
         "Restart": true,
+        "Width": 130,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -443,6 +444,7 @@
         "ToolTip": "Color of crosshair when hitting another player.",
         "Value": "255 0 0 255",
         "Restart": true,
+        "Width": 130,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -450,21 +452,6 @@
                 "CrosshairDamage": "$value"
               }
             }
-          }
-        }
-      },
-      {
-        "Name": "fh_toggle_xhair_pulse",
-        "Label": "Toggle Hitmarker",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle hitmarker animation.",
-        "Value": "true",
-        "Files": {
-          "scripts/hudanimations_hitmarker.txt": {
-            "uncomment": [
-              "StopEvent HitMarker",
-              "RunEvent HitMarker"
-            ]
           }
         }
       },
@@ -482,6 +469,21 @@
                 "false": "0"
               }
             }
+          }
+        }
+      },
+      {
+        "Name": "fh_toggle_xhair_pulse",
+        "Label": "Toggle Hitmarker",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle hitmarker animation.",
+        "Value": "true",
+        "Files": {
+          "scripts/hudanimations_hitmarker.txt": {
+            "uncomment": [
+              "StopEvent HitMarker",
+              "RunEvent HitMarker"
+            ]
           }
         }
       }
