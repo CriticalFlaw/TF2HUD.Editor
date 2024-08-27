@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
-        xmlns:cf="clr-namespace:CountryFlag;assembly=CountryFlag"
+        xmlns:cf="clr-namespace:CountryFlag.Wpf;assembly=CountryFlag.Wpf"
         xmlns:classes="clr-namespace:HUDEditor.Classes"
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="TF2HUD.Editor"
@@ -41,22 +41,22 @@
                 <GroupBox Header="Language" Grid.Row="1" Foreground="White">
                     <WrapPanel HorizontalAlignment="Center">
                         <RadioButton x:Name="BtnLocalizeEn" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag Code="US" Width="60" />
+                            <cf:CountryFlag CountryCode="US" Width="60" />
                         </RadioButton>
                         <RadioButton x:Name="BtnLocalizeFr" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag Code="FR" Width="50" />
+                            <cf:CountryFlag CountryCode="FR" Width="50" />
                         </RadioButton>
                         <RadioButton x:Name="BtnLocalizeRu" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag Code="RU" Width="50" />
+                            <cf:CountryFlag CountryCode="RU" Width="50" />
                         </RadioButton>
                         <RadioButton x:Name="BtnLocalizeBr" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag Code="BR" Width="50" />
+                            <cf:CountryFlag CountryCode="BR" Width="50" />
                         </RadioButton>
                         <RadioButton x:Name="BtnLocalizeIt" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag Code="IT" Width="50" />
+                            <cf:CountryFlag CountryCode="IT" Width="50" />
                         </RadioButton>
                         <RadioButton x:Name="BtnLocalizeChs" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag Code="CN" Width="50" />
+                            <cf:CountryFlag CountryCode="CN" Width="50" />
                         </RadioButton>
                     </WrapPanel>
                 </GroupBox>

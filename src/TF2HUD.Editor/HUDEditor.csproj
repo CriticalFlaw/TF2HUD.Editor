@@ -55,8 +55,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="CountryFlag" Version="2.1.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0" />
+		<PackageReference Include="CountryFlag.Wpf" Version="1.0.0" />
 		<PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.115" />
 		<PackageReference Include="log4net" Version="2.0.17" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
