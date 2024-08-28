@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using CommunityToolkit.Mvvm.Input;
+using Crews.Utility.TgaSharp;
 using HUDEditor.Classes;
 using HUDEditor.Models;
 using HUDEditor.Properties;
@@ -89,29 +90,35 @@ namespace HUDEditor.ViewModels
         public MainWindowViewModel()
         {
             _hudList = new List<HUD>();
+            var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
 
             foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
             {
                 // Extract HUD information from the file path and add it to the object list.
                 var fileInfo = jsonFile.Split("\\")[^1].Split(".");
-                if (fileInfo[^1] != "json") continue;
-                _hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true));
-            }
+                if (fileInfo[^1] != "json" || fileInfo[0] == "shared-hud") continue;
 
-            // Load all shared huds from JSON/Shared/shared.json, and shared controls from JSON/Shared/controls.json
-            // For each hud, assign unique ids for the controls based on the hud name and add to HUDs list.
-            var sharedHuds = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON\\Shared\\shared.json"), new UTF8Encoding(false)).ReadToEnd());
-            var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
+                if (fileInfo[0].Equals("common"))
+                {
+                    // Load all common HUDS from `JSON/common.json` and shared controls from `JSON/shared-hud.json`
+                    // For each hud, assign unique ids for the controls based on the hud name and add to HUDs list.
+                    var sharedHuds = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON\\common.json"), new UTF8Encoding(false)).ReadToEnd());
 
-            foreach (var sharedHud in sharedHuds)
-            {
-                var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
-                foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
-                    control.Name = $"{Utilities.EncodeId(sharedHud.Name)}_{Utilities.EncodeId(control.Name)}";
-                sharedHud.Layout = hudControls.Layout;
-                sharedHud.Controls = hudControls.Controls;
+                    foreach (var sharedHud in sharedHuds)
+                    {
+                        var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
+                        foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
+                            control.Name = $"{Utilities.EncodeId(sharedHud.Name)}_{Utilities.EncodeId(control.Name)}";
+                        sharedHud.Layout = hudControls.Layout;
+                        sharedHud.Controls = hudControls.Controls;
 
-                _hudList.Add(new HUD(sharedHud.Name, sharedHud, false));
+                        _hudList.Add(new HUD(sharedHud.Name, sharedHud, false));
+                    }
+                }
+                else
+                {
+                    _hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true));
+                }
             }
 
             // Local Shared HUDs
@@ -133,7 +140,7 @@ namespace HUDEditor.ViewModels
                     Layout = sharedProperties.Layout,
                     Links = new Links
                     {
-                        Download = new[] { new Download() { Source = "GitHub", Link = $"file://{sharedHud}\\{hudName}.zip" } }
+                        Download = [new Download() { Source = "GitHub", Link = $"file://{sharedHud}\\{hudName}.zip" }]
                     },
                     Controls = sharedProperties.Controls
                 }, false));
@@ -555,7 +562,7 @@ namespace HUDEditor.ViewModels
             // TF2 HUD Crosshairs
             await Utilities.InstallCrosshairs(folderPath);
 
-            var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\Shared\\controls.json"), new UTF8Encoding(false)).ReadToEnd();
+            var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
             var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
             foreach (var group in hudControls.Controls)
                 foreach (var control in hudControls.Controls[group.Key])
