@@ -6,7 +6,6 @@
     "InstallCrosshairs": true,
     "Thumbnail": "https://i.imgur.com/emiISEi.png",
     "Links": {
-      "Update": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/n0kk/ahud",
       "TF2Huds": "https://tf2huds.dev/hud/ahud",
       "Download": [
@@ -29,7 +28,6 @@
     "Author": "PeachesTV",
     "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/peachhud/PeachHUD-banner.webp",
     "Links": {
-      "Update": "https://github.com/PapaPeach/PeachHUD/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/PapaPeach/PeachHUD",
       "TF2Huds": "https://tf2huds.dev/hud/PeachHUD",
       "Download": [
@@ -51,7 +49,6 @@
     "Author": "omnibombulator",
     "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/colly-hud/colly-hud-banner.webp",
     "Links": {
-      "Update": "https://github.com/omnibombulator/collyhud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/omnibombulator/collyhud",
       "TF2Huds": "https://tf2huds.dev/hud/collyhud",
       "Download": [
@@ -75,7 +72,6 @@
     "InstallCrosshairs": true,
     "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/7hud/7hud-banner.webp",
     "Links": {
-      "Update": "https://github.com/Sevin7/7HUD/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/Sevin7/7HUD",
       "TF2Huds": "https://tf2huds.dev/hud/7HUD",
       "Steam": "https://steamcommunity.com/groups/7HUD",
@@ -99,7 +95,6 @@
     "Author": "flatline",
     "Thumbnail": "https://i.imgur.com/7P6SCEC.jpeg",
     "Links": {
-      "Update": "https://github.com/flatlinee/omphudedit/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/flatlinee/omphudedit",
       "Steam": "https://steamcommunity.com/groups/omphudredux",
       "TF2Huds": "https://tf2huds.dev/hud/omphud-redux",
@@ -123,7 +118,6 @@
     "Author": "flatline",
     "Thumbnail": "https://i.imgur.com/I2GY31J.jpeg",
     "Links": {
-      "Update": "https://github.com/flatlinee/cliphud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/flatlinee/cliphud",
       "TF2Huds": "https://tf2huds.dev/hud/cliphud",
       "Download": [
@@ -146,7 +140,6 @@
     "Author": "flatline",
     "Thumbnail": "https://i.imgur.com/QRNuvjM.jpeg",
     "Links": {
-      "Update": "https://github.com/flatlinee/flathud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/flatlinee/flathud",
       "TF2Huds": "https://tf2huds.dev/hud/flathud",
       "Steam": "https://steamcommunity.com/groups/flathud",
@@ -170,7 +163,6 @@
     "Author": "Broesel, Hypnotize",
     "Thumbnail": "https://i.imgur.com/zaguUvP.png",
     "Links": {
-      "Update": "https://github.com/Hypnootize/Broesel-Hud/archive/refs/heads/master.zip", // TODO: Remove
       "GitHub": "https://github.com/Hypnootize/Broesel-Hud",
       "TF2Huds": "https://tf2huds.dev/hud/Broesel-Hud",
       "Download": [

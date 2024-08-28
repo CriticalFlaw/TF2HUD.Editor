@@ -68,6 +68,7 @@
 		<Content Include="JSON\*">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Include="JSON\Schema\schema.json" />
 		<Content Include="log4net.config">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
@@ -124,10 +125,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="JSON\Shared\controls.json">
+		<None Update="JSON\shared-hud.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="JSON\Shared\shared.json">
+		<None Update="JSON\common.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Properties\Settings.settings">
