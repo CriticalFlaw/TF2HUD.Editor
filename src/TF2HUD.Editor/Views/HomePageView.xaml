@@ -44,7 +44,7 @@
                 <Button
                     Command="{Binding BtnDisplayUniqueHudsOnly_ClickCommand}"
                     Content="&#x05AE;"
-                    FontFamily="../Resources/Icons.ttf #Hypnotize Icons Master"
+                    FontFamily="../Resources/Fonts/Icons.ttf #Hypnotize Icons Master"
                     FontSize="25"
                     Foreground="{Binding DisplayUniqueHudsOnly, Converter={StaticResource DisplayUniqueHudsOnlyForegroundConverter}}"
                     Padding="5,0"

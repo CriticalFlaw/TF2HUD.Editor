@@ -15,7 +15,7 @@
         Height="600"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
-        FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
+        FontFamily="../Resources/Fonts/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px"
         Background="#2B2724">
     <Window.Resources>
@@ -30,7 +30,7 @@
         <!-- App Info and Changelog -->
         <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="{Binding Json.HighlightedHud, Converter={StaticResource NotNullCheckConverterVisibility}}">
             <StackPanel Margin="20">
-                <Image Source="Resources/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
+                <Image Source="Resources/Images/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
                 <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Center">
                             <Run Foreground="#70B04A" Text="Install" /><Run Text=" and" />
                             <Run Foreground="#38F3AB" Text="customize" />

@@ -93,16 +93,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Resource Include="Resources\banner.png" />
-		<Resource Include="Resources\Icons.ttf" />
-		<Resource Include="Resources\logo.png" />
-		<Resource Include="Resources\mastercomfig.png" />
-		<Resource Include="Resources\TF2.ttf" />
-		<Resource Include="Resources\TF2Build.ttf" />
-		<Resource Include="Resources\TF2Crosshairs.ttf" />
-		<Resource Include="Resources\tf2huds.png" />
-		<Resource Include="Resources\TF2Professor.ttf" />
-		<Resource Include="Resources\TF2Secondary.ttf" />
+		<Resource Include="Resources\Images\banner.png" />
+		<Resource Include="Resources\Fonts\Icons.ttf" />
+		<Resource Include="Resources\Images\logo.png" />
+		<Resource Include="Resources\Images\mastercomfig.png" />
+		<Resource Include="Resources\Fonts\TF2.ttf" />
+		<Resource Include="Resources\Fonts\TF2Build.ttf" />
+		<Resource Include="Resources\Fonts\TF2Crosshairs.ttf" />
+		<Resource Include="Resources\Images\tf2huds.png" />
+		<Resource Include="Resources\Fonts\TF2Professor.ttf" />
+		<Resource Include="Resources\Fonts\TF2Secondary.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>

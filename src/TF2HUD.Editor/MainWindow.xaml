@@ -13,7 +13,7 @@
         Width="1440"
         Height="900"
         WindowStartupLocation="CenterScreen"
-        FontFamily="../Resources/TF2Secondary.ttf #TF2 Secondary"
+        FontFamily="../Resources/Fonts/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px"
         Background="#2B2724">
     <Grid>
