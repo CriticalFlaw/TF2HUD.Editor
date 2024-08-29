@@ -6,7 +6,7 @@
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<StartupObject>HUDEditor.App</StartupObject>
-		<ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
+		<ApplicationIcon>Resources\Images\favicon.ico</ApplicationIcon>
 		<Authors>Igor Nikitin, Peter Wobcke</Authors>
 		<Company>CriticalFlaw</Company>
 		<Copyright>CriticalFlaw</Copyright>
@@ -73,6 +73,7 @@
 		<Content Include="log4net.config">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Include="Resources\Images\favicon.ico" />
 		<Content Include="Resources\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

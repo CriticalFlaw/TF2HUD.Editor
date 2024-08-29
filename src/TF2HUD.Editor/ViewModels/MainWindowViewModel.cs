@@ -394,7 +394,7 @@ namespace HUDEditor.ViewModels
         [RelayCommand]
         public void BtnSettings_Click()
         {
-            var settings = new Options();
+            var settings = new SettingsWindow();
             settings.Owner = System.Windows.Application.Current.MainWindow;
             settings.Show();
         }

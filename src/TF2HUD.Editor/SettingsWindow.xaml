@@ -1,4 +1,4 @@
-﻿<Window x:Class="HUDEditor.Options"
+﻿<Window x:Class="HUDEditor.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,7 +10,7 @@
         lex:ResxLocalizationProvider.DefaultAssembly="TF2HUD.Editor"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
         mc:Ignorable="d"
-        Title="{lex:Loc ui_options}"
+        Title="{lex:Loc ui_settings}"
         Width="1000"
         Height="600"
         WindowStartupLocation="CenterScreen"
@@ -30,14 +30,6 @@
         <!-- App Info and Changelog -->
         <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="{Binding Json.HighlightedHud, Converter={StaticResource NotNullCheckConverterVisibility}}">
             <StackPanel Margin="20">
-                <Image Source="Resources/Images/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
-                <TextBlock Style="{StaticResource BodyText}" FontSize="21" TextAlignment="Center">
-                            <Run Foreground="#70B04A" Text="Install" /><Run Text=" and" />
-                            <Run Foreground="#38F3AB" Text="customize" />
-                            <Run Text="your favorite Team Fortress 2 HUDs! For additional information and support, check out the" />
-                            <Run Foreground="#FFD700" Text="documentation" /><Run Text=" linked below." />
-                </TextBlock>
-                <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
                 <GroupBox Header="Language" Grid.Row="1" Foreground="White">
                     <WrapPanel HorizontalAlignment="Center">
                         <RadioButton x:Name="BtnLocalizeEn" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
