@@ -16,8 +16,8 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         FontFamily="../Resources/Fonts/TF2Secondary.ttf #TF2 Secondary"
-        FontSize="20px"
-        Background="#2B2724">
+        FontSize="20px">
+
     <Window.Resources>
         <classes:NullCheckConverter x:Key="NullCheckConverter" />
         <classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
@@ -26,55 +26,58 @@
         <classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
         <classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
     </Window.Resources>
-    <Grid>
-        <!-- App Info and Changelog -->
-        <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="{Binding Json.HighlightedHud, Converter={StaticResource NotNullCheckConverterVisibility}}">
-            <StackPanel Margin="20">
-                <GroupBox Header="Language" Grid.Row="1" Foreground="White">
-                    <WrapPanel HorizontalAlignment="Center">
-                        <RadioButton x:Name="BtnLocalizeEn" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag CountryCode="US" Width="60" />
-                        </RadioButton>
-                        <RadioButton x:Name="BtnLocalizeFr" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag CountryCode="FR" Width="50" />
-                        </RadioButton>
-                        <RadioButton x:Name="BtnLocalizeRu" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag CountryCode="RU" Width="50" />
-                        </RadioButton>
-                        <RadioButton x:Name="BtnLocalizeBr" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag CountryCode="BR" Width="50" />
-                        </RadioButton>
-                        <RadioButton x:Name="BtnLocalizeIt" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag CountryCode="IT" Width="50" />
-                        </RadioButton>
-                        <RadioButton x:Name="BtnLocalizeChs" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
-                            <cf:CountryFlag CountryCode="CN" Width="50" />
-                        </RadioButton>
-                    </WrapPanel>
-                </GroupBox>
-                <GroupBox Header="{lex:Loc ui_options}" Grid.Row="1">
-                    <WrapPanel HorizontalAlignment="Center">
-                        <Button
+    
+    <Border BorderThickness="2" CornerRadius="10" Background="#2B2724">
+        <Grid>
+            <!-- App Info and Changelog -->
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="{Binding Json.HighlightedHud, Converter={StaticResource NotNullCheckConverterVisibility}}">
+                <StackPanel Margin="20">
+                    <GroupBox Header="Language" Grid.Row="1" Foreground="White">
+                        <WrapPanel HorizontalAlignment="Center">
+                            <RadioButton x:Name="BtnLocalizeEn" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
+                                <cf:CountryFlag CountryCode="US" Width="60" />
+                            </RadioButton>
+                            <RadioButton x:Name="BtnLocalizeFr" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
+                                <cf:CountryFlag CountryCode="FR" Width="50" />
+                            </RadioButton>
+                            <RadioButton x:Name="BtnLocalizeRu" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
+                                <cf:CountryFlag CountryCode="RU" Width="50" />
+                            </RadioButton>
+                            <RadioButton x:Name="BtnLocalizeBr" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
+                                <cf:CountryFlag CountryCode="BR" Width="50" />
+                            </RadioButton>
+                            <RadioButton x:Name="BtnLocalizeIt" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
+                                <cf:CountryFlag CountryCode="IT" Width="50" />
+                            </RadioButton>
+                            <RadioButton x:Name="BtnLocalizeChs" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
+                                <cf:CountryFlag CountryCode="CN" Width="50" />
+                            </RadioButton>
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="{lex:Loc ui_options}" Grid.Row="1">
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Button
                             Content="{lex:Loc ui_directory}"
                             Click="BtnSetDirectory_OnClick"
                             Style="{StaticResource SettingButton}" />
-                        <Button
+                            <Button
                             Content="{lex:Loc ui_refresh}"
                             Click="BtnRefresh_OnClick"
                             Style="{StaticResource SettingButton}" />
-                        <ToggleButton
+                            <ToggleButton
                             x:Name="BtnAutoUpdate"
                             Content="{lex:Loc ui_check_updates}"
                             Click="BtnAutoUpdate_OnClick"
                             Style="{StaticResource ToggleButton}" />
-                        <ToggleButton
+                            <ToggleButton
                             x:Name="BtnPersistXhair"
                             Content="{lex:Loc ui_persist_xhair}"
                             Click="BtnPersistXhair_Click"
                             Style="{StaticResource ToggleButton}" />
-                    </WrapPanel>
-                </GroupBox>
-            </StackPanel>
-        </ScrollViewer>
-    </Grid>
+                        </WrapPanel>
+                    </GroupBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
 </Window>

@@ -14,9 +14,11 @@
         Height="900"
         WindowStartupLocation="CenterScreen"
         FontFamily="../Resources/Fonts/TF2Secondary.ttf #TF2 Secondary"
-        FontSize="20px"
-        Background="#2B2724">
-    <Grid>
-        <views:MainWindowView />
-    </Grid>
+        FontSize="20px">
+    
+    <Border BorderThickness="2" CornerRadius="10" Background="#2B2724">
+        <Grid>
+            <views:MainWindowView />
+        </Grid>
+    </Border>
 </Window>
