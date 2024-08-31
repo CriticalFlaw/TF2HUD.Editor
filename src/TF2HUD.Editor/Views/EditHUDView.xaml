@@ -83,14 +83,14 @@
                         CommandParameter="{Binding TF2HudsUrl}"
                         Style="{StaticResource TF2HudsButton}"
                         Visibility="{Binding TF2HudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
-                        <Image Source="..\Resources\tf2huds.png" Margin="5"></Image>
+                        <Image Source="../Resources/Images/tf2huds.png" Margin="5"></Image>
                     </Button>
                     <Button
                         Command="{Binding OpenWebpageCommand}"
                         CommandParameter="{Binding ComfigHudsUrl}"
                         Style="{StaticResource ComfigHudsButton}"
                         Visibility="{Binding ComfigHudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
-                        <Image Source="..\Resources\mastercomfig.png" Margin="5"></Image>
+                        <Image Source="../Resources/Images/mastercomfig.png" Margin="5"></Image>
                     </Button>
                     <Button
                         Command="{Binding OpenWebpageCommand}"
