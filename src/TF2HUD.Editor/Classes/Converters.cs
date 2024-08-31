@@ -96,19 +96,22 @@ namespace HUDEditor.Classes
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null) return new BrushConverter().ConvertFromString("#2B2724");
+            if (value is null) return new ImageBrush
+            {
+                Stretch = Stretch.UniformToFill,
+                ImageSource = new BitmapImage(new Uri(Settings.Default.app_default_bg, UriKind.RelativeOrAbsolute))
+            };
 
             var selection = (HUD)value;
-
-            selection.Background ??= Settings.Default.app_default_bg;
-
             if (selection.Background.StartsWith("http") || selection.Background.StartsWith("file"))
+            {
                 return new ImageBrush
                 {
                     Stretch = Stretch.UniformToFill,
                     Opacity = selection.Opacity,
-                    ImageSource = new BitmapImage(new Uri(selection.Background, UriKind.RelativeOrAbsolute))
+                    ImageSource = new BitmapImage(new Uri(selection.Background ??= Settings.Default.app_default_bg, UriKind.RelativeOrAbsolute))
                 };
+            }
 
             // The background is an RGBA color code, change it to ARGB and set it as the background.
             return Utilities.ConvertToColorBrush(selection.Background);
