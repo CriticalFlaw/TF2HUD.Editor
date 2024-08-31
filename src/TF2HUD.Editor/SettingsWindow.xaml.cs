@@ -1,6 +1,7 @@
 ﻿using HUDEditor.Properties;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Input;
 using WPFLocalizeExtension.Engine;
 
 namespace HUDEditor
@@ -63,6 +64,16 @@ namespace HUDEditor
         {
             Settings.Default.app_xhair_persist = BtnPersistXhair.IsChecked ?? true;
             Settings.Default.Save();
+        }
+
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left) DragMove();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
