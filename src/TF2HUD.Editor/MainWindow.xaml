@@ -1,24 +1,35 @@
 ﻿<Window x:Class="HUDEditor.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
         xmlns:views="clr-namespace:HUDEditor.Views"
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="TF2HUD.Editor"
         lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-        mc:Ignorable="d"
-        Title="{lex:Loc ui_title}"
         Width="1440"
         Height="900"
         WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
         FontFamily="../Resources/Fonts/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px">
-    
+
     <Border BorderThickness="2" CornerRadius="10" Background="#2B2724">
         <Grid>
-            <views:MainWindowView />
+            <!-- Custom Title Bar -->
+            <Border Background="#211e1c" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top" MouseDown="TitleBar_MouseDown">
+                <Grid>
+                    <Image Source="../Resources/Images/favicon.ico" Height="20" HorizontalAlignment="Left" Margin="5"/>
+                    <TextBlock Text="{lex:Loc ui_title}" VerticalAlignment="Center" Margin="30,0,0,0" Foreground="#EBE2CA" FontFamily="../Resources/Fonts/TF2Build.ttf #TF2 Build" FontSize="16px" />
+                    <Button Content="X" HorizontalAlignment="Right" Width="30" Height="30" Click="CloseButton_Click" FontFamily="../Resources/Fonts/TF2Build.ttf #TF2 Build" />
+                </Grid>
+            </Border>
+
+            <!-- Main Content Area -->
+            <Grid Margin="0,30,0,0">
+                <views:MainWindowView />
+            </Grid>
         </Grid>
     </Border>
 </Window>

@@ -32,7 +32,7 @@
             <!-- App Info and Changelog -->
             <ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0" Visibility="{Binding Json.HighlightedHud, Converter={StaticResource NotNullCheckConverterVisibility}}">
                 <StackPanel Margin="20">
-                    <GroupBox Header="Language" Grid.Row="1" Foreground="White">
+                    <GroupBox Header="Language" Grid.Row="1">
                         <WrapPanel HorizontalAlignment="Center">
                             <RadioButton x:Name="BtnLocalizeEn" Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always" Margin="5">
                                 <cf:CountryFlag CountryCode="US" Width="60" />
@@ -54,7 +54,7 @@
                             </RadioButton>
                         </WrapPanel>
                     </GroupBox>
-                    <GroupBox Header="{lex:Loc ui_options}" Grid.Row="1">
+                    <GroupBox Header="Settings" Grid.Row="1">
                         <WrapPanel HorizontalAlignment="Center">
                             <Button
                             Content="{lex:Loc ui_directory}"

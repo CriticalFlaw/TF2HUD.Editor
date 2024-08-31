@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
 using HUDEditor.Classes;
 using HUDEditor.Models;
 using HUDEditor.Properties;
@@ -213,6 +214,16 @@ namespace HUDEditor
                 Logger.Error(e.Message);
                 Console.WriteLine(e);
             }
+        }
+
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left) DragMove();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
