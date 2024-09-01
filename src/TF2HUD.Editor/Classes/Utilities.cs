@@ -233,7 +233,7 @@ namespace HUDEditor.Classes
                     steamPaths.Add(match.Groups[2].Value);
             }
 
-            // Loop through all known libary paths to try and find TF2.
+            // Loop through all known library paths to try and find TF2.
             foreach (var path in steamPaths)
             {
                 var pathTF = path + "\\steamapps\\common\\Team Fortress 2\\tf\\custom";

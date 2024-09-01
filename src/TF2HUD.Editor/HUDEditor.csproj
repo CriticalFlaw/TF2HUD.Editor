@@ -6,7 +6,7 @@
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<StartupObject>HUDEditor.App</StartupObject>
-		<ApplicationIcon>Resources\favicon.ico</ApplicationIcon>
+		<ApplicationIcon>Resources\Images\favicon.ico</ApplicationIcon>
 		<Authors>Igor Nikitin, Peter Wobcke</Authors>
 		<Company>CriticalFlaw</Company>
 		<Copyright>CriticalFlaw</Copyright>
@@ -57,6 +57,7 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.0" />
 		<PackageReference Include="CountryFlag.Wpf" Version="1.0.0" />
+		<PackageReference Include="Crews.Utility.TgaSharp" Version="1.0.0" />
 		<PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.115" />
 		<PackageReference Include="log4net" Version="2.0.17" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -68,9 +69,11 @@
 		<Content Include="JSON\*">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Content Include="JSON\Schema\schema.json" />
 		<Content Include="log4net.config">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
+		<Resource Include="Resources\Images\favicon.ico" />
 		<Content Include="Resources\*">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
@@ -91,16 +94,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Resource Include="Resources\banner.png" />
-		<Resource Include="Resources\Icons.ttf" />
-		<Resource Include="Resources\logo.png" />
-		<Resource Include="Resources\mastercomfig.png" />
-		<Resource Include="Resources\TF2.ttf" />
-		<Resource Include="Resources\TF2Build.ttf" />
-		<Resource Include="Resources\TF2Crosshairs.ttf" />
-		<Resource Include="Resources\tf2huds.png" />
-		<Resource Include="Resources\TF2Professor.ttf" />
-		<Resource Include="Resources\TF2Secondary.ttf" />
+		<Resource Include="Resources\Images\banner.png" />
+		<Resource Include="Resources\Fonts\Icons.ttf" />
+		<Resource Include="Resources\Images\logo.png" />
+		<Resource Include="Resources\Images\mastercomfig.png" />
+		<Resource Include="Resources\Fonts\TF2.ttf" />
+		<Resource Include="Resources\Fonts\TF2Build.ttf" />
+		<Resource Include="Resources\Fonts\TF2Crosshairs.ttf" />
+		<Resource Include="Resources\Images\tf2huds.png" />
+		<Resource Include="Resources\Fonts\TF2Professor.ttf" />
+		<Resource Include="Resources\Fonts\TF2Secondary.ttf" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -124,10 +127,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="JSON\Shared\controls.json">
+		<None Update="JSON\shared-hud.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
-		<None Update="JSON\Shared\shared.json">
+		<None Update="JSON\common.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="Properties\Settings.settings">
