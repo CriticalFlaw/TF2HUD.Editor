@@ -103,6 +103,7 @@ namespace HUDEditor.Classes
             };
 
             var selection = (HUD)value;
+            selection.Background ??= Settings.Default.app_default_bg;
             if (selection.Background.StartsWith("http") || selection.Background.StartsWith("file"))
             {
                 return new ImageBrush
