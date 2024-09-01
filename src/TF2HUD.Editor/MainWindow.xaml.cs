@@ -32,18 +32,21 @@ namespace HUDEditor
 
         public MainWindow()
         {
-            // Initialize the logger, main window.
-            var repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
+            // Initialize the logger
+            XmlConfigurator.Configure(LogManager.GetRepository(Assembly.GetEntryAssembly()), new FileInfo("log4net.config"));
             Logger.Info("=======================================================");
-            Logger.Info("Initializing.");
+            Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
+
+            // Initialize the main window
             InitializeComponent();
             var mainWindowViewModel = new MainWindowViewModel();
             mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
             DataContext = mainWindowViewModel;
+
+            // Check for tf/custom directory
             SetupDirectory();
 
-            // Check for updates.
+            // Check for updates
             if (Settings.Default.app_update_auto == true) UpdateAppSchema();
         }
 
