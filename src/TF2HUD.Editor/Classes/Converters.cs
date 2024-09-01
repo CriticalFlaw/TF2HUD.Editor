@@ -96,19 +96,23 @@ namespace HUDEditor.Classes
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is null) return new BrushConverter().ConvertFromString("#2B2724");
+            if (value is null) return new ImageBrush
+            {
+                Stretch = Stretch.UniformToFill,
+                ImageSource = new BitmapImage(new Uri(Settings.Default.app_default_bg, UriKind.RelativeOrAbsolute))
+            };
 
             var selection = (HUD)value;
-
             selection.Background ??= Settings.Default.app_default_bg;
-
             if (selection.Background.StartsWith("http") || selection.Background.StartsWith("file"))
+            {
                 return new ImageBrush
                 {
                     Stretch = Stretch.UniformToFill,
                     Opacity = selection.Opacity,
-                    ImageSource = new BitmapImage(new Uri(selection.Background, UriKind.RelativeOrAbsolute))
+                    ImageSource = new BitmapImage(new Uri(selection.Background ??= Settings.Default.app_default_bg, UriKind.RelativeOrAbsolute))
                 };
+            }
 
             // The background is an RGBA color code, change it to ARGB and set it as the background.
             return Utilities.ConvertToColorBrush(selection.Background);
@@ -140,17 +144,18 @@ namespace HUDEditor.Classes
             var hud = (HUD)value;
             if (hud is not null)
             {
+                MainWindow.Logger.Info($"User selected {hud.Name}");
                 if (Directory.Exists($"{Settings.Default.hud_directory}\\{hud.Name}"))
                 {
-                    MainWindow.Logger.Info($"[BtnInstallContentConverter] {hud.Name} is installed");
+                    MainWindow.Logger.Info($"{hud.Name} is installed");
                     return Utilities.GetLocalizedString("ui_reinstall") ?? "Reinstall";
                 }
 
-                MainWindow.Logger.Info($"[BtnInstallContentConverter] {hud.Name} is not installed");
+                MainWindow.Logger.Info($"{hud.Name} is not installed");
                 return Utilities.GetLocalizedString("ui_install") ?? "Install";
             }
 
-            MainWindow.Logger.Info("[BtnInstallContentConverter] Highlighted HUD is null");
+            MainWindow.Logger.Warn("User selected HUD is null");
             return Utilities.GetLocalizedString("ui_install") ?? "Install";
         }
 
