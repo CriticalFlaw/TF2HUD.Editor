@@ -448,7 +448,8 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Options.
+        ///   Looks up a localized string similar to Options
+        ///.
         /// </summary>
         public static string ui_options {
             get {
@@ -507,6 +508,15 @@ namespace HUDEditor.Properties {
         public static string ui_select {
             get {
                 return ResourceManager.GetString("ui_select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string ui_settings {
+            get {
+                return ResourceManager.GetString("ui_settings", resourceCulture);
             }
         }
         

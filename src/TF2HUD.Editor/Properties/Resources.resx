@@ -246,8 +246,8 @@
   <data name="ui_install" xml:space="preserve">
     <value>Install</value>
   </data>
-  <data name="ui_options" xml:space="preserve">
-    <value>Options</value>
+  <data name="ui_settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="ui_persist_xhair" xml:space="preserve">
     <value>Remember crosshair selection</value>
@@ -275,5 +275,8 @@
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Uninstall</value>
+  </data>
+  <data name="ui_options" xml:space="preserve">
+    <value>Options</value>
   </data>
 </root>
