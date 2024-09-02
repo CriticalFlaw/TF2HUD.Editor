@@ -15,13 +15,13 @@
     "0 0 1 1"
   ],
   "Links": {
-    "GitHub": "https://github.com/CriticalFlaw/TF2HUD.Fixes",
+    "GitHub": "https://github.com/CriticalFlaw/TF2HUD-Fixes",
     "ComfigHuds": "https://comfig.app/huds/page/hud-fixes/",
     "Discord": "https://discord.gg/hTdtK9vBhE",
     "Download": [
       {
         "Source": "GitHub",
-        "Link": "https://github.com/CriticalFlaw/TF2HUD.Fixes/archive/refs/heads/main.zip"
+        "Link": "https://github.com/CriticalFlaw/TF2HUD-Fixes/archive/refs/heads/main.zip"
       }
     ]
   },
