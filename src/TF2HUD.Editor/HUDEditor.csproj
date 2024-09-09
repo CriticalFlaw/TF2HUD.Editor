@@ -69,41 +69,26 @@
 		<Content Include="JSON\*">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-		<Content Include="JSON\Schema\schema.json" />
+		<Content Include="Resources\*">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 		<Content Include="log4net.config">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
-		<Resource Include="Resources\Images\favicon.ico" />
-		<Content Include="Resources\*">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Remove="Resources\banner.png" />
-		<Content Remove="Resources\favicon.ico" />
-		<Content Remove="Resources\Icons.ttf" />
-		<Content Remove="Resources\logo.png" />
-		<Content Remove="Resources\mastercomfig.png" />
-		<Content Remove="Resources\TF2.ttf" />
-		<Content Remove="Resources\TF2Build.ttf" />
-		<Content Remove="Resources\TF2Crosshairs.ttf" />
-		<Content Remove="Resources\tf2huds.png" />
-		<Content Remove="Resources\TF2Professor.ttf" />
-		<Content Remove="Resources\TF2Secondary.ttf" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Resource Include="Resources\Images\banner.png" />
 		<Resource Include="Resources\Fonts\Icons.ttf" />
-		<Resource Include="Resources\Images\logo.png" />
-		<Resource Include="Resources\Images\mastercomfig.png" />
 		<Resource Include="Resources\Fonts\TF2.ttf" />
 		<Resource Include="Resources\Fonts\TF2Build.ttf" />
 		<Resource Include="Resources\Fonts\TF2Crosshairs.ttf" />
-		<Resource Include="Resources\Images\tf2huds.png" />
 		<Resource Include="Resources\Fonts\TF2Professor.ttf" />
 		<Resource Include="Resources\Fonts\TF2Secondary.ttf" />
+		<Resource Include="Resources\Images\banner.png" />
+		<Resource Include="Resources\Images\favicon.ico" />
+		<Resource Include="Resources\Images\logo.png" />
+		<Resource Include="Resources\Images\mastercomfig.png" />
+		<Resource Include="Resources\Images\tf2huds.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -124,19 +109,6 @@
 			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Update="JSON\shared-hud.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="JSON\common.json">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<None Update="Properties\Settings.settings">
-			<Generator>SettingsSingleFileGenerator</Generator>
-			<LastGenOutput>Settings.Designer.cs</LastGenOutput>
-		</None>
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
