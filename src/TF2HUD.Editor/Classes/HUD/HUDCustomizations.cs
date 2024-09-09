@@ -389,7 +389,6 @@ namespace HUDEditor.Classes
                             }
                             else
                             {
-                                MainWindow.Logger.Info(property.Key);
                                 var newhudElementRef = hudElementRef.ContainsKey(property.Key)
                                     ? (Dictionary<string, dynamic>)hudElementRef[property.Key]
                                     : new Dictionary<string, dynamic>();
@@ -706,17 +705,14 @@ namespace HUDEditor.Classes
                 foreach (var filePath in files)
                 {
                     var relativePath = string.Join('/', Regex.Split(filePath.Key, @"[\/]+"));
-                    var absolutePath = MainWindow.HudPath + "\\" + Name + "\\" +
-                                       string.Join('\\', relativePath.Split('/'));
+                    var absolutePath = MainWindow.HudPath + "\\" + Name + "\\" + string.Join('\\', relativePath.Split('/'));
                     var extension = filePath.Key.Split(".")[^1];
 
                     if (resFileExtensions.Contains(extension))
                     {
                         var hudFile = Utilities.CreateNestedObject(hudFolders, relativePath.Split('/'));
-                        MainWindow.Logger.Info($"Go to => {relativePath}");
-
-                        Utilities.Merge(hudFile, CompileHudElement(filePath.Value?.ToObject<JObject>(),
-                            absolutePath, relativePath, hudFile, ""));
+                        MainWindow.Logger.Info($"Opening {relativePath}");
+                        Utilities.Merge(hudFile, CompileHudElement(filePath.Value?.ToObject<JObject>(), absolutePath, relativePath, hudFile, ""));
                     }
                     else if (string.Equals(extension, "txt"))
                     {
