@@ -1,9 +1,7 @@
 ﻿using HUDEditor.Properties;
-using System.Diagnostics;
 using System;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using WPFLocalizeExtension.Engine;
@@ -20,7 +18,6 @@ namespace HUDEditor
             InitializeComponent();
 
             // Check for user selected settings.
-            BtnAutoUpdate.IsChecked = Settings.Default.app_update_auto;
             BtnPersistXhair.IsChecked = Settings.Default.app_xhair_persist;
         }
 
@@ -58,12 +55,6 @@ namespace HUDEditor
             MainWindow.UpdateAppSchema(false);
         }
 
-        private void BtnAutoUpdate_OnClick(object sender, RoutedEventArgs e)
-        {
-            Settings.Default.app_update_auto = BtnAutoUpdate.IsChecked ?? true;
-            Settings.Default.Save();
-        }
-
         private void BtnPersistXhair_Click(object sender, RoutedEventArgs e)
         {
             Settings.Default.app_xhair_persist = BtnPersistXhair.IsChecked ?? true;
@@ -72,12 +63,13 @@ namespace HUDEditor
 
         private void btnClearCache_Click(object sender, RoutedEventArgs e)
         {
-            if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_game_running, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
-            Directory.Delete("C:\\Users\\nik_1\\AppData\\Local\\CriticalFlaw", true);
-            Directory.Delete("C:\\Users\\nik_1\\AppData\\Local\\TF2HUD.Editor", true);
+            var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            Directory.Delete($"{localPath}\\CriticalFlaw", true);
+            Directory.Delete($"{localPath}\\TF2HUD.Editor", true);
             Directory.Delete("JSON", true);
-            MainWindow.UpdateAppSchema(false);
+            MainWindow.UpdateAppSchema(true);
         }
 
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)

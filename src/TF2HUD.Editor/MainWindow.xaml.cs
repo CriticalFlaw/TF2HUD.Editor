@@ -47,7 +47,7 @@ namespace HUDEditor
             SetupDirectory();
 
             // Check for updates
-            if (Settings.Default.app_update_auto == true) UpdateAppSchema();
+            UpdateAppSchema(true);
         }
 
         private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -144,6 +144,9 @@ namespace HUDEditor
         {
             try
             {
+                // Create the schema folder if it does not exist.
+                if (!Directory.Exists("JSON")) Directory.CreateDirectory("JSON");
+
                 var downloads = new List<Task>();
                 var remoteFiles = (await Utilities.Fetch<GitJson[]>(Settings.Default.json_list)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
 
@@ -175,7 +178,7 @@ namespace HUDEditor
                 await Task.WhenAll(downloads);
                 if (Convert.ToBoolean(downloads.Count))
                 {
-                    if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                    if (!silent) if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                     Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                     Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
                     Environment.Exit(0);
