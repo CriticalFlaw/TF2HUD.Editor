@@ -170,15 +170,9 @@ namespace HUDEditor.ViewModels
         public void HighlightHUD(HUD hud)
         {
             if (HighlightedHud == hud)
-            {
                 SelectedHud = hud;
-                MainWindow.Logger.Info($"Selecting {hud.Name}");
-            }
             else
-            {
                 HighlightedHud = hud;
-                MainWindow.Logger.Info($"Highlighting {hud.Name}");
-            }
         }
 
         [RelayCommand]
@@ -375,7 +369,6 @@ namespace HUDEditor.ViewModels
         {
             // Ask the user if they want to reset before doing so.
             if (MainWindow.ShowMessageBox(MessageBoxImage.Question, Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
-            MainWindow.Logger.Info("Start resetting settings.");
             var selection = SelectedHud;
             selection.ResetAll();
             selection.Settings.SaveSettings();

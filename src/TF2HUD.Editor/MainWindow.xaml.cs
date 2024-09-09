@@ -208,9 +208,10 @@ namespace HUDEditor
             {
                 string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0,3);
                 var latestVersion = await new GitHubClient(new ProductHeaderValue("TF2HUD.Editor")).Repository.Release.GetLatest("CriticalFlaw", "TF2HUD.Editor");
-                Logger.Info($"Comparing version numbers: Local version {appVersion} | Live version {latestVersion.TagName}");
+                Logger.Info($"Checking for app update. Latest version is {latestVersion.TagName}");
 
                 if (appVersion.Equals(latestVersion.TagName)) return;
+                Logger.Info($"Update available from {appVersion} -> {latestVersion.TagName}");
                 if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 Utilities.OpenWebpage(Settings.Default.app_update);
 

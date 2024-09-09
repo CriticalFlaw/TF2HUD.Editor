@@ -14,7 +14,7 @@ namespace HUDEditor.ViewModels
         /// <param name="propertyName">Name of property to update</param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            MainWindow.Logger.Info($"OnPropertyChanged: {propertyName}");
+            //MainWindow.Logger.Info($"OnPropertyChanged: {propertyName}");
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 

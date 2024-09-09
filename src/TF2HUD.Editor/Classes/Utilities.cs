@@ -239,7 +239,7 @@ namespace HUDEditor.Classes
                 var pathTF = path + "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
                 if (Directory.Exists(pathTF))
                 {
-                    MainWindow.Logger.Info($"tf/custom directory found in the registry: {pathTF}");
+                    MainWindow.Logger.Info($"Set target directory to: {pathTF.Replace("\\\\", "\\")}");
                     Settings.Default.hud_directory = pathTF;
                     Settings.Default.Save();
                     return true;
