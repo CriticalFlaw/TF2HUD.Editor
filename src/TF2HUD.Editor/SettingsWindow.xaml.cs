@@ -1,5 +1,9 @@
 ﻿using HUDEditor.Properties;
+using System.Diagnostics;
+using System;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using WPFLocalizeExtension.Engine;
@@ -64,6 +68,16 @@ namespace HUDEditor
         {
             Settings.Default.app_xhair_persist = BtnPersistXhair.IsChecked ?? true;
             Settings.Default.Save();
+        }
+
+        private void btnClearCache_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_game_running, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+
+            Directory.Delete("C:\\Users\\nik_1\\AppData\\Local\\CriticalFlaw", true);
+            Directory.Delete("C:\\Users\\nik_1\\AppData\\Local\\TF2HUD.Editor", true);
+            Directory.Delete("JSON", true);
+            MainWindow.UpdateAppSchema(false);
         }
 
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)

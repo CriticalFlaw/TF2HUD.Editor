@@ -412,6 +412,15 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear Cache.
+        /// </summary>
+        public static string ui_clear_cache {
+            get {
+                return ResourceManager.GetString("ui_clear_cache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customize.
         /// </summary>
         public static string ui_customize {
@@ -448,8 +457,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Options
-        ///.
+        ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string ui_options {
             get {

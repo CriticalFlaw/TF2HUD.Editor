@@ -69,23 +69,27 @@
                         <GroupBox Header="Settings" Grid.Row="1">
                             <WrapPanel HorizontalAlignment="Center">
                                 <Button
-                            Content="{lex:Loc ui_directory}"
-                            Click="BtnSetDirectory_OnClick"
-                            Style="{StaticResource SettingButton}" />
+                                    Content="{lex:Loc ui_directory}"
+                                    Click="BtnSetDirectory_OnClick"
+                                    Style="{StaticResource SettingButton}" />
                                 <Button
-                            Content="{lex:Loc ui_refresh}"
-                            Click="BtnRefresh_OnClick"
-                            Style="{StaticResource SettingButton}" />
+                                    Content="{lex:Loc ui_refresh}"
+                                    Click="BtnRefresh_OnClick"
+                                    Style="{StaticResource SettingButton}" />
                                 <ToggleButton
-                            x:Name="BtnAutoUpdate"
-                            Content="{lex:Loc ui_check_updates}"
-                            Click="BtnAutoUpdate_OnClick"
-                            Style="{StaticResource ToggleButton}" />
+                                    x:Name="BtnAutoUpdate"
+                                    Content="{lex:Loc ui_check_updates}"
+                                    Click="BtnAutoUpdate_OnClick"
+                                    Style="{StaticResource ToggleButton}" />
                                 <ToggleButton
-                            x:Name="BtnPersistXhair"
-                            Content="{lex:Loc ui_persist_xhair}"
-                            Click="BtnPersistXhair_Click"
-                            Style="{StaticResource ToggleButton}" />
+                                    x:Name="BtnPersistXhair"
+                                    Content="{lex:Loc ui_persist_xhair}"
+                                    Click="BtnPersistXhair_Click"
+                                    Style="{StaticResource ToggleButton}" />
+                                <Button
+                                    Content="{lex:Loc ui_clear_cache}"
+                                    Click="btnClearCache_Click"
+                                    Style="{StaticResource SettingButton}" />
                             </WrapPanel>
                         </GroupBox>
                     </StackPanel>

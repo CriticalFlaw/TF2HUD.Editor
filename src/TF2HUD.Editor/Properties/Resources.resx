@@ -279,4 +279,10 @@
   <data name="ui_options" xml:space="preserve">
     <value>Options</value>
   </data>
+  <data name="ui_clear_cache" xml:space="preserve">
+    <value>Clear Cache</value>
+  </data>
+  <data name="info_clear_cache" xml:space="preserve">
+    <value>This option will delete all local schema and editor data files then restart the app. Would you like to continue?</value>
+  </data>
 </root>
