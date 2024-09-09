@@ -151,11 +151,11 @@ namespace HUDEditor.Classes
                     return Utilities.GetLocalizedString("ui_reinstall") ?? "Reinstall";
                 }
 
-                MainWindow.Logger.Warn($"{hud.Name} is not installed!");
+                MainWindow.Logger.Warn($"{hud.Name} is not installed");
                 return Utilities.GetLocalizedString("ui_install") ?? "Install";
             }
 
-            MainWindow.Logger.Warn("User selected HUD is null - return them to the main menu");
+            MainWindow.Logger.Warn("User selected HUD is null. Returning to the main menu");
             return Utilities.GetLocalizedString("ui_install") ?? "Install";
         }
 

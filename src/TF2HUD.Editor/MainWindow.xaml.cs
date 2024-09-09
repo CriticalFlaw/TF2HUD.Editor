@@ -67,7 +67,7 @@ namespace HUDEditor
             if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
 
             // Display a folder browser, ask the user to provide the tf/custom directory.
-            Logger.Info("tf/custom directory is not set. Asking the user...");
+            Logger.Info("Target directory not set. Asking user to provide it.");
             using (var browser = new FolderBrowserDialog
             {
                 Description = Properties.Resources.info_path_browser,
@@ -84,7 +84,7 @@ namespace HUDEditor
                             Settings.Default.hud_directory = browser.SelectedPath;
                             Settings.Default.Save();
                             HudPath = Settings.Default.hud_directory;
-                            Logger.Info("tf/custom directory is set to: " + Settings.Default.hud_directory);
+                            Logger.Info("Target directory set to: " + Settings.Default.hud_directory);
                         }
                         else
                         {
@@ -99,7 +99,7 @@ namespace HUDEditor
 
             // Check one more time if a valid directory has been set.
             if (Utilities.CheckUserPath(HudPath)) return;
-            Logger.Info("tf/custom directory still not set. Exiting...");
+            Logger.Info("Target directory still not set. Closing.");
             ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString("error_app_directory"));
             Application.Current.Shutdown();
         }

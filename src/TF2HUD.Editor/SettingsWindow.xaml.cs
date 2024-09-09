@@ -46,7 +46,7 @@ namespace HUDEditor
 
         private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
         {
-            MainWindow.Logger.Info("Attempting to change the 'tf/custom' directory.");
+            MainWindow.Logger.Info("Attempting to change the target directory.");
             MainWindow.SetupDirectory(true);
         }
 

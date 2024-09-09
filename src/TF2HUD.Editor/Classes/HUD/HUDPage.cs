@@ -30,7 +30,7 @@ namespace HUDEditor.Classes
         public Grid GetControls()
         {
             // Skip this process if the controls have already been rendered.
-            if (isRendered) return Controls;
+            if (IsRendered) return Controls;
 
             // Define the container that will hold the title and content.
             var container = new Grid();
@@ -194,7 +194,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
-                                MainWindow.Logger.Info($"{checkBoxInput.Name} - Added preview: {controlItem.Preview}.");
+                                MainWindow.Logger.Info($"Added a preview for {checkBoxInput.Name} ({controlItem.Preview})");
                             }
 
                             break;
@@ -278,7 +278,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
-                                MainWindow.Logger.Info($"{colorInput.Name} - Added preview: {controlItem.Preview}.");
+                                MainWindow.Logger.Info($"Added a preview for {colorInput.Name} ({controlItem.Preview})");
                             }
 
                             break;
@@ -364,7 +364,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
-                                MainWindow.Logger.Info($"{comboBoxInput.Name} - Added preview: {controlItem.Preview}.");
+                                MainWindow.Logger.Info($"Added a preview for {comboBoxInput.Name} ({controlItem.Preview})");
                             }
 
                             break;
@@ -434,7 +434,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
-                                MainWindow.Logger.Info($"{integerInput.Name} - Added preview: {controlItem.Preview}.");
+                                MainWindow.Logger.Info($"Added a preview for {integerInput.Name} ({controlItem.Preview})");
                             }
 
                             break;
@@ -509,7 +509,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
-                                MainWindow.Logger.Info($"{xhairInput.Name} - Added preview: {controlItem.Preview}.");
+                                MainWindow.Logger.Info($"Added a preview for {xhairInput.Name} ({controlItem.Preview})");
                             }
 
                             break;
@@ -594,7 +594,7 @@ namespace HUDEditor.Classes
 
                                     if (!Directory.Exists(Path.GetDirectoryName(path)))
                                         Directory.CreateDirectory(Path.GetDirectoryName(path));
-                                    MainWindow.Logger.Info($"Copying {browser.FileName} to {path}");
+                                    MainWindow.Logger.Info($"Copying \"{browser.FileName}\" to \"{path}\"");
                                     File.Copy(browser.FileName, path, true);
                                 }
 
@@ -666,7 +666,7 @@ namespace HUDEditor.Classes
                             break;
 
                         default:
-                            throw new Exception($"Entered type {controlItem.Type} is invalid.");
+                            throw new Exception($"Entered type {controlItem.Type} is invalid");
                     }
                 }
 
@@ -738,7 +738,7 @@ namespace HUDEditor.Classes
             container.Children.Add(scrollView);
             Controls.Children.Add(container);
 
-            isRendered = true;
+            IsRendered = true;
             return Controls;
         }
 

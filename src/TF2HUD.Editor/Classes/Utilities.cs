@@ -70,7 +70,7 @@ namespace HUDEditor.Classes
         /// <param name="index">Line number to which to add a comment tag.</param>
         public static string CommentTextLine(string[] lines, int index)
         {
-            MainWindow.Logger.Info($"Commenting line: {index}");
+            MainWindow.Logger.Info($"Commenting line {index}");
             return string.Concat("//", lines[index].Replace("//", string.Empty));
         }
 
@@ -81,7 +81,7 @@ namespace HUDEditor.Classes
         /// <param name="index">Line number from which to remove a comment tag.</param>
         public static string UncommentTextLine(string[] lines, int index)
         {
-            MainWindow.Logger.Info($"Uncommenting line: {index}");
+            MainWindow.Logger.Info($"Uncommenting line {index}");
             return lines[index].Replace("//", string.Empty);
         }
 
@@ -107,7 +107,7 @@ namespace HUDEditor.Classes
         public static string ConvertToRgba(string hex)
         {
             var color = ColorTranslator.FromHtml(hex);
-            MainWindow.Logger.Info($"Converting {hex} to {color}.");
+            MainWindow.Logger.Info($"Converting {hex} to {color}");
             return $"{color.R} {color.G} {color.B} {color.A}";
         }
 

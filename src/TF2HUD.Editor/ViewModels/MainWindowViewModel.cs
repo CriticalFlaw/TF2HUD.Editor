@@ -211,10 +211,12 @@ namespace HUDEditor.ViewModels
                 }
 
                 // Clear tf/custom directory of other installed HUDs.
-                MainWindow.Logger.Info("Preparing directories for extraction.");
                 foreach (var x in HUDList)
                     if (Directory.Exists($"{MainWindow.HudPath}\\{x.Name.ToLowerInvariant()}"))
+                    {
+                        MainWindow.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {MainWindow.HudPath}");
                         Directory.Delete($"{MainWindow.HudPath}\\{x.Name.ToLowerInvariant()}", true);
+                    }
 
                 // Check for unsupported HUDs in the tf/custom folder. Notify user if found.
                 var download = ((EditHUDViewModel)Page).SelectedDownloadSource;
@@ -230,12 +232,11 @@ namespace HUDEditor.ViewModels
                 }
 
                 // Retrieve the HUD object, then download and extract it into the tf/custom directory.
-                MainWindow.Logger.Info($"Start installing {SelectedHud.Name} from {download.Link}.");
+                MainWindow.Logger.Info($"Downloading {SelectedHud.Name} from {download.Link}");
                 HttpClient client = new();
                 client.DefaultRequestHeaders.Add("User-Agent", "request");
 
                 var uri = new Uri(download.Link);
-
                 var bytes = uri.Scheme == "file"
                     ? await File.ReadAllBytesAsync(uri.AbsolutePath)
                     : await client.GetByteArrayAsync(uri);
@@ -243,7 +244,7 @@ namespace HUDEditor.ViewModels
                 if (bytes.Length == 0)
                 {
                     // GameBanana returns 200 with an empty response for missing download links.
-                    throw new HttpRequestException($"Response from {download.Source} did not return a valid zip file.");
+                    throw new HttpRequestException($"Response from {download.Source} did not return a valid zip file");
                 }
 
                 // Create new ZIP object from bytes.
@@ -273,7 +274,7 @@ namespace HUDEditor.ViewModels
                 // Install Crosshairs
                 if (SelectedHud.InstallCrosshairs)
                 {
-                    MainWindow.Logger.Info($"Installing Crosshairs to {SelectedHud.Name}.");
+                    MainWindow.Logger.Info($"Installing crosshairs to {SelectedHud.Name}");
                     await Utilities.InstallCrosshairs($"{MainWindow.HudPath}\\{SelectedHud.Name}");
                 }
 
@@ -322,8 +323,7 @@ namespace HUDEditor.ViewModels
                 if (Utilities.CheckIsGameRunning()) return;
 
                 // Remove the HUD from the tf/custom directory.
-                MainWindow.Logger.Info($"Start uninstalling {SelectedHud.Name}.");
-                MainWindow.Logger.Info($"Removing {SelectedHud.Name} from: {MainWindow.HudPath}");
+                MainWindow.Logger.Info($"Removing {SelectedHud.Name} from {MainWindow.HudPath}");
                 if (SelectedHud.Name != "") Directory.Delete($"{MainWindow.HudPath}\\{SelectedHud.Name}", true);
 
                 OnPropertyChanged(nameof(HighlightedHud));
@@ -352,11 +352,11 @@ namespace HUDEditor.ViewModels
                 if (MainWindow.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
             }
 
-            MainWindow.Logger.Info("Start applying settings.");
+            MainWindow.Logger.Info("------");
+            MainWindow.Logger.Info("Applying user settings");
             selection.Settings.SaveSettings();
             selection.ApplyCustomizations();
             selection.DirtyControls.Clear();
-            MainWindow.Logger.Info("Done applying settings.");
 
             ((EditHUDViewModel)Page).Status = string.Format(Resources.status_applied, selection.Name, DateTime.Now);
         }
@@ -369,13 +369,15 @@ namespace HUDEditor.ViewModels
         {
             // Ask the user if they want to reset before doing so.
             if (MainWindow.ShowMessageBox(MessageBoxImage.Question, Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+
+            MainWindow.Logger.Info("------");
+            MainWindow.Logger.Info("Resetting user settings");
             var selection = SelectedHud;
             selection.ResetAll();
             selection.Settings.SaveSettings();
             selection.ApplyCustomizations();
             selection.DirtyControls.Clear();
             ((EditHUDViewModel)Page).Status = string.Format(Resources.status_reset, selection.Name, DateTime.Now);
-            MainWindow.Logger.Info("Done resetting settings.");
         }
 
         /// <summary>
@@ -384,7 +386,7 @@ namespace HUDEditor.ViewModels
         [RelayCommand]
         public void BtnSwitch_Click()
         {
-            MainWindow.Logger.Info("Changing page view to: main menu.");
+            MainWindow.Logger.Info("Changing page view to: main menu");
             HighlightedHud = null;
             SelectedHud = null;
         }
@@ -485,8 +487,8 @@ namespace HUDEditor.ViewModels
                 foreach (var localFile in new DirectoryInfo("JSON").EnumerateFiles())
                 {
                     if (remoteFiles.Count((x) => x.Name == localFile.Name) != 0) continue;
-                    MainWindow.Logger.Info($"Deleting {localFile.Name}");
                     File.Delete(localFile.FullName);
+                    MainWindow.Logger.Info($"Removed {localFile.Name}");
                 }
 
                 await Task.WhenAll(downloads);
@@ -514,7 +516,7 @@ namespace HUDEditor.ViewModels
                     var backgroundSelection = backgrounds.FirstOrDefault(background => File.Exists($"{consoleFolder}\\background_{background}_widescreen.vtf"));
                     if (backgroundSelection is null) return backgroundSelection;
 
-                    MainWindow.Logger.Info($"[Json.Add] Found background file background_{backgroundSelection}_widescreen.vtf");
+                    MainWindow.Logger.Info($"Found background file background_{backgroundSelection}_widescreen.vtf");
                     var inputPath = $"{consoleFolder}\\background_{backgroundSelection}_widescreen.vtf";
                     var outputPathTga = $"{consoleFolder}\\output.tga";
                     var outputPath = $"{hudDetailsFolder}\\output";
@@ -533,7 +535,7 @@ namespace HUDEditor.ViewModels
                     };
                     var process = Process.Start(processInfo);
                     while (!process.StandardOutput.EndOfStream)
-                        MainWindow.Logger.Info($"[VTF2TGA] {process.StandardOutput.ReadLine()}");
+                        MainWindow.Logger.Info(process.StandardOutput.ReadLine());
                     process.WaitForExit();
                     process.Close();
 

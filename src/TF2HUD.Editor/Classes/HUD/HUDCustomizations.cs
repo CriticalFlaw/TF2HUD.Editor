@@ -291,6 +291,7 @@ namespace HUDEditor.Classes
         {
             try
             {
+                MainWindow.Logger.Info($"------");
                 MainWindow.Logger.Info($"Applying: {userSetting.Name}");
                 var (files, special, specialParameters) = GetControlInfo(hudSetting, userSetting);
 
@@ -362,7 +363,7 @@ namespace HUDEditor.Classes
                                 replace = values[0].ToString();
                             }
 
-                            MainWindow.Logger.Info($"Replace value \"{find}\" with \"{replace}\".");
+                            MainWindow.Logger.Info($"Replace \"{find}\" with \"{replace}\"");
                             File.WriteAllText(absolutePath, File.ReadAllText(absolutePath).Replace(find, replace));
                         }
                         else if (string.Equals(property.Key, "#base", StringComparison.OrdinalIgnoreCase))
@@ -385,10 +386,11 @@ namespace HUDEditor.Classes
                             if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
                             {
                                 hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()];
-                                MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{hudElement[property.Key]}\".");
+                                MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{hudElement[property.Key]}\"");
                             }
                             else
                             {
+                                MainWindow.Logger.Info($"Go to \"{property.Key}\"");
                                 var newhudElementRef = hudElementRef.ContainsKey(property.Key)
                                     ? (Dictionary<string, dynamic>)hudElementRef[property.Key]
                                     : new Dictionary<string, dynamic>();
@@ -426,11 +428,10 @@ namespace HUDEditor.Classes
 
                             // Check for already existing keys and warn user
                             if (hudElementRef.ContainsKey(property.Key))
-                                MainWindow.Logger.Warn(
-                                    $"{relativePath} => {objectPath} already contains key {property.Key}!");
+                                MainWindow.Logger.Warn($"{relativePath} -> {objectPath} already contains key {property.Key}!");
 
                             hudElement[property.Key] = EvaluateValue(property.Value.ToString());
-                            MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\".");
+                            MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\"");
                         }
 
                     return hudElement;
@@ -531,11 +532,9 @@ namespace HUDEditor.Classes
                         };
                     }
 
-                    // Don't read animations file unless the user requests a new event
-                    // the majority of the animation customizations are for enabling/disabling
-                    // events, which use the 'replace' keyword
+                    // Don't read animations file unless the user requests a new event the majority of the animation customizations are for enabling/disabling events, which use the 'replace' keyword
                     Dictionary<string, List<HUDAnimation>> animations = null;
-                    MainWindow.Logger.Info($"Processing: {filePath}");
+                    MainWindow.Logger.Info($"Processing \"{filePath}\"");
 
                     foreach (var animationOption in animationOptions)
                         switch (animationOption.Key.ToLowerInvariant())
@@ -711,7 +710,7 @@ namespace HUDEditor.Classes
                     if (resFileExtensions.Contains(extension))
                     {
                         var hudFile = Utilities.CreateNestedObject(hudFolders, relativePath.Split('/'));
-                        MainWindow.Logger.Info($"Opening {relativePath}");
+                        MainWindow.Logger.Info($"Open \"{relativePath}\"");
                         Utilities.Merge(hudFile, CompileHudElement(filePath.Value?.ToObject<JObject>(), absolutePath, relativePath, hudFile, ""));
                     }
                     else if (string.Equals(extension, "txt"))
@@ -757,6 +756,8 @@ namespace HUDEditor.Classes
 
             if (string.Equals(special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
                 CopyTransparentViewmodelAddon(enable);
+
+            MainWindow.Logger.Info("Option not selected");
         }
 
         /// <summary>
