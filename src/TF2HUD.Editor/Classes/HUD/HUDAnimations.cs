@@ -43,7 +43,7 @@ namespace HUDEditor.Classes
     {
         public static Dictionary<string, List<HUDAnimation>> Parse(string text)
         {
-            VDFTokeniser tokeniser = new VDFTokeniser(text);
+            VDFTokenizer tokeniser = new VDFTokenizer(text);
 
             Dictionary<string, List<HUDAnimation>> ParseFile()
             {

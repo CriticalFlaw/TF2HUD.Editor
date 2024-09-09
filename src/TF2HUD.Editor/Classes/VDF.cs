@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace HUDEditor.Classes
 {
-    internal class VDFTokeniser
+    internal class VDFTokenizer
     {
         public static readonly char[] IgnoredChars = { ' ', '\t', '\r', '\n' };
         public static readonly char[] TokenTerminate = { '"', '{', '}' };
@@ -16,7 +16,7 @@ namespace HUDEditor.Classes
         public int Character { get; private set; } = 1;
         private bool EOFRead = false;
 
-        public VDFTokeniser(string text)
+        public VDFTokenizer(string text)
         {
             Text = text;
         }
@@ -182,7 +182,7 @@ namespace HUDEditor.Classes
 
         public static Dictionary<string, dynamic> Parse(string text)
         {
-            var tokeniser = new VDFTokeniser(text);
+            var tokeniser = new VDFTokenizer(text);
 
             Dictionary<string, dynamic> ParseObject(bool isObject)
             {
