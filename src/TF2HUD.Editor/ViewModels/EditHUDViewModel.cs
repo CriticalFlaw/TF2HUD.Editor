@@ -15,8 +15,8 @@ namespace HUDEditor.ViewModels
     {
         private readonly MainWindowViewModel _mainWindowViewModel;
         private readonly HUD _hud;
-
         private string _status;
+
         public string Status
         {
             get => _status;
@@ -28,8 +28,8 @@ namespace HUDEditor.ViewModels
         }
 
         public IEnumerable<PresetViewModel> Presets { get; }
-
         private Preset _selectedPreset;
+
         public Preset SelectedPreset
         {
             get => _selectedPreset;
@@ -41,8 +41,8 @@ namespace HUDEditor.ViewModels
         }
 
         public IEnumerable<Download> Downloads { get; }
-
         private Download _selectedDownloadSource;
+
         public Download SelectedDownloadSource
         {
             get => _selectedDownloadSource;
@@ -58,7 +58,6 @@ namespace HUDEditor.ViewModels
         public string ComfigHudsUrl => _hud.ComfigHudsUrl;
         public string DiscordUrl => _hud.DiscordUrl;
         public string SteamUrl => _hud.SteamUrl;
-
         public Grid Content => _hud.GetControls();
 
         public EditHUDViewModel(MainWindowViewModel mainWindowViewModel, HUD hud)

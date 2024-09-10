@@ -9,7 +9,6 @@ namespace HUDEditor.Classes
     {
         public static readonly char[] IgnoredChars = { ' ', '\t', '\r', '\n' };
         public static readonly char[] TokenTerminate = { '"', '{', '}' };
-
         private readonly string Text;
         public int Index { get; private set; } = 0;
         public int Line { get; private set; } = 1;
@@ -86,7 +85,6 @@ namespace HUDEditor.Classes
                 case '"':
                     {
                         // If we encounter a quote, read the enclosed text until the next quotation mark.
-
                         // Skip the opening quotation mark.
                         index++;
                         character++;
@@ -97,7 +95,7 @@ namespace HUDEditor.Classes
                         {
                             if (index >= Text.Length)
                             {
-                                throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "closing double quote" }, index, line, character);
+                                throw new VDFSyntaxException(VDFTokenType.String, "EOF", ["closing double quote"], index, line, character);
                             }
                             index++;
                             character++;
@@ -132,7 +130,6 @@ namespace HUDEditor.Classes
                         }
 
                         var end = index;
-
                         var str = Text[start..end];
 
                         token = new VDFToken
@@ -173,6 +170,7 @@ namespace HUDEditor.Classes
     {
         public VDFSyntaxException(VDFTokenType type, string unexpected, string[] expected, int index, int line, int character) : base($"Unexpected {type} '{unexpected}' at position {index} (line {line}, character {character}). Expected {string.Join(" | ", expected)}")
         {
+
         }
     }
 
@@ -187,7 +185,6 @@ namespace HUDEditor.Classes
             Dictionary<string, dynamic> ParseObject(bool isObject)
             {
                 Dictionary<string, dynamic> objectRef = new();
-
                 VDFToken? objectTerminator = isObject ? new VDFToken { Type = VDFTokenType.ControlCharacter, Value = "}" } : null;
 
                 while (true)
@@ -195,11 +192,10 @@ namespace HUDEditor.Classes
                     string key;
                     dynamic value;
                     string conditional;
-
                     var keyToken = tokeniser.Next();
 
                     if (keyToken == objectTerminator) break;
-                    if (keyToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "key" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                    if (keyToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", ["key"], tokeniser.Index, tokeniser.Line, tokeniser.Character);
 
                     switch (keyToken.Value.Type)
                     {
@@ -208,13 +204,13 @@ namespace HUDEditor.Classes
                                 key = keyToken.Value.Value;
 
                                 var valueToken = tokeniser.Next();
-                                if (valueToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "value", "{", "conditional" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                if (valueToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", ["value", "{", "conditional"], tokeniser.Index, tokeniser.Line, tokeniser.Character);
 
                                 if (valueToken.Value.Type == VDFTokenType.Conditional)
                                 {
                                     conditional = valueToken.Value.Value;
                                     valueToken = tokeniser.Next();
-                                    if (valueToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "value", "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                    if (valueToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", ["value", "{"], tokeniser.Index, tokeniser.Line, tokeniser.Character);
                                 }
 
                                 switch (valueToken.Value.Type)
@@ -249,16 +245,16 @@ namespace HUDEditor.Classes
                                             break;
                                         }
                                     case VDFTokenType.Conditional:
-                                        throw new VDFSyntaxException(VDFTokenType.Conditional, valueToken.Value.Value, new[] { "value", "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                        throw new VDFSyntaxException(VDFTokenType.Conditional, valueToken.Value.Value, ["value", "{"], tokeniser.Index, tokeniser.Line, tokeniser.Character);
                                     default:
                                         throw new Exception();
                                 }
                                 break;
                             }
                         case VDFTokenType.ControlCharacter:
-                            throw new VDFSyntaxException(VDFTokenType.ControlCharacter, keyToken.Value.Value, new[] { "key" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                            throw new VDFSyntaxException(VDFTokenType.ControlCharacter, keyToken.Value.Value, ["key"], tokeniser.Index, tokeniser.Line, tokeniser.Character);
                         case VDFTokenType.Conditional:
-                            throw new VDFSyntaxException(VDFTokenType.Conditional, keyToken.Value.Value, new[] { "key" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                            throw new VDFSyntaxException(VDFTokenType.Conditional, keyToken.Value.Value, ["key"], tokeniser.Index, tokeniser.Line, tokeniser.Character);
                         default:
                             throw new Exception();
                     }
@@ -352,8 +348,7 @@ namespace HUDEditor.Classes
                         // Check for an conditional.
                         var keyTokens = key.Split('^');
                         if (keyTokens.Length > 1)
-                            stringValue +=
-                                $"{new string(tab, tabs)}\"{keyTokens[0]}\"\t\"{obj[key]}\" {keyTokens[1]}{newLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{keyTokens[0]}\"\t\"{obj[key]}\" {keyTokens[1]}{newLine}";
                         else
                             stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{obj[key]}\"{newLine}";
                     }

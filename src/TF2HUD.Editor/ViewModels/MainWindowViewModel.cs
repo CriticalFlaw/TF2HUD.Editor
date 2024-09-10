@@ -24,7 +24,6 @@ namespace HUDEditor.ViewModels
     {
         private List<HUD> _hudList;
         public IEnumerable<HUD> HUDList => _hudList;
-
         private HUD _highlightedHud;
         public HUD HighlightedHud
         {
@@ -37,9 +36,7 @@ namespace HUDEditor.ViewModels
             }
         }
 
-        // Highlighted HUD Installed
         public bool HighlightedHudInstalled => MainWindow.CheckHudInstallation(HighlightedHud);
-
         private HUD _selectedHud;
         public HUD SelectedHud
         {
@@ -55,14 +52,12 @@ namespace HUDEditor.ViewModels
                 Page = _selectedHud != null ? new EditHUDViewModel(this, SelectedHud) : new HomePageViewModel(this, HUDList);
                 MainWindow.Logger.Info($"Changing page view to: {(_selectedHud?.Name ?? "Home")}");
 
-                Settings.Default.hud_selected = SelectedHud?.Name ?? String.Empty;
+                Settings.Default.hud_selected = SelectedHud?.Name ?? string.Empty;
                 Settings.Default.Save();
             }
         }
 
-        // Selected HUD Installed
         public bool SelectedHudInstalled => MainWindow.CheckHudInstallation(SelectedHud);
-
         private ViewModelBase _page;
         public ViewModelBase Page
         {
@@ -113,7 +108,6 @@ namespace HUDEditor.ViewModels
                                 control.Name = $"{Utilities.EncodeId(sharedHud.Name)}_{Utilities.EncodeId(control.Name)}";
                             sharedHud.Layout = hudControls.Layout;
                             sharedHud.Controls = hudControls.Controls;
-
                             _hudList.Add(new HUD(sharedHud.Name, sharedHud, false));
                         }
                     }
@@ -161,7 +155,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Find and retrieve a HUD object selected by the user.
+        /// Retrieves the HUD object selected by user.
         /// </summary>
         /// <param name="name">Name of the HUD the user wants to view.</param>
         public HUD this[string name] => HUDList.FirstOrDefault(hud => string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase));
@@ -189,7 +183,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Invoke HUD installation or setting the tf/custom directory, if not already set.
+        /// Invokes HUD installation or setting the tf/custom directory, if not already set.
         /// </summary>
         [RelayCommand(CanExecute = nameof(CanInstall))]
         public async void BtnInstall_Click()
@@ -212,11 +206,13 @@ namespace HUDEditor.ViewModels
 
                 // Clear tf/custom directory of other installed HUDs.
                 foreach (var x in HUDList)
+                {
                     if (Directory.Exists($"{MainWindow.HudPath}\\{x.Name.ToLowerInvariant()}"))
                     {
                         MainWindow.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {MainWindow.HudPath}");
                         Directory.Delete($"{MainWindow.HudPath}\\{x.Name.ToLowerInvariant()}", true);
                     }
+                }
 
                 // Check for unsupported HUDs in the tf/custom folder. Notify user if found.
                 var download = ((EditHUDViewModel)Page).SelectedDownloadSource;
@@ -251,8 +247,7 @@ namespace HUDEditor.ViewModels
                 var stream = new MemoryStream(bytes);
                 var archive = new ZipArchive(stream);
 
-                // Zip files made with ZipFile.CreateFromDirectory do not include directory entries,
-                // so create root directory*
+                // Zip files made with ZipFile.CreateFromDirectory do not include directory entries, so create root directory*
                 Directory.CreateDirectory($"{MainWindow.HudPath}\\{SelectedHud.Name}");
 
                 foreach (var entry in archive.Entries)
@@ -266,7 +261,6 @@ namespace HUDEditor.ViewModels
                     {
                         // *and ensure directory exists for each file
                         Directory.CreateDirectory($"{MainWindow.HudPath}\\{SelectedHud.Name}\\{Path.GetDirectoryName(path)}");
-
                         entry.ExtractToFile($"{MainWindow.HudPath}\\{SelectedHud.Name}\\{path}");
                     }
                 }
@@ -309,7 +303,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Invoke HUD deletion from the tf/custom directory.
+        /// Invokes HUD deletion from the tf/custom directory.
         /// </summary>
         [RelayCommand]
         public void BtnUninstall_Click()
@@ -338,7 +332,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Save and apply user settings to the HUD files.
+        /// Saves and applies user settings to the HUD files.
         /// </summary>
         [RelayCommand]
         public void BtnSave_Click()
@@ -362,7 +356,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Reset user settings for the selected HUD to default.
+        /// Resets user settings for the selected HUD to their default values.
         /// </summary>
         [RelayCommand]
         public void BtnReset_Click()
@@ -381,7 +375,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Return to the HUD selection page.
+        /// Returns to the HUD selection page.
         /// </summary>
         [RelayCommand]
         public void BtnSwitch_Click()
@@ -392,7 +386,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Opens the settings menu for the editor.
+        /// Opens the settings menu for the editor.
         /// </summary>
         [RelayCommand]
         public void BtnSettings_Click()
@@ -403,7 +397,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Opens the issue tracker for the editor.
+        /// Opens the issue tracker for the editor.
         /// </summary>
         [RelayCommand]
         private void BtnReportIssue_Click()
@@ -412,7 +406,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Opens the project documentation site.
+        /// Opens the project documentation site.
         /// </summary>
         [RelayCommand]
         private void BtnDocumentation_Click()
@@ -421,7 +415,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Opens the settings menu for the editor.
+        /// Opens the settings menu for the editor.
         /// </summary>
         [RelayCommand]
         public void BtnPlayTF2_Click()
@@ -432,7 +426,7 @@ namespace HUDEditor.ViewModels
         }
 
         /// <summary>
-        ///     Add a HUD from folder to the shared HUDs list.
+        /// Adds a HUD from folder to the shared HUDs list.
         /// </summary>
         [RelayCommand]
         private async void BtnAddSharedHUD_Click()
@@ -458,7 +452,7 @@ namespace HUDEditor.ViewModels
         #endregion CLICK_EVENTS
 
         /// <summary>
-        ///     Synchronize the local HUD schema files with the latest versions on GitHub.
+        /// Synchronizes the local HUD schema files with the latest versions on GitHub.
         /// </summary>
         /// <returns>Whether updates are available</returns>
         public async Task<bool> Update()
@@ -522,12 +516,12 @@ namespace HUDEditor.ViewModels
                     var outputPath = $"{hudDetailsFolder}\\output";
 
                     string[] args =
-                    {
+                    [
                         "-i",
                         $"\"{inputPath}\"",
                         "-o",
                         $"\"{outputPathTga}\""
-                    };
+                    ];
                     var processInfo = new ProcessStartInfo($"{MainWindow.HudPath.Replace("\\tf\\custom", string.Empty)}\\bin\\vtf2tga.exe")
                     {
                         Arguments = string.Join(" ", args),
@@ -568,8 +562,10 @@ namespace HUDEditor.ViewModels
             var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
             var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
             foreach (var group in hudControls.Controls)
+            {
                 foreach (var control in hudControls.Controls[group.Key])
                     control.Name = $"{Utilities.EncodeId(hudJson.Name)}_{Utilities.EncodeId(control.Name)}";
+            }
 
             hudJson.Layout = hudControls.Layout;
             hudJson.Controls = hudControls.Controls;

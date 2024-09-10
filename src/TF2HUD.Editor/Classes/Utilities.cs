@@ -21,50 +21,36 @@ namespace HUDEditor.Classes
 {
     public static class Utilities
     {
-        public static readonly List<Tuple<string, string, string>> ItemRarities = new()
-        {
-            new Tuple<string, string, string>("QualityColorNormal", "DimmQualityColorNormal",
-                "QualityColorNormal_GreyedOut"),
-            new Tuple<string, string, string>("QualityColorUnique", "DimmQualityColorUnique",
-                "QualityColorUnique_GreyedOut"),
-            new Tuple<string, string, string>("QualityColorStrange", "DimmQualityColorStrange",
-                "QualityColorStrange_GreyedOut"),
-            new Tuple<string, string, string>("QualityColorVintage", "DimmQualityColorVintage",
-                "QualityColorVintage_GreyedOut"),
-            new Tuple<string, string, string>("QualityColorHaunted", "DimmQualityColorHaunted",
-                "QualityColorHaunted_GreyedOut"),
-            new Tuple<string, string, string>("QualityColorrarity1", "DimmQualityColorrarity1",
-                "QualityColorrarity1_GreyedOut"),
-            new Tuple<string, string, string>("QualityColorCollectors", "DimmQualityColorCollectors",
-                "QualityColorCollectors_GreyedOut"),
-            new Tuple<string, string, string>("QualityColorrarity4", "DimmQualityColorrarity4",
-                "QualityColorrarity4_GreyedOut"),
-            new Tuple<string, string, string>("QualityColorCommunity", "DimmQualityColorCommunity",
-                "QualityColorCommunity_GreyedOut"),
-            new Tuple<string, string, string>("QualityColorDeveloper", "DimmQualityColorDeveloper",
-                "QualityColorDeveloper_GreyedOut"),
+        public static readonly List<Tuple<string, string, string>> ItemRarities =
+        [
+            new Tuple<string, string, string>("QualityColorNormal", "DimmQualityColorNormal", "QualityColorNormal_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorUnique", "DimmQualityColorUnique", "QualityColorUnique_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorStrange", "DimmQualityColorStrange", "QualityColorStrange_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorVintage", "DimmQualityColorVintage", "QualityColorVintage_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorHaunted", "DimmQualityColorHaunted", "QualityColorHaunted_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorrarity1", "DimmQualityColorrarity1", "QualityColorrarity1_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorCollectors", "DimmQualityColorCollectors", "QualityColorCollectors_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorrarity4", "DimmQualityColorrarity4", "QualityColorrarity4_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorCommunity", "DimmQualityColorCommunity", "QualityColorCommunity_GreyedOut"),
+            new Tuple<string, string, string>("QualityColorDeveloper", "DimmQualityColorDeveloper", "QualityColorDeveloper_GreyedOut"),
             new Tuple<string, string, string>("ItemRarityCommon", "DimmItemRarityCommon", "ItemRarityCommon_GreyedOut"),
-            new Tuple<string, string, string>("ItemRarityUncommon", "DimmItemRarityUncommon",
-                "ItemRarityUncommon_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityUncommon", "DimmItemRarityUncommon", "ItemRarityUncommon_GreyedOut"),
             new Tuple<string, string, string>("ItemRarityRare", "DimmItemRarityRare", "ItemRarityRare_GreyedOut"),
-            new Tuple<string, string, string>("ItemRarityMythical", "DimmItemRarityMythical",
-                "ItemRarityMythical_GreyedOut"),
-            new Tuple<string, string, string>("ItemRarityLegendary", "DimmItemRarityLegendary",
-                "ItemRarityLegendary_GreyedOut"),
-            new Tuple<string, string, string>("ItemRarityAncient", "DimmItemRarityAncient",
-                "ItemRarityAncient_GreyedOut")
-        };
+            new Tuple<string, string, string>("ItemRarityMythical", "DimmItemRarityMythical", "ItemRarityMythical_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityLegendary", "DimmItemRarityLegendary", "ItemRarityLegendary_GreyedOut"),
+            new Tuple<string, string, string>("ItemRarityAncient", "DimmItemRarityAncient", "ItemRarityAncient_GreyedOut")
+        ];
 
-        public static readonly List<string> CrosshairStyles = new()
-        {
+        public static readonly List<string> CrosshairStyles =
+        [
             "!", "#", "$", "%", "'", "(", ")", "*", "+", ",", ".", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":",
             ";", "=", "<", ">", "?", "@", "|", "}", "`", "_", "^", "]", "[", "A", "B", "C", "D", "E", "F", "G", "H",
             "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c",
             "d", "e", "f", "g", "h", "i", "j", "k", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-        };
+        ];
 
         /// <summary>
-        ///     Add a comment tag (//) to the beginning of a text line.
+        /// Adds a comment tag (//) to the beginning of a text line.
         /// </summary>
         /// <param name="lines">Text lines from a file to process.</param>
         /// <param name="index">Line number to which to add a comment tag.</param>
@@ -75,7 +61,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Remove all comment tags (//) from a text line.
+        /// Removes all comment tags (//) from a text line.
         /// </summary>
         /// <param name="lines">Text lines from a file to process.</param>
         /// <param name="index">Line number from which to remove a comment tag.</param>
@@ -86,7 +72,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Get a list of line numbers containing a given string.
+        /// Gets a list of line numbers containing a given string.
         /// </summary>
         /// <param name="lines">An array of lines to loop through.</param>
         /// <param name="value">String value to look for in the list of lines.</param>
@@ -101,7 +87,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Convert a HEX color code to RGBA.
+        /// Converts a HEX color code to RGBA.
         /// </summary>
         /// <param name="hex">HEX color code to be convert to RGBA.</param>
         public static string ConvertToRgba(string hex)
@@ -112,7 +98,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Get a pulsed color by reducing a color channel value by 50.
+        /// Gets a pulsed color by reducing a color channel value by 50.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetPulsedColor(string rgba)
@@ -124,7 +110,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Get a darkened color by reducing each color channel by 40%.
+        /// Gets a darkened color by reducing each color channel by 40%.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetShadowColor(string rgba)
@@ -137,7 +123,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Get a dimmed color by setting the alpha channel to 100.
+        /// Gets a dimmed color by setting the alpha channel to 100.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetDimmedColor(string rgba)
@@ -148,7 +134,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Get a grayed color by reducing each color channel by 75%.
+        /// Gets a grayed color by reducing each color channel by 75%.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>
         public static string GetGrayedColor(string rgba)
@@ -161,7 +147,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Convert an RGBA color code to Color object.
+        /// Converts an RGBA color code to Color object.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>
         public static Color ConvertToColor(string rgba)
@@ -171,7 +157,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Convert an RGBA color code to ColorBrush object.
+        /// Converts an RGBA color code to ColorBrush object.
         /// </summary>
         /// <param name="rgba">RGBA color code to process.</param>
         public static SolidColorBrush ConvertToColorBrush(string rgba)
@@ -181,7 +167,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Open the provided path in browser or Windows Explorer.
+        /// Opens the provided path in browser or Windows Explorer.
         /// </summary>
         /// <param name="url">URL link to open.</param>
         public static void OpenWebpage(string url)
@@ -192,7 +178,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Get the filename from the HUD schema control using a string value.
+        /// Gets the filename from the HUD schema control using a string value.
         /// </summary>
         /// <param name="control">Schema control to retrieve file names from.</param>
         internal static dynamic GetFileNames(Controls control)
@@ -203,7 +189,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Check if Team Fortress 2 is currently running.
+        /// Checks if Team Fortress 2 is currently running.
         /// </summary>
         /// <returns>False if there's no active process named hl2, tf, or tf_win64, otherwise return true and a warning message.</returns>
         public static bool CheckIsGameRunning()
@@ -214,7 +200,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Search registry for the Team Fortress 2 installation directory.
+        /// Searchs registry for the Team Fortress 2 installation directory.
         /// </summary>
         /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
         public static bool SearchRegistry()
@@ -249,16 +235,16 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Check if the set tf/custom directory is valid.
+        /// Checks if the target directory is valid.
         /// </summary>
-        /// <returns>True if the set tf/custom directory is valid.</returns>
+        /// <returns>True if the set target directory is valid.</returns>
         public static bool CheckUserPath(string hudPath)
         {
             return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf\\custom");
         }
 
         /// <summary>
-        ///     Get a localized string from the resource file.
+        /// Gets a localized string from the resource file.
         /// </summary>
         public static string GetLocalizedString(string key)
         {
@@ -267,7 +253,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Converts a HUD/control name into a WPF usable ID
+        /// Converts a HUD/control name into a WPF usable ID
         /// </summary>
         /// <param name="id">ID to sanitize.</param>
         /// <remarks>
@@ -280,7 +266,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Deep merge keys from one object to another
+        /// Deep merges keys from one object to another
         /// </summary>
         /// <param name="object1"></param>
         /// <param name="object2"></param>
@@ -312,7 +298,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Adds the structure for empty nested objects inside a given object
+        /// Adds the structure for empty nested objects inside a given object
         /// </summary>
         /// <param name="obj">Object to add nested objects to.</param>
         /// <param name="keys">Keys to add.</param>
@@ -339,7 +325,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Fetch JSON from specified URL.
+        /// Fetches JSON from specified URL.
         /// </summary>
         /// <param name="url">URL to request resource from.</param>
         public static async Task<T> Fetch<T>(string url)
@@ -350,7 +336,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Downloads a file from URL to the specified file path.
+        /// Downloads a file from URL to the specified file path.
         /// </summary>
         /// <param name="url">URL to request resource from.</param>
         /// <param name="filePath">Relative path to file to save resource to.</param>
@@ -362,7 +348,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Calculates a file hash identical to the output of <c>git hash-object &lt;file&gt;</c>
+        /// Calculates a file hash identical to the output of <c>git hash-object &lt;file&gt;</c>
         /// </summary>
         /// <param name="filePath">Path to file to calculate hash of.</param>
         public static string GitHash(string filePath)
@@ -375,7 +361,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Install the Hypnotize TF2 HUD Crosshairs to a given HUD folder
+        /// Installs Hypnotize's TF2 HUD Crosshairs to a given HUD folder
         /// </summary>
         /// <param name="folderPath">Absolute folder path to HUD to install crosshairs to</param>
         public static async Task InstallCrosshairs(string folderPath)
@@ -384,7 +370,7 @@ namespace HUDEditor.Classes
             var crosshairsZipFileName = $"{crosshairsName}.zip";
 
             // Download TF2 HUD Crosshairs
-            await Utilities.DownloadFile(Settings.Default.tf2_hud_crosshairs_zip, crosshairsZipFileName);
+            await DownloadFile(Settings.Default.tf2_hud_crosshairs_zip, crosshairsZipFileName);
             if (Directory.Exists(crosshairsName)) Directory.Delete(crosshairsName, true);
             ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath);
 
@@ -435,8 +421,7 @@ namespace HUDEditor.Classes
                 {
                     var filePath = Path.Join(folderPath, "scripts\\hudanimations_manifest.txt");
 
-                    // If the HUD does not contain a hudanimations_manifest.txt,
-                    // use the string from tf2_misc_dir.vpk scripts/hudanimations_manifest.txt
+                    // If the HUD does not contain a hudanimations_manifest.txt, use the string from tf2_misc_dir.vpk scripts/hudanimations_manifest.txt
                     var fileContents = File.Exists(filePath)
                     ? await File.ReadAllTextAsync(filePath)
                     : @"

@@ -22,7 +22,7 @@ using MessageBox = System.Windows.MessageBox;
 namespace HUDEditor
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow
     {
@@ -59,7 +59,7 @@ namespace HUDEditor
         }
 
         /// <summary>
-        /// Setup the tf/custom directory.
+        /// Setups the target directory (tf/custom).
         /// </summary>
         /// <param name="userSet">If true, prompts the user to select the tf/custom using the folder browser.</param>
         public static void SetupDirectory(bool userSet = false)
@@ -77,6 +77,7 @@ namespace HUDEditor
             {
                 // Loop until the user provides a valid tf/custom directory, unless they cancel out.
                 while (!browser.SelectedPath.EndsWith("tf\\custom"))
+                {
                     if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         if (browser.SelectedPath.EndsWith("tf\\custom"))
@@ -95,6 +96,7 @@ namespace HUDEditor
                     {
                         break;
                     }
+                }
             }
 
             // Check one more time if a valid directory has been set.
@@ -137,7 +139,7 @@ namespace HUDEditor
         }
 
         /// <summary>
-        /// Synchronize the local HUD schema files with the latest versions on GitHub.
+        /// Synchronizes the local HUD schema files with the latest versions on GitHub.
         /// </summary>
         /// <param name="silent">If true, the user will not be notified if there are no updates on startup.</param>
         public static async void UpdateAppSchema(bool silent = true)
@@ -200,13 +202,13 @@ namespace HUDEditor
         }
 
         /// <summary>
-        /// Check if there's a new version of the app available.
+        /// Checks if there's a new version of the app available.
         /// </summary>
         public static async void UpdateAppVersion()
         {
             try
             {
-                string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0,3);
+                string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, 3);
                 var latestVersion = await new GitHubClient(new ProductHeaderValue("TF2HUD.Editor")).Repository.Release.GetLatest("CriticalFlaw", "TF2HUD.Editor");
                 Logger.Info($"Checking for app update. Latest version is {latestVersion.TagName}");
 

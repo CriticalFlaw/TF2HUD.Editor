@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using HUDEditor.Classes;
+using HUDEditor.Models;
 
 namespace HUDEditor.ViewModels
 {

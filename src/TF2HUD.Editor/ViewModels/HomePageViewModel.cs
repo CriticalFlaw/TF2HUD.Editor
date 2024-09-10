@@ -11,10 +11,8 @@ namespace HUDEditor.ViewModels
     public partial class HomePageViewModel : ViewModelBase
     {
         private readonly MainWindowViewModel _mainWindowViewModel;
-
         private ObservableCollection<HUDButtonViewModel> _hudList;
         public ICollectionView HUDListView => CollectionViewSource.GetDefaultView(_hudList);
-
         private string _searchText = "";
         public string SearchText
         {

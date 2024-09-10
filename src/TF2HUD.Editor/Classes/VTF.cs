@@ -16,7 +16,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Convert an image file into a VTF texture file to be used in-game.
+        /// Converts an image file into a VTF texture file to be used in-game.
         /// </summary>
         /// <param name="inFile">Path and file name of the image to be converted.</param>
         /// <param name="outFile">Output path and file name for the VTF.</param>
@@ -30,7 +30,7 @@ namespace HUDEditor.Classes
             if (!Directory.Exists(materialSrc))
                 Directory.CreateDirectory(materialSrc);
 
-            // Save image as .tga (cast using TGASharpLib)
+            // Save image as .TGA (cast using TGASharpLib)
             var tgaSquareImage = (TGA)ResizeImage(image);
             tgaSquareImage.Save($"{materialSrc}\\temp.tga");
 
@@ -62,18 +62,14 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Resize the image file so it can be saved into Targa file.
+        /// Resizes the image file so it can be saved into Targa file.
         /// </summary>
         /// <param name="image">Bitmap of the input image file.</param>
         /// <returns>Bitmap of the resized image file.</returns>
         private static Bitmap ResizeImage(Bitmap image)
         {
-            // Image size is the greater of both the width and height rounded
-            // up to the nearest power of 2
-            var size = (int)Math.Max(
-                Math.Pow(2, Math.Ceiling(Math.Log(image.Width) / Math.Log(2))),
-                Math.Pow(2, Math.Ceiling(Math.Log(image.Height) / Math.Log(2)))
-            );
+            // Image size is the greater of both the width and height rounded up to the nearest power of 2
+            var size = (int)Math.Max(Math.Pow(2, Math.Ceiling(Math.Log(image.Width) / Math.Log(2))), Math.Pow(2, Math.Ceiling(Math.Log(image.Height) / Math.Log(2))));
 
             // Paint graphics onto the SquareImage Bitmap
             var squareImage = new Bitmap(size, size);
@@ -83,7 +79,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Use the Valve Texture Tool (Vtex) to convert a Targa file (tga) into a Valve Texture File (vtf).
+        /// Uses the Valve Texture Tool (Vtex) to convert a Targa file (TGA) into a Valve Texture File (VTF).
         /// </summary>
         /// <param name="folderPath">Input image file path.</param>
         /// <param name="fileName">Name of the image to be converted.</param>
@@ -91,19 +87,19 @@ namespace HUDEditor.Classes
         private void VtexConvert(string folderPath, string fileName)
         {
             // Set the VTEX Args
-            File.WriteAllLines($"{folderPath}\\{fileName}.txt", new[]
-            {
+            File.WriteAllLines($"{folderPath}\\{fileName}.txt",
+            [
                 "pointsample 1",
                 "nolod 1",
                 "nomip 1"
-            });
+            ]);
 
             // Set the VTEX CLI Args
             string[] args =
-            {
+            [
                 "-quiet",
                 $"\"{folderPath}\\{fileName}.tga\""
-            };
+            ];
 
             // Call Vtex and pass the parameters.
             var processInfo = new ProcessStartInfo($"{_tf2Path}\\bin\\vtex.exe")
@@ -112,8 +108,7 @@ namespace HUDEditor.Classes
                 RedirectStandardOutput = true
             };
             var process = Process.Start(processInfo);
-            while (!process.StandardOutput.EndOfStream)
-                MainWindow.Logger.Info(process.StandardOutput.ReadLine());
+            while (!process.StandardOutput.EndOfStream) MainWindow.Logger.Info(process.StandardOutput.ReadLine());
             process.WaitForExit();
             process.Close();
             process.Dispose();

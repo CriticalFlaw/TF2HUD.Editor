@@ -9,7 +9,7 @@ using WPFLocalizeExtension.Engine;
 namespace HUDEditor
 {
     /// <summary>
-    /// Interaction logic for Settings.xaml
+    ///     Interaction logic for SettingsWindow.xaml
     /// </summary>
     public partial class SettingsWindow : Window
     {

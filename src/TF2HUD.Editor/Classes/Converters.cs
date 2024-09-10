@@ -14,7 +14,7 @@ namespace HUDEditor.Classes
     public class NullCheckConverter : IValueConverter
     {
         /// <summary>
-        ///     Returns true if the provided value is not null or empty.
+        /// Returns true if the provided value is not null or empty.
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -36,7 +36,7 @@ namespace HUDEditor.Classes
     public class NotNullCheckConverter : IValueConverter
     {
         /// <summary>
-        ///     Returns true if the provided value is null.
+        /// Returns true if the provided value is null.
         /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

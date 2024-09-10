@@ -83,7 +83,7 @@ namespace HUDEditor.Classes
             Settings.Preset = preset;
             IsRendered = false;
             Controls = new Grid();
-            MainWindow.Logger.Info($"Chaging {Name} to Preset-{Settings.Preset}");
+            MainWindow.Logger.Info($"Changing {Name} to Preset-{Settings.Preset}");
         }
 
         /// <summary>

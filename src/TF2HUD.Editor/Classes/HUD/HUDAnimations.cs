@@ -40,7 +40,7 @@ namespace HUDEditor.Classes
     {
         public static Dictionary<string, List<HUDAnimation>> Parse(string text)
         {
-            VDFTokenizer tokeniser = new VDFTokenizer(text);
+            VDFTokenizer tokenizer = new VDFTokenizer(text);
 
             Dictionary<string, List<HUDAnimation>> ParseFile()
             {
@@ -48,7 +48,7 @@ namespace HUDEditor.Classes
 
                 while (true)
                 {
-                    var token = tokeniser.Next();
+                    var token = tokenizer.Next();
                     if (token == null) break;
                     switch (token.Value.Type)
                     {
@@ -56,16 +56,16 @@ namespace HUDEditor.Classes
                             {
                                 if (string.Equals(token.Value.Value, "event", StringComparison.CurrentCultureIgnoreCase))
                                 {
-                                    var eventName = tokeniser.Next();
-                                    if (eventName == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "event name" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                    var eventName = tokenizer.Next();
+                                    if (eventName == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", ["event name"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
                                     if (eventName.Value.Type == VDFTokenType.String) animations[eventName.Value.Value] = ParseEvent();
-                                    else throw new VDFSyntaxException(eventName.Value.Type, eventName.Value.Value, new[] { "event name" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                    else throw new VDFSyntaxException(eventName.Value.Type, eventName.Value.Value, ["event name"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
                                 }
-                                else throw new VDFSyntaxException(token.Value.Type, token.Value.Value, new[] { "\"event\"", "EOF" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                                else throw new VDFSyntaxException(token.Value.Type, token.Value.Value, ["\"event\"", "EOF"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
                                 break;
                             }
                         default:
-                            throw new VDFSyntaxException(token.Value.Type, token.Value.Value, new[] { "\"event\"", "EOF" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                            throw new VDFSyntaxException(token.Value.Type, token.Value.Value, ["\"event\"", "EOF"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
                     }
                 }
 
@@ -75,15 +75,15 @@ namespace HUDEditor.Classes
             List<HUDAnimation> ParseEvent()
             {
                 List<HUDAnimation> events = new();
-                var token = tokeniser.Next();
-                if (token == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
-                if (token.Value.Type != VDFTokenType.ControlCharacter || token.Value.Value != "{") throw new VDFSyntaxException(token.Value.Type, token.Value.Value, new[] { "{" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                var token = tokenizer.Next();
+                if (token == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", ["{"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
+                if (token.Value.Type != VDFTokenType.ControlCharacter || token.Value.Value != "{") throw new VDFSyntaxException(token.Value.Type, token.Value.Value, ["{"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
 
                 while (true)
                 {
-                    var animationCommandToken = tokeniser.Next();
-                    if (animationCommandToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "animation command", "}" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
-                    if (animationCommandToken.Value.Type != VDFTokenType.String) throw new VDFSyntaxException(animationCommandToken.Value.Type, animationCommandToken.Value.Value, new[] { "animation command", "}" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                    var animationCommandToken = tokenizer.Next();
+                    if (animationCommandToken == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", ["animation command", "}"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
+                    if (animationCommandToken.Value.Type != VDFTokenType.String) throw new VDFSyntaxException(animationCommandToken.Value.Type, animationCommandToken.Value.Value, ["animation command", "}"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
                     if (animationCommandToken.Value.Value == "}") break;
 
                     events.Add(ParseAnimation(animationCommandToken.Value.Value));
@@ -94,9 +94,9 @@ namespace HUDEditor.Classes
 
             string ReadString()
             {
-                var token = tokeniser.Next();
-                if (token == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", new[] { "string" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
-                if (token.Value.Type != VDFTokenType.String) throw new VDFSyntaxException(token.Value.Type, token.Value.Value, new[] { "string" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                var token = tokenizer.Next();
+                if (token == null) throw new VDFSyntaxException(VDFTokenType.String, "EOF", ["string"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
+                if (token.Value.Type != VDFTokenType.String) throw new VDFSyntaxException(token.Value.Type, token.Value.Value, ["string"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
                 return token.Value.Value;
             }
 
@@ -108,115 +108,84 @@ namespace HUDEditor.Classes
             string ReadBool()
             {
                 var token = ReadString();
-                if (token != "0" || token != "1") throw new VDFSyntaxException(VDFTokenType.String, token, new[] { "0", "1" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
+                if (token != "0" || token != "1") throw new VDFSyntaxException(VDFTokenType.String, token, ["0", "1"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
                 return token;
             }
 
             HUDAnimation ParseAnimation(string type)
             {
-                HUDAnimation animation;
-
-                switch (type.ToLower())
+                HUDAnimation animation = type.ToLower() switch
                 {
-                    case "animate":
-                        animation = new Animate
+                    "animate" => new Animate
+                    {
+                        Element = ReadString(),
+                        Property = ReadString(),
+                        Value = ReadString(),
+                        Interpolator = ReadString().ToLower() switch
                         {
-                            Element = ReadString(),
-                            Property = ReadString(),
-                            Value = ReadString(),
-                            Interpolator = ReadString().ToLower() switch
-                            {
-                                "linear" => new LinearInterpolator(),
-                                "accel" => new AccelInterpolator(),
-                                "deaccel" => new DeAccelInterpolator(),
-                                "spline" => new SplineInterpolator(),
-                                "pulse" => new PulseInterpolator { Frequency = ReadString() },
-                                "flicker" => new FlickerInterpolator { Randomness = ReadString() },
-                                "bias" => new BiasInterpolator { Bias = ReadString() },
-                                "gain" => new GainInterpolator { Bias = ReadString() },
-                                var interpolator => throw new VDFSyntaxException(VDFTokenType.String, interpolator, new[] { "interpolator" }, tokeniser.Index, tokeniser.Line, tokeniser.Character),
-                            },
-                            Delay = ReadNumber(),
-                            Duration = ReadNumber(),
-                        };
-                        break;
-
-                    case "runevent":
-                        animation = new RunEvent
-                        {
-                            Event = ReadString(),
-                            Delay = ReadNumber(),
-                        };
-                        break;
-
-                    case "stopevent":
-                        animation = new StopEvent
-                        {
-                            Event = ReadString(),
-                            Delay = ReadNumber(),
-                        };
-                        break;
-
-                    case "setvisible":
-                        animation = new SetVisible
-                        {
-                            Element = ReadString(),
-                            Visible = ReadString(),
-                            Delay = ReadNumber(),
-                        };
-                        break;
-
-                    case "firecommand":
-                        animation = new FireCommand
-                        {
-                            Delay = ReadNumber(),
-                            Command = ReadString(),
-                        };
-                        break;
-
-                    case "runeventchild":
-                        animation = new RunEventChild
-                        {
-                            Element = ReadString(),
-                            Event = ReadString(),
-                            Delay = ReadNumber(),
-                        };
-                        break;
-
-                    case "setinputenabled":
-                        animation = new SetInputEnabled
-                        {
-                            Element = ReadString(),
-                            Enabled = ReadBool(),
-                            Delay = ReadNumber(),
-                        };
-                        break;
-
-                    case "playsound":
-                        animation = new PlaySound
-                        {
-                            Delay = ReadNumber(),
-                            Sound = ReadString(),
-                        };
-                        break;
-
-                    case "stoppanelanimations":
-                        animation = new StopPanelAnimations
-                        {
-                            Element = ReadString(),
-                            Delay = ReadNumber(),
-                        };
-                        break;
-
-                    default:
-                        throw new VDFSyntaxException(VDFTokenType.String, type, new[] { "animation command" }, tokeniser.Index, tokeniser.Line, tokeniser.Character);
-                }
-
-                var conditionalToken = tokeniser.Next(true);
+                            "linear" => new LinearInterpolator(),
+                            "accel" => new AccelInterpolator(),
+                            "deaccel" => new DeAccelInterpolator(),
+                            "spline" => new SplineInterpolator(),
+                            "pulse" => new PulseInterpolator { Frequency = ReadString() },
+                            "flicker" => new FlickerInterpolator { Randomness = ReadString() },
+                            "bias" => new BiasInterpolator { Bias = ReadString() },
+                            "gain" => new GainInterpolator { Bias = ReadString() },
+                            var interpolator => throw new VDFSyntaxException(VDFTokenType.String, interpolator, ["interpolator"], tokenizer.Index, tokenizer.Line, tokenizer.Character),
+                        },
+                        Delay = ReadNumber(),
+                        Duration = ReadNumber(),
+                    },
+                    "runevent" => new RunEvent
+                    {
+                        Event = ReadString(),
+                        Delay = ReadNumber(),
+                    },
+                    "stopevent" => new StopEvent
+                    {
+                        Event = ReadString(),
+                        Delay = ReadNumber(),
+                    },
+                    "setvisible" => new SetVisible
+                    {
+                        Element = ReadString(),
+                        Visible = ReadString(),
+                        Delay = ReadNumber(),
+                    },
+                    "firecommand" => new FireCommand
+                    {
+                        Delay = ReadNumber(),
+                        Command = ReadString(),
+                    },
+                    "runeventchild" => new RunEventChild
+                    {
+                        Element = ReadString(),
+                        Event = ReadString(),
+                        Delay = ReadNumber(),
+                    },
+                    "setinputenabled" => new SetInputEnabled
+                    {
+                        Element = ReadString(),
+                        Enabled = ReadBool(),
+                        Delay = ReadNumber(),
+                    },
+                    "playsound" => new PlaySound
+                    {
+                        Delay = ReadNumber(),
+                        Sound = ReadString(),
+                    },
+                    "stoppanelanimations" => new StopPanelAnimations
+                    {
+                        Element = ReadString(),
+                        Delay = ReadNumber(),
+                    },
+                    _ => throw new VDFSyntaxException(VDFTokenType.String, type, ["animation command"], tokenizer.Index, tokenizer.Line, tokenizer.Character),
+                };
+                var conditionalToken = tokenizer.Next(true);
                 if (conditionalToken != null && conditionalToken.Value.Type == VDFTokenType.Conditional)
                 {
                     animation.Conditional = conditionalToken.Value.Value;
-                    tokeniser.Next();
+                    tokenizer.Next();
                 }
 
                 return animation;

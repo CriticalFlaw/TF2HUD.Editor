@@ -25,7 +25,7 @@ namespace HUDEditor.Classes
     public partial class HUD
     {
         /// <summary>
-        ///     Generate the page layout using controls defined in the HUD schema.
+        /// Generates the page layout using controls defined in the HUD schema.
         /// </summary>
         public Grid GetControls()
         {
@@ -85,7 +85,6 @@ namespace HUDEditor.Classes
             }
 
             Grid.SetRow(sectionsContainer, 1);
-
             var lastMargin = new Thickness(10, 2, 0, 0);
             var lastTop = lastMargin.Top;
             var groupBoxIndex = 0;
@@ -126,7 +125,6 @@ namespace HUDEditor.Classes
                 };
 
                 sectionContentContainer.Children.Add(resetInput);
-
                 Panel sectionContent = Layout is not null ? new WrapPanel() : new StackPanel();
                 sectionContent.Margin = new Thickness(3);
 
@@ -243,14 +241,12 @@ namespace HUDEditor.Classes
                             colorInput.SelectedColorChanged += (sender, _) =>
                             {
                                 var input = sender as ColorPicker;
-                                Settings.SetSetting(input?.Name,
-                                    Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
+                                Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
                             };
                             colorInput.Closed += (sender, _) =>
                             {
                                 var input = sender as ColorPicker;
-                                Settings.SetSetting(input?.Name,
-                                    Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
+                                Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
                                 CheckIsDirty(controlItem);
                             };
 
@@ -543,7 +539,6 @@ namespace HUDEditor.Classes
                             {
                                 Name = id,
                                 Content = Resources.ui_browse,
-                                // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
                                 HorizontalAlignment = HorizontalAlignment.Stretch
@@ -555,7 +550,6 @@ namespace HUDEditor.Classes
                             var clearInput = new Button
                             {
                                 Content = Resources.ui_clear,
-                                // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
                                 HorizontalAlignment = HorizontalAlignment.Stretch
@@ -692,6 +686,7 @@ namespace HUDEditor.Classes
                                 // These are not optimal speed but the code should be easier to understand:
                                 // Counts the occurrences of the current item id/index
                                 var columnSpan = 0;
+
                                 // Iterate current row
                                 for (var index = 0; index < Layout[i].Length; index++)
                                     if (groupBoxIndex.ToString() == Layout[i][index] || section == Layout[i][index])
@@ -743,12 +738,11 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Check whether a control change requires a game restart.
+        /// Checks whether a control change requires a game restart.
         /// </summary>
         private void CheckIsDirty(Controls control)
         {
-            if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value) &&
-                !DirtyControls.Contains(control.Label))
+            if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value) && !DirtyControls.Contains(control.Label))
                 DirtyControls.Add(control.Label);
             else
                 DirtyControls.Remove(control.Label);
