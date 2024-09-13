@@ -7,29 +7,17 @@ using System.Linq;
 
 namespace HUDEditor.Classes
 {
-    public enum Preset
-    {
-        A,
-        B,
-        C,
-        D
-    }
-
     public class HUDSettings
     {
-        public static readonly string UserFile =
-            $"{Directory.CreateDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor").FullName}\\settings.json";
+        public static readonly string UserFile = $"{Directory.CreateDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor").FullName}\\settings.json";
 
         private static readonly UserJson Json = File.Exists(UserFile)
             ? JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(UserFile))
             : new UserJson();
 
         private static readonly Dictionary<string, Preset> Presets = Json.Presets;
-
         private static readonly List<Setting> UserSettings = Json.Settings;
-
         private Preset _Preset;
-
         public string HUDName;
 
         public HUDSettings(string name)
@@ -46,7 +34,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Add a new setting to user settings.
+        /// Adds a new user setting.
         /// </summary>
         public void AddSetting(string name, Controls control)
         {
@@ -62,7 +50,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Retrieve a specific user setting by name.
+        /// Retrieves a user setting by name.
         /// </summary>
         /// <param name="name">Name of the setting to retrieve.</param>
         public Setting GetSetting(string name)
@@ -71,7 +59,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Retrieve a specific user setting or just the value, by name.
+        /// Retrieves a user setting or just the value, by name.
         /// </summary>
         /// <param name="name">Name of the setting to retrieve.</param>
         public T GetSetting<T>(string name)
@@ -99,7 +87,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Set a new user setting value.
+        /// Sets a new user setting value.
         /// </summary>
         /// <param name="name">Name of the setting to update.</param>
         /// <param name="value">New value for updating setting.</param>
@@ -109,7 +97,7 @@ namespace HUDEditor.Classes
         }
 
         /// <summary>
-        ///     Save a user setting value to file.
+        /// Saves a user setting value to file.
         /// </summary>
         public void SaveSettings()
         {
@@ -119,7 +107,7 @@ namespace HUDEditor.Classes
                 Settings = UserSettings
             };
             File.WriteAllText(UserFile, JsonConvert.SerializeObject(settings, Formatting.Indented));
-            MainWindow.Logger.Info($"Saved user settings to: {UserFile}");
+            MainWindow.Logger.Info($"Saving user settings to: {UserFile}");
         }
     }
 }

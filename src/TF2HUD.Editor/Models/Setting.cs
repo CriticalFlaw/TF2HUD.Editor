@@ -1,6 +1,4 @@
-﻿using HUDEditor.Classes;
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace HUDEditor.Models
 {

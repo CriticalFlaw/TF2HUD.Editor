@@ -25,12 +25,12 @@ namespace HUDEditor.Classes
     public partial class HUD
     {
         /// <summary>
-        ///     Generate the page layout using controls defined in the HUD schema.
+        /// Generates the page layout using controls defined in the HUD schema.
         /// </summary>
         public Grid GetControls()
         {
             // Skip this process if the controls have already been rendered.
-            if (isRendered) return Controls;
+            if (IsRendered) return Controls;
 
             // Define the container that will hold the title and content.
             var container = new Grid();
@@ -85,7 +85,6 @@ namespace HUDEditor.Classes
             }
 
             Grid.SetRow(sectionsContainer, 1);
-
             var lastMargin = new Thickness(10, 2, 0, 0);
             var lastTop = lastMargin.Top;
             var groupBoxIndex = 0;
@@ -126,7 +125,6 @@ namespace HUDEditor.Classes
                 };
 
                 sectionContentContainer.Children.Add(resetInput);
-
                 Panel sectionContent = Layout is not null ? new WrapPanel() : new StackPanel();
                 sectionContent.Margin = new Thickness(3);
 
@@ -176,7 +174,7 @@ namespace HUDEditor.Classes
                             // Add to Page.
                             sectionContent.Children.Add(checkBoxInput);
                             controlItem.Control = checkBoxInput;
-                            MainWindow.Logger.Info($"Added checkbox to the page ({checkBoxInput.Name}).");
+                            MainWindow.Logger.Info($"Added {checkBoxInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                             // Create a preview button if the control has a preview image.
                             if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -194,7 +192,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
-                                MainWindow.Logger.Info($"{checkBoxInput.Name} - Added preview: {controlItem.Preview}.");
+                                MainWindow.Logger.Info($"Added a preview for {checkBoxInput.Name} ({controlItem.Preview})");
                             }
 
                             break;
@@ -243,14 +241,12 @@ namespace HUDEditor.Classes
                             colorInput.SelectedColorChanged += (sender, _) =>
                             {
                                 var input = sender as ColorPicker;
-                                Settings.SetSetting(input?.Name,
-                                    Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
+                                Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
                             };
                             colorInput.Closed += (sender, _) =>
                             {
                                 var input = sender as ColorPicker;
-                                Settings.SetSetting(input?.Name,
-                                    Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
+                                Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
                                 CheckIsDirty(controlItem);
                             };
 
@@ -259,7 +255,7 @@ namespace HUDEditor.Classes
                             colorContainer.Children.Add(colorInput);
                             sectionContent.Children.Add(colorContainer);
                             controlItem.Control = colorInput;
-                            MainWindow.Logger.Info($"Added color picker to the page ({colorInput.Name}).");
+                            MainWindow.Logger.Info($"Added {colorInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                             // Create a preview button if the control has a preview image.
                             if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -278,7 +274,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
-                                MainWindow.Logger.Info($"{colorInput.Name} - Added preview: {controlItem.Preview}.");
+                                MainWindow.Logger.Info($"Added a preview for {colorInput.Name} ({controlItem.Preview})");
                             }
 
                             break;
@@ -345,7 +341,7 @@ namespace HUDEditor.Classes
                             comboBoxContainer.Children.Add(comboBoxInput);
                             sectionContent.Children.Add(comboBoxContainer);
                             controlItem.Control = comboBoxInput;
-                            MainWindow.Logger.Info($"Added combo-box to the page ({comboBoxInput.Name}).");
+                            MainWindow.Logger.Info($"Added {comboBoxInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                             // Create a preview button if the control has a preview image.
                             if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -364,7 +360,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
-                                MainWindow.Logger.Info($"{comboBoxInput.Name} - Added preview: {controlItem.Preview}.");
+                                MainWindow.Logger.Info($"Added a preview for {comboBoxInput.Name} ({controlItem.Preview})");
                             }
 
                             break;
@@ -415,7 +411,7 @@ namespace HUDEditor.Classes
                             integerContainer.Children.Add(integerInput);
                             sectionContent.Children.Add(integerContainer);
                             controlItem.Control = integerInput;
-                            MainWindow.Logger.Info($"Added num. counter to the page ({integerInput.Name}).");
+                            MainWindow.Logger.Info($"Added {integerInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                             // Create a preview button if the control has a preview image.
                             if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -434,7 +430,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
-                                MainWindow.Logger.Info($"{integerInput.Name} - Added preview: {controlItem.Preview}.");
+                                MainWindow.Logger.Info($"Added a preview for {integerInput.Name} ({controlItem.Preview})");
                             }
 
                             break;
@@ -490,7 +486,7 @@ namespace HUDEditor.Classes
                             xhairContainer.Children.Add(xhairInput);
                             sectionContent.Children.Add(xhairContainer);
                             controlItem.Control = xhairInput;
-                            MainWindow.Logger.Info($"Added xhair picker to the page ({xhairInput.Name}).");
+                            MainWindow.Logger.Info($"Added {xhairInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                             // Create a preview button if the control has a preview image.
                             if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -509,7 +505,7 @@ namespace HUDEditor.Classes
                                     preview.Show();
                                 };
                                 sectionContent.Children.Add(previewBtn);
-                                MainWindow.Logger.Info($"{xhairInput.Name} - Added preview: {controlItem.Preview}.");
+                                MainWindow.Logger.Info($"Added a preview for {xhairInput.Name} ({controlItem.Preview})");
                             }
 
                             break;
@@ -543,7 +539,6 @@ namespace HUDEditor.Classes
                             {
                                 Name = id,
                                 Content = Resources.ui_browse,
-                                // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
                                 HorizontalAlignment = HorizontalAlignment.Stretch
@@ -555,7 +550,6 @@ namespace HUDEditor.Classes
                             var clearInput = new Button
                             {
                                 Content = Resources.ui_clear,
-                                // Width = 100,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
                                 HorizontalAlignment = HorizontalAlignment.Stretch
@@ -594,7 +588,7 @@ namespace HUDEditor.Classes
 
                                     if (!Directory.Exists(Path.GetDirectoryName(path)))
                                         Directory.CreateDirectory(Path.GetDirectoryName(path));
-                                    MainWindow.Logger.Info($"Copying {browser.FileName} to {path}");
+                                    MainWindow.Logger.Info($"Copying \"{browser.FileName}\" to \"{path}\"");
                                     File.Copy(browser.FileName, path, true);
                                 }
 
@@ -620,7 +614,7 @@ namespace HUDEditor.Classes
                             bgContainer.Children.Add(bgImage);
                             sectionContent.Children.Add(bgContainer);
                             controlItem.Control = bgInput;
-                            MainWindow.Logger.Info($"Added background selector to the page ({bgInput.Name}).");
+                            MainWindow.Logger.Info($"Added {bgInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
                             break;
 
                         case "text":
@@ -662,11 +656,11 @@ namespace HUDEditor.Classes
                             textContainer.Children.Add(textInput);
                             sectionContent.Children.Add(textContainer);
                             controlItem.Control = textInput;
-                            MainWindow.Logger.Info($"Added textbox to the page ({textInput.Name}).");
+                            MainWindow.Logger.Info($"Added {textInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
                             break;
 
                         default:
-                            throw new Exception($"Entered type {controlItem.Type} is invalid.");
+                            throw new Exception($"Entered type {controlItem.Type} is invalid");
                     }
                 }
 
@@ -692,6 +686,7 @@ namespace HUDEditor.Classes
                                 // These are not optimal speed but the code should be easier to understand:
                                 // Counts the occurrences of the current item id/index
                                 var columnSpan = 0;
+
                                 // Iterate current row
                                 for (var index = 0; index < Layout[i].Length; index++)
                                     if (groupBoxIndex.ToString() == Layout[i][index] || section == Layout[i][index])
@@ -738,17 +733,16 @@ namespace HUDEditor.Classes
             container.Children.Add(scrollView);
             Controls.Children.Add(container);
 
-            isRendered = true;
+            IsRendered = true;
             return Controls;
         }
 
         /// <summary>
-        ///     Check whether a control change requires a game restart.
+        /// Checks whether a control change requires a game restart.
         /// </summary>
         private void CheckIsDirty(Controls control)
         {
-            if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value) &&
-                !DirtyControls.Contains(control.Label))
+            if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value) && !DirtyControls.Contains(control.Label))
                 DirtyControls.Add(control.Label);
             else
                 DirtyControls.Remove(control.Label);

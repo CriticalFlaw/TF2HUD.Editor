@@ -160,6 +160,15 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This option will delete all local schema and editor data files then restart the app. Would you like to continue?.
+        /// </summary>
+        public static string info_clear_cache {
+            get {
+                return ResourceManager.GetString("info_clear_cache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Following changes require the game to be restarted:.
         /// </summary>
         public static string info_game_restart {
@@ -412,6 +421,15 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear Cache.
+        /// </summary>
+        public static string ui_clear_cache {
+            get {
+                return ResourceManager.GetString("ui_clear_cache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customize.
         /// </summary>
         public static string ui_customize {
@@ -448,8 +466,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Options
-        ///.
+        ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string ui_options {
             get {

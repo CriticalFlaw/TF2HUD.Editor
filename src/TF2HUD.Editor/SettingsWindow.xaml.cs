@@ -1,5 +1,7 @@
 ﻿using HUDEditor.Properties;
+using System;
 using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using WPFLocalizeExtension.Engine;
@@ -7,7 +9,7 @@ using WPFLocalizeExtension.Engine;
 namespace HUDEditor
 {
     /// <summary>
-    /// Interaction logic for Settings.xaml
+    ///     Interaction logic for SettingsWindow.xaml
     /// </summary>
     public partial class SettingsWindow : Window
     {
@@ -16,7 +18,6 @@ namespace HUDEditor
             InitializeComponent();
 
             // Check for user selected settings.
-            BtnAutoUpdate.IsChecked = Settings.Default.app_update_auto;
             BtnPersistXhair.IsChecked = Settings.Default.app_xhair_persist;
         }
 
@@ -45,7 +46,7 @@ namespace HUDEditor
 
         private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
         {
-            MainWindow.Logger.Info("Attempting to change the 'tf/custom' directory.");
+            MainWindow.Logger.Info("Attempting to change the target directory.");
             MainWindow.SetupDirectory(true);
         }
 
@@ -54,16 +55,21 @@ namespace HUDEditor
             MainWindow.UpdateAppSchema(false);
         }
 
-        private void BtnAutoUpdate_OnClick(object sender, RoutedEventArgs e)
-        {
-            Settings.Default.app_update_auto = BtnAutoUpdate.IsChecked ?? true;
-            Settings.Default.Save();
-        }
-
         private void BtnPersistXhair_Click(object sender, RoutedEventArgs e)
         {
             Settings.Default.app_xhair_persist = BtnPersistXhair.IsChecked ?? true;
             Settings.Default.Save();
+        }
+
+        private void btnClearCache_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+
+            var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            Directory.Delete($"{localPath}\\CriticalFlaw", true);
+            Directory.Delete($"{localPath}\\TF2HUD.Editor", true);
+            Directory.Delete("JSON", true);
+            MainWindow.UpdateAppSchema(true);
         }
 
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)

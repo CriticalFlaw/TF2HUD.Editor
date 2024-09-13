@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using System.Windows;
-using Newtonsoft.Json.Linq;
-
-namespace HUDEditor.Models
+﻿namespace HUDEditor.Models
 {
     public class Download
     {

@@ -9,17 +9,17 @@ namespace HUDEditor.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        ///     Invoke a WPF Binding update of a property.
+        /// Invokes a WPF Binding update of a property.
         /// </summary>
         /// <param name="propertyName">Name of property to update</param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            MainWindow.Logger.Info($"OnPropertyChanged: {propertyName}");
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public virtual void Dispose()
         {
+
         }
     }
 }

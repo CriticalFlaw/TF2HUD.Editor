@@ -1,8 +1,7 @@
-﻿using System;
-
-namespace HUDEditor.ViewModels
+﻿namespace HUDEditor.ViewModels
 {
     public class AppInfoViewModel : ViewModelBase
     {
+
     }
 }

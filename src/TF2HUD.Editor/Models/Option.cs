@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
-using System.Windows;
+﻿using System.Text.Json.Serialization;
 using Newtonsoft.Json.Linq;
 
 namespace HUDEditor.Models
