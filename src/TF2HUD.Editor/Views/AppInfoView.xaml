@@ -19,12 +19,14 @@
             <Run Text="linked below." />
         </TextBlock>
         <Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-        <Label Content="Version 3.3 RC2" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
+        <Label Content="Version 3.3" Style="{StaticResource HeaderText}" Margin="0,0,0,10" />
         <TextBlock Style="{StaticResource BodyText}" FontSize="22" TextAlignment="Left">
-            <Run Text="> Upgraded to .NET 8.0" /><LineBreak />
-            <Run Text="> Updated to work with TF2 following the 64-bit Update" /><LineBreak />
-            <Run Text="> Updated to application UI" /><LineBreak />
-            <Run Text="> Updated Spanish translations" />
+            <Run Text="> Updated the user interface." /><LineBreak />
+            <Run Text="> Updated to work with 64-bit TF2." /><LineBreak />
+            <Run Text="> Updated logging to be more detailed." /><LineBreak />
+            <Run Text="> Added a clear cache option to fix schema issues." /><LineBreak />
+            <Run Text="> Fixed a crash on startup caused by missing schemas." /><LineBreak />
+            <Run Text="> Upgraded the app to .NET 8.0." /><LineBreak />
             <LineBreak />
         </TextBlock>
     </StackPanel>
