@@ -166,10 +166,6 @@
               "visible": {
                 "true": "1",
                 "false": "0"
-              },
-              "enabled": {
-                "true": "1",
-                "false": "0"
               }
             }
           }
@@ -742,8 +738,12 @@
                 "false": "c108"
               },
               "xpos_minmode": {
-                "true": "c-138",
+                "true": "c-145",
                 "false": "c58"
+              },
+              "ypos_minmode": {
+                "true": "253",
+                "false": "263"
               }
             }
           }
@@ -767,20 +767,57 @@
         }
       },
       {
-        "Name": "rh_toggle_center_team",
+        "Name": "rh_toggle_center_class",
         "Label": "Centered Class Select",
         "Type": "Checkbox",
         "ToolTip": "Toggle style of the class select to be center-oriented.",
         "Value": "false",
-        "FileName": "classselection_center.res"
-      },
-      {
-        "Name": "rh_toggle_center_class",
-        "Label": "Centered Team Select",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle style of the team select to be center-oriented.",
-        "Value": "false",
-        "FileName": "teammenu_center.res"
+        "Files": {
+          "resource/ui/classselection.res": {
+            "SidePanelBG": {
+              "wide": {
+                "true": "0",
+                "false": "255"
+              }
+            },
+            "SelectClassLabel": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              }
+            },
+            "scout": {
+              "xpos": {
+                "true": "c81",
+                "false": "32"
+              },
+              "ypos": {
+                "true": "164",
+                "false": "275"
+              }
+            },
+            "TFPlayerModel": {
+              "xpos": {
+                "true": "c-360",
+                "false": "0"
+              },
+              "wide": {
+                "true": "420",
+                "false": "255"
+              },
+              "tall": {
+                "true": "480",
+                "false": "270"
+              },
+              "model": {
+                "origin_x": {
+                  "true": "250",
+                  "false": "270"
+                }
+              }
+            }
+          }
+        }
       },
       {
         "Name": "rh_toggle_metal_pos",
@@ -857,8 +894,70 @@
           "scripts/hudlayout.res": {
             "DisguiseStatus": {
               "xpos": {
+                "true": "25",
+                "false": "c210"
+              },
+              "ypos": {
+                "true": "r75",
+                "false": "r60"
+              },
+              "wide": {
+                "true": "75",
+                "false": "60"
+              },
+              "tall": {
+                "true": "75",
+                "false": "60"
+              }
+            },
+            "classmodelpanel": {
+              "xpos": {
+                "true": "0",
+                "false": "r210"
+              },
+              "ypos": {
+                "true": "r200",
+                "false": "r148"
+              },
+              "wide": {
+                "true": "150",
+                "false": "75"
+              },
+              "tall": {
+                "true": "200",
+                "false": "150"
+              },
+              "fov": {
+                "true": "23",
+                "false": "25"
+              },
+              "model": {
+                "angles_x": {
+                  "true": "0",
+                  "false": "-13"
+                },
+                "angles_y": {
+                  "true": "165",
+                  "false": "150"
+                },
+                "origin_x": {
+                  "true": "200",
+                  "false": "138"
+                },
+                "origin_y": {
+                  "true": "0",
+                  "false": "-4"
+                },
+                "origin_z": {
+                  "true": "-80",
+                  "false": "-93"
+                }
+              }
+            },
+            "CarryingWeapon": {
+              "xpos": {
                 "true": "100",
-                "false": "15"
+                "false": "r250"
               }
             }
           }
@@ -870,13 +969,378 @@
         "Type": "Checkbox",
         "ToolTip": "Removes player and game details, useful when streaming.",
         "Value": "false",
-        "FileName": "hudplayerclass_left.res",
         "Files": {
+          "resource/ui/basechat.res": {
+            "HudChat": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            }
+          },
+          "resource/ui/dashboardpartymember.res": {
+            "avatar": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            }
+          },
+          "resource/ui/disguisestatuspanel.res": {
+            "DisguiseNameLabel": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            }
+          },
+          "resource/ui/freezepanel_basic.res": {
+            "FreezePanelBase": {
+              "FreezeLabel": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "FreezeLabelKiller": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              }
+            }
+          },
+          "resource/ui/hudarenawinpanel.res": {
+            "ArenaWinPanelWinnersPanel": {
+              "Player1Avatar": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "Player1Name": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "Player2Avatar": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "Player2Name": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "Player3Avatar": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "Player3Name": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              }
+            },
+            "ArenaWinPanelLosersPanel": {
+              "Player1Avatar": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "Player1Name": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "Player2Avatar": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "Player2Name": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "Player3Avatar": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              },
+              "Player3Name": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              }
+            }
+          },
+          "resource/ui/hudinspectpanel.res": {
+            "itempanel": {
+              "ItemLabel": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              }
+            }
+          },
+          "resource/ui/hudkillstreaknotice.res": {
+            "SplashLabel": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            }
+          },
+          "resource/ui/matchmakingtooltip.res": {
+            "TooltipPanel": {
+              "TipLabel": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              }
+            }
+          },
+          "resource/ui/mvmscoreboard.res": {
+            "MvMPlayerList": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            }
+          },
+          "resource/ui/pvprankpanel.res": {
+            "BGPanel": {
+              "NameLabel": {
+                "labelText": {
+                  "true": "STREAMER MODE",
+                  "false": ""
+                }
+              }
+            }
+          },
+          "scripts/hudmatchstatus.res": {
+            "TeamStatus": {
+              "playerpanels_kv": {
+                "wide": {
+                  "true": "0",
+                  "false": ""
+                }
+              }
+            },
+            "BlueTeamPanel": {
+              "wide": {
+                "true": "0",
+                "false": ""
+              },
+              "if_large": {
+                "wide": {
+                  "true": "0",
+                  "false": ""
+                }
+              }
+            },
+            "RedTeamPanel": {
+              "wide": {
+                "true": "0",
+                "false": ""
+              },
+              "if_large": {
+                "wide": {
+                  "true": "0",
+                  "false": ""
+                }
+              }
+            }
+          },
+          "resource/ui/scoreboard.res": {
+            "BluePlayerList": {
+              "wide": {
+                "true": "0",
+                "false": ""
+              }
+            },
+            "RedPlayerList": {
+              "labelText": {
+                "wide": "0",
+                "false": ""
+              }
+            },
+            "ServerLabel": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              },
+              "if_mvm": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              }
+            }
+          },
+          "resource/ui/spectator.res": {
+            "itempanel": {
+              "ItemLabel": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              }
+            }
+          },
+          "resource/ui/hudplayerclass.res": {
+            "CarryingWeapon": {
+              "OwnerLabel": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              }
+            }
+          },
+          "resource/ui/targetid.res": {
+            "TargetNameLabel": {
+              "labeltext": {
+                "true": "",
+                "false": ""
+              }
+            }
+          },
+          "resource/ui/votehud.res": {
+            "VoteActive": {
+              "Header": {
+                "ypos": {
+                  "true": "9999",
+                  "false": ""
+                }
+              }
+            }
+          },
+          "resource/ui/winpanel.res": {
+            "Player1Avatar": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            },
+            "Player1Name": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            },
+            "Player2Avatar": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            },
+            "Player2Name": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            },
+            "Player3Avatar": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            },
+            "Player3Name": {
+              "ypos": {
+                "true": "9999",
+                "false": ""
+              }
+            }
+          },
+          "resource/ui/hudmatchsummary.res": {
+            "MainStatsContainer": {
+              "TeamScoresPanel": {
+                "BlueTeamPanel": {
+                  "wide": {
+                    "true": "0",
+                    "false": ""
+                  },
+                  "BluePlayerListParent": {
+                    "BluePlayerList": {
+                      "wide": {
+                        "true": "0",
+                        "false": ""
+                      }
+                    }
+                  }
+                },
+                "RedTeamPanel": {
+                  "wide": {
+                    "true": "0",
+                    "false": ""
+                  },
+                  "RedPlayerListParent": {
+                    "RedPlayerListParent": {
+                      "wide": {
+                        "true": "0",
+                        "false": ""
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "resource/ui/hudtournament.res": {
+            "HudTournament": {
+              "playerpanels_kv": {
+                "playername": {
+                  "if_competitive": {
+                    "ypos": {
+                      "true": "9999",
+                      "false": ""
+                    }
+                  },
+                  "if_readymode": {
+                    "ypos": {
+                      "true": "9999",
+                      "false": ""
+                    }
+                  }
+                }
+              }
+            }
+          },
           "scripts/hudlayout.res": {
-            "DisguiseStatus": {
-              "xpos": {
-                "true": "100",
-                "false": "15"
+            "HudDeathNotice": {
+              "TextFont": {
+                "true": "",
+                "false": ""
+              }
+            },
+            "HudVoiceStatus": {
+              "text_xpos": {
+                "true": "9999",
+                "false": ""
+              }
+            },
+            "HudSpectatorExtras": {
+              "player_name_font": {
+                "true": "",
+                "false": ""
               }
             }
           }
