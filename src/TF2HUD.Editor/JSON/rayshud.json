@@ -28,8 +28,6 @@
       }
     ]
   },
-  "CustomizationsFolder": "resource//ui//#customizations",
-  "EnabledFolder": "resource//ui//#customizations//_enabled",
   "Controls": {
     "UberCharge": [
       {
@@ -163,7 +161,7 @@
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout_base.res": {
+          "resource/ui/hudplayerclass.res": {
             "CustomCrosshair": {
               "visible": {
                 "true": "1",
@@ -184,7 +182,7 @@
         "ToolTip": "Toggle hitmarker animation.",
         "Value": "true",
         "Files": {
-          "scripts/hudanimations_custom.txt": {
+          "scripts/hudanimations_hitmarker.txt": {
             "uncomment": [
               "StopEvent HitMarker",
               "RunEvent HitMarker"
@@ -199,7 +197,7 @@
         "ToolTip": "Style of crosshair.",
         "Value": "<",
         "Files": {
-          "scripts/hudlayout_base.res": {
+          "resource/ui/hudplayerclass.res": {
             "CustomCrosshair": {
               "labelText": "$value"
             }
@@ -216,7 +214,7 @@
         "Increment": "1",
         "ToolTip": "Size of the crosshair.",
         "Files": {
-          "scripts/hudlayout_base.res": {
+          "resource/ui/hudplayerclass.res": {
             "CustomCrosshair": {
               "font": "Size:$value | Outline:OFF"
             }
@@ -678,7 +676,16 @@
         "Value": "false",
         "Restart": true,
         "ToolTip": "Toggle to the classic main menu style.",
-        "FileName": "mainmenuoverride_classic.res"
+        "Files": {
+          "resource/ui/mainmenuoverride.res": {
+            "HudName": {
+              "xpos": {
+                "true": "9999",
+                "false": ""
+              }
+            }
+          }
+        }
       },
       {
         "Name": "rh_toggle_min_scoreboard",
@@ -711,7 +718,7 @@
         "Value": "false",
         "Restart": true,
         "Files": {
-          "resource/ui/mainmenuoverride_base.res": {
+          "resource/ui/mainmenuoverride.res": {
             "TFCharacterImage": {
               "ypos": {
                 "true": "-80",
@@ -749,11 +756,11 @@
         "ToolTip": "Toggle position of the game chat to be near the bottom.",
         "Value": "false",
         "Files": {
-          "resource/ui/basechat_base.res": {
+          "resource/ui/basechat.res": {
             "HudChat": {
               "ypos": {
                 "true": "315",
-                "false": "25"
+                "false": "20"
               }
             }
           }
@@ -782,7 +789,7 @@
         "ToolTip": "Toggle the position of the Engineer's metal counter to be near the middle.",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout_base.res": {
+          "scripts/hudlayout.res": {
             "CHudAccountPanel": {
               "xpos": {
                 "true": "c-20",
@@ -805,6 +812,23 @@
         }
       },
       {
+        "Name": "rh_toggle_speedometer",
+        "Label": "Speedometer",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle speedometer below the crosshair.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/hudplayerclass.res": {
+            "Speedometer": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "rh_toggle_transparent_viewmodels",
         "Label": "Transparent Viewmodels",
         "Type": "Checkbox",
@@ -812,13 +836,9 @@
         "Special": "TransparentViewmodels",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout_base.res": {
+          "scripts/hudlayout.res": {
             "TransparentViewmodel": {
               "visible": {
-                "true": "1",
-                "false": "0"
-              },
-              "enabled": {
                 "true": "1",
                 "false": "0"
               }
@@ -834,7 +854,25 @@
         "Value": "false",
         "FileName": "hudplayerclass_left.res",
         "Files": {
-          "scripts/hudlayout_base.res": {
+          "scripts/hudlayout.res": {
+            "DisguiseStatus": {
+              "xpos": {
+                "true": "100",
+                "false": "15"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_toggle_streamer_mode",
+        "Label": "Streamer Mode",
+        "Type": "Checkbox",
+        "ToolTip": "Removes player and game details, useful when streaming.",
+        "Value": "false",
+        "FileName": "hudplayerclass_left.res",
+        "Files": {
+          "scripts/hudlayout.res": {
             "DisguiseStatus": {
               "xpos": {
                 "true": "100",
@@ -872,7 +910,7 @@
         "Maximum": "9",
         "Increment": "1",
         "Files": {
-          "scripts/hudlayout_base.res": {
+          "scripts/hudlayout.res": {
             "HudDeathNotice": {
               "MaxDeathNotices": "$value"
             }
