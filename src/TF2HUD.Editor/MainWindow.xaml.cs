@@ -46,8 +46,10 @@ namespace HUDEditor
             // Check for tf/custom directory
             SetupDirectory();
 
+#if !DEBUG
             // Check for updates
             UpdateAppSchema(true);
+#endif
         }
 
         private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
