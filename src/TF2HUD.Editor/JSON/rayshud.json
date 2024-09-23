@@ -224,7 +224,6 @@
         "ToolTip": "Default crosshair color.",
         "Value": "242 242 242 255",
         "Restart": true,
-        "Width": 125,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -242,7 +241,6 @@
         "ToolTip": "Color of crosshair when hitting another player.",
         "Value": "255 0 0 255",
         "Restart": true,
-        "Width": 125,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -689,7 +687,172 @@
         "Type": "Checkbox",
         "Value": "false",
         "ToolTip": "Toggle to a minimal scoreboard style.",
-        "FileName": "scoreboard_minimal.res"
+        "Files": {
+          "resource/ui/scoreboard.res": {
+            "BlueScoreBG": {
+              "ypos": {
+                "true": "250",
+                "false": "144"
+              }
+            },
+            "ClassImage": {
+              "ypos": {
+                "true": "-30",
+                "false": "-115"
+              },
+              "pin_to_sibling": {
+                "true": "RedPlayerList",
+                "false": "LocalPlayerStatsPanel"
+              }
+            },
+            "classmodelpanel": {
+              "ypos": {
+                "true": "50",
+                "false": "0"
+              },
+              "pin_to_sibling": {
+                "true": "RedPlayerList",
+                "false": "LocalPlayerStatsPanel"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_BOTTOMLEFT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_TOPRIGHT",
+                "false": "PIN_BOTTOMRIGHT"
+              }
+            },
+            "SideBG": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              }
+            },
+            "LocalPlayerStatsPanel": {
+              "wide": {
+                "true": "150",
+                "false": "540"
+              },
+              "tall": {
+                "true": "190",
+                "false": "70"
+              },
+              "pin_to_sibling": {
+                "true": "SideBG",
+                "false": "MainBG"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_BOTTOMLEFT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_BOTTOMLEFT"
+              },
+              "KillsLabel": {
+                "xpos": {
+                  "true": "70",
+                  "false": "265"
+                },
+                "ypos": {
+                  "true": "-10",
+                  "false": "0"
+                }
+              },
+              "AssistsLabel": {
+                "xpos": {
+                  "true": "40",
+                  "false": "15"
+                },
+                "ypos": {
+                  "true": "50",
+                  "false": "2"
+                }
+              },
+              "DestructionLabel": {
+                "xpos": {
+                  "true": "9999",
+                  "false": "0"
+                }
+              },
+              "CapturesLabel": {
+                "xpos": {
+                  "true": "9999",
+                  "false": "0"
+                }
+              },
+              "DefensesLabel": {
+                "xpos": {
+                  "true": "9999",
+                  "false": "0"
+                }
+              },
+              "DominationLabel": {
+                "xpos": {
+                  "true": "9999",
+                  "false": "0"
+                }
+              },
+              "RevengeLabel": {
+                "pin_to_sibling": {
+                  "true": "DefensesLabel",
+                  "false": "DominationLabel"
+                }
+              },
+              "HealingLabel": {
+                "pin_to_sibling": {
+                  "true": "AssistsLabel",
+                  "false": "RevengeLabel"
+                }
+              },
+              "InvulnLabel": {
+                "xpos": {
+                  "true": "9999",
+                  "false": "0"
+                }
+              },
+              "TeleportsLabel": {
+                "xpos": {
+                  "true": "0",
+                  "false": "342"
+                },
+                "pin_to_sibling": {
+                  "true": "HealingLabel",
+                  "false": "DominationsLabel"
+                },
+                "pin_to_sibling_corner": {
+                  "true": "PIN_BOTTOMLEFT",
+                  "false": "PIN_TOPLEFT"
+                }
+              },
+              "BonusLabel": {
+                "xpos": {
+                  "true": "9999",
+                  "false": "0"
+                }
+              },
+              "SupportLabel": {
+                "xpos": {
+                  "true": "0",
+                  "false": "5"
+                },
+                "ypos": {
+                  "true": "1",
+                  "false": "0"
+                },
+                "pin_to_sibling": {
+                  "true": "BackstabsLabel",
+                  "false": "Teleports2"
+                },
+                "pin_to_sibling_corner": {
+                  "true": "PIN_BOTTOMLEFT",
+                  "false": "PIN_TOPRIGHT"
+                }
+              }
+            }
+          }
+        }
       },
       {
         "Name": "rh_toggle_disguise_image",
@@ -698,11 +861,13 @@
         "ToolTip": "Toggle the spy silhouette seen when changing the disguise.",
         "Value": "false",
         "Files": {
-          "scripts/hudanimations_custom.txt": {
-            "uncomment": [
-              "RunEvent HudSpyDisguiseChanged",
-              "Animate PlayerStatusSpyImage"
-            ]
+          "resource/ui/hudplayerclass.res": {
+            "PlayerStatusSpyOutlineImage": {
+              "image": {
+                "true": "../hud/class_spy_outline",
+                "false": "../vgui/replay/thumbnails/transparent"
+              }
+            }
           }
         }
       },
@@ -829,7 +994,7 @@
           "scripts/hudlayout.res": {
             "CHudAccountPanel": {
               "xpos": {
-                "true": "c-20",
+                "true": "c-27",
                 "false": "c200"
               },
               "ypos": {
@@ -837,7 +1002,7 @@
                 "false": "c130"
               },
               "xpos_minmode": {
-                "true": "c-30",
+                "true": "c-27",
                 "false": "c130"
               },
               "ypos_minmode": {
@@ -895,21 +1060,11 @@
             "DisguiseStatus": {
               "xpos": {
                 "true": "25",
-                "false": "c210"
-              },
-              "ypos": {
-                "true": "r75",
-                "false": "r60"
-              },
-              "wide": {
-                "true": "75",
-                "false": "60"
-              },
-              "tall": {
-                "true": "75",
-                "false": "60"
+                "false": "r150"
               }
-            },
+            }
+          },
+          "resource/ui/hudplayerclass.res": {
             "classmodelpanel": {
               "xpos": {
                 "true": "0",
@@ -959,6 +1114,12 @@
                 "true": "100",
                 "false": "r250"
               }
+            },
+            "PlayerStatusSpyOutlineImage": {
+              "image": {
+                "true": "../vgui/replay/thumbnails/transparent",
+                "false": "../hud/class_spy_outline"
+              }
             }
           }
         }
@@ -969,12 +1130,13 @@
         "Type": "Checkbox",
         "ToolTip": "Removes player and game details, useful when streaming.",
         "Value": "false",
+        "Width": 250,
         "Files": {
           "resource/ui/basechat.res": {
             "HudChat": {
-              "ypos": {
-                "true": "9999",
-                "false": ""
+              "wide": {
+                "true": "0",
+                "false": "250"
               }
             }
           },
@@ -982,7 +1144,7 @@
             "avatar": {
               "ypos": {
                 "true": "9999",
-                "false": ""
+                "false": "1"
               }
             }
           },
@@ -990,7 +1152,7 @@
             "DisguiseNameLabel": {
               "ypos": {
                 "true": "9999",
-                "false": ""
+                "false": "0"
               }
             }
           },
@@ -999,13 +1161,13 @@
               "FreezeLabel": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "0"
                 }
               },
               "FreezeLabelKiller": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "15"
                 }
               }
             }
@@ -1015,37 +1177,37 @@
               "Player1Avatar": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "4"
                 }
               },
               "Player1Name": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "4"
                 }
               },
               "Player2Avatar": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "19"
                 }
               },
               "Player2Name": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "19"
                 }
               },
               "Player3Avatar": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "34"
                 }
               },
               "Player3Name": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "34"
                 }
               }
             },
@@ -1053,37 +1215,37 @@
               "Player1Avatar": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "4"
                 }
               },
               "Player1Name": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "4"
                 }
               },
               "Player2Avatar": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "19"
                 }
               },
               "Player2Name": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "19"
                 }
               },
               "Player3Avatar": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "34"
                 }
               },
               "Player3Name": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "34"
                 }
               }
             }
@@ -1093,7 +1255,7 @@
               "ItemLabel": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "3"
                 }
               }
             }
@@ -1102,7 +1264,7 @@
             "SplashLabel": {
               "ypos": {
                 "true": "9999",
-                "false": ""
+                "false": "70"
               }
             }
           },
@@ -1111,7 +1273,7 @@
               "TipLabel": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "10"
                 }
               }
             }
@@ -1120,7 +1282,7 @@
             "MvMPlayerList": {
               "ypos": {
                 "true": "9999",
-                "false": ""
+                "false": "248"
               }
             }
           },
@@ -1129,42 +1291,30 @@
               "NameLabel": {
                 "labelText": {
                   "true": "STREAMER MODE",
-                  "false": ""
+                  "false": "%name%"
                 }
               }
             }
           },
-          "scripts/hudmatchstatus.res": {
+          "resource/ui/hudmatchstatus.res": {
             "TeamStatus": {
               "playerpanels_kv": {
                 "wide": {
                   "true": "0",
-                  "false": ""
+                  "false": "25"
                 }
               }
             },
             "BlueTeamPanel": {
               "wide": {
                 "true": "0",
-                "false": ""
-              },
-              "if_large": {
-                "wide": {
-                  "true": "0",
-                  "false": ""
-                }
+                "false": "150"
               }
             },
             "RedTeamPanel": {
               "wide": {
                 "true": "0",
-                "false": ""
-              },
-              "if_large": {
-                "wide": {
-                  "true": "0",
-                  "false": ""
-                }
+                "false": "150"
               }
             }
           },
@@ -1172,35 +1322,19 @@
             "BluePlayerList": {
               "wide": {
                 "true": "0",
-                "false": ""
+                "false": "270"
               }
             },
             "RedPlayerList": {
               "labelText": {
                 "wide": "0",
-                "false": ""
+                "false": "270"
               }
             },
             "ServerLabel": {
               "ypos": {
                 "true": "9999",
-                "false": ""
-              },
-              "if_mvm": {
-                "ypos": {
-                  "true": "9999",
-                  "false": ""
-                }
-              }
-            }
-          },
-          "resource/ui/spectator.res": {
-            "itempanel": {
-              "ItemLabel": {
-                "ypos": {
-                  "true": "9999",
-                  "false": ""
-                }
+                "false": "0"
               }
             }
           },
@@ -1209,7 +1343,7 @@
               "OwnerLabel": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "14"
                 }
               }
             }
@@ -1218,7 +1352,7 @@
             "TargetNameLabel": {
               "labeltext": {
                 "true": "",
-                "false": ""
+                "false": "%targetname%"
               }
             }
           },
@@ -1227,7 +1361,7 @@
               "Header": {
                 "ypos": {
                   "true": "9999",
-                  "false": ""
+                  "false": "5"
                 }
               }
             }
@@ -1236,37 +1370,37 @@
             "Player1Avatar": {
               "ypos": {
                 "true": "9999",
-                "false": ""
+                "false": "120"
               }
             },
             "Player1Name": {
               "ypos": {
                 "true": "9999",
-                "false": ""
+                "false": "117"
               }
             },
             "Player2Avatar": {
               "ypos": {
                 "true": "9999",
-                "false": ""
+                "false": "136"
               }
             },
             "Player2Name": {
               "ypos": {
                 "true": "9999",
-                "false": ""
+                "false": "133"
               }
             },
             "Player3Avatar": {
               "ypos": {
                 "true": "9999",
-                "false": ""
+                "false": "152"
               }
             },
             "Player3Name": {
               "ypos": {
                 "true": "9999",
-                "false": ""
+                "false": "149"
               }
             }
           },
@@ -1276,13 +1410,13 @@
                 "BlueTeamPanel": {
                   "wide": {
                     "true": "0",
-                    "false": ""
+                    "false": "f0"
                   },
                   "BluePlayerListParent": {
                     "BluePlayerList": {
                       "wide": {
                         "true": "0",
-                        "false": ""
+                        "false": "p.465"
                       }
                     }
                   }
@@ -1290,13 +1424,13 @@
                 "RedTeamPanel": {
                   "wide": {
                     "true": "0",
-                    "false": ""
+                    "false": "f0"
                   },
                   "RedPlayerListParent": {
-                    "RedPlayerListParent": {
+                    "RedPlayerList": {
                       "wide": {
                         "true": "0",
-                        "false": ""
+                        "false": "p.465"
                       }
                     }
                   }
@@ -1308,17 +1442,9 @@
             "HudTournament": {
               "playerpanels_kv": {
                 "playername": {
-                  "if_competitive": {
-                    "ypos": {
-                      "true": "9999",
-                      "false": ""
-                    }
-                  },
-                  "if_readymode": {
-                    "ypos": {
-                      "true": "9999",
-                      "false": ""
-                    }
+                  "wide": {
+                    "true": "9999",
+                    "false": "48"
                   }
                 }
               }
@@ -1328,19 +1454,13 @@
             "HudDeathNotice": {
               "TextFont": {
                 "true": "",
-                "false": ""
+                "false": "HudFontSmallest"
               }
             },
             "HudVoiceStatus": {
               "text_xpos": {
                 "true": "9999",
-                "false": ""
-              }
-            },
-            "HudSpectatorExtras": {
-              "player_name_font": {
-                "true": "",
-                "false": ""
+                "false": "25"
               }
             }
           }
@@ -1388,6 +1508,7 @@
         "ToolTip": "Change the style of background image shown on the main menu.",
         "Value": "1",
         "Restart": true,
+        "Width": 210,
         "Options": [
           {
             "Label": "Modern",
