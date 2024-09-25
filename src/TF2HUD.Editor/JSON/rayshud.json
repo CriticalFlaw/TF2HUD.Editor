@@ -672,10 +672,222 @@
         "ToolTip": "Toggle to the classic main menu style.",
         "Files": {
           "resource/ui/mainmenuoverride.res": {
+            "TFLogoImage": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              }
+            },
             "HudName": {
+              "visible": {
+                "true": "0",
+                "false": "1"
+              }
+            },
+            "RankModelPanel": {
+              "ypos": {
+                "true": "cs-0.47",
+                "false": "cs-0.5-15"
+              }
+            },
+            "CycleRankTypeButton": {
               "xpos": {
-                "true": "9999",
-                "false": ""
+                "true": "250",
+                "false": "270"
+              },
+              "ypos": {
+                "true": "cs-0.4-05",
+                "false": "cs-0.5-33"
+              }
+            },
+            "RankPanel": {
+              "xpos": {
+                "true": "50",
+                "false": "30"
+              },
+              "ypos": {
+                "true": "250",
+                "false": "205"
+              }
+            },
+            "NoGCMessage": {
+              "xpos": {
+                "true": "75",
+                "false": "30"
+              },
+              "ypos": {
+                "true": "240",
+                "false": "200"
+              },
+              "wide": {
+                "true": "200",
+                "false": "260"
+              }
+            },
+            "NoGCImage": {
+              "xpos": {
+                "true": "210",
+                "false": "220"
+              },
+              "ypos": {
+                "true": "260",
+                "false": "220"
+              }
+            },
+            "FriendsContainer": {
+              "xpos": {
+                "true": "80",
+                "false": "40"
+              },
+              "ypos": {
+                "true": "310",
+                "false": "270"
+              },
+              "wide": {
+                "true": "210",
+                "false": "260"
+              },
+              "SteamFriendsList": {
+                "wide": {
+                  "true": "f20",
+                  "false": "242"
+                },
+                "friendpanel_kv": {
+                  "wide": {
+                    "true": "85",
+                    "false": "110"
+                  }
+                }
+              }
+            },
+            "CharacterSetupButton": {
+              "xpos": {
+                "true": "90",
+                "false": "30"
+              },
+              "ypos": {
+                "true": "85",
+                "false": "82"
+              },
+              "wide": {
+                "true": "150",
+                "false": "260"
+              },
+              "textinsetx": {
+                "true": "0",
+                "false": "25"
+              },
+              "border_armed": {
+                "true": "NoBorder",
+                "false": "MainMenuTabs"
+              }
+            },
+            "GeneralStoreButton": {
+              "wide": {
+                "true": "150",
+                "false": "260"
+              },
+              "textinsetx": {
+                "true": "0",
+                "false": "25"
+              },
+              "border_armed": {
+                "true": "NoBorder",
+                "false": "MainMenuTabs"
+              }
+            },
+            "SteamWorkshopButton": {
+              "wide": {
+                "true": "150",
+                "false": "260"
+              },
+              "textinsetx": {
+                "true": "0",
+                "false": "25"
+              },
+              "border_armed": {
+                "true": "NoBorder",
+                "false": "MainMenuTabs"
+              }
+            },
+            "SettingButton": {
+              "wide": {
+                "true": "150",
+                "false": "260"
+              },
+              "textinsetx": {
+                "true": "0",
+                "false": "25"
+              },
+              "border_armed": {
+                "true": "NoBorder",
+                "false": "MainMenuTabs"
+              }
+            },
+            "AdvSettingsButton": {
+              "wide": {
+                "true": "150",
+                "false": "260"
+              },
+              "textinsetx": {
+                "true": "0",
+                "false": "25"
+              },
+              "border_armed": {
+                "true": "NoBorder",
+                "false": "MainMenuTabs"
+              }
+            },
+            "MinmodeToggle": {
+              "wide": {
+                "true": "150",
+                "false": "260"
+              },
+              "textinsetx": {
+                "true": "0",
+                "false": "25"
+              },
+              "border_armed": {
+                "true": "NoBorder",
+                "false": "MainMenuTabs"
+              }
+            },
+            "AchievementsButton": {
+              "xpos": {
+                "true": "90",
+                "false": "110"
+              },
+              "ypos": {
+                "true": "210",
+                "false": "62"
+              }
+            },
+            "BGPanel1": {
+              "xpos": {
+                "true": "75",
+                "false": "30"
+              },
+              "ypos": {
+                "true": "0",
+                "false": "57"
+              },
+              "wide": {
+                "true": "200",
+                "false": "260"
+              },
+              "tall": {
+                "true": "f0",
+                "false": "370"
+              },
+              "bgcolor_override": {
+                "true": "DarkGrey",
+                "false": "25 25 25 168"
+              }
+            },
+            "BGPanel2": {
+              "visible": {
+                "true": "1",
+                "false": "0"
               }
             }
           }
@@ -1530,6 +1742,239 @@
             "Label": "Default",
             "Value": "2",
             "Special": "StockBackgrounds"
+          }
+        ]
+      },
+      {
+        "Name": "rh_val_health_style",
+        "Label": "Health Style",
+        "Type": "ComboBox",
+        "ToolTip": "Change the style of the player health.",
+        "Value": "0",
+        "Restart": false,
+        "Width": 210,
+        "Options": [
+          {
+            "Label": "Default",
+            "Value": "0",
+            "Files": {
+              "resource/ui/hudplayerhealth.res": {
+                "PlayerStatusHealthImage": {
+                  "xpos": "54",
+                  "xpos_minmode": "93",
+                  "ypos_minmode": "41",
+                  "wide": "36",
+                  "tall": "36",
+                  "wide_minmode": "20",
+                  "tall_minmode": "20",
+                  "visible": "0"
+                },
+                "PlayerStatusHealthImageBG": {
+                  "xpos": "52",
+                  "xpos_minmode": "92",
+                  "ypos_minmode": "40",
+                  "wide": "0",
+                  "tall": "40",
+                  "wide_minmode": "0",
+                  "tall_minmode": "22",
+                  "visible": "0"
+                },
+                "PlayerStatusHealthBonusImage": {
+                  "xpos": "116",
+                  "ypos": "18",
+                  "xpos_minmode": "140",
+                  "ypos_minmode": "40",
+                  "wide": "68",
+                  "tall": "68",
+                  "wide_minmode": "22",
+                  "tall_minmode": "22"
+                },
+                "PlayerHealthValue": {
+                  "xpos": "0",
+                  "ypos": "0",
+                  "xpos_minmode": "0",
+                  "ypos_minmode": "0",
+                  "font": "Cerbetica56",
+                  "font_minmode": "Cerbetica32"
+                },
+                "PlayerHealthShadow": {
+                  "xpos_minmode": "-2",
+                  "ypos_minmode": "-2",
+                  "font": "Cerbetica56",
+                  "font_minmode": "Cerbetica32"
+                },
+                "HPBorderPanel1": {
+                  "xpos": "64",
+                  "ypos": "32",
+                  "xpos_minmode": "98",
+                  "ypos_minmode": "39",
+                  "wide": "16",
+                  "tall": "42",
+                  "wide_minmode": "11",
+                  "tall_minmode": "25",
+                  "visible": "0"
+                },
+                "HPBorderPanel2": {
+                  "xpos": "51",
+                  "ypos": "45",
+                  "xpos_minmode": "91",
+                  "ypos_minmode": "46",
+                  "wide": "43",
+                  "tall": "16",
+                  "wide_minmode": "25",
+                  "tall_minmode": "11",
+                  "visible": "0"
+                }
+              }
+            }
+          },
+          {
+            "Label": "Team Cross",
+            "Value": "1",
+            "Files": {
+              "resource/ui/hudplayerhealth.res": {
+                "PlayerStatusHealthImage": {
+                  "xpos": "54",
+                  "xpos_minmode": "93",
+                  "ypos_minmode": "41",
+                  "wide": "36",
+                  "tall": "36",
+                  "wide_minmode": "20",
+                  "tall_minmode": "20",
+                  "visible": "1"
+                },
+                "PlayerStatusHealthImageBG": {
+                  "xpos": "52",
+                  "xpos_minmode": "92",
+                  "ypos_minmode": "40",
+                  "wide": "40",
+                  "tall": "40",
+                  "wide_minmode": "22",
+                  "tall_minmode": "22",
+                  "visible": "0"
+                },
+                "PlayerStatusHealthBonusImage": {
+                  "xpos": "52",
+                  "ypos": "33",
+                  "xpos_minmode": "91",
+                  "ypos_minmode": "39",
+                  "wide": "40",
+                  "tall": "40",
+                  "wide_minmode": "25",
+                  "tall_minmode": "25"
+                },
+                "PlayerHealthValue": {
+                  "xpos": "0",
+                  "ypos": "0",
+                  "xpos_minmode": "0",
+                  "ypos_minmode": "0",
+                  "font": "Cerbetica56",
+                  "font_minmode": "Cerbetica32"
+                },
+                "PlayerHealthShadow": {
+                  "xpos_minmode": "-2",
+                  "ypos_minmode": "-2",
+                  "font": "Cerbetica56",
+                  "font_minmode": "Cerbetica32"
+                },
+                "HPBorderPanel1": {
+                  "xpos": "64",
+                  "ypos": "32",
+                  "xpos_minmode": "98",
+                  "ypos_minmode": "39",
+                  "wide": "16",
+                  "tall": "42",
+                  "wide_minmode": "11",
+                  "tall_minmode": "25",
+                  "visible": "1"
+                },
+                "HPBorderPanel2": {
+                  "xpos": "51",
+                  "ypos": "45",
+                  "xpos_minmode": "91",
+                  "ypos_minmode": "46",
+                  "wide": "43",
+                  "tall": "16",
+                  "wide_minmode": "25",
+                  "tall_minmode": "11",
+                  "visible": "1"
+                }
+              }
+            }
+          },
+          {
+            "Label": "Broesel Cross",
+            "Value": "2",
+            "Files": {
+              "resource/ui/hudplayerhealth.res": {
+                "PlayerStatusHealthImage": {
+                  "xpos": "104",
+                  "xpos_minmode": "104",
+                  "ypos_minmode": "35",
+                  "wide": "56",
+                  "tall": "56",
+                  "wide_minmode": "45",
+                  "tall_minmode": "45",
+                  "visible": "1"
+                },
+                "PlayerStatusHealthImageBG": {
+                  "xpos": "102",
+                  "xpos_minmode": "102",
+                  "ypos_minmode": "33",
+                  "wide": "60",
+                  "tall": "60",
+                  "wide_minmode": "49",
+                  "tall_minmode": "49",
+                  "visible": "1"
+                },
+                "PlayerStatusHealthBonusImage": {
+                  "xpos": "99",
+                  "ypos": "30",
+                  "xpos_minmode": "98",
+                  "ypos_minmode": "29",
+                  "wide": "66",
+                  "tall": "66",
+                  "wide_minmode": "56",
+                  "tall_minmode": "56"
+                },
+                "PlayerHealthValue": {
+                  "xpos": "-18",
+                  "ypos": "12",
+                  "xpos_minmode": "-23",
+                  "ypos_minmode": "7",
+                  "font": "Cerbetica24",
+                  "font_minmode": "Cerbetica18"
+                },
+                "PlayerHealthShadow": {
+                  "xpos_minmode": "-1",
+                  "ypos_minmode": "-1",
+                  "font": "Cerbetica24",
+                  "font_minmode": "Cerbetica18"
+                },
+                "HPBorderPanel1": {
+                  "xpos": "119",
+                  "ypos": "31",
+                  "xpos_minmode": "115",
+                  "ypos_minmode": "31",
+                  "wide": "26",
+                  "tall": "64",
+                  "wide_minmode": "23",
+                  "tall_minmode": "54",
+                  "visible": "1"
+                },
+                "HPBorderPanel2": {
+                  "xpos": "100",
+                  "ypos": "50",
+                  "xpos_minmode": "100",
+                  "ypos_minmode": "46",
+                  "wide": "64",
+                  "tall": "26",
+                  "wide_minmode": "53",
+                  "tall_minmode": "23",
+                  "visible": "1"
+                }
+              }
+            }
           }
         ]
       },
