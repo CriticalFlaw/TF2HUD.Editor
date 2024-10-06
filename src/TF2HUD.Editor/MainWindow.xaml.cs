@@ -47,7 +47,7 @@ namespace HUDEditor
             SetupDirectory();
 
             // Check for updates
-            UpdateAppSchema(true);
+            if (Settings.Default.app_update_auto == true) UpdateAppSchema(true);
         }
 
         private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -233,6 +233,16 @@ namespace HUDEditor
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         }
     }
 }

@@ -403,7 +403,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatically check for updates..
+        ///   Looks up a localized string similar to Auto-update files (Disable if doing local edits).
         /// </summary>
         public static string ui_check_updates {
             get {
@@ -421,7 +421,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear Cache.
+        ///   Looks up a localized string similar to Clear Cache Files.
         /// </summary>
         public static string ui_clear_cache {
             get {
@@ -439,7 +439,7 @@ namespace HUDEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set path to tf/custom.
+        ///   Looks up a localized string similar to Change tf/custom path.
         /// </summary>
         public static string ui_directory {
             get {
