@@ -14,7 +14,7 @@
     "0 1 2 3",
     "0 1 2 3",
     "4 5 6 6",
-    "4 7 7 7"
+    "7 8 8 8"
   ],
   "Links": {
     "GitHub": "https://github.com/rbjaxter/budhud",
@@ -22,25 +22,21 @@
     "ComfigHuds": "https://comfig.app/huds/page/budhud/",
     "Steam": "https://steamcommunity.com/groups/budhud",
     "Discord": "https://discord.com/invite/TkxNKU2",
-    "Download": [
-      {
-        "Source": "GitHub",
-        "Link": "https://github.com/rbjaxter/budhud/archive/master.zip"
-      }
-    ]
+    "Download": [{
+      "Source": "GitHub",
+      "Link": "https://github.com/rbjaxter/budhud/archive/master.zip"
+    }]
   },
   "CustomizationsFolder": "#customization",
   "EnabledFolder": "#customization//_enabled",
   "Controls": {
-    "General UI": [
-      {
+    "General UI": [{
         "Name": "bh_youtuber_select",
         "Label": "YouTuber Profile",
         "Type": "ComboBox",
         "ToolTip": "Change to a HUD style used by community members.",
         "Value": "0",
-        "Options": [
-          {
+        "Options": [{
             "Label": "Default",
             "Value": "0"
           },
@@ -128,10 +124,16 @@
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_game_hidecontracker.res"
+      },
+      {
+        "Name": "bh_speedometer",
+        "Label": "Speedometer",
+        "Type": "Checkbox",
+        "Value": "false",
+        "FileName": "bh_speedometer.res"
       }
     ],
-    "Health and Ammo": [
-      {
+    "Health and Ammo": [{
         "Name": "bh_player_healthcross_inset",
         "Label": "Health Cross",
         "Type": "Checkbox",
@@ -193,8 +195,7 @@
         }
       }
     ],
-    "Main Menu": [
-      {
+    "Main Menu": [{
         "Name": "bh_menu_hidefriends",
         "Label": "Hide Friends",
         "Type": "Checkbox",
@@ -244,8 +245,7 @@
         "FileName": "bh_feeling_spooky.res"
       }
     ],
-    "TargetIDs": [
-      {
+    "TargetIDs": [{
         "Name": "bh_targetid_healthcross2",
         "Label": "Health Cross",
         "Type": "Checkbox",
@@ -260,8 +260,7 @@
         "FileName": "bh_targetid_largehealth.res"
       }
     ],
-    "Medic Customizations": [
-      {
+    "Medic Customizations": [{
         "Name": "bh_uber_largeuberpercentage",
         "Label": "Large Uber Percentage",
         "Type": "Checkbox",
@@ -283,8 +282,7 @@
         "FileName": "bh_uber_percentagenearcrosshair.res"
       }
     ],
-    "Health Colors": [
-      {
+    "Health Colors": [{
         "Name": "bh_Health_Main",
         "Label": "Normal",
         "Type": "ColorPicker",
@@ -317,8 +315,7 @@
         }
       }
     ],
-    "Ammo Colors": [
-      {
+    "Ammo Colors": [{
         "Name": "bh_Ammo_Main",
         "Label": "Normal",
         "Type": "ColorPicker",
@@ -367,8 +364,52 @@
         }
       }
     ],
-    "Crosshair (Hypnotize's Unified Crosshair Pack)": [
+    "Engineer Customizations": [{
+        "Name": "bh_metal_position",
+        "Label": "Metal Counter\nUnder Crosshair",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "_budhud/scripts/hudlayout.res": {
+            "CHudAccountPanel": {
+              "ypos": {
+                "true": "c-3",
+                "false": "c110"
+              }
+            }
+          }
+        }
+      },
       {
+        "Name": "bh_building_display_h",
+        "Label": "Building Display\nHorizontal Position",
+        "Type": "TextBox",
+        "Value": "0",
+        "ToolTip": "Increase the number to move the display to the right.",
+        "Files": {
+          "_budhud/scripts/hudlayout.res": {
+            "bh_BuildPin": {
+              "xpos": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "bh_building_display_v",
+        "Label": "Building Display\nVertical Position",
+        "Type": "TextBox",
+        "Value": "105",
+        "ToolTip": "Increase the number to move the display down.",
+        "Files": {
+          "_budhud/scripts/hudlayout.res": {
+            "bh_BuildPin": {
+              "ypos": "$value"
+            }
+          }
+        }
+      }
+    ],
+    "Crosshair (Hypnotize's Unified Crosshair Pack)": [{
         "Name": "bh_toggle_xhair_enable",
         "Label": "Toggle Crosshair",
         "Type": "Checkbox",
