@@ -229,7 +229,7 @@
     <value>Browse</value>
   </data>
   <data name="ui_check_updates" xml:space="preserve">
-    <value>Automatically check for updates.</value>
+    <value>Auto-update files (Disable if doing local edits)</value>
   </data>
   <data name="ui_clear" xml:space="preserve">
     <value>Clear</value>
@@ -238,7 +238,7 @@
     <value>Customize</value>
   </data>
   <data name="ui_directory" xml:space="preserve">
-    <value>Set path to tf/custom</value>
+    <value>Change tf/custom path</value>
   </data>
   <data name="ui_download" xml:space="preserve">
     <value>Download:</value>
@@ -280,7 +280,7 @@
     <value>Options</value>
   </data>
   <data name="ui_clear_cache" xml:space="preserve">
-    <value>Clear Cache</value>
+    <value>Clear Cache Files</value>
   </data>
   <data name="info_clear_cache" xml:space="preserve">
     <value>This option will delete all local schema and editor data files then restart the app. Would you like to continue?</value>

@@ -71,20 +71,28 @@
                                 <Button
                                     Content="{lex:Loc ui_directory}"
                                     Click="BtnSetDirectory_OnClick"
+                                    Width="263"
                                     Style="{StaticResource SettingButton}" />
                                 <Button
                                     Content="{lex:Loc ui_refresh}"
                                     Click="BtnRefresh_OnClick"
+                                    Width="263"
                                     Style="{StaticResource SettingButton}" />
                                 <Button
                                     Content="{lex:Loc ui_clear_cache}"
                                     Click="btnClearCache_Click"
+                                    Width="263"
                                     Style="{StaticResource SettingButton}" />
-                                <ToggleButton
+                                <CheckBox
                                     x:Name="BtnPersistXhair"
                                     Content="{lex:Loc ui_persist_xhair}"
                                     Click="BtnPersistXhair_Click"
-                                    Style="{StaticResource ToggleButton}" />
+                                    Style="{StaticResource SettingCheckBox}" />
+                                <CheckBox
+                                    x:Name="BtnAutoUpdate"
+                                    Content="{lex:Loc ui_check_updates}"
+                                    Click="BtnAutoUpdate_OnClick"
+                                    Style="{StaticResource SettingCheckBox}" />
                             </WrapPanel>
                         </GroupBox>
                     </StackPanel>

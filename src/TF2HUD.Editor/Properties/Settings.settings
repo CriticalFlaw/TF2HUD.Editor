@@ -30,7 +30,7 @@
       <Value Profile="(Default)">https://github.com/mastercomfig/mastercomfig/releases/download/9.5.2/mastercomfig-transparent-viewmodels-addon.vpk</Value>
     </Setting>
     <Setting Name="app_update_auto" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="app_xhair_persist" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

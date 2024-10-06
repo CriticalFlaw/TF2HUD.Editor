@@ -47,7 +47,7 @@ namespace HUDEditor
             SetupDirectory();
 
             // Check for updates
-            UpdateAppSchema(true);
+            if (Settings.Default.app_update_auto == true) UpdateAppSchema(true);
         }
 
         private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
