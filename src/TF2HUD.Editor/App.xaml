@@ -82,7 +82,7 @@
             <Setter Property="FormatString" Value="N0" />
             <Setter Property="Increment" Value="1" />
             <Setter Property="Width" Value="125" />
-            <Setter Property="AllowTextInput" Value="False" />
+            <Setter Property="AllowTextInput" Value="True" />
         </Style>
 
         <Style x:Key="CrosshairLabel" TargetType="Label">
