@@ -45,7 +45,7 @@ namespace HUDEditor
 
             // Check for tf/custom directory
             SetupDirectory();
-
+          
             // Check for updates
             if (Settings.Default.app_update_auto == true) UpdateAppSchema(true);
         }
