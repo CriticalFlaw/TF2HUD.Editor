@@ -82,7 +82,7 @@
             <Setter Property="FormatString" Value="N0" />
             <Setter Property="Increment" Value="1" />
             <Setter Property="Width" Value="125" />
-            <Setter Property="AllowTextInput" Value="False" />
+            <Setter Property="AllowTextInput" Value="True" />
         </Style>
 
         <Style x:Key="CrosshairLabel" TargetType="Label">
@@ -166,28 +166,17 @@
         </Style>
 
         <Style x:Key="SettingButton" TargetType="Button" BasedOn="{StaticResource HudButton}">
-            <Setter Property="Width" Value="400" />
+            <Setter Property="Width" Value="263" />
+            <Setter Property="Margin" Value="10,10,0,20"/>
         </Style>
 
-        <Style x:Key="ToggleButton" TargetType="ToggleButton">
+        <Style x:Key="SettingCheckBox" TargetType="CheckBox">
             <Setter Property="FontFamily" Value="../Resources/Fonts/TF2Build.ttf #TF2 Build" />
-            <Setter Property="FontSize" Value="16px" />
+            <Setter Property="FontSize" Value="18px" />
             <Setter Property="Foreground" Value="#EBE2CA" />
-            <Setter Property="Background" Value="#776B5F" />
-            <Setter Property="Margin" Value="5" />
-            <Setter Property="Width" Value="400" />
+            <Setter Property="Margin" Value="10,0,0,0"/>
+            <Setter Property="Width" Value="700" />
             <Setter Property="Height" Value="40" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#934739" />
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Foreground" Value="#2B2724" />
-                </Trigger>
-                <Trigger Property="IsChecked" Value="True">
-                    <Setter Property="Foreground" Value="#2B2724" />
-                </Trigger>
-            </Style.Triggers>
         </Style>
 
         <Style x:Key="LinkButton" TargetType="Button">

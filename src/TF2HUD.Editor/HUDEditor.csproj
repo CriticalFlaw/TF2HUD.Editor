@@ -11,9 +11,9 @@
 		<Company>CriticalFlaw</Company>
 		<Copyright>CriticalFlaw</Copyright>
 		<PackageProjectUrl>http://criticalflaw.ca/TF2HUD.Editor/</PackageProjectUrl>
-		<AssemblyVersion>3.3.0</AssemblyVersion>
-		<FileVersion>3.3.0</FileVersion>
-		<Version>3.3.0</Version>
+		<AssemblyVersion>3.4.0</AssemblyVersion>
+		<FileVersion>3.4.0</FileVersion>
+		<Version>3.4.0</Version>
 		<RepositoryUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</RepositoryUrl>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -55,11 +55,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="CountryFlag.Wpf" Version="1.0.0" />
 		<PackageReference Include="Crews.Utility.TgaSharp" Version="1.0.0" />
 		<PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.115" />
-		<PackageReference Include="log4net" Version="2.0.17" />
+		<PackageReference Include="log4net" Version="3.0.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Octokit" Version="13.0.1" />
 		<PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />
@@ -109,6 +109,13 @@
 			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

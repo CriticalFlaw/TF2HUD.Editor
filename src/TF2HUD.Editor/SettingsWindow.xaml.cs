@@ -18,6 +18,7 @@ namespace HUDEditor
             InitializeComponent();
 
             // Check for user selected settings.
+            BtnAutoUpdate.IsChecked = Settings.Default.app_update_auto;
             BtnPersistXhair.IsChecked = Settings.Default.app_xhair_persist;
         }
 
@@ -53,6 +54,12 @@ namespace HUDEditor
         private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
         {
             MainWindow.UpdateAppSchema(false);
+        }
+
+        private void BtnAutoUpdate_OnClick(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.app_update_auto = BtnAutoUpdate.IsChecked ?? true;
+            Settings.Default.Save();
         }
 
         private void BtnPersistXhair_Click(object sender, RoutedEventArgs e)
