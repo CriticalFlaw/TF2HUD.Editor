@@ -1774,14 +1774,10 @@
             }
           },
           "resource/ui/matchmakingplaylist.res": {
-            "CasualLabel": {
+            "CasualEntry": {
               "xpos": {
-                "true": "10",
-                "false": "r-40"
-              },
-              "ypos": {
-                "true": "0",
-                "false": "5"
+                "true": "140",
+                "false": "r150"
               }
             },
             "CompetitiveLabel": {
@@ -1804,8 +1800,8 @@
                 "false": "CompetitiveLabel"
               },
               "pin_to_sibling_corner": {
-                "true": "PIN_BOTTOMLEFT",
-                "false": "PIN_TOPRIGHT"
+                "true": "PIN_BOTTOMRIGHT",
+                "false": "PIN_TOPLEFT"
               }
             },
             "ServerBrowserLabel": {
@@ -1828,8 +1824,8 @@
                 "false": "ServerBrowserLabel"
               },
               "pin_to_sibling_corner": {
-                "true": "PIN_BOTTOMLEFT",
-                "false": "PIN_TOPRIGHT"
+                "true": "PIN_BOTTOMRIGHT",
+                "false": "PIN_TOPLEFT"
               }
             },
             "QuickplayArenaLabel": {
