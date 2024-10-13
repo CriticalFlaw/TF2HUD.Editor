@@ -907,6 +907,18 @@
                 "false": "144"
               }
             },
+            "BluePlayerList": {
+              "ypos": {
+                "true": "275",
+                "false": "169"
+              }
+            },
+            "RedPlayerList": {
+              "ypos": {
+                "true": "275",
+                "false": "169"
+              }
+            },
             "ClassImage": {
               "ypos": {
                 "true": "-30",
