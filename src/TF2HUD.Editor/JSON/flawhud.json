@@ -805,7 +805,7 @@
         "Name": "fh_centered_vacc_icon",
         "Label": "Center Vaccinator Icon",
         "Type": "Checkbox",
-        "ToolTip": "Toggle Mann vs. Machine currency position.",
+        "ToolTip": "Position Vaccinator icon towards the center.",
         "Value": "false",
         "Files": {
           "resource/ui/hudmannvsmachinestatus.res": {
