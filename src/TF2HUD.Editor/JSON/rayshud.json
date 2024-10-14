@@ -1354,7 +1354,6 @@
         "Type": "Checkbox",
         "ToolTip": "Removes player and game details, useful when streaming.",
         "Value": "false",
-        "Width": 250,
         "Files": {
           "resource/ui/basechat.res": {
             "HudChat": {
@@ -1685,6 +1684,244 @@
               "text_xpos": {
                 "true": "9999",
                 "false": "25"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_toggle_mode_selection",
+        "Label": "Alt. Mode Selection",
+        "Type": "Checkbox",
+        "ToolTip": "Toggles to an alternate variant of the Mode Selection panel",
+        "Value": "false",
+        "Width": 250,
+        "Files": {
+          "resource/ui/mainmenuplaylistentry.res": {
+            "ModeButton": {
+              "wide": {
+                "true": "140",
+                "false": "255"
+              },
+              "tall": {
+                "true": "50",
+                "false": "60"
+              },
+              "font": {
+                "true": "HudFontSmallishBold",
+                "false": "Cerbetica24"
+              },
+              "textAlignment": {
+                "true": "center",
+                "false": "north"
+              },
+              "textinsety": {
+                "true": "5",
+                "false": "10"
+              }
+            },
+            "DescLabel": {
+              "xpos": {
+                "true": "9999",
+                "false": "rs1"
+              }
+            }
+          },
+          "resource/ui/matchmakingdashboardplaylist.res": {
+            "ExpandableList": {
+              "ypos": {
+                "true": "r63",
+                "false": "10"
+              },
+              "zpos": {
+                "true": "2001",
+                "false": "1001"
+              },
+              "wide": {
+                "true": "f0",
+                "false": "280"
+              }
+            },
+            "Title": {
+              "xpos": {
+                "true": "10",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "12",
+                "false": "25"
+              },
+              "wide": {
+                "true": "150",
+                "false": "f0"
+              },
+              "tall": {
+                "true": "40",
+                "false": "20"
+              },
+              "textAlignment": {
+                "true": "west",
+                "false": "center"
+              },
+              "visible": {
+                "true": "0",
+                "false": "1"
+              }
+            },
+            "playlist": {
+              "xpos": {
+                "true": "0",
+                "false": "10"
+              },
+              "ypos": {
+                "true": "0",
+                "false": "55"
+              },
+              "wide": {
+                "true": "f0",
+                "false": "255"
+              },
+              "tall": {
+                "true": "f0",
+                "false": "365"
+              }
+            },
+            "PlayListDropShadow": {
+              "xpos": {
+                "true": "0",
+                "false": "8"
+              },
+              "ypos": {
+                "true": "0",
+                "false": "50"
+              },
+              "wide": {
+                "true": "f0",
+                "false": "255"
+              },
+              "tall": {
+                "true": "f0",
+                "false": "298"
+              }
+            }
+          },
+          "resource/ui/matchmakingplaylist.res": {
+            "EventEntry": {
+              "wide": {
+                "true": "140",
+                "false": "200"
+              }
+            },
+            "CasualEntry": {
+              "xpos": {
+                "true": "r165",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "5",
+                "false": "0"
+              },
+              "tall": {
+                "true": "50",
+                "false": "60"
+              },
+              "wide": {
+                "true": "140",
+                "false": "255"
+              },
+              "proportionaltoparent": {
+                "true": "0",
+                "false": "1"
+              }
+            },
+            "CompetitiveEntry": {
+              "xpos": {
+                "true": "5",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "0",
+                "false": "10"
+              },
+              "tall": {
+                "true": "50",
+                "false": "60"
+              },
+              "wide": {
+                "true": "140",
+                "false": "255"
+              },
+              "proportionaltoparent": {
+                "true": "0",
+                "false": "1"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPRIGHT",
+                "false": "PIN_TOPLEFT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_BOTTOMLEFT"
+              }
+            },
+            "MvMEntry": {
+              "xpos": {
+                "true": "5",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "0",
+                "false": "10"
+              },
+              "tall": {
+                "true": "50",
+                "false": "60"
+              },
+              "wide": {
+                "true": "140",
+                "false": "255"
+              },
+              "proportionaltoparent": {
+                "true": "0",
+                "false": "1"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPRIGHT",
+                "false": "PIN_TOPLEFT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_BOTTOMLEFT"
+              }
+            },
+            "ServerBrowserEntry": {
+              "xpos": {
+                "true": "5",
+                "false": "0"
+              },
+              "ypos": {
+                "true": "0",
+                "false": "10"
+              },
+              "tall": {
+                "true": "50",
+                "false": "60"
+              },
+              "wide": {
+                "true": "140",
+                "false": "255"
+              },
+              "proportionaltoparent": {
+                "true": "0",
+                "false": "1"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPRIGHT",
+                "false": "PIN_TOPLEFT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_BOTTOMLEFT"
               }
             }
           }
