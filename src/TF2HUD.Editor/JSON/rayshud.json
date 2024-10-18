@@ -1209,6 +1209,49 @@
         }
       },
       {
+        "Name": "rh_toggle_center_class",
+        "Label": "Centered Team Select",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle style of the team select to be center-oriented.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/teammenu.res": {
+            "SidePanelBG": {
+              "tall": {
+                "true": "0",
+                "false": "f0"
+              }
+            },
+            "SelectTeamLabel": {
+              "wide": {
+                "true": "f0",
+                "false": "255"
+              }
+            },
+            "teambutton0": {
+              "textAlignment": {
+                "true": "west",
+                "false": "center"
+              },
+              "textinsetx": {
+                "true": "15",
+                "false": "0"
+              }
+            },
+            "teambutton1": {
+              "textAlignment": {
+                "true": "east",
+                "false": "center"
+              },
+              "textinsetx": {
+                "true": "15",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
         "Name": "rh_toggle_metal_pos",
         "Label": "Centered Metal Counter",
         "Type": "Checkbox",
