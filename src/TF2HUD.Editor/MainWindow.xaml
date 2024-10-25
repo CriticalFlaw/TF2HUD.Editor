@@ -10,13 +10,16 @@
         Height="900"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        AllowsTransparency="True"
         Background="Transparent"
-        ResizeMode="CanResizeWithGrip"
+        ResizeMode="CanResize"
         FontFamily="../Resources/Fonts/TF2Secondary.ttf #TF2 Secondary"
         FontSize="20px">
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
 
-    <Border BorderThickness="2" CornerRadius="10" Background="#2B2724">
+    <Border BorderThickness="2" CornerRadius="10" Background="#2B2724" BorderBrush="#2B2724">
         <Grid>
             <!-- Custom Title Bar -->
             <Border Background="#211e1c" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top" MouseDown="TitleBar_MouseDown">
