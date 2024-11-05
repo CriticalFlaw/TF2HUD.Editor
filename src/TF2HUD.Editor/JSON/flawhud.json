@@ -802,115 +802,6 @@
         }
       },
       {
-        "Name": "fh_centered_vacc_icon",
-        "Label": "Center Vaccinator Icon",
-        "Type": "Checkbox",
-        "ToolTip": "Position Vaccinator icon towards the center.",
-        "Value": "false",
-        "Files": {
-          "resource/ui/hudmannvsmachinestatus.res": {
-            "ChargeLabelShadow": {
-              "visible": {
-                "true": "1",
-                "false": "1"
-              },
-              "xpos": {
-                "true": "c-10",
-                "false": "-2"
-              },
-              "ypos": {
-                "true": "c15",
-                "false": "-2"
-              },
-              "wide": {
-                "true": "48",
-                "false": "110"
-              },
-              "tall": {
-                "true": "27",
-                "false": "43"
-              },
-              "labelText": {
-                "true": "#TF_IndividualUberchargesMinHUD",
-                "false": ""
-              },
-              "bgcolor_override": {
-                "true": "HudBlack",
-                "false": "Black"
-              }
-            },
-            "ChargeMeter1": {
-              "ypos": {
-                "true": "-20",
-                "false": "-2"
-              },
-              "wide": {
-                "true": "10",
-                "false": "25"
-              },
-              "tall": {
-                "true": "5",
-                "false": "26"
-              }
-            },
-            "ChargeMeter2": {
-              "wide": {
-                "true": "10",
-                "false": "25"
-              },
-              "tall": {
-                "true": "5",
-                "false": "26"
-              }
-            },
-            "ChargeMeter3": {
-              "wide": {
-                "true": "10",
-                "false": "25"
-              },
-              "tall": {
-                "true": "5",
-                "false": "26"
-              }
-            },
-            "ChargeMeter4": {
-              "wide": {
-                "true": "10",
-                "false": "25"
-              },
-              "tall": {
-                "true": "5",
-                "false": "26"
-              }
-            },
-            "ResistIconAnchor": {
-              "xpos": {
-                "true": "0",
-                "false": "70"
-              },
-              "pin_corner_to_sibling": {
-                "true": "PIN_TOPRIGHT",
-                "false": "PIN_CENTER_TOP"
-              },
-              "pin_to_sibling_corner": {
-                "true": "PIN_TOPLEFT",
-                "false": "PIN_CENTER_TOP"
-              }
-            },
-            "ResistIcon": {
-              "wide": {
-                "true": "25",
-                "false": "30"
-              },
-              "tall": {
-                "true": "25",
-                "false": "30"
-              }
-            }
-          }
-        }
-      },
-      {
         "Name": "fh_val_hud_style",
         "Label": "Cornered Health/Ammo",
         "Type": "Checkbox",
@@ -979,13 +870,9 @@
               }
             },
             "ChargeLabelShadow": {
-              "textAlignment": {
-                "true": "east",
-                "false": "center"
-              },
-              "font": {
-                "true": "FontBold50",
-                "false": "FontBold22"
+              "visible": {
+                "true": "0",
+                "false": "1"
               }
             },
             "IndividualChargesLabel": {
@@ -1156,6 +1043,117 @@
               "ypos": {
                 "true": "r30",
                 "false": "r75"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "fh_centered_vacc_icon",
+        "Label": "Center Vaccinator Icon",
+        "Type": "Checkbox",
+        "ToolTip": "Position Vaccinator icon towards the center.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/hudmediccharge.res": {
+            "ChargeLabelShadow": {
+              "visible": {
+                "true": "0",
+                "false": "1"
+              }
+            },
+            "IndividualChargesLabel": {
+              "xpos": {
+                "true": "c-10",
+                "false": "c-55"
+              },
+              "ypos": {
+                "true": "c15",
+                "false": "r120"
+              },
+              "wide": {
+                "true": "48",
+                "false": "110"
+              },
+              "tall": {
+                "true": "27",
+                "false": "30"
+              },
+              "labelText": {
+                "true": "#TF_IndividualUberchargesMinHUD",
+                "false": ""
+              },
+              "defaultbgcolor_override": {
+                "true": "HudBlack",
+                "false": "Black"
+              }
+            },
+            "ChargeMeter1": {
+              "ypos": {
+                "true": "-20",
+                "false": "-2"
+              },
+              "wide": {
+                "true": "10",
+                "false": "25"
+              },
+              "tall": {
+                "true": "5",
+                "false": "26"
+              }
+            },
+            "ChargeMeter2": {
+              "wide": {
+                "true": "10",
+                "false": "25"
+              },
+              "tall": {
+                "true": "5",
+                "false": "26"
+              }
+            },
+            "ChargeMeter3": {
+              "wide": {
+                "true": "10",
+                "false": "25"
+              },
+              "tall": {
+                "true": "5",
+                "false": "26"
+              }
+            },
+            "ChargeMeter4": {
+              "wide": {
+                "true": "10",
+                "false": "25"
+              },
+              "tall": {
+                "true": "5",
+                "false": "26"
+              }
+            },
+            "ResistIconAnchor": {
+              "xpos": {
+                "true": "0",
+                "false": "70"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPRIGHT",
+                "false": "PIN_CENTER_TOP"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_CENTER_TOP"
+              }
+            },
+            "ResistIcon": {
+              "wide": {
+                "true": "25",
+                "false": "30"
+              },
+              "tall": {
+                "true": "25",
+                "false": "30"
               }
             }
           }
