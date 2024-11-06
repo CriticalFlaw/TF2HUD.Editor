@@ -423,7 +423,7 @@ namespace HUDEditor.Classes
                                 MainWindow.Logger.Warn($"{relativePath} -> {objectPath} already contains key {property.Key}!");
 
                             hudElement[property.Key] = EvaluateValue(property.Value.ToString());
-                            MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{userSetting.Value}\"");
+                            MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{property.Value}\"");
                         }
                     }
 
