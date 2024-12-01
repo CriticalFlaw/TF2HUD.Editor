@@ -1874,14 +1874,6 @@
                     "inset_eq_y": "55"
                   }
                 },
-                "ClassLabel": {
-                  "font": "FontBold22",
-                  "textAlignment": "center",
-                  "xpos": "c-120",
-                  "ypos": "17",
-                  "wide": "240",
-                  "tall": "25"
-                },
                 "classmodelpanel": {
                   "xpos": "c-135",
                   "ypos": "20",
@@ -1892,42 +1884,6 @@
                     "origin_y": "0",
                     "origin_z": "-48"
                   }
-                },
-                "PassiveAttribsLabel": {
-                  "xpos": "c-135",
-                  "ypos": "c-117",
-                  "wide": "270",
-                  "tall": "240",
-                  "textAlignment": "south"
-                },
-                "loadout_preset_panel": {
-                  "wide": "150"
-                },
-                "RedButton": {
-                  "xpos": "c-155",
-                  "ypos": "c-126",
-                  "wide": "25",
-                  "autoResize": "0",
-                  "pinCorner": "0",
-                  "labelText": "R"
-                },
-                "BlueButton": {
-                  "xpos": "c-155",
-                  "ypos": "c-99",
-                  "wide": "25",
-                  "autoResize": "0",
-                  "pinCorner": "0",
-                  "labelText": "B"
-                },
-                "CharacterLoadoutButton": {
-                  "xpos": "c-155",
-                  "ypos": "c-180",
-                  "pinCorner": "0"
-                },
-                "TauntLoadoutButton": {
-                  "xpos": "c-155",
-                  "ypos": "c-153",
-                  "pinCorner": "0"
                 }
               }
             }
@@ -1938,66 +1894,23 @@
             "Files": {
               "resource/ui/classloadoutpanel.res": {
                 "class_loadout_panel": {
-                  "item_xpos_offcenter_a": "70",
-                  "item_xpos_offcenter_b": "230",
+                  "item_xpos_offcenter_a": "60",
+                  "item_xpos_offcenter_b": "188",
                   "modelpanels_kv": {
-                    "wide": "140",
+                    "wide": "125",
                     "inset_eq_y": "0"
                   }
                 },
-                "ClassLabel": {
-                  "font": "FontBold37",
-                  "xpos": "100",
-                  "ypos": "15",
-                  "wide": "600",
-                  "tall": "30"
-                },
                 "classmodelpanel": {
-                  "xpos": "0",
+                  "xpos": "c-320",
                   "ypos": "0",
-                  "wide": "495",
+                  "wide": "400",
                   "tall": "f0",
                   "model": {
                     "origin_x": "250",
-                    "origin_y": "10",
+                    "origin_y": "20",
                     "origin_z": "-30"
                   }
-                },
-                "PassiveAttribsLabel": {
-                  "xpos": "c-65",
-                  "ypos": "130",
-                  "wide": "130",
-                  "tall": "195",
-                  "textAlignment": "north"
-                },
-                "loadout_preset_panel": {
-                  "wide": "140"
-                },
-                "RedButton": {
-                  "xpos": "c-55",
-                  "ypos": "90",
-                  "wide": "52",
-                  "autoResize": "1",
-                  "pinCorner": "2",
-                  "labelText": "RED"
-                },
-                "BlueButton": {
-                  "xpos": "c1",
-                  "ypos": "90",
-                  "wide": "52",
-                  "autoResize": "1",
-                  "pinCorner": "2",
-                  "labelText": "BLU"
-                },
-                "CharacterLoadoutButton": {
-                  "xpos": "c-25",
-                  "ypos": "c90",
-                  "pinCorner": "3"
-                },
-                "TauntLoadoutButton": {
-                  "xpos": "c2",
-                  "ypos": "c90",
-                  "pinCorner": "3"
                 }
               }
             }
@@ -2008,19 +1921,12 @@
             "Files": {
               "resource/ui/classloadoutpanel.res": {
                 "class_loadout_panel": {
-                  "item_xpos_offcenter_a": "-380",
+                  "item_xpos_offcenter_a": "-348",
                   "item_xpos_offcenter_b": "-220",
                   "modelpanels_kv": {
-                    "wide": "140",
+                    "wide": "125",
                     "inset_eq_y": "0"
                   }
-                },
-                "ClassLabel": {
-                  "font": "FontBold37",
-                  "xpos": "50",
-                  "ypos": "15",
-                  "wide": "300",
-                  "tall": "30"
                 },
                 "classmodelpanel": {
                   "xpos": "c50",
@@ -2032,42 +1938,6 @@
                     "origin_y": "10",
                     "origin_z": "-30"
                   }
-                },
-                "PassiveAttribsLabel": {
-                  "xpos": "c-65",
-                  "ypos": "130",
-                  "wide": "130",
-                  "tall": "195",
-                  "textAlignment": "north"
-                },
-                "loadout_preset_panel": {
-                  "wide": "140"
-                },
-                "RedButton": {
-                  "xpos": "c-55",
-                  "ypos": "90",
-                  "wide": "52",
-                  "autoResize": "1",
-                  "pinCorner": "2",
-                  "labelText": "RED"
-                },
-                "BlueButton": {
-                  "xpos": "c1",
-                  "ypos": "90",
-                  "wide": "52",
-                  "autoResize": "1",
-                  "pinCorner": "2",
-                  "labelText": "BLU"
-                },
-                "CharacterLoadoutButton": {
-                  "xpos": "c-25",
-                  "ypos": "c90",
-                  "pinCorner": "3"
-                },
-                "TauntLoadoutButton": {
-                  "xpos": "c2",
-                  "ypos": "c90",
-                  "pinCorner": "3"
                 }
               }
             }
