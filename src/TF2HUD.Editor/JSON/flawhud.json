@@ -1825,12 +1825,6 @@
                 "true": "PIN_BOTTOMRIGHT",
                 "false": "PIN_TOPLEFT"
               }
-            },
-            "QuickplayArenaLabel": {
-              "xpos": {
-                "true": "10",
-                "false": "5"
-              }
             }
           }
         }
