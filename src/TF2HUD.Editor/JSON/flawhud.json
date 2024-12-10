@@ -1868,16 +1868,12 @@
                     "inset_eq_y": "55"
                   }
                 },
+                "classmodelpanelanchor": {
+                  "xpos": "p.103"
+                },
                 "classmodelpanel": {
-                  "xpos": "c-135",
-                  "ypos": "20",
-                  "wide": "270",
-                  "tall": "340",
-                  "model": {
-                    "origin_x": "190",
-                    "origin_y": "0",
-                    "origin_z": "-48"
-                  }
+                  "pin_corner_to_sibling": "PIN_TOPLEFT",
+                  "pin_to_sibling_corner": "PIN_TOPRIGHT"
                 },
                 "CharacterLoadoutButton": {
                   "xpos": "3",
@@ -1909,16 +1905,12 @@
                     "inset_eq_y": "0"
                   }
                 },
+                "classmodelpanelanchor": {
+                  "xpos": "p.63"
+                },
                 "classmodelpanel": {
-                  "xpos": "c-320",
-                  "ypos": "0",
-                  "wide": "400",
-                  "tall": "f0",
-                  "model": {
-                    "origin_x": "250",
-                    "origin_y": "20",
-                    "origin_z": "-30"
-                  }
+                  "pin_corner_to_sibling": "PIN_TOPRIGHT",
+                  "pin_to_sibling_corner": "PIN_TOPLEFT"
                 },
                 "CharacterLoadoutButton": {
                   "xpos": "-1",
@@ -1950,16 +1942,12 @@
                     "inset_eq_y": "0"
                   }
                 },
+                "classmodelpanelanchor": {
+                  "xpos": "p.63"
+                },
                 "classmodelpanel": {
-                  "xpos": "c50",
-                  "ypos": "0",
-                  "wide": "495",
-                  "tall": "f0",
-                  "model": {
-                    "origin_x": "250",
-                    "origin_y": "10",
-                    "origin_z": "-30"
-                  }
+                  "pin_corner_to_sibling": "PIN_TOPRIGHT",
+                  "pin_to_sibling_corner": "PIN_TOPLEFT"
                 },
                 "CharacterLoadoutButton": {
                   "xpos": "-1",
