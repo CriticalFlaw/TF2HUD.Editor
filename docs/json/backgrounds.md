@@ -61,35 +61,35 @@ This control will toggle between using stock TF2 backgrounds and the default sta
 This sample creates a ComboBox control where the first two options enable a different custom background image, as well as an option to set default TF2 backgrounds.
 
 ```json
-  {
-    "Name": "my_hud_background_selector_control", // Change this to the name of your hud and provide a name for the control
-    "Label": "Menu Background",
-    "Type": "ComboBox",
-    "ToolTip": "Change the style of background image shown on the main menu.",
-    "Value": "0", // The Default selected item
-    "Restart": true, // Tell TF2HUD.Editor that applying this customization requires restarting TF2
-    "Options": [
-      {
-        "Label": "Modern Background",
-        "Value": "0",
-        "Special":"HUDBackground",
-        "SpecialParameters": [
-          "background_modern"
-        ]
-      },
-      {
-        "Label": "Classic Background",
-        "Value": "1",
-        "Special": "HUDBackground",
-        "SpecialParameters": [
+{
+  "Name": "my_hud_background_selector_control", // Change this to the name of your hud and provide a name for the control
+  "Label": "Menu Background",
+  "Type": "ComboBox",
+  "ToolTip": "Change the style of background image shown on the main menu.",
+  "Value": "0", // The Default selected item
+  "Restart": true, // Tell TF2HUD.Editor that applying this customization requires restarting TF2
+  "Options": [
+    {
+      "Label": "Modern Background",
+      "Value": "0",
+      "Special": "HUDBackground",
+      "SpecialParameters": [
+        "background_modern"
+      ]
+    },
+    {
+      "Label": "Classic Background",
+      "Value": "1",
+      "Special": "HUDBackground",
+      "SpecialParameters": [
         "background_classic"
-        ]
-      },
-      {
-        "Label": "Default Backgrounds",
-        "Value": "2",
-        "Special": "StockBackgrounds"
-      }
-    ]
-  }
+      ]
+    },
+    {
+      "Label": "Default Backgrounds",
+      "Value": "2",
+      "Special": "StockBackgrounds"
+    }
+  ]
+}
 ```

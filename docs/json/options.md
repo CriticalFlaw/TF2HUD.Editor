@@ -10,36 +10,36 @@ This section covers individual options available in a list-type controls like `D
 "Type": "ComboBox",
 "Value": "0",
 "Options": [
-	{
-		"Label": "Flash",
-		"Value": "0",
-		"Files": {
-			"scripts/hudanimations_custom.txt": {
-				"comment": [
-					"RunEvent HudMedicSolidColorCharge",
-					"RunEvent HudMedicRainbowCharged"
-				],
-				"uncomment": [
-					"RunEvent HudMedicOrangePulseCharge"
-				]
-			}
-		}
-	},
-	{
-		"Label": "Solid",
-		"Value": "1",
-		"Files": {
-			"scripts/hudanimations_custom.txt": {
-				"comment": [
-					"RunEvent HudMedicOrangePulseCharge",
-					"RunEvent HudMedicRainbowCharged"
-				],
-				"uncomment": [
-					"RunEvent HudMedicSolidColorCharge"
-				]
-			}
-		}
-	}
+  {
+    "Label": "Flash",
+    "Value": "0",
+    "Files": {
+      "scripts/hudanimations_custom.txt": {
+        "comment": [
+          "RunEvent HudMedicSolidColorCharge",
+          "RunEvent HudMedicRainbowCharged"
+        ],
+        "uncomment": [
+          "RunEvent HudMedicOrangePulseCharge"
+        ]
+      }
+    }
+  },
+  {
+    "Label": "Solid",
+    "Value": "1",
+    "Files": {
+      "scripts/hudanimations_custom.txt": {
+        "comment": [
+          "RunEvent HudMedicOrangePulseCharge",
+          "RunEvent HudMedicRainbowCharged"
+        ],
+        "uncomment": [
+          "RunEvent HudMedicSolidColorCharge"
+        ]
+      }
+    }
+  }
 ]
 ```
 

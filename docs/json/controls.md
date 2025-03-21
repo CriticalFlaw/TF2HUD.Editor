@@ -7,69 +7,69 @@ This section covers the controls that are displayed on the HUD page, grouped wit
 ```json
 "Crosshair":
 [
-	{
-		"Name": "fh_toggle_xhair_enable",
-		"Label": "Toggle the Crosshair",
-		"Type": "Checkbox",
-		"ToolTip": "Toggle crosshair visibility.",
-		"Value": "false",
-		"Files": {
-			...
-		}
-	},
-	{
-		"Name": "fh_toggle_xhair_pulse",
-		"Label": "Toggle the Hitmarker",
-		"Type": "Checkbox",
-		"ToolTip": "Toggle crosshair hitmarker.",
-		"Value": "true",
-		"Files": {
-			...
-		}
-	},
-	{
-		"Name": "fh_val_xhair_style",
-		"Label": "Style",
-		"ToolTip": "Style of crosshair.",
-		"Type": "Crosshair",
-		"Value": "<",
-		"Options":: {
-			...
-		}
-	},
-	{
-		"Name": "fh_val_xhair_size",
-		"Label": "Size",
-		"Type": "IntegerUpDown",
-		"Value": "18",
-		"Minimum": "10",
-		"Maximum": "30",
-		"Increment": "1",
-		"ToolTip": "Size of the crosshair.",
-		"Files": {
-			...
-		}
-	},
-	{
-		"Name": "fh_color_xhair_normal",
-		"Label": "Crosshair",
-		"Type": "ColorPicker",
-		"ToolTip": "Default crosshair color.",
-		"Value": "242 242 242 255",
-		"Files": {
-			...
-		}
-	},
-	{
-		"Name": "fh_color_xhair_pulse",
-		"Label": "Hitmarker",
-		"Type": "ColorPicker",
-		"ToolTip": "Color of crosshair when hitting another player.",
-		"Value": "255 0 0 255",
-		"Files":  {
-			...
-		}
-	}
+  {
+    "Name": "fh_toggle_xhair_enable",
+    "Label": "Toggle the Crosshair",
+    "Type": "Checkbox",
+    "ToolTip": "Toggle crosshair visibility.",
+    "Value": "false",
+    "Files": {
+      ...
+    }
+  },
+  {
+    "Name": "fh_toggle_xhair_pulse",
+    "Label": "Toggle the Hitmarker",
+    "Type": "Checkbox",
+    "ToolTip": "Toggle crosshair hitmarker.",
+    "Value": "true",
+    "Files": {
+      ...
+    }
+  },
+  {
+    "Name": "fh_val_xhair_style",
+    "Label": "Style",
+    "ToolTip": "Style of crosshair.",
+    "Type": "Crosshair",
+    "Value": "<",
+    "Options": {
+      ...
+    }
+  },
+  {
+    "Name": "fh_val_xhair_size",
+    "Label": "Size",
+    "Type": "IntegerUpDown",
+    "Value": "18",
+    "Minimum": "10",
+    "Maximum": "30",
+    "Increment": "1",
+    "ToolTip": "Size of the crosshair.",
+    "Files": {
+      ...
+    }
+  },
+  {
+    "Name": "fh_color_xhair_normal",
+    "Label": "Crosshair",
+    "Type": "ColorPicker",
+    "ToolTip": "Default crosshair color.",
+    "Value": "242 242 242 255",
+    "Files": {
+      ...
+    }
+  },
+  {
+    "Name": "fh_color_xhair_pulse",
+    "Label": "Hitmarker",
+    "Type": "ColorPicker",
+    "ToolTip": "Color of crosshair when hitting another player.",
+    "Value": "255 0 0 255",
+    "Files": {
+      ...
+    }
+  }
 ]
 ```
 

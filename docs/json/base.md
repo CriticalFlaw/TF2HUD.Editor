@@ -6,28 +6,28 @@ This section defines the base settings like the HUD author, description, screens
 
 ```json
 {
-	"$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
-	"Author": "CriticalFlaw",
-	"Description": "Custom HUD for Team Fortress 2, with the focus on minimalistic design and dark themed colors.",
-	"Thumbnail": "https://i.imgur.com/2UnYNH8.png",
-	"Screenshots": [
-		"https://huds.tf/site/xthreads_attach.php/265_1624918840_0abb7788/12ebcf7249f0af8372f3ab5a0ac8c74f/20210628180837_1.jpg"
-	],
-	"Background": "https://user-images.githubusercontent.com/6818236/123523046-34d56600-d68f-11eb-8838-fbf112c45ea7.png",
-	"Layout": [
-		"0 0 3 3",
-		"1 2 4 5",
-		"1 2 4 5"
-	],
-	"Links": {
-		"Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
-		...
-	},
-	"CustomizationsFolder": "resource//ui//#customizations",
-	"EnabledFolder": "resource//ui//#customizations//_enabled",
-	"Controls": {
-		...
-	}
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "CriticalFlaw",
+  "Description": "Custom HUD for Team Fortress 2, with the focus on minimalistic design and dark themed colors.",
+  "Thumbnail": "https://i.imgur.com/2UnYNH8.png",
+  "Screenshots": [
+    "https://huds.tf/site/xthreads_attach.php/265_1624918840_0abb7788/12ebcf7249f0af8372f3ab5a0ac8c74f/20210628180837_1.jpg"
+  ],
+  "Background": "https://user-images.githubusercontent.com/6818236/123523046-34d56600-d68f-11eb-8838-fbf112c45ea7.png",
+  "Layout": [
+    "0 0 3 3",
+    "1 2 4 5",
+    "1 2 4 5"
+  ],
+  "Links": {
+    "Update": "https://github.com/CriticalFlaw/flawhud/archive/master.zip",
+    ...
+  },
+  "CustomizationsFolder": "resource//ui//#customizations",
+  "EnabledFolder": "resource//ui//#customizations//_enabled",
+  "Controls": {
+    ...
+  }
 }
 ```
 

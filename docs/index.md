@@ -6,8 +6,7 @@ slug: /
 ![image](https://user-images.githubusercontent.com/6818236/115637633-a0d9cd80-a2de-11eb-89f8-48373c34d740.png)
 <p align="center">
   <p align="center">
-    Install and customize your favorite custom Team Fortress 2 HUDs.
-    <br />
+    Install and customize your favorite custom Team Fortress 2 HUDs.\
     <a href="https://github.com/CriticalFlaw/TF2HUD.Editor/releases/latest">Download</a>
     &nbsp;
     ·
@@ -29,11 +28,13 @@ slug: /
 </p>
 
 <!-- BADGES -->
-[![Build][build-shield]][build-link]
-[![Package][package-shield]][package-link]
-[![Docs][docs-shield]][docs-link]
-[![Downloads][download-shield]][download-link]
-[![Discord][discord-shield]][discord-link]
+<p align="center">
+    [![Build][build-shield]][build-link]
+    [![Package][package-shield]][package-link]
+    [![Docs][docs-shield]][docs-link]
+    [![Downloads][download-shield]][download-link]
+    [![Discord][discord-shield]][discord-link]
+</p>
 
 <!-- CONTENT -->
 
