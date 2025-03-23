@@ -219,7 +219,7 @@ namespace HUDEditor.ViewModels
                 foreach (var foundHud in Directory.GetDirectories(MainWindow.HudPath))
                 {
                     if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}\\info.vdf")) continue;
-                    if (MainWindow.ShowMessageBox(MessageBoxImage.Warning, Resources.info_unsupported_hud_found, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes)
+                    if (MainWindow.ShowMessageBox(MessageBoxImage.Warning, Shared.Resources.info_unsupported_hud_found, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes)
                     {
                         Installing = false;
                         return;
@@ -282,7 +282,7 @@ namespace HUDEditor.ViewModels
                 SelectedHud.ApplyCustomizations();
 
                 // Update timestamp
-                ((EditHUDViewModel)Page).Status = string.Format(Resources.status_installed_now, Settings.Default.hud_selected, DateTime.Now);
+                ((EditHUDViewModel)Page).Status = string.Format(Shared.Resources.status_installed_now, Settings.Default.hud_selected, DateTime.Now);
 
                 // Update Install/Uninstall/Reset Buttons
                 OnPropertyChanged(nameof(HighlightedHudInstalled));
@@ -342,7 +342,7 @@ namespace HUDEditor.ViewModels
             var selection = SelectedHud;
             if ((Process.GetProcessesByName("hl2").Any() || Process.GetProcessesByName("tf").Any() || Process.GetProcessesByName("tf_win64").Any()) && selection.DirtyControls.Count > 0)
             {
-                var message = selection.DirtyControls.Aggregate(Resources.info_game_restart, (current, control) => current + $"\n - {control}");
+                var message = selection.DirtyControls.Aggregate(Shared.Resources.info_game_restart, (current, control) => current + $"\n - {control}");
                 if (MainWindow.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
             }
 
@@ -352,7 +352,7 @@ namespace HUDEditor.ViewModels
             selection.ApplyCustomizations();
             selection.DirtyControls.Clear();
 
-            ((EditHUDViewModel)Page).Status = string.Format(Resources.status_applied, selection.Name, DateTime.Now);
+            ((EditHUDViewModel)Page).Status = string.Format(Shared.Resources.status_applied, selection.Name, DateTime.Now);
         }
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace HUDEditor.ViewModels
         public void BtnReset_Click()
         {
             // Ask the user if they want to reset before doing so.
-            if (MainWindow.ShowMessageBox(MessageBoxImage.Question, Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (MainWindow.ShowMessageBox(MessageBoxImage.Question, Shared.Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
             App.Logger.Info("------");
             App.Logger.Info("Resetting user settings");
@@ -371,7 +371,7 @@ namespace HUDEditor.ViewModels
             selection.Settings.SaveSettings();
             selection.ApplyCustomizations();
             selection.DirtyControls.Clear();
-            ((EditHUDViewModel)Page).Status = string.Format(Resources.status_reset, selection.Name, DateTime.Now);
+            ((EditHUDViewModel)Page).Status = string.Format(Shared.Resources.status_reset, selection.Name, DateTime.Now);
         }
 
         /// <summary>
@@ -433,7 +433,7 @@ namespace HUDEditor.ViewModels
         {
             try
             {
-                if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Resources.info_add_hud, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Shared.Resources.info_add_hud, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
                 var browser = new FolderBrowserDialog
                 {

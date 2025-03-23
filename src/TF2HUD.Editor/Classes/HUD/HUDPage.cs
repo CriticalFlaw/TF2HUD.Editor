@@ -538,7 +538,7 @@ namespace HUDEditor.Classes
                             var bgInput = new Button
                             {
                                 Name = id,
-                                Content = Resources.ui_browse,
+                                Content = Shared.Resources.ui_browse,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
                                 HorizontalAlignment = HorizontalAlignment.Stretch
@@ -549,7 +549,7 @@ namespace HUDEditor.Classes
 
                             var clearInput = new Button
                             {
-                                Content = Resources.ui_clear,
+                                Content = Shared.Resources.ui_clear,
                                 Height = 32,
                                 Padding = new Thickness(5, 2, 5, 0),
                                 HorizontalAlignment = HorizontalAlignment.Stretch
@@ -574,7 +574,7 @@ namespace HUDEditor.Classes
                             // Add Events.
                             bgInput.Click += (_, _) =>
                             {
-                                MainWindow.ShowMessageBox(MessageBoxImage.Information, Resources.info_background_override);
+                                MainWindow.ShowMessageBox(MessageBoxImage.Information, Shared.Resources.info_background_override);
                                 using (var browser = new OpenFileDialog())
                                 {
                                     browser.ShowDialog();

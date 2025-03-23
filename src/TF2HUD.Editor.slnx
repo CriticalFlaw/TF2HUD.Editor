@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="Shared/Shared.shproj" Id="f9ad4ca2-4f80-401b-8ca1-adb0765a1ecb" />
   <Project Path="TF2HUD.Editor/HUDEditor.csproj" />
   <Project Path="HUDEdit/HUDEdit.csproj" />
 </Solution>

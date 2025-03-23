@@ -64,7 +64,7 @@ namespace HUDEditor
             App.Logger.Info("Target directory not set. Asking user to provide it.");
             using (var browser = new FolderBrowserDialog
             {
-                Description = Properties.Resources.info_path_browser,
+                Description = Shared.Resources.info_path_browser,
                 UseDescriptionForTitle = true,
                 ShowNewFolderButton = true
             })
@@ -83,7 +83,7 @@ namespace HUDEditor
                         }
                         else
                         {
-                            ShowMessageBox(MessageBoxImage.Error, Properties.Resources.info_path_invalid);
+                            ShowMessageBox(MessageBoxImage.Error, Shared.Resources.info_path_invalid);
                         }
                     }
                     else
@@ -174,14 +174,14 @@ namespace HUDEditor
                 await Task.WhenAll(downloads);
                 if (Convert.ToBoolean(downloads.Count))
                 {
-                    if (!silent) if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                    if (!silent) if (ShowMessageBox(MessageBoxImage.Information, Shared.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                     Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                     Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
                     Environment.Exit(0);
                 }
                 else
                 {
-                    if (!silent) ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_hud_update_none);
+                    if (!silent) ShowMessageBox(MessageBoxImage.Information, Shared.Resources.info_hud_update_none);
                 }
             }
             catch (Exception e)
@@ -208,7 +208,7 @@ namespace HUDEditor
 
                 if (appVersion.Equals(latestVersion.TagName)) return;
                 App.Logger.Info($"Update available from {appVersion} -> {latestVersion.TagName}");
-                if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                if (ShowMessageBox(MessageBoxImage.Information, Shared.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 Utilities.OpenWebpage(Settings.Default.app_update);
 
             }

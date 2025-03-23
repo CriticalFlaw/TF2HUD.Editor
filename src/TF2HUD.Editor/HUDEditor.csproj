@@ -36,17 +36,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="JSON\berryhud.json" />
-		<None Remove="JSON\budhud.json" />
-		<None Remove="JSON\flawhud.json" />
-		<None Remove="JSON\hexhud.json" />
-		<None Remove="JSON\hud-fixes.json" />
-		<None Remove="JSON\hypnotize-hud.json" />
-		<None Remove="JSON\kbnhud.json" />
-		<None Remove="JSON\m0rehud.json" />
-		<None Remove="JSON\rayshud.json" />
-		<None Remove="JSON\zeeshud.json" />
-		<None Remove="log4net.config" />
 		<None Remove="Resources\banner.png" />
 		<None Remove="Resources\chapterbackgrounds.txt" />
 		<None Remove="Resources\TF2Build.ttf" />
@@ -67,13 +56,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Include="JSON\*">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
 		<Content Include="Resources\*">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-		<Content Include="log4net.config">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
@@ -93,23 +76,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="Properties\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
-		</Compile>
 		<Compile Update="Properties\Settings.Designer.cs">
 			<DesignTimeSharedInput>True</DesignTimeSharedInput>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Settings.settings</DependentUpon>
 		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -125,4 +96,6 @@
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="RD /S /Q &quot;$(TargetDir)ar&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)cs&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)cs-CZ&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)da&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)de&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)es&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)fr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)hu&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)it&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ja-JP&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ko&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)nl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pl&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)pt&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ro&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)ru&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sk&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)th&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)tr&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)sv&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-Hans&quot;&#xD;&#xA;RD /S /Q &quot;$(TargetDir)zh-tw&quot;" />
 	</Target>
+
+	<Import Project="..\Shared\Shared.projitems" Label="Shared" />
 </Project>
