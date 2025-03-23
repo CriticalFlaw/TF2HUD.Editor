@@ -426,3 +426,4 @@ FodyWeavers.xsd
 build
 node_modules
 src/HUDEdit/appsettings.json
+src/TF2HUD.Editor/appsettings.json
