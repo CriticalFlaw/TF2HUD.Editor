@@ -425,3 +425,4 @@ FodyWeavers.xsd
 .docusaurus
 build
 node_modules
+src/HUDEdit/appsettings.json
