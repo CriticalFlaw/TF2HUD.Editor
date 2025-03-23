@@ -2,13 +2,18 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using log4net;
+using log4net.Config;
 using Microsoft.Extensions.Configuration;
 using Sentry;
+using System.IO;
+using System.Reflection;
 
 namespace HUDEdit;
 
 public partial class App : Application
 {
+    public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
     public static IConfiguration Config { get; private set; }
 
     public override void Initialize()
@@ -41,6 +46,11 @@ public partial class App : Application
             // When configuring for the first time, to see what the SDK is doing:
             o.Debug = true;
         });
+
+        // Set the logger
+        XmlConfigurator.Configure(LogManager.GetRepository(Assembly.GetEntryAssembly()), new FileInfo("log4net.config"));
+        Logger.Info("=======================================================");
+        Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
     }
 
     private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
