@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using WPFLocalizeExtension.Engine;
 
 namespace HUDEditor
@@ -16,6 +17,14 @@ namespace HUDEditor
         public SettingsWindow()
         {
             InitializeComponent();
+
+            // Load the country flags
+            ImgLocalizeEn.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/us.png"));
+            ImgLocalizeFr.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/fr.png"));
+            ImgLocalizeRu.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/ru.png"));
+            ImgLocalizeBr.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/br.png"));
+            ImgLocalizeIt.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/it.png"));
+            ImgLocalizeCn.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/cn.png"));
 
             // Check for user selected settings.
             BtnAutoUpdate.IsChecked = Settings.Default.app_update_auto;
@@ -37,7 +46,7 @@ namespace HUDEditor
                 LocalizeDictionary.Instance.Culture = new CultureInfo("pt-BR");
             else if (BtnLocalizeIt.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("it");
-            else if (BtnLocalizeChs.IsChecked == true)
+            else if (BtnLocalizeCn.IsChecked == true)
                 LocalizeDictionary.Instance.Culture = new CultureInfo("zh-CN");
 
             // Save language preference to user settings.
