@@ -1,10 +1,9 @@
-﻿namespace HUDEditor.Models
+﻿namespace HUDEditor.Models;
+
+public enum Preset
 {
-    public enum Preset
-    {
-        A,
-        B,
-        C,
-        D
-    }
+    A,
+    B,
+    C,
+    D
 }

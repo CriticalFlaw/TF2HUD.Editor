@@ -7,58 +7,49 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Windows;
 using System.Windows.Threading;
 using WPFLocalizeExtension.Engine;
 
-namespace HUDEditor
+namespace HUDEditor;
+
+/// <summary>
+///     Interaction logic for App.xaml
+/// </summary>
+public partial class App
 {
-    /// <summary>
-    ///     Interaction logic for App.xaml
-    /// </summary>
-    public partial class App
+    public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+    public static IConfiguration Config { get; private set; }
+
+    private App()
     {
-        public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
-        public static IConfiguration Config { get; private set; }
+        // Load configuration from appconfig.json
+        Config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .Build();
 
-        private App()
+        DispatcherUnhandledException += App_DispatcherUnhandledException;
+        SentrySdk.Init(o =>
         {
-            // Load configuration from appconfig.json
-            Config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
+            // Tells which project in Sentry to send events to:
+            o.Dsn = Config["Sentry:Dsn"];
+            // When configuring for the first time, to see what the SDK is doing:
+            o.Debug = true;
+        });
 
-            DispatcherUnhandledException += App_DispatcherUnhandledException;
-            SentrySdk.Init(o =>
-            {
-                // Tells which project in Sentry to send events to:
-                o.Dsn = Config["Sentry:Dsn"];
-                // When configuring for the first time, to see what the SDK is doing:
-                o.Debug = true;
-            });
+        // Set the logger
+        XmlConfigurator.Configure(new FileInfo(Path.Combine(AppContext.BaseDirectory, "log4net.config")));
+        Logger.Info("=======================================================");
+        Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
 
-            // Set the logger
-            XmlConfigurator.Configure(new FileInfo(Path.Combine(AppContext.BaseDirectory, "log4net.config")));
-            Logger.Info("=======================================================");
-            Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
+        // Set the language
+        LocalizeDictionary.Instance.Culture = new CultureInfo(Settings.Default.user_language);
+    }
 
-            // Set the language
-            LocalizeDictionary.Instance.Culture = new CultureInfo(Settings.Default.user_language);
-        }
+    private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        SentrySdk.CaptureException(e.Exception);
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            var repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
-            XmlConfigurator.Configure(repository, new FileInfo("log4net.config"));
-            base.OnStartup(e);
-        }
-
-        private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-        {
-            SentrySdk.CaptureException(e.Exception);
-
-            // If you want to avoid the application from crashing:
-            e.Handled = true;
-        }
+        // If you want to avoid the application from crashing:
+        e.Handled = true;
     }
 }
