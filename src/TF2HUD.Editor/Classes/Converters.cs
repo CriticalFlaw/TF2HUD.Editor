@@ -144,18 +144,18 @@ namespace HUDEditor.Classes
             var hud = (HUD)value;
             if (hud is not null)
             {
-                MainWindow.Logger.Info($"User selected: {hud.Name}");
+                App.Logger.Info($"User selected: {hud.Name}");
                 if (Directory.Exists($"{Settings.Default.hud_directory}\\{hud.Name}"))
                 {
-                    MainWindow.Logger.Info($"{hud.Name} is installed");
+                    App.Logger.Info($"{hud.Name} is installed");
                     return Utilities.GetLocalizedString("ui_reinstall") ?? "Reinstall";
                 }
 
-                MainWindow.Logger.Warn($"{hud.Name} is not installed");
+                App.Logger.Warn($"{hud.Name} is not installed");
                 return Utilities.GetLocalizedString("ui_install") ?? "Install";
             }
 
-            MainWindow.Logger.Warn("User selected HUD is null. Returning to the main menu");
+            App.Logger.Warn("User selected HUD is null. Returning to the main menu");
             return Utilities.GetLocalizedString("ui_install") ?? "Install";
         }
 

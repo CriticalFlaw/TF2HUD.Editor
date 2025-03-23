@@ -56,7 +56,7 @@ namespace HUDEditor.Classes
         /// <param name="index">Line number to which to add a comment tag.</param>
         public static string CommentTextLine(string[] lines, int index)
         {
-            MainWindow.Logger.Info($"Commenting line {index}");
+            App.Logger.Info($"Commenting line {index}");
             return string.Concat("//", lines[index].Replace("//", string.Empty));
         }
 
@@ -67,7 +67,7 @@ namespace HUDEditor.Classes
         /// <param name="index">Line number from which to remove a comment tag.</param>
         public static string UncommentTextLine(string[] lines, int index)
         {
-            MainWindow.Logger.Info($"Uncommenting line {index}");
+            App.Logger.Info($"Uncommenting line {index}");
             return lines[index].Replace("//", string.Empty);
         }
 
@@ -93,7 +93,7 @@ namespace HUDEditor.Classes
         public static string ConvertToRgba(string hex)
         {
             var color = ColorTranslator.FromHtml(hex);
-            MainWindow.Logger.Info($"Converting {hex} to {color}");
+            App.Logger.Info($"Converting {hex} to {color}");
             return $"{color.R} {color.G} {color.B} {color.A}";
         }
 
@@ -173,7 +173,7 @@ namespace HUDEditor.Classes
         public static void OpenWebpage(string url)
         {
             if (string.IsNullOrWhiteSpace(url)) return;
-            MainWindow.Logger.Info($"Opening URL: {url}");
+            App.Logger.Info($"Opening URL: {url}");
             Process.Start("explorer", url);
         }
 
@@ -225,7 +225,7 @@ namespace HUDEditor.Classes
                 var pathTF = path + "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
                 if (Directory.Exists(pathTF))
                 {
-                    MainWindow.Logger.Info($"Set target directory to: {pathTF.Replace("\\\\", "\\")}");
+                    App.Logger.Info($"Set target directory to: {pathTF.Replace("\\\\", "\\")}");
                     Settings.Default.hud_directory = pathTF;
                     Settings.Default.Save();
                     return true;
@@ -291,7 +291,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e);
+                App.Logger.Error(e);
                 Console.WriteLine(e);
                 throw;
             }
@@ -318,7 +318,7 @@ namespace HUDEditor.Classes
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e);
+                App.Logger.Error(e);
                 Console.WriteLine(e);
                 throw;
             }

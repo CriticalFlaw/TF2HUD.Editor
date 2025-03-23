@@ -50,7 +50,7 @@ namespace HUDEditor.ViewModels
 
                 Page?.Dispose();
                 Page = _selectedHud != null ? new EditHUDViewModel(this, SelectedHud) : new HomePageViewModel(this, HUDList);
-                MainWindow.Logger.Info($"Changing page view to: {(_selectedHud?.Name ?? "Home")}");
+                App.Logger.Info($"Changing page view to: {(_selectedHud?.Name ?? "Home")}");
 
                 Settings.Default.hud_selected = SelectedHud?.Name ?? string.Empty;
                 Settings.Default.Save();
@@ -149,7 +149,7 @@ namespace HUDEditor.ViewModels
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e.Message);
+                App.Logger.Error(e.Message);
                 Console.WriteLine(e);
             }
         }
@@ -209,7 +209,7 @@ namespace HUDEditor.ViewModels
                 {
                     if (Directory.Exists($"{MainWindow.HudPath}\\{x.Name.ToLowerInvariant()}"))
                     {
-                        MainWindow.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {MainWindow.HudPath}");
+                        App.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {MainWindow.HudPath}");
                         Directory.Delete($"{MainWindow.HudPath}\\{x.Name.ToLowerInvariant()}", true);
                     }
                 }
@@ -228,7 +228,7 @@ namespace HUDEditor.ViewModels
                 }
 
                 // Retrieve the HUD object, then download and extract it into the tf/custom directory.
-                MainWindow.Logger.Info($"Downloading {SelectedHud.Name} from {download.Link}");
+                App.Logger.Info($"Downloading {SelectedHud.Name} from {download.Link}");
                 HttpClient client = new();
                 client.DefaultRequestHeaders.Add("User-Agent", "request");
 
@@ -268,7 +268,7 @@ namespace HUDEditor.ViewModels
                 // Install Crosshairs
                 if (SelectedHud.InstallCrosshairs)
                 {
-                    MainWindow.Logger.Info($"Installing crosshairs to {SelectedHud.Name}");
+                    App.Logger.Info($"Installing crosshairs to {SelectedHud.Name}");
                     await Utilities.InstallCrosshairs($"{MainWindow.HudPath}\\{SelectedHud.Name}");
                 }
 
@@ -317,7 +317,7 @@ namespace HUDEditor.ViewModels
                 if (Utilities.CheckIsGameRunning()) return;
 
                 // Remove the HUD from the tf/custom directory.
-                MainWindow.Logger.Info($"Removing {SelectedHud.Name} from {MainWindow.HudPath}");
+                App.Logger.Info($"Removing {SelectedHud.Name} from {MainWindow.HudPath}");
                 if (SelectedHud.Name != "") Directory.Delete($"{MainWindow.HudPath}\\{SelectedHud.Name}", true);
 
                 OnPropertyChanged(nameof(HighlightedHud));
@@ -346,8 +346,8 @@ namespace HUDEditor.ViewModels
                 if (MainWindow.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
             }
 
-            MainWindow.Logger.Info("------");
-            MainWindow.Logger.Info("Applying user settings");
+            App.Logger.Info("------");
+            App.Logger.Info("Applying user settings");
             selection.Settings.SaveSettings();
             selection.ApplyCustomizations();
             selection.DirtyControls.Clear();
@@ -364,8 +364,8 @@ namespace HUDEditor.ViewModels
             // Ask the user if they want to reset before doing so.
             if (MainWindow.ShowMessageBox(MessageBoxImage.Question, Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
-            MainWindow.Logger.Info("------");
-            MainWindow.Logger.Info("Resetting user settings");
+            App.Logger.Info("------");
+            App.Logger.Info("Resetting user settings");
             var selection = SelectedHud;
             selection.ResetAll();
             selection.Settings.SaveSettings();
@@ -380,7 +380,7 @@ namespace HUDEditor.ViewModels
         [RelayCommand]
         public void BtnSwitch_Click()
         {
-            MainWindow.Logger.Info("Changing page view to: main menu");
+            App.Logger.Info("Changing page view to: main menu");
             HighlightedHud = null;
             SelectedHud = null;
         }
@@ -473,7 +473,7 @@ namespace HUDEditor.ViewModels
                         fileChanged = remoteFile.SHA != Utilities.GitHash(localFilePath);
 
                     if (!newFile && !fileChanged) continue;
-                    MainWindow.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
+                    App.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
                     downloads.Add(Utilities.DownloadFile(remoteFile.Download, localFilePath));
                 }
 
@@ -482,7 +482,7 @@ namespace HUDEditor.ViewModels
                 {
                     if (remoteFiles.Count((x) => x.Name == localFile.Name) != 0) continue;
                     File.Delete(localFile.FullName);
-                    MainWindow.Logger.Info($"Removed {localFile.Name}");
+                    App.Logger.Info($"Removed {localFile.Name}");
                 }
 
                 await Task.WhenAll(downloads);
@@ -490,7 +490,7 @@ namespace HUDEditor.ViewModels
             }
             catch (Exception e)
             {
-                MainWindow.Logger.Error(e.Message);
+                App.Logger.Error(e.Message);
                 Console.WriteLine(e);
                 return false;
             }
@@ -510,7 +510,7 @@ namespace HUDEditor.ViewModels
                     var backgroundSelection = backgrounds.FirstOrDefault(background => File.Exists($"{consoleFolder}\\background_{background}_widescreen.vtf"));
                     if (backgroundSelection is null) return backgroundSelection;
 
-                    MainWindow.Logger.Info($"Found background file background_{backgroundSelection}_widescreen.vtf");
+                    App.Logger.Info($"Found background file background_{backgroundSelection}_widescreen.vtf");
                     var inputPath = $"{consoleFolder}\\background_{backgroundSelection}_widescreen.vtf";
                     var outputPathTga = $"{consoleFolder}\\output.tga";
                     var outputPath = $"{hudDetailsFolder}\\output";
@@ -529,7 +529,7 @@ namespace HUDEditor.ViewModels
                     };
                     var process = Process.Start(processInfo);
                     while (!process.StandardOutput.EndOfStream)
-                        MainWindow.Logger.Info(process.StandardOutput.ReadLine());
+                        App.Logger.Info(process.StandardOutput.ReadLine());
                     process.WaitForExit();
                     process.Close();
 

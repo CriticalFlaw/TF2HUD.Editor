@@ -14,8 +14,16 @@ namespace HUDEditor
     /// </summary>
     public partial class App
     {
+        public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+
         private App()
         {
+            // Set the logger
+            XmlConfigurator.Configure(LogManager.GetRepository(Assembly.GetEntryAssembly()), new FileInfo("log4net.config"));
+            Logger.Info("=======================================================");
+            Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
+
+            // Set the language
             LocalizeDictionary.Instance.Culture = new CultureInfo(Settings.Default.user_language);
         }
 

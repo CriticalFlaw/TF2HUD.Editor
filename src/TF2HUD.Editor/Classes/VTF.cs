@@ -108,7 +108,7 @@ namespace HUDEditor.Classes
                 RedirectStandardOutput = true
             };
             var process = Process.Start(processInfo);
-            while (!process.StandardOutput.EndOfStream) MainWindow.Logger.Info(process.StandardOutput.ReadLine());
+            while (!process.StandardOutput.EndOfStream) App.Logger.Info(process.StandardOutput.ReadLine());
             process.WaitForExit();
             process.Close();
             process.Dispose();

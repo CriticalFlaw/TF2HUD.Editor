@@ -28,15 +28,9 @@ namespace HUDEditor
     {
         public static string HudSelection = Settings.Default.hud_selected;
         public static string HudPath = Settings.Default.hud_directory;
-        public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
 
         public MainWindow()
         {
-            // Initialize the logger
-            XmlConfigurator.Configure(LogManager.GetRepository(Assembly.GetEntryAssembly()), new FileInfo("log4net.config"));
-            Logger.Info("=======================================================");
-            Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
-
             // Initialize the main window
             InitializeComponent();
             var mainWindowViewModel = new MainWindowViewModel();
@@ -67,7 +61,7 @@ namespace HUDEditor
             if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
 
             // Display a folder browser, ask the user to provide the tf/custom directory.
-            Logger.Info("Target directory not set. Asking user to provide it.");
+            App.Logger.Info("Target directory not set. Asking user to provide it.");
             using (var browser = new FolderBrowserDialog
             {
                 Description = Properties.Resources.info_path_browser,
@@ -85,7 +79,7 @@ namespace HUDEditor
                             Settings.Default.hud_directory = browser.SelectedPath;
                             Settings.Default.Save();
                             HudPath = Settings.Default.hud_directory;
-                            Logger.Info("Target directory set to: " + Settings.Default.hud_directory);
+                            App.Logger.Info("Target directory set to: " + Settings.Default.hud_directory);
                         }
                         else
                         {
@@ -101,7 +95,7 @@ namespace HUDEditor
 
             // Check one more time if a valid directory has been set.
             if (Utilities.CheckUserPath(HudPath)) return;
-            Logger.Info("Target directory still not set. Closing.");
+            App.Logger.Info("Target directory still not set. Closing.");
             ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString("error_app_directory"));
             Application.Current.Shutdown();
         }
@@ -114,11 +108,11 @@ namespace HUDEditor
             switch (type)
             {
                 case MessageBoxImage.Error:
-                    Logger.Error(message);
+                    App.Logger.Error(message);
                     break;
 
                 case MessageBoxImage.Warning:
-                    Logger.Warn(message);
+                    App.Logger.Warn(message);
                     break;
             }
 
@@ -163,7 +157,7 @@ namespace HUDEditor
                         fileChanged = remoteFile.SHA != Utilities.GitHash(localFilePath);
 
                     if (!newFile && !fileChanged) continue;
-                    Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
+                    App.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
                     downloads.Add(Utilities.DownloadFile(remoteFile.Download, localFilePath));
                 }
 
@@ -172,7 +166,7 @@ namespace HUDEditor
                 {
                     if (remoteFiles.Count((x) => x.Name == localFile.Name) == 0)
                     {
-                        Logger.Info($"Deleting {localFile.Name}");
+                        App.Logger.Info($"Deleting {localFile.Name}");
                         File.Delete(localFile.FullName);
                     }
                 }
@@ -192,7 +186,7 @@ namespace HUDEditor
             }
             catch (Exception e)
             {
-                Logger.Error(e.Message);
+                App.Logger.Error(e.Message);
                 Console.WriteLine(e);
             }
             finally
@@ -210,17 +204,17 @@ namespace HUDEditor
             {
                 string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, 3);
                 var latestVersion = await new GitHubClient(new ProductHeaderValue("TF2HUD.Editor")).Repository.Release.GetLatest("CriticalFlaw", "TF2HUD.Editor");
-                Logger.Info($"Checking for app update. Latest version is {latestVersion.TagName}");
+                App.Logger.Info($"Checking for app update. Latest version is {latestVersion.TagName}");
 
                 if (appVersion.Equals(latestVersion.TagName)) return;
-                Logger.Info($"Update available from {appVersion} -> {latestVersion.TagName}");
+                App.Logger.Info($"Update available from {appVersion} -> {latestVersion.TagName}");
                 if (ShowMessageBox(MessageBoxImage.Information, Properties.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 Utilities.OpenWebpage(Settings.Default.app_update);
 
             }
             catch (Exception e)
             {
-                Logger.Error(e.Message);
+                App.Logger.Error(e.Message);
                 Console.WriteLine(e);
             }
         }

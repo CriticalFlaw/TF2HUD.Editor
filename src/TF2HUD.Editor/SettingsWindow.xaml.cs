@@ -56,7 +56,7 @@ namespace HUDEditor
 
         private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
         {
-            MainWindow.Logger.Info("Attempting to change the target directory.");
+            App.Logger.Info("Attempting to change the target directory.");
             MainWindow.SetupDirectory(true);
         }
 
