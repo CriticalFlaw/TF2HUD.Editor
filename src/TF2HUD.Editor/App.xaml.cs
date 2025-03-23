@@ -3,6 +3,7 @@ using log4net;
 using log4net.Config;
 using Microsoft.Extensions.Configuration;
 using Sentry;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -37,7 +38,7 @@ namespace HUDEditor
             });
 
             // Set the logger
-            XmlConfigurator.Configure(LogManager.GetRepository(Assembly.GetEntryAssembly()), new FileInfo("log4net.config"));
+            XmlConfigurator.Configure(new FileInfo(Path.Combine(AppContext.BaseDirectory, "log4net.config")));
             Logger.Info("=======================================================");
             Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
 
