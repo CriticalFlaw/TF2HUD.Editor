@@ -425,6 +425,5 @@ FodyWeavers.xsd
 .docusaurus
 build
 node_modules
-src/HUDEdit/appsettings.json
-src/TF2HUD.Editor/appsettings.json
-src/Shared/appsettings.json
+
+src/Shared/secrets.json
