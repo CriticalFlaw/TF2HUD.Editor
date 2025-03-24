@@ -1,0 +1,95 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:HUDEdit.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="HUDEdit.Views.MainWindow"
+			 x:DataType="vm:MainWindowViewModel">
+
+	<!--<UserControl.Resources>
+		<classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
+		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
+		<classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
+		<classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
+		<classes:NullCheckConverter x:Key="NullCheckConverter" />
+		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+		<classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
+	</UserControl.Resources>
+	<Grid Background="{Binding SelectedHud, Converter={StaticResource PageBackgroundConverter}}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="auto" />
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0">
+			<Grid.Resources>
+				<DataTemplate DataType="{x:Type viewmodels:HomePageViewModel}">
+					<local:HomePageView />
+				</DataTemplate>
+				<DataTemplate DataType="{x:Type viewmodels:EditHUDViewModel}">
+					<local:EditHUDView />
+				</DataTemplate>
+			</Grid.Resources>
+			<ContentControl Content="{Binding Page}" />
+		</Grid>
+		<GroupBox
+            Header="{lex:Loc ui_options}"
+            Grid.Row="1"
+            Margin="10,0,10,10">
+			<WrapPanel HorizontalAlignment="Center">
+				<Button
+                    Command="{Binding BtnInstall_ClickCommand}"
+                    Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}"
+                    Style="{StaticResource HudButton}"
+                    IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}" />
+				<Button
+                    Command="{Binding BtnUninstall_ClickCommand}"
+                    Content="{lex:Loc ui_uninstall}"
+                    Style="{StaticResource HudButton}"
+                    IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}" />
+				<Button
+                    Command="{Binding BtnSave_ClickCommand}"
+                    Content="{lex:Loc ui_apply}"
+                    Style="{StaticResource HudButton}"
+                    IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}" />
+				<Button
+                    Command="{Binding BtnReset_ClickCommand}"
+                    Content="{lex:Loc ui_reset}"
+                    Style="{StaticResource HudButton}"
+                    IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}" />
+				<Button
+                    Command="{Binding BtnSwitch_ClickCommand}"
+                    Content="{lex:Loc ui_switch}"
+                    Style="{StaticResource HudButton}"
+                    IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}" />
+				<Button
+                    Command="{Binding BtnSettings_ClickCommand}"
+                    Content="="
+                    ToolTip="{lex:Loc tooltip_options}"
+                    Style="{StaticResource LinkButton}" />
+				<Button
+                    Command="{Binding BtnReportIssue_ClickCommand}"
+                    Content="&#x03C6;"
+                    ToolTip="{lex:Loc tooltip_report}"
+                    Style="{StaticResource LinkButton}" />
+				<Button
+                    Command="{Binding BtnDocumentation_ClickCommand}"
+                    Content="&#x0235;"
+                    ToolTip="{lex:Loc tooltip_docs}"
+                    Style="{StaticResource LinkButton}" />
+				<Button
+                    Command="{Binding BtnPlayTF2_ClickCommand}"
+                    Content="!"
+                    ToolTip="{lex:Loc tooltip_launch}"
+                    Style="{StaticResource LinkButton}"
+                    Visibility="{Binding SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}" />
+				<Button
+                    Command="{Binding BtnAddSharedHUD_ClickCommand}"
+                    Content="&#x0583;"
+                    Style="{StaticResource LinkButton}"
+                    ToolTip="{lex:Loc tooltip_addhud}"
+                    Visibility="{Binding SelectedHud, Converter={StaticResource NotNullCheckConverterVisibility}}" />
+			</WrapPanel>
+		</GroupBox>
+	</Grid>-->
+</UserControl>

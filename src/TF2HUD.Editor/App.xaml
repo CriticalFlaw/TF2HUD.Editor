@@ -5,14 +5,10 @@
              StartupUri="MainWindow.xaml">
 
     <Application.Resources>
-        <Setter x:Key="Tf2Build" Property="TextElement.FontFamily"
-                Value="../Resources/Fonts/TF2Build.ttf #TF2 Build" />
-        <Setter x:Key="Tf2Secondary" Property="TextElement.FontFamily"
-                Value="../Resources/Fonts/TF2Secondary.ttf #TF2 Secondary" />
-        <Setter x:Key="Tf2Icons" Property="TextElement.FontFamily"
-                Value="../Resources/Fonts/Icons.ttf #Hypnotize Icons Master" />
-        <Setter x:Key="Tf2Crosshairs" Property="TextElement.FontFamily"
-                Value="../Resources/Fonts/Crosshairs.ttf #TF2Crosshairs" />
+        <Setter x:Key="Tf2Build" Property="TextElement.FontFamily" Value="../Resources/Fonts/TF2Build.ttf #TF2 Build" />
+        <Setter x:Key="Tf2Secondary" Property="TextElement.FontFamily" Value="../Resources/Fonts/TF2Secondary.ttf #TF2 Secondary" />
+        <Setter x:Key="Tf2Icons" Property="TextElement.FontFamily" Value="../Resources/Fonts/Icons.ttf #Hypnotize Icons Master" />
+        <Setter x:Key="Tf2Crosshairs" Property="TextElement.FontFamily" Value="../Resources/Fonts/Crosshairs.ttf #TF2Crosshairs" />
 
         <Style TargetType="Label">
             <Setter Property="HorizontalAlignment" Value="Left" />

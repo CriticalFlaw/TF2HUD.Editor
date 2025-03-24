@@ -4,6 +4,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="HUDEdit.MainWindow"
+		Icon="/Assets/Images/favicon.ico"
         Title="TF2 HUD Editor">
-    Welcome to Avalonia!
+	<TextBlock Classes="BodyText">Welcome to Avalonia!</TextBlock>
+
+	<!--<WindowChrome.WindowChrome>
+		<WindowChrome CaptionHeight="0"/>
+	</WindowChrome.WindowChrome>
+
+	<Border BorderThickness="2" CornerRadius="10" Background="#2B2724" BorderBrush="#2B2724">
+		<Grid>
+			--><!-- Custom Title Bar --><!--
+			<Border Background="#211e1c" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top" MouseDown="TitleBar_MouseDown">
+				<Grid>
+					<Image Source="../Resources/Images/favicon.ico" Height="20" HorizontalAlignment="Left" Margin="5"/>
+					<TextBlock Text="{lex:Loc ui_title}" VerticalAlignment="Center" Margin="30,0,0,0" Foreground="#EBE2CA" FontFamily="../Resources/Fonts/TF2Build.ttf #TF2 Build" FontSize="16px" />
+					<Button Content="_" HorizontalAlignment="Right" Margin="0,0,60,0" Width="30" Height="30" Click="Minimize_Click"  FontFamily="../Resources/Fonts/TF2Build.ttf #TF2 Build" />
+					<Button Content="&#9744;" HorizontalAlignment="Right" Margin="0,0,30,0" Width="30" Height="30" Click="Maximize_Click"  FontFamily="../Resources/Fonts/TF2Build.ttf #TF2 Build" />
+					<Button Content="X" HorizontalAlignment="Right" Width="30" Height="30" Click="CloseButton_Click" FontFamily="../Resources/Fonts/TF2Build.ttf #TF2 Build" />
+				</Grid>
+			</Border>
+
+			--><!-- Main Content Area --><!--
+			<Grid Margin="0,30,0,0">
+				<views:MainWindowView />
+			</Grid>
+		</Grid>
+	</Border>-->
 </Window>
