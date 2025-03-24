@@ -2,24 +2,23 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace HUDEditor.ViewModels
+namespace HUDEditor.ViewModels;
+
+public class ViewModelBase : INotifyPropertyChanged, IDisposable
 {
-    public class ViewModelBase : INotifyPropertyChanged, IDisposable
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    /// <summary>
+    /// Invokes a WPF Binding update of a property.
+    /// </summary>
+    /// <param name="propertyName">Name of property to update</param>
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
-        /// <summary>
-        /// Invokes a WPF Binding update of a property.
-        /// </summary>
-        /// <param name="propertyName">Name of property to update</param>
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    public virtual void Dispose()
+    {
 
-        public virtual void Dispose()
-        {
-
-        }
     }
 }

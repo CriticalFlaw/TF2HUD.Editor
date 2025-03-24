@@ -9,8 +9,8 @@
     <Import_RootNamespace>Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="$(MSBuildThisFileDirectory)secrets.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)JSON\berryhud.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -68,6 +68,17 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Resources.zh-CN.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Controls.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Download.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\GitJson.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\HudAnimation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\HudJson.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Links.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Option.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Preset.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\RenameFile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Setting.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\UserJson.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>

@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using HUDEditor.Models;
+using Shared.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

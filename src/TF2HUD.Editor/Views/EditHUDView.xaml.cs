@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace HUDEditor.Views
+namespace HUDEditor.Views;
+
+/// <summary>
+///     Interaction logic for EditHUDView.xaml
+/// </summary>
+public partial class EditHUDView : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for EditHUDView.xaml
-    /// </summary>
-    public partial class EditHUDView : UserControl
+    public EditHUDView()
     {
-        public EditHUDView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

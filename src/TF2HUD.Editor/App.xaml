@@ -12,7 +12,7 @@
         <Setter x:Key="Tf2Icons" Property="TextElement.FontFamily"
                 Value="../Resources/Fonts/Icons.ttf #Hypnotize Icons Master" />
         <Setter x:Key="Tf2Crosshairs" Property="TextElement.FontFamily"
-                Value="../Resources/Fonts/TF2Crosshairs.ttf #TF2Crosshairs" />
+                Value="../Resources/Fonts/Crosshairs.ttf #TF2Crosshairs" />
 
         <Style TargetType="Label">
             <Setter Property="HorizontalAlignment" Value="Left" />

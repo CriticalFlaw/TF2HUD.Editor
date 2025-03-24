@@ -2,7 +2,7 @@
 using System.Windows;
 using Newtonsoft.Json.Linq;
 
-namespace HUDEditor.Models;
+namespace Shared.Models;
 
 public class Controls
 {

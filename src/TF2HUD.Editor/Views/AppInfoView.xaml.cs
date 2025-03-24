@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace HUDEditor.Views
+namespace HUDEditor.Views;
+
+/// <summary>
+///     Interaction logic for AppInfoView.xaml
+/// </summary>
+public partial class AppInfoView : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for AppInfoView.xaml
-    /// </summary>
-    public partial class AppInfoView : UserControl
+    public AppInfoView()
     {
-        public AppInfoView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,41 +1,40 @@
 ﻿using System.ComponentModel;
-using HUDEditor.Models;
+using Shared.Models;
 
-namespace HUDEditor.ViewModels
+namespace HUDEditor.ViewModels;
+
+public class PresetViewModel : ViewModelBase
 {
-    public class PresetViewModel : ViewModelBase
+    private readonly EditHUDViewModel _editHudViewModel;
+    public Preset Preset { get; }
+
+    private bool _selected;
+    public bool Selected
     {
-        private readonly EditHUDViewModel _editHudViewModel;
-        public Preset Preset { get; }
-
-        private bool _selected;
-        public bool Selected
+        get => _selected;
+        set
         {
-            get => _selected;
-            set
-            {
-                _selected = value;
-                OnPropertyChanged(nameof(Selected));
-            }
+            _selected = value;
+            OnPropertyChanged(nameof(Selected));
         }
+    }
 
-        public PresetViewModel(EditHUDViewModel editHudViewModel, Preset preset)
-        {
-            _editHudViewModel = editHudViewModel;
-            Preset = preset;
-            _selected = editHudViewModel.SelectedPreset == preset;
-            _editHudViewModel.PropertyChanged += EditHUDViewModelPropertyChanged;
-        }
+    public PresetViewModel(EditHUDViewModel editHudViewModel, Preset preset)
+    {
+        _editHudViewModel = editHudViewModel;
+        Preset = preset;
+        _selected = editHudViewModel.SelectedPreset == preset;
+        _editHudViewModel.PropertyChanged += EditHUDViewModelPropertyChanged;
+    }
 
-        private void EditHUDViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(EditHUDViewModel.SelectedPreset))
-                Selected = _editHudViewModel.SelectedPreset == Preset;
-        }
+    private void EditHUDViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(EditHUDViewModel.SelectedPreset))
+            Selected = _editHudViewModel.SelectedPreset == Preset;
+    }
 
-        public override void Dispose()
-        {
-            _editHudViewModel.PropertyChanged -= EditHUDViewModelPropertyChanged;
-        }
+    public override void Dispose()
+    {
+        _editHudViewModel.PropertyChanged -= EditHUDViewModelPropertyChanged;
     }
 }

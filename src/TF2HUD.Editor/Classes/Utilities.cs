@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using HUDEditor.Models;
+using Shared.Models;
 using HUDEditor.Properties;
 using Microsoft.Win32;
 using WPFLocalizeExtension.Extensions;

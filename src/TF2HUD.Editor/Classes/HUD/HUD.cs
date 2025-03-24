@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using HUDEditor.Models;
+using Shared.Models;
 using Xceed.Wpf.Toolkit;
 using static HUDEditor.MainWindow;
 

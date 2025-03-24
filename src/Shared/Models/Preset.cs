@@ -1,4 +1,4 @@
-﻿namespace HUDEditor.Models;
+﻿namespace Shared.Models;
 
 public enum Preset
 {

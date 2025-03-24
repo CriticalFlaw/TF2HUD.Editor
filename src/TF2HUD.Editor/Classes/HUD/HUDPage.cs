@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using HUDEditor.Models;
+using Shared.Models;
 using HUDEditor.Properties;
 using Xceed.Wpf.Toolkit;
 using Application = System.Windows.Application;
