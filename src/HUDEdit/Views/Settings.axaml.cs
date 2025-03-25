@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Media.Imaging;
 
 namespace HUDEdit.Views;
 
@@ -7,25 +8,21 @@ public partial class Settings : Window
     public Settings()
     {
         InitializeComponent();
-    }
-
-    /*public SettingsWindow()
-    {
-        InitializeComponent();
 
         // Load the country flags
-        ImgLocalizeEn.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/us.png"));
-        ImgLocalizeFr.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/fr.png"));
-        ImgLocalizeRu.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/ru.png"));
-        ImgLocalizeBr.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/br.png"));
-        ImgLocalizeIt.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/it.png"));
-        ImgLocalizeCn.Source = new BitmapImage(new Uri("https://flagcdn.com/w320/cn.png"));
+        ImgLocalizeEn.Source = new Bitmap("https://flagcdn.com/w320/us.png");
+        ImgLocalizeFr.Source = new Bitmap("https://flagcdn.com/w320/fr.png");
+        ImgLocalizeRu.Source = new Bitmap("https://flagcdn.com/w320/ru.png");
+        ImgLocalizeBr.Source = new Bitmap("https://flagcdn.com/w320/br.png");
+        ImgLocalizeIt.Source = new Bitmap("https://flagcdn.com/w320/it.png");
+        ImgLocalizeCn.Source = new Bitmap("https://flagcdn.com/w320/cn.png");
 
         // Check for user selected settings.
-        BtnAutoUpdate.IsChecked = Settings.Default.app_update_auto;
-        BtnPersistXhair.IsChecked = Settings.Default.app_xhair_persist;
+        //BtnAutoUpdate.IsChecked = Settings.Default.app_update_auto;
+        //BtnPersistXhair.IsChecked = Settings.Default.app_xhair_persist;
     }
 
+    /*
     /// <summary>
     ///     Updates localization to the selected language.
     /// </summary>

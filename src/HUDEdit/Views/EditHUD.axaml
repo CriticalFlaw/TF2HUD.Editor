@@ -7,12 +7,14 @@
              x:Class="HUDEdit.Views.EditHUD"
 			 x:DataType="vm:EditHUDViewModel">
 
-	<!--<UserControl.Resources>
-		<classes:ComboBoxItemsConverterVisibility x:Key="ComboBoxItemsConverterVisibility" />
+	<UserControl.Resources>
+		<!--<classes:ComboBoxItemsConverterVisibility x:Key="ComboBoxItemsConverterVisibility" />
 		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
 		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
-		<classes:PresetSelectedStyleConverter x:Key="PresetSelectedStyleConverter" />
+		<classes:PresetSelectedStyleConverter x:Key="PresetSelectedStyleConverter" />-->
 	</UserControl.Resources>
+
+
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -24,8 +26,13 @@
 				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
-			<Label Content="{Binding Status}" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" />
+
+			<Label Content="Status" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0">
+				Status <!--Note: Add Content="{Binding Status}"-->
+			</Label>
+
 			<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+				<!--
 				<ItemsControl ItemsSource="{Binding Presets}">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
@@ -46,64 +53,40 @@
                             />
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
-				</ItemsControl>
+				</ItemsControl>-->
 			</Grid>
+
 			<WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2">
 				<WrapPanel VerticalAlignment="Center">
-					<Label
-                        Content="{lex:Loc ui_download}"
-                        Visibility="{Binding Visibility, ElementName=CbBranch}"
-                    />
-					<ComboBox
-                        Name="CbBranch"
-                        ItemsSource="{Binding Downloads}"
-                        SelectedItem="{Binding SelectedDownloadSource}"
-                        DisplayMemberPath="Content"
-                        Margin="5,0"
-                        Padding="5"
-                        Height="35"
-                        Width="160"
-                        Visibility="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}"
-                    />
+					<Label>
+						Download <!--Note: Add Content="{lex:Loc ui_download}" Visibility="{Binding Visibility, ElementName=CbBranch}"-->
+					</Label>
+					<ComboBox Name="CbBranch" Margin="5,0" Padding="5" Height="35" Width="160">
+						<!--Note: Add ItemsSource="{Binding Downloads}" SelectedItem="{Binding SelectedDownloadSource}" DisplayMemberPath="Content" Visibility="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}"-->
+					</ComboBox>
 				</WrapPanel>
-
+				
 				<WrapPanel Margin="0">
-					<Button
-                        Command="{Binding OpenWebpageCommand}"
-                        CommandParameter="{Binding GitHubUrl}"
-                        Style="{StaticResource GitHubButton}"
-                        Visibility="{Binding GitHubUrl, Converter={StaticResource LinkCheckConverterVisibility}}"
-                    />
-					<Button
-                        Command="{Binding OpenWebpageCommand}"
-                        CommandParameter="{Binding TF2HudsUrl}"
-                        Style="{StaticResource TF2HudsButton}"
-                        Visibility="{Binding TF2HudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
-						<Image Source="../Resources/Images/tf2huds.png" Margin="5"></Image>
+					<Button Classes="GitHubButton">
+						<!--Note: Add Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding GitHubUrl}" Visibility="{Binding GitHubUrl, Converter={StaticResource LinkCheckConverterVisibility}}"--> 
 					</Button>
-					<Button
-                        Command="{Binding OpenWebpageCommand}"
-                        CommandParameter="{Binding ComfigHudsUrl}"
-                        Style="{StaticResource ComfigHudsButton}"
-                        Visibility="{Binding ComfigHudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
-						<Image Source="../Resources/Images/mastercomfig.png" Margin="5"></Image>
+					<Button Classes="TF2HudsButton">
+						<!--Note: Add Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding TF2HudsUrl}" Visibility="{Binding TF2HudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}"-->
+						<Image Source="/Assets/Images/tf2huds.png" Margin="5"/>
 					</Button>
-					<Button
-                        Command="{Binding OpenWebpageCommand}"
-                        CommandParameter="{Binding DiscordUrl}"
-                        Style="{StaticResource DiscordButton}"
-                        Visibility="{Binding DiscordUrl, Converter={StaticResource LinkCheckConverterVisibility}}"
-                    />
-					<Button
-                        Command="{Binding OpenWebpageCommand}"
-                        CommandParameter="{Binding SteamUrl}"
-                        Style="{StaticResource SteamButton}"
-                        Visibility="{Binding SteamUrl, Converter={StaticResource LinkCheckConverterVisibility}}"
-                    />
-
+					<Button Classes="ComfigHudsButton">
+						<!--Note: Add Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding ComfigHudsUrl}" Visibility="{Binding ComfigHudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}"-->
+						<Image Source="/Assets/Images/mastercomfig.png" Margin="5"/>
+					</Button>
+					<Button Classes="DiscordButton">
+						<!--Note: Add Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding DiscordUrl}" Visibility="{Binding DiscordUrl, Converter={StaticResource LinkCheckConverterVisibility}}"-->
+					</Button>
+					<Button Classes="SteamButton">
+						<!--Note: Add Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding SteamUrl}" Visibility="{Binding SteamUrl, Converter={StaticResource LinkCheckConverterVisibility}}"-->
+					</Button>
 				</WrapPanel>
 			</WrapPanel>
 		</Grid>
-		<ContentControl Content="{Binding Content}" Grid.Row="1" />
-	</Grid>-->
+		<!--<ContentControl Content="{Binding Content}" Grid.Row="1" />-->
+	</Grid>
 </UserControl>
