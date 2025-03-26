@@ -132,6 +132,7 @@
 			<Setter Property="Margin" Value="5" />
 			<Setter Property="Padding" Value="5" />
 			<Setter Property="Cursor" Value="Hand" />
+			
 			<Style Selector="^:pointerover">
 				<Setter Property="BorderBrush" Value="LightGray"/>
 			</Style>
@@ -161,23 +162,24 @@
 			<Setter Property="Width" Value="170" />
 			<Setter Property="Height" Value="40" />
 			<Setter Property="Cursor" Value="Hand" />
-			<!--<Setter Property="Template">
+			
+			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate>
 						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="#934739" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter Property="Foreground" Value="#2B2724" />
-				</Trigger>
-			</Style.Triggers>-->
+			
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="#934739"/>
+			</Style>
+
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#2B2724"/>
+			</Style>
 		</Style>
 		
 		<Style Selector="Button.HudButtonSelected">
@@ -191,23 +193,24 @@
 			<Setter Property="Width" Value="170" />
 			<Setter Property="Height" Value="40" />
 			<Setter Property="Cursor" Value="Hand" />
-			<!--<Setter Property="Template">
+			
+			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate>
 						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="#DC6450" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter Property="Foreground" Value="#2B2724" />
-				</Trigger>
-			</Style.Triggers>-->
+			
+			<Style Selector="^:hover">
+				<Setter Property="Background" Value="#DC6450"/>
+			</Style>
+			
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#2B2724"/>
+			</Style>
 		</Style>
 		
 		<Style Selector="Button.SettingButton">
@@ -221,23 +224,23 @@
 			<Setter Property="Width" Value="263" />
 			<Setter Property="Height" Value="40" />
 			<Setter Property="Cursor" Value="Hand" />
-			<!--<Setter Property="Template">
+			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate>
 						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="#934739" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter Property="Foreground" Value="#2B2724" />
-				</Trigger>
-			</Style.Triggers>-->
+			
+			<Style Selector="^:hover">
+				<Setter Property="Background" Value="#934739"/>
+			</Style>
+			
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#2B2724"/>
+			</Style>
 		</Style>
 
 		<Style Selector="Button.LinkButton">
@@ -252,25 +255,26 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Margin" Value="5" />
 			<Setter Property="Cursor" Value="Hand" />
-			<!--<Setter Property="Template">
+			
+			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate>
 						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#934739" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter Property="Foreground" Value="#2B2724" />
-					<Setter Property="Background" Value="#776B5F" />
-				</Trigger>
-			</Style.Triggers>-->
+			
+			<Style Selector="^:hover">
+				<Setter Property="Foreground" Value="#FFFFFF"/>
+				<Setter Property="Background" Value="#934739"/>
+			</Style>
+			
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#2B2724"/>
+				<Setter Property="Background" Value="#776B5F"/>
+			</Style>
 		</Style>
 
 		<Style Selector="Button.SettingsButton">
@@ -286,25 +290,27 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Margin" Value="5" />
 			<Setter Property="Cursor" Value="Hand" />
-			<!--<Setter Property="Template">
+			
+			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate>
 						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+											  Foreground="{TemplateBinding Foreground}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#384452" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter Property="Foreground" Value="#2B2724" />
-					<Setter Property="Background" Value="#776B5F" />
-				</Trigger>
-			</Style.Triggers>-->
+			
+			<Style Selector="^:hover">
+				<Setter Property="Foreground" Value="#FFFFFF"/>
+				<Setter Property="Background" Value="#384452"/>
+			</Style>
+			
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#2B2724"/>
+				<Setter Property="Background" Value="#776B5F"/>
+			</Style>
 		</Style>
 		
 		<Style Selector="Button.GitHubButton">
@@ -320,25 +326,27 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Margin" Value="5" />
 			<Setter Property="Cursor" Value="Hand" />
-			<!--<Setter Property="Template">
+			
+			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate>
 						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+											  Foreground="{TemplateBinding Foreground}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#1D263B" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter Property="Foreground" Value="#2B2724" />
-					<Setter Property="Background" Value="#776B5F" />
-				</Trigger>
-			</Style.Triggers>-->
+			
+			<Style Selector="^:hover">
+				<Setter Property="Foreground" Value="#FFFFFF"/>
+				<Setter Property="Background" Value="#1D263B"/>
+			</Style>
+			
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#2B2724"/>
+				<Setter Property="Background" Value="#776B5F"/>
+			</Style>
 		</Style>
 
 		<Style Selector="Button.TF2HudsButton">
@@ -353,25 +361,27 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Margin" Value="5" />
 			<Setter Property="Cursor" Value="Hand" />
-			<!--<Setter Property="Template">
+			
+			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate>
 						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+											  Foreground="{TemplateBinding Foreground}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#222222" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter Property="Foreground" Value="#2B2724" />
-					<Setter Property="Background" Value="#776B5F" />
-				</Trigger>
-			</Style.Triggers>-->
+			
+			<Style Selector="^:hover">
+				<Setter Property="Foreground" Value="#FFFFFF"/>
+				<Setter Property="Background" Value="#222222"/>
+			</Style>
+			
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#2B2724"/>
+				<Setter Property="Background" Value="#776B5F"/>
+			</Style>
 		</Style>
 
 		<Style Selector="Button.ComfigHudsButton">
@@ -386,25 +396,27 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Margin" Value="5" />
 			<Setter Property="Cursor" Value="Hand" />
-			<!--<Setter Property="Template">
+			
+			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate>
 						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+											  Foreground="{TemplateBinding Foreground}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#2B5E56" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter Property="Foreground" Value="#2B2724" />
-					<Setter Property="Background" Value="#776B5F" />
-				</Trigger>
-			</Style.Triggers>-->
+			
+			<Style Selector="^:hover">
+				<Setter Property="Foreground" Value="#FFFFFF"/>
+				<Setter Property="Background" Value="#2B5E56"/>
+			</Style>
+			
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#2B2724"/>
+				<Setter Property="Background" Value="#776B5F"/>
+			</Style>
 		</Style>
 
 		<Style Selector="Button.DiscordButton">
@@ -420,25 +432,27 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Margin" Value="5" />
 			<Setter Property="Cursor" Value="Hand" />
-			<!--<Setter Property="Template">
+			
+			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate>
 						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+											  Foreground="{TemplateBinding Foreground}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#7B82D9" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter Property="Foreground" Value="#2B2724" />
-					<Setter Property="Background" Value="#776B5F" />
-				</Trigger>
-			</Style.Triggers>-->
+			
+			<Style Selector="^:hover">
+				<Setter Property="Foreground" Value="#FFFFFF"/>
+				<Setter Property="Background" Value="#7B82D9"/>
+			</Style>
+			
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#2B2724"/>
+				<Setter Property="Background" Value="#776B5F"/>
+			</Style>
 		</Style>
 
 		<Style Selector="Button.SteamButton">
@@ -454,25 +468,26 @@
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Margin" Value="5" />
 			<Setter Property="Cursor" Value="Hand" />
-			<!--<Setter Property="Template">
+			
+			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
+					<ControlTemplate>
 						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Foreground" Value="#FFFFFF" />
-					<Setter Property="Background" Value="#384452" />
-				</Trigger>
-				<Trigger Property="IsEnabled" Value="False">
-					<Setter Property="Foreground" Value="#2B2724" />
-					<Setter Property="Background" Value="#776B5F" />
-				</Trigger>
-			</Style.Triggers>-->
+			
+			<Style Selector="^:hover">
+				<Setter Property="Foreground" Value="#FFFFFF"/>
+				<Setter Property="Background" Value="#384452"/>
+			</Style>
+			
+			<Style Selector="^:disabled">
+				<Setter Property="Foreground" Value="#2B2724"/>
+				<Setter Property="Background" Value="#776B5F"/>
+			</Style>
 		</Style>
 
 		<Style Selector="Button.PreviewButton">
@@ -483,14 +498,10 @@
 			<Setter Property="Content" Value="&#x048A;" />
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="VerticalAlignment" Value="Top" />
-			<!--<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Foreground" Value="Black" />
-				</Trigger>
-				<Trigger Property="IsMouseOver" Value="False">
-					<Setter Property="Foreground" Value="White" />
-				</Trigger>
-			</Style.Triggers>-->
+
+			<Style Selector="^:hover">
+				<Setter Property="Foreground" Value="Black"/>
+			</Style>
 		</Style>
 
 		<Style Selector="Image.PreviewImage">
@@ -498,31 +509,29 @@
 			<Setter Property="Width" Value="600" />
 		</Style>
 		
-		<!--
-		<Style TargetType="x2:ColorPicker">
+		<Style Selector="ColorPicker">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="ColorMode" Value="ColorCanvas" />
-			<Setter Property="ShowRecentColors" Value="True" />
 			<Setter Property="Foreground" Value="Black" />
 			<Setter Property="Width" Value="150" />
+			<!--
+			<Setter Property="ColorMode" Value="ColorCanvas" />
+			<Setter Property="ShowRecentColors" Value="True" />
+			-->
 		</Style>
-		-->
-
-		<!--
-		<Style TargetType="x2:IntegerUpDown">
+		
+		<Style Selector="NumericUpDown">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="TextAlignment" Value="Center" />
 			<Setter Property="FormatString" Value="N0" />
 			<Setter Property="Increment" Value="1" />
 			<Setter Property="Width" Value="125" />
-			<Setter Property="AllowTextInput" Value="True" />
 		</Style>
-		-->
 
-		<!--
-		<Style x:Key="PreviewPanel" TargetType="x2:ChildWindow">
+		
+		<Style Selector="Flyout">
+			<!--
 			<Setter Property="WindowBackground" Value="Black" />
 			<Setter Property="CaptionForeground" Value="White" />
 			<Setter Property="Background" Value="Black" />
@@ -530,11 +539,10 @@
 			<Setter Property="WindowBorderThickness" Value="0" />
 			<Setter Property="WindowStartupLocation" Value="Center" />
 			<Setter Property="Margin" Value="0,0,0,250" />
+			-->
 		</Style>
-		-->
 
-		<!--
-		<Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+		<!--<Style Selector="{x:Type Thumb}">
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Thumb}">
@@ -554,8 +562,7 @@
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-		</Style>
-		-->
+		</Style>-->
 
 		<!--
 		<Style TargetType="{x:Type ScrollBar}">

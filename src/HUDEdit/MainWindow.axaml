@@ -2,33 +2,76 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:vm="using:HUDEdit.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="HUDEdit.MainWindow"
+		x:DataType="vm:MainWindowViewModel"
+        Title="TF2 HUD Editor"
 		Icon="/Assets/Images/favicon.ico"
-        Title="TF2 HUD Editor">
-	<TextBlock Classes="BodyText">Welcome to Avalonia!</TextBlock>
+		Background="#2B2724">
 
-	<!--<WindowChrome.WindowChrome>
-		<WindowChrome CaptionHeight="0"/>
-	</WindowChrome.WindowChrome>
+	<Window.Resources>
+		<!--<classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
+		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
+		<classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
+		<classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
+		<classes:NullCheckConverter x:Key="NullCheckConverter" />
+		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+		<classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />-->
+	</Window.Resources>
 
-	<Border BorderThickness="2" CornerRadius="10" Background="#2B2724" BorderBrush="#2B2724">
-		<Grid>
-			--><!-- Custom Title Bar --><!--
-			<Border Background="#211e1c" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Top" MouseDown="TitleBar_MouseDown">
-				<Grid>
-					<Image Source="../Resources/Images/favicon.ico" Height="20" HorizontalAlignment="Left" Margin="5"/>
-					<TextBlock Text="{lex:Loc ui_title}" VerticalAlignment="Center" Margin="30,0,0,0" Foreground="#EBE2CA" FontFamily="../Resources/Fonts/TF2Build.ttf #TF2 Build" FontSize="16px" />
-					<Button Content="_" HorizontalAlignment="Right" Margin="0,0,60,0" Width="30" Height="30" Click="Minimize_Click"  FontFamily="../Resources/Fonts/TF2Build.ttf #TF2 Build" />
-					<Button Content="&#9744;" HorizontalAlignment="Right" Margin="0,0,30,0" Width="30" Height="30" Click="Maximize_Click"  FontFamily="../Resources/Fonts/TF2Build.ttf #TF2 Build" />
-					<Button Content="X" HorizontalAlignment="Right" Width="30" Height="30" Click="CloseButton_Click" FontFamily="../Resources/Fonts/TF2Build.ttf #TF2 Build" />
-				</Grid>
-			</Border>
-
-			--><!-- Main Content Area --><!--
-			<Grid Margin="0,30,0,0">
-				<views:MainWindowView />
-			</Grid>
+	<Grid>
+		<!--Note: Add Background="{Binding SelectedHud, Converter={StaticResource PageBackgroundConverter}}"-->
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="auto" />
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0">
+			<Grid.Resources>
+				<!--<DataTemplate DataType="{x:Type viewmodels:HomePageViewModel}">
+				    <local:HomePageView />
+				</DataTemplate>
+				<DataTemplate DataType="{x:Type viewmodels:EditHUDViewModel}">
+					<local:EditHUDView />
+				</DataTemplate>-->
+			</Grid.Resources>
+			<!--<ContentControl Content="{Binding Page}" />-->
 		</Grid>
-	</Border>-->
+
+		<HeaderedContentControl Header="Options" Grid.Row="1" Margin="10,0,10,10">
+			<!--Note: Add Header="{lex:Loc ui_options}"-->
+			<WrapPanel HorizontalAlignment="Center">
+				<Button Classes="HudButton" Content="Select">
+					<!--Note: AddCommand="{Binding BtnInstall_ClickCommand}" Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
+				</Button>
+				<Button Classes="HudButton" Content="Uninstall" >
+					<!--Note: Command="{Binding BtnUninstall_ClickCommand}" Content="{lex:Loc ui_uninstall}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"-->
+				</Button>
+				<Button Classes="HudButton" Content="Apply">
+					<!--Note: Command="{Binding BtnSave_ClickCommand}" Content="{lex:Loc ui_apply}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"-->
+				</Button>
+				<Button Classes="HudButton" Content="Reset">
+					<!--Note: Command="{Binding BtnReset_ClickCommand}" Content="{lex:Loc ui_reset}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
+				</Button>
+				<Button Classes="HudButton" Content="Main Menu">
+					<!--Note: Command="{Binding BtnSwitch_ClickCommand}" Content="{lex:Loc ui_switch}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
+				</Button>
+				<Button Classes="LinkButton" Content="=">
+					<!--Note: Command="{Binding BtnSettings_ClickCommand}" ToolTip="{lex:Loc tooltip_options}"-->
+				</Button>
+				<Button Classes="LinkButton" Content="&#x03C6;">
+					<!--Note: Command="{Binding BtnReportIssue_ClickCommand}" ToolTip="{lex:Loc tooltip_report}"-->
+				</Button>
+				<Button Classes="LinkButton" Content="&#x0235;">
+					<!--Note: Command="{Binding BtnDocumentation_ClickCommand}" ToolTip="{lex:Loc tooltip_docs}"-->
+				</Button>
+				<Button Classes="LinkButton" Content="!">
+					<!--Note: Command="{Binding BtnPlayTF2_ClickCommand}" ToolTip="{lex:Loc tooltip_launch}" Visibility="{Binding SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}"-->
+				</Button>
+				<Button Classes="LinkButton" Content="&#x0583;">
+					<!--Note: Command="{Binding BtnAddSharedHUD_ClickCommand}" ToolTip="{lex:Loc tooltip_addhud}" Visibility="{Binding SelectedHud, Converter={StaticResource NotNullCheckConverterVisibility}}"-->
+				</Button>
+			</WrapPanel>
+		</HeaderedContentControl>
+	</Grid>
 </Window>

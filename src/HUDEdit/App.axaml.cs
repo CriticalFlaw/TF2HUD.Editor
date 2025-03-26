@@ -34,22 +34,20 @@ public partial class App : Application
 
     public App()
     {
+        // Setup Sentry
         if (File.Exists("secrets.json"))
         {
-            // Load configuration from appconfig.json
             Config = new ConfigurationBuilder().AddJsonFile("secrets.json").Build();
 
             Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
             SentrySdk.Init(o =>
             {
-                // Tells which project in Sentry to send events to:
                 o.Dsn = Config["Sentry:Dsn"];
-                // When configuring for the first time, to see what the SDK is doing:
                 o.Debug = true;
             });
         }
 
-        // Set the logger
+        // Setup Logger
         XmlConfigurator.Configure(new FileInfo(Path.Combine(AppContext.BaseDirectory, "log4net.config")));
         Logger.Info("=======================================================");
         Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
@@ -59,7 +57,7 @@ public partial class App : Application
     {
         SentrySdk.CaptureException(e.Exception);
 
-        // If you want to avoid the application from crashing:
+        // Prevent the application from crashing
         e.Handled = true;
     }
 }
