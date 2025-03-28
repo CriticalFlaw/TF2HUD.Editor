@@ -4,7 +4,7 @@
              RequestedThemeVariant="Default">
 
 	<Application.Resources>
-		<FontFamily x:Key="Tf2Build">avares://HUDEdit/Assets/Fonts#TF2 Build"</FontFamily>
+		<FontFamily x:Key="Tf2Build">avares://HUDEdit/Assets/Fonts/TF2Build.ttf#TF2 Build"</FontFamily>
 		<FontFamily x:Key="Tf2Secondary">avares://HUDEdit/Assets/Fonts#TF2 Secondary</FontFamily>
 		<FontFamily x:Key="Icons">avares://HUDEdit/Assets/Fonts#Hypnotize Icons Master"</FontFamily>
 		<FontFamily x:Key="Crosshairs">avares://HUDEdit/Assets/Fonts#TF2Crosshairs</FontFamily>
@@ -12,22 +12,22 @@
 
 	<Application.Styles>
 		<FluentTheme />
-		
+
 		<Style Selector="Label">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="Foreground" Value="White" />
 		</Style>
-		
+
 		<Style Selector="Label.HeaderText">
-			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
+			<!--<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />-->
 			<Setter Property="FontSize" Value="40" />
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 		</Style>
 
 		<Style Selector="Label.HudListIcon">
-			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
+			<!--<Setter Property="FontFamily" Value="{StaticResource Icons}" />-->
 			<Setter Property="FontSize" Value="20" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="HorizontalAlignment" Value="Right" />
@@ -64,7 +64,7 @@
 			<Setter Property="Width" Value="150" />
 			<Setter Property="FontSize" Value="16" />
 		</Style>
-		
+
 		<Style Selector="Label.IntegerUpDownLabel">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
@@ -72,7 +72,7 @@
 			<Setter Property="Width" Value="125" />
 			<Setter Property="FontSize" Value="16" />
 		</Style>
-		
+
 		<Style Selector="ComboBox">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
@@ -82,7 +82,7 @@
 		</Style>
 
 		<Style Selector="ComboBox.CrosshairBox">
-			<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />
+			<!--<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />-->
 			<Setter Property="FontSize" Value="20" />
 			<Setter Property="Height" Value="28" />
 			<Setter Property="Width" Value="125" />
@@ -90,7 +90,7 @@
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
 			<!--<Setter Property="SelectedValuePath" Value="Content" />-->
 		</Style>
-		
+
 		<Style Selector="CheckBox">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
@@ -99,7 +99,7 @@
 		</Style>
 
 		<Style Selector="CheckBox.SettingCheckBox">
-			<Setter Property="FontFamily" Value="Tf2Build" />
+			<!--<Setter Property="FontFamily" Value="Tf2Build" />-->
 			<Setter Property="FontSize" Value="18" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Margin" Value="10,0,0,0"/>
@@ -108,16 +108,16 @@
 		</Style>
 
 		<Style Selector="ComboBoxItem.Crosshair">
+			<!--<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />-->
 			<Setter Property="HorizontalAlignment" Value="Center" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="FontSize" Value="30" />
 			<Setter Property="Width" Value="150" />
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
-			<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />
 		</Style>
-		
+
 		<Style Selector="TextBlock.BodyText">
-			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
+			<!--<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />-->
 			<Setter Property="FontSize" Value="25" />
 			<Setter Property="TextWrapping" Value="Wrap" />
 			<Setter Property="Foreground" Value="#A49E9E" />
@@ -132,7 +132,7 @@
 			<Setter Property="Margin" Value="5" />
 			<Setter Property="Padding" Value="5" />
 			<Setter Property="Cursor" Value="Hand" />
-			
+
 			<Style Selector="^:pointerover">
 				<Setter Property="BorderBrush" Value="LightGray"/>
 			</Style>
@@ -143,18 +143,31 @@
 			<Setter Property="CornerRadius" Value="5" />
 			<Setter Property="Grid.Row" Value="0" />
 		</Style>
-		
+
 		<Style Selector="HeaderedContentControl">
-			<Setter Property="HorizontalAlignment" Value="Stretch" />
-			<Setter Property="VerticalAlignment" Value="Stretch" />
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="Margin" Value="5" />
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+
+						<!-- Content Area -->
+						<Border Grid.RowSpan="2" Padding="0,5,0,0" Grid.ColumnSpan="2" CornerRadius="4" Margin="0,10,0,0" BorderThickness="1" BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}">
+							<ContentPresenter Name="PART_ContentPresenter" Padding="8" Content="{TemplateBinding Content}"/>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter>
 		</Style>
 
 		<Style Selector="Button.HudButton">
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
+			<!--<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />-->
 			<Setter Property="FontSize" Value="16" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Background" Value="#776B5F" />
@@ -162,17 +175,17 @@
 			<Setter Property="Width" Value="170" />
 			<Setter Property="Height" Value="40" />
 			<Setter Property="Cursor" Value="Hand" />
-			
+
 			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate>
-						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					<ControlTemplate TargetType="Button">
+						<Border Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}}" CornerRadius="5">
+							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			
+
 			<Style Selector="^:pointerover">
 				<Setter Property="Background" Value="#934739"/>
 			</Style>
@@ -181,325 +194,143 @@
 				<Setter Property="Foreground" Value="#2B2724"/>
 			</Style>
 		</Style>
-		
-		<Style Selector="Button.HudButtonSelected">
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
-			<Setter Property="FontSize" Value="16" />
+
+		<Style Selector="Button.HudButton.HudButtonSelected">
 			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Background" Value="#DC6450" />
-			<Setter Property="Margin" Value="5" />
-			<Setter Property="Width" Value="170" />
-			<Setter Property="Height" Value="40" />
-			<Setter Property="Cursor" Value="Hand" />
-			
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			
-			<Style Selector="^:hover">
+
+			<Style Selector="^:pointerover">
 				<Setter Property="Background" Value="#DC6450"/>
 			</Style>
-			
-			<Style Selector="^:disabled">
-				<Setter Property="Foreground" Value="#2B2724"/>
-			</Style>
 		</Style>
-		
-		<Style Selector="Button.SettingButton">
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
-			<Setter Property="FontSize" Value="16" />
-			<Setter Property="Foreground" Value="#EBE2CA" />
-			<Setter Property="Background" Value="#776B5F" />
+
+		<Style Selector="Button.HudButton.SettingButton">
 			<Setter Property="Margin" Value="10,10,0,20"/>
 			<Setter Property="Width" Value="263" />
-			<Setter Property="Height" Value="40" />
-			<Setter Property="Cursor" Value="Hand" />
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			
-			<Style Selector="^:hover">
-				<Setter Property="Background" Value="#934739"/>
-			</Style>
-			
-			<Style Selector="^:disabled">
-				<Setter Property="Foreground" Value="#2B2724"/>
-			</Style>
 		</Style>
 
 		<Style Selector="Button.LinkButton">
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="Width" Value="50" />
-			<Setter Property="Height" Value="40" />
+			<!--<Setter Property="FontFamily" Value="{StaticResource Icons}" />-->
 			<Setter Property="FontSize" Value="33" />
-			<Setter Property="Foreground" Value="#FFFFFF" />
+			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Background" Value="#776B5F" />
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Margin" Value="5" />
+			<Setter Property="Width" Value="50" />
+			<Setter Property="Height" Value="40" />
 			<Setter Property="Cursor" Value="Hand" />
-			
+
 			<Setter Property="Template">
 				<Setter.Value>
-					<ControlTemplate>
-						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
+					<ControlTemplate TargetType="Button">
+						<Border Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}}" CornerRadius="5">
+							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			
-			<Style Selector="^:hover">
+
+			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
 				<Setter Property="Background" Value="#934739"/>
 			</Style>
-			
+
 			<Style Selector="^:disabled">
 				<Setter Property="Foreground" Value="#2B2724"/>
 				<Setter Property="Background" Value="#776B5F"/>
 			</Style>
 		</Style>
 
-		<Style Selector="Button.SettingsButton">
+		<Style Selector="Button.LinkButton.SettingsButton">
 			<Setter Property="Content" Value="&#x0683;" />
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
 			<Setter Property="FontSize" Value="25" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#1B2838" />
-			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="Margin" Value="5" />
-			<Setter Property="Cursor" Value="Hand" />
-			
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
-											  Foreground="{TemplateBinding Foreground}"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			
-			<Style Selector="^:hover">
+			<Setter Property="Width" Value="35" />
+			<Setter Property="Height" Value="35" />
+
+			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
 				<Setter Property="Background" Value="#384452"/>
 			</Style>
-			
-			<Style Selector="^:disabled">
-				<Setter Property="Foreground" Value="#2B2724"/>
-				<Setter Property="Background" Value="#776B5F"/>
-			</Style>
 		</Style>
-		
-		<Style Selector="Button.GitHubButton">
+
+		<Style Selector="Button.LinkButton.GitHubButton">
 			<Setter Property="Content" Value="&#x0692;" />
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
 			<Setter Property="FontSize" Value="25" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#171A21" />
-			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="Margin" Value="5" />
-			<Setter Property="Cursor" Value="Hand" />
-			
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
-											  Foreground="{TemplateBinding Foreground}"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			
-			<Style Selector="^:hover">
+			<Setter Property="Width" Value="35" />
+			<Setter Property="Height" Value="35" />
+
+			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
 				<Setter Property="Background" Value="#1D263B"/>
 			</Style>
-			
-			<Style Selector="^:disabled">
-				<Setter Property="Foreground" Value="#2B2724"/>
-				<Setter Property="Background" Value="#776B5F"/>
-			</Style>
 		</Style>
 
-		<Style Selector="Button.TF2HudsButton">
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
-			<Setter Property="FontSize" Value="33" />
+		<Style Selector="Button.LinkButton.TF2HudsButton">
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#111111" />
-			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="Margin" Value="5" />
-			<Setter Property="Cursor" Value="Hand" />
-			
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
-											  Foreground="{TemplateBinding Foreground}"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			
-			<Style Selector="^:hover">
+			<Setter Property="Width" Value="35" />
+			<Setter Property="Height" Value="35" />
+
+			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
 				<Setter Property="Background" Value="#222222"/>
 			</Style>
-			
-			<Style Selector="^:disabled">
-				<Setter Property="Foreground" Value="#2B2724"/>
-				<Setter Property="Background" Value="#776B5F"/>
-			</Style>
 		</Style>
 
-		<Style Selector="Button.ComfigHudsButton">
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
-			<Setter Property="FontSize" Value="33" />
+		<Style Selector="Button.LinkButton.ComfigHudsButton">
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#439388" />
-			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="Margin" Value="5" />
-			<Setter Property="Cursor" Value="Hand" />
-			
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
-											  Foreground="{TemplateBinding Foreground}"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			
-			<Style Selector="^:hover">
+			<Setter Property="Width" Value="35" />
+			<Setter Property="Height" Value="35" />
+
+			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
 				<Setter Property="Background" Value="#2B5E56"/>
 			</Style>
-			
-			<Style Selector="^:disabled">
-				<Setter Property="Foreground" Value="#2B2724"/>
-				<Setter Property="Background" Value="#776B5F"/>
-			</Style>
 		</Style>
 
-		<Style Selector="Button.DiscordButton">
+		<Style Selector="Button.LinkButton.DiscordButton">
 			<Setter Property="Content" Value="&#x0689;" />
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
 			<Setter Property="FontSize" Value="25" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#5865F2" />
-			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="Margin" Value="5" />
-			<Setter Property="Cursor" Value="Hand" />
-			
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
-											  Foreground="{TemplateBinding Foreground}"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			
-			<Style Selector="^:hover">
+			<Setter Property="Width" Value="35" />
+			<Setter Property="Height" Value="35" />
+
+			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
 				<Setter Property="Background" Value="#7B82D9"/>
 			</Style>
-			
-			<Style Selector="^:disabled">
-				<Setter Property="Foreground" Value="#2B2724"/>
-				<Setter Property="Background" Value="#776B5F"/>
-			</Style>
 		</Style>
 
-		<Style Selector="Button.SteamButton">
+		<Style Selector="Button.LinkButton.SteamButton">
 			<Setter Property="Content" Value="&#x0683;" />
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
 			<Setter Property="FontSize" Value="25" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#1B2838" />
-			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="Margin" Value="5" />
-			<Setter Property="Cursor" Value="Hand" />
-			
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate>
-						<Border Background="{TemplateBinding Background}" CornerRadius="5">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			
-			<Style Selector="^:hover">
+			<Setter Property="Width" Value="35" />
+			<Setter Property="Height" Value="35" />
+
+			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
 				<Setter Property="Background" Value="#384452"/>
-			</Style>
-			
-			<Style Selector="^:disabled">
-				<Setter Property="Foreground" Value="#2B2724"/>
-				<Setter Property="Background" Value="#776B5F"/>
 			</Style>
 		</Style>
 
 		<Style Selector="Button.PreviewButton">
+			<!--<Setter Property="FontFamily" Value="{StaticResource Icons}" />-->
 			<Setter Property="Background" Value="Transparent" />
 			<Setter Property="Foreground" Value="White" />
-			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
 			<Setter Property="Height" Value="25" />
 			<Setter Property="Content" Value="&#x048A;" />
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 
-			<Style Selector="^:hover">
+			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="Black"/>
 			</Style>
 		</Style>
@@ -508,7 +339,7 @@
 			<Setter Property="Height" Value="600" />
 			<Setter Property="Width" Value="600" />
 		</Style>
-		
+
 		<Style Selector="ColorPicker">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
@@ -519,7 +350,7 @@
 			<Setter Property="ShowRecentColors" Value="True" />
 			-->
 		</Style>
-		
+
 		<Style Selector="NumericUpDown">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
@@ -529,7 +360,7 @@
 			<Setter Property="Width" Value="125" />
 		</Style>
 
-		
+
 		<Style Selector="Flyout">
 			<!--
 			<Setter Property="WindowBackground" Value="Black" />

@@ -56,15 +56,9 @@
 				<Button Classes="HudButton" Content="Main Menu">
 					<!--Note: Command="{Binding BtnSwitch_ClickCommand}" Content="{lex:Loc ui_switch}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
-				<Button Classes="LinkButton" Content="=">
-					<!--Note: Command="{Binding BtnSettings_ClickCommand}" ToolTip="{lex:Loc tooltip_options}"-->
-				</Button>
-				<Button Classes="LinkButton" Content="&#x03C6;">
-					<!--Note: Command="{Binding BtnReportIssue_ClickCommand}" ToolTip="{lex:Loc tooltip_report}"-->
-				</Button>
-				<Button Classes="LinkButton" Content="&#x0235;">
-					<!--Note: Command="{Binding BtnDocumentation_ClickCommand}" ToolTip="{lex:Loc tooltip_docs}"-->
-				</Button>
+				<Button Classes="LinkButton" Content="=" Command="{Binding OpenOptionsMenu}" ToolTip.Tip="tooltip_options"/>
+				<Button Classes="LinkButton" Content="&#x03C6;" Command="{Binding OpenIssueTracker}" ToolTip.Tip="tooltip_report"/>
+				<Button Classes="LinkButton" Content="&#x0235;" Command="{Binding OpenDocSite}" ToolTip.Tip="tooltip_docs"/>
 				<Button Classes="LinkButton" Content="!">
 					<!--Note: Command="{Binding BtnPlayTF2_ClickCommand}" ToolTip="{lex:Loc tooltip_launch}" Visibility="{Binding SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}"-->
 				</Button>

@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using HUDEdit.ViewModels;
 
 namespace HUDEdit;
 
@@ -10,11 +11,11 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        DataContext = new MainWindowViewModel();
 
         /*
             var mainWindowViewModel = new MainWindowViewModel();
             mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
-            DataContext = mainWindowViewModel;
 
             // Check for tf/custom directory
             SetupDirectory();

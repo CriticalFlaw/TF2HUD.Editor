@@ -1,7 +1,13 @@
-﻿namespace HUDEdit.ViewModels;
+﻿using HUDEditor;
+using HUDEditor.Classes;
+using System.ComponentModel;
+
+namespace HUDEdit.ViewModels;
 
 internal class MainWindowViewModel : ViewModelBase
 {
+    public event PropertyChangedEventHandler PropertyChanged;
+
     /*private List<HUD> _hudList;
     public IEnumerable<HUD> HUDList => _hudList;
     private HUD _highlightedHud;
@@ -60,11 +66,11 @@ internal class MainWindowViewModel : ViewModelBase
             BtnInstall_ClickCommand.NotifyCanExecuteChanged();
             BtnUninstall_ClickCommand.NotifyCanExecuteChanged();
         }
-    }
+    }*/
 
     public MainWindowViewModel()
     {
-        try
+        /*try
         {
             _hudList = new List<HUD>();
             var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
@@ -131,9 +137,22 @@ internal class MainWindowViewModel : ViewModelBase
         {
             App.Logger.Error(e.Message);
             Console.WriteLine(e);
-        }
+        }*/
     }
 
+    public void OpenDocSite() => Utilities.OpenWebpage("https://criticalflaw.ca/TF2HUD.Editor/");
+
+    public void OpenIssueTracker() => Utilities.OpenWebpage("https://github.com/CriticalFlaw/TF2HUD.Editor/issues");
+
+    public void OpenOptionsMenu()
+    {
+        var settings = new SettingsWindow();
+        settings.Owner = System.Windows.Application.Current.MainWindow;
+        settings.Show();
+    }
+
+
+    /*
     /// <summary>
     /// Retrieves the HUD object selected by user.
     /// </summary>
