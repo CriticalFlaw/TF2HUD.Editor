@@ -1,12 +1,14 @@
 using Avalonia.Controls;
 using HUDEdit.ViewModels;
+using HUDEditor.Classes;
+using System.IO;
 
 namespace HUDEdit;
 
 public partial class MainWindow : Window
 {
     //public static string HudSelection = Settings.Default.hud_selected;
-    //public static string HudPath = Settings.Default.hud_directory;
+    public static string HudPath = "D:\\SteamLibrary\\steamapps\\common\\Team Fortress 2\\tf\\custom";  //Settings.Default.hud_directory;
 
     public MainWindow()
     {
@@ -101,6 +103,7 @@ public partial class MainWindow : Window
 
         return MessageBox.Show(message, string.Empty, buttons, type);
     }
+    */
 
     /// <summary>
     /// Checks if the selected HUD is installed correctly.
@@ -115,6 +118,7 @@ public partial class MainWindow : Window
             Directory.Exists($"{HudPath}\\{hud.Name}");
     }
 
+    /*
     /// <summary>
     /// Synchronizes the local HUD schema files with the latest versions on GitHub.
     /// </summary>

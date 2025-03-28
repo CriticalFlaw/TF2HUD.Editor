@@ -2,7 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:vm="using:HUDEdit.ViewModels"
+        xmlns:vm="using:HUDEdit.ViewModels"
+		xmlns:v="clr-namespace:HUDEdit.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="HUDEdit.MainWindow"
 		x:DataType="vm:MainWindowViewModel"
@@ -10,15 +11,15 @@
 		Icon="/Assets/Images/favicon.ico"
 		Background="#2B2724">
 
-	<Window.Resources>
-		<!--<classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
+	<!--Window.Resources>
+		<classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
 		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
 		<classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
 		<classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
 		<classes:NullCheckConverter x:Key="NullCheckConverter" />
 		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
-		<classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />-->
-	</Window.Resources>
+		<classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
+	</Window.Resources>-->
 
 	<Grid>
 		<!--Note: Add Background="{Binding SelectedHud, Converter={StaticResource PageBackgroundConverter}}"-->
@@ -26,16 +27,17 @@
 			<RowDefinition Height="*" />
 			<RowDefinition Height="auto" />
 		</Grid.RowDefinitions>
-		<Grid Grid.Row="0">
-			<Grid.Resources>
-				<!--<DataTemplate DataType="{x:Type viewmodels:HomePageViewModel}">
-				    <local:HomePageView />
+		<Grid DataContext="vm:HomePageViewModel" Grid.Row="0">
+			<v:HomePage Grid.Row="1" Grid.Column="0" />
+			<!--<Grid.Resources>
+				<DataTemplate DataType="vm:HomePageViewModel">
+					<v:HomePage />
 				</DataTemplate>
-				<DataTemplate DataType="{x:Type viewmodels:EditHUDViewModel}">
-					<local:EditHUDView />
-				</DataTemplate>-->
-			</Grid.Resources>
-			<!--<ContentControl Content="{Binding Page}" />-->
+				<DataTemplate DataType="{x:Type vm:EditHUDViewModel}">
+					<v:EditHUD />
+				</DataTemplate>
+			</Grid.Resources>-->
+			<ContentControl Content="{Binding Page}" />
 		</Grid>
 
 		<HeaderedContentControl Header="Options" Grid.Row="1" Margin="10,0,10,10">

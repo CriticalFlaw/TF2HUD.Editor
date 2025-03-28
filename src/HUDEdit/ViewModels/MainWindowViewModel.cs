@@ -1,14 +1,13 @@
 ﻿using HUDEditor;
 using HUDEditor.Classes;
-using System.ComponentModel;
+using System;
+using System.Collections.Generic;
 
 namespace HUDEdit.ViewModels;
 
 internal class MainWindowViewModel : ViewModelBase
 {
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    /*private List<HUD> _hudList;
+    private List<HUD> _hudList;
     public IEnumerable<HUD> HUDList => _hudList;
     private HUD _highlightedHud;
     public HUD HighlightedHud
@@ -21,8 +20,9 @@ internal class MainWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(HighlightedHudInstalled));
         }
     }
-
     public bool HighlightedHudInstalled => MainWindow.CheckHudInstallation(HighlightedHud);
+    /*
+
     private HUD _selectedHud;
     public HUD SelectedHud
     {
@@ -44,6 +44,7 @@ internal class MainWindowViewModel : ViewModelBase
     }
 
     public bool SelectedHudInstalled => MainWindow.CheckHudInstallation(SelectedHud);
+    */
     private ViewModelBase _page;
     public ViewModelBase Page
     {
@@ -54,7 +55,7 @@ internal class MainWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(Page));
         }
     }
-
+    /*
     private bool _installing;
     public bool Installing
     {
@@ -70,74 +71,77 @@ internal class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        /*try
+        try
         {
             _hudList = new List<HUD>();
+            /*
+            
             var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
-
-            foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
-            {
-                // Extract HUD information from the file path and add it to the object list.
-                var fileInfo = jsonFile.Split("\\")[^1].Split(".");
-                if (fileInfo[^1] != "json" || fileInfo[0] == "shared-hud") continue;
-
-                if (fileInfo[0].Equals("common"))
+                foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
                 {
-                    // Load all common HUDS from `JSON/common.json` and shared controls from `JSON/shared-hud.json`
-                    // For each hud, assign unique ids for the controls based on the hud name and add to HUDs list.
-                    var sharedHuds = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON\\common.json"), new UTF8Encoding(false)).ReadToEnd());
+                    // Extract HUD information from the file path and add it to the object list.
+                    var fileInfo = jsonFile.Split("\\")[^1].Split(".");
+                    if (fileInfo[^1] != "json" || fileInfo[0] == "shared-hud") continue;
 
-                    foreach (var sharedHud in sharedHuds)
+                    if (fileInfo[0].Equals("common"))
                     {
-                        var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
-                        foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
-                            control.Name = $"{Utilities.EncodeId(sharedHud.Name)}_{Utilities.EncodeId(control.Name)}";
-                        sharedHud.Layout = hudControls.Layout;
-                        sharedHud.Controls = hudControls.Controls;
-                        _hudList.Add(new HUD(sharedHud.Name, sharedHud, false));
+                        // Load all common HUDS from `JSON/common.json` and shared controls from `JSON/shared-hud.json`
+                        // For each hud, assign unique ids for the controls based on the hud name and add to HUDs list.
+                        var sharedHuds = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON\\common.json"), new UTF8Encoding(false)).ReadToEnd());
+
+                        foreach (var sharedHud in sharedHuds)
+                        {
+                            var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
+                            foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
+                                control.Name = $"{Utilities.EncodeId(sharedHud.Name)}_{Utilities.EncodeId(control.Name)}";
+                            sharedHud.Layout = hudControls.Layout;
+                            sharedHud.Controls = hudControls.Controls;
+                            _hudList.Add(new HUD(sharedHud.Name, sharedHud, false));
+                        }
+                    }
+                    else
+                    {
+                        _hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true));
                     }
                 }
-                else
-                {
-                    _hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(new StreamReader(File.OpenRead(jsonFile), new UTF8Encoding(false)).ReadToEnd()), true));
-                }
-            }
 
-            // Local Shared HUDs
-            var localSharedPath = Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\LocalShared").FullName;
+                // Local Shared HUDs
+                var localSharedPath = Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\LocalShared").FullName;
 
-            foreach (var sharedHud in Directory.EnumerateDirectories(localSharedPath))
-            {
-                var hudName = sharedHud.Split('\\')[^1];
-                var hudBackgroundPath = $"{sharedHud}\\output.png";
-                var hudBackground = File.Exists(hudBackgroundPath)
-                    ? $"file://{hudBackgroundPath}"
-                    : Settings.Default.app_default_bg;
-                var sharedProperties = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
-                _hudList.Add(new HUD(hudName, new HudJson
+                foreach (var sharedHud in Directory.EnumerateDirectories(localSharedPath))
                 {
-                    Name = hudName,
-                    Thumbnail = hudBackground,
-                    Background = hudBackground,
-                    Layout = sharedProperties.Layout,
-                    Links = new Links
+                    var hudName = sharedHud.Split('\\')[^1];
+                    var hudBackgroundPath = $"{sharedHud}\\output.png";
+                    var hudBackground = File.Exists(hudBackgroundPath)
+                        ? $"file://{hudBackgroundPath}"
+                        : Settings.Default.app_default_bg;
+                    var sharedProperties = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
+                    _hudList.Add(new HUD(hudName, new HudJson
                     {
-                        Download = [new Download() { Source = "GitHub", Link = $"file://{sharedHud}\\{hudName}.zip" }]
-                    },
-                    Controls = sharedProperties.Controls
-                }, false));
-            }
+                        Name = hudName,
+                        Thumbnail = hudBackground,
+                        Background = hudBackground,
+                        Layout = sharedProperties.Layout,
+                        Links = new Links
+                        {
+                            Download = [new Download() { Source = "GitHub", Link = $"file://{sharedHud}\\{hudName}.zip" }]
+                        },
+                        Controls = sharedProperties.Controls
+                    }, false));
+                }
 
-            var selectedHud = this[Settings.Default.hud_selected];
-            _highlightedHud = selectedHud;
-            _selectedHud = selectedHud;
+                var selectedHud = this[Settings.Default.hud_selected];
+                _highlightedHud = selectedHud;
+                _selectedHud = selectedHud;
             _page = selectedHud != null ? new EditHUDViewModel(this, selectedHud) : new HomePageViewModel(this, HUDList);
+            */
+            _page = new HomePageViewModel(this, HUDList);
         }
         catch (Exception e)
         {
             App.Logger.Error(e.Message);
             Console.WriteLine(e);
-        }*/
+        }
     }
 
     public void OpenDocSite() => Utilities.OpenWebpage("https://criticalflaw.ca/TF2HUD.Editor/");

@@ -1,9 +1,16 @@
-﻿namespace HUDEdit.ViewModels;
+﻿using HUDEditor.Classes;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+
+namespace HUDEdit.ViewModels;
 
 internal class HomePageViewModel : ViewModelBase
 {
-    /*private readonly MainWindowViewModel _mainWindowViewModel;
+    private readonly MainWindowViewModel _mainWindowViewModel;
     private ObservableCollection<HUDButtonViewModel> _hudList;
+    /*
     public ICollectionView HUDListView => CollectionViewSource.GetDefaultView(_hudList);
     private string _searchText = "";
     public string SearchText
@@ -28,6 +35,7 @@ internal class HomePageViewModel : ViewModelBase
             HUDListView.Refresh();
         }
     }
+    */
 
     private ViewModelBase _info;
     public ViewModelBase Info
@@ -44,16 +52,18 @@ internal class HomePageViewModel : ViewModelBase
     {
         _mainWindowViewModel = mainWindowViewModel;
         _hudList = new ObservableCollection<HUDButtonViewModel>(hudList.Select((hud, i) => new HUDButtonViewModel(hud, i % 2, i / 2)).OrderBy(x => x.Name));
-        HUDListView.Filter = Filter;
-        _info = new AppInfoViewModel();
+        //HUDListView.Filter = Filter;
+        //_info = new AppInfoViewModel();
         _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
     }
 
+    /*
     private bool Filter(object o)
     {
         HUDButtonViewModel hud = (HUDButtonViewModel)o;
         return (!DisplayUniqueHudsOnly || hud.Unique) && (hud.Name.ToLower().Contains(SearchText) || hud.Author.ToLower().Contains(SearchText));
     }
+    */
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
@@ -64,6 +74,7 @@ internal class HomePageViewModel : ViewModelBase
         }
     }
 
+    /*
     [RelayCommand]
     public void BtnDisplayUniqueHudsOnly_Click()
     {

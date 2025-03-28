@@ -1,13 +1,18 @@
-﻿namespace HUDEdit.ViewModels;
+﻿using HUDEditor.Classes;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
-internal class HUDInfoViewModel : ViewModelBase
+namespace HUDEdit.ViewModels;
+
+internal partial class HUDInfoViewModel : ViewModelBase
 {
-/*    private readonly MainWindowViewModel _mainWindowViewModel;
+    private readonly MainWindowViewModel _mainWindowViewModel;
     public HUD Hud { get; }
     public string Name => Hud.Name;
     public string Author => Hud.Author;
     public string Description => Hud.Description;
-
     private ObservableCollection<object> _screenshots;
     public IEnumerable<object> Screenshots => _screenshots;
 
@@ -18,6 +23,7 @@ internal class HUDInfoViewModel : ViewModelBase
         _screenshots = new ObservableCollection<object>((Hud.Screenshots ?? Array.Empty<object>()).Select((screenshot, i) => new { ImageSource = screenshot, Column = i % 2, Row = i / 2 }));
     }
 
+    /*
     [RelayCommand]
     public void BtnCustomize_Click()
     {

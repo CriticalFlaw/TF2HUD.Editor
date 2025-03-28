@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace HUDEdit.ViewModels;
 
-internal class ViewModelBase : ObservableObject//, INotifyPropertyChanged, IDisposable
+internal class ViewModelBase : ObservableObject, INotifyPropertyChanged, IDisposable
 {
-/*    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
     /// <summary>
     /// Invokes a WPF Binding update of a property.
@@ -18,5 +21,5 @@ internal class ViewModelBase : ObservableObject//, INotifyPropertyChanged, IDisp
     public virtual void Dispose()
     {
 
-    }*/
+    }
 }

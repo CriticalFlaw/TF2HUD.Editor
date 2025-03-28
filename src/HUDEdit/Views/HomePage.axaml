@@ -13,13 +13,14 @@
 
 	<HeaderedContentControl Header="Select" Margin="10">
 		<!--Note: Add Header="{lex:Loc Key=ui_select}"-->
+		<!--
 		<Grid Margin="5">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="6*" />
 				<ColumnDefinition Width="5*" />
 			</Grid.ColumnDefinitions>
 
-			<!-- HUD Search List -->
+			--><!-- HUD Search List --><!--
 			<Grid Grid.Column="0" Margin="5">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="auto" />
@@ -33,19 +34,19 @@
 				</Grid.RowDefinitions>
 
 				<Label Grid.Column="0" Grid.Row="0">
-					Search <!--Note: Add Content="{lex:Loc ui_search}"-->
+					Search --><!--Note: Add Content="{lex:Loc ui_search}"--><!--
 				</Label>
 
 				<TextBox Foreground="WhiteSmoke" Background="#2B2724" BorderThickness="2" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0">
-					Search <!--Note: Add Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"-->
+					Search --><!--Note: Add Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"--><!--
 				</TextBox>
 
 				<Button Content="&#x05AE;" FontFamily="Icons" FontSize="25" Padding="5,0" Background="Transparent" BorderThickness="0" Grid.Column="2" Grid.Row="0" Margin="5,0,0,0">
-					<!--Note: Add Command="{Binding BtnDisplayUniqueHudsOnly_ClickCommand}" Foreground="{Binding DisplayUniqueHudsOnly, Converter={StaticResource DisplayUniqueHudsOnlyForegroundConverter}}"-->
+					--><!--Note: Add Command="{Binding BtnDisplayUniqueHudsOnly_ClickCommand}" Foreground="{Binding DisplayUniqueHudsOnly, Converter={StaticResource DisplayUniqueHudsOnlyForegroundConverter}}"--><!--
 				</Button>
 
 				<ScrollViewer Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,10,0,0">
-					<!--<ItemsControl ItemsSource="{Binding HUDListView}">
+					--><!--<ItemsControl ItemsSource="{Binding HUDListView}">
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>
 								<WrapPanel HorizontalAlignment="Center"/>
@@ -62,12 +63,12 @@
 								<local:HUDButtonView />
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
-					</ItemsControl>-->
+					</ItemsControl>--><!--
 				</ScrollViewer>
 			</Grid>
 
 			<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Padding="20">
-				<!--
+				--><!--
 				<ScrollViewer.Resources>
 					<DataTemplate DataType="{x:Type viewmodels:AppInfoViewModel}">
 						<local:AppInfoView />
@@ -77,8 +78,8 @@
 					</DataTemplate>
 				</ScrollViewer.Resources>
 				<ContentControl Content="{Binding Info}" />
-				-->
+				--><!--
 			</ScrollViewer>
-		</Grid>
-	</HeaderedContentControl>
+		</Grid>-->
+		</HeaderedContentControl>
 </UserControl>
