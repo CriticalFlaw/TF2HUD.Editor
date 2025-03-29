@@ -27,9 +27,11 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        //Shared.Resources.Resources.Culture = new CultureInfo("en");
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new MainWindow();
+            //DataContext = new MainWindowViewModel();
         }
 
         base.OnFrameworkInitializationCompleted();

@@ -74,7 +74,7 @@ public partial class Settings : Avalonia.Controls.Window
 
     private void btnClearCache_Click(object sender, RoutedEventArgs e)
     {
-        if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Shared.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+        if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Localization.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
         var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         Directory.Delete($"{localPath}\\CriticalFlaw", true);
