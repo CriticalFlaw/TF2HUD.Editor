@@ -20,25 +20,72 @@
 	  <Content Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
+	  <Content Include="JSON\berryhud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\budhud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\common.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\flawhud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\hexhud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\hud-fixes.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\hypnotize-hud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\kbnhud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\m0rehud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\rayshud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\shared-hud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\sunsethud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="JSON\zeeshud.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="log4net.config">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.2.5" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.2.5" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.5" />
-		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.5" />
+		<PackageReference Include="Avalonia" Version="11.2.6" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.2.6" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.6" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.6" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Include="Avalonia.Diagnostics" Version="11.2.5">
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.2.6">
 			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
 			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
 		</PackageReference>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Crews.Utility.TgaSharp" Version="1.0.0" />
+		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
+		<PackageReference Include="log4net" Version="3.0.4" />
+		<PackageReference Include="MessageBox.Avalonia" Version="3.2.0" />
+		<PackageReference Include="MessageBox.Avalonia.Markdown" Version="3.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.3" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.3" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Octokit" Version="14.0.0" />
 		<PackageReference Include="Sentry" Version="5.4.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\TF2HUD.Editor\HUDEditor.csproj" />
+		<PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -48,5 +95,20 @@
 	  <AvaloniaResource Update="Assets\Fonts\TF2Build.ttf">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </AvaloniaResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Assets\Resources\Resources.Designer.cs">
+	    <DependentUpon>Resources.resx</DependentUpon>
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Assets\Resources\Resources.resx">
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	  </EmbeddedResource>
 	</ItemGroup>
 </Project>

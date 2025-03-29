@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using HUDEditor.Classes;
+using HUDEdit.Classes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

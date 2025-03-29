@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:HUDEdit.ViewModels"
+			 xmlns:loc="clr-namespace:HUDEdit.Assets"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HUDEdit.Views.HUDInfo"
 			 x:DataType="vm:HUDInfoViewModel">
@@ -61,9 +62,7 @@
 			</ItemsControl.ItemTemplate>
 		</ItemsControl>-->
 
-		<Button Classes="HudButton" Width="500" FontSize="30" HorizontalContentAlignment="Center" HorizontalAlignment="Center">
-			Customize
-			<!--Note: Add Content="{lex:Loc ui_customize}" Command="{Binding BtnCustomize_ClickCommand}" CommandParameter="{Binding Hud}"-->
-		</Button>
+		<Button Content="{x:Static loc:Resources.ui_customize}" Classes="HudButton" Width="500" FontSize="30" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+		<!--Note: Add Command="{Binding BtnCustomize_ClickCommand}" CommandParameter="{Binding Hud}"-->
 	</StackPanel>
 </UserControl>

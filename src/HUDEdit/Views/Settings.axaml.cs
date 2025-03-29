@@ -14,12 +14,12 @@ public partial class Settings : Avalonia.Controls.Window
         InitializeComponent();
 
         // Load the country flags
-        ImgLocalizeEn.Source = new Bitmap("https://flagcdn.com/w320/us.png");
-        ImgLocalizeFr.Source = new Bitmap("https://flagcdn.com/w320/fr.png");
-        ImgLocalizeRu.Source = new Bitmap("https://flagcdn.com/w320/ru.png");
-        ImgLocalizeBr.Source = new Bitmap("https://flagcdn.com/w320/br.png");
-        ImgLocalizeIt.Source = new Bitmap("https://flagcdn.com/w320/it.png");
-        ImgLocalizeCn.Source = new Bitmap("https://flagcdn.com/w320/cn.png");
+        //ImgLocalizeEn.Source = new Bitmap("https://flagcdn.com/w320/us.png");
+        //ImgLocalizeFr.Source = new Bitmap("https://flagcdn.com/w320/fr.png");
+        //ImgLocalizeRu.Source = new Bitmap("https://flagcdn.com/w320/ru.png");
+        //ImgLocalizeBr.Source = new Bitmap("https://flagcdn.com/w320/br.png");
+        //ImgLocalizeIt.Source = new Bitmap("https://flagcdn.com/w320/it.png");
+        //ImgLocalizeCn.Source = new Bitmap("https://flagcdn.com/w320/cn.png");
 
         // Check for user selected settings.
         BtnAutoUpdate.IsChecked = App.Config.ConfigSettings.UserPrefs.AutoUpdate;
@@ -52,7 +52,7 @@ public partial class Settings : Avalonia.Controls.Window
     private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
     {
         App.Logger.Info("Attempting to change the target directory.");
-        MainWindow.SetupDirectory(true);
+        MainWindow.SetupDirectoryAsync(true);
     }
 
     private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)
@@ -74,7 +74,7 @@ public partial class Settings : Avalonia.Controls.Window
 
     private void btnClearCache_Click(object sender, RoutedEventArgs e)
     {
-        if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Shared.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+        if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
         var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         Directory.Delete($"{localPath}\\CriticalFlaw", true);

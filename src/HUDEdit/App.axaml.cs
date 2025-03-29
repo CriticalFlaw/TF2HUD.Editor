@@ -11,6 +11,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
+using HUDEdit.ViewModels;
 
 namespace HUDEdit;
 
@@ -27,9 +28,18 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        //Shared.Resources.Resources.Culture = new CultureInfo("en");
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow();
+            var mainWindow = new MainWindow()
+            {
+                DataContext = new MainWindowViewModel()
+            };
+
+            mainWindow.Show();
+            mainWindow.Focus();
+
+            desktop.MainWindow = mainWindow;
         }
 
         base.OnFrameworkInitializationCompleted();
