@@ -68,6 +68,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\Resources.zh-CN.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\AppSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Controls.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Download.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\GitJson.cs" />

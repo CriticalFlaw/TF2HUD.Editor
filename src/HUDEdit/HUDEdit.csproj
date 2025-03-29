@@ -13,6 +13,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Avalonia" Version="11.2.5" />
 		<PackageReference Include="Avalonia.Desktop" Version="11.2.5" />
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.5" />

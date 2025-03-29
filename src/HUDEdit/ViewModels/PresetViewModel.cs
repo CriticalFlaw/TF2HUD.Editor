@@ -1,8 +1,11 @@
-﻿namespace HUDEdit.ViewModels;
+﻿using Shared.Models;
+using System.ComponentModel;
+
+namespace HUDEdit.ViewModels;
 
 internal class PresetViewModel : ViewModelBase
 {
-/*    private readonly EditHUDViewModel _editHudViewModel;
+    private readonly EditHUDViewModel _editHudViewModel;
     public Preset Preset { get; }
 
     private bool _selected;
@@ -33,5 +36,5 @@ internal class PresetViewModel : ViewModelBase
     public override void Dispose()
     {
         _editHudViewModel.PropertyChanged -= EditHUDViewModelPropertyChanged;
-    }*/
+    }
 }

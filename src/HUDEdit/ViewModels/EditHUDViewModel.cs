@@ -1,11 +1,20 @@
-﻿namespace HUDEdit.ViewModels;
+﻿using CommunityToolkit.Mvvm.Input;
+using HUDEditor.Classes;
+using Shared.Models;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
 
-internal class EditHUDViewModel : ViewModelBase
+namespace HUDEdit.ViewModels;
+
+internal partial class EditHUDViewModel : ViewModelBase
 {
-/*    private readonly MainWindowViewModel _mainWindowViewModel;
+    private readonly MainWindowViewModel _mainWindowViewModel;
     private readonly HUD _hud;
     private string _status;
-
     public string Status
     {
         get => _status;
@@ -15,10 +24,8 @@ internal class EditHUDViewModel : ViewModelBase
             OnPropertyChanged(nameof(Status));
         }
     }
-
     public IEnumerable<PresetViewModel> Presets { get; }
     private Preset _selectedPreset;
-
     public Preset SelectedPreset
     {
         get => _selectedPreset;
@@ -28,10 +35,8 @@ internal class EditHUDViewModel : ViewModelBase
             OnPropertyChanged(nameof(SelectedPreset));
         }
     }
-
     public IEnumerable<Download> Downloads { get; }
     private Download _selectedDownloadSource;
-
     public Download SelectedDownloadSource
     {
         get => _selectedDownloadSource;
@@ -41,13 +46,12 @@ internal class EditHUDViewModel : ViewModelBase
             OnPropertyChanged(nameof(SelectedDownloadSource));
         }
     }
-
     public string GitHubUrl => _hud.GitHubUrl;
     public string TF2HudsUrl => _hud.TF2HudsUrl;
     public string ComfigHudsUrl => _hud.ComfigHudsUrl;
     public string DiscordUrl => _hud.DiscordUrl;
     public string SteamUrl => _hud.SteamUrl;
-    public Grid Content => _hud.GetControls();
+    //public Grid Content => _hud.GetControls();
 
     public EditHUDViewModel(MainWindowViewModel mainWindowViewModel, HUD hud)
     {
@@ -85,7 +89,7 @@ internal class EditHUDViewModel : ViewModelBase
             p.Selected = p.Preset == _hud.Settings.Preset;
         }
 
-        OnPropertyChanged(nameof(Content));
+        //OnPropertyChanged(nameof(Content));
     }
 
     [RelayCommand]
@@ -102,5 +106,5 @@ internal class EditHUDViewModel : ViewModelBase
         {
             p.Dispose();
         }
-    }*/
+    }
 }

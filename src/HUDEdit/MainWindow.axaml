@@ -10,6 +10,10 @@
         Title="TF2 HUD Editor"
 		Icon="/Assets/Images/favicon.ico"
 		Background="#2B2724">
+		
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
 
 	<!--Window.Resources>
 		<classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />

@@ -1,9 +1,13 @@
-using Avalonia.Controls;
 using Avalonia.Media.Imaging;
+using System.Globalization;
+using System.IO;
+using System.Windows;
+using System;
+using WPFLocalizeExtension.Engine;
 
 namespace HUDEdit.Views;
 
-public partial class Settings : Window
+public partial class Settings : Avalonia.Controls.Window
 {
     public Settings()
     {
@@ -18,11 +22,10 @@ public partial class Settings : Window
         ImgLocalizeCn.Source = new Bitmap("https://flagcdn.com/w320/cn.png");
 
         // Check for user selected settings.
-        //BtnAutoUpdate.IsChecked = Settings.Default.app_update_auto;
-        //BtnPersistXhair.IsChecked = Settings.Default.app_xhair_persist;
+        BtnAutoUpdate.IsChecked = App.Config.ConfigSettings.UserPrefs.AutoUpdate;
+        BtnPersistXhair.IsChecked = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence;
     }
 
-    /*
     /// <summary>
     ///     Updates localization to the selected language.
     /// </summary>
@@ -42,8 +45,8 @@ public partial class Settings : Window
             LocalizeDictionary.Instance.Culture = new CultureInfo("zh-CN");
 
         // Save language preference to user settings.
-        Settings.Default.user_language = LocalizeDictionary.Instance.Culture.ToString();
-        Settings.Default.Save();
+        App.Config.ConfigSettings.UserPrefs.Language = LocalizeDictionary.Instance.Culture.ToString();
+        App.SaveConfiguration();
     }
 
     private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
@@ -59,14 +62,14 @@ public partial class Settings : Window
 
     private void BtnAutoUpdate_OnClick(object sender, RoutedEventArgs e)
     {
-        Settings.Default.app_update_auto = BtnAutoUpdate.IsChecked ?? true;
-        Settings.Default.Save();
+        App.Config.ConfigSettings.UserPrefs.AutoUpdate = BtnAutoUpdate.IsChecked ?? true;
+        App.SaveConfiguration();
     }
 
     private void BtnPersistXhair_Click(object sender, RoutedEventArgs e)
     {
-        Settings.Default.app_xhair_persist = BtnPersistXhair.IsChecked ?? true;
-        Settings.Default.Save();
+        App.Config.ConfigSettings.UserPrefs.CrosshairPersistence = BtnPersistXhair.IsChecked ?? true;
+        App.SaveConfiguration();
     }
 
     private void btnClearCache_Click(object sender, RoutedEventArgs e)
@@ -80,13 +83,13 @@ public partial class Settings : Window
         MainWindow.UpdateAppSchema(true);
     }
 
-    private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
-    {
-        if (e.ChangedButton == MouseButton.Left) DragMove();
-    }
+    //private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+    //{
+    //    if (e.ChangedButton == MouseButton.Left) DragMove();
+    //}
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
     {
         Close();
-    }*/
+    }
 }

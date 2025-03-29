@@ -1,4 +1,5 @@
-﻿using HUDEditor.Classes;
+﻿using CommunityToolkit.Mvvm.Input;
+using HUDEditor.Classes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,10 +24,9 @@ internal partial class HUDInfoViewModel : ViewModelBase
         _screenshots = new ObservableCollection<object>((Hud.Screenshots ?? Array.Empty<object>()).Select((screenshot, i) => new { ImageSource = screenshot, Column = i % 2, Row = i / 2 }));
     }
 
-    /*
     [RelayCommand]
     public void BtnCustomize_Click()
     {
         _mainWindowViewModel.SelectHUD(Hud);
-    }*/
+    }
 }

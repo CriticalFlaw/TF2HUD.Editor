@@ -1,33 +1,40 @@
 using Avalonia.Controls;
 using HUDEdit.ViewModels;
 using HUDEditor.Classes;
+using Octokit;
+using Shared.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
 
 namespace HUDEdit;
 
-public partial class MainWindow : Window
+public partial class MainWindow : Avalonia.Controls.Window
 {
-    //public static string HudSelection = Settings.Default.hud_selected;
+    public static string HudSelection = App.Config.ConfigSettings.UserPrefs.SelectedHUD;
     public static string HudPath = "D:\\SteamLibrary\\steamapps\\common\\Team Fortress 2\\tf\\custom";  //Settings.Default.hud_directory;
 
     public MainWindow()
     {
         InitializeComponent();
-        DataContext = new MainWindowViewModel();
+        //DataContext = new MainWindowViewModel();
 
-        /*
-            var mainWindowViewModel = new MainWindowViewModel();
-            mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
+        var mainWindowViewModel = new MainWindowViewModel();
+        mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
 
-            // Check for tf/custom directory
-            SetupDirectory();
+        // Check for tf/custom directory
+        SetupDirectory();
 
-            // Check for updates
-            if (Settings.Default.app_update_auto == true) UpdateAppSchema(true);
-        */
+        // Check for updates
+        if (App.Config.ConfigSettings.UserPrefs.AutoUpdate == true) UpdateAppSchema(true);
     }
-
-    /*
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
@@ -61,10 +68,10 @@ public partial class MainWindow : Window
                 {
                     if (browser.SelectedPath.EndsWith("tf\\custom"))
                     {
-                        Settings.Default.hud_directory = browser.SelectedPath;
-                        Settings.Default.Save();
-                        HudPath = Settings.Default.hud_directory;
-                        App.Logger.Info("Target directory set to: " + Settings.Default.hud_directory);
+                        App.Config.ConfigSettings.UserPrefs.HUDDirectory = browser.SelectedPath;
+                        App.SaveConfiguration();
+                        HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
+                        App.Logger.Info("Target directory set to: " + App.Config.ConfigSettings.UserPrefs.HUDDirectory);
                     }
                     else
                     {
@@ -82,7 +89,7 @@ public partial class MainWindow : Window
         if (Utilities.CheckUserPath(HudPath)) return;
         App.Logger.Info("Target directory still not set. Closing.");
         ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString("error_app_directory"));
-        Application.Current.Shutdown();
+        System.Windows.Application.Current.Shutdown();
     }
 
     /// <summary>
@@ -101,9 +108,8 @@ public partial class MainWindow : Window
                 break;
         }
 
-        return MessageBox.Show(message, string.Empty, buttons, type);
+        return System.Windows.MessageBox.Show(message, string.Empty, buttons, type);
     }
-    */
 
     /// <summary>
     /// Checks if the selected HUD is installed correctly.
@@ -118,7 +124,6 @@ public partial class MainWindow : Window
             Directory.Exists($"{HudPath}\\{hud.Name}");
     }
 
-    /*
     /// <summary>
     /// Synchronizes the local HUD schema files with the latest versions on GitHub.
     /// </summary>
@@ -131,7 +136,7 @@ public partial class MainWindow : Window
             if (!Directory.Exists("JSON")) Directory.CreateDirectory("JSON");
 
             var downloads = new List<Task>();
-            var remoteFiles = (await Utilities.Fetch<GitJson[]>(Settings.Default.json_list)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
+            var remoteFiles = (await Utilities.Fetch<GitJson[]>(App.Config.ConfigSettings.AppConfig.JsonListURL)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
 
             foreach (var remoteFile in remoteFiles)
             {
@@ -196,7 +201,7 @@ public partial class MainWindow : Window
             if (appVersion.Equals(latestVersion.TagName)) return;
             App.Logger.Info($"Update available from {appVersion} -> {latestVersion.TagName}");
             if (ShowMessageBox(MessageBoxImage.Information, Shared.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
-            Utilities.OpenWebpage(Settings.Default.app_update);
+            Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.LatestUpdateURL);
 
         }
         catch (Exception e)
@@ -205,5 +210,4 @@ public partial class MainWindow : Window
             Console.WriteLine(e);
         }
     }
-    */
 }
