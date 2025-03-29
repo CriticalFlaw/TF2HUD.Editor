@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:HUDEdit.ViewModels"
+			 xmlns:loc="clr-namespace:HUDEdit.Assets"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HUDEdit.Views.EditHUD"
 			 x:DataType="vm:EditHUDViewModel">
@@ -58,9 +59,8 @@
 
 			<WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2">
 				<WrapPanel VerticalAlignment="Center">
-					<Label>
-						Download <!--Note: Add Content="{lex:Loc ui_download}" Visibility="{Binding Visibility, ElementName=CbBranch}"-->
-					</Label>
+					<Label Content="{x:Static loc:Resources.ui_download}" />
+					<!--Note: Add Visibility="{Binding Visibility, ElementName=CbBranch}"-->
 					<ComboBox Name="CbBranch" Margin="5,0" Padding="5" Height="35" Width="160">
 						<!--Note: Add ItemsSource="{Binding Downloads}" SelectedItem="{Binding SelectedDownloadSource}" DisplayMemberPath="Content" Visibility="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}"-->
 					</ComboBox>

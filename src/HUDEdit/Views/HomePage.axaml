@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:HUDEdit.ViewModels"
 			 xmlns:v="clr-namespace:HUDEdit.Views"
+			 xmlns:loc="clr-namespace:HUDEdit.Assets"
 			 xmlns:controls="clr-namespace:HUDEdit.Views"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HUDEdit.Views.HomePage"
@@ -36,8 +37,7 @@
 					<RowDefinition Height="auto" />
 					<RowDefinition Height="*" />
 				</Grid.RowDefinitions>
-				<Label Grid.Column="0" Grid.Row="0">Search</Label>
-				<!--Note: Add Content="{lex:Loc ui_search}"-->
+				<Label Content="{x:Static loc:Resources.ui_search}" Grid.Column="0" Grid.Row="0"/>
 
 				<TextBox Foreground="WhiteSmoke" Background="#2B2724" BorderThickness="2" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0"/>
 				<!--Note: Add Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"-->

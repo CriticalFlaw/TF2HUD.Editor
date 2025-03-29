@@ -55,7 +55,7 @@ public partial class MainWindow : Avalonia.Controls.Window
         App.Logger.Info("Target directory not set. Asking user to provide it.");
         var browser = new OpenFolderDialog
         {
-            Title = Localization.Resources.info_path_browser,
+            Title = Assets.Resources.info_path_browser,
             //InitialDirectory = 
             //ShowNewFolderButton = true
         };
@@ -166,14 +166,14 @@ public partial class MainWindow : Avalonia.Controls.Window
             await Task.WhenAll(downloads);
             if (Convert.ToBoolean(downloads.Count))
             {
-                if (!silent) if (ShowMessageBox(MessageBoxImage.Information, Localization.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                if (!silent) if (ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                 Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
                 Environment.Exit(0);
             }
             else
             {
-                if (!silent) ShowMessageBox(MessageBoxImage.Information, Localization.Resources.info_hud_update_none);
+                if (!silent) ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_hud_update_none);
             }
         }
         catch (Exception e)
@@ -200,7 +200,7 @@ public partial class MainWindow : Avalonia.Controls.Window
 
             if (appVersion.Equals(latestVersion.TagName)) return;
             App.Logger.Info($"Update available from {appVersion} -> {latestVersion.TagName}");
-            if (ShowMessageBox(MessageBoxImage.Information, Localization.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.LatestUpdateURL);
 
         }

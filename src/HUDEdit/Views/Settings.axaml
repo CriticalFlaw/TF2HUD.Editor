@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:vm="using:HUDEdit.ViewModels"
+		xmlns:loc="clr-namespace:HUDEdit.Assets"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="HUDEdit.Views.Settings"
 		x:DataType="vm:SettingsViewModel"
@@ -19,75 +20,59 @@
 
 	<Border BorderThickness="2" CornerRadius="10" Background="#2B2724">
 		<Grid>
-			<!-- Custom Title Bar -->
-			<Border Background="#211e1c" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-				<!--Note: Add Height="Auto" MouseDown="TitleBar_MouseDown"-->
-				<Grid>
-					<Image Source="/Assets/Images/logo.png" Height="20" HorizontalAlignment="Left" Margin="5"/>
-					<TextBlock Text="Settings" VerticalAlignment="Center" Margin="30,0,0,0" Foreground="#EBE2CA" FontFamily="Tf2Build" FontSize="16" />
-					<!--Note: Add Text="{lex:Loc ui_settings}"-->
-					<Button Content="X" HorizontalAlignment="Right" Width="30" Height="30" FontFamily="Tf2Build" />
-					<!--Note: Add Click="CloseButton_Click"-->
-				</Grid>
-			</Border>
+			<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0">
+				<!--Note: Add Visibility="{Binding Json.HighlightedHud, Converter={StaticResource NotNullCheckConverterVisibility}}"-->
+				<StackPanel Margin="20">
+					<HeaderedContentControl Header="Language" Grid.Row="1">
+						<WrapPanel HorizontalAlignment="Center">
+							<RadioButton x:Name="BtnLocalizeEn" Margin="5">
+								<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
+								<Image x:Name="ImgLocalizeEn" Width="75" />
+							</RadioButton>
+							<RadioButton x:Name="BtnLocalizeFr" Margin="5">
+								<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
+								<Image x:Name="ImgLocalizeFr" Width="60" />
+							</RadioButton>
+							<RadioButton x:Name="BtnLocalizeRu" Margin="5">
+								<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
+								<Image x:Name="ImgLocalizeRu" Width="60" />
+							</RadioButton>
+							<RadioButton x:Name="BtnLocalizeBr" Margin="5">
+								<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
+								<Image x:Name="ImgLocalizeBr" Width="60" />
+							</RadioButton>
+							<RadioButton x:Name="BtnLocalizeIt" Margin="5">
+								<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
+								<Image x:Name="ImgLocalizeIt" Width="60" />
+							</RadioButton>
+							<RadioButton x:Name="BtnLocalizeCn" Margin="5">
+								<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
+								<Image x:Name="ImgLocalizeCn" Width="60" />
+							</RadioButton>
+						</WrapPanel>
+					</HeaderedContentControl>
 
-			<Grid Margin="0,30,0,0">
-
-				<!-- App Info and Changelog -->
-				<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Grid.Row="0">
-					<!--Note: Add Visibility="{Binding Json.HighlightedHud, Converter={StaticResource NotNullCheckConverterVisibility}}"-->
-					<StackPanel Margin="20">
-						<HeaderedContentControl Header="Language" Grid.Row="1">
-							<WrapPanel HorizontalAlignment="Center">
-								<RadioButton x:Name="BtnLocalizeEn" Margin="5">
-									<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
-									<Image x:Name="ImgLocalizeEn" Width="75" />
-								</RadioButton>
-								<RadioButton x:Name="BtnLocalizeFr" Margin="5">
-									<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
-									<Image x:Name="ImgLocalizeFr" Width="60" />
-								</RadioButton>
-								<RadioButton x:Name="BtnLocalizeRu" Margin="5">
-									<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
-									<Image x:Name="ImgLocalizeRu" Width="60" />
-								</RadioButton>
-								<RadioButton x:Name="BtnLocalizeBr" Margin="5">
-									<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
-									<Image x:Name="ImgLocalizeBr" Width="60" />
-								</RadioButton>
-								<RadioButton x:Name="BtnLocalizeIt" Margin="5">
-									<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
-									<Image x:Name="ImgLocalizeIt" Width="60" />
-								</RadioButton>
-								<RadioButton x:Name="BtnLocalizeCn" Margin="5">
-									<!--Note: Add Checked="BtnLocalize_OnClick" ToolBar.OverflowMode="Always"-->
-									<Image x:Name="ImgLocalizeCn" Width="60" />
-								</RadioButton>
-							</WrapPanel>
-						</HeaderedContentControl>
-
-						<HeaderedContentControl Header="Settings" Grid.Row="1">
-							<WrapPanel HorizontalAlignment="Center">
-								<Button Content="Directory" Width="263" Classes="SettingButton">
-									<!--Note: Add Content="{lex:Loc ui_directory}" Click="BtnSetDirectory_OnClick"-->
-								</Button>
-								<Button Content="Refresh" Width="263" Classes="SettingButton">
-									<!--Note: Add Content="{lex:Loc ui_refresh}" Click="BtnRefresh_OnClick"-->
-								</Button>
-								<Button Content="Clear Cache" Width="263" Classes="SettingButton">
-									<!--Note: Add Content="{lex:Loc ui_clear_cache}" Click="btnClearCache_Click"-->
-								</Button>
-								<CheckBox x:Name="BtnPersistXhair" Content="Remember Crosshairs" Classes="SettingCheckBox">
-									<!--Note: Add Content="{lex:Loc ui_persist_xhair}" Click="BtnPersistXhair_Click"-->
-								</CheckBox>
-								<CheckBox x:Name="BtnAutoUpdate" Content="Check Updates" Classes="SettingCheckBox">
-									<!--Note: Add Content="{lex:Loc ui_check_updates}" Click="BtnAutoUpdate_OnClick"-->
-								</CheckBox>
-							</WrapPanel>
-						</HeaderedContentControl>
-					</StackPanel>
-				</ScrollViewer>
-			</Grid>
+					<HeaderedContentControl Header="Settings" Grid.Row="1">
+						<WrapPanel HorizontalAlignment="Center">
+							<Button Content="{x:Static loc:Resources.ui_directory}" Width="263" Classes="SettingButton">
+								<!--Note: Add Click="BtnSetDirectory_OnClick"-->
+							</Button>
+							<Button Content="{x:Static loc:Resources.ui_refresh}" Width="263" Classes="SettingButton">
+								<!--Note: Add Click="BtnRefresh_OnClick"-->
+							</Button>
+							<Button Content="{x:Static loc:Resources.ui_clear_cache}" Width="263" Classes="SettingButton">
+								<!--Note: Add Content="{lex:Loc ui_clear_cache}" Click="btnClearCache_Click"-->
+							</Button>
+							<CheckBox x:Name="BtnPersistXhair" Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox">
+								<!--Note: Add Click="BtnPersistXhair_Click"-->
+							</CheckBox>
+							<CheckBox x:Name="BtnAutoUpdate" Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox">
+								<!--Note: Add Click="BtnAutoUpdate_OnClick"-->
+							</CheckBox>
+						</WrapPanel>
+					</HeaderedContentControl>
+				</StackPanel>
+			</ScrollViewer>
 		</Grid>
 	</Border>
 </Window>

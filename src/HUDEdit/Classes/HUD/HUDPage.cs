@@ -528,7 +528,7 @@ public partial class HUD
                         var bgInput = new Button
                         {
                             Name = id,
-                            Content = Localization.Resources.ui_browse,
+                            Content = Assets.Resources.ui_browse,
                             Height = 32,
                             Padding = new Thickness(5, 2, 5, 0),
                             HorizontalAlignment = HorizontalAlignment.Stretch
@@ -539,7 +539,7 @@ public partial class HUD
 
                         var clearInput = new Button
                         {
-                            Content = Localization.Resources.ui_clear,
+                            Content = Assets.Resources.ui_clear,
                             Height = 32,
                             Padding = new Thickness(5, 2, 5, 0),
                             HorizontalAlignment = HorizontalAlignment.Stretch
@@ -564,7 +564,7 @@ public partial class HUD
                         // Add Events.
                         bgInput.Click += (_, _) =>
                         {
-                            MainWindow.ShowMessageBox(MessageBoxImage.Information, Localization.Resources.info_background_override);
+                            MainWindow.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_background_override);
                             //using (var browser = new OpenFileDialog())
                             //{
                             //    browser.ShowDialog();

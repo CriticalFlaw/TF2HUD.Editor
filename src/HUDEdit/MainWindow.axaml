@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="using:HUDEdit.ViewModels"
 		xmlns:v="clr-namespace:HUDEdit.Views"
+		xmlns:loc="clr-namespace:HUDEdit.Assets"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="HUDEdit.MainWindow"
 		x:DataType="vm:MainWindowViewModel"
@@ -50,21 +51,21 @@
 				<Button Classes="HudButton" Content="Select">
 					<!--Note: AddCommand="{Binding BtnInstall_ClickCommand}" Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
-				<Button Classes="HudButton" Content="Uninstall" >
-					<!--Note: Command="{Binding BtnUninstall_ClickCommand}" Content="{lex:Loc ui_uninstall}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"-->
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_uninstall}" >
+					<!--Note: Command="{Binding BtnUninstall_ClickCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
-				<Button Classes="HudButton" Content="Apply">
-					<!--Note: Command="{Binding BtnSave_ClickCommand}" Content="{lex:Loc ui_apply}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"-->
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_apply}">
+					<!--Note: Command="{Binding BtnSave_ClickCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
-				<Button Classes="HudButton" Content="Reset">
-					<!--Note: Command="{Binding BtnReset_ClickCommand}" Content="{lex:Loc ui_reset}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_reset}">
+					<!--Note: Command="{Binding BtnReset_ClickCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
-				<Button Classes="HudButton" Content="Main Menu">
-					<!--Note: Command="{Binding BtnSwitch_ClickCommand}" Content="{lex:Loc ui_switch}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_switch}">
+					<!--Note: Command="{Binding BtnSwitch_ClickCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
-				<Button Classes="LinkButton" Content="=" Command="{Binding OpenOptionsMenu}" ToolTip.Tip="tooltip_options"/>
-				<Button Classes="LinkButton" Content="&#x03C6;" Command="{Binding OpenIssueTracker}" ToolTip.Tip="tooltip_report"/>
-				<Button Classes="LinkButton" Content="&#x0235;" Command="{Binding OpenDocSite}" ToolTip.Tip="tooltip_docs"/>
+				<Button Classes="LinkButton" Content="=" Command="{Binding OpenOptionsMenu}" ToolTip.Tip="{x:Static loc:Resources.tooltip_options}"/>
+				<Button Classes="LinkButton" Content="&#x03C6;" Command="{Binding OpenIssueTracker}" ToolTip.Tip="{x:Static loc:Resources.tooltip_report}"/>
+				<Button Classes="LinkButton" Content="&#x0235;" Command="{Binding OpenDocSite}" ToolTip.Tip="{x:Static loc:Resources.tooltip_docs}"/>
 				<Button Classes="LinkButton" Content="!">
 					<!--Note: Command="{Binding BtnPlayTF2_ClickCommand}" ToolTip="{lex:Loc tooltip_launch}" Visibility="{Binding SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}"-->
 				</Button>

@@ -59,11 +59,11 @@ internal partial class EditHUDViewModel : ViewModelBase
         _hud = hud;
 
         if (MainWindow.CheckHudInstallation(hud))
-            _status = string.Format(Localization.Resources.status_installed, hud.Name);
+            _status = string.Format(Assets.Resources.status_installed, hud.Name);
         else if (Directory.Exists(MainWindow.HudPath))
-            _status = string.Format(Localization.Resources.status_installed_not, hud.Name);
+            _status = string.Format(Assets.Resources.status_installed_not, hud.Name);
         else
-            _status = Localization.Resources.status_pathNotSet;
+            _status = Assets.Resources.status_pathNotSet;
 
         _selectedPreset = _hud.Settings.Preset;
         Presets = new ObservableCollection<PresetViewModel>(Enum.GetValues<Preset>().Select((p) => new PresetViewModel(this, p)));
