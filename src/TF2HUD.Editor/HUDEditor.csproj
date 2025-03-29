@@ -36,6 +36,32 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <AvaloniaXaml Remove="ViewModels\**" />
+	  <AvaloniaXaml Remove="Views\**" />
+	  <Compile Remove="ViewModels\**" />
+	  <Compile Remove="Views\**" />
+	  <EmbeddedResource Remove="ViewModels\**" />
+	  <EmbeddedResource Remove="Views\**" />
+	  <None Remove="ViewModels\**" />
+	  <None Remove="Views\**" />
+	  <Page Remove="ViewModels\**" />
+	  <Page Remove="Views\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="SettingsWindow.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Remove="SettingsWindow.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="11.2.5" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.2.5" />
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.2.5" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.5" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.5" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Crews.Utility.TgaSharp" Version="1.0.0" />
 		<PackageReference Include="DotNetProjects.Extended.Wpf.Toolkit" Version="5.0.124" />

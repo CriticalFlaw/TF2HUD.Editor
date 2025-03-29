@@ -22,19 +22,22 @@ public partial class App
 
     private App()
     {
-        // Load configuration from appconfig.json
-        Config = new ConfigurationBuilder()
+        if (File.Exists("secrets.json"))
+        {
+            // Load configuration from appconfig.json
+            Config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json")
             .Build();
 
-        DispatcherUnhandledException += App_DispatcherUnhandledException;
-        SentrySdk.Init(o =>
-        {
-            // Tells which project in Sentry to send events to:
-            o.Dsn = Config["Sentry:Dsn"];
-            // When configuring for the first time, to see what the SDK is doing:
-            o.Debug = true;
-        });
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
+            SentrySdk.Init(o =>
+            {
+                // Tells which project in Sentry to send events to:
+                o.Dsn = Config["Sentry:Dsn"];
+                // When configuring for the first time, to see what the SDK is doing:
+                o.Debug = true;
+            });
+        }
 
         // Set the logger
         XmlConfigurator.Configure(new FileInfo(Path.Combine(AppContext.BaseDirectory, "log4net.config")));

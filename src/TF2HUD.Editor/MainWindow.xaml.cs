@@ -12,7 +12,6 @@ using System.Windows.Input;
 using HUDEditor.Classes;
 using Shared.Models;
 using HUDEditor.Properties;
-using HUDEditor.ViewModels;
 using Octokit;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
@@ -31,23 +30,23 @@ public partial class MainWindow
     {
         // Initialize the main window
         InitializeComponent();
-        var mainWindowViewModel = new MainWindowViewModel();
-        mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
-        DataContext = mainWindowViewModel;
+        //var mainWindowViewModel = new MainWindowViewModel();
+        //mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
+        //DataContext = mainWindowViewModel;
 
-        // Check for tf/custom directory
-        SetupDirectory();
+        //// Check for tf/custom directory
+        //SetupDirectory();
       
-        // Check for updates
-        if (Settings.Default.app_update_auto == true) UpdateAppSchema(true);
+        //// Check for updates
+        //if (Settings.Default.app_update_auto == true) UpdateAppSchema(true);
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(MainWindowViewModel.SelectedHud))
-        {
-            HudSelection = ((MainWindowViewModel)sender).SelectedHud?.Name ?? string.Empty;
-        }
+        //if (e.PropertyName == nameof(MainWindowViewModel.SelectedHud))
+        //{
+        //    HudSelection = ((MainWindowViewModel)sender).SelectedHud?.Name ?? string.Empty;
+        //}
     }
 
     /// <summary>
