@@ -19,8 +19,10 @@ using HorizontalAlignment = System.Windows.HorizontalAlignment;
 using Label = System.Windows.Controls.Label;
 using Panel = System.Windows.Controls.Panel;
 using TextBox = System.Windows.Controls.TextBox;
+using Avalonia.Controls;
+using Avalonia;
 
-namespace HUDEditor.Classes;
+namespace HUDEdit.Classes;
 
 public partial class HUD
 {

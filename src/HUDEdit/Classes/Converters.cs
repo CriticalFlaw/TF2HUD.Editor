@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using HUDEditor.Properties;
 
-namespace HUDEditor.Classes;
+namespace HUDEdit.Classes;
 
 public class NullCheckConverter : IValueConverter
 {

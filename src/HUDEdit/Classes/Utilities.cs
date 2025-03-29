@@ -17,7 +17,7 @@ using Microsoft.Win32;
 using WPFLocalizeExtension.Extensions;
 using Color = System.Windows.Media.Color;
 
-namespace HUDEditor.Classes;
+namespace HUDEdit.Classes;
 
 public static class Utilities
 {

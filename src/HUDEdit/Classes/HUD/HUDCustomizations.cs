@@ -9,7 +9,7 @@ using Shared.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace HUDEditor.Classes;
+namespace HUDEdit.Classes;
 
 public partial class HUD
 {
@@ -43,7 +43,7 @@ public partial class HUD
                     WriteToFile(control, setting, hudFolders);
 
                     // Apply persistent crosshair settings, where possible.
-                    if (Properties.Settings.Default.app_xhair_persist)
+                    if (App.Settings.Default.app_xhair_persist)
                     {
                         switch (control.Type.ToLowerInvariant())
                         {

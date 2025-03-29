@@ -1,8 +1,7 @@
 using System;
 using System.IO;
-using System.Windows;
 
-namespace HUDEditor.Classes;
+namespace HUDEdit.Classes;
 
 /// <summary>
 ///     <para>Handles the options and priority of a HUD's custom background</para>

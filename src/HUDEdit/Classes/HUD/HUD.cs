@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
+using Avalonia.Controls;
 using Shared.Models;
 using Xceed.Wpf.Toolkit;
-using static HUDEditor.MainWindow;
 
-namespace HUDEditor.Classes;
+namespace HUDEdit.Classes;
 
 public partial class HUD
 {

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 
-namespace HUDEditor.Classes;
+namespace HUDEdit.Classes;
 
 internal class VTF
 {

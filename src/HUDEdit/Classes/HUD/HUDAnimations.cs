@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Shared.Models;
 
-namespace HUDEditor.Classes;
+namespace HUDEdit.Classes;
 
 /// <summary>
 /// Sample Animation Script
