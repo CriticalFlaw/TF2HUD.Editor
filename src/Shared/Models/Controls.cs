@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using System.Windows;
+using Avalonia.Controls;
 using Newtonsoft.Json.Linq;
 
 namespace Shared.Models;
@@ -8,7 +8,7 @@ public class Controls
 {
     [JsonPropertyName("ComboFiles")] public string[] ComboFiles;
     [JsonPropertyName("ComboDirectories")] public string[] ComboDirectories;
-    public UIElement Control;
+    public Control Control;
     [JsonPropertyName("FileName")] public string FileName;
     [JsonPropertyName("Files")] public JObject Files;
     [JsonPropertyName("Increment")] public int Increment = 2;

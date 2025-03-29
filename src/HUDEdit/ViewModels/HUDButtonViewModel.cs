@@ -1,4 +1,4 @@
-﻿using HUDEditor.Classes;
+﻿using HUDEdit.Classes;
 
 namespace HUDEdit.ViewModels;
 

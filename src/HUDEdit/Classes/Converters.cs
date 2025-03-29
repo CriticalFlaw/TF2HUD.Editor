@@ -1,13 +1,12 @@
+using Avalonia;
+using Avalonia.Data.Converters;
+using Avalonia.Media;
+using ExCSS;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using HUDEditor.Properties;
 
 namespace HUDEdit.Classes;
 
@@ -55,7 +54,7 @@ public class LinkCheckConverterVisibility : IValueConverter
     {
         return value switch
         {
-            string s => !string.IsNullOrWhiteSpace(s) ? Visibility.Visible : Visibility.Collapsed,
+            string s => !string.IsNullOrWhiteSpace(s) ? Visibility.Visible : Visibility.Collapse,
             _ => Visibility.Hidden
         };
     }
@@ -70,7 +69,7 @@ public class NullCheckConverterVisibility : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value is not null ? Visibility.Visible : Visibility.Collapsed;
+        return value is not null ? Visibility.Visible : Visibility.Collapse;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -83,7 +82,7 @@ public class NotNullCheckConverterVisibility : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value is null ? Visibility.Visible : Visibility.Collapsed;
+        return value is null ? Visibility.Visible : Visibility.Collapse;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -99,18 +98,18 @@ public class PageBackgroundConverter : IValueConverter
         if (value is null) return new ImageBrush
         {
             Stretch = Stretch.UniformToFill,
-            ImageSource = new BitmapImage(new Uri(Settings.Default.app_default_bg, UriKind.RelativeOrAbsolute))
+            Source = new BitmapImage(new Uri(App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute))
         };
 
         var selection = (HUD)value;
-        selection.Background ??= Settings.Default.app_default_bg;
+        selection.Background ??= App.Config.ConfigSettings.UserPrefs.BackgroundImage;
         if (selection.Background.StartsWith("http") || selection.Background.StartsWith("file"))
         {
             return new ImageBrush
             {
                 Stretch = Stretch.UniformToFill,
                 Opacity = selection.Opacity,
-                ImageSource = new BitmapImage(new Uri(selection.Background ??= Settings.Default.app_default_bg, UriKind.RelativeOrAbsolute))
+                Source = new BitmapImage(new Uri(selection.Background ??= App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute))
             };
         }
 
@@ -145,7 +144,7 @@ public class BtnInstallContentConverter : IValueConverter
         if (hud is not null)
         {
             App.Logger.Info($"User selected: {hud.Name}");
-            if (Directory.Exists($"{Settings.Default.hud_directory}\\{hud.Name}"))
+            if (Directory.Exists($"{App.Config.ConfigSettings.UserPrefs.HUDDirectory}\\{hud.Name}"))
             {
                 App.Logger.Info($"{hud.Name} is installed");
                 return Utilities.GetLocalizedString("ui_reinstall") ?? "Reinstall";

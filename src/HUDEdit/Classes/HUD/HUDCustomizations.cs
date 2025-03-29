@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows;
 using Shared.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -43,28 +42,28 @@ public partial class HUD
                     WriteToFile(control, setting, hudFolders);
 
                     // Apply persistent crosshair settings, where possible.
-                    if (App.Settings.Default.app_xhair_persist)
+                    if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence)
                     {
                         switch (control.Type.ToLowerInvariant())
                         {
                             case "checkbox":
                                 if (control.Label.Contains("Toggle Crosshair"))
-                                    Properties.Settings.Default.app_xhair_enabled = Boolean.Parse(setting.Value);
+                                    App.Config.ConfigSettings.UserPrefs.CrosshairEnabled = Boolean.Parse(setting.Value);
                                 break;
 
                             case "crosshair":
                                 if (control.Label.Contains("Style"))
-                                    Properties.Settings.Default.app_xhair_style = setting.Value;
+                                    App.Config.ConfigSettings.UserPrefs.CrosshairStyle = setting.Value;
                                 break;
 
                             case "colorpicker":
                                 if (control.Label.Contains("Crosshair"))
-                                    Properties.Settings.Default.app_xhair_color = setting.Value;
+                                    App.Config.ConfigSettings.UserPrefs.CrosshairColor = setting.Value;
                                 break;
 
                             case "integerupdown":
                                 if (control.Label.Contains("Size"))
-                                    Properties.Settings.Default.app_xhair_size = int.Parse(setting.Value);
+                                    App.Config.ConfigSettings.UserPrefs.CrosshairSize = int.Parse(setting.Value);
                                 break;
                         }
                     }
@@ -754,7 +753,7 @@ public partial class HUD
                 || !enable) return;
 
             // Download a version of the transparent viewmodels add-on.
-            await Utilities.DownloadFile(Properties.Settings.Default.mastercomfig_vpk, $"{MainWindow.HudPath}\\{fileName}");
+            await Utilities.DownloadFile(App.Config.ConfigSettings.AppConfig.MastercomfigVpkURL, $"{MainWindow.HudPath}\\{fileName}");
         }
         catch (Exception e)
         {

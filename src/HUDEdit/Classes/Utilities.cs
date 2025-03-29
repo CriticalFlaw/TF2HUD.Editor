@@ -9,13 +9,11 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 using Shared.Models;
-using HUDEditor.Properties;
 using Microsoft.Win32;
 using WPFLocalizeExtension.Extensions;
-using Color = System.Windows.Media.Color;
+using Avalonia.Media;
+using Color = Avalonia.Media.Color;
 
 namespace HUDEdit.Classes;
 
@@ -226,8 +224,8 @@ public static class Utilities
             if (Directory.Exists(pathTF))
             {
                 App.Logger.Info($"Set target directory to: {pathTF.Replace("\\\\", "\\")}");
-                Settings.Default.hud_directory = pathTF;
-                Settings.Default.Save();
+                App.Config.ConfigSettings.UserPrefs.HUDDirectory = pathTF;
+                App.SaveConfiguration();
                 return true;
             }
         }
@@ -370,7 +368,7 @@ public static class Utilities
         var crosshairsZipFileName = $"{crosshairsName}.zip";
 
         // Download TF2 HUD Crosshairs
-        await DownloadFile(Settings.Default.tf2_hud_crosshairs_zip, crosshairsZipFileName);
+        await DownloadFile(App.Config.ConfigSettings.AppConfig.CrosshairPackURL, crosshairsZipFileName);
         if (Directory.Exists(crosshairsName)) Directory.Delete(crosshairsName, true);
         ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath);
 

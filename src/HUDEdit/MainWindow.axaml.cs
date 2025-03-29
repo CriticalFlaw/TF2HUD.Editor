@@ -1,6 +1,5 @@
-using Avalonia.Controls;
+using HUDEdit.Classes;
 using HUDEdit.ViewModels;
-using HUDEditor.Classes;
 using Octokit;
 using Shared.Models;
 using System;
@@ -11,8 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
 
 namespace HUDEdit;
 
@@ -89,7 +86,7 @@ public partial class MainWindow : Avalonia.Controls.Window
         if (Utilities.CheckUserPath(HudPath)) return;
         App.Logger.Info("Target directory still not set. Closing.");
         ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString("error_app_directory"));
-        System.Windows.Application.Current.Shutdown();
+        //Avalonia.Application.Shutdown();
     }
 
     /// <summary>

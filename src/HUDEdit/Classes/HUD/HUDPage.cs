@@ -2,25 +2,13 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Shared.Models;
-using HUDEditor.Properties;
 using Xceed.Wpf.Toolkit;
-using Application = System.Windows.Application;
-using Button = System.Windows.Controls.Button;
-using CheckBox = System.Windows.Controls.CheckBox;
-using ComboBox = System.Windows.Controls.ComboBox;
-using GroupBox = System.Windows.Controls.GroupBox;
-using HorizontalAlignment = System.Windows.HorizontalAlignment;
-using Label = System.Windows.Controls.Label;
-using Panel = System.Windows.Controls.Panel;
-using TextBox = System.Windows.Controls.TextBox;
 using Avalonia.Controls;
 using Avalonia;
+using Avalonia.Layout;
+using Avalonia.Styling;
+using Avalonia.Media;
+using Avalonia.Controls.Primitives;
 
 namespace HUDEdit.Classes;
 
@@ -94,7 +82,7 @@ public partial class HUD
         // Generate each control section as defined in the schema.
         foreach (var section in ControlOptions.Keys)
         {
-            var sectionContainer = new GroupBox
+            var sectionContainer = new HeaderedContentControl
             {
                 Header = section
             };
@@ -106,14 +94,14 @@ public partial class HUD
             // Create the reset button for each control section.
             var resetInput = new Button
             {
-                Style = (Style)Application.Current.Resources["PreviewButton"],
+                //Style = (Style)Application.Current.Resources["PreviewButton"],
                 HorizontalAlignment = HorizontalAlignment.Right,
                 Content = "\u0157",
                 Opacity = 0.4
             };
 
-            resetInput.MouseEnter += (_, _) => resetInput.Opacity = 1;
-            resetInput.MouseLeave += (_, _) => resetInput.Opacity = 0.4;
+            //resetInput.MouseEnter += (_, _) => resetInput.Opacity = 1;
+            //resetInput.MouseLeave += (_, _) => resetInput.Opacity = 0.4;
 
             Grid.SetColumn(resetInput, 1);
 
@@ -149,7 +137,7 @@ public partial class HUD
                             Content = label,
                             Margin = new Thickness(10, lastTop + 10, 30, 0),
                             IsChecked = Settings.GetSetting<bool>(id),
-                            ToolTip = tooltip
+                            //ToolTip = tooltip
                         };
 
                         // Override the control width, if set.
@@ -170,8 +158,8 @@ public partial class HUD
                             CheckIsDirty(controlItem);
                         };
 
-                        if (Properties.Settings.Default.app_xhair_persist && label.Contains("Toggle Crosshair"))
-                            checkBoxInput.IsChecked = Properties.Settings.Default.app_xhair_enabled;
+                        if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && label.Contains("Toggle Crosshair"))
+                            checkBoxInput.IsChecked = App.Config.ConfigSettings.UserPrefs.CrosshairEnabled;
 
                         // Add to Page.
                         sectionContent.Children.Add(checkBoxInput);
@@ -183,7 +171,7 @@ public partial class HUD
                         {
                             var previewBtn = new Button
                             {
-                                Style = (Style)Application.Current.Resources["PreviewButton"],
+                                //Style = (Style)Application.Current.Resources["PreviewButton"],
                                 Margin = new Thickness(0, lastTop, 0, 0),
                                 VerticalAlignment = VerticalAlignment.Bottom
                             };
@@ -213,10 +201,10 @@ public partial class HUD
                             Content = label,
                             Style = (Style)Application.Current.Resources["ColorPickerLabel"]
                         };
-                        var colorInput = new ColorPicker
+                        var colorInput = new Avalonia.Controls.ColorPicker
                         {
                             Name = id,
-                            ToolTip = tooltip
+                            //ToolTip = tooltip
                         };
 
                         // Override the control width, if set.
@@ -229,21 +217,21 @@ public partial class HUD
                         // Attempt to bind the color from the settings.
                         try
                         {
-                            if (Properties.Settings.Default.app_xhair_persist && label.Contains("Crosshair"))
-                                colorInput.SelectedColor = Utilities.ConvertToColor(Properties.Settings.Default.app_xhair_color);
+                            if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && label.Contains("Crosshair"))
+                                colorInput.Color = Utilities.ConvertToColor(App.Config.ConfigSettings.UserPrefs.CrosshairColor);
                             else
-                                colorInput.SelectedColor = Settings.GetSetting<Color>(id);
+                                colorInput.Color = Settings.GetSetting<Color>(id);
                         }
                         catch
                         {
-                            colorInput.SelectedColor = Color.FromArgb(255, 0, 255, 0);
+                            colorInput.Color = Color.FromArgb(255, 0, 255, 0);
                         }
 
                         // Add Events.
-                        colorInput.SelectedColorChanged += (sender, _) =>
+                        colorInput.ColorChanged += (sender, _) =>
                         {
-                            var input = sender as ColorPicker;
-                            Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
+                            var input = sender as Avalonia.Controls.ColorPicker;
+                            Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.Color.ToString()));
                         };
                         colorInput.Closed += (sender, _) =>
                         {
@@ -301,7 +289,7 @@ public partial class HUD
                         var comboBoxInput = new ComboBox
                         {
                             Name = id,
-                            ToolTip = tooltip,
+                            //ToolTip = tooltip,
                             Width = 150
                         };
 
@@ -387,7 +375,7 @@ public partial class HUD
                             Minimum = controlItem.Minimum,
                             Maximum = controlItem.Maximum,
                             Increment = controlItem.Increment,
-                            ToolTip = tooltip
+                            //ToolTip = tooltip
                         };
 
                         // Override the control width, if set.
@@ -397,8 +385,8 @@ public partial class HUD
                             integerInput.Width = controlItem.Width;
                         }
 
-                        if (Properties.Settings.Default.app_xhair_persist && label.Contains("Size"))
-                            integerInput.Value = Properties.Settings.Default.app_xhair_size;
+                        if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && label.Contains("Size"))
+                            integerInput.Value = App.Config.ConfigSettings.UserPrefs.CrosshairSize;
 
                         // Add Events.
                         integerInput.ValueChanged += (sender, _) =>
@@ -473,8 +461,8 @@ public partial class HUD
                         else
                             xhairInput.SelectedValue = xhairValue;
 
-                        if (Properties.Settings.Default.app_xhair_persist && label.Contains("Style"))
-                            xhairInput.SelectedValue = Properties.Settings.Default.app_xhair_style;
+                        if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && label.Contains("Style"))
+                            xhairInput.SelectedValue = App.Config.ConfigSettings.UserPrefs.CrosshairStyle;
 
                         // Add Events.
                         xhairInput.SelectionChanged += (sender, _) =>
@@ -636,7 +624,7 @@ public partial class HUD
                             Name = id,
                             Width = 270,
                             Text = Settings.GetSetting<string>(controlItem.Name) ?? string.Empty,
-                            ToolTip = tooltip
+                            //ToolTip = tooltip
                         };
 
                         // Override the control width, if set.
@@ -742,7 +730,7 @@ public partial class HUD
     /// <summary>
     /// Checks whether a control change requires a game restart.
     /// </summary>
-    private void CheckIsDirty(Controls control)
+    private void CheckIsDirty(Shared.Models.Controls control)
     {
         if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value) && !DirtyControls.Contains(control.Label))
             DirtyControls.Add(control.Label);

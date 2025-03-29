@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Avalonia;
 using Avalonia.Controls;
 using Shared.Models;
-using Xceed.Wpf.Toolkit;
 
 namespace HUDEdit.Classes;
 
@@ -31,7 +31,7 @@ public partial class HUD
     public string ComfigHudsUrl { get; set; }
     public string SteamUrl { get; set; }
     public string DiscordUrl { get; set; }
-    public Dictionary<string, Controls[]> ControlOptions;
+    public Dictionary<string, Shared.Models.Controls[]> ControlOptions;
     public readonly string[] LayoutOptions;
     public List<string> DirtyControls;
     public bool Unique;
@@ -106,7 +106,7 @@ public partial class HUD
     /// <summary>
     /// Resets a user setting to its default value as defined in the schema.
     /// </summary>
-    private void ResetControl(Controls control)
+    private void ResetControl(Shared.Models.Controls control)
     {
         try
         {
@@ -119,8 +119,8 @@ public partial class HUD
                     break;
 
                 case ColorPicker color:
-                    color.SelectedColor = Utilities.ConvertToColor(control.Value);
-                    App.Logger.Info($"Reset {control.Name} to {color.SelectedColor}");
+                    color.Color = Utilities.ConvertToColor(control.Value);
+                    App.Logger.Info($"Reset {control.Name} to {color.Color}");
                     break;
 
                 case ComboBox combo:
@@ -131,7 +131,7 @@ public partial class HUD
                     App.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                     break;
 
-                case IntegerUpDown integer:
+                case NumericUpDown integer:
                     integer.Text = control.Value;
                     App.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                     break;

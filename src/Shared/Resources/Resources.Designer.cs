@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HUDEdit....Shared.Resources {
+namespace Shared.Resources {
     using System;
     
     

@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Crews.Utility.TgaSharp;
+using HUDEdit.Classes;
 using HUDEdit.Views;
-using HUDEditor.Classes;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Shared.Models;
@@ -16,7 +16,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 
 namespace HUDEdit.ViewModels;
 
