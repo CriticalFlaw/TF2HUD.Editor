@@ -1,5 +1,6 @@
 using HUDEdit.Classes;
 using HUDEdit.ViewModels;
+using Microsoft.Win32;
 using Octokit;
 using Shared.Models;
 using System;
@@ -10,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HUDEdit;
 
@@ -27,7 +29,7 @@ public partial class MainWindow : Avalonia.Controls.Window
         mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
 
         // Check for tf/custom directory
-        SetupDirectory();
+        SetupDirectoryAsync();
 
         // Check for updates
         if (App.Config.ConfigSettings.UserPrefs.AutoUpdate == true) UpdateAppSchema(true);
@@ -45,42 +47,43 @@ public partial class MainWindow : Avalonia.Controls.Window
     /// Setups the target directory (tf/custom).
     /// </summary>
     /// <param name="userSet">If true, prompts the user to select the tf/custom using the folder browser.</param>
-    public static void SetupDirectory(bool userSet = false)
+    public static async Task SetupDirectoryAsync(bool userSet = false)
     {
         if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
 
         // Display a folder browser, ask the user to provide the tf/custom directory.
         App.Logger.Info("Target directory not set. Asking user to provide it.");
-        using (var browser = new FolderBrowserDialog
+        var browser = new OpenFolderDialog
         {
-            Description = Localization.Resources.info_path_browser,
-            UseDescriptionForTitle = true,
-            ShowNewFolderButton = true
-        })
-        {
-            // Loop until the user provides a valid tf/custom directory, unless they cancel out.
-            while (!browser.SelectedPath.EndsWith("tf\\custom"))
-            {
-                if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    if (browser.SelectedPath.EndsWith("tf\\custom"))
-                    {
-                        App.Config.ConfigSettings.UserPrefs.HUDDirectory = browser.SelectedPath;
-                        App.SaveConfiguration();
-                        HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
-                        App.Logger.Info("Target directory set to: " + App.Config.ConfigSettings.UserPrefs.HUDDirectory);
-                    }
-                    else
-                    {
-                        ShowMessageBox(MessageBoxImage.Error, Localization.Resources.info_path_invalid);
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
-        }
+            Title = Localization.Resources.info_path_browser,
+            //InitialDirectory = 
+            //ShowNewFolderButton = true
+        };
+
+        // TODO Refactor this
+        //string? result = await browser.ShowDialog();
+        //// Loop until the user provides a valid tf/custom directory, unless they cancel out.
+        //while (!result.EndsWith("tf\\custom"))
+        //{
+        //    if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //    {
+        //        if (browser.SelectedPath.EndsWith("tf\\custom"))
+        //        {
+        //            App.Config.ConfigSettings.UserPrefs.HUDDirectory = browser.SelectedPath;
+        //            App.SaveConfiguration();
+        //            HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
+        //            App.Logger.Info("Target directory set to: " + App.Config.ConfigSettings.UserPrefs.HUDDirectory);
+        //        }
+        //        else
+        //        {
+        //            ShowMessageBox(MessageBoxImage.Error, Localization.Resources.info_path_invalid);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        break;
+        //    }
+        //}
 
         // Check one more time if a valid directory has been set.
         if (Utilities.CheckUserPath(HudPath)) return;

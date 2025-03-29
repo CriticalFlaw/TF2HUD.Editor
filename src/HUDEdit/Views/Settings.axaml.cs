@@ -52,7 +52,7 @@ public partial class Settings : Avalonia.Controls.Window
     private void BtnSetDirectory_OnClick(object sender, RoutedEventArgs e)
     {
         App.Logger.Info("Attempting to change the target directory.");
-        MainWindow.SetupDirectory(true);
+        MainWindow.SetupDirectoryAsync(true);
     }
 
     private void BtnRefresh_OnClick(object sender, RoutedEventArgs e)

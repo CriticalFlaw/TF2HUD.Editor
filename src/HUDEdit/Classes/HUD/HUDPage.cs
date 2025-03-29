@@ -9,6 +9,13 @@ using Avalonia.Layout;
 using Avalonia.Styling;
 using Avalonia.Media;
 using Avalonia.Controls.Primitives;
+using System.Windows;
+using Thickness = Avalonia.Thickness;
+using VerticalAlignment = Avalonia.Layout.VerticalAlignment;
+using HorizontalAlignment = Avalonia.Layout.HorizontalAlignment;
+using GridLength = Avalonia.Controls.GridLength;
+using Style = Avalonia.Styling.Style;
+using Avalonia.Media.Imaging;
 
 namespace HUDEdit.Classes;
 
@@ -30,20 +37,15 @@ public partial class HUD
         container.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
         container.RowDefinitions.Add(contentRow);
 
-        // Create the preview modal
-        var preview = new ChildWindow
-        {
-            Style = (Style)Application.Current.Resources["PreviewPanel"]
-        };
-        preview.MouseDoubleClick += (_, _) => { preview.Close(); };
+        // TODO: Create the preview modal
+        //var preview = new Avalonia.Controls.ChildWindow();
+        //preview.MouseDoubleClick += (_, _) => { preview.Close(); };
 
-        var image = new Image
-        {
-            Style = (Style)Application.Current.Resources["PreviewImage"]
-        };
-        preview.Content = image;
+        //var image = new Image();
+        //image.Classes.Add("PreviewImage");
+        //preview.Content = image;
 
-        container.Children.Add(preview);
+        //container.Children.Add(preview);
 
         // NOTE: ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic for each section.
         dynamic sectionsContainer;
@@ -171,15 +173,15 @@ public partial class HUD
                         {
                             var previewBtn = new Button
                             {
-                                //Style = (Style)Application.Current.Resources["PreviewButton"],
                                 Margin = new Thickness(0, lastTop, 0, 0),
                                 VerticalAlignment = VerticalAlignment.Bottom
                             };
+                            previewBtn.Classes.Add("PreviewButton");
                             previewBtn.Click += (_, _) =>
                             {
-                                preview.Caption = !string.IsNullOrWhiteSpace(tooltip) ? tooltip : id;
-                                image.Source = new BitmapImage(new Uri(controlItem.Preview));
-                                preview.Show();
+                                //preview.Caption = !string.IsNullOrWhiteSpace(tooltip) ? tooltip : id;
+                                //image.Source = new Bitmap(new Uri(controlItem.Preview).ToString());
+                                //preview.Show();
                             };
                             sectionContent.Children.Add(previewBtn);
                             App.Logger.Info($"Added a preview for {checkBoxInput.Name} ({controlItem.Preview})");
@@ -196,11 +198,9 @@ public partial class HUD
                         {
                             Margin = new Thickness(10, lastTop, 0, 10)
                         };
-                        var colorLabel = new Label
-                        {
-                            Content = label,
-                            Style = (Style)Application.Current.Resources["ColorPickerLabel"]
-                        };
+                        var colorLabel = new Label();
+                        colorLabel.Content = label;
+                        colorLabel.Classes.Add("ColorPickerLabel");
                         var colorInput = new Avalonia.Controls.ColorPicker
                         {
                             Name = id,
@@ -233,12 +233,12 @@ public partial class HUD
                             var input = sender as Avalonia.Controls.ColorPicker;
                             Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.Color.ToString()));
                         };
-                        colorInput.Closed += (sender, _) =>
-                        {
-                            var input = sender as ColorPicker;
-                            Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
-                            CheckIsDirty(controlItem);
-                        };
+                        //colorInput.Closed += (sender, _) =>
+                        //{
+                        //    var input = sender as ColorPicker;
+                        //    Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
+                        //    CheckIsDirty(controlItem);
+                        //};
 
                         // Add to Page.
                         colorContainer.Children.Add(colorLabel);
@@ -252,16 +252,16 @@ public partial class HUD
                         {
                             var previewBtn = new Button
                             {
-                                Style = (Style)Application.Current.Resources["PreviewButton"],
                                 Margin = new Thickness(5, lastTop, 0, 0)
                             };
+                            previewBtn.Classes.Add("PreviewButton");
                             previewBtn.Click += (_, _) =>
                             {
-                                preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
-                                    ? tooltip
-                                    : id;
-                                image.Source = new BitmapImage(new Uri(controlItem.Preview));
-                                preview.Show();
+                                //preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
+                                //    ? tooltip
+                                //    : id;
+                                //image.Source = new Bitmap(new Uri(controlItem.Preview).ToString());
+                                //preview.Show();
                             };
                             sectionContent.Children.Add(previewBtn);
                             App.Logger.Info($"Added a preview for {colorInput.Name} ({controlItem.Preview})");
@@ -283,9 +283,9 @@ public partial class HUD
                         };
                         var comboBoxLabel = new Label
                         {
-                            Content = label,
-                            Style = (Style)Application.Current.Resources["ComboBoxLabel"]
+                            Content = label
                         };
+                        comboBoxLabel.Classes.Add("ComboBoxLabel");
                         var comboBoxInput = new ComboBox
                         {
                             Name = id,
@@ -338,16 +338,16 @@ public partial class HUD
                         {
                             var previewBtn = new Button
                             {
-                                Style = (Style)Application.Current.Resources["PreviewButton"],
                                 Margin = new Thickness(0, lastTop, 0, 0)
                             };
+                            previewBtn.Classes.Add("PreviewButton");
                             previewBtn.Click += (_, _) =>
                             {
-                                preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
-                                    ? tooltip
-                                    : id;
-                                image.Source = new BitmapImage(new Uri(controlItem.Preview));
-                                preview.Show();
+                                //preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
+                                //    ? tooltip
+                                //    : id;
+                                //image.Source = new Bitmap(new Uri(controlItem.Preview).ToString());
+                                //preview.Show();
                             };
                             sectionContent.Children.Add(previewBtn);
                             App.Logger.Info($"Added a preview for {comboBoxInput.Name} ({controlItem.Preview})");
@@ -365,10 +365,10 @@ public partial class HUD
                         };
                         var integerLabel = new Label
                         {
-                            Content = label,
-                            Style = (Style)Application.Current.Resources["IntegerUpDownLabel"]
+                            Content = label
                         };
-                        var integerInput = new IntegerUpDown
+                        integerLabel.Classes.Add("IntegerUpDownLabel");
+                        var integerInput = new NumericUpDown
                         {
                             Name = id,
                             Value = Settings.GetSetting<int>(id),
@@ -408,16 +408,16 @@ public partial class HUD
                         {
                             var previewBtn = new Button
                             {
-                                Style = (Style)Application.Current.Resources["PreviewButton"],
                                 Margin = new Thickness(0, lastTop, 0, 0)
                             };
+                            previewBtn.Classes.Add("PreviewButton");
                             previewBtn.Click += (_, _) =>
                             {
-                                preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
-                                    ? tooltip
-                                    : id;
-                                image.Source = new BitmapImage(new Uri(controlItem.Preview));
-                                preview.Show();
+                                //preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
+                                //    ? tooltip
+                                //    : id;
+                                //image.Source = new Bitmap(new Uri(controlItem.Preview).ToString());
+                                //preview.Show();
                             };
                             sectionContent.Children.Add(previewBtn);
                             App.Logger.Info($"Added a preview for {integerInput.Name} ({controlItem.Preview})");
@@ -434,23 +434,23 @@ public partial class HUD
                         };
                         var xhairLabel = new Label
                         {
-                            Content = label,
-                            Style = (Style)Application.Current.Resources["CrosshairLabel"]
+                            Content = label
                         };
+                        xhairLabel.Classes.Add("CrosshairLabel");
                         var xhairInput = new ComboBox
                         {
                             Name = id,
-                            ToolTip = tooltip
+                            //ToolTip = tooltip
                         };
 
                         // Add items to the ComboBox.
                         foreach (var item in Utilities.CrosshairStyles.Select(option => new ComboBoxItem
                         {
                             Content = option,
-                            Style = (Style)Application.Current.Resources["Crosshair"]
+                            //Style = (Style)Application.Current.Resources["Crosshair"]
                         }))
                         {
-                            xhairInput.Style = (Style)Application.Current.Resources["CrosshairBox"];
+                            xhairInput.Classes.Add("CrosshairBox");
                             xhairInput.Items.Add(item);
                         }
 
@@ -483,16 +483,16 @@ public partial class HUD
                         {
                             var previewBtn = new Button
                             {
-                                Style = (Style)Application.Current.Resources["PreviewButton"],
                                 Margin = new Thickness(0, lastTop, 0, 0)
                             };
+                            previewBtn.Classes.Add("PreviewButton");
                             previewBtn.Click += (_, _) =>
                             {
-                                preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
-                                    ? tooltip
-                                    : id;
-                                image.Source = new BitmapImage(new Uri(controlItem.Preview));
-                                preview.Show();
+                                //preview.Caption = !string.IsNullOrWhiteSpace(tooltip)
+                                //    ? tooltip
+                                //    : id;
+                                //image.Source = new Bitmap(new Uri(controlItem.Preview).ToString());
+                                //preview.Show();
                             };
                             sectionContent.Children.Add(previewBtn);
                             App.Logger.Info($"Added a preview for {xhairInput.Name} ({controlItem.Preview})");
@@ -506,7 +506,7 @@ public partial class HUD
                         var bgContainer = new Grid
                         {
                             Margin = new Thickness(10, lastTop + 5, 0, 0),
-                            ToolTip = tooltip
+                            //ToolTip = tooltip
                         };
 
                         bgContainer.ColumnDefinitions.Add(new ColumnDefinition());
@@ -565,22 +565,22 @@ public partial class HUD
                         bgInput.Click += (_, _) =>
                         {
                             MainWindow.ShowMessageBox(MessageBoxImage.Information, Localization.Resources.info_background_override);
-                            using (var browser = new OpenFileDialog())
-                            {
-                                browser.ShowDialog();
-                                if (string.IsNullOrWhiteSpace(browser.FileName)) return;
+                            //using (var browser = new OpenFileDialog())
+                            //{
+                            //    browser.ShowDialog();
+                            //    if (string.IsNullOrWhiteSpace(browser.FileName)) return;
 
-                                var path = $"{System.Windows.Forms.Application.LocalUserAppDataPath}\\Images\\{browser.FileName.Split('\\')[^1]}";
+                            //    var path = $"{System.Windows.Forms.Application.LocalUserAppDataPath}\\Images\\{browser.FileName.Split('\\')[^1]}";
 
-                                bgImage.Source = new BitmapImage(new Uri(browser.FileName));
+                            //    bgImage.Source = new Bitmap(new Uri(browser.FileName).ToString());
 
-                                Settings.SetSetting(controlItem.Name, path);
+                            //    Settings.SetSetting(controlItem.Name, path);
 
-                                if (!Directory.Exists(Path.GetDirectoryName(path)))
-                                    Directory.CreateDirectory(Path.GetDirectoryName(path));
-                                App.Logger.Info($"Copying \"{browser.FileName}\" to \"{path}\"");
-                                File.Copy(browser.FileName, path, true);
-                            }
+                            //    if (!Directory.Exists(Path.GetDirectoryName(path)))
+                            //        Directory.CreateDirectory(Path.GetDirectoryName(path));
+                            //    App.Logger.Info($"Copying \"{browser.FileName}\" to \"{path}\"");
+                            //    File.Copy(browser.FileName, path, true);
+                            //}
 
                             CheckIsDirty(controlItem);
                         };
@@ -595,7 +595,7 @@ public partial class HUD
 
                         if (!string.IsNullOrWhiteSpace(imageSource))
                             if (Uri.TryCreate(imageSource, UriKind.Absolute, out var path))
-                                bgImage.Source = new BitmapImage(path);
+                                bgImage.Source = new Bitmap(path.ToString());
 
                         // Add to Page.
                         bgContainer.Children.Add(bgLabel);

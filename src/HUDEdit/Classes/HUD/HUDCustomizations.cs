@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Shared.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Windows;
 
 namespace HUDEdit.Classes;
 

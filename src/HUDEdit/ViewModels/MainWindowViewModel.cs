@@ -205,7 +205,7 @@ internal partial class MainWindowViewModel : ViewModelBase
 
             // Force the user to set a directory before installing.
             if (!Utilities.CheckUserPath(MainWindow.HudPath))
-                MainWindow.SetupDirectory(true);
+                MainWindow.SetupDirectoryAsync(true);
 
             // Stop the process if Team Fortress 2 is still running.
             if (Utilities.CheckIsGameRunning())
@@ -445,13 +445,13 @@ internal partial class MainWindowViewModel : ViewModelBase
         {
             if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Localization.Resources.info_add_hud, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
-            var browser = new FolderBrowserDialog
+            var browser = new OpenFolderDialog
             {
-                SelectedPath = $@"{MainWindow.HudPath}\"
+                InitialDirectory = $@"{MainWindow.HudPath}\"
             };
-            if (browser.ShowDialog() != DialogResult.OK) return;
+            if (browser.ShowDialog() != true) return;
 
-            await Add(browser.SelectedPath);
+            await Add(browser.FolderName);
         }
         catch (Exception error)
         {

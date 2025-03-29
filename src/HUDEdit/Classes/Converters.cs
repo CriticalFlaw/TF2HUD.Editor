@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
 using ExCSS;
 using System;
 using System.Collections.Generic;
@@ -98,7 +99,7 @@ public class PageBackgroundConverter : IValueConverter
         if (value is null) return new ImageBrush
         {
             Stretch = Stretch.UniformToFill,
-            Source = new BitmapImage(new Uri(App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute))
+            Source = new Bitmap(new Uri(App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
         };
 
         var selection = (HUD)value;
@@ -109,7 +110,7 @@ public class PageBackgroundConverter : IValueConverter
             {
                 Stretch = Stretch.UniformToFill,
                 Opacity = selection.Opacity,
-                Source = new BitmapImage(new Uri(selection.Background ??= App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute))
+                Source = new Bitmap(new Uri(selection.Background ??= App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
             };
         }
 

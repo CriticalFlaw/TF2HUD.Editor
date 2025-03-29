@@ -14,6 +14,7 @@ using Microsoft.Win32;
 using WPFLocalizeExtension.Extensions;
 using Avalonia.Media;
 using Color = Avalonia.Media.Color;
+using System.Windows;
 
 namespace HUDEdit.Classes;
 
