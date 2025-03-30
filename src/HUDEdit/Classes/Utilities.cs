@@ -443,4 +443,45 @@ public static class Utilities
             })
         );
     }
+
+    public static async Task<Avalonia.Media.Imaging.Bitmap?> LoadImageAsync(string url)
+    {
+        try
+        {
+            using HttpClient client = new();
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+
+            await using var stream = await response.Content.ReadAsStreamAsync();
+            return new Avalonia.Media.Imaging.Bitmap(stream);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading image: {ex.Message}");
+            return null;
+        }
+    }
+
+    public static void RestartApplication()
+    {
+        try
+        {
+            // Get the current application's executable path
+            var processStartInfo = new ProcessStartInfo
+            {
+                FileName = Environment.ProcessPath ?? AppContext.BaseDirectory,
+                UseShellExecute = true
+            };
+
+            // Start a new instance
+            Process.Start(processStartInfo);
+
+            // Close the current application
+            Environment.Exit(0);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to restart application: {ex.Message}");
+        }
+    }
 }

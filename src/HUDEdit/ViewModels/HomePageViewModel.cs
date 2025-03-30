@@ -49,7 +49,7 @@ internal partial class HomePageViewModel : ViewModelBase
     public HomePageViewModel(MainWindowViewModel mainWindowViewModel, IEnumerable<HUD> hudList)
     {
         _mainWindowViewModel = mainWindowViewModel;
-        _hudList = new ObservableCollection<HUDButtonViewModel>(hudList.Select((hud, i) => new HUDButtonViewModel(hud, i % 2, i / 2)).OrderBy(x => x.Name));
+        _hudList = [.. hudList.Select((hud, i) => new HUDButtonViewModel(hud, i % 2, i / 2)).OrderBy(x => x.Name)];
         HUDListView.Filter = Filter;
         _info = new AppInfoViewModel();
         _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;

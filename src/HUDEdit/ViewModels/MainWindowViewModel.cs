@@ -153,17 +153,6 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    public void OpenDocSite() => Utilities.OpenWebpage("https://criticalflaw.ca/TF2HUD.Editor/");
-
-    public void OpenIssueTracker() => Utilities.OpenWebpage("https://github.com/CriticalFlaw/TF2HUD.Editor/issues");
-
-    public void OpenOptionsMenu()
-    {
-        var settings = new Settings();
-        //settings.Owner = System.Windows.Application.Current.MainWindow;
-        settings.Show();
-    }
-
     /// <summary>
     /// Retrieves the HUD object selected by user.
     /// </summary>
@@ -395,40 +384,21 @@ internal partial class MainWindowViewModel : ViewModelBase
         SelectedHud = null;
     }
 
-    /// <summary>
-    /// Opens the settings menu for the editor.
-    /// </summary>
-    [RelayCommand]
-    public void BtnSettings_Click()
+    public void OpenDocSite() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
+
+    public void OpenIssueTracker() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.IssueTrackerURL);
+
+    public void OpenOptionsMenu()
     {
         var settings = new Settings();
-        //settings.Owner = System.Windows.Application.Current.MainWindow;
         settings.Show();
     }
 
     /// <summary>
-    /// Opens the issue tracker for the editor.
-    /// </summary>
-    [RelayCommand]
-    private void BtnReportIssue_Click()
-    {
-        Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.IssueTrackerURL);
-    }
-
-    /// <summary>
-    /// Opens the project documentation site.
-    /// </summary>
-    [RelayCommand]
-    private void BtnDocumentation_Click()
-    {
-        Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
-    }
-
-    /// <summary>
     /// Opens the settings menu for the editor.
     /// </summary>
     [RelayCommand]
-    public void BtnPlayTF2_Click()
+    public void LaunchTf2()
     {
         var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
         var steamPath = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "\\steam.exe";
@@ -439,7 +409,7 @@ internal partial class MainWindowViewModel : ViewModelBase
     /// Adds a HUD from folder to the shared HUDs list.
     /// </summary>
     [RelayCommand]
-    private async void BtnAddSharedHUD_Click()
+    public async void AddSharedHud()
     {
         try
         {

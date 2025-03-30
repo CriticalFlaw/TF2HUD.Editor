@@ -48,29 +48,29 @@
 		<HeaderedContentControl Header="Options" Grid.Row="1" Margin="10,0,10,10">
 			<!--Note: Add Header="{lex:Loc ui_options}"-->
 			<WrapPanel HorizontalAlignment="Center">
-				<Button Classes="HudButton" Content="Select">
-					<!--Note: AddCommand="{Binding BtnInstall_ClickCommand}" Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
+				<Button Classes="HudButton" Content="Select" Command="{Binding BtnInstall_ClickCommand}" >
+					<!--Note: Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
-				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_uninstall}" >
-					<!--Note: Command="{Binding BtnUninstall_ClickCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"-->
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_uninstall}" Command="{Binding BtnUninstall_ClickCommand}" >
+					<!--Note: IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
-				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_apply}">
-					<!--Note: Command="{Binding BtnSave_ClickCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"-->
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_apply}" Command="{Binding BtnSave_ClickCommand}" >
+					<!--Note: IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
-				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_reset}">
-					<!--Note: Command="{Binding BtnReset_ClickCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_reset}" Command="{Binding BtnReset_ClickCommand}" >
+					<!--Note: IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
-				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_switch}">
-					<!--Note: Command="{Binding BtnSwitch_ClickCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_switch}" Command="{Binding BtnSwitch_ClickCommand}" >
+					<!--Note: IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"-->
 				</Button>
 				<Button Classes="LinkButton" Content="=" Command="{Binding OpenOptionsMenu}" ToolTip.Tip="{x:Static loc:Resources.tooltip_options}"/>
 				<Button Classes="LinkButton" Content="&#x03C6;" Command="{Binding OpenIssueTracker}" ToolTip.Tip="{x:Static loc:Resources.tooltip_report}"/>
 				<Button Classes="LinkButton" Content="&#x0235;" Command="{Binding OpenDocSite}" ToolTip.Tip="{x:Static loc:Resources.tooltip_docs}"/>
-				<Button Classes="LinkButton" Content="!">
-					<!--Note: Command="{Binding BtnPlayTF2_ClickCommand}" ToolTip="{lex:Loc tooltip_launch}" Visibility="{Binding SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}"-->
+				<Button Classes="LinkButton" Content="!" Command="{Binding LaunchTf2}" ToolTip.Tip="{x:Static loc:Resources.tooltip_launch}">
+					<!--Note: Visibility="{Binding SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}"-->
 				</Button>
-				<Button Classes="LinkButton" Content="&#x0583;">
-					<!--Note: Command="{Binding BtnAddSharedHUD_ClickCommand}" ToolTip="{lex:Loc tooltip_addhud}" Visibility="{Binding SelectedHud, Converter={StaticResource NotNullCheckConverterVisibility}}"-->
+				<Button Classes="LinkButton" Content="&#x0583;" Command="{Binding AddSharedHud}" ToolTip.Tip="{x:Static loc:Resources.tooltip_addhud}">
+					<!--Note: Visibility="{Binding SelectedHud, Converter={StaticResource NotNullCheckConverterVisibility}}"-->
 				</Button>
 			</WrapPanel>
 		</HeaderedContentControl>

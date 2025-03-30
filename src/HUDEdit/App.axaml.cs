@@ -12,6 +12,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.Json;
 using HUDEdit.ViewModels;
+using System.Globalization;
 
 namespace HUDEdit;
 
@@ -28,7 +29,6 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        //Shared.Resources.Resources.Culture = new CultureInfo("en");
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var mainWindow = new MainWindow()
@@ -58,6 +58,9 @@ public partial class App : Application
         {
             PropertyNameCaseInsensitive = true
         }) ?? new ConfigurationModel();
+
+        // Set user language
+        Assets.Resources.Culture = new CultureInfo(Config.ConfigSettings.UserPrefs.Language);
 
         // Setup Sentry
         if (File.Exists("secrets.json"))

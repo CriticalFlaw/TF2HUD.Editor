@@ -7,7 +7,6 @@ internal class PresetViewModel : ViewModelBase
 {
     private readonly EditHUDViewModel _editHudViewModel;
     public Preset Preset { get; }
-
     private bool _selected;
     public bool Selected
     {

@@ -204,11 +204,6 @@
 			</Style>
 		</Style>
 
-		<Style Selector="Button.HudButton.SettingButton">
-			<Setter Property="Margin" Value="10,10,0,20"/>
-			<Setter Property="Width" Value="263" />
-		</Style>
-
 		<Style Selector="Button.LinkButton">
 			<!--<Setter Property="FontFamily" Value="{StaticResource Icons}" />-->
 			<Setter Property="FontSize" Value="33" />

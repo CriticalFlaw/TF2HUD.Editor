@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.Input;
 using HUDEdit.Classes;
 using Shared.Models;
 using System;
@@ -51,7 +52,7 @@ internal partial class EditHUDViewModel : ViewModelBase
     public string ComfigHudsUrl => _hud.ComfigHudsUrl;
     public string DiscordUrl => _hud.DiscordUrl;
     public string SteamUrl => _hud.SteamUrl;
-    //public Grid Content => _hud.GetControls();
+    public Grid Content => _hud.GetControls();
 
     public EditHUDViewModel(MainWindowViewModel mainWindowViewModel, HUD hud)
     {
@@ -88,8 +89,8 @@ internal partial class EditHUDViewModel : ViewModelBase
         {
             p.Selected = p.Preset == _hud.Settings.Preset;
         }
-
-        //OnPropertyChanged(nameof(Content));
+        
+        OnPropertyChanged(nameof(Content));
     }
 
     [RelayCommand]
