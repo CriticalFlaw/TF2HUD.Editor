@@ -4,17 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:HUDEdit.ViewModels"
 			 xmlns:loc="clr-namespace:HUDEdit.Assets"
+			 xmlns:classes="clr-namespace:HUDEdit.Classes"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HUDEdit.Views.EditHUD"
 			 x:DataType="vm:EditHUDViewModel">
 
 	<UserControl.Resources>
-		<!--<classes:ComboBoxItemsConverterVisibility x:Key="ComboBoxItemsConverterVisibility" />
+		<classes:ComboBoxItemsConverterVisibility x:Key="ComboBoxItemsConverterVisibility" />
 		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
 		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
-		<classes:PresetSelectedStyleConverter x:Key="PresetSelectedStyleConverter" />-->
+		<classes:PresetSelectedStyleConverter x:Key="PresetSelectedStyleConverter" />
 	</UserControl.Resources>
-
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -28,12 +28,9 @@
 				<ColumnDefinition Width="*" />
 			</Grid.ColumnDefinitions>
 
-			<Label Content="Status" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0">
-				Status <!--Note: Add Content="{Binding Status}"-->
-			</Label>
+			<Label Content="{Binding Status}" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" />
 
 			<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
-				<!--
 				<ItemsControl ItemsSource="{Binding Presets}">
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
@@ -42,51 +39,41 @@
 					</ItemsControl.ItemsPanel>
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<Button
+							<!--<Button
                                 Content="{Binding Preset}"
-                                Style="{Binding Selected, Converter={StaticResource PresetSelectedStyleConverter}}"
+                                Classes="{Binding Selected, Converter={StaticResource PresetSelectedStyleConverter}}"
                                 FontSize="25"
                                 Width="35"
                                 Height="35"
                                 Margin="1,0"
-                                Command="{Binding DataContext.ChangePresetCommand, RelativeSource={RelativeSource AncestorType={x:Type local:EditHUDView}}}"
-                                CommandParameter="{Binding Preset}"
-                            />
+                                Command="{Binding DataContext.ChangePresetCommand, RelativeSource={RelativeSource AncestorType={EditHUD}}}"
+                                CommandParameter="{Binding Preset}" />-->
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
-				</ItemsControl>-->
+				</ItemsControl>
 			</Grid>
 
 			<WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2">
 				<WrapPanel VerticalAlignment="Center">
 					<Label Content="{x:Static loc:Resources.ui_download}" />
-					<!--Note: Add Visibility="{Binding Visibility, ElementName=CbBranch}"-->
-					<ComboBox Name="CbBranch" Margin="5,0" Padding="5" Height="35" Width="160">
-						<!--Note: Add ItemsSource="{Binding Downloads}" SelectedItem="{Binding SelectedDownloadSource}" DisplayMemberPath="Content" Visibility="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}"-->
-					</ComboBox>
+					<!--Note: Add IsVisible="{Binding Visibility, ElementName=CbBranch}"-->
+					<ComboBox Name="CbBranch" Margin="5,0" Padding="5" Height="35" Width="160" ItemsSource="{Binding Downloads}" SelectedItem="{Binding SelectedDownloadSource}" IsVisible="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}" />
+					<!--Note: Add DisplayMemberPath="Content"-->
 				</WrapPanel>
-				
+
 				<WrapPanel Margin="0">
-					<Button Classes="GitHubButton">
-						<!--Note: Add Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding GitHubUrl}" Visibility="{Binding GitHubUrl, Converter={StaticResource LinkCheckConverterVisibility}}"--> 
-					</Button>
-					<Button Classes="TF2HudsButton">
-						<!--Note: Add Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding TF2HudsUrl}" Visibility="{Binding TF2HudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}"-->
+					<Button Classes="GitHubButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding GitHubUrl}" IsVisible="{Binding GitHubUrl, Converter={StaticResource LinkCheckConverterVisibility}}" />
+					<Button Classes="TF2HudsButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding TF2HudsUrl}" IsVisible="{Binding TF2HudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
 						<Image Source="/Assets/Images/tf2huds.png" Margin="5"/>
 					</Button>
-					<Button Classes="ComfigHudsButton">
-						<!--Note: Add Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding ComfigHudsUrl}" Visibility="{Binding ComfigHudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}"-->
+					<Button Classes="ComfigHudsButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding ComfigHudsUrl}" IsVisible="{Binding ComfigHudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
 						<Image Source="/Assets/Images/mastercomfig.png" Margin="5"/>
 					</Button>
-					<Button Classes="DiscordButton">
-						<!--Note: Add Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding DiscordUrl}" Visibility="{Binding DiscordUrl, Converter={StaticResource LinkCheckConverterVisibility}}"-->
-					</Button>
-					<Button Classes="SteamButton">
-						<!--Note: Add Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding SteamUrl}" Visibility="{Binding SteamUrl, Converter={StaticResource LinkCheckConverterVisibility}}"-->
-					</Button>
+					<Button Classes="DiscordButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding DiscordUrl}" IsVisible="{Binding DiscordUrl, Converter={StaticResource LinkCheckConverterVisibility}}"/>
+					<Button Classes="SteamButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding SteamUrl}" IsVisible="{Binding SteamUrl, Converter={StaticResource LinkCheckConverterVisibility}}"/>
 				</WrapPanel>
 			</WrapPanel>
 		</Grid>
-		<!--<ContentControl Content="{Binding Content}" Grid.Row="1" />-->
+		<ContentControl Content="{Binding Content}" Grid.Row="1" />
 	</Grid>
 </UserControl>

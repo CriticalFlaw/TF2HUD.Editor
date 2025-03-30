@@ -123,11 +123,10 @@ public partial class HUD
                     break;
 
                 case ComboBox combo:
-                    // TODO
-                    //if (((ComboBoxItem)combo.Items[0]).Style == (Style)Application.Current.Resources["Crosshair"])
-                    //    combo.SelectedValue = control.Value;
-                    //else
-                    combo.SelectedIndex = int.Parse(control.Value);
+                    if (((ComboBoxItem)combo.Items[0]).Classes.Contains("Crosshair"))
+                        combo.SelectedValue = control.Value;
+                    else
+                        combo.SelectedIndex = int.Parse(control.Value);
                     App.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                     break;
 

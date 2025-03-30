@@ -99,7 +99,7 @@ public class PageBackgroundConverter : IValueConverter
         if (value is null) return new ImageBrush
         {
             Stretch = Stretch.UniformToFill,
-            Source = new Bitmap(new Uri(App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
+            //Source = await Utilities.LoadImageAsync(new Uri(App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
         };
 
         var selection = (HUD)value;

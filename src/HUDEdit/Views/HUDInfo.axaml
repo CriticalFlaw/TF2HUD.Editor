@@ -4,31 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:HUDEdit.ViewModels"
 			 xmlns:loc="clr-namespace:HUDEdit.Assets"
+			 xmlns:classes="clr-namespace:HUDEdit.Classes"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HUDEdit.Views.HUDInfo"
 			 x:DataType="vm:HUDInfoViewModel">
-	
+
 	<StackPanel>
 		<StackPanel.Resources>
-			<!--<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />-->
+			<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
 		</StackPanel.Resources>
 
-		<Label Classes="HeaderText">
-			Name <!--Note: Add Content="{Binding Name}"-->
-		</Label>
-
-		<TextBlock Classes="BodyText" FontSize="20" TextAlignment="Center">
-			Author <!--Note: Add Content="{Binding Author}"-->
-		</TextBlock>
-
-		<TextBlock Classes="BodyText" FontSize="20" TextAlignment="Center" Margin="0,15,0,0">
-			Author <!--Note: Add Content="{Binding Description}" Visibility="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}"-->
-		</TextBlock>
-
+		<Label Classes="HeaderText" Content="{Binding Name}"/>
+		<TextBlock Classes="BodyText" Text="{Binding Author}" FontSize="20" TextAlignment="Center"/>
+		<TextBlock Classes="BodyText" Text="{Binding Description}" FontSize="20" TextAlignment="Center" Margin="0,15,0,0" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}"/>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
 
-		<!--<ItemsControl ItemsSource="{Binding Screenshots}">
-			--><!-- Container --><!--
+		<ItemsControl ItemsSource="{Binding Screenshots}">
+			<!-- Container -->
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
 					<Grid>
@@ -43,26 +35,26 @@
 					</Grid>
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
-			
-			--><!-- Items Content Presenter --><!--
-			<ItemsControl.ItemContainerStyle>
-				<Style TargetType="{x:Type ContentPresenter}">
+
+			<!-- Items Content Presenter -->
+			<ItemsControl.ItemContainerTheme>
+				<!--<Style TargetType="{x:Type ContentPresenter}">
 					<Setter Property="Grid.Column" Value="{Binding Column}" />
 					<Setter Property="Grid.Row" Value="{Binding Row}" />
-				</Style>
-			</ItemsControl.ItemContainerStyle>
-			
-			--><!-- Items --><!--
+				</Style>-->
+			</ItemsControl.ItemContainerTheme>
+
+			<!-- Items -->
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
 					<Grid Margin="5">
-						--><!--<Image Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="Fant" />--><!--
+						<!--<Image Source="{Binding ImageSource}" />-->
+						<!--Note: Removed RenderOptions.BitmapScalingMode="Fant"-->
 					</Grid>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
-		</ItemsControl>-->
+		</ItemsControl>
 
-		<Button Content="{x:Static loc:Resources.ui_customize}" Classes="HudButton" Width="500" FontSize="30" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
-		<!--Note: Add Command="{Binding BtnCustomize_ClickCommand}" CommandParameter="{Binding Hud}"-->
+		<Button Content="{x:Static loc:Resources.ui_customize}" Command="{Binding BtnCustomize_ClickCommand}" CommandParameter="{Binding Hud}" Classes="HudButton" Width="500" FontSize="30" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
 	</StackPanel>
 </UserControl>

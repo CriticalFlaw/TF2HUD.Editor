@@ -8,25 +8,24 @@
 			 x:DataType="vm:HUDButtonViewModel">
 
 	<Border Classes="HudListBorder">
-		<!--<Border.InputBindings>
-			<MouseBinding
-                MouseAction="LeftClick"
-                Command="{Binding DataContext.HighlightHUDCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MainWindowView}}}"
-                CommandParameter="{Binding Hud}"
+		<Border.KeyBindings>
+			<!--
+			<KeyBinding
+				Command="{Binding DataContext.HighlightHUDCommand, RelativeSource={RelativeSource AncestorType={v:MainWindow}}}"
+				CommandParameter="{Binding Hud}"
             />
 			<MouseBinding
                 MouseAction="LeftDoubleClick"
                 Command="{Binding DataContext.SelectHUDCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MainWindowView}}}"
                 CommandParameter="{Binding Hud}"
-            />
-		</Border.InputBindings>-->
+            />-->
+		</Border.KeyBindings>
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition />
 				<RowDefinition />
 			</Grid.RowDefinitions>
 			<Border Classes="HudListImage" >
-				<!--Note: Had to remove RenderOptions.BitmapScalingMode="Fant"-->
 				<Border.Background>
 					<ImageBrush Source="{Binding Thumbnail}" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center"/>
 				</Border.Background>

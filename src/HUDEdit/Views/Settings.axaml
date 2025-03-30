@@ -13,15 +13,6 @@
 		Icon="/Assets/Images/favicon.ico"
 		Background="#2B2724">
 
-	<!--<Window.Resources>
-		<classes:NullCheckConverter x:Key="NullCheckConverter" />
-		<classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
-		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
-		<classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
-		<classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
-		<classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
-	</Window.Resources>-->
-
 	<Border BorderThickness="2" CornerRadius="10" Background="#2B2724">
 		<Grid>
 			<StackPanel Margin="20">
