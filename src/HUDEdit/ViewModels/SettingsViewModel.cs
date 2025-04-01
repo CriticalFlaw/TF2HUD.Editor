@@ -22,7 +22,7 @@ internal partial class SettingsViewModel : ViewModelBase
 
     public static void BtnClearCache_Click()
     {
-        if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+        if (Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
         var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         Directory.Delete($"{localPath}\\CriticalFlaw", true);

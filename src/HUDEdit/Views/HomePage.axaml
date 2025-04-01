@@ -44,12 +44,17 @@
 
 				<ScrollViewer Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,10,0,0">
 					<ItemsControl ItemsSource="{Binding HUDListView}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<v:HUDButton />
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+						<!--
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>
 								<WrapPanel HorizontalAlignment="Center"/>
 							</ItemsPanelTemplate>
 						</ItemsControl.ItemsPanel>
-						<!--
 						<ItemsControl.ItemContainerStyle>
 							<Style TargetType="{x:Type ContentPresenter}">
 								<Setter Property="Grid.Column" Value="{Binding Column}" />
@@ -57,11 +62,6 @@
 							</Style>
 						</ItemsControl.ItemContainerStyle>
 						-->
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<v:HUDButton />
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
 					</ItemsControl>
 				</ScrollViewer>
 			</Grid>

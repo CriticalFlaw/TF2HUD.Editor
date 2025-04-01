@@ -34,7 +34,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(HighlightedHudInstalled));
         }
     }
-    public bool HighlightedHudInstalled => MainWindow.CheckHudInstallation(HighlightedHud);
+    public bool HighlightedHudInstalled => Utilities.CheckHudInstallation(HighlightedHud);
 
     private HUD _selectedHud;
     public HUD SelectedHud
@@ -56,7 +56,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    public bool SelectedHudInstalled => MainWindow.CheckHudInstallation(SelectedHud);
+    public bool SelectedHudInstalled => Utilities.CheckHudInstallation(SelectedHud);
     private ViewModelBase _page;
     public ViewModelBase Page
     {
@@ -218,7 +218,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             foreach (var foundHud in Directory.GetDirectories(MainWindow.HudPath))
             {
                 if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}\\info.vdf")) continue;
-                if (MainWindow.ShowMessageBox(MessageBoxImage.Warning, Assets.Resources.info_unsupported_hud_found, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes)
+                if (Utilities.ShowMessageBox(MessageBoxImage.Warning, Assets.Resources.info_unsupported_hud_found, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes)
                 {
                     Installing = false;
                     return;
@@ -296,7 +296,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString("error_hud_install"), SelectedHud.Name)} {e.Message}");
+            Utilities.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString("error_hud_install"), SelectedHud.Name)} {e.Message}");
             Installing = false;
         }
     }
@@ -326,7 +326,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            MainWindow.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString("error_hud_uninstall"), SelectedHud.Name)} {e.Message}");
+            Utilities.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString("error_hud_uninstall"), SelectedHud.Name)} {e.Message}");
         }
     }
 
@@ -342,7 +342,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         if ((Process.GetProcessesByName("hl2").Any() || Process.GetProcessesByName("tf").Any() || Process.GetProcessesByName("tf_win64").Any()) && selection.DirtyControls.Count > 0)
         {
             var message = selection.DirtyControls.Aggregate(Assets.Resources.info_game_restart, (current, control) => current + $"\n - {control}");
-            if (MainWindow.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
+            if (Utilities.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
         }
 
         App.Logger.Info("------");
@@ -361,7 +361,7 @@ internal partial class MainWindowViewModel : ViewModelBase
     public void BtnReset_Click()
     {
         // Ask the user if they want to reset before doing so.
-        if (MainWindow.ShowMessageBox(MessageBoxImage.Question, Assets.Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+        if (Utilities.ShowMessageBox(MessageBoxImage.Question, Assets.Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
         App.Logger.Info("------");
         App.Logger.Info("Resetting user settings");
@@ -413,7 +413,7 @@ internal partial class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            if (MainWindow.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_add_hud, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_add_hud, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
             var browser = new OpenFolderDialog
             {
@@ -425,7 +425,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception error)
         {
-            MainWindow.ShowMessageBox(MessageBoxImage.Error, error.Message);
+            Utilities.ShowMessageBox(MessageBoxImage.Error, error.Message);
         }
     }
 

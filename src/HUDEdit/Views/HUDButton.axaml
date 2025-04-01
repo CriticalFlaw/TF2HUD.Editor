@@ -16,7 +16,7 @@
             />
 			<MouseBinding
                 MouseAction="LeftDoubleClick"
-                Command="{Binding DataContext.SelectHUDCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MainWindowView}}}"
+                Command="{Binding DataContext.SelectHUDCommand, RelativeSource={RelativeSource AncestorType={v:MainWindow}}}"
                 CommandParameter="{Binding Hud}"
             />-->
 		</Border.KeyBindings>

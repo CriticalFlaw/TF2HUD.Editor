@@ -15,6 +15,7 @@ using WPFLocalizeExtension.Extensions;
 using Avalonia.Media;
 using Color = Avalonia.Media.Color;
 using System.Windows;
+using System.Runtime.InteropServices;
 
 namespace HUDEdit.Classes;
 
@@ -194,7 +195,7 @@ public static class Utilities
     public static bool CheckIsGameRunning()
     {
         if (!Process.GetProcessesByName("hl2").Any() && !Process.GetProcessesByName("tf").Any() && !Process.GetProcessesByName("tf_win64").Any()) return false;
-        MainWindow.ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString("info_game_running"));
+        Utilities.ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString("info_game_running"));
         return true;
     }
 
@@ -204,18 +205,26 @@ public static class Utilities
     /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
     public static bool SearchRegistry()
     {
-        // Try to find the Steam library path in the registry.
-        var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-        var pathFile = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "\\steamapps\\libraryfolders.vdf";
-        if (!File.Exists(pathFile)) return false;
-
-        // Read the file and attempt to extract all library paths.
-        using var reader = new StreamReader(pathFile);
         var steamPaths = new List<string>();
-        foreach (Match match in Regex.Matches(reader.ReadToEnd(), "\"(.*)\"\t*\"(.*)\""))
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-            if (match.Groups[1].Value.Equals("path"))
-                steamPaths.Add(match.Groups[2].Value);
+            // TODO: Add the logic to find the root install directory on Linux
+        }
+        else
+        {
+            // If not Linux, then it must be Windows.
+            var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
+            var pathFile = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "\\steamapps\\libraryfolders.vdf";
+            if (!File.Exists(pathFile)) return false;
+
+            // Read the file and attempt to extract all library paths.
+            using var reader = new StreamReader(pathFile);
+            foreach (Match match in Regex.Matches(reader.ReadToEnd(), "\"(.*)\"\t*\"(.*)\""))
+            {
+                if (match.Groups[1].Value.Equals("path"))
+                    steamPaths.Add(match.Groups[2].Value);
+            }
         }
 
         // Loop through all known library paths to try and find TF2.
@@ -483,5 +492,37 @@ public static class Utilities
         {
             Console.WriteLine($"Failed to restart application: {ex.Message}");
         }
+    }
+
+    /// <summary>
+    /// Displays a set type of message box to the user.
+    /// </summary>
+    public static MessageBoxResult ShowMessageBox(MessageBoxImage type, string message, MessageBoxButton buttons = MessageBoxButton.OK)
+    {
+        switch (type)
+        {
+            case MessageBoxImage.Error:
+                App.Logger.Error(message);
+                break;
+
+            case MessageBoxImage.Warning:
+                App.Logger.Warn(message);
+                break;
+        }
+
+        return MessageBox.Show(message, string.Empty, buttons, type);
+    }
+
+    /// <summary>
+    /// Checks if the selected HUD is installed correctly.
+    /// </summary>
+    /// <returns>True if the selected hud is installed.</returns>
+    public static bool CheckHudInstallation(HUD hud)
+    {
+        return hud != null &&
+            MainWindow.HudPath != null &&
+            Directory.Exists(MainWindow.HudPath) &&
+            CheckUserPath(MainWindow.HudPath) &&
+            Directory.Exists($"{MainWindow.HudPath}\\{hud.Name}");
     }
 }

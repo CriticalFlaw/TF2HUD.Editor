@@ -696,7 +696,7 @@ public partial class HUD
                 }
                 else
                 {
-                    MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString("error_unknown_extension"), extension));
+                    Utilities.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString("error_unknown_extension"), extension));
                 }
             }
         }
@@ -758,7 +758,7 @@ public partial class HUD
         }
         catch (Exception e)
         {
-            MainWindow.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString("error_transparent_vm"), e.Message));
+            Utilities.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString("error_transparent_vm"), e.Message));
         }
     }
 

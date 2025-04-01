@@ -59,7 +59,7 @@ internal partial class EditHUDViewModel : ViewModelBase
         _mainWindowViewModel = mainWindowViewModel;
         _hud = hud;
 
-        if (MainWindow.CheckHudInstallation(hud))
+        if (Utilities.CheckHudInstallation(hud))
             _status = string.Format(Assets.Resources.status_installed, hud.Name);
         else if (Directory.Exists(MainWindow.HudPath))
             _status = string.Format(Assets.Resources.status_installed_not, hud.Name);

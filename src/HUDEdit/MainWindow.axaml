@@ -33,14 +33,15 @@
 			<RowDefinition Height="auto" />
 		</Grid.RowDefinitions>
 		<Grid DataContext="vm:HomePageViewModel" Grid.Row="0">
-			<Grid.DataTemplates >
+			<v:HomePage />
+			<!--<Grid.DataTemplates >
 				<DataTemplate DataType="vm:HomePageViewModel">
 					<v:HomePage />
 				</DataTemplate>
-				<DataTemplate DataType="{x:Type vm:EditHUDViewModel}">
+				<DataTemplate DataType="vm:EditHUDViewModel">
 					<v:EditHUD />
 				</DataTemplate>
-			</Grid.DataTemplates>
+			</Grid.DataTemplates>-->
 			<ContentControl Content="{Binding Page}" />
 		</Grid>
 

@@ -1,6 +1,5 @@
 using HUDEdit.Classes;
 using HUDEdit.ViewModels;
-using Microsoft.Win32;
 using Octokit;
 using Shared.Models;
 using System;
@@ -17,13 +16,13 @@ namespace HUDEdit;
 
 public partial class MainWindow : Avalonia.Controls.Window
 {
+    // TODO: Store these in the config instead of here.
     public static string HudSelection = App.Config.ConfigSettings.UserPrefs.SelectedHUD;
     public static string HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
 
     public MainWindow()
     {
         InitializeComponent();
-        //DataContext = new MainWindowViewModel();
 
         var mainWindowViewModel = new MainWindowViewModel();
         mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
@@ -31,8 +30,10 @@ public partial class MainWindow : Avalonia.Controls.Window
         // Check for tf/custom directory
         SetupDirectoryAsync();
 
+#if !DEBUG
         // Check for updates
         if (App.Config.ConfigSettings.UserPrefs.AutoUpdate == true) UpdateAppSchema(true);
+#endif
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -51,77 +52,31 @@ public partial class MainWindow : Avalonia.Controls.Window
     {
         if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
 
+        // TODO: Loop until the user provides a valid tf/custom directory, unless they cancel out.
         // Display a folder browser, ask the user to provide the tf/custom directory.
-        App.Logger.Info("Target directory not set. Asking user to provide it.");
-        var browser = new OpenFolderDialog
-        {
-            Title = Assets.Resources.info_path_browser,
-            //InitialDirectory = 
-            //ShowNewFolderButton = true
-        };
-
-        // TODO Refactor this
-        //string? result = await browser.ShowDialog();
-        //// Loop until the user provides a valid tf/custom directory, unless they cancel out.
-        //while (!result.EndsWith("tf\\custom"))
+        //App.Logger.Info("Target directory not set. Asking user to provide it.");
+        //var browser = new OpenFolderDialog
         //{
-        //    if (browser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        //    {
-        //        if (browser.SelectedPath.EndsWith("tf\\custom"))
-        //        {
-        //            App.Config.ConfigSettings.UserPrefs.HUDDirectory = browser.SelectedPath;
-        //            App.SaveConfiguration();
-        //            HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
-        //            App.Logger.Info("Target directory set to: " + App.Config.ConfigSettings.UserPrefs.HUDDirectory);
-        //        }
-        //        else
-        //        {
-        //            ShowMessageBox(MessageBoxImage.Error, Localization.Resources.info_path_invalid);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        break;
-        //    }
+        //    Title = Assets.Resources.info_path_browser,
+        //};
+        //if (userPath.Value.EndsWith("tf\\custom"))
+        //{
+        //    HudPath = userPath.Value;
+        //    App.Config.ConfigSettings.UserPrefs.HUDDirectory = userPath;
+        //    App.SaveConfiguration();
+        //    HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
+        //    App.Logger.Info("Target directory set to: " + App.Config.ConfigSettings.UserPrefs.HUDDirectory);
+        //}
+        //else
+        //{
+        //    Utilities.ShowMessageBox(MessageBoxImage.Error, Assets.Resources.info_path_invalid);
         //}
 
         // Check one more time if a valid directory has been set.
         if (Utilities.CheckUserPath(HudPath)) return;
         App.Logger.Info("Target directory still not set. Closing.");
-        ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString("error_app_directory"));
-        //Avalonia.Application.Shutdown();
-    }
-
-    /// <summary>
-    /// Displays a set type of message box to the user.
-    /// </summary>
-    public static MessageBoxResult ShowMessageBox(MessageBoxImage type, string message, MessageBoxButton buttons = MessageBoxButton.OK)
-    {
-        switch (type)
-        {
-            case MessageBoxImage.Error:
-                App.Logger.Error(message);
-                break;
-
-            case MessageBoxImage.Warning:
-                App.Logger.Warn(message);
-                break;
-        }
-
-        return System.Windows.MessageBox.Show(message, string.Empty, buttons, type);
-    }
-
-    /// <summary>
-    /// Checks if the selected HUD is installed correctly.
-    /// </summary>
-    /// <returns>True if the selected hud is installed.</returns>
-    public static bool CheckHudInstallation(HUD hud)
-    {
-        return hud != null &&
-            HudPath != null &&
-            Directory.Exists(HudPath) &&
-            Utilities.CheckUserPath(HudPath) &&
-            Directory.Exists($"{HudPath}\\{hud.Name}");
+        Utilities.ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString("error_app_directory"));
+        Environment.Exit(0);
     }
 
     /// <summary>
@@ -166,14 +121,14 @@ public partial class MainWindow : Avalonia.Controls.Window
             await Task.WhenAll(downloads);
             if (Convert.ToBoolean(downloads.Count))
             {
-                if (!silent) if (ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                if (!silent) if (Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                 Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
                 Environment.Exit(0);
             }
             else
             {
-                if (!silent) ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_hud_update_none);
+                if (!silent) Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_hud_update_none);
             }
         }
         catch (Exception e)
@@ -200,7 +155,7 @@ public partial class MainWindow : Avalonia.Controls.Window
 
             if (appVersion.Equals(latestVersion.TagName)) return;
             App.Logger.Info($"Update available from {appVersion} -> {latestVersion.TagName}");
-            if (ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
             Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.LatestUpdateURL);
 
         }

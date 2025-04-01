@@ -112,7 +112,7 @@ public partial class HUD
                 if (!MainWindow.HudSelection.Equals(Name)) return;
                 ResetSection(section);
                 Settings.SaveSettings();
-                if (MainWindow.CheckHudInstallation(this)) ApplyCustomizations();
+                if (Utilities.CheckHudInstallation(this)) ApplyCustomizations();
                 DirtyControls.Clear();
             };
 
@@ -564,7 +564,7 @@ public partial class HUD
                         // Add Events.
                         bgInput.Click += (_, _) =>
                         {
-                            MainWindow.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_background_override);
+                            Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_background_override);
                             //using (var browser = new OpenFileDialog())
                             //{
                             //    browser.ShowDialog();

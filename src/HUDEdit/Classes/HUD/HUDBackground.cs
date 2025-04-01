@@ -155,7 +155,7 @@ internal class HUDBackground
         }
         catch (Exception e)
         {
-            MainWindow.ShowMessageBox(MessageBoxImage.Error, e.Message);
+            Utilities.ShowMessageBox(MessageBoxImage.Error, e.Message);
         }
     }
 }
