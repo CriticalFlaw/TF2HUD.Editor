@@ -13,55 +13,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="appsettings.json" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Content Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="JSON\berryhud.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\budhud.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\common.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\flawhud.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\hexhud.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\hud-fixes.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\hypnotize-hud.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\kbnhud.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\m0rehud.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\rayshud.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\shared-hud.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\sunsethud.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\zeeshud.json">
+	  <Content Include="JSON\**">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
 	  <Content Include="log4net.config">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectCapability Include="Avalonia" />
+		<TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -87,15 +52,6 @@
 		<PackageReference Include="Octokit" Version="14.0.0" />
 		<PackageReference Include="Sentry" Version="5.4.0" />
 		<PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <AvaloniaResource Update="Assets\Fonts\Crosshairs.ttf">
-	    <CopyToOutputDirectory></CopyToOutputDirectory>
-	  </AvaloniaResource>
-	  <AvaloniaResource Update="Assets\Fonts\TF2Build.ttf">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </AvaloniaResource>
 	</ItemGroup>
 
 	<ItemGroup>

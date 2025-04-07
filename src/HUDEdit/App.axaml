@@ -4,10 +4,10 @@
              RequestedThemeVariant="Default">
 
 	<Application.Resources>
-		<FontFamily x:Key="Tf2Build">avares://HUDEdit/Assets/Fonts/TF2Build.ttf#TF2 Build"</FontFamily>
-		<FontFamily x:Key="Tf2Secondary">avares://HUDEdit/Assets/Fonts#TF2 Secondary</FontFamily>
-		<FontFamily x:Key="Icons">avares://HUDEdit/Assets/Fonts#Hypnotize Icons Master"</FontFamily>
-		<FontFamily x:Key="Crosshairs">avares://HUDEdit/Assets/Fonts#TF2Crosshairs</FontFamily>
+		<FontFamily x:Key="Tf2Build">avares://HUDEdit/Assets/Fonts/tf2build.ttf#TF2 Build</FontFamily>
+		<FontFamily x:Key="Tf2Secondary">avares://HUDEdit/Assets/Fonts/TF2secondary.ttf#TF2 Secondary</FontFamily>
+		<FontFamily x:Key="Crosshairs">avares://HUDEdit/Assets/Fonts/TF2Crosshairs.ttf#TF2Crosshairs</FontFamily>
+		<FontFamily x:Key="Icons">avares://HUDEdit/Assets/Fonts/Hypnotize Icons Master.ttf#Hypnotize Icons Master</FontFamily>
 	</Application.Resources>
 
 	<Application.Styles>
@@ -20,14 +20,14 @@
 		</Style>
 
 		<Style Selector="Label.HeaderText">
-			<!--<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />-->
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
 			<Setter Property="FontSize" Value="40" />
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 		</Style>
 
 		<Style Selector="Label.HudListIcon">
-			<!--<Setter Property="FontFamily" Value="{StaticResource Icons}" />-->
+			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
 			<Setter Property="FontSize" Value="20" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="HorizontalAlignment" Value="Right" />
@@ -82,7 +82,7 @@
 		</Style>
 
 		<Style Selector="ComboBox.CrosshairBox">
-			<!--<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />-->
+			<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />
 			<Setter Property="FontSize" Value="20" />
 			<Setter Property="Height" Value="28" />
 			<Setter Property="Width" Value="125" />
@@ -99,7 +99,7 @@
 		</Style>
 
 		<Style Selector="CheckBox.SettingCheckBox">
-			<!--<Setter Property="FontFamily" Value="Tf2Build" />-->
+			<Setter Property="FontFamily" Value="Tf2Build" />
 			<Setter Property="FontSize" Value="18" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Margin" Value="10,0,0,0"/>
@@ -108,7 +108,7 @@
 		</Style>
 
 		<Style Selector="ComboBoxItem.Crosshair">
-			<!--<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />-->
+			<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />
 			<Setter Property="HorizontalAlignment" Value="Center" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="FontSize" Value="30" />
@@ -117,7 +117,7 @@
 		</Style>
 
 		<Style Selector="TextBlock.BodyText">
-			<!--<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />-->
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<Setter Property="FontSize" Value="25" />
 			<Setter Property="TextWrapping" Value="Wrap" />
 			<Setter Property="Foreground" Value="#A49E9E" />
@@ -167,7 +167,7 @@
 		</Style>
 
 		<Style Selector="Button.HudButton">
-			<!--<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />-->
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
 			<Setter Property="FontSize" Value="16" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Background" Value="#776B5F" />
@@ -205,7 +205,7 @@
 		</Style>
 
 		<Style Selector="Button.LinkButton">
-			<!--<Setter Property="FontFamily" Value="{StaticResource Icons}" />-->
+			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
 			<Setter Property="FontSize" Value="33" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Background" Value="#776B5F" />
@@ -214,6 +214,7 @@
 			<Setter Property="Width" Value="50" />
 			<Setter Property="Height" Value="40" />
 			<Setter Property="Cursor" Value="Hand" />
+			
 
 			<Setter Property="Template">
 				<Setter.Value>
@@ -317,7 +318,7 @@
 		</Style>
 
 		<Style Selector="Button.PreviewButton">
-			<!--<Setter Property="FontFamily" Value="{StaticResource Icons}" />-->
+			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
 			<Setter Property="Background" Value="Transparent" />
 			<Setter Property="Foreground" Value="White" />
 			<Setter Property="Height" Value="25" />
