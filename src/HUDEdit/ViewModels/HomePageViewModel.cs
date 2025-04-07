@@ -45,11 +45,22 @@ internal partial class HomePageViewModel : ViewModelBase
             OnPropertyChanged(nameof(Info));
         }
     }
+    public int Column { get;  set; }
+    public int Row { get; set; }
 
     public HomePageViewModel(MainWindowViewModel mainWindowViewModel, IEnumerable<HUD> hudList)
     {
         _mainWindowViewModel = mainWindowViewModel;
-        _hudList = [.. hudList.Select((hud, i) => new HUDButtonViewModel(hud, i % 2, i / 2)).OrderBy(x => x.Name)];
+        _hudList = [
+            .. hudList
+            .Select((hud, i) =>
+            {
+                Column = i % 2;
+                Row = i / 2;
+                return new HUDButtonViewModel(hud, Column, Row);
+            })
+            .OrderBy(x => x.Name)
+            ];
         HUDListView.Filter = Filter;
         _info = new AppInfoViewModel();
         _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;

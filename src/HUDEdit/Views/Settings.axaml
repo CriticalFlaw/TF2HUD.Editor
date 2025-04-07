@@ -2,7 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:vm="using:HUDEdit.ViewModels"
+		xmlns:vm="clr-namespace:HUDEdit.ViewModels"
 		xmlns:v="clr-namespace:HUDEdit.Views"
 		xmlns:loc="clr-namespace:HUDEdit.Assets"
 		xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
@@ -12,6 +12,10 @@
 		Title="Settings"
 		Icon="/Assets/Images/favicon.ico"
 		Background="#2B2724">
+
+	<Design.DataContext>
+		<vm:SettingsViewModel/>
+	</Design.DataContext>
 
 	<Border BorderThickness="2" CornerRadius="10" Background="#2B2724">
 		<Grid>
@@ -41,9 +45,9 @@
 
 				<HeaderedContentControl Header="Settings" Grid.Row="1">
 					<WrapPanel HorizontalAlignment="Center">
-						<Button Content="{x:Static loc:Resources.ui_directory}" Width="263" Classes="HudButton" Command="{Binding BtnSetDirectory_OnClick}" />
-						<Button Content="{x:Static loc:Resources.ui_refresh}" Width="263" Classes="HudButton" Command="{Binding BtnRefresh_OnClick}"/>
-						<Button Content="{x:Static loc:Resources.ui_clear_cache}" Width="263" Classes="HudButton" Command="{Binding BtnClearCache_Click}"/>
+						<Button Content="{x:Static loc:Resources.ui_directory}" Width="263" Classes="HudButton" Click="SetDirectory_OnClick" />
+						<Button Content="{x:Static loc:Resources.ui_refresh}" Width="263" Classes="HudButton" Click="BtnRefresh_OnClick"/>
+						<Button Content="{x:Static loc:Resources.ui_clear_cache}" Width="263" Classes="HudButton" Click="BtnClearCache_Click"/>
 						<CheckBox x:Name="BtnPersistXhair" Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox" Click="BtnPersistXhair_Click" />
 						<CheckBox x:Name="BtnAutoUpdate" Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox" Click="BtnAutoUpdate_OnClick"/>
 					</WrapPanel>

@@ -99,7 +99,7 @@
 		</Style>
 
 		<Style Selector="CheckBox.SettingCheckBox">
-			<Setter Property="FontFamily" Value="Tf2Build" />
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
 			<Setter Property="FontSize" Value="18" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Margin" Value="10,0,0,0"/>
@@ -215,7 +215,6 @@
 			<Setter Property="Height" Value="40" />
 			<Setter Property="Cursor" Value="Hand" />
 			
-
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">

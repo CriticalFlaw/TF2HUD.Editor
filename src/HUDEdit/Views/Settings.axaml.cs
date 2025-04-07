@@ -1,10 +1,13 @@
 using Avalonia.Controls;
 using HUDEdit.Classes;
+using System;
 using System.Globalization;
+using System.IO;
+using System.Windows;
 
 namespace HUDEdit.Views;
 
-public partial class Settings : Window
+public partial class Settings : Avalonia.Controls.Window
 {
     public Settings()
     {
@@ -52,6 +55,25 @@ public partial class Settings : Window
 
         // Restart the application
         Utilities.RestartApplication();
+    }
+
+    private void SetDirectory_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        App.Logger.Info("Attempting to change the target directory.");
+        MainWindow.SetupDirectoryAsync(true);
+    }
+
+    private void BtnRefresh_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => MainWindow.UpdateAppSchema(false);
+
+    private void BtnClearCache_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+
+        var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        Directory.Delete($"{localPath}\\CriticalFlaw", true);
+        Directory.Delete($"{localPath}\\TF2HUD.Editor", true);
+        Directory.Delete("JSON", true);
+        MainWindow.UpdateAppSchema(true);
     }
 
     private void BtnPersistXhair_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

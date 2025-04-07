@@ -47,9 +47,8 @@
 			<!-- Items -->
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<Grid Margin="5">
+					<Grid Margin="5" RenderOptions.BitmapInterpolationMode="HighQuality">
 						<!--<Image Source="{Binding ImageSource}" />-->
-						<!--Note: Removed RenderOptions.BitmapScalingMode="Fant"-->
 					</Grid>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
