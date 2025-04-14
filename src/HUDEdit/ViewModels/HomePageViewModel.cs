@@ -11,8 +11,10 @@ namespace HUDEdit.ViewModels;
 internal partial class HomePageViewModel : ViewModelBase
 {
     private readonly MainWindowViewModel _mainWindowViewModel;
+
     private ObservableCollection<HUDButtonViewModel> _hudList;
     public ICollectionView HUDListView => CollectionViewSource.GetDefaultView(_hudList);
+
     private string _searchText = "";
     public string SearchText
     {
@@ -24,6 +26,7 @@ internal partial class HomePageViewModel : ViewModelBase
             HUDListView.Refresh();
         }
     }
+
     private bool _displayUniqueHudsOnly;
     public bool DisplayUniqueHudsOnly
     {
@@ -35,6 +38,7 @@ internal partial class HomePageViewModel : ViewModelBase
             HUDListView.Refresh();
         }
     }
+
     private ViewModelBase _info;
     public ViewModelBase Info
     {
@@ -45,31 +49,44 @@ internal partial class HomePageViewModel : ViewModelBase
             OnPropertyChanged(nameof(Info));
         }
     }
-    public int Column { get;  set; }
+    public int Column { get; set; }
     public int Row { get; set; }
 
     public HomePageViewModel(MainWindowViewModel mainWindowViewModel, IEnumerable<HUD> hudList)
     {
         _mainWindowViewModel = mainWindowViewModel;
-        _hudList = [
-            .. hudList
+
+        // Generate HUD buttons and set positions
+        var hudButtonList = hudList
             .Select((hud, i) =>
-            {
-                Column = i % 2;
-                Row = i / 2;
-                return new HUDButtonViewModel(hud, Column, Row);
-            })
+                new HUDButtonViewModel(hud, i % 2, i / 2))
             .OrderBy(x => x.Name)
-            ];
+            .ToList();
+
+        _hudList = new ObservableCollection<HUDButtonViewModel>(
+            hudList.Select((hud, i) =>
+                new HUDButtonViewModel(hud, i % 2, i / 2)) // Column = i % 2, Row = i / 2
+            .OrderBy(x => x.Name)
+        );
+
+        // Setup filtering
         HUDListView.Filter = Filter;
-        _info = new AppInfoViewModel();
+        HUDListView.Refresh();
+
+        // Start with AppInfo by default
+        Info = new AppInfoViewModel();
+
+        // Listen for external viewmodel change (e.g. a HUD was selected)
         _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
     }
 
-    private bool Filter(object o)
+    private bool Filter(object obj)
     {
-        HUDButtonViewModel hud = (HUDButtonViewModel)o;
-        return (!DisplayUniqueHudsOnly || hud.Unique) && (hud.Name.ToLower().Contains(SearchText) || hud.Author.ToLower().Contains(SearchText));
+        if (obj is not HUDButtonViewModel hud)
+            return false;
+
+        return (!DisplayUniqueHudsOnly || hud.Unique)
+            && (hud.Name.ToLower().Contains(SearchText) || hud.Author.ToLower().Contains(SearchText));
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -77,7 +94,15 @@ internal partial class HomePageViewModel : ViewModelBase
         if (e.PropertyName == nameof(MainWindowViewModel.HighlightedHud))
         {
             Info?.Dispose();
-            Info = new HUDInfoViewModel(_mainWindowViewModel, _mainWindowViewModel.HighlightedHud);
+
+            if (_mainWindowViewModel.HighlightedHud is not null)
+            {
+                Info = new HUDInfoViewModel(_mainWindowViewModel, _mainWindowViewModel.HighlightedHud);
+            }
+            else
+            {
+                Info = new AppInfoViewModel(); // fallback when no HUD is selected
+            }
         }
     }
 

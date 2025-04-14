@@ -2,18 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="using:HUDEdit.ViewModels"
-			 xmlns:v="clr-namespace:HUDEdit.Views"
-			 xmlns:loc="clr-namespace:HUDEdit.Assets"
-			 xmlns:classes="clr-namespace:HUDEdit.Classes"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:HUDEdit.ViewModels"
+             xmlns:v="clr-namespace:HUDEdit.Views"
+             xmlns:loc="clr-namespace:HUDEdit.Assets"
+             xmlns:classes="clr-namespace:HUDEdit.Classes"
+             mc:Ignorable="d"
+             d:DesignWidth="800"
+             d:DesignHeight="450"
              x:Class="HUDEdit.Views.HomePage"
-			 x:DataType="vm:HomePageViewModel">
-
-	<Design.DataContext>
-		<vm:HomePageViewModel/>
-		<vm:AppInfoViewModel/>
-	</Design.DataContext>
+             x:DataType="vm:HomePageViewModel">
 
 	<UserControl.Resources>
 		<classes:DisplayUniqueHudsOnlyForegroundConverter x:Key="DisplayUniqueHudsOnlyForegroundConverter" />
@@ -37,10 +34,11 @@
 					<RowDefinition Height="auto" />
 					<RowDefinition Height="*" />
 				</Grid.RowDefinitions>
-				<Label Content="{x:Static loc:Resources.ui_search}" Grid.Column="0" Grid.Row="0"/>
 
-				<TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Foreground="WhiteSmoke" Background="#2B2724" BorderThickness="2" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0"/>
-				<Button Content="&#x05AE;" Command="{Binding BtnDisplayUniqueHudsOnly_ClickCommand}" FontFamily="{StaticResource Icons}" FontSize="25" Padding="5,0" Background="Transparent" BorderThickness="0" Grid.Column="2" Grid.Row="0" Margin="5,0,0,0" Foreground="{Binding DisplayUniqueHudsOnly, Converter={StaticResource DisplayUniqueHudsOnlyForegroundConverter}}"/>
+				<Label Content="{x:Static loc:Resources.ui_search}" Grid.Column="0" Grid.Row="0"/>
+				
+				<!--<TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Foreground="WhiteSmoke" Background="#2B2724" BorderThickness="2" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0"/>
+                <Button Content="&#x05AE;" Command="{Binding BtnDisplayUniqueHudsOnly_ClickCommand}" FontFamily="{StaticResource Icons}" FontSize="25" Padding="5,0" Background="Transparent" BorderThickness="0" Grid.Column="2" Grid.Row="0" Margin="5,0,0,0" Foreground="{Binding DisplayUniqueHudsOnly, Converter={StaticResource DisplayUniqueHudsOnlyForegroundConverter}}"/>-->
 
 				<ScrollViewer Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,10,0,0">
 					<ItemsControl ItemsSource="{Binding HUDListView}">
@@ -64,16 +62,18 @@
 				</ScrollViewer>
 			</Grid>
 
+			<!-- Info Panel -->
 			<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Padding="20">
-				<ScrollViewer.DataTemplates>
-					<DataTemplate DataType="vm:AppInfoViewModel">
-						<v:AppInfo />
-					</DataTemplate>
-					<DataTemplate DataType="vm:HUDInfoViewModel">
-						<v:HUDInfo />
-					</DataTemplate>
-				</ScrollViewer.DataTemplates>
-				<ContentControl Content="{Binding Info}" />
+				<ContentControl Content="{Binding Info}">
+					<ContentControl.DataTemplates>
+						<DataTemplate DataType="vm:AppInfoViewModel">
+							<v:AppInfo />
+						</DataTemplate>
+						<DataTemplate DataType="vm:HUDInfoViewModel">
+							<v:HUDInfo />
+						</DataTemplate>
+					</ContentControl.DataTemplates>
+				</ContentControl>
 			</ScrollViewer>
 		</Grid>
 	</HeaderedContentControl>
