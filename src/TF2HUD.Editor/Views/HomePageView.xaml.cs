@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace HUDEditor.Views
+namespace HUDEditor.Views;
+
+/// <summary>
+///     Interaction logic for HomePageView.xaml
+/// </summary>
+public partial class HomePageView : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for HomePageView.xaml
-    /// </summary>
-    public partial class HomePageView : UserControl
+    public HomePageView()
     {
-        public HomePageView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

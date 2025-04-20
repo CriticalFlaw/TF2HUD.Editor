@@ -1,7 +1,6 @@
-﻿namespace HUDEditor.ViewModels
-{
-    public class AppInfoViewModel : ViewModelBase
-    {
+﻿namespace HUDEditor.ViewModels;
 
-    }
+public class AppInfoViewModel : ViewModelBase
+{
+
 }

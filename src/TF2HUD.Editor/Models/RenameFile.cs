@@ -1,10 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace HUDEditor.Models
+namespace HUDEditor.Models;
+
+public class RenameFile
 {
-    public class RenameFile
-    {
-        [JsonPropertyName("NewName")] public string NewName;
-        [JsonPropertyName("OldName")] public string OldName;
-    }
+    [JsonPropertyName("NewName")] public string NewName;
+    [JsonPropertyName("OldName")] public string OldName;
 }

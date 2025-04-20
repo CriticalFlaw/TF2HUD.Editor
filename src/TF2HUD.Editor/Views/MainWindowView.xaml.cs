@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace HUDEditor.Views
+namespace HUDEditor.Views;
+
+/// <summary>
+///     Interaction logic for MainWindowView.xaml
+/// </summary>
+public partial class MainWindowView : UserControl
 {
-    /// <summary>
-    ///     Interaction logic for MainWindowView.xaml
-    /// </summary>
-    public partial class MainWindowView : UserControl
+    public MainWindowView()
     {
-        public MainWindowView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

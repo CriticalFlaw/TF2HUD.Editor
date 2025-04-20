@@ -1,14 +1,13 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace HUDEditor.Models
+namespace HUDEditor.Models;
+
+public class Links
 {
-    public class Links
-    {
-        [JsonPropertyName("Discord")] public string Discord;
-        [JsonPropertyName("GitHub")] public string GitHub;
-        [JsonPropertyName("TF2Huds")] public string TF2Huds;
-        [JsonPropertyName("ComfigHuds")] public string ComfigHuds;
-        [JsonPropertyName("Steam")] public string Steam;
-        [JsonPropertyName("Download")] public Download[] Download;
-    }
+    [JsonPropertyName("Discord")] public string Discord;
+    [JsonPropertyName("GitHub")] public string GitHub;
+    [JsonPropertyName("TF2Huds")] public string TF2Huds;
+    [JsonPropertyName("ComfigHuds")] public string ComfigHuds;
+    [JsonPropertyName("Steam")] public string Steam;
+    [JsonPropertyName("Download")] public Download[] Download;
 }
