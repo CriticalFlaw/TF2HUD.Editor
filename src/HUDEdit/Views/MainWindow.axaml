@@ -7,7 +7,7 @@
 		xmlns:loc="clr-namespace:HUDEdit.Assets"
 		xmlns:classes="clr-namespace:HUDEdit.Classes"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="HUDEdit.MainWindow"
+        x:Class="HUDEdit.Views.MainWindow"
 		x:DataType="vm:MainWindowViewModel"
         Title="TF2 HUD Editor"
 		Icon="/Assets/Images/favicon.ico"
@@ -29,20 +29,23 @@
 
 	<Grid Background="{Binding SelectedHud, Converter={StaticResource PageBackgroundConverter}}">
 		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
-			<RowDefinition Height="auto" />
 		</Grid.RowDefinitions>
-		<Grid DataContext="vm:HomePageViewModel" Grid.Row="0">
-			<v:HomePage />
-			<!--<Grid.DataTemplates >
-				<DataTemplate DataType="vm:HomePageViewModel">
-					<v:HomePage />
-				</DataTemplate>
-				<DataTemplate DataType="vm:EditHUDViewModel">
-					<v:EditHUD />
-				</DataTemplate>
-			</Grid.DataTemplates>-->
-			<ContentControl Content="{Binding Page}" />
+		<Grid Grid.Row="0">
+			<ContentControl Content="{Binding CurrentPageViewModel}">
+				<ContentControl.DataTemplates>
+					<DataTemplate DataType="vm:EditHUDViewModel">
+						<v:EditHUD />
+					</DataTemplate>
+					<DataTemplate DataType="vm:HomePageViewModel">
+						<v:HomePage />
+					</DataTemplate>
+				</ContentControl.DataTemplates>
+			</ContentControl>
+			<!--<v:HomePage DataContext="vm:HomePageViewModel" />
+			<v:EditHUD DataContext="vm:EditHUDViewModel" />
+			<ContentControl Content="{Binding Page}" />-->
 		</Grid>
 
 		<HeaderedContentControl Header="Options" Grid.Row="1" Margin="10,0,10,10">

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Shared.Models;
+namespace HUDEdit.Models;
 
 public class HudJson
 {

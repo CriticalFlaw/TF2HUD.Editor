@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Avalonia.Controls;
-using Shared.Models;
+using HUDEdit.Models;
 
 namespace HUDEdit.Classes;
 
@@ -30,7 +30,7 @@ public partial class HUD
     public string ComfigHudsUrl { get; set; }
     public string SteamUrl { get; set; }
     public string DiscordUrl { get; set; }
-    public Dictionary<string, Shared.Models.Controls[]> ControlOptions;
+    public Dictionary<string, Models.Controls[]> ControlOptions;
     public readonly string[] LayoutOptions;
     public List<string> DirtyControls;
     public bool Unique;
@@ -105,7 +105,7 @@ public partial class HUD
     /// <summary>
     /// Resets a user setting to its default value as defined in the schema.
     /// </summary>
-    private void ResetControl(Shared.Models.Controls control)
+    private void ResetControl(Models.Controls control)
     {
         try
         {

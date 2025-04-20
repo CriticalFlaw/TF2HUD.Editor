@@ -6,13 +6,14 @@ using log4net;
 using log4net.Config;
 using Microsoft.Extensions.Configuration;
 using Sentry;
-using Shared.Models;
+using HUDEdit.Models;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
 using HUDEdit.ViewModels;
 using System.Globalization;
+using HUDEdit.Views;
 
 namespace HUDEdit;
 

@@ -4,7 +4,7 @@ using HUDEdit.Classes;
 using HUDEdit.Views;
 using Microsoft.Win32;
 using Newtonsoft.Json;
-using Shared.Models;
+using HUDEdit.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,8 +34,8 @@ internal partial class MainWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(HighlightedHudInstalled));
         }
     }
+    
     public bool HighlightedHudInstalled => Utilities.CheckHudInstallation(HighlightedHud);
-
     private HUD _selectedHud;
     public HUD SelectedHud
     {
@@ -47,8 +47,8 @@ internal partial class MainWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(SelectedHud));
             OnPropertyChanged(nameof(SelectedHudInstalled));
 
-            Page?.Dispose();
-            Page = _selectedHud != null ? new EditHUDViewModel(this, SelectedHud) : new HomePageViewModel(this, HUDList);
+            CurrentPageViewModel?.Dispose();
+            CurrentPageViewModel = _selectedHud != null ? new EditHUDViewModel(this, SelectedHud) : new HomePageViewModel(this, HUDList);
             App.Logger.Info($"Changing page view to: {(_selectedHud?.Name ?? "Home")}");
 
             App.Config.ConfigSettings.UserPrefs.SelectedHUD = SelectedHud?.Name ?? string.Empty;
@@ -57,17 +57,17 @@ internal partial class MainWindowViewModel : ViewModelBase
     }
 
     public bool SelectedHudInstalled => Utilities.CheckHudInstallation(SelectedHud);
-    private ViewModelBase _page;
-    public ViewModelBase Page
+    private ViewModelBase _currentPageViewModel;
+    public ViewModelBase CurrentPageViewModel
     {
-        get => _page;
+        get => _currentPageViewModel;
         private set
         {
-            _page = value;
-            OnPropertyChanged(nameof(Page));
+        	_currentPageViewModel = value;
+        	OnPropertyChanged(nameof(CurrentPageViewModel));
         }
     }
-
+    
     private bool _installing;
     public bool Installing
     {
@@ -87,6 +87,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         {
             _hudList = new List<HUD>();
             var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
+            
             foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
             {
                 // Extract HUD information from the file path and add it to the object list.
@@ -143,8 +144,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             var selectedHud = this[App.Config.ConfigSettings.UserPrefs.SelectedHUD];
             _highlightedHud = selectedHud;
             _selectedHud = selectedHud;
-            _page = selectedHud != null ? new EditHUDViewModel(this, selectedHud) : new HomePageViewModel(this, HUDList);
-            _page = new HomePageViewModel(this, HUDList);
+            _currentPageViewModel = selectedHud != null ? new EditHUDViewModel(this, selectedHud) : new HomePageViewModel(this, HUDList);
         }
         catch (Exception e)
         {
@@ -214,7 +214,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             }
 
             // Check for unsupported HUDs in the tf/custom folder. Notify user if found.
-            var download = ((EditHUDViewModel)Page).SelectedDownloadSource;
+            var download = ((EditHUDViewModel)CurrentPageViewModel).SelectedDownloadSource;
             foreach (var foundHud in Directory.GetDirectories(MainWindow.HudPath))
             {
                 if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}\\info.vdf")) continue;
@@ -281,7 +281,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             SelectedHud.ApplyCustomizations();
 
             // Update timestamp
-            ((EditHUDViewModel)Page).Status = string.Format(Assets.Resources.status_installed_now, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
+            ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Assets.Resources.status_installed_now, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
 
             // Update Install/Uninstall/Reset Buttons
             OnPropertyChanged(nameof(HighlightedHudInstalled));
@@ -351,7 +351,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         selection.ApplyCustomizations();
         selection.DirtyControls.Clear();
 
-        ((EditHUDViewModel)Page).Status = string.Format(Assets.Resources.status_applied, selection.Name, DateTime.Now);
+        ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Assets.Resources.status_applied, selection.Name, DateTime.Now);
     }
 
     /// <summary>
@@ -370,7 +370,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         selection.Settings.SaveSettings();
         selection.ApplyCustomizations();
         selection.DirtyControls.Clear();
-        ((EditHUDViewModel)Page).Status = string.Format(Assets.Resources.status_reset, selection.Name, DateTime.Now);
+        ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Assets.Resources.status_reset, selection.Name, DateTime.Now);
     }
 
     /// <summary>

@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿using HUDEdit.Models;
 using System.ComponentModel;
 
 namespace HUDEdit.ViewModels;

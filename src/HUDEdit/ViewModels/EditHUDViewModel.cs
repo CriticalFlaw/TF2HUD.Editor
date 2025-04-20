@@ -1,7 +1,8 @@
 ﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
 using HUDEdit.Classes;
-using Shared.Models;
+using HUDEdit.Views;
+using HUDEdit.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

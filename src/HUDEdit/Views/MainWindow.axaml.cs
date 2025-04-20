@@ -1,7 +1,7 @@
 using HUDEdit.Classes;
 using HUDEdit.ViewModels;
 using Octokit;
-using Shared.Models;
+using HUDEdit.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace HUDEdit;
+namespace HUDEdit.Views;
 
 public partial class MainWindow : Avalonia.Controls.Window
 {

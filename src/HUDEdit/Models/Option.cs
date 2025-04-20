@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Newtonsoft.Json.Linq;
 
-namespace Shared.Models;
+namespace HUDEdit.Models;
 
 public class Option
 {

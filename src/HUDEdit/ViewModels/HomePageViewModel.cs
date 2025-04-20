@@ -11,10 +11,8 @@ namespace HUDEdit.ViewModels;
 internal partial class HomePageViewModel : ViewModelBase
 {
     private readonly MainWindowViewModel _mainWindowViewModel;
-
     private ObservableCollection<HUDButtonViewModel> _hudList;
     public ICollectionView HUDListView => CollectionViewSource.GetDefaultView(_hudList);
-
     private string _searchText = "";
     public string SearchText
     {
@@ -71,22 +69,13 @@ internal partial class HomePageViewModel : ViewModelBase
 
         // Setup filtering
         HUDListView.Filter = Filter;
-        HUDListView.Refresh();
-
-        // Start with AppInfo by default
-        Info = new AppInfoViewModel();
-
-        // Listen for external viewmodel change (e.g. a HUD was selected)
         _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
     }
 
     private bool Filter(object obj)
     {
-        if (obj is not HUDButtonViewModel hud)
-            return false;
-
-        return (!DisplayUniqueHudsOnly || hud.Unique)
-            && (hud.Name.ToLower().Contains(SearchText) || hud.Author.ToLower().Contains(SearchText));
+    	HUDButtonViewModel hud = (HUDButtonViewModel)obj;
+    	return (!DisplayUniqueHudsOnly || hud.Unique) && (hud.Name.ToLower().Contains(SearchText) || hud.Author.ToLower().Contains(SearchText));
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -99,19 +88,15 @@ internal partial class HomePageViewModel : ViewModelBase
             {
                 Info = new HUDInfoViewModel(_mainWindowViewModel, _mainWindowViewModel.HighlightedHud);
             }
-            else
-            {
-                Info = new AppInfoViewModel(); // fallback when no HUD is selected
-            }
         }
     }
 
     [RelayCommand]
     public void BtnDisplayUniqueHudsOnly_Click()
     {
-        DisplayUniqueHudsOnly = !DisplayUniqueHudsOnly;
+        // DisplayUniqueHudsOnly = !DisplayUniqueHudsOnly;
     }
-
+    
     public override void Dispose()
     {
         base.Dispose();

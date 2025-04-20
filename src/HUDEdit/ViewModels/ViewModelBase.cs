@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace HUDEdit.ViewModels;
 
-internal class ViewModelBase : ObservableObject, INotifyPropertyChanged, IDisposable
+public class ViewModelBase : ObservableObject, INotifyPropertyChanged, IDisposable
 {
     public event PropertyChangedEventHandler PropertyChanged;
 

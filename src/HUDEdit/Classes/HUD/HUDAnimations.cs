@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Shared.Models;
+using HUDEdit.Models;
 
 namespace HUDEdit.Classes;
 

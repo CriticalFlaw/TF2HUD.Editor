@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Shared.Models;
+namespace HUDEdit.Models;
 
 internal abstract class HUDAnimation
 {

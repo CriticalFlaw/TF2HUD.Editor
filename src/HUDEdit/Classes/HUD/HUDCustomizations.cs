@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Shared.Models;
+using HUDEdit.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Windows;
+using HUDEdit.Views;
 
 namespace HUDEdit.Classes;
 

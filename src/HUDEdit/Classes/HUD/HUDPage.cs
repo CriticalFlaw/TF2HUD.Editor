@@ -16,6 +16,7 @@ using HorizontalAlignment = Avalonia.Layout.HorizontalAlignment;
 using GridLength = Avalonia.Controls.GridLength;
 using Style = Avalonia.Styling.Style;
 using Avalonia.Media.Imaging;
+using HUDEdit.Views;
 
 namespace HUDEdit.Classes;
 
@@ -730,7 +731,7 @@ public partial class HUD
     /// <summary>
     /// Checks whether a control change requires a game restart.
     /// </summary>
-    private void CheckIsDirty(Shared.Models.Controls control)
+    private void CheckIsDirty(Models.Controls control)
     {
         if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value) && !DirtyControls.Contains(control.Label))
             DirtyControls.Add(control.Label);

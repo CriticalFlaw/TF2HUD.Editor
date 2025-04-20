@@ -9,13 +9,14 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Shared.Models;
+using HUDEdit.Models;
 using Microsoft.Win32;
 using WPFLocalizeExtension.Extensions;
 using Avalonia.Media;
 using Color = Avalonia.Media.Color;
 using System.Windows;
 using System.Runtime.InteropServices;
+using HUDEdit.Views;
 
 namespace HUDEdit.Classes;
 
@@ -451,6 +452,26 @@ public static class Utilities
                 await File.WriteAllTextAsync(filePath, VDF.Stringify(hudAnimationsManifest));
             })
         );
+    }
+
+    public static Avalonia.Media.Imaging.Bitmap? LoadImage(string url)
+    {
+        try
+        {
+            using var httpClient = new HttpClient();
+            using var response = httpClient.GetAsync(url).Result;
+
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            using var stream = response.Content.ReadAsStreamAsync().Result;
+            return new Avalonia.Media.Imaging.Bitmap(stream);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error downloading image: {ex.Message}");
+            return null;
+        }
     }
 
     public static async Task<Avalonia.Media.Imaging.Bitmap?> LoadImageAsync(string url)

@@ -1,4 +1,4 @@
-﻿namespace Shared.Models;
+﻿namespace HUDEdit.Models;
 
 public class Download
 {

@@ -110,7 +110,7 @@ public class PageBackgroundConverter : IValueConverter
             {
                 Stretch = Stretch.UniformToFill,
                 Opacity = selection.Opacity,
-                Source = new Bitmap(new Uri(selection.Background ??= App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
+                Source = Utilities.LoadImage((selection.Background ??= App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
             };
         }
 

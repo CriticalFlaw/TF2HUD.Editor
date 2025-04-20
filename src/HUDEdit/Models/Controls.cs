@@ -2,7 +2,7 @@
 using Avalonia.Controls;
 using Newtonsoft.Json.Linq;
 
-namespace Shared.Models;
+namespace HUDEdit.Models;
 
 public class Controls
 {

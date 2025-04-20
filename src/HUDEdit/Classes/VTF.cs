@@ -1,4 +1,5 @@
 using Crews.Utility.TgaSharp;
+using HUDEdit.Views;
 using System;
 using System.Diagnostics;
 using System.Drawing;
