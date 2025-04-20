@@ -51,7 +51,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
             Page?.Dispose();
             Page = _selectedHud != null ? new EditHUDViewModel(this, SelectedHud) : new HomePageViewModel(this, HUDList);
-            MainWindow.Logger.Info($"Changing page view to: {(_selectedHud?.Name ?? "Home")}");
+            App.Logger.Info($"Changing page view to: {(_selectedHud?.Name ?? "Home")}");
 
             Settings.Default.hud_selected = SelectedHud?.Name ?? string.Empty;
             Settings.Default.Save();
@@ -150,7 +150,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            MainWindow.Logger.Error(e.Message);
+            App.Logger.Error(e.Message);
             Console.WriteLine(e);
         }
     }
@@ -210,7 +210,7 @@ public partial class MainWindowViewModel : ViewModelBase
             {
                 if (Directory.Exists($"{MainWindow.HudPath}\\{x.Name.ToLowerInvariant()}"))
                 {
-                    MainWindow.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {MainWindow.HudPath}");
+                    App.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {MainWindow.HudPath}");
                     Directory.Delete($"{MainWindow.HudPath}\\{x.Name.ToLowerInvariant()}", true);
                 }
             }
@@ -229,7 +229,7 @@ public partial class MainWindowViewModel : ViewModelBase
             }
 
             // Retrieve the HUD object, then download and extract it into the tf/custom directory.
-            MainWindow.Logger.Info($"Downloading {SelectedHud.Name} from {download.Link}");
+            App.Logger.Info($"Downloading {SelectedHud.Name} from {download.Link}");
             HttpClient client = new();
             client.DefaultRequestHeaders.Add("User-Agent", "request");
 
@@ -269,7 +269,7 @@ public partial class MainWindowViewModel : ViewModelBase
             // Install Crosshairs
             if (SelectedHud.InstallCrosshairs)
             {
-                MainWindow.Logger.Info($"Installing crosshairs to {SelectedHud.Name}");
+                App.Logger.Info($"Installing crosshairs to {SelectedHud.Name}");
                 await Utilities.InstallCrosshairs($"{MainWindow.HudPath}\\{SelectedHud.Name}");
             }
 
@@ -318,7 +318,7 @@ public partial class MainWindowViewModel : ViewModelBase
             if (Utilities.CheckIsGameRunning()) return;
 
             // Remove the HUD from the tf/custom directory.
-            MainWindow.Logger.Info($"Removing {SelectedHud.Name} from {MainWindow.HudPath}");
+            App.Logger.Info($"Removing {SelectedHud.Name} from {MainWindow.HudPath}");
             if (SelectedHud.Name != "") Directory.Delete($"{MainWindow.HudPath}\\{SelectedHud.Name}", true);
 
             OnPropertyChanged(nameof(HighlightedHud));
@@ -347,8 +347,8 @@ public partial class MainWindowViewModel : ViewModelBase
             if (MainWindow.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
         }
 
-        MainWindow.Logger.Info("------");
-        MainWindow.Logger.Info("Applying user settings");
+        App.Logger.Info("------");
+        App.Logger.Info("Applying user settings");
         selection.Settings.SaveSettings();
         selection.ApplyCustomizations();
         selection.DirtyControls.Clear();
@@ -365,8 +365,8 @@ public partial class MainWindowViewModel : ViewModelBase
         // Ask the user if they want to reset before doing so.
         if (MainWindow.ShowMessageBox(MessageBoxImage.Question, Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
-        MainWindow.Logger.Info("------");
-        MainWindow.Logger.Info("Resetting user settings");
+        App.Logger.Info("------");
+        App.Logger.Info("Resetting user settings");
         var selection = SelectedHud;
         selection.ResetAll();
         selection.Settings.SaveSettings();
@@ -381,7 +381,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public void BtnSwitch_Click()
     {
-        MainWindow.Logger.Info("Changing page view to: main menu");
+        App.Logger.Info("Changing page view to: main menu");
         HighlightedHud = null;
         SelectedHud = null;
     }
@@ -474,7 +474,7 @@ public partial class MainWindowViewModel : ViewModelBase
                     fileChanged = remoteFile.SHA != Utilities.GitHash(localFilePath);
 
                 if (!newFile && !fileChanged) continue;
-                MainWindow.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
+                App.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
                 downloads.Add(Utilities.DownloadFile(remoteFile.Download, localFilePath));
             }
 
@@ -483,7 +483,7 @@ public partial class MainWindowViewModel : ViewModelBase
             {
                 if (remoteFiles.Count((x) => x.Name == localFile.Name) != 0) continue;
                 File.Delete(localFile.FullName);
-                MainWindow.Logger.Info($"Removed {localFile.Name}");
+                App.Logger.Info($"Removed {localFile.Name}");
             }
 
             await Task.WhenAll(downloads);
@@ -491,7 +491,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            MainWindow.Logger.Error(e.Message);
+            App.Logger.Error(e.Message);
             Console.WriteLine(e);
             return false;
         }
@@ -511,7 +511,7 @@ public partial class MainWindowViewModel : ViewModelBase
                 var backgroundSelection = backgrounds.FirstOrDefault(background => File.Exists($"{consoleFolder}\\background_{background}_widescreen.vtf"));
                 if (backgroundSelection is null) return backgroundSelection;
 
-                MainWindow.Logger.Info($"Found background file background_{backgroundSelection}_widescreen.vtf");
+                App.Logger.Info($"Found background file background_{backgroundSelection}_widescreen.vtf");
                 var inputPath = $"{consoleFolder}\\background_{backgroundSelection}_widescreen.vtf";
                 var outputPathTga = $"{consoleFolder}\\output.tga";
                 var outputPath = $"{hudDetailsFolder}\\output";
@@ -530,7 +530,7 @@ public partial class MainWindowViewModel : ViewModelBase
                 };
                 var process = Process.Start(processInfo);
                 while (!process.StandardOutput.EndOfStream)
-                    MainWindow.Logger.Info(process.StandardOutput.ReadLine());
+                    App.Logger.Info(process.StandardOutput.ReadLine());
                 process.WaitForExit();
                 process.Close();
 

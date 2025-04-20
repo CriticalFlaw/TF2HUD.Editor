@@ -132,7 +132,7 @@ public partial class HUD
         }
         catch (Exception e)
         {
-            MainWindow.Logger.Error(e.Message);
+            App.Logger.Error(e.Message);
             Console.WriteLine(e);
             return false;
         }
@@ -271,7 +271,7 @@ public partial class HUD
         }
         catch (Exception e)
         {
-            MainWindow.Logger.Error(e.Message);
+            App.Logger.Error(e.Message);
             Console.WriteLine(e);
         }
     }
@@ -286,8 +286,8 @@ public partial class HUD
     {
         try
         {
-            MainWindow.Logger.Info($"------");
-            MainWindow.Logger.Info($"Applying: {userSetting.Name}");
+            App.Logger.Info($"------");
+            App.Logger.Info($"Applying: {userSetting.Name}");
             var (files, special, specialParameters) = GetControlInfo(hudSetting, userSetting);
 
             string EvaluateValue(string input)
@@ -357,7 +357,7 @@ public partial class HUD
                             replace = values[0].ToString();
                         }
 
-                        MainWindow.Logger.Info($"Replace \"{find}\" with \"{replace}\"");
+                        App.Logger.Info($"Replace \"{find}\" with \"{replace}\"");
                         File.WriteAllText(absolutePath, File.ReadAllText(absolutePath).Replace(find, replace));
                     }
                     else if (string.Equals(property.Key, "#base", StringComparison.OrdinalIgnoreCase))
@@ -380,11 +380,11 @@ public partial class HUD
                         if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
                         {
                             hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()];
-                            MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{hudElement[property.Key]}\"");
+                            App.Logger.Info($"Set \"{property.Key}\" to \"{hudElement[property.Key]}\"");
                         }
                         else
                         {
-                            MainWindow.Logger.Info($"Go to \"{property.Key}\"");
+                            App.Logger.Info($"Go to \"{property.Key}\"");
                             var newHudElementRef = hudElementRef.ContainsKey(property.Key)
                                 ? (Dictionary<string, dynamic>)hudElementRef[property.Key]
                                 : new Dictionary<string, dynamic>();
@@ -421,10 +421,10 @@ public partial class HUD
 
                         // Check for already existing keys and warn user
                         if (hudElementRef.ContainsKey(property.Key))
-                            MainWindow.Logger.Warn($"{relativePath} -> {objectPath} already contains key {property.Key}!");
+                            App.Logger.Warn($"{relativePath} -> {objectPath} already contains key {property.Key}!");
 
                         hudElement[property.Key] = EvaluateValue(property.Value.ToString());
-                        MainWindow.Logger.Info($"Set \"{property.Key}\" to \"{property.Value}\"");
+                        App.Logger.Info($"Set \"{property.Key}\" to \"{property.Value}\"");
                     }
                 }
 
@@ -517,7 +517,7 @@ public partial class HUD
 
                 // Don't read animations file unless the user requests a new event the majority of the animation customizations are for enabling/disabling events, which use the 'replace' keyword
                 Dictionary<string, List<HUDAnimation>> animations = null;
-                MainWindow.Logger.Info($"Processing \"{filePath}\"");
+                App.Logger.Info($"Processing \"{filePath}\"");
 
                 foreach (var animationOption in animationOptions)
                     switch (animationOption.Key.ToLowerInvariant())
@@ -687,7 +687,7 @@ public partial class HUD
                 if (resFileExtensions.Contains(extension))
                 {
                     var hudFile = Utilities.CreateNestedObject(hudFolders, relativePath.Split('/'));
-                    MainWindow.Logger.Info($"Open \"{relativePath}\"");
+                    App.Logger.Info($"Open \"{relativePath}\"");
                     Utilities.Merge(hudFile, CompileHudElement(filePath.Value?.ToObject<JObject>(), absolutePath, relativePath, hudFile, ""));
                 }
                 else if (string.Equals(extension, "txt"))
@@ -703,7 +703,7 @@ public partial class HUD
         }
         catch (Exception e)
         {
-            MainWindow.Logger.Error(e.Message);
+            App.Logger.Error(e.Message);
             Console.WriteLine(e);
         }
     }
@@ -735,7 +735,7 @@ public partial class HUD
         if (string.Equals(special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
             CopyTransparentViewmodelAddon(enable);
 
-        MainWindow.Logger.Info("Option not selected");
+        App.Logger.Info("Option not selected");
     }
 
     /// <summary>

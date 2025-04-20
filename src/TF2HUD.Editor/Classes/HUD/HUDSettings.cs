@@ -108,6 +108,6 @@ public class HUDSettings
             Settings = UserSettings
         };
         File.WriteAllText(UserFile, JsonConvert.SerializeObject(settings, Formatting.Indented));
-        MainWindow.Logger.Info($"Saving user settings to: {UserFile}");
+        App.Logger.Info($"Saving user settings to: {UserFile}");
     }
 }

@@ -83,7 +83,7 @@ public partial class HUD
         Settings.Preset = preset;
         IsRendered = false;
         Controls = new Grid();
-        MainWindow.Logger.Info($"Changing {Name} to Preset-{Settings.Preset}");
+        App.Logger.Info($"Changing {Name} to Preset-{Settings.Preset}");
     }
 
     /// <summary>
@@ -117,12 +117,12 @@ public partial class HUD
                 case CheckBox check:
                     if (bool.TryParse(control.Value, out var value))
                         check.IsChecked = value;
-                    MainWindow.Logger.Info($"Reset {control.Name} to {value}");
+                    App.Logger.Info($"Reset {control.Name} to {value}");
                     break;
 
                 case ColorPicker color:
                     color.SelectedColor = Utilities.ConvertToColor(control.Value);
-                    MainWindow.Logger.Info($"Reset {control.Name} to {color.SelectedColor}");
+                    App.Logger.Info($"Reset {control.Name} to {color.SelectedColor}");
                     break;
 
                 case ComboBox combo:
@@ -130,23 +130,23 @@ public partial class HUD
                         combo.SelectedValue = control.Value;
                     else
                         combo.SelectedIndex = int.Parse(control.Value);
-                    MainWindow.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                    App.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                     break;
 
                 case IntegerUpDown integer:
                     integer.Text = control.Value;
-                    MainWindow.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                    App.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                     break;
 
                 case TextBox text:
                     text.Text = control.Value;
-                    MainWindow.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                    App.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                     break;
             }
         }
         catch (Exception e)
         {
-            MainWindow.Logger.Error(e.Message);
+            App.Logger.Error(e.Message);
             Console.WriteLine(e);
             throw;
         }

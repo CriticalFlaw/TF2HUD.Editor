@@ -175,7 +175,7 @@ public partial class HUD
                         // Add to Page.
                         sectionContent.Children.Add(checkBoxInput);
                         controlItem.Control = checkBoxInput;
-                        MainWindow.Logger.Info($"Added {checkBoxInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
+                        App.Logger.Info($"Added {checkBoxInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -193,7 +193,7 @@ public partial class HUD
                                 preview.Show();
                             };
                             sectionContent.Children.Add(previewBtn);
-                            MainWindow.Logger.Info($"Added a preview for {checkBoxInput.Name} ({controlItem.Preview})");
+                            App.Logger.Info($"Added a preview for {checkBoxInput.Name} ({controlItem.Preview})");
                         }
 
                         break;
@@ -256,7 +256,7 @@ public partial class HUD
                         colorContainer.Children.Add(colorInput);
                         sectionContent.Children.Add(colorContainer);
                         controlItem.Control = colorInput;
-                        MainWindow.Logger.Info($"Added {colorInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
+                        App.Logger.Info($"Added {colorInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -275,7 +275,7 @@ public partial class HUD
                                 preview.Show();
                             };
                             sectionContent.Children.Add(previewBtn);
-                            MainWindow.Logger.Info($"Added a preview for {colorInput.Name} ({controlItem.Preview})");
+                            App.Logger.Info($"Added a preview for {colorInput.Name} ({controlItem.Preview})");
                         }
 
                         break;
@@ -342,7 +342,7 @@ public partial class HUD
                         comboBoxContainer.Children.Add(comboBoxInput);
                         sectionContent.Children.Add(comboBoxContainer);
                         controlItem.Control = comboBoxInput;
-                        MainWindow.Logger.Info($"Added {comboBoxInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
+                        App.Logger.Info($"Added {comboBoxInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -361,7 +361,7 @@ public partial class HUD
                                 preview.Show();
                             };
                             sectionContent.Children.Add(previewBtn);
-                            MainWindow.Logger.Info($"Added a preview for {comboBoxInput.Name} ({controlItem.Preview})");
+                            App.Logger.Info($"Added a preview for {comboBoxInput.Name} ({controlItem.Preview})");
                         }
 
                         break;
@@ -412,7 +412,7 @@ public partial class HUD
                         integerContainer.Children.Add(integerInput);
                         sectionContent.Children.Add(integerContainer);
                         controlItem.Control = integerInput;
-                        MainWindow.Logger.Info($"Added {integerInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
+                        App.Logger.Info($"Added {integerInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -431,7 +431,7 @@ public partial class HUD
                                 preview.Show();
                             };
                             sectionContent.Children.Add(previewBtn);
-                            MainWindow.Logger.Info($"Added a preview for {integerInput.Name} ({controlItem.Preview})");
+                            App.Logger.Info($"Added a preview for {integerInput.Name} ({controlItem.Preview})");
                         }
 
                         break;
@@ -487,7 +487,7 @@ public partial class HUD
                         xhairContainer.Children.Add(xhairInput);
                         sectionContent.Children.Add(xhairContainer);
                         controlItem.Control = xhairInput;
-                        MainWindow.Logger.Info($"Added {xhairInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
+                        App.Logger.Info($"Added {xhairInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -506,7 +506,7 @@ public partial class HUD
                                 preview.Show();
                             };
                             sectionContent.Children.Add(previewBtn);
-                            MainWindow.Logger.Info($"Added a preview for {xhairInput.Name} ({controlItem.Preview})");
+                            App.Logger.Info($"Added a preview for {xhairInput.Name} ({controlItem.Preview})");
                         }
 
                         break;
@@ -589,7 +589,7 @@ public partial class HUD
 
                                 if (!Directory.Exists(Path.GetDirectoryName(path)))
                                     Directory.CreateDirectory(Path.GetDirectoryName(path));
-                                MainWindow.Logger.Info($"Copying \"{browser.FileName}\" to \"{path}\"");
+                                App.Logger.Info($"Copying \"{browser.FileName}\" to \"{path}\"");
                                 File.Copy(browser.FileName, path, true);
                             }
 
@@ -615,7 +615,7 @@ public partial class HUD
                         bgContainer.Children.Add(bgImage);
                         sectionContent.Children.Add(bgContainer);
                         controlItem.Control = bgInput;
-                        MainWindow.Logger.Info($"Added {bgInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
+                        App.Logger.Info($"Added {bgInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
                         break;
 
                     case "text":
@@ -657,7 +657,7 @@ public partial class HUD
                         textContainer.Children.Add(textInput);
                         sectionContent.Children.Add(textContainer);
                         controlItem.Control = textInput;
-                        MainWindow.Logger.Info($"Added {textInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
+                        App.Logger.Info($"Added {textInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
                         break;
 
                     default:
