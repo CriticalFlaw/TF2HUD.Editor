@@ -43,9 +43,6 @@
 					</DataTemplate>
 				</ContentControl.DataTemplates>
 			</ContentControl>
-			<!--<v:HomePage DataContext="vm:HomePageViewModel" />
-			<v:EditHUD DataContext="vm:EditHUDViewModel" />
-			<ContentControl Content="{Binding Page}" />-->
 		</Grid>
 
 		<HeaderedContentControl Header="Options" Grid.Row="1" Margin="10,0,10,10">

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using HUDEdit.Classes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -12,7 +13,7 @@ internal partial class HomePageViewModel : ViewModelBase
 {
     private readonly MainWindowViewModel _mainWindowViewModel;
     private ObservableCollection<HUDButtonViewModel> _hudList;
-    public ICollectionView HUDListView => CollectionViewSource.GetDefaultView(_hudList);
+    public ObservableCollection<HUDButtonViewModel> HUDListView { get; } = new();
     private string _searchText = "";
     public string SearchText
     {
@@ -21,7 +22,7 @@ internal partial class HomePageViewModel : ViewModelBase
         {
             _searchText = value.ToLower();
             OnPropertyChanged(nameof(SearchText));
-            HUDListView.Refresh();
+            //HUDListView.Refresh();
         }
     }
 
@@ -33,7 +34,7 @@ internal partial class HomePageViewModel : ViewModelBase
         {
             _displayUniqueHudsOnly = value;
             OnPropertyChanged(nameof(DisplayUniqueHudsOnly));
-            HUDListView.Refresh();
+            //HUDListView.Refresh();
         }
     }
 
@@ -68,14 +69,17 @@ internal partial class HomePageViewModel : ViewModelBase
         );
 
         // Setup filtering
-        HUDListView.Filter = Filter;
+        HUDListView.Clear();
+
+        foreach (var item in _hudList)
+            HUDListView.Add(item);
+
         _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
     }
 
-    private bool Filter(object obj)
+    private void Filter()
     {
-    	HUDButtonViewModel hud = (HUDButtonViewModel)obj;
-    	return (!DisplayUniqueHudsOnly || hud.Unique) && (hud.Name.ToLower().Contains(SearchText) || hud.Author.ToLower().Contains(SearchText));
+        //(!DisplayUniqueHudsOnly || hud.Unique) && (hud.Name.ToLower().Contains(SearchText) || hud.Author.ToLower().Contains(SearchText));
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
