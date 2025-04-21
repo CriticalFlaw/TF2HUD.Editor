@@ -17,6 +17,7 @@ using Color = Avalonia.Media.Color;
 using System.Windows;
 using System.Runtime.InteropServices;
 using HUDEdit.Views;
+using Avalonia.Platform;
 
 namespace HUDEdit.Classes;
 
@@ -490,6 +491,10 @@ public static class Utilities
             Console.WriteLine($"Error loading image: {ex.Message}");
             return null;
         }
+    }
+    public static Avalonia.Media.Imaging.Bitmap LoadFromResource(Uri resourceUri)
+    {
+        return new Avalonia.Media.Imaging.Bitmap(AssetLoader.Open(resourceUri));
     }
 
     public static void RestartApplication()

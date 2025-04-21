@@ -1,8 +1,6 @@
 using Avalonia;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using ExCSS;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -55,8 +53,8 @@ public class LinkCheckConverterVisibility : IValueConverter
     {
         return value switch
         {
-            string s => !string.IsNullOrWhiteSpace(s) ? Visibility.Visible : Visibility.Collapse,
-            _ => Visibility.Hidden
+            string s => !string.IsNullOrWhiteSpace(s),
+            _ => false
         };
     }
 
@@ -70,7 +68,7 @@ public class NullCheckConverterVisibility : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value is not null ? Visibility.Visible : Visibility.Collapse;
+        return value is not null;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -83,7 +81,7 @@ public class NotNullCheckConverterVisibility : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value is null ? Visibility.Visible : Visibility.Collapse;
+        return value is null;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -99,7 +97,7 @@ public class PageBackgroundConverter : IValueConverter
         if (value is null) return new ImageBrush
         {
             Stretch = Stretch.UniformToFill,
-            //Source = await Utilities.LoadImageAsync(new Uri(App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
+            Source = Utilities.LoadImage(new Uri(App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
         };
 
         var selection = (HUD)value;
@@ -182,7 +180,7 @@ public class ComboBoxItemsConverterVisibility : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value is not null && ((IEnumerable<object>)value).Count() > 1 ? Visibility.Visible : Visibility.Hidden;
+        return value is not null && ((IEnumerable<object>)value).Count() > 1;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -15,41 +15,30 @@
 		</StackPanel.Resources>
 
 		<Label Classes="HeaderText" Content="{Binding Name}"/>
-		<TextBlock Classes="BodyText" Text="{Binding Author}" FontSize="20" TextAlignment="Center"/>
-		<TextBlock Classes="BodyText" Text="{Binding Description}" FontSize="20" TextAlignment="Center" Margin="0,15,0,0" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}"/>
+		<TextBlock Classes="BodyText" Text="{Binding Description}" FontSize="15" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}"/>
+		<TextBlock Classes="BodyText" Text="{Binding Author}" FontSize="15" />
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
 
 		<ItemsControl ItemsSource="{Binding Screenshots}">
 			<!-- Container -->
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*" />
-							<ColumnDefinition Width="*" />
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-					</Grid>
+					<WrapPanel />
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
 
 			<!-- Items Content Presenter -->
-			<ItemsControl.ItemContainerTheme>
-				<!--<Style TargetType="{x:Type ContentPresenter}">
+			<ItemsControl.Styles>
+				<Style Selector="ContentPresenter">
 					<Setter Property="Grid.Column" Value="{Binding Column}" />
 					<Setter Property="Grid.Row" Value="{Binding Row}" />
-				</Style>-->
-			</ItemsControl.ItemContainerTheme>
+				</Style>
+			</ItemsControl.Styles>
 
 			<!-- Items -->
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<Grid Margin="5" RenderOptions.BitmapInterpolationMode="HighQuality">
-						<!--<Image Source="{Binding ImageSource}" />-->
-					</Grid>
+					<Image Source="{Binding ImageSource}" Width="250" Margin="5" Grid.Row="{Binding Row}" Grid.Column="{Binding Column}" />
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
 		</ItemsControl>

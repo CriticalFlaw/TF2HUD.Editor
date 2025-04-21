@@ -29,14 +29,16 @@
 			</Grid.ColumnDefinitions>
 
 			<Label Content="{Binding Status}" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" />
-
 			<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
 				<ItemsControl ItemsSource="{Binding Presets}">
+					<!-- Container -->
 					<ItemsControl.ItemsPanel>
 						<ItemsPanelTemplate>
 							<WrapPanel VerticalAlignment="Center" />
 						</ItemsPanelTemplate>
 					</ItemsControl.ItemsPanel>
+
+					<!-- Items -->
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
 							<!--<Button

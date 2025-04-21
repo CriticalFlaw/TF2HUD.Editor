@@ -3,7 +3,6 @@ using HUDEdit.Classes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace HUDEdit.ViewModels;
 
@@ -14,14 +13,33 @@ internal partial class HUDInfoViewModel : ViewModelBase
     public string Name => Hud.Name;
     public string Author => Hud.Author;
     public string Description => Hud.Description;
-    private ObservableCollection<object> _screenshots;
-    public IEnumerable<object> Screenshots => _screenshots;
+    private ObservableCollection<ScreenshotViewModel> _screenshots;
+    public IEnumerable<ScreenshotViewModel> Screenshots => _screenshots;
+    public int Column { get; set; }
+    public int Row { get; set; }
 
     public HUDInfoViewModel(MainWindowViewModel mainWindowViewModel, HUD hud)
     {
         _mainWindowViewModel = mainWindowViewModel;
         Hud = hud;
-        _screenshots = [.. (Hud.Screenshots ?? Array.Empty<object>()).Select((screenshot, i) => new { ImageSource = screenshot, Column = i % 2, Row = i / 2 })];
+        _screenshots = new ObservableCollection<ScreenshotViewModel>();
+        var screenshots = Hud.Screenshots ?? Array.Empty<object>();
+
+        for (int i = 0; i < screenshots.Length; i++)
+        {
+            var imageUrl = screenshots[i]?.ToString();
+            if (string.IsNullOrWhiteSpace(imageUrl))
+                continue;
+
+            var image = Utilities.LoadImage(imageUrl);
+
+            _screenshots.Add(new ScreenshotViewModel
+            {
+                ImageSource = image,
+                Row = i / 2,
+                Column = i % 2
+            });
+        }
     }
 
     [RelayCommand]
