@@ -74,12 +74,14 @@ internal partial class HomePageViewModel : ViewModelBase
         foreach (var item in _hudList)
             HUDListView.Add(item);
 
+        _info = new AppInfoViewModel();
         _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
     }
 
-    private void Filter()
+    private bool Filter(object o)
     {
-        //(!DisplayUniqueHudsOnly || hud.Unique) && (hud.Name.ToLower().Contains(SearchText) || hud.Author.ToLower().Contains(SearchText));
+        HUDButtonViewModel hud = (HUDButtonViewModel)o;
+        return (!DisplayUniqueHudsOnly || hud.Unique) && (hud.Name.ToLower().Contains(SearchText) || hud.Author.ToLower().Contains(SearchText));
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -98,7 +100,7 @@ internal partial class HomePageViewModel : ViewModelBase
     [RelayCommand]
     public void BtnDisplayUniqueHudsOnly_Click()
     {
-        // DisplayUniqueHudsOnly = !DisplayUniqueHudsOnly;
+    	DisplayUniqueHudsOnly = !DisplayUniqueHudsOnly;
     }
     
     public override void Dispose()

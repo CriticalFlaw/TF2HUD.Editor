@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:HUDEdit.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:DataType="vm:AppInfoViewModel"
+             x:Class="HUDEdit.Views.AppInfoView">
+	<StackPanel>
+		<Image Source="/Assets/Images/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
+		<TextBlock Classes="BodyText" FontSize="21" TextAlignment="Center">
+			<Run Foreground="#70B04A" Text="Install" />
+			<Run Text="and" />
+			<Run Foreground="#38F3AB" Text="customize" />
+			<Run Text="your favorite Team Fortress 2 HUDs! For additional information and support, check out the" />
+			<Run Foreground="#FFD700" Text="documentation" />
+			<Run Text="linked below." />
+		</TextBlock>
+		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
+		<Label Classes="HeaderText" Content="Version 3.5" Margin="0,0,0,10" />
+		<TextBlock Classes="BodyText" FontSize="22" TextAlignment="Left">
+			<Run Text="> Enabled automatic schema update checks by default." />
+			<LineBreak />
+			<Run Text="> Fixed the app window not being resizable from all four sides." />
+			<LineBreak />
+			<Run Text="> Fixed logs showing the selected value instead of actual applied value." />
+			<LineBreak />
+			<LineBreak />
+		</TextBlock>
+	</StackPanel>
+</UserControl>
