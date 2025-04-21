@@ -7,19 +7,7 @@
              x:Class="HUDEdit.Views.HUDButton"
 			 x:DataType="vm:HUDButtonViewModel">
 
-	<Border Classes="HudListBorder">
-		<Border.KeyBindings>
-			<!--
-			<KeyBinding
-				Command="{Binding DataContext.HighlightHUDCommand, RelativeSource={RelativeSource AncestorType={v:MainWindow}}}"
-				CommandParameter="{Binding Hud}"
-            />
-			<MouseBinding
-                MouseAction="LeftDoubleClick"
-                Command="{Binding DataContext.SelectHUDCommand, RelativeSource={RelativeSource AncestorType={v:MainWindow}}}"
-                CommandParameter="{Binding Hud}"
-            />-->
-		</Border.KeyBindings>
+	<Border Classes="HudListBorder" PointerPressed="Border_PointerPressed">
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition />

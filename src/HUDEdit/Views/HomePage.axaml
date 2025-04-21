@@ -73,19 +73,6 @@
 						</DataTemplate>
 					</ContentControl.DataTemplates>
 				</ContentControl>
-				<!--<Grid>
-					--><!-- Default Info View --><!--
-					<v:AppInfoView IsVisible="{Binding IsDefaultVisible}" />
-
-					--><!-- HUD Info View --><!--
-					<ContentControl IsVisible="{Binding IsHUDSelected}" Content="{Binding Info}">
-						<ContentControl.DataTemplates>
-							<DataTemplate DataType="vm:HUDInfoViewModel">
-								<v:HUDInfo />
-							</DataTemplate>
-						</ContentControl.DataTemplates>
-					</ContentControl>
-				</Grid>-->
 			</ScrollViewer>
 		</Grid>
 	</HeaderedContentControl>
