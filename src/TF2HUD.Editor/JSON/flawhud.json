@@ -620,7 +620,7 @@
             "BlueBG": {
               "ypos": {
                 "true": "50",
-                "false": "100"
+                "false": "83"
               }
             },
             "BluePlayerBG": {
@@ -638,21 +638,21 @@
             "BluePlayerList": {
               "ypos": {
                 "true": "c-138",
-                "false": "c-88"
+                "false": "c-106"
               },
               "tall": {
                 "true": "270",
-                "false": "204"
+                "false": "206"
               }
             },
             "RedPlayerList": {
               "ypos": {
                 "true": "c-138",
-                "false": "c-88"
+                "false": "c-106"
               },
               "tall": {
                 "true": "270",
-                "false": "204"
+                "false": "206"
               }
             }
           }
@@ -878,7 +878,7 @@
             "IndividualChargesLabel": {
               "ypos": {
                 "true": "13",
-                "false": "r120"
+                "false": "r112"
               },
               "tall": {
                 "true": "43",
@@ -892,7 +892,7 @@
               },
               "ypos": {
                 "true": "r65",
-                "false": "r105"
+                "false": "r98"
               }
             },
             "ChargeMeter1": {
@@ -1008,7 +1008,7 @@
             "CHudAccountPanel": {
               "xpos": {
                 "true": "r135",
-                "false": "c-50"
+                "false": "c-44"
               },
               "ypos": {
                 "true": "r97",
@@ -1069,7 +1069,7 @@
               },
               "ypos": {
                 "true": "c15",
-                "false": "r120"
+                "false": "r112"
               },
               "wide": {
                 "true": "48",
