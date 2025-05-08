@@ -12,7 +12,8 @@
 
 	<Application.Styles>
 		<FluentTheme />
-
+		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
+		
 		<Style Selector="Label">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />

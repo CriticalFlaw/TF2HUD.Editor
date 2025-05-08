@@ -220,8 +220,6 @@ public partial class HUD
                 }
             }
 
-            //sectionContainer.Content = sectionContent;
-
             if (Layout is not null)
             {
                 // Avoid evaluating unnecessarily
@@ -269,7 +267,7 @@ public partial class HUD
 
             var scrollViewer = new ScrollViewer
             {
-                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Hidden,
                 Background = new SolidColorBrush(Colors.Transparent),
                 Content = sectionContent
             };
@@ -563,7 +561,7 @@ public partial class HUD
         var label = new Label();
         label.Content = controlItem.Label;
         label.Classes.Add("ColorPickerLabel");
-        label.Width = (controlItem.Width > 0) ? controlItem.Width : label.Width;
+        //label.Width = (controlItem.Width > 0) ? controlItem.Width : label.Width;
 
         //----
 
@@ -572,7 +570,7 @@ public partial class HUD
             Name = Utilities.EncodeId(controlItem.Name),
             //ToolTip = tooltip
         };
-        control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
+        //control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
         control.ColorChanged += (sender, _) =>
         {
             var input = sender as Avalonia.Controls.ColorPicker;
@@ -649,8 +647,6 @@ public partial class HUD
             if (Utilities.CheckHudInstallation(this)) ApplyCustomizations();
             DirtyControls.Clear();
         };
-        //control.MouseEnter += (_, _) => control.Opacity = 1;
-        //control.MouseLeave += (_, _) => control.Opacity = 0.4;
 
         Grid.SetColumn(control, 1);
 
