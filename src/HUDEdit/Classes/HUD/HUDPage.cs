@@ -118,7 +118,7 @@ public partial class HUD
                     case "colorpicker":
                     case "colourpicker":
                         var colorContainer = CreateColorPicker(controlItem);
-                        var colorInput = colorContainer.Children.First();
+                        var colorInput = colorContainer.Children.OfType<Avalonia.Controls.ColorPicker>().FirstOrDefault();
 
                         // Add to page.
                         sectionContent.Children.Add(colorContainer);
@@ -141,7 +141,7 @@ public partial class HUD
                         if (controlItem.Options is not { Length: > 0 }) break;
 
                         var comboBoxContainer = CreateComboBox(controlItem);
-                        var comboBoxInput = comboBoxContainer.Children.First();
+                        var comboBoxInput = comboBoxContainer.Children.OfType<ComboBox>().FirstOrDefault();
 
                         // Add to page.
                         sectionContent.Children.Add(comboBoxContainer);
@@ -160,7 +160,7 @@ public partial class HUD
                     case "integer":
                     case "integerupdown":
                         var integerContainer = CreateNumberPicker(controlItem);
-                        var integerInput = integerContainer.Children.First();
+                        var integerInput = integerContainer.Children.OfType<NumericUpDown>().FirstOrDefault();
 
                         // Add to page.
                         sectionContent.Children.Add(integerContainer);
@@ -178,7 +178,7 @@ public partial class HUD
                     case "crosshair":
                     case "customcrosshair":
                         var xhairContainer = CreateCrosshairPicker(controlItem);
-                        var xhairInput = xhairContainer.Children.First();
+                        var xhairInput = xhairContainer.Children.OfType<ComboBox>().FirstOrDefault();
 
                         // Add to page.
                         sectionContent.Children.Add(xhairContainer);
@@ -196,7 +196,7 @@ public partial class HUD
                     case "background":
                     case "custombackground":
                         var bgContainer = CreateBackgroundSetter(controlItem);
-                        var bgInput = bgContainer.Children.First();
+                        var bgInput = bgContainer.Children.OfType<Button>().FirstOrDefault();
 
                         // Add to page.
                         sectionContent.Children.Add(bgContainer);
@@ -207,7 +207,7 @@ public partial class HUD
                     case "text":
                     case "textbox":
                         var textContainer = CreateTextBox(controlItem);
-                        var textInput = textContainer.Children.First();
+                        var textInput = textContainer.Children.OfType<TextBox>().FirstOrDefault();
 
                         // Add to page.
                         sectionContent.Children.Add(textContainer);
