@@ -29,8 +29,8 @@
 
 	<Grid Background="{Binding SelectedHud, Converter={StaticResource PageBackgroundConverter}}">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
 			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 		<Grid Grid.Row="0">
 			<ContentControl Content="{Binding CurrentPageViewModel}">
