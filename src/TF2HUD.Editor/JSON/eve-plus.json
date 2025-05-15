@@ -511,7 +511,7 @@
         "RenameFile": {
           "OldName": "#customization/_disabled/! health and ammo/health and ammo - no animation/",
           "NewName": "#customization/health and ammo - no animation/"
-          }
+        }
       },
 
       {
@@ -519,12 +519,12 @@
         "Label": "Bigger Health And Ammo",
         "Type": "Checkbox",
         "ToolTip": "Use bigger fonts for the health and ammo.",
-        "Value": "false", 
-        "Restart": true, 
+        "Value": "false",
+        "Restart": true,
         "RenameFile": {
           "OldName": "#customization/_disabled/! health and ammo/health and ammo - bigger fonts/",
           "NewName": "#customization/health and ammo - bigger fonts/"
-          }
+        }
       },
 
       {
@@ -740,7 +740,7 @@
             "CDamageAccountPanel": {
               "NegativeColor": "$value"
             },
-              "DamageAccountValue": {
+            "DamageAccountValue": {
               "fgcolor": "$value"
             }
           }
