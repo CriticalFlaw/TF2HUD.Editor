@@ -61,14 +61,6 @@
             }
           },
           {
-            "Label": "ly_dee",
-            "Value": "3",
-            "RenameFile": {
-              "OldName": "#users/ly_dee_/",
-              "NewName": "#users/ly_dee/"
-            }
-          },
-          {
             "Label": "truktruk",
             "Value": "5",
             "RenameFile": {
@@ -90,6 +82,14 @@
             "RenameFile": {
               "OldName": "#users/zenith_/",
               "NewName": "#users/zenith/"
+            }
+          },
+          {
+            "Label": "powah",
+            "Value": "8",
+            "RenameFile": {
+              "OldName": "#users/powah_/",
+              "NewName": "#users/powah/"
             }
           }
         ]
