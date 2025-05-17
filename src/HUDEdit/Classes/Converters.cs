@@ -104,11 +104,12 @@ public class PageBackgroundConverter : IValueConverter
         selection.Background ??= App.Config.ConfigSettings.UserPrefs.BackgroundImage;
         if (selection.Background.StartsWith("http") || selection.Background.StartsWith("file"))
         {
+            var image = Utilities.LoadImage(selection.Background);
             return new ImageBrush
             {
                 Stretch = Stretch.UniformToFill,
                 Opacity = selection.Opacity,
-                Source = Utilities.LoadImage((selection.Background ??= App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
+                Source = image
             };
         }
 
