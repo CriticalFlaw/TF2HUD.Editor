@@ -57,8 +57,7 @@
 
 			<WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2">
 				<WrapPanel VerticalAlignment="Center">
-					<Label Content="{x:Static loc:Resources.ui_download}" />
-					<!--Note: Add IsVisible="{Binding Visibility, ElementName=CbBranch}"-->
+					<Label Content="{x:Static loc:Resources.ui_download}" IsVisible="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}" />
 					<ComboBox Name="CbBranch" Margin="5,0" Padding="5" Height="35" Width="160" ItemsSource="{Binding Downloads}" SelectedItem="{Binding SelectedDownloadSource}" IsVisible="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}" />
 					<!--Note: Add DisplayMemberPath="Content"-->
 				</WrapPanel>
