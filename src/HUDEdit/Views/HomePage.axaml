@@ -39,7 +39,7 @@
 				<TextBox Foreground="WhiteSmoke" Background="#2B2724" BorderThickness="2" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0" Height="40" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
 				<Button Classes="LinkButton" Content="&#x005D;" Command="{Binding BtnDisplayUniqueHudsOnly_Click}" Grid.Column="2" Grid.Row="0" Height="40" Foreground="{Binding DisplayUniqueHudsOnly, Converter={StaticResource DisplayUniqueHudsOnlyForegroundConverter}}"/>
 
-				<ScrollViewer Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,10,0,0" Height="200">
+				<ScrollViewer Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="0,10,0,0">
 					<ItemsControl ItemsSource="{Binding HUDListView}">
 						<!-- Container -->
 						<ItemsControl.ItemsPanel>
