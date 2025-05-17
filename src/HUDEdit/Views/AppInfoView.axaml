@@ -7,23 +7,19 @@
 			 x:DataType="vm:AppInfoViewModel"
              x:Class="HUDEdit.Views.AppInfoView">
 	<StackPanel>
-		<Image Source="/Assets/Images/banner.png" Height="142" Width="621" Margin="0,0,0,15" />
-		<TextBlock Classes="BodyText" FontSize="21" TextAlignment="Center">
+		<Image Source="/Assets/Images/banner.png" Height="142" Width="621" />
+		<TextBlock Classes="BodyText" FontSize="20" TextAlignment="Center" Margin="0,15,0,15">
 			<Run Foreground="#70B04A" Text="Install" />
 			<Run Text="and" />
 			<Run Foreground="#38F3AB" Text="customize" />
-			<Run Text="your favorite Team Fortress 2 HUDs! For additional information and support, check out the" />
-			<Run Foreground="#FFD700" Text="documentation" />
-			<Run Text="linked below." />
+			<Run Text="your favorite Team Fortress 2 HUDs!" />
 		</TextBlock>
-		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
-		<Label Classes="HeaderText" Content="Version 3.5" Margin="0,0,0,10" />
-		<TextBlock Classes="BodyText" FontSize="22" TextAlignment="Left">
-			<Run Text="> Enabled automatic schema update checks by default." />
+		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
+		<Label Classes="HeaderText" Content="Version 4.0" Margin="0,15,0,0" FontSize="30" />
+		<TextBlock Classes="BodyText" TextAlignment="Left">
+			<Run Text="> Ported application to AvaloniaUI to enable Linux compatability." />
 			<LineBreak />
-			<Run Text="> Fixed the app window not being resizable from all four sides." />
-			<LineBreak />
-			<Run Text="> Fixed logs showing the selected value instead of actual applied value." />
+			<Run Text="> Miscellenaous bug-fixes and improvements." />
 			<LineBreak />
 			<LineBreak />
 		</TextBlock>
