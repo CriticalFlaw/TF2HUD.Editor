@@ -358,6 +358,55 @@ public static class Utilities
     }
 
     /// <summary>
+    /// Downloads and prepares the HUD for use.
+    /// </summary>
+    /// <param name="url">Download link for the HUD</param>
+    /// <param name="filePath">Path to where the HUD should be installed to</param>
+    /// <param name="hudName">Proper name for the HUD being downloaded</param>
+    public static async Task DownloadHud(string url, string filePath, string hudName)
+    {
+        HttpClient client = new();
+        client.DefaultRequestHeaders.Add("User-Agent", "request");
+
+        App.Logger.Info($"Downloading {hudName} from {url}");
+        var uri = new Uri(url);
+        var bytes = uri.Scheme == "file"
+            ? await File.ReadAllBytesAsync(uri.AbsolutePath)
+            : await client.GetByteArrayAsync(uri);
+
+        if (bytes.Length == 0)
+        {
+            // GameBanana returns 200 with an empty response for missing download links.
+            throw new HttpRequestException($"Response from download source did not return a valid zip file");
+        }
+
+        // Create new ZIP object from bytes.
+        var stream = new MemoryStream(bytes);
+        var archive = new ZipArchive(stream);
+
+        // Zip files made with ZipFile.CreateFromDirectory do not include directory entries, so create root directory*
+        Directory.CreateDirectory($"{filePath}\\{hudName}");
+
+        foreach (var entry in archive.Entries)
+        {
+            // Remove first folder name from entry.FullName e.g. "flawhud-master" => "".
+            var path = String.Join('\\', entry.FullName.Split("/")[1..]);
+
+            // Ignore directory entries
+            // path == "" is root directory entry
+            if (path != "" && !path.EndsWith('\\'))
+            {
+                // *and ensure directory exists for each file
+                Directory.CreateDirectory($"{filePath}\\{hudName}\\{Path.GetDirectoryName(path)}");
+                entry.ExtractToFile($"{filePath}\\{hudName}\\{path}");
+            }
+        }
+
+        // Clean the application directory.
+        archive.Dispose();
+    }
+
+    /// <summary>
     /// Calculates a file hash identical to the output of <c>git hash-object &lt;file&gt;</c>
     /// </summary>
     /// <param name="filePath">Path to file to calculate hash of.</param>

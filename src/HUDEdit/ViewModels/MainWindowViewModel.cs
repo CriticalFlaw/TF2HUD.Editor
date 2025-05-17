@@ -226,43 +226,8 @@ internal partial class MainWindowViewModel : ViewModelBase
                 Directory.Delete(foundHud, true);
             }
 
-            // Retrieve the HUD object, then download and extract it into the tf/custom directory.
-            App.Logger.Info($"Downloading {SelectedHud.Name} from {download.Link}");
-            HttpClient client = new();
-            client.DefaultRequestHeaders.Add("User-Agent", "request");
-
-            var uri = new Uri(download.Link);
-            var bytes = uri.Scheme == "file"
-                ? await File.ReadAllBytesAsync(uri.AbsolutePath)
-                : await client.GetByteArrayAsync(uri);
-
-            if (bytes.Length == 0)
-            {
-                // GameBanana returns 200 with an empty response for missing download links.
-                throw new HttpRequestException($"Response from {download.Source} did not return a valid zip file");
-            }
-
-            // Create new ZIP object from bytes.
-            var stream = new MemoryStream(bytes);
-            var archive = new ZipArchive(stream);
-
-            // Zip files made with ZipFile.CreateFromDirectory do not include directory entries, so create root directory*
-            Directory.CreateDirectory($"{MainWindow.HudPath}\\{SelectedHud.Name}");
-
-            foreach (var entry in archive.Entries)
-            {
-                // Remove first folder name from entry.FullName e.g. "flawhud-master" => "".
-                var path = String.Join('\\', entry.FullName.Split("/")[1..]);
-
-                // Ignore directory entries
-                // path == "" is root directory entry
-                if (path != "" && !path.EndsWith('\\'))
-                {
-                    // *and ensure directory exists for each file
-                    Directory.CreateDirectory($"{MainWindow.HudPath}\\{SelectedHud.Name}\\{Path.GetDirectoryName(path)}");
-                    entry.ExtractToFile($"{MainWindow.HudPath}\\{SelectedHud.Name}\\{path}");
-                }
-            }
+            // Download and install the selected HUD
+            await Utilities.DownloadHud(download.Link, MainWindow.HudPath, SelectedHud.Name);
 
             // Install Crosshairs
             if (SelectedHud.InstallCrosshairs)
@@ -283,16 +248,11 @@ internal partial class MainWindowViewModel : ViewModelBase
             // Update timestamp
             ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Assets.Resources.status_installed_now, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
 
-            // Update Install/Uninstall/Reset Buttons
+            // Update Menu Buttons
             OnPropertyChanged(nameof(HighlightedHudInstalled));
-
-            // Update Switch HUD Button
             OnPropertyChanged(nameof(SelectedHud));
             OnPropertyChanged(nameof(SelectedHudInstalled));
             Installing = false;
-
-            // Clean the application directory.
-            archive.Dispose();
         }
         catch (Exception e)
         {
@@ -319,6 +279,10 @@ internal partial class MainWindowViewModel : ViewModelBase
             App.Logger.Info($"Removing {SelectedHud.Name} from {MainWindow.HudPath}");
             if (SelectedHud.Name != "") Directory.Delete($"{MainWindow.HudPath}\\{SelectedHud.Name}", true);
 
+            // Update timestamp
+            ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Assets.Resources.status_installed_not, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
+
+            // Update Menu Buttons
             OnPropertyChanged(nameof(HighlightedHud));
             OnPropertyChanged(nameof(HighlightedHudInstalled));
             OnPropertyChanged(nameof(SelectedHud));
