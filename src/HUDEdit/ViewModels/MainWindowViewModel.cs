@@ -80,6 +80,17 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
     }
 
+    private string _windowTitle = Assets.Resources.ui_title;
+    public string WindowTitle
+    {
+        get => _windowTitle;
+        set
+        {
+            _windowTitle = value;
+            OnPropertyChanged();
+        }
+    }
+
     public MainWindowViewModel()
     {
         try
@@ -349,6 +360,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         App.Logger.Info("Changing page view to: main menu");
         HighlightedHud = null;
         SelectedHud = null;
+        WindowTitle = Assets.Resources.ui_title;
     }
 
     public void OpenDocSite() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);

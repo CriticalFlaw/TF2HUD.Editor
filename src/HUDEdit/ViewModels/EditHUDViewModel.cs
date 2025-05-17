@@ -71,6 +71,7 @@ internal partial class EditHUDViewModel : ViewModelBase
         Presets = new ObservableCollection<PresetViewModel>(Enum.GetValues<Preset>().Select((p) => new PresetViewModel(this, p)));
         Downloads = new ObservableCollection<Download>(_hud.Download);
         _selectedDownloadSource = _hud.Download.First();
+        _mainWindowViewModel.WindowTitle = $"{Assets.Resources.ui_title} | {hud.Name}";
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -9,7 +9,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="HUDEdit.Views.MainWindow"
 		x:DataType="vm:MainWindowViewModel"
-        Title="TF2 HUD Editor"
+        Title="{Binding WindowTitle}"
 		Icon="/Assets/Images/favicon.ico"
 		Background="#2B2724">
 
