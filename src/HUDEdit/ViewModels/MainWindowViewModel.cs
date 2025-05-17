@@ -12,7 +12,6 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -145,6 +144,10 @@ internal partial class MainWindowViewModel : ViewModelBase
             _highlightedHud = selectedHud;
             _selectedHud = selectedHud;
             _currentPageViewModel = selectedHud != null ? new EditHUDViewModel(this, selectedHud) : new HomePageViewModel(this, HUDList);
+
+            // Load thumbnails
+            foreach (var hud in _hudList)
+                hud.ThumbnailImage = Utilities.LoadImage(hud.Thumbnail);
         }
         catch (Exception e)
         {

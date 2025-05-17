@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Avalonia.Controls;
+using Avalonia.Media.Imaging;
 using HUDEdit.Models;
 
 namespace HUDEdit.Classes;
@@ -19,6 +20,7 @@ public partial class HUD
     public double Opacity { get; set; }
     public bool Maximize { get; set; }
     public string Thumbnail { get; set; }
+    public Bitmap ThumbnailImage { get; set; }
     public string Background { get; set; }
     public string Description { get; set; }
     public string Author { get; set; }
