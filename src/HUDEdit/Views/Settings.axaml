@@ -35,22 +35,22 @@
 			<HeaderedContentControl Header="Language" Grid.Row="0" Grid.Column="0">
 				<WrapPanel HorizontalAlignment="Left">
 					<RadioButton x:Name="BtnLocalizeEn" Margin="5" Checked="BtnLocalize_OnClick">
-						<Image x:Name="ImgLocalizeEn" Width="75" />
+						<Image Source="avares://HUDEdit/Assets/Images/Flags/us.png" Width="75" />
 					</RadioButton>
 					<RadioButton x:Name="BtnLocalizeFr" Margin="5" Checked="BtnLocalize_OnClick">
-						<Image x:Name="ImgLocalizeFr" Width="60" />
+						<Image Source="avares://HUDEdit/Assets/Images/Flags/fr.png" Width="60" />
 					</RadioButton>
 					<RadioButton x:Name="BtnLocalizeRu" Margin="5" Checked="BtnLocalize_OnClick">
-						<Image x:Name="ImgLocalizeRu" Width="60" />
+						<Image Source="avares://HUDEdit/Assets/Images/Flags/ru.png" Width="60" />
 					</RadioButton>
 					<RadioButton x:Name="BtnLocalizeBr" Margin="5" Checked="BtnLocalize_OnClick">
-						<Image x:Name="ImgLocalizeBr" Width="60" />
+						<Image Source="avares://HUDEdit/Assets/Images/Flags/br.png" Width="60" />
 					</RadioButton>
 					<RadioButton x:Name="BtnLocalizeIt" Margin="5" Checked="BtnLocalize_OnClick">
-						<Image x:Name="ImgLocalizeIt" Width="60" />
+						<Image Source="avares://HUDEdit/Assets/Images/Flags/it.png" Width="60" />
 					</RadioButton>
 					<RadioButton x:Name="BtnLocalizeCn" Margin="5" Checked="BtnLocalize_OnClick">
-						<Image x:Name="ImgLocalizeCn" Width="60" />
+						<Image Source="avares://HUDEdit/Assets/Images/Flags/cn.png" Width="60" />
 					</RadioButton>
 				</WrapPanel>
 			</HeaderedContentControl>

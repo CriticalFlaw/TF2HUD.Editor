@@ -20,8 +20,6 @@ public partial class Settings : Avalonia.Controls.Window
         // Set the flag so the event handler knows we're still initializing
         _isInitializing = true;
 
-        LoadCountryFlagsAsync();
-
         // Set the radio button based on selected user language.
         switch (App.Config.ConfigSettings.UserPrefs.Language)
         {
@@ -49,16 +47,6 @@ public partial class Settings : Avalonia.Controls.Window
         BtnPersistXhair.IsChecked = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence;
 
         _isInitializing = false;
-    }
-
-    private async void LoadCountryFlagsAsync()
-    {
-        ImgLocalizeEn.Source = await Utilities.LoadImageAsync("https://flagcdn.com/w320/us.png");
-        ImgLocalizeFr.Source = await Utilities.LoadImageAsync("https://flagcdn.com/w320/fr.png");
-        ImgLocalizeRu.Source = await Utilities.LoadImageAsync("https://flagcdn.com/w320/ru.png");
-        ImgLocalizeBr.Source = await Utilities.LoadImageAsync("https://flagcdn.com/w320/br.png");
-        ImgLocalizeIt.Source = await Utilities.LoadImageAsync("https://flagcdn.com/w320/it.png");
-        ImgLocalizeCn.Source = await Utilities.LoadImageAsync("https://flagcdn.com/w320/cn.png");
     }
 
     /// <summary>
