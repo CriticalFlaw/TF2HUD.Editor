@@ -1,4 +1,6 @@
+using Avalonia.Media;
 using HUDEdit.Classes;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -9,16 +11,50 @@ namespace HUDEdit.Views;
 
 public partial class Settings : Avalonia.Controls.Window
 {
+    private bool _isInitializing = true;
+
     public Settings()
     {
         InitializeComponent();
 
-        // Load the country flags
+        // Set the flag so the event handler knows we're still initializing
+        _isInitializing = true;
+
+        Background = new ImageBrush
+        {
+            Stretch = Stretch.UniformToFill,
+            Source = Utilities.LoadImage(new Uri(App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
+        };
+
         LoadCountryFlagsAsync();
 
-        // Check for user selected settings.
+        // Set the radio button based on selected user language.
+        switch (App.Config.ConfigSettings.UserPrefs.Language)
+        {
+            case "fr-FR":
+                BtnLocalizeFr.IsChecked = true;
+                break;
+            case "ru-RU":
+                BtnLocalizeRu.IsChecked = true;
+                break;
+            case "pt-BR":
+                BtnLocalizeBr.IsChecked = true;
+                break;
+            case "it":
+                BtnLocalizeIt.IsChecked = true;
+                break;
+            case "zh-CN":
+                BtnLocalizeCn.IsChecked = true;
+                break;
+            default:
+                BtnLocalizeEn.IsChecked = true;
+                break;
+        }
+
         BtnAutoUpdate.IsChecked = App.Config.ConfigSettings.UserPrefs.AutoUpdate;
         BtnPersistXhair.IsChecked = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence;
+
+        _isInitializing = false;
     }
 
     private async void LoadCountryFlagsAsync()
@@ -36,6 +72,9 @@ public partial class Settings : Avalonia.Controls.Window
     /// </summary>
     private void BtnLocalize_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
+        // Ignore clicks during initialization
+        if (_isInitializing) return;
+
         if (BtnLocalizeEn.IsChecked == true)
             Assets.Resources.Culture = new CultureInfo("en-US");
         else if (BtnLocalizeFr.IsChecked == true)
@@ -49,11 +88,9 @@ public partial class Settings : Avalonia.Controls.Window
         else if (BtnLocalizeCn.IsChecked == true)
             Assets.Resources.Culture = new CultureInfo("zh-CN");
 
-        // Save language preference to user settings.
+        // Save language preference then restart.
         App.Config.ConfigSettings.UserPrefs.Language = Assets.Resources.Culture.ToString();
         App.SaveConfiguration();
-
-        // Restart the application
         Utilities.RestartApplication();
     }
 
@@ -69,21 +106,9 @@ public partial class Settings : Avalonia.Controls.Window
     {
         if (Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
 
-        var localPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        Directory.Delete($"{localPath}\\CriticalFlaw", true);
-        Directory.Delete($"{localPath}\\TF2HUD.Editor", true);
+        Directory.Delete($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor", true);
         Directory.Delete("JSON", true);
         MainWindow.UpdateAppSchema(true);
-    }
-
-    private void BtnOpenAppSettings_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-    {
-        Process.Start("notepad.exe", $"{AppContext.BaseDirectory}\\appsettings.json");
-    }
-
-    private void BtnOpenUserSettings_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-    {
-        Process.Start("notepad.exe", $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\settings.json");
     }
 
     private void BtnPersistXhair_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -96,5 +121,15 @@ public partial class Settings : Avalonia.Controls.Window
     {
         App.Config.ConfigSettings.UserPrefs.AutoUpdate = BtnAutoUpdate.IsChecked ?? true;
         App.SaveConfiguration();
+    }
+
+    private void BtnOpenAppSettings_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Process.Start("notepad.exe", $"{AppContext.BaseDirectory}\\appsettings.json");
+    }
+
+    private void BtnOpenUserSettings_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Process.Start("notepad.exe", $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\settings.json");
     }
 }
