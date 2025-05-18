@@ -13,11 +13,13 @@
 	<Application.Styles>
 		<FluentTheme />
 		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
-		
+
 		<Style Selector="Label">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="Foreground" Value="White" />
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
+			<Setter Property="FontSize" Value="16" />
 		</Style>
 
 		<Style Selector="Label.HeaderText">
@@ -38,8 +40,10 @@
 		</Style>
 
 		<Style Selector="Label.HudListLabel">
-			<Setter Property="Foreground" Value="Black" />
+			<Setter Property="Foreground" Value="Gray" />
 			<Setter Property="HorizontalAlignment" Value="Center" />
+			<Setter Property="FontSize" Value="18" />
+			<Setter Property="Margin" Value="0,10,0,0" />
 		</Style>
 
 		<Style Selector="Label.ComboBoxLabel">
@@ -74,11 +78,22 @@
 			<Setter Property="FontSize" Value="16" />
 		</Style>
 
+		<Style Selector="TextBox.SearchBox">
+			<Setter Property="Foreground" Value="WhiteSmoke" />
+			<Setter Property="Background" Value="#2B2724" />
+			<Setter Property="BorderThickness" Value="1" />
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="Margin" Value="0,0,10,0" />
+		</Style>
+
 		<Style Selector="ComboBox">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="HorizontalContentAlignment" Value="Left" />
 			<Setter Property="Width" Value="150" />
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<!--<Setter Property="SelectedValuePath" Value="Content" />-->
 		</Style>
 
@@ -93,10 +108,11 @@
 		</Style>
 
 		<Style Selector="CheckBox">
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="Foreground" Value="White" />
-			<Setter Property="FontSize" Value="18" />
+			<Setter Property="FontSize" Value="16" />
 		</Style>
 
 		<Style Selector="CheckBox.SettingCheckBox">
@@ -119,14 +135,14 @@
 
 		<Style Selector="TextBlock.BodyText">
 			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
-			<Setter Property="FontSize" Value="25" />
+			<Setter Property="FontSize" Value="15" />
 			<Setter Property="TextWrapping" Value="Wrap" />
 			<Setter Property="Foreground" Value="#A49E9E" />
 		</Style>
 
 		<Style Selector="Border.HudListBorder">
-			<Setter Property="Background" Value="#FFFFFF" />
-			<Setter Property="BorderBrush" Value="Transparent" />
+			<Setter Property="Background" Value="#131313" />
+			<Setter Property="BorderBrush" Value="Gray" />
 			<Setter Property="BorderThickness" Value="1" />
 			<Setter Property="CornerRadius" Value="5" />
 			<Setter Property="Width" Value="220" />
@@ -136,6 +152,10 @@
 
 			<Style Selector="^:pointerover">
 				<Setter Property="BorderBrush" Value="LightGray"/>
+			</Style>
+
+			<Style Selector="^:pointerover Label.HudListLabel">
+				<Setter Property="Foreground" Value="LightGray"/>
 			</Style>
 		</Style>
 
@@ -215,12 +235,12 @@
 			<Setter Property="Width" Value="50" />
 			<Setter Property="Height" Value="40" />
 			<Setter Property="Cursor" Value="Hand" />
-			
+
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
 						<Border Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}}" CornerRadius="5">
-							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
+							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="{TemplateBinding Foreground}"/>
 						</Border>
 					</ControlTemplate>
 				</Setter.Value>
@@ -329,6 +349,11 @@
 			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="Black"/>
 			</Style>
+		</Style>
+
+		<Style Selector="Button.FilterButton">
+			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
+			<Setter Property="FontSize" Value="20" />
 		</Style>
 
 		<Style Selector="Image.PreviewImage">

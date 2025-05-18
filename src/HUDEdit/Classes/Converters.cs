@@ -127,7 +127,7 @@ public class DisplayUniqueHudsOnlyForegroundConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (bool)value ? Brushes.SkyBlue : Brushes.White;
+        return (bool)value ? "\u05AE" : "\u05AF";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
