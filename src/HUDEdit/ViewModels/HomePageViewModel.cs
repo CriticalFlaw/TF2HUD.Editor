@@ -1,28 +1,27 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using HUDEdit.Classes;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Data;
 
 namespace HUDEdit.ViewModels;
 
 internal partial class HomePageViewModel : ViewModelBase
 {
     private readonly MainWindowViewModel _mainWindowViewModel;
-    private ObservableCollection<HUDButtonViewModel> _hudList;
+    private List<HUDButtonViewModel> _allHuds;
     public ObservableCollection<HUDButtonViewModel> HUDListView { get; } = new();
+
     private string _searchText = "";
     public string SearchText
     {
         get => _searchText;
         set
         {
-            _searchText = value.ToLower();
+            _searchText = value.ToLowerInvariant();
             OnPropertyChanged(nameof(SearchText));
-            //HUDListView.Refresh();
+            ApplyFilters();
         }
     }
 
@@ -34,7 +33,7 @@ internal partial class HomePageViewModel : ViewModelBase
         {
             _displayUniqueHudsOnly = value;
             OnPropertyChanged(nameof(DisplayUniqueHudsOnly));
-            //HUDListView.Refresh();
+            ApplyFilters();
         }
     }
 
@@ -48,6 +47,7 @@ internal partial class HomePageViewModel : ViewModelBase
             OnPropertyChanged(nameof(Info));
         }
     }
+
     public int Column { get; set; }
     public int Row { get; set; }
 
@@ -55,33 +55,20 @@ internal partial class HomePageViewModel : ViewModelBase
     {
         _mainWindowViewModel = mainWindowViewModel;
 
-        // Generate HUD buttons and set positions
-        var hudButtonList = hudList
-            .Select((hud, i) =>
-                new HUDButtonViewModel(hud, i % 2, i / 2))
-            .OrderBy(x => x.Name)
-            .ToList();
+        // Convert to HUDButtonViewModel with column/row positioning
+        _allHuds = hudList.Select((hud, i) => new HUDButtonViewModel(hud, i % 2, i / 2)).OrderBy(x => x.Name).ToList();
+        ApplyFilters();
 
-        _hudList = new ObservableCollection<HUDButtonViewModel>(
-            hudList.Select((hud, i) =>
-                new HUDButtonViewModel(hud, i % 2, i / 2)) // Column = i % 2, Row = i / 2
-            .OrderBy(x => x.Name)
-        );
-
-        // Setup filtering
-        HUDListView.Clear();
-
-        foreach (var item in _hudList)
-            HUDListView.Add(item);
-
-        _info = new AppInfoViewModel();
+        Info = new AppInfoViewModel();
         _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
     }
 
-    private bool Filter(object o)
+    private void ApplyFilters()
     {
-        HUDButtonViewModel hud = (HUDButtonViewModel)o;
-        return (!DisplayUniqueHudsOnly || hud.Unique) && (hud.Name.ToLower().Contains(SearchText) || hud.Author.ToLower().Contains(SearchText));
+        HUDListView.Clear();
+
+        var filtered = _allHuds.Where(x => (!DisplayUniqueHudsOnly || x.Unique) && (string.IsNullOrWhiteSpace(SearchText) || x.Name.ToLowerInvariant().Contains(SearchText)));
+        foreach (var hud in filtered) HUDListView.Add(hud);
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -100,9 +87,9 @@ internal partial class HomePageViewModel : ViewModelBase
     [RelayCommand]
     public void BtnDisplayUniqueHudsOnly_Click()
     {
-    	DisplayUniqueHudsOnly = !DisplayUniqueHudsOnly;
+        DisplayUniqueHudsOnly = !DisplayUniqueHudsOnly;
     }
-    
+
     public override void Dispose()
     {
         base.Dispose();
