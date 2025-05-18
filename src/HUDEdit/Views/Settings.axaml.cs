@@ -1,6 +1,6 @@
-using Avalonia.Controls;
 using HUDEdit.Classes;
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows;
@@ -74,6 +74,16 @@ public partial class Settings : Avalonia.Controls.Window
         Directory.Delete($"{localPath}\\TF2HUD.Editor", true);
         Directory.Delete("JSON", true);
         MainWindow.UpdateAppSchema(true);
+    }
+
+    private void BtnOpenAppSettings_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Process.Start("notepad.exe", $"{AppContext.BaseDirectory}\\appsettings.json");
+    }
+
+    private void BtnOpenUserSettings_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Process.Start("notepad.exe", $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\settings.json");
     }
 
     private void BtnPersistXhair_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

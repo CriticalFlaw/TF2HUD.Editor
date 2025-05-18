@@ -9,7 +9,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="HUDEdit.Views.Settings"
 		x:DataType="vm:SettingsViewModel"
-		Title="Settings"
+		Title="TF2 HUD Editor | Settings"
 		Icon="/Assets/Images/favicon.ico"
 		Background="#2B2724">
 
@@ -45,11 +45,18 @@
 
 				<HeaderedContentControl Header="Settings" Grid.Row="1">
 					<WrapPanel HorizontalAlignment="Center">
+						<CheckBox x:Name="BtnPersistXhair" Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox" Click="BtnPersistXhair_Click" />
+						<CheckBox x:Name="BtnAutoUpdate" Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox" Click="BtnAutoUpdate_OnClick"/>
+					</WrapPanel>
+				</HeaderedContentControl>
+				
+				<HeaderedContentControl Header="Troubleshooting" Grid.Row="2">
+					<WrapPanel HorizontalAlignment="Center">
 						<Button Content="{x:Static loc:Resources.ui_directory}" Width="263" Classes="HudButton" Click="SetDirectory_OnClick" />
 						<Button Content="{x:Static loc:Resources.ui_refresh}" Width="263" Classes="HudButton" Click="BtnRefresh_OnClick"/>
 						<Button Content="{x:Static loc:Resources.ui_clear_cache}" Width="263" Classes="HudButton" Click="BtnClearCache_Click"/>
-						<CheckBox x:Name="BtnPersistXhair" Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox" Click="BtnPersistXhair_Click" />
-						<CheckBox x:Name="BtnAutoUpdate" Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox" Click="BtnAutoUpdate_OnClick"/>
+						<Button Content="Open App Settings" Width="263" Classes="HudButton" Click="BtnOpenAppSettings_Click"/>
+						<Button Content="Open User Settings" Width="263" Classes="HudButton" Click="BtnOpenUserSettings_Click"/>
 					</WrapPanel>
 				</HeaderedContentControl>
 			</StackPanel>
