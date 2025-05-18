@@ -10,63 +10,67 @@
         x:Class="HUDEdit.Views.Settings"
 		x:DataType="vm:SettingsViewModel"
 		Title="TF2 HUD Editor | Settings"
-		Icon="/Assets/Images/favicon.ico"
-		Background="#2B2724">
+		Icon="/Assets/Images/favicon.ico">
 
 	<Design.DataContext>
 		<vm:SettingsViewModel/>
 	</Design.DataContext>
 
-	<Grid Margin="20,5,20,20">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="*"/>
-			<!-- For Settings + Language -->
-			<ColumnDefinition Width="Auto"/>
-			<!-- For Troubleshooting -->
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
+	<Border>
+		<Border.Background>
+			<ImageBrush Source="avares://HUDEdit/Assets/Images/background.png" Stretch="UniformToFill"/>
+		</Border.Background>
+		<Grid Margin="20,5,20,20">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<!-- For Settings + Language -->
+				<ColumnDefinition Width="Auto"/>
+				<!-- For Troubleshooting -->
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
 
-		<HeaderedContentControl Header="Language" Grid.Row="0" Grid.Column="0">
-			<WrapPanel HorizontalAlignment="Left">
-				<RadioButton x:Name="BtnLocalizeEn" Margin="5" Checked="BtnLocalize_OnClick">
-					<Image x:Name="ImgLocalizeEn" Width="75" />
-				</RadioButton>
-				<RadioButton x:Name="BtnLocalizeFr" Margin="5" Checked="BtnLocalize_OnClick">
-					<Image x:Name="ImgLocalizeFr" Width="60" />
-				</RadioButton>
-				<RadioButton x:Name="BtnLocalizeRu" Margin="5" Checked="BtnLocalize_OnClick">
-					<Image x:Name="ImgLocalizeRu" Width="60" />
-				</RadioButton>
-				<RadioButton x:Name="BtnLocalizeBr" Margin="5" Checked="BtnLocalize_OnClick">
-					<Image x:Name="ImgLocalizeBr" Width="60" />
-				</RadioButton>
-				<RadioButton x:Name="BtnLocalizeIt" Margin="5" Checked="BtnLocalize_OnClick">
-					<Image x:Name="ImgLocalizeIt" Width="60" />
-				</RadioButton>
-				<RadioButton x:Name="BtnLocalizeCn" Margin="5" Checked="BtnLocalize_OnClick">
-					<Image x:Name="ImgLocalizeCn" Width="60" />
-				</RadioButton>
-			</WrapPanel>
-		</HeaderedContentControl>
+			<HeaderedContentControl Header="Language" Grid.Row="0" Grid.Column="0">
+				<WrapPanel HorizontalAlignment="Left">
+					<RadioButton x:Name="BtnLocalizeEn" Margin="5" Checked="BtnLocalize_OnClick">
+						<Image x:Name="ImgLocalizeEn" Width="75" />
+					</RadioButton>
+					<RadioButton x:Name="BtnLocalizeFr" Margin="5" Checked="BtnLocalize_OnClick">
+						<Image x:Name="ImgLocalizeFr" Width="60" />
+					</RadioButton>
+					<RadioButton x:Name="BtnLocalizeRu" Margin="5" Checked="BtnLocalize_OnClick">
+						<Image x:Name="ImgLocalizeRu" Width="60" />
+					</RadioButton>
+					<RadioButton x:Name="BtnLocalizeBr" Margin="5" Checked="BtnLocalize_OnClick">
+						<Image x:Name="ImgLocalizeBr" Width="60" />
+					</RadioButton>
+					<RadioButton x:Name="BtnLocalizeIt" Margin="5" Checked="BtnLocalize_OnClick">
+						<Image x:Name="ImgLocalizeIt" Width="60" />
+					</RadioButton>
+					<RadioButton x:Name="BtnLocalizeCn" Margin="5" Checked="BtnLocalize_OnClick">
+						<Image x:Name="ImgLocalizeCn" Width="60" />
+					</RadioButton>
+				</WrapPanel>
+			</HeaderedContentControl>
 
-		<HeaderedContentControl Header="Settings" Grid.Row="1" Grid.Column="0">
-			<WrapPanel HorizontalAlignment="Left">
-				<CheckBox x:Name="BtnPersistXhair" Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox" Click="BtnPersistXhair_Click" />
-				<CheckBox x:Name="BtnAutoUpdate" Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox" Click="BtnAutoUpdate_OnClick"/>
-			</WrapPanel>
-		</HeaderedContentControl>
+			<HeaderedContentControl Header="Settings" Grid.Row="1" Grid.Column="0">
+				<WrapPanel HorizontalAlignment="Left">
+					<CheckBox x:Name="BtnPersistXhair" Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox" Click="BtnPersistXhair_Click" />
+					<CheckBox x:Name="BtnAutoUpdate" Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox" Click="BtnAutoUpdate_OnClick"/>
+				</WrapPanel>
+			</HeaderedContentControl>
 
-		<HeaderedContentControl Header="Troubleshooting" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="10,0,0,0">
-			<StackPanel HorizontalAlignment="Left">
-				<Button Content="{x:Static loc:Resources.ui_directory}" Width="263" Classes="HudButton" Click="SetDirectory_OnClick" />
-				<Button Content="{x:Static loc:Resources.ui_refresh}" Width="263" Classes="HudButton" Click="BtnRefresh_OnClick"/>
-				<Button Content="{x:Static loc:Resources.ui_clear_cache}" Width="263" Classes="HudButton" Click="BtnClearCache_Click"/>
-				<Button Content="Open App Settings" Width="263" Classes="HudButton" Click="BtnOpenAppSettings_Click"/>
-				<Button Content="Open User Settings" Width="263" Classes="HudButton" Click="BtnOpenUserSettings_Click"/>
-			</StackPanel>
-		</HeaderedContentControl>
-	</Grid>
+			<HeaderedContentControl Header="Troubleshooting" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="10,0,0,0">
+				<StackPanel HorizontalAlignment="Left">
+					<Button Content="{x:Static loc:Resources.ui_directory}" Width="263" Classes="HudButton" Click="SetDirectory_OnClick" />
+					<Button Content="{x:Static loc:Resources.ui_refresh}" Width="263" Classes="HudButton" Click="BtnRefresh_OnClick"/>
+					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Width="263" Classes="HudButton" Click="BtnClearCache_Click"/>
+					<Button Content="Open App Settings" Width="263" Classes="HudButton" Click="BtnOpenAppSettings_Click"/>
+					<Button Content="Open User Settings" Width="263" Classes="HudButton" Click="BtnOpenUserSettings_Click"/>
+				</StackPanel>
+			</HeaderedContentControl>
+		</Grid>
+	</Border>
 </Window>

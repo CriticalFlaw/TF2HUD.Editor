@@ -20,12 +20,6 @@ public partial class Settings : Avalonia.Controls.Window
         // Set the flag so the event handler knows we're still initializing
         _isInitializing = true;
 
-        Background = new ImageBrush
-        {
-            Stretch = Stretch.UniformToFill,
-            Source = Utilities.LoadImage(new Uri(App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
-        };
-
         LoadCountryFlagsAsync();
 
         // Set the radio button based on selected user language.

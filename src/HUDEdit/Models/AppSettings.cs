@@ -45,9 +45,6 @@ public class UserPreferences
 
     [JsonPropertyName("app_xhair_size")]
     public int CrosshairSize { get; set; } = 0;
-
-    [JsonPropertyName("app_default_bg")]
-    public string BackgroundImage { get; set; } = "https://user-images.githubusercontent.com/6818236/220803776-12f85855-a409-4555-8f76-e3877d04bab9.png";
 }
 
 public class AppConfig

@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Avalonia.Platform;
 
 namespace HUDEdit.ViewModels;
 
@@ -135,7 +136,7 @@ internal partial class MainWindowViewModel : ViewModelBase
                 var hudBackgroundPath = $"{sharedHud}\\output.png";
                 var hudBackground = File.Exists(hudBackgroundPath)
                     ? $"file://{hudBackgroundPath}"
-                    : App.Config.ConfigSettings.UserPrefs.BackgroundImage;
+                    : "avares://HUDEdit/Assets/Images/background.png";
                 var sharedProperties = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
                 _hudList.Add(new HUD(hudName, new HudJson
                 {

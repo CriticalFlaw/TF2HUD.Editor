@@ -1,6 +1,8 @@
 using Avalonia;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -94,15 +96,25 @@ public class PageBackgroundConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        var defaultBg = "avares://HUDEdit/Assets/Images/background.png";
         if (value is null) return new ImageBrush
         {
-            Stretch = Stretch.UniformToFill,
-            Source = Utilities.LoadImage(new Uri(App.Config.ConfigSettings.UserPrefs.BackgroundImage, UriKind.RelativeOrAbsolute).ToString())
+            Source = new Bitmap(AssetLoader.Open(new Uri(defaultBg))),
+            Stretch = Stretch.UniformToFill
         };
 
         var selection = (HUD)value;
-        selection.Background ??= App.Config.ConfigSettings.UserPrefs.BackgroundImage;
-        if (selection.Background.StartsWith("http") || selection.Background.StartsWith("file"))
+        selection.Background ??= defaultBg;
+        if (selection.Background.StartsWith("avares"))
+        {
+            return new ImageBrush
+            {
+                Source = new Bitmap(AssetLoader.Open(new Uri(selection.Background))),
+                Stretch = Stretch.UniformToFill,
+                Opacity = selection.Opacity
+            };
+        }
+        else if (selection.Background.StartsWith("http") || selection.Background.StartsWith("file"))
         {
             var image = Utilities.LoadImage(selection.Background);
             return new ImageBrush
