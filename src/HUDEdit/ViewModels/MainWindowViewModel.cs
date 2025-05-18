@@ -370,7 +370,7 @@ internal partial class MainWindowViewModel : ViewModelBase
 
     public void OpenOptionsMenu()
     {
-        var settings = new Settings();
+        var settings = new SettingsView();
         settings.Show();
     }
 

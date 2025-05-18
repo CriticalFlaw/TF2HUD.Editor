@@ -9,11 +9,11 @@ using System.Windows;
 
 namespace HUDEdit.Views;
 
-public partial class Settings : Avalonia.Controls.Window
+public partial class SettingsView : Avalonia.Controls.Window
 {
     private bool _isInitializing = true;
 
-    public Settings()
+    public SettingsView()
     {
         InitializeComponent();
 
