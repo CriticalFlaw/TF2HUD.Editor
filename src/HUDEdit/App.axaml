@@ -25,7 +25,7 @@
 		<Style Selector="Label.HeaderText">
 			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
 			<Setter Property="FontSize" Value="40" />
-			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="HorizontalContentAlignment" Value="Left" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 		</Style>
 
@@ -138,6 +138,7 @@
 			<Setter Property="FontSize" Value="15" />
 			<Setter Property="TextWrapping" Value="Wrap" />
 			<Setter Property="Foreground" Value="#A49E9E" />
+			<Setter Property="TextAlignment" Value="Left" />
 		</Style>
 
 		<Style Selector="Border.HudListBorder">

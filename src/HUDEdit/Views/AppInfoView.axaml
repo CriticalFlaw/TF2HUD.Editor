@@ -16,7 +16,7 @@
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
 		<Label Classes="HeaderText" Content="Version 4.0" Margin="0,15,0,0" FontSize="30" />
-		<TextBlock Classes="BodyText" TextAlignment="Left">
+		<TextBlock Classes="BodyText">
 			<Run Text="> Ported application to AvaloniaUI to enable Linux compatability." />
 			<LineBreak />
 			<Run Text="> Miscellenaous bug-fixes and improvements." />

@@ -14,12 +14,12 @@
 			<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
 		</StackPanel.Resources>
 
-		<Label Classes="HeaderText" Content="{Binding Name}"/>
-		<TextBlock Classes="BodyText" Margin="0,0,0,5">
+		<Label Classes="HeaderText" Content="{Binding Name}" Margin="-3,0,5,0"/>
+		<TextBlock Classes="BodyText" Margin="0,0,0,5" FontStyle="Italic">
 			<Run Text="Created by:" />
 			<Run Text="{Binding Author}" />
 		</TextBlock>
-		<TextBlock Classes="BodyText" Text="{Binding Description}" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}" Padding="10,10,10,10"/>
+		<TextBlock Classes="BodyText" FontStyle="Italic" Text="{Binding Description}" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}" />
 
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" Margin="0,15,0,10" />
 
