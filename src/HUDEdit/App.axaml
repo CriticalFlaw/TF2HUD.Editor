@@ -46,15 +46,8 @@
 			<Setter Property="Margin" Value="0,10,0,0" />
 		</Style>
 
-		<Style Selector="Label.ComboBoxLabel">
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="Width" Value="150" />
-			<Setter Property="FontSize" Value="16" />
-		</Style>
-
-		<Style Selector="Label.CrosshairLabel">
+		<Style Selector="Label.OptionLabel">
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="Foreground" Value="White" />
@@ -62,20 +55,8 @@
 			<Setter Property="FontSize" Value="16" />
 		</Style>
 
-		<Style Selector="Label.ColorPickerLabel">
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="Foreground" Value="White" />
+		<Style Selector="Label.OptionLabel.ComboBoxLabel">
 			<Setter Property="Width" Value="150" />
-			<Setter Property="FontSize" Value="16" />
-		</Style>
-
-		<Style Selector="Label.IntegerUpDownLabel">
-			<Setter Property="HorizontalAlignment" Value="Left" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="Width" Value="125" />
-			<Setter Property="FontSize" Value="16" />
 		</Style>
 
 		<Style Selector="TextBox.SearchBox">

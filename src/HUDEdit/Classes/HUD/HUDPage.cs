@@ -69,7 +69,7 @@ public partial class HUD
         else
         {
             sectionsContainer = new WrapPanel();
-            sectionsContainer.Margin = new Thickness(10);
+            //sectionsContainer.Margin = new Thickness(10);
         }
 
         Grid.SetRow(sectionsContainer, 1);
@@ -87,7 +87,7 @@ public partial class HUD
             sectionContentContainer.Children.Add(CreateResetButton(section));
 
             Panel sectionContent = Layout is not null ? new WrapPanel() : new StackPanel();
-            sectionContent.Margin = new Thickness(3);
+            //sectionContent.Margin = new Thickness(3);
 
             // Generate each individual control, add it to user settings.
             foreach (var controlItem in ControlOptions[section])
@@ -295,7 +295,7 @@ public partial class HUD
     {
         var label = new Label();
         label.Content = controlItem.Label;
-        label.FontSize = 18;
+        label.Classes.Add("OptionLabel");
         label.Width = (controlItem.Width > 0) ? controlItem.Width : label.Width;
 
         //----
@@ -303,7 +303,7 @@ public partial class HUD
         var control = new TextBox
         {
             Name = Utilities.EncodeId(controlItem.Name),
-            Width = 270,
+            Width = 150,
             Text = Settings.GetSetting<string>(controlItem.Name) ?? string.Empty,
             //ToolTip = tooltip
         };
@@ -317,7 +317,7 @@ public partial class HUD
         //----
 
         var container = new StackPanel();
-        container.Margin = new Thickness(10, lastTop, 0, 10);
+        container.Margin = new Thickness(10, 5, 0, 5);
         container.Children.Add(label);
         container.Children.Add(control);
         return container;
@@ -327,7 +327,8 @@ public partial class HUD
     {
         var label = new Label();
         label.Content = controlItem.Label;
-        label.FontSize = 18;
+        label.Classes.Add("OptionLabel");
+        label.Width = 200;
         Grid.SetColumn(label, 0);
         Grid.SetColumnSpan(label, 2);
         Grid.SetRow(label, 0);
@@ -340,7 +341,7 @@ public partial class HUD
             Name = Utilities.EncodeId(controlItem.Name),
             Content = Assets.Resources.ui_browse,
             Height = 32,
-            Padding = new Thickness(5, 2, 5, 0),
+            //Padding = new Thickness(5, 2, 5, 0),
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
         control.Click += (_, _) =>
@@ -377,7 +378,7 @@ public partial class HUD
             Width = 200,
             HorizontalAlignment = HorizontalAlignment.Left,
             VerticalAlignment = VerticalAlignment.Top,
-            Margin = new Thickness(0, 10, 0, 0)
+            //Margin = new Thickness(0, 10, 0, 0)
         };
 
         Grid.SetColumn(image, 0);
@@ -396,7 +397,7 @@ public partial class HUD
         {
             Content = Assets.Resources.ui_clear,
             Height = 32,
-            Padding = new Thickness(5, 2, 5, 0),
+            //Padding = new Thickness(5, 2, 5, 0),
             HorizontalAlignment = HorizontalAlignment.Stretch
         };
         clear.Click += (_, _) =>
@@ -411,7 +412,7 @@ public partial class HUD
         //----
 
         var container = new Grid();
-        container.Margin = new Thickness(10, lastTop + 5, 0, 0);
+        container.Margin = new Thickness(10, lastTop, 0, 0);
         container.ColumnDefinitions.Add(new ColumnDefinition());
         container.ColumnDefinitions.Add(new ColumnDefinition());
         container.RowDefinitions.Add(new RowDefinition());
@@ -428,7 +429,7 @@ public partial class HUD
     {
         var label = new Label();
         label.Content = controlItem.Label;
-        label.Classes.Add("CrosshairLabel");
+        label.Classes.Add("OptionLabel");
 
         //----
 
@@ -466,7 +467,7 @@ public partial class HUD
         //----
 
         var container = new StackPanel();
-        container.Margin = new Thickness(10, lastTop, 0, 10);
+        container.Margin = new Thickness(10, lastTop, 0, 0);
         container.Children.Add(label);
         container.Children.Add(control);
         return container;
@@ -476,7 +477,7 @@ public partial class HUD
     {
         var label = new Label();
         label.Content = controlItem.Label;
-        label.Classes.Add("IntegerUpDownLabel");
+        label.Classes.Add("OptionLabel");
         label.Width = (controlItem.Width > 0) ? controlItem.Width : label.Width;
 
         //----
@@ -504,7 +505,7 @@ public partial class HUD
         //----
 
         var container = new StackPanel();
-        container.Margin = new Thickness(10, lastTop, 0, 10);
+        container.Margin = new Thickness(10, lastTop, 0, 0);
         container.Children.Add(label);
         container.Children.Add(control);
         return container;
@@ -514,7 +515,7 @@ public partial class HUD
     {
         var label = new Label();
         label.Content = controlItem.Label;
-        label.Classes.Add("ComboBoxLabel");
+        label.Classes.Add("OptionLabel");
         label.Width = (controlItem.Width > 0) ? controlItem.Width : label.Width;
 
         //----
@@ -560,7 +561,7 @@ public partial class HUD
     {
         var label = new Label();
         label.Content = controlItem.Label;
-        label.Classes.Add("ColorPickerLabel");
+        label.Classes.Add("OptionLabel");
         //label.Width = (controlItem.Width > 0) ? controlItem.Width : label.Width;
 
         //----
@@ -576,12 +577,6 @@ public partial class HUD
             var input = sender as Avalonia.Controls.ColorPicker;
             Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.Color.ToString()));
         };
-        //control.Closed += (sender, _) =>
-        //{
-        //    var input = sender as ColorPicker;
-        //    Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.SelectedColor.ToString()));
-        //    CheckIsDirty(controlItem);
-        //};
 
         // Attempt to bind the color from the settings.
         try
@@ -611,7 +606,7 @@ public partial class HUD
         {
             Name = Utilities.EncodeId(controlItem.Name),
             Content = controlItem.Label,
-            Margin = new Thickness(10, lastTop + 10, 30, 0),
+            Margin = new Thickness(10, lastTop, 0, 0),
             IsChecked = Settings.GetSetting<bool>(Utilities.EncodeId(controlItem.Name)),
             //ToolTip = tooltip
         };
@@ -656,7 +651,7 @@ public partial class HUD
     private Button CreatePreviewButton()
     {
         var control = new Button();
-        control.Margin = new Thickness(0, lastTop, 0, 0);
+        //control.Margin = new Thickness(0, lastTop, 0, 0);
         control.VerticalAlignment = VerticalAlignment.Bottom;
         control.Classes.Add("PreviewButton");
         control.Click += (_, _) =>
