@@ -285,4 +285,13 @@
   <data name="info_clear_cache" xml:space="preserve">
     <value>This option will delete all local schema and editor data files then restart the app. Would you like to continue?</value>
   </data>
+  <data name="ui_open_app_file" xml:space="preserve">
+    <value>Open App Settings</value>
+  </data>
+  <data name="ui_open_user_file" xml:space="preserve">
+    <value>Open User Settings</value>
+  </data>
+  <data name="ui_hud_created_by" xml:space="preserve">
+    <value>Created by:</value>
+  </data>
 </root>

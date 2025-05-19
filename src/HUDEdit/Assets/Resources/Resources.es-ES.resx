@@ -246,9 +246,6 @@
   <data name="ui_install" xml:space="preserve">
     <value>Instalar</value>
   </data>
-  <data name="ui_options" xml:space="preserve">
-    <value>Opciones</value>
-  </data>
   <data name="ui_persist_xhair" xml:space="preserve">
     <value>Recordar punto de mira seleccionado</value>
   </data>
@@ -275,5 +272,17 @@
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Desinstalar</value>
+  </data>
+  <data name="ui_options" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="ui_open_app_file" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_open_user_file" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_hud_created_by" xml:space="preserve">
+    <value />
   </data>
 </root>

@@ -64,11 +64,11 @@
 
 			<HeaderedContentControl Header="Troubleshooting" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="10,0,0,0">
 				<StackPanel HorizontalAlignment="Left">
-					<Button Content="{x:Static loc:Resources.ui_directory}" Width="263" Classes="HudButton" Click="SetDirectory_OnClick" />
-					<Button Content="{x:Static loc:Resources.ui_refresh}" Width="263" Classes="HudButton" Click="BtnRefresh_OnClick"/>
-					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Width="263" Classes="HudButton" Click="BtnClearCache_Click"/>
-					<Button Content="Open App Settings" Width="263" Classes="HudButton" Click="BtnOpenAppSettings_Click"/>
-					<Button Content="Open User Settings" Width="263" Classes="HudButton" Click="BtnOpenUserSettings_Click"/>
+					<Button Content="{x:Static loc:Resources.ui_directory}" Classes="HudButton SettingsButton" Click="SetDirectory_OnClick" />
+					<Button Content="{x:Static loc:Resources.ui_refresh}" Classes="HudButton SettingsButton" Click="BtnRefresh_OnClick"/>
+					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Classes="HudButton SettingsButton" Click="BtnClearCache_Click"/>
+					<Button Content="{x:Static loc:Resources.ui_open_app_file}" Classes="HudButton SettingsButton" Click="BtnOpenAppSettings_Click"/>
+					<Button Content="{x:Static loc:Resources.ui_open_user_file}" Classes="HudButton SettingsButton" Click="BtnOpenUserSettings_Click"/>
 				</StackPanel>
 			</HeaderedContentControl>
 		</Grid>

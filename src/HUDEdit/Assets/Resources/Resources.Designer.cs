@@ -457,11 +457,38 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created by:.
+        /// </summary>
+        public static string ui_hud_created_by {
+            get {
+                return ResourceManager.GetString("ui_hud_created_by", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Install.
         /// </summary>
         public static string ui_install {
             get {
                 return ResourceManager.GetString("ui_install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open App Settings.
+        /// </summary>
+        public static string ui_open_app_file {
+            get {
+                return ResourceManager.GetString("ui_open_app_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open User Settings.
+        /// </summary>
+        public static string ui_open_user_file {
+            get {
+                return ResourceManager.GetString("ui_open_user_file", resourceCulture);
             }
         }
         

@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="error_app_directory" xml:space="preserve">
     <value>Un répertoire "tf/custom" doit être défini pour utiliser cet éditeur.</value>
@@ -144,11 +144,11 @@
   <data name="info_add_hud" xml:space="preserve">
     <value>Êtes-vous sûr de vouloir ajouter un dossier à la liste des HUDs partagés? Ceci ajoutera le dossier localement mais n'enverra pas le HUD sur la base de donnée en ligne de TF2HUD.Editor.</value>
   </data>
-  <data name="info_game_restart" xml:space="preserve">
-    <value>Les modifications suivantes nécessitent le redémarrage du jeu:</value>
-  </data>
   <data name="info_background_override" xml:space="preserve">
     <value>Ajouter un nouvel arrière-plan va remplacer celui déjà présent. Utilisez l'option "Réinstaller" pour revenir à l'arrière-plan par défaut.</value>
+  </data>
+  <data name="info_game_restart" xml:space="preserve">
+    <value>Les modifications suivantes nécessitent le redémarrage du jeu:</value>
   </data>
   <data name="info_game_running" xml:space="preserve">
     <value>Impossible de continuer, car Team Fortress 2 est toujours en cours d'exécution. Veuillez fermer le jeu puis réessayer.</value>
@@ -231,9 +231,6 @@
   <data name="ui_install" xml:space="preserve">
     <value>Installer</value>
   </data>
-  <data name="ui_options" xml:space="preserve">
-    <value>Réglages</value>
-  </data>
   <data name="ui_refresh" xml:space="preserve">
     <value>Actualiser</value>
   </data>
@@ -254,5 +251,17 @@
   </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Désinstaller</value>
+  </data>
+  <data name="ui_options" xml:space="preserve">
+    <value>Réglages</value>
+  </data>
+  <data name="ui_open_app_file" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_open_user_file" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_hud_created_by" xml:space="preserve">
+    <value />
   </data>
 </root>

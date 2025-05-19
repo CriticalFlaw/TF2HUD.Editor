@@ -53,6 +53,7 @@
     value   : The object must be serialized with 
             : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
             : and then encoded with base64 encoding.
+
     mimetype: application/x-microsoft.net.object.bytearray.base64
     value   : The object must be serialized into a byte array 
             : using a System.ComponentModel.TypeConverter
@@ -122,11 +123,11 @@
   <data name="error_hud_install" xml:space="preserve">
     <value>Произошла ошибка при установке {0}.</value>
   </data>
-  <data name="error_hud_uninstall" xml:space="preserve">
-    <value>Произошла ошибка при удалении {0}.</value>
-  </data>
   <data name="error_hud_missing" xml:space="preserve">
     <value>Невозможно найти интерфейс {0}!</value>
+  </data>
+  <data name="error_hud_uninstall" xml:space="preserve">
+    <value>Произошла ошибка при удалении {0}.</value>
   </data>
   <data name="error_transparent_vm" xml:space="preserve">
     <value>Произошла ошибка при переключении прозрачных видовых моделей.</value>
@@ -134,11 +135,8 @@
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Не удалось распознать расширение файла '{0}'.</value>
   </data>
-  <data name="info_game_restart" xml:space="preserve">
-    <value>Следующие изменения требуют перезапуска игры:</value>
-  </data>
-  <data name="info_game_running" xml:space="preserve">
-    <value>Невозможно продолжить, потому что Team Fortress 2 всё ещё запущен. Пожалуйста, закройте игру и повторите попытку.</value>
+  <data name="header_restart_required" xml:space="preserve">
+    <value>Требуется перезапуск.</value>
   </data>
   <data name="header_update_none" xml:space="preserve">
     <value>Обновления не найдены.</value>
@@ -152,14 +150,23 @@
   <data name="info_background_override" xml:space="preserve">
     <value>Установка нового фона отменит текущий. Используйте кнопку «Переустановить», чтобы вернуться к фону по умолчанию.</value>
   </data>
-  <data name="header_restart_required" xml:space="preserve">
-    <value>Требуется перезапуск.</value>
+  <data name="info_game_restart" xml:space="preserve">
+    <value>Следующие изменения требуют перезапуска игры:</value>
+  </data>
+  <data name="info_game_running" xml:space="preserve">
+    <value>Невозможно продолжить, потому что Team Fortress 2 всё ещё запущен. Пожалуйста, закройте игру и повторите попытку.</value>
   </data>
   <data name="info_hud_backup" xml:space="preserve">
     <value>Найдена существующая установка {0}. Чтобы избежать конфликтов, была создана резервная копия.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
     <value>Вы уверены, что хотите вернуть все настройки к значениям по умолчанию?</value>
+  </data>
+  <data name="info_hud_update" xml:space="preserve">
+    <value>Доступно новое обновление схемы интерфейса. Хотите ли вы перезагрузиться сейчас, чтобы применить новые изменения?</value>
+  </data>
+  <data name="info_hud_update_none" xml:space="preserve">
+    <value>У вас последние версии схемы интерфейса. Пожалуйста, проверьте позже.</value>
   </data>
   <data name="info_path_browser" xml:space="preserve">
     <value>Пожалуйста, выберите каталог tf/custom. Если не указан правильный каталог, несколько вариантов редактора будут недоступны.</value>
@@ -170,23 +177,17 @@
   <data name="info_unsupported_hud_found" xml:space="preserve">
     <value>В папке tf/custom был обнаружен неподдерживаемый интерфейс. Вы хотите удалить его, чтобы продолжить установку?</value>
   </data>
-  <data name="info_hud_update_none" xml:space="preserve">
-    <value>У вас последние версии схемы интерфейса. Пожалуйста, проверьте позже.</value>
-  </data>
-  <data name="info_hud_update" xml:space="preserve">
-    <value>Доступно новое обновление схемы интерфейса. Хотите ли вы перезагрузиться сейчас, чтобы применить новые изменения?</value>
-  </data>
   <data name="status_applied" xml:space="preserve">
     <value>Настройки {0}, применяемые в {1}.</value>
-  </data>
-  <data name="status_installed_now" xml:space="preserve">
-    <value>Установка {0} завершена в {1}.</value>
   </data>
   <data name="status_installed" xml:space="preserve">
     <value>{0} установлен!</value>
   </data>
   <data name="status_installed_not" xml:space="preserve">
     <value>{0} не установлен!</value>
+  </data>
+  <data name="status_installed_now" xml:space="preserve">
+    <value>Установка {0} завершена в {1}.</value>
   </data>
   <data name="status_pathNotSet" xml:space="preserve">
     <value>Каталог tf/custom не установлен!</value>
@@ -227,20 +228,20 @@
   <data name="ui_browse" xml:space="preserve">
     <value>Обзор</value>
   </data>
+  <data name="ui_check_updates" xml:space="preserve">
+    <value>Автоматически проверить обновления</value>
+  </data>
   <data name="ui_clear" xml:space="preserve">
     <value>Очистить</value>
   </data>
   <data name="ui_customize" xml:space="preserve">
     <value>Настроить</value>
   </data>
-  <data name="ui_install" xml:space="preserve">
-    <value>Установить</value>
-  </data>
-  <data name="ui_options" xml:space="preserve">
-    <value>Настройки</value>
-  </data>
   <data name="ui_directory" xml:space="preserve">
     <value>Установить путь</value>
+  </data>
+  <data name="ui_install" xml:space="preserve">
+    <value>Установить</value>
   </data>
   <data name="ui_refresh" xml:space="preserve">
     <value>Обновить</value>
@@ -266,7 +267,16 @@
   <data name="ui_uninstall" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="ui_check_updates" xml:space="preserve">
-    <value>Автоматически проверить обновления</value>
+  <data name="ui_options" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="ui_open_app_file" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_open_user_file" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_hud_created_by" xml:space="preserve">
+    <value />
   </data>
 </root>
