@@ -88,6 +88,11 @@
 			<!--<Setter Property="SelectedValuePath" Value="Content" />-->
 		</Style>
 
+		<Style Selector="ComboBoxItem.CrosshairBoxItem">
+			<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+		</Style>
+
 		<Style Selector="CheckBox">
 			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
@@ -103,15 +108,6 @@
 			<Setter Property="Margin" Value="10,0,0,0"/>
 			<Setter Property="Width" Value="700" />
 			<Setter Property="Height" Value="40" />
-		</Style>
-
-		<Style Selector="ComboBoxItem.Crosshair">
-			<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />
-			<Setter Property="HorizontalAlignment" Value="Center" />
-			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="FontSize" Value="30" />
-			<Setter Property="Width" Value="150" />
-			<Setter Property="HorizontalContentAlignment" Value="Center" />
 		</Style>
 
 		<Style Selector="TextBlock.BodyText">

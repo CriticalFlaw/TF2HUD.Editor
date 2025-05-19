@@ -430,6 +430,7 @@ public partial class HUD
         var label = new Label();
         label.Content = controlItem.Label;
         label.Classes.Add("OptionLabel");
+        label.Width = (controlItem.Width > 0) ? controlItem.Width : label.Width;
 
         //----
 
@@ -438,28 +439,29 @@ public partial class HUD
             Name = Utilities.EncodeId(controlItem.Name),
             //ToolTip = tooltip
         };
+        control.Classes.Add("CrosshairBox");
+        control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
         control.SelectionChanged += (sender, _) =>
         {
             var input = sender as ComboBox;
-            Settings.SetSetting(input?.Name, control.SelectedValue.ToString());
+            Settings.SetSetting(input?.Name, control.SelectedIndex.ToString());
+            CheckIsDirty(controlItem);
         };
 
-        foreach (var item in Utilities.CrosshairStyles.Select(option => new ComboBoxItem
+        foreach (var option in Utilities.CrosshairStyles)
         {
-            Content = option,
-            //Style = (Style)Application.Current.Resources["Crosshair"]
-        }))
-        {
-            control.Classes.Add("CrosshairBox");
+            var item = new ComboBoxItem();
+            item.Content = option;
+            item.Classes.Add("CrosshairBoxItem");
             control.Items.Add(item);
         }
 
         // Set the selected value depending on the what's retrieved from the setting file.
-        var xhairValue = Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name));
-        if (!Regex.IsMatch(xhairValue, "\\D"))
-            control.SelectedIndex = int.Parse(xhairValue);
+        var comboValue = Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name));
+        if (!Regex.IsMatch(comboValue, "\\D"))
+            control.SelectedIndex = int.Parse(comboValue);
         else
-            control.SelectedValue = xhairValue;
+            control.SelectedValue = comboValue;
 
         if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Style"))
             control.SelectedValue = App.Config.ConfigSettings.UserPrefs.CrosshairStyle;
@@ -467,7 +469,7 @@ public partial class HUD
         //----
 
         var container = new StackPanel();
-        container.Margin = new Thickness(10, lastTop, 0, 0);
+        container.Margin = new Thickness(10, lastTop, 0, 5);
         container.Children.Add(label);
         container.Children.Add(control);
         return container;
@@ -524,7 +526,7 @@ public partial class HUD
         {
             Name = Utilities.EncodeId(controlItem.Name),
             Width = 150
-            //ToolTip = tooltip,
+            //ToolTip = tooltip
         };
         control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
         control.SelectionChanged += (sender, _) =>

@@ -388,6 +388,7 @@
         "Label": "Style",
         "ToolTip": "Style of crosshair.",
         "Type": "Crosshair",
+        "Width": 100,
         "Value": "<",
         "Files": {
           "resource/ui/hudplayerclass.res": {
