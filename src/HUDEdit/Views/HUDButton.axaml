@@ -15,7 +15,7 @@
 			</Grid.RowDefinitions>
 			<Border Classes="HudListImage" >
 				<Border.Background>
-					<ImageBrush Source="{Binding Thumbnail}" Stretch="Uniform" AlignmentX="Center" AlignmentY="Center"/>
+					<ImageBrush Source="{Binding Thumbnail}" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
 				</Border.Background>
 			</Border>
 			<Label Classes="HudListIcon" Content="{Binding Icon}" />
