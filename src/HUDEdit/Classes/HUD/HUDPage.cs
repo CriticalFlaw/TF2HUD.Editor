@@ -496,8 +496,8 @@ public partial class HUD
         control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
         control.ValueChanged += (sender, _) =>
         {
-            var input = sender as IntegerUpDown;
-            Settings.SetSetting(input?.Name, input?.Text);
+            var input = sender as NumericUpDown;
+            Settings.SetSetting(input.Name, input.Text);
             CheckIsDirty(controlItem);
         };
 
