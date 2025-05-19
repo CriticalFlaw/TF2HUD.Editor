@@ -128,7 +128,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             }
 
             // Local Shared HUDs
-            var localSharedPath = Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\LocalShared").FullName;
+            var localSharedPath = Directory.CreateDirectory($@"JSON\\Local").FullName;
 
             foreach (var sharedHud in Directory.EnumerateDirectories(localSharedPath))
             {
@@ -459,7 +459,7 @@ internal partial class MainWindowViewModel : ViewModelBase
     public async Task Add(string folderPath)
     {
         var hudName = folderPath.Split('\\')[^1];
-        var hudDetailsFolder = $@"{Directory.CreateDirectory($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\TF2HUD.Editor\LocalShared\{hudName}").FullName}";
+        var hudDetailsFolder = $@"{Directory.CreateDirectory($@"JSON\Local\{hudName}").FullName}";
         var hudJson = new HudJson
         {
             Name = hudName,
