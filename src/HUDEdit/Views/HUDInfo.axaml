@@ -23,10 +23,7 @@
 				Command="{Binding BtnCustomize_ClickCommand}"
 				CommandParameter="{Binding Hud}"
 				Classes="HudButton"
-				Width="160"
-				Height="40"
 				HorizontalAlignment="Right"
-				VerticalAlignment="Top"
 				Margin="10,0,0,0"/>
 
 		<!-- Author -->

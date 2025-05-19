@@ -64,7 +64,7 @@
 			</Grid>
 
 			<!-- Info Panel -->
-			<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Padding="20">
+			<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Margin="20,0,10,0">
 				<ContentControl Content="{Binding Info}" >
 					<ContentControl.DataTemplates>
 						<DataTemplate DataType="vm:AppInfoViewModel">
