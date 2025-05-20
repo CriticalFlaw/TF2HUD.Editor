@@ -80,6 +80,7 @@ public partial class HUD
         {
             var sectionContainer = new HeaderedContentControl();
             sectionContainer.Header = section;
+            sectionContainer.Margin = new Thickness(5);
 
             var sectionContentContainer = new Grid();
             sectionContentContainer.ColumnDefinitions.Add(new ColumnDefinition());
@@ -87,7 +88,6 @@ public partial class HUD
             sectionContentContainer.Children.Add(CreateResetButton(section));
 
             Panel sectionContent = Layout is not null ? new WrapPanel() : new StackPanel();
-            //sectionContent.Margin = new Thickness(3);
 
             // Generate each individual control, add it to user settings.
             foreach (var controlItem in ControlOptions[section])
