@@ -13,8 +13,8 @@
   "Layout": [
     "0 1 2 3",
     "0 1 2 3",
-    "4 5 6 6",
-    "7 7 8 8"
+    "4 4 5 5",
+    "6 6 7 7"
   ],
   "Links": {
     "GitHub": "https://github.com/rbjaxter/budhud",
@@ -162,8 +162,10 @@
       {
         "Name": "bh_size_healthammomain",
         "Label": "Health / Main Ammo Size",
-        "Type": "TextBox",
+        "Type": "IntegerUpDown",
         "Value": "40",
+        "Minimum": "0",
+        "Maximum": "9999",
         "Restart": true,
         "Files": {
           "_budhud/resource/clientscheme_lato.res": {
@@ -182,8 +184,10 @@
       {
         "Name": "bh_size_ammoreserve",
         "Label": "Ammo Reserve Size",
-        "Type": "TextBox",
+        "Type": "IntegerUpDown",
         "Value": "24",
+        "Minimum": "0",
+        "Maximum": "9999",
         "Restart": true,
         "Files": {
           "_budhud/resource/clientscheme_lato.res": {
@@ -251,7 +255,7 @@
         "FileName": "bh_feeling_spooky.res"
       }
     ],
-    "TargetIDs": [
+    "TargetID & Medic": [
       {
         "Name": "bh_targetid_healthcross2",
         "Label": "Health Cross",
@@ -265,9 +269,7 @@
         "Type": "Checkbox",
         "Value": "false",
         "FileName": "bh_targetid_largehealth.res"
-      }
-    ],
-    "Medic Customizations": [
+      },
       {
         "Name": "bh_uber_largeuberpercentage",
         "Label": "Large Uber Percentage",

@@ -13,8 +13,7 @@
   "Layout": [
     "0 1 1",
     "0 2 2",
-    "0 3 3",
-    "0 4 4"
+    "3 4 4"
   ],
   "Links": {
     "GitHub": "https://github.com/Hypnootize/sunsethud",
@@ -143,7 +142,6 @@
         "Label": "Damage Value Size",
         "Type": "ComboBox",
         "Value": "2",
-        "Width": 200,
         "Options": [
           {
             "Label": "Small, Shadow",
@@ -206,7 +204,6 @@
         "Label": "Match Status Style",
         "Type": "ComboBox",
         "Value": "1",
-        "Width": 270,
         "Options": [
           {
             "Label": "Big Health, Names ON",
@@ -242,7 +239,6 @@
         "Label": "Round Counter",
         "Type": "ComboBox",
         "Value": "1",
-        "Width": 200,
         "Options": [
           {
             "Label": "ON",
@@ -269,7 +265,6 @@
         "Label": "Scoreboard Style",
         "Type": "ComboBox",
         "Value": "4",
-        "Width": 200,
         "Options": [
           {
             "Label": "6v6, Stats OFF",

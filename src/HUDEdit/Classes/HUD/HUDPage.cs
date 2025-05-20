@@ -339,14 +339,13 @@ public partial class HUD
         var control = new Button
         {
             Name = Utilities.EncodeId(controlItem.Name),
-            Content = Assets.Resources.ui_browse,
-            Height = 32,
-            //Padding = new Thickness(5, 2, 5, 0),
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            Content = Assets.Resources.ui_browse
         };
+        control.Classes.Add("BackgroundBrowseClear");
         control.Click += (_, _) =>
         {
             Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_background_override);
+            //TODO
             //using (var browser = new OpenFileDialog())
             //{
             //    browser.ShowDialog();
@@ -395,11 +394,9 @@ public partial class HUD
         // Add reset button 
         var clear = new Button
         {
-            Content = Assets.Resources.ui_clear,
-            Height = 32,
-            //Padding = new Thickness(5, 2, 5, 0),
-            HorizontalAlignment = HorizontalAlignment.Stretch
+            Content = Assets.Resources.ui_clear
         };
+        clear.Classes.Add("BackgroundBrowseClear");
         clear.Click += (_, _) =>
         {
             image.Source = null;

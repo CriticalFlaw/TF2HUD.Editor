@@ -250,7 +250,6 @@
         "Label": "Damage Value Size",
         "Type": "ComboBox",
         "Value": "2",
-        "Width": 200,
         "Options": [
           {
             "Label": "Small, Shadow",
@@ -313,7 +312,6 @@
         "Label": "Scoreboard Type",
         "Type": "ComboBox",
         "Value": "4",
-        "Width": 220,
         "Options": [
           {
             "Label": "6v6, Short Stats",
@@ -501,7 +499,6 @@
         "Label": "Health Style",
         "Type": "ComboBox",
         "Value": "0",
-        "Width": 200,
         "Options": [
           {
             "Label": "Colored Shadow",

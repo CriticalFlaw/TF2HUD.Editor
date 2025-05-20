@@ -299,11 +299,19 @@
         }
       },
       {
+        "Name": "kbn_crosshair1_outline",
+        "Label": "Enable Outline",
+        "Type": "Checkbox",
+        "ToolTip": "Enable outline around crosshair 1",
+        "Value": "false"
+      },
+      {
         "Name": "kbn_crosshair1_style",
         "Label": "Style",
         "ToolTip": "Style of crosshair 1",
         "Type": "Crosshair",
         "Value": "p",
+        "Width": 150,
         "Files": {
           "^customizations/#crosshairs/crosshairs_hudlayout.res": {
             "CustomCrosshair1": {
@@ -311,13 +319,6 @@
             }
           }
         }
-      },
-      {
-        "Name": "kbn_crosshair1_outline",
-        "Label": "Outline",
-        "Type": "Checkbox",
-        "ToolTip": "Enable outline around crosshair 1",
-        "Value": "false"
       },
       {
         "Name": "kbn_crosshair1_size",
@@ -377,11 +378,19 @@
         }
       },
       {
+        "Name": "kbn_crosshair2_outline",
+        "Label": "Enable Outline",
+        "Type": "Checkbox",
+        "ToolTip": "Enable outline around crosshair 2",
+        "Value": "false"
+      },
+      {
         "Name": "kbn_crosshair2_style",
         "Label": "Style",
         "ToolTip": "Style of crosshair 2",
         "Type": "Crosshair",
         "Value": "p",
+        "Width": 150,
         "Files": {
           "^customizations/#crosshairs/crosshairs_hudlayout.res": {
             "CustomCrosshair2": {
@@ -389,13 +398,6 @@
             }
           }
         }
-      },
-      {
-        "Name": "kbn_crosshair2_outline",
-        "Label": "Outline",
-        "Type": "Checkbox",
-        "ToolTip": "Enable outline around crosshair 2",
-        "Value": "false"
       },
       {
         "Name": "kbn_crosshair2_size",
@@ -451,11 +453,19 @@
         }
       },
       {
+        "Name": "kbn_hitmarker_outline",
+        "Label": "Enable Outline",
+        "Type": "Checkbox",
+        "ToolTip": "Enable outline around the hitmarker",
+        "Value": "false"
+      },
+      {
         "Name": "kbn_hitmarker_style",
         "Label": "Style",
         "ToolTip": "Style of Hitmarker",
         "Type": "Crosshair",
         "Value": ".",
+        "Width": 150,
         "Files": {
           "^customizations/#hitmarkers/hitmarkers_hudlayout.res": {
             "HitMarker": {
@@ -463,13 +473,6 @@
             }
           }
         }
-      },
-      {
-        "Name": "kbn_hitmarker_outline",
-        "Label": "Outline",
-        "Type": "Checkbox",
-        "ToolTip": "Enable outline around the hitmarker",
-        "Value": "false"
       },
       {
         "Name": "kbn_hitmarker_size",

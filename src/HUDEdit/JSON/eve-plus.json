@@ -10,9 +10,9 @@
     "https://i.imgur.com/Lv4OYH8.jpeg"
   ],
   "Layout": [
-    "0 1 2 2",
-    "4 1 3 3",
-    "4 5 6 7"
+    "3 1 2 2",
+    "3 1 2 2",
+    "0 4 5 6"
   ],
   "Links": {
     "GitHub": "https://github.com/RoseyLemonz/eve-plus",
@@ -75,16 +75,16 @@
         }
       },
       {
-        "Name": "eve_val_xhair_style",
-        "Label": "Style",
-        "ToolTip": "Style of crosshair.",
-        "Type": "Crosshair",
-        "Value": "!",
+        "Name": "eve_toggle_xhair_pulse",
+        "Label": "Toggle Hitmarker",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle hitmarker animation.",
+        "Value": "true",
         "Files": {
-          "resource/crosshairs/crosshair.res": {
-            "CustomCrosshair": {
-              "labelText": "$value"
-            }
+          "resource/crosshairs/crosshair_animation.txt": {
+            "uncomment": [
+              "Animate CustomCrosshair"
+            ]
           }
         }
       },
@@ -106,16 +106,16 @@
         }
       },
       {
-        "Name": "eve_toggle_xhair_pulse",
-        "Label": "Toggle Hitmarker",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle hitmarker animation.",
-        "Value": "true",
+        "Name": "eve_val_xhair_style",
+        "Label": "Style",
+        "ToolTip": "Style of crosshair.",
+        "Type": "Crosshair",
+        "Value": "!",
         "Files": {
-          "resource/crosshairs/crosshair_animation.txt": {
-            "uncomment": [
-              "Animate CustomCrosshair"
-            ]
+          "resource/crosshairs/crosshair.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
           }
         }
       },
@@ -292,9 +292,7 @@
             }
           }
         }
-      }
-    ],
-    "Item Quality": [
+      },
       {
         "Name": "eve_color_normal",
         "Label": "Normal",

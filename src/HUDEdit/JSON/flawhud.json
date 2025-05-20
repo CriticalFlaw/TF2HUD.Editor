@@ -1567,7 +1567,6 @@
         "Value": "5",
         "Minimum": "0",
         "Maximum": "9",
-        "Increment": "1",
         "Files": {
           "scripts/hudlayout.res": {
             "HudDeathNotice": {

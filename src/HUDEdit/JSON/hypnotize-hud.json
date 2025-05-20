@@ -47,17 +47,6 @@
         }
       },
       {
-        "Name": "hh_toggle_streamer_mode",
-        "Label": "Streamer Mode",
-        "Type": "CheckBox",
-        "Value": "false",
-        "RenameFile": {
-          "OldName": "customizations/streamermode_/",
-          "NewName": "customizations/streamermode/",
-          "Restart": true
-        }
-      },
-      {
         "Name": "hh_toggle_health_panel",
         "Label": "Display Health Box",
         "Type": "CheckBox",
@@ -90,22 +79,6 @@
         }
       },
       {
-        "Name": "hh_toggle_speedometer",
-        "Label": "Speedometer",
-        "Type": "CheckBox",
-        "Value": "false",
-        "Files": {
-          "customizations/speedometer.res": {
-            "#base": [
-              {
-                "true": "../resource/ui/speedometer.res",
-                "false": "../resource/ui/speedometer_off.res"
-              }
-            ]
-          }
-        }
-      },
-      {
         "Name": "hh_toggle_team_status",
         "Label": "Smaller Team Healthbars",
         "Type": "CheckBox",
@@ -132,6 +105,33 @@
               {
                 "true": "../resource/ui/pausemenutransparent.res",
                 "false": "../resource/ui/pausemenugrey.res"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_streamer_mode",
+        "Label": "Streamer Mode",
+        "Type": "CheckBox",
+        "Value": "false",
+        "RenameFile": {
+          "OldName": "customizations/streamermode_/",
+          "NewName": "customizations/streamermode/",
+          "Restart": true
+        }
+      },
+      {
+        "Name": "hh_toggle_speedometer",
+        "Label": "Speedometer",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/speedometer.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/speedometer.res",
+                "false": "../resource/ui/speedometer_off.res"
               }
             ]
           }
@@ -309,7 +309,6 @@
         "Label": "Damage Value Size",
         "Type": "ComboBox",
         "Value": "2",
-        "Width": 200,
         "Options": [
           {
             "Label": "Small, Shadow",
@@ -758,7 +757,7 @@
       },
       {
         "Name": "hh_toggle_xhair_enable",
-        "Label": "Toggle Crosshair",
+        "Label": "Crosshair",
         "Type": "Checkbox",
         "Value": "false",
         "Files": {

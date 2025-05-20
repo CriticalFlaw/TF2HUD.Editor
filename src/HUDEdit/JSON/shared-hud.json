@@ -1,18 +1,10 @@
 {
   "Layout": [
-    "0 1 2",
-    "3 1 2"
+    "0 2 2",
+    "1 2 2"
   ],
   "Controls": {
     "Options": [
-      {
-        "Name": "custom_background",
-        "Label": "Custom Background",
-        "Type": "CustomBackground",
-        "Special": "CustomBackground",
-        "ToolTip": "Replace the main menu background with a custom image.",
-        "Restart": true
-      },
       {
         "Name": "chat_top_left",
         "Label": "Chat To Top Left",
@@ -50,6 +42,14 @@
         }
       },
       {
+        "Name": "custom_background",
+        "Label": "Custom Background",
+        "Type": "CustomBackground",
+        "Special": "CustomBackground",
+        "ToolTip": "Replace the main menu background with a custom image.",
+        "Restart": true
+      },
+      {
         "Name": "val_killfeed_rows",
         "Label": "Killfeed Rows",
         "Type": "IntegerUpDown",
@@ -61,6 +61,74 @@
           "scripts/hudlayout.res": {
             "HudDeathNotice": {
               "MaxDeathNotices": "$value"
+            }
+          }
+        }
+      }
+    ],
+    "Crosshair": [
+      {
+        "Name": "xhair_style",
+        "Label": "Style",
+        "ToolTip": "Style of crosshair.",
+        "Type": "Crosshair",
+        "Value": "<",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "color_xhair_normal",
+        "Label": "Crosshair",
+        "Type": "ColorPicker",
+        "ToolTip": "Default crosshair color.",
+        "Value": "255 255 255 255",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "fgcolor": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "val_xhair_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "ToolTip": "Size of the crosshair.",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "font": "Size:$value | Outline:OFF"
+            }
+          }
+        }
+      },
+      {
+        "Name": "toggle_xhair_enable",
+        "Label": "Toggle Crosshair",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle crosshair feature.",
+        "Value": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              },
+              "enabled": {
+                "true": "1",
+                "false": "0"
+              }
             }
           }
         }
@@ -226,9 +294,7 @@
             }
           }
         }
-      }
-    ],
-    "Item Rarity": [
+      },
       {
         "Name": "color_civilian",
         "Label": "Civilian",
@@ -320,74 +386,6 @@
             "Scheme": {
               "Colors": {
                 "ItemRarityAncient": "$value"
-              }
-            }
-          }
-        }
-      }
-    ],
-    "Crosshair": [
-      {
-        "Name": "xhair_style",
-        "Label": "Style",
-        "ToolTip": "Style of crosshair.",
-        "Type": "Crosshair",
-        "Value": "<",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "labelText": "$value"
-            }
-          }
-        }
-      },
-      {
-        "Name": "color_xhair_normal",
-        "Label": "Crosshair",
-        "Type": "ColorPicker",
-        "ToolTip": "Default crosshair color.",
-        "Value": "255 255 255 255",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "fgcolor": "$value"
-            }
-          }
-        }
-      },
-      {
-        "Name": "val_xhair_size",
-        "Label": "Size",
-        "Type": "IntegerUpDown",
-        "Value": "18",
-        "Minimum": "10",
-        "Maximum": "30",
-        "Increment": "1",
-        "ToolTip": "Size of the crosshair.",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "font": "Size:$value | Outline:OFF"
-            }
-          }
-        }
-      },
-      {
-        "Name": "toggle_xhair_enable",
-        "Label": "Toggle Crosshair",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair feature.",
-        "Value": "false",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CustomCrosshair": {
-              "visible": {
-                "true": "1",
-                "false": "0"
-              },
-              "enabled": {
-                "true": "1",
-                "false": "0"
               }
             }
           }

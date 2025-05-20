@@ -69,12 +69,12 @@
 		</Style>
 
 		<Style Selector="ComboBox">
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="VerticalContentAlignment" Value="Center" />
 			<Setter Property="HorizontalContentAlignment" Value="Left" />
 			<Setter Property="Width" Value="150" />
-			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<!--<Setter Property="SelectedValuePath" Value="Content" />-->
 		</Style>
 
@@ -338,6 +338,13 @@
 			<Setter Property="Width" Value="265" />
 		</Style>
 
+		<Style Selector="Button.BackgroundBrowseClear">
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="Margin" Value="0 0 5 0" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+		</Style>
+
 		<Style Selector="Image.PreviewImage">
 			<Setter Property="Height" Value="600" />
 			<Setter Property="Width" Value="600" />
@@ -355,12 +362,14 @@
 		</Style>
 
 		<Style Selector="NumericUpDown">
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="TextAlignment" Value="Center" />
 			<Setter Property="FormatString" Value="N0" />
 			<Setter Property="Increment" Value="1" />
 			<Setter Property="Width" Value="125" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
 		</Style>
 
 
