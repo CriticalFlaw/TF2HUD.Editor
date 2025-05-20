@@ -16,8 +16,6 @@ namespace HUDEdit.Views;
 
 public partial class MainWindow : Avalonia.Controls.Window
 {
-    // TODO: Store these in the config instead of here.
-    public static string HudSelection = App.Config.ConfigSettings.UserPrefs.SelectedHUD;
     public static string HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
 
     public MainWindow()
@@ -40,7 +38,7 @@ public partial class MainWindow : Avalonia.Controls.Window
     {
         if (e.PropertyName == nameof(MainWindowViewModel.SelectedHud))
         {
-            HudSelection = ((MainWindowViewModel)sender).SelectedHud?.Name ?? string.Empty;
+            App.Config.ConfigSettings.UserPrefs.SelectedHUD = ((MainWindowViewModel)sender).SelectedHud?.Name ?? string.Empty;
         }
     }
 
@@ -52,7 +50,7 @@ public partial class MainWindow : Avalonia.Controls.Window
     {
         if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
 
-        // TODO: Loop until the user provides a valid tf/custom directory, unless they cancel out.
+        // TODO
         // Display a folder browser, ask the user to provide the tf/custom directory.
         //App.Logger.Info("Target directory not set. Asking user to provide it.");
         //var browser = new OpenFolderDialog

@@ -635,7 +635,7 @@ public partial class HUD
         control.Classes.Add("PreviewButton");
         control.Click += (_, _) =>
         {
-            if (!MainWindow.HudSelection.Equals(Name)) return;
+            if (!App.Config.ConfigSettings.UserPrefs.SelectedHUD.Equals(Name)) return;
             ResetSection(section);
             Settings.SaveSettings();
             if (Utilities.CheckHudInstallation(this)) ApplyCustomizations();
