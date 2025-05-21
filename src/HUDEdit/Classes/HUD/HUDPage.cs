@@ -10,6 +10,7 @@ using VerticalAlignment = Avalonia.Layout.VerticalAlignment;
 using HorizontalAlignment = Avalonia.Layout.HorizontalAlignment;
 using GridLength = Avalonia.Controls.GridLength;
 using Avalonia.Media.Imaging;
+using Avalonia.Platform.Storage;
 
 namespace HUDEdit.Classes;
 
@@ -333,42 +334,6 @@ public partial class HUD
 
         //----
 
-        // Create the Control.
-        var control = new Button
-        {
-            Name = Utilities.EncodeId(controlItem.Name),
-            Content = Assets.Resources.ui_browse
-        };
-        control.Classes.Add("BackgroundBrowseClear");
-        control.Click += (_, _) =>
-        {
-            Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_background_override);
-            //TODO
-            //using (var browser = new OpenFileDialog())
-            //{
-            //    browser.ShowDialog();
-            //    if (string.IsNullOrWhiteSpace(browser.FileName)) return;
-
-            //    var path = $"{System.Windows.Forms.Application.LocalUserAppDataPath}\\Images\\{browser.FileName.Split('\\')[^1]}";
-
-            //    bgImage.Source = new Bitmap(new Uri(browser.FileName).ToString());
-
-            //    Settings.SetSetting(controlItem.Name, path);
-
-            //    if (!Directory.Exists(Path.GetDirectoryName(path)))
-            //        Directory.CreateDirectory(Path.GetDirectoryName(path));
-            //    App.Logger.Info($"Copying \"{browser.FileName}\" to \"{path}\"");
-            //    File.Copy(browser.FileName, path, true);
-            //}
-
-            CheckIsDirty(controlItem);
-        };
-
-        Grid.SetColumn(control, 0);
-        Grid.SetRow(control, 1);
-
-        //----
-
         // Add preview image
         var image = new Image
         {
@@ -386,6 +351,44 @@ public partial class HUD
         if (!string.IsNullOrWhiteSpace(imageSource))
             if (Uri.TryCreate(imageSource, UriKind.Absolute, out var path))
                 image.Source = new Bitmap(path.ToString());
+
+        //----
+
+        // Create the Control.
+        var control = new Button
+        {
+            Name = Utilities.EncodeId(controlItem.Name),
+            Content = Assets.Resources.ui_browse
+        };
+        control.Classes.Add("BackgroundBrowseClear");
+        control.Click += async (_, _) =>
+        {
+            Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_background_override);
+            var files = await TopLevel.GetTopLevel(control).StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            {
+                Title = "Select an image file",
+                AllowMultiple = false,
+                FileTypeFilter =
+                [
+                    new FilePickerFileType("Image Files")
+                    {
+                        Patterns = ["*.png", "*.jpg", "*.jpeg", "*.bmp", "*.webp"],
+                        MimeTypes = ["image/*"]
+                    }
+                ]
+            });
+
+            if (files.Count >= 1)
+            {
+                await using var stream = await files[0].OpenReadAsync();
+                image.Source = new Bitmap(stream);
+            }
+
+            CheckIsDirty(controlItem);
+        };
+
+        Grid.SetColumn(control, 0);
+        Grid.SetRow(control, 1);
 
         //----
 

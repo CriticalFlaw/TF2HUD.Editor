@@ -15,7 +15,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Avalonia.Platform;
 
 namespace HUDEdit.ViewModels;
 
@@ -88,6 +87,17 @@ internal partial class MainWindowViewModel : ViewModelBase
         set
         {
             _windowTitle = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private Avalonia.Controls.Window _mainWindow;
+    public Avalonia.Controls.Window TopLevel
+    {
+        get => _mainWindow;
+        set
+        {
+            _mainWindow = value;
             OnPropertyChanged();
         }
     }
@@ -209,7 +219,7 @@ internal partial class MainWindowViewModel : ViewModelBase
 
             // Force the user to set a directory before installing.
             if (!Utilities.CheckUserPath(MainWindow.HudPath))
-                MainWindow.SetupDirectoryAsync(true);
+                await Utilities.SetupDirectoryAsync(TopLevel, true);
 
             // Stop the process if Team Fortress 2 is still running.
             if (Utilities.CheckIsGameRunning())

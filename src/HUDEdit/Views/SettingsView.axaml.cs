@@ -1,6 +1,4 @@
-using Avalonia.Media;
 using HUDEdit.Classes;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -76,10 +74,10 @@ public partial class SettingsView : Avalonia.Controls.Window
         Utilities.RestartApplication();
     }
 
-    private void SetDirectory_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void SetDirectory_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         App.Logger.Info("Attempting to change the target directory.");
-        MainWindow.SetupDirectoryAsync(true);
+        await Utilities.SetupDirectoryAsync(this, true);
     }
 
     private void BtnRefresh_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => MainWindow.UpdateAppSchema(false);

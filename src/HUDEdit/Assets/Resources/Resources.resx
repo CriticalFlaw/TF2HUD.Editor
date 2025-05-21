@@ -294,4 +294,7 @@
   <data name="ui_hud_created_by" xml:space="preserve">
     <value>Created by:</value>
   </data>
+  <data name="info_path_cancelled" xml:space="preserve">
+    <value>You have to select a valid tf/custom directory to use this application. Please try again.</value>
+  </data>
 </root>

@@ -232,6 +232,15 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have to select a valid tf/custom directory to use this application. Please try again..
+        /// </summary>
+        public static string info_path_cancelled {
+            get {
+                return ResourceManager.GetString("info_path_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The path you have selected does not end with tf/custom. Please try again..
         /// </summary>
         public static string info_path_invalid {

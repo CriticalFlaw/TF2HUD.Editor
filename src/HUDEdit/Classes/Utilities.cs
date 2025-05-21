@@ -18,6 +18,7 @@ using System.Windows;
 using System.Runtime.InteropServices;
 using HUDEdit.Views;
 using Avalonia.Platform;
+using Avalonia.Platform.Storage;
 
 namespace HUDEdit.Classes;
 
@@ -599,5 +600,49 @@ public static class Utilities
             Directory.Exists(MainWindow.HudPath) &&
             CheckUserPath(MainWindow.HudPath) &&
             Directory.Exists($"{MainWindow.HudPath}\\{hud.Name}");
+    }
+
+    /// <summary>
+    /// Setups the target directory (tf/custom).
+    /// </summary>
+    /// <param name="userSet">If true, prompts the user to select the tf/custom using the folder browser.</param>
+    public static async Task SetupDirectoryAsync(Avalonia.Controls.Window mainWindow, bool userSet = false)
+    {
+        if ((SearchRegistry() || CheckUserPath(MainWindow.HudPath)) && !userSet) return;
+
+        App.Logger.Info("Target directory not set. Asking user to provide it.");
+        var folders = await mainWindow.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        {
+            Title = Assets.Resources.info_path_browser,
+            AllowMultiple = false
+        });
+
+        if (folders.Count > 0)
+        {
+            var userPath = folders[0].TryGetLocalPath();
+            if (userPath.EndsWith("tf\\custom"))
+            {
+                App.Config.ConfigSettings.UserPrefs.HUDDirectory = userPath;
+                App.SaveConfiguration();
+                MainWindow.HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
+                App.Logger.Info("Target directory set to: " + App.Config.ConfigSettings.UserPrefs.HUDDirectory);
+            }
+            else
+            {
+                ShowMessageBox(MessageBoxImage.Error, Assets.Resources.info_path_invalid);
+            }
+        }
+        else
+        {
+            App.Logger.Info("No directory selected. Closing.");
+            ShowMessageBox(MessageBoxImage.Warning, Assets.Resources.info_path_cancelled);
+            Environment.Exit(0);
+        }
+
+        // Check one more time if a valid directory has been set.
+        if (CheckUserPath(MainWindow.HudPath)) return;
+        App.Logger.Info("Target directory still not set. Closing.");
+        ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString("error_app_directory"));
+        Environment.Exit(0);
     }
 }

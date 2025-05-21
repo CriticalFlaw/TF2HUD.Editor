@@ -279,4 +279,7 @@
   <data name="ui_hud_created_by" xml:space="preserve">
     <value />
   </data>
+  <data name="info_path_cancelled" xml:space="preserve">
+    <value />
+  </data>
 </root>

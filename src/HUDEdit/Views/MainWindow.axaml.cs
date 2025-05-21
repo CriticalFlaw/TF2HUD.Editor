@@ -24,9 +24,7 @@ public partial class MainWindow : Avalonia.Controls.Window
 
         var mainWindowViewModel = new MainWindowViewModel();
         mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
-
-        // Check for tf/custom directory
-        SetupDirectoryAsync();
+        Utilities.SetupDirectoryAsync(this);
 
 #if !DEBUG
         // Check for updates
@@ -40,41 +38,6 @@ public partial class MainWindow : Avalonia.Controls.Window
         {
             App.Config.ConfigSettings.UserPrefs.SelectedHUD = ((MainWindowViewModel)sender).SelectedHud?.Name ?? string.Empty;
         }
-    }
-
-    /// <summary>
-    /// Setups the target directory (tf/custom).
-    /// </summary>
-    /// <param name="userSet">If true, prompts the user to select the tf/custom using the folder browser.</param>
-    public static async Task SetupDirectoryAsync(bool userSet = false)
-    {
-        if ((Utilities.SearchRegistry() || Utilities.CheckUserPath(HudPath)) && !userSet) return;
-
-        // TODO
-        // Display a folder browser, ask the user to provide the tf/custom directory.
-        //App.Logger.Info("Target directory not set. Asking user to provide it.");
-        //var browser = new OpenFolderDialog
-        //{
-        //    Title = Assets.Resources.info_path_browser,
-        //};
-        //if (userPath.Value.EndsWith("tf\\custom"))
-        //{
-        //    HudPath = userPath.Value;
-        //    App.Config.ConfigSettings.UserPrefs.HUDDirectory = userPath;
-        //    App.SaveConfiguration();
-        //    HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
-        //    App.Logger.Info("Target directory set to: " + App.Config.ConfigSettings.UserPrefs.HUDDirectory);
-        //}
-        //else
-        //{
-        //    Utilities.ShowMessageBox(MessageBoxImage.Error, Assets.Resources.info_path_invalid);
-        //}
-
-        // Check one more time if a valid directory has been set.
-        if (Utilities.CheckUserPath(HudPath)) return;
-        App.Logger.Info("Target directory still not set. Closing.");
-        Utilities.ShowMessageBox(MessageBoxImage.Warning, Utilities.GetLocalizedString("error_app_directory"));
-        Environment.Exit(0);
     }
 
     /// <summary>
