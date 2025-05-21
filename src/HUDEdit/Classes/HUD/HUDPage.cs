@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Xceed.Wpf.Toolkit;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Controls.Primitives;
@@ -11,7 +10,6 @@ using VerticalAlignment = Avalonia.Layout.VerticalAlignment;
 using HorizontalAlignment = Avalonia.Layout.HorizontalAlignment;
 using GridLength = Avalonia.Controls.GridLength;
 using Avalonia.Media.Imaging;
-using HUDEdit.Views;
 
 namespace HUDEdit.Classes;
 
@@ -454,11 +452,8 @@ public partial class HUD
         }
 
         // Set the selected value depending on the what's retrieved from the setting file.
-        var comboValue = Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name));
-        if (!Regex.IsMatch(comboValue, "\\D"))
-            control.SelectedIndex = int.Parse(comboValue);
-        else
-            control.SelectedValue = comboValue;
+        var index = Utilities.CrosshairStyles.IndexOf(Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name)));
+        control.SelectedIndex = (index >= 0) ? index : 0;
 
         if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Style"))
             control.SelectedValue = App.Config.ConfigSettings.UserPrefs.CrosshairStyle;
@@ -541,11 +536,7 @@ public partial class HUD
         }
 
         // Set the selected value depending on the what's retrieved from the setting file.
-        var comboValue = Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name));
-        if (!Regex.IsMatch(comboValue, "\\D"))
-            control.SelectedIndex = int.Parse(comboValue);
-        else
-            control.SelectedValue = comboValue;
+        control.SelectedIndex = int.Parse(Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name)));
 
         //----
 

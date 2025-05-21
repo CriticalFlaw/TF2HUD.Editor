@@ -80,10 +80,9 @@
 
 		<Style Selector="ComboBox.CrosshairBox">
 			<Setter Property="FontFamily" Value="{StaticResource Crosshairs}" />
-			<Setter Property="FontSize" Value="20" />
 			<Setter Property="Height" Value="28" />
 			<Setter Property="Width" Value="125" />
-			<Setter Property="VerticalContentAlignment" Value="Top" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
 			<!--<Setter Property="SelectedValuePath" Value="Content" />-->
 		</Style>

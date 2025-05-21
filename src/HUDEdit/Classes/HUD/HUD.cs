@@ -125,10 +125,16 @@ public partial class HUD
                     break;
 
                 case ComboBox combo:
-                    if (((ComboBoxItem)combo.Items[0]).Classes.Contains("Crosshair"))
-                        combo.SelectedValue = control.Value;
+                    var index = 0;
+                    // If we're dealing with crosshairs, find the correct index.
+                    if (((ComboBoxItem)combo.Items[0]).Classes.Contains("CrosshairBoxItem"))
+                    {
+                        var xhair = Utilities.CrosshairStyles.IndexOf(control.Value);
+                        index = (xhair >= 0) ? xhair : index;
+                    }
                     else
-                        combo.SelectedIndex = int.Parse(control.Value);
+                        index = int.Parse(control.Value);
+                    combo.SelectedIndex = index;
                     App.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
                     break;
 
