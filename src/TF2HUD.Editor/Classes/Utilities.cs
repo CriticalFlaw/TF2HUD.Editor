@@ -354,11 +354,19 @@ public static class Utilities
     /// <param name="filePath">Path to file to calculate hash of.</param>
     public static string GitHash(string filePath)
     {
-        var contents = File.ReadAllText(filePath, System.Text.Encoding.UTF8).Replace("\r\n", "\n");
-        var headerString = $"blob {contents.Length}\0{contents}";
-        var contentBytes = System.Text.Encoding.UTF8.GetBytes(headerString);
-        var hashedBytes = System.Security.Cryptography.SHA1.HashData(contentBytes);
-        return hashedBytes.Aggregate("", (a, b) => a + b.ToString("X2").ToLower());
+        var contentBytes = File.ReadAllBytes(filePath);
+        var header = $"blob {contentBytes.Length}\0";
+        var headerBytes = System.Text.Encoding.UTF8.GetBytes(header);
+
+        // Combine header and content
+        var full = new byte[headerBytes.Length + contentBytes.Length];
+        Buffer.BlockCopy(headerBytes, 0, full, 0, headerBytes.Length);
+        Buffer.BlockCopy(contentBytes, 0, full, headerBytes.Length, contentBytes.Length);
+
+        // Compute hash
+        var hashedBytes = System.Security.Cryptography.SHA1.HashData(full);
+        return BitConverter.ToString(hashedBytes).Replace("-", "").ToLowerInvariant();
+
     }
 
     /// <summary>
