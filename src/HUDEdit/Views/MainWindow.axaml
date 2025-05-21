@@ -45,7 +45,7 @@
 			</ContentControl>
 		</Grid>
 
-		<HeaderedContentControl Header="Options" Grid.Row="1" Margin="10,0,10,10">
+		<HeaderedContentControl Grid.Row="1" Margin="10,0,10,10">
 			<WrapPanel HorizontalAlignment="Center">
 				<Button Classes="HudButton" Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}" Command="{Binding BtnInstall_ClickCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
 				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_uninstall}" Command="{Binding BtnUninstall_ClickCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"/>

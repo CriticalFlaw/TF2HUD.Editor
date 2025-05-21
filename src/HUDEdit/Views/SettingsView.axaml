@@ -20,7 +20,7 @@
 		<Border.Background>
 			<ImageBrush Source="avares://HUDEdit/Assets/Images/background.png" Stretch="UniformToFill"/>
 		</Border.Background>
-		<Grid Margin="20,5,20,20">
+		<Grid Margin="20,10,20,20">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="*"/>
 				<!-- For Settings + Language -->
@@ -55,7 +55,7 @@
 				</WrapPanel>
 			</HeaderedContentControl>
 
-			<HeaderedContentControl Header="Settings" Grid.Row="1" Grid.Column="0">
+			<HeaderedContentControl Header="Settings" Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">
 				<WrapPanel HorizontalAlignment="Left">
 					<CheckBox x:Name="BtnPersistXhair" Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox" Click="BtnPersistXhair_Click" />
 					<CheckBox x:Name="BtnAutoUpdate" Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox" Click="BtnAutoUpdate_OnClick"/>
