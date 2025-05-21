@@ -6,6 +6,9 @@
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+		<PackageProjectUrl>https://criticalflaw.ca/TF2HUD.Editor/</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</RepositoryUrl>
+		<AssemblyVersion>4.0</AssemblyVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

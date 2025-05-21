@@ -15,9 +15,12 @@
 			<Run Text="your favorite Team Fortress 2 HUDs!" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.0" Margin="0,15,0,0" FontSize="30" />
+		<Label Classes="HeaderText" Content="Version 4.0 RC1" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
-			<Run Text="> Ported application to AvaloniaUI to enable Linux compatability." />
+			<Run Foreground="Red" Text="This is an in-development build. Please report any issues on the GitHub tracker." />
+			<LineBreak />
+			<Run Text="> Ported the application to AvaloniaUI for Linux compatability. " />
+			<Run Foreground="Red" Text="Not yet tested!" />
 			<LineBreak />
 			<Run Text="> Miscellenaous bug-fixes and improvements." />
 			<LineBreak />
