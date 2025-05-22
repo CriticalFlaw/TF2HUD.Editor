@@ -9,7 +9,7 @@ jobs:
     runs-on: windows-latest
     
     env:
-      Solution_Name: TF2HUD.Editor.sln
+      Solution_Name: TF2HUD.Editor.slnx
 
     steps:
     - name: Checkout repository
@@ -26,14 +26,14 @@ jobs:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
     - name: Restore dependencies
-      run: nuget restore src/TF2HUD.Editor.sln
+      run: nuget restore src/TF2HUD.Editor.slnx
         
     - name: Publish solution
       run: dotnet publish -c Release --output ./publish
-      working-directory: src/TF2HUD.Editor
+      working-directory: src/HUDEdit
         
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: TF2HUD-Editor
-        path: D:\a\TF2HUD.Editor\TF2HUD.Editor\src\TF2HUD.Editor\publish\
+        path: D:\a\TF2HUD.Editor\TF2HUD.Editor\src\HUDEdit\publish\
