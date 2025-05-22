@@ -26,7 +26,7 @@ jobs:
         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
 
     - name: Restore dependencies
-      run: nuget restore src/TF2HUD.Editor.slnx
+      run: nuget restore src/HUDEdit/HUDEdit.csproj
         
     - name: Publish solution
       run: dotnet publish -c Release --output ./publish
