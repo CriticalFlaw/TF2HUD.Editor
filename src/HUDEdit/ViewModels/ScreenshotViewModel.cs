@@ -1,5 +1,4 @@
-﻿
-using Avalonia.Media.Imaging;
+﻿using Avalonia.Media.Imaging;
 
 namespace HUDEdit.ViewModels;
 

@@ -14,7 +14,9 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using HUDEdit.Assets;
+using Avalonia.Platform.Storage;
+using MsBox.Avalonia.Enums;
 
 namespace HUDEdit.ViewModels;
 
@@ -243,7 +245,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             foreach (var foundHud in Directory.GetDirectories(MainWindow.HudPath))
             {
                 if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}\\info.vdf")) continue;
-                if (Utilities.ShowMessageBox(MessageBoxImage.Warning, Assets.Resources.info_unsupported_hud_found, MessageBoxButton.YesNoCancel) != MessageBoxResult.Yes)
+                if (await Utilities.ShowPromptBox(Resources.info_unsupported_hud_found) == ButtonResult.No)
                 {
                     Installing = false;
                     return;
@@ -281,7 +283,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            Utilities.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString("error_hud_install"), SelectedHud.Name)} {e.Message}");
+            await Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_install, SelectedHud.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
             Installing = false;
         }
     }
@@ -305,7 +307,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             if (SelectedHud.Name != "") Directory.Delete($"{MainWindow.HudPath}\\{SelectedHud.Name}", true);
 
             // Update timestamp
-            ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Assets.Resources.status_installed_not, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
+            ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_installed_not, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
 
             // Update Menu Buttons
             OnPropertyChanged(nameof(HighlightedHud));
@@ -315,7 +317,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            Utilities.ShowMessageBox(MessageBoxImage.Error, $"{string.Format(Utilities.GetLocalizedString("error_hud_uninstall"), SelectedHud.Name)} {e.Message}");
+            Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_uninstall, SelectedHud.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 
@@ -323,15 +325,15 @@ internal partial class MainWindowViewModel : ViewModelBase
     /// Saves and applies user settings to the HUD files.
     /// </summary>
     [RelayCommand]
-    public void BtnSave_Click()
+    public async Task BtnSave_ClickAsync()
     {
         if (SelectedHud == null) return;
 
         var selection = SelectedHud;
         if ((Process.GetProcessesByName("hl2").Any() || Process.GetProcessesByName("tf").Any() || Process.GetProcessesByName("tf_win64").Any()) && selection.DirtyControls.Count > 0)
         {
-            var message = selection.DirtyControls.Aggregate(Assets.Resources.info_game_restart, (current, control) => current + $"\n - {control}");
-            if (Utilities.ShowMessageBox(MessageBoxImage.Question, message) != MessageBoxResult.OK) return;
+            var message = selection.DirtyControls.Aggregate(Resources.info_game_restart, (current, control) => current + $"\n - {control}");
+            if (await Utilities.ShowPromptBox(message) == ButtonResult.No) return;
         }
 
         App.Logger.Info("------");
@@ -347,10 +349,10 @@ internal partial class MainWindowViewModel : ViewModelBase
     /// Resets user settings for the selected HUD to their default values.
     /// </summary>
     [RelayCommand]
-    public void BtnReset_Click()
+    public async void BtnReset_Click()
     {
         // Ask the user if they want to reset before doing so.
-        if (Utilities.ShowMessageBox(MessageBoxImage.Question, Assets.Resources.info_hud_reset, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+        if (await Utilities.ShowPromptBox(Resources.info_hud_reset) == ButtonResult.No) return;
 
         App.Logger.Info("------");
         App.Logger.Info("Resetting user settings");
@@ -403,19 +405,21 @@ internal partial class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            if (Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_add_hud, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (await Utilities.ShowPromptBox(Resources.info_add_hud) == ButtonResult.No) return;
 
-            var browser = new OpenFolderDialog
+            var folders = await TopLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
             {
-                InitialDirectory = $@"{MainWindow.HudPath}\"
-            };
-            if (browser.ShowDialog() != true) return;
+                Title = Resources.info_path_browser,
+                AllowMultiple = false
+            });
 
-            await Add(browser.FolderName);
+            if (folders.Count > 0)
+                await Add(folders[0].TryGetLocalPath());
+            else return;
         }
         catch (Exception error)
         {
-            Utilities.ShowMessageBox(MessageBoxImage.Error, error.Message);
+            Utilities.ShowMessageBox(error.Message, MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 
@@ -506,7 +510,7 @@ internal partial class MainWindowViewModel : ViewModelBase
                 File.Move(outputPathTga, $"{outputPath}.tga", true);
 
                 var tga = new TGA($"{outputPath}.tga");
-                var rectImage = new System.Drawing.Bitmap((int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight);
+                var rectImage = new Bitmap(1920, 1080);
                 var graphics = Graphics.FromImage(rectImage);
                 graphics.DrawImage((Image)tga, 0, 0, rectImage.Width, rectImage.Height);
                 rectImage.Save($"{outputPath}.png");

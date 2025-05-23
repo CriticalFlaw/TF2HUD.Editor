@@ -7,8 +7,8 @@ using System.Text.RegularExpressions;
 using HUDEdit.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Windows;
 using HUDEdit.Views;
+using HUDEdit.Assets;
 
 namespace HUDEdit.Classes;
 
@@ -697,7 +697,7 @@ public partial class HUD
                 }
                 else
                 {
-                    Utilities.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString("error_unknown_extension"), extension));
+                    _ = Utilities.ShowMessageBox(string.Format(Resources.error_unknown_extension, extension), MsBox.Avalonia.Enums.Icon.Error);
                 }
             }
         }
@@ -759,7 +759,7 @@ public partial class HUD
         }
         catch (Exception e)
         {
-            Utilities.ShowMessageBox(MessageBoxImage.Error, string.Format(Utilities.GetLocalizedString("error_transparent_vm"), e.Message));
+            await Utilities.ShowMessageBox(string.Format(Resources.error_transparent_vm, e.Message), MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 

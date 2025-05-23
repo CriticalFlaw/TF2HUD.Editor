@@ -1,9 +1,9 @@
 using HUDEdit.Classes;
+using MsBox.Avalonia.Enums;
 using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Windows;
 
 namespace HUDEdit.Views;
 
@@ -82,9 +82,9 @@ public partial class SettingsView : Avalonia.Controls.Window
 
     private void BtnRefresh_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => MainWindow.UpdateAppSchema(false);
 
-    private void BtnClearCache_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void BtnClearCache_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        if (Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_clear_cache, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+        if (await Utilities.ShowPromptBox(Assets.Resources.info_clear_cache) == ButtonResult.No) return;
 
         Directory.Delete($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor", true);
         Directory.Delete("JSON", true);

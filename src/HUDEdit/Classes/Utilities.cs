@@ -11,14 +11,15 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HUDEdit.Models;
 using Microsoft.Win32;
-using WPFLocalizeExtension.Extensions;
 using Avalonia.Media;
 using Color = Avalonia.Media.Color;
-using System.Windows;
 using System.Runtime.InteropServices;
 using HUDEdit.Views;
 using Avalonia.Platform;
 using Avalonia.Platform.Storage;
+using HUDEdit.Assets;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace HUDEdit.Classes;
 
@@ -198,7 +199,7 @@ public static class Utilities
     public static bool CheckIsGameRunning()
     {
         if (!Process.GetProcessesByName("hl2").Any() && !Process.GetProcessesByName("tf").Any() && !Process.GetProcessesByName("tf_win64").Any()) return false;
-        Utilities.ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString("info_game_running"));
+        ShowMessageBox(Resources.info_game_running, MsBox.Avalonia.Enums.Icon.Warning);
         return true;
     }
 
@@ -252,15 +253,6 @@ public static class Utilities
     public static bool CheckUserPath(string hudPath)
     {
         return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf\\custom");
-    }
-
-    /// <summary>
-    /// Gets a localized string from the resource file.
-    /// </summary>
-    public static string GetLocalizedString(string key)
-    {
-        _ = new LocExtension(key).ResolveLocalizedValue(out string uiString);
-        return uiString;
     }
 
     /// <summary>
@@ -581,20 +573,31 @@ public static class Utilities
     /// <summary>
     /// Displays a set type of message box to the user.
     /// </summary>
-    public static MessageBoxResult ShowMessageBox(MessageBoxImage type, string message, MessageBoxButton buttons = MessageBoxButton.OK)
+    public static async Task ShowMessageBox(string message, MsBox.Avalonia.Enums.Icon type = MsBox.Avalonia.Enums.Icon.None)
     {
         switch (type)
         {
-            case MessageBoxImage.Error:
+            case MsBox.Avalonia.Enums.Icon.Error:
                 App.Logger.Error(message);
                 break;
 
-            case MessageBoxImage.Warning:
+            case MsBox.Avalonia.Enums.Icon.Warning:
                 App.Logger.Warn(message);
                 break;
         }
 
-        return MessageBox.Show(message, string.Empty, buttons, type);
+        await MessageBoxManager.GetMessageBoxStandard(title: "Notice!", text: message, ButtonEnum.Ok, icon: type).ShowAsync();
+    }
+
+    /// <summary>
+    /// Displays a message box asking for user input.
+    /// </summary>
+    /// <returns>
+    /// TRUE if user clicks Yes, otherwise FALSE.
+    /// </returns>
+    public static async Task<ButtonResult> ShowPromptBox(string message)
+    {
+        return await MessageBoxManager.GetMessageBoxStandard(title: "Input Required!", text: message, ButtonEnum.YesNo, icon: MsBox.Avalonia.Enums.Icon.Question).ShowAsync();
     }
 
     /// <summary>
@@ -637,20 +640,20 @@ public static class Utilities
             }
             else
             {
-                ShowMessageBox(MessageBoxImage.Error, Assets.Resources.info_path_invalid);
+                ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
             }
         }
         else
         {
             App.Logger.Info("No directory selected. Closing.");
-            ShowMessageBox(MessageBoxImage.Warning, Assets.Resources.info_path_cancelled);
+            ShowMessageBox(Resources.info_path_cancelled, MsBox.Avalonia.Enums.Icon.Warning);
             Environment.Exit(0);
         }
 
         // Check one more time if a valid directory has been set.
         if (CheckUserPath(MainWindow.HudPath)) return;
         App.Logger.Info("Target directory still not set. Closing.");
-        ShowMessageBox(MessageBoxImage.Warning, GetLocalizedString("error_app_directory"));
+        ShowMessageBox(Resources.error_app_directory, MsBox.Avalonia.Enums.Icon.Warning);
         Environment.Exit(0);
     }
 }

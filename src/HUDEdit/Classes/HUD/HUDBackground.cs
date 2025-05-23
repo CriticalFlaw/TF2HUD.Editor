@@ -1,7 +1,6 @@
 using HUDEdit.Views;
 using System;
 using System.IO;
-using System.Windows;
 
 namespace HUDEdit.Classes;
 
@@ -156,7 +155,7 @@ internal class HUDBackground
         }
         catch (Exception e)
         {
-            Utilities.ShowMessageBox(MessageBoxImage.Error, e.Message);
+            _ = Utilities.ShowMessageBox(e.Message, MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 }

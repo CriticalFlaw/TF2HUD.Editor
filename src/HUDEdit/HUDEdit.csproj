@@ -56,7 +56,6 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Octokit" Version="14.0.0" />
 		<PackageReference Include="Sentry" Version="5.8.0" />
-		<PackageReference Include="WPFLocalizeExtension" Version="3.10.0" />
 	</ItemGroup>
 
 	<ItemGroup>

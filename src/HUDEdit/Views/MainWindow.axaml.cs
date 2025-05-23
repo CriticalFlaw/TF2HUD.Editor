@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Windows;
+using MsBox.Avalonia.Enums;
 
 namespace HUDEdit.Views;
 
@@ -82,14 +82,14 @@ public partial class MainWindow : Avalonia.Controls.Window
             await Task.WhenAll(downloads);
             if (Convert.ToBoolean(downloads.Count))
             {
-                if (!silent) if (Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_hud_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                if (!silent) if (await Utilities.ShowPromptBox(Assets.Resources.info_hud_update) == ButtonResult.No) return;
                 Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
                 Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
                 Environment.Exit(0);
             }
             else
             {
-                if (!silent) Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_hud_update_none);
+                if (!silent) await Utilities.ShowMessageBox(Assets.Resources.info_hud_update_none);
             }
         }
         catch (Exception e)
@@ -116,7 +116,7 @@ public partial class MainWindow : Avalonia.Controls.Window
 
             if (appVersion.Equals(latestVersion.TagName)) return;
             App.Logger.Info($"Update available from {appVersion} -> {latestVersion.TagName}");
-            if (Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_app_update, MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+            if (await Utilities.ShowPromptBox(Assets.Resources.info_app_update) == ButtonResult.No) return;
             Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.LatestUpdateURL);
 
         }

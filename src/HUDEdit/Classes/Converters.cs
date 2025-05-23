@@ -3,6 +3,7 @@ using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform;
+using HUDEdit.Assets;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -159,15 +160,15 @@ public class BtnInstallContentConverter : IValueConverter
             if (Directory.Exists($"{App.Config.ConfigSettings.UserPrefs.HUDDirectory}\\{hud.Name}"))
             {
                 App.Logger.Info($"{hud.Name} is installed");
-                return Utilities.GetLocalizedString("ui_reinstall") ?? "Reinstall";
+                return Resources.ui_reinstall ?? "Reinstall";
             }
 
             App.Logger.Warn($"{hud.Name} is not installed");
-            return Utilities.GetLocalizedString("ui_install") ?? "Install";
+            return Resources.ui_install ?? "Install";
         }
 
         App.Logger.Warn("User selected HUD is null. Returning to the main menu");
-        return Utilities.GetLocalizedString("ui_install") ?? "Install";
+        return Resources.ui_install ?? "Install";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

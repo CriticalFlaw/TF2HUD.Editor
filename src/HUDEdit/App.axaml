@@ -13,7 +13,8 @@
 	<Application.Styles>
 		<FluentTheme />
 		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
-
+		<StyleInclude Source="avares://MsBox.Avalonia.Markdown/Controls/MarkdownView.axaml" />
+		
 		<Style Selector="Label">
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
@@ -75,7 +76,6 @@
 			<Setter Property="VerticalContentAlignment" Value="Center" />
 			<Setter Property="HorizontalContentAlignment" Value="Left" />
 			<Setter Property="Width" Value="150" />
-			<!--<Setter Property="SelectedValuePath" Value="Content" />-->
 		</Style>
 
 		<Style Selector="ComboBox.CrosshairBox">
@@ -84,7 +84,6 @@
 			<Setter Property="Width" Value="125" />
 			<Setter Property="VerticalContentAlignment" Value="Center" />
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
-			<!--<Setter Property="SelectedValuePath" Value="Content" />-->
 		</Style>
 
 		<Style Selector="ComboBoxItem.CrosshairBoxItem">
@@ -354,10 +353,6 @@
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="Foreground" Value="Black" />
 			<Setter Property="Width" Value="150" />
-			<!--
-			<Setter Property="ColorMode" Value="ColorCanvas" />
-			<Setter Property="ShowRecentColors" Value="True" />
-			-->
 		</Style>
 
 		<Style Selector="NumericUpDown">
@@ -401,94 +396,5 @@
 				</ControlTemplate>
 			</Setter>
 		</Style>
-
-		<Style Selector="Flyout">
-			<!--
-			<Setter Property="WindowBackground" Value="Black" />
-			<Setter Property="CaptionForeground" Value="White" />
-			<Setter Property="Background" Value="Black" />
-			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="WindowBorderThickness" Value="0" />
-			<Setter Property="WindowStartupLocation" Value="Center" />
-			<Setter Property="Margin" Value="0,0,0,250" />
-			-->
-		</Style>
-
-		<!--<Style Selector="{x:Type Thumb}">
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Thumb}">
-						<Grid x:Name="Grid">
-							<Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto"
-                                       Height="Auto" Fill="Transparent" />
-							<Border x:Name="ScrollBarRectangle" CornerRadius="5" HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch" Width="Auto" Height="Auto"
-                                    Background="{TemplateBinding Background}" />
-						</Grid>
-						<ControlTemplate.Triggers>
-							<Trigger Property="Tag" Value="Horizontal">
-								<Setter TargetName="ScrollBarRectangle" Property="Width" Value="Auto" />
-								<Setter TargetName="ScrollBarRectangle" Property="Height" Value="7" />
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>-->
-
-		<!--
-		<Style TargetType="{x:Type ScrollBar}">
-			<Setter Property="Margin" Value="-5,0,0,0" />
-			<Setter Property="Stylus.IsFlicksEnabled" Value="false" />
-			<Setter Property="Foreground" Value="#FF8C8C8C" />
-			<Setter Property="Background" Value="Transparent" />
-			<Setter Property="Width" Value="8" />
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type ScrollBar}">
-						<Grid x:Name="GridRoot" Width="8" Background="{TemplateBinding Background}">
-							<Track x:Name="PART_Track" IsDirectionReversed="true" Focusable="false">
-								<Track.Thumb>
-									<Thumb x:Name="ScrollBarThumb" Background="{TemplateBinding Foreground}"
-                                           Style="{StaticResource ScrollThumbs}" />
-								</Track.Thumb>
-								<Track.IncreaseRepeatButton>
-									<RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0"
-                                                  Focusable="false" />
-								</Track.IncreaseRepeatButton>
-								<Track.DecreaseRepeatButton>
-									<RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0"
-                                                  Focusable="false" />
-								</Track.DecreaseRepeatButton>
-							</Track>
-						</Grid>
-
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsEnabled" Value="false">
-								<Setter TargetName="ScrollBarThumb" Property="Visibility" Value="Collapsed" />
-							</Trigger>
-							<Trigger Property="Orientation" Value="Horizontal">
-								<Setter TargetName="GridRoot" Property="LayoutTransform">
-									<Setter.Value>
-										<RotateTransform Angle="-90" />
-									</Setter.Value>
-								</Setter>
-								<Setter TargetName="PART_Track" Property="LayoutTransform">
-									<Setter.Value>
-										<RotateTransform Angle="-90" />
-									</Setter.Value>
-								</Setter>
-								<Setter Property="Width" Value="Auto" />
-								<Setter Property="Height" Value="8" />
-								<Setter TargetName="ScrollBarThumb" Property="Tag" Value="Horizontal" />
-								<Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
-								<Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-		-->
 	</Application.Styles>
 </Application>

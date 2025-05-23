@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Controls.Primitives;
-using System.Windows;
 using Thickness = Avalonia.Thickness;
 using VerticalAlignment = Avalonia.Layout.VerticalAlignment;
 using HorizontalAlignment = Avalonia.Layout.HorizontalAlignment;
@@ -363,7 +362,7 @@ public partial class HUD
         control.Classes.Add("BackgroundBrowseClear");
         control.Click += async (_, _) =>
         {
-            Utilities.ShowMessageBox(MessageBoxImage.Information, Assets.Resources.info_background_override);
+            await Utilities.ShowMessageBox(Assets.Resources.info_background_override);
             var files = await TopLevel.GetTopLevel(control).StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
                 Title = "Select an image file",
