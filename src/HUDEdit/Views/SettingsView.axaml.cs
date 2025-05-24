@@ -86,7 +86,7 @@ public partial class SettingsView : Avalonia.Controls.Window
     {
         if (await Utilities.ShowPromptBox(Assets.Resources.info_clear_cache) == ButtonResult.No) return;
 
-        Directory.Delete($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor", true);
+        Directory.Delete($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor", true);
         Directory.Delete("JSON", true);
         MainWindow.UpdateAppSchema(true);
     }
@@ -105,11 +105,11 @@ public partial class SettingsView : Avalonia.Controls.Window
 
     private void BtnOpenAppSettings_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        Process.Start("notepad.exe", $"{AppContext.BaseDirectory}\\appsettings.json");
+        Process.Start("notepad.exe", $"{AppContext.BaseDirectory}/appsettings.json");
     }
 
     private void BtnOpenUserSettings_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        Process.Start("notepad.exe", $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor\\settings.json");
+        Process.Start("notepad.exe", $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor/settings.json");
     }
 }

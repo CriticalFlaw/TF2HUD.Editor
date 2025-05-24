@@ -23,7 +23,7 @@ public partial class HUD
         {
             // HUD Background Image.
             // Set the HUD Background image path when applying, because it's possible the user did not have their tf/custom folder set up when this HUD constructor was called.
-            HudBackground = new HUDBackground($"{MainWindow.HudPath}\\{Name}\\");
+            HudBackground = new HUDBackground($"{MainWindow.HudPath}/{Name}/");
 
             var hudSettings = ControlOptions.Values;
 
@@ -80,7 +80,7 @@ public partial class HUD
                     {
                         if (property.Contains("."))
                         {
-                            var filePath = $"{folderPath}\\{property}";
+                            var filePath = $"{folderPath}/{property}";
                             if (!Directory.Exists(Path.GetDirectoryName(filePath)))
                                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
@@ -119,14 +119,14 @@ public partial class HUD
                         }
                         else
                         {
-                            IterateProperties(folder[property], folderPath + "\\" + property);
+                            IterateProperties(folder[property], folderPath + "/" + property);
                         }
                     }
                 }
             }
 
             // Write hudFolders to the HUD once instead of each WriteToFile call reading and writing
-            IterateProperties(hudFolders, MainWindow.HudPath + "\\" + Name);
+            IterateProperties(hudFolders, MainWindow.HudPath + "/" + Name);
             HudBackground.ApplyBackground();
             return true;
         }
@@ -146,12 +146,12 @@ public partial class HUD
         try
         {
             // Check if the customization folder exist.
-            var path = $"{MainWindow.HudPath}\\{Name}\\";
-            if (!Directory.Exists($"{path}\\{CustomizationsFolder}")) return;
+            var path = $"{MainWindow.HudPath}/{Name}/";
+            if (!Directory.Exists($"{path}/{CustomizationsFolder}")) return;
 
             // Check if the "enabled" folder exists. If not, create it.
-            if (!Directory.Exists($"{path}\\{EnabledFolder}"))
-                Directory.CreateDirectory($"{path}\\{EnabledFolder}");
+            if (!Directory.Exists($"{path}/{EnabledFolder}"))
+                Directory.CreateDirectory($"{path}/{EnabledFolder}");
 
             // Get user's settings for the selected HUD.
             var userSettings = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(HUDSettings.UserFile))
@@ -194,8 +194,8 @@ public partial class HUD
                             var fileName = Utilities.GetFileNames(control);
                             if (fileName is null or not string) continue; // File name not found, skipping.
 
-                            custom += $"\\{fileName}";
-                            enabled += $"\\{fileName}";
+                            custom += $"/{fileName}";
+                            enabled += $"/{fileName}";
 
                             // If true, move the customization file into the enabled folder, otherwise move it back.
                             if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
@@ -244,25 +244,25 @@ public partial class HUD
                             foreach (string file in fileNames)
                             {
                                 var dir = file.Replace(".res", string.Empty);
-                                if (Directory.Exists(enabled + $"\\{dir}"))
-                                    Directory.Move(enabled + $"\\{dir}", custom + $"\\{dir}");
-                                else if (File.Exists(enabled + $"\\{file}"))
-                                    File.Move(enabled + $"\\{file}", custom + $"\\{file}", true);
+                                if (Directory.Exists(enabled + $"/{dir}"))
+                                    Directory.Move(enabled + $"/{dir}", custom + $"/{dir}");
+                                else if (File.Exists(enabled + $"/{file}"))
+                                    File.Move(enabled + $"/{file}", custom + $"/{file}", true);
                             }
 
                             var name = control.Options[int.Parse(setting.Value)].FileName;
                             if (string.IsNullOrWhiteSpace(name)) break;
 
                             name = name.Replace(".res", string.Empty);
-                            if (Directory.Exists(custom + $"\\{name}"))
+                            if (Directory.Exists(custom + $"/{name}"))
                             {
                                 if (control.ComboDirectories is not null)
-                                    CopyDirectory(custom + $"\\{name}", enabled);
+                                    CopyDirectory(custom + $"/{name}", enabled);
                                 else
-                                    Directory.Move(custom + $"\\{name}", enabled + $"\\{name}");
+                                    Directory.Move(custom + $"/{name}", enabled + $"/{name}");
                             }
-                            else if (File.Exists(custom + $"\\{name}.res"))
-                                File.Move(custom + $"\\{name}.res", enabled + $"\\{name}.res", true);
+                            else if (File.Exists(custom + $"/{name}.res"))
+                                File.Move(custom + $"/{name}.res", enabled + $"/{name}.res", true);
 
                             break;
                     }
@@ -681,7 +681,7 @@ public partial class HUD
             foreach (var filePath in files)
             {
                 var relativePath = string.Join('/', Regex.Split(filePath.Key, @"[\/]+"));
-                var absolutePath = MainWindow.HudPath + "\\" + Name + "\\" + string.Join('\\', relativePath.Split('/'));
+                var absolutePath = MainWindow.HudPath + "/" + Name + "/" + string.Join('/', relativePath.Split('/'));
                 var extension = filePath.Key.Split(".")[^1];
 
                 if (resFileExtensions.Contains(extension))
@@ -751,11 +751,11 @@ public partial class HUD
             if (Process.GetProcessesByName("hl2").Any()
                 || Process.GetProcessesByName("tf").Any()
                 || Process.GetProcessesByName("tf_win64").Any()
-                || File.Exists(MainWindow.HudPath + "\\" + fileName)
+                || File.Exists(MainWindow.HudPath + "/" + fileName)
                 || !enable) return;
 
             // Download a version of the transparent viewmodels add-on.
-            await Utilities.DownloadFile(App.Config.ConfigSettings.AppConfig.MastercomfigVpkURL, $"{MainWindow.HudPath}\\{fileName}");
+            await Utilities.DownloadFile(App.Config.ConfigSettings.AppConfig.MastercomfigVpkURL, $"{MainWindow.HudPath}/{fileName}");
         }
         catch (Exception e)
         {

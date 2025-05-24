@@ -56,7 +56,7 @@ public partial class MainWindow : Avalonia.Controls.Window
 
             foreach (var remoteFile in remoteFiles)
             {
-                var localFilePath = $"JSON\\{remoteFile.Name}";
+                var localFilePath = $"JSON/{remoteFile.Name}";
                 bool newFile = false, fileChanged = false;
 
                 if (!File.Exists(localFilePath))

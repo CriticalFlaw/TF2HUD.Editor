@@ -54,7 +54,7 @@ internal class HUDBackground
     {
         try
         {
-            var consoleFolder = hudFolderPath + "materials\\console\\";
+            var consoleFolder = hudFolderPath + "materials/console/";
             var disabledFolder = consoleFolder + "_disabled";
 
             if (!Directory.Exists(consoleFolder))
@@ -73,39 +73,39 @@ internal class HUDBackground
                 foreach (var filePath in Directory.GetFiles(consoleFolder))
                 {
                     App.Logger.Info($"Moving \"{filePath}\" to \"{disabledFolder}\"");
-                    File.Move(filePath, $"{disabledFolder}\\{filePath.Split("\\")[^1]}", true);
+                    File.Move(filePath, $"{disabledFolder}/{filePath.Split("/")[^1]}", true);
                 }
 
                 // Convert the provided image into a VTF format.
-                var converter = new VTF(MainWindow.HudPath.Replace("\\tf\\custom\\", string.Empty));
-                var output = $"{consoleFolder}\\background_upward.vtf";
+                var converter = new VTF(MainWindow.HudPath.Replace("/tf/custom/", string.Empty));
+                var output = $"{consoleFolder}/background_upward.vtf";
                 App.Logger.Info($"Converting \"{customImagePath}\" to \"{output}\"");
                 converter.Convert(customImagePath, output);
 
                 // Copy the generated file to the backgrounds folder.
                 App.Logger.Info($"Copying \"{output}\" to \"{hudFolderPath}\"");
                 File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
-                File.Copy("Resources\\chapterbackgrounds.txt", $"{hudFolderPath}\\scripts\\chapterbackgrounds.txt", true);
+                File.Copy("Resources/chapterbackgrounds.txt", $"{hudFolderPath}/scripts/chapterbackgrounds.txt", true);
             }
             else
             {
                 if (useHUDBackground)
                 {
                     // Copy enabled background to console folder
-                    if (File.Exists($"{disabledFolder}\\{hudImagePath}.vtf"))
+                    if (File.Exists($"{disabledFolder}/{hudImagePath}.vtf"))
                     {
-                        App.Logger.Info($"Copying \"{disabledFolder}\\{hudImagePath}\" to \"{consoleFolder}\"");
-                        File.Copy($"{disabledFolder}\\{hudImagePath}.vtf", $"{consoleFolder}\\background_upward.vtf", true);
+                        App.Logger.Info($"Copying \"{disabledFolder}/{hudImagePath}\" to \"{consoleFolder}\"");
+                        File.Copy($"{disabledFolder}/{hudImagePath}.vtf", $"{consoleFolder}/background_upward.vtf", true);
                     }
 
-                    if (File.Exists($"{disabledFolder}\\{hudImagePath}_widescreen.vtf"))
+                    if (File.Exists($"{disabledFolder}/{hudImagePath}_widescreen.vtf"))
                     {
-                        App.Logger.Info($"Copying \"{disabledFolder}\\{hudImagePath}\" to \"{consoleFolder}\"");
-                        File.Copy($"{disabledFolder}\\{hudImagePath}.vtf", $"{consoleFolder}\\background_upward_widescreen.vtf", true);
+                        App.Logger.Info($"Copying \"{disabledFolder}/{hudImagePath}\" to \"{consoleFolder}\"");
+                        File.Copy($"{disabledFolder}/{hudImagePath}.vtf", $"{consoleFolder}/background_upward_widescreen.vtf", true);
                     }
 
-                    App.Logger.Info($"Copying \"chapterbackgrounds.txt\" to \"{hudFolderPath}\\scripts\"");
-                    File.Copy("Resources\\chapterbackgrounds.txt", $"{hudFolderPath}\\scripts\\chapterbackgrounds.txt", true);
+                    App.Logger.Info($"Copying \"chapterbackgrounds.txt\" to \"{hudFolderPath}/scripts\"");
+                    File.Copy("Resources/chapterbackgrounds.txt", $"{hudFolderPath}/scripts/chapterbackgrounds.txt", true);
                 }
                 else if (useStockBackgrounds)
                 {
@@ -131,7 +131,7 @@ internal class HUDBackground
                     foreach (var filePath in Directory.GetFiles(disabledFolder))
                     {
                         App.Logger.Info($"Copying \"{filePath}\" to \"{consoleFolder}\"");
-                        File.Move(filePath, $"{consoleFolder}\\{filePath.Split("\\")[^1]}", true);
+                        File.Move(filePath, $"{consoleFolder}/{filePath.Split("/")[^1]}", true);
                     }
 
                     Directory.Delete(disabledFolder);

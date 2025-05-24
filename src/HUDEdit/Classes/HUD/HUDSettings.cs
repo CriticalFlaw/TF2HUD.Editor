@@ -9,7 +9,7 @@ namespace HUDEdit.Classes;
 
 public class HUDSettings
 {
-    public static readonly string UserFile = $"{Directory.CreateDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\TF2HUD.Editor").FullName}\\settings.json";
+    public static readonly string UserFile = $"{Directory.CreateDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor").FullName}/settings.json";
 
     private static readonly UserJson Json = File.Exists(UserFile)
         ? JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(UserFile))

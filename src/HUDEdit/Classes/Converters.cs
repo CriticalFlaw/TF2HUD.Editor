@@ -157,7 +157,7 @@ public class BtnInstallContentConverter : IValueConverter
         if (hud is not null)
         {
             App.Logger.Info($"User selected: {hud.Name}");
-            if (Directory.Exists($"{App.Config.ConfigSettings.UserPrefs.HUDDirectory}\\{hud.Name}"))
+            if (Directory.Exists($"{App.Config.ConfigSettings.UserPrefs.HUDDirectory}/{hud.Name}"))
             {
                 App.Logger.Info($"{hud.Name} is installed");
                 return Resources.ui_reinstall ?? "Reinstall";
