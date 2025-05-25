@@ -78,7 +78,7 @@ public partial class HUD
                 {
                     if (folder[property].GetType() == typeof(Dictionary<string, dynamic>))
                     {
-                        if (property.Contains("."))
+                        if (property.Contains('.'))
                         {
                             var filePath = $"{folderPath}/{property}";
                             if (!Directory.Exists(Path.GetDirectoryName(filePath)))
@@ -387,7 +387,7 @@ public partial class HUD
                             App.Logger.Info($"Go to \"{property.Key}\"");
                             var newHudElementRef = hudElementRef.ContainsKey(property.Key)
                                 ? (Dictionary<string, dynamic>)hudElementRef[property.Key]
-                                : new Dictionary<string, dynamic>();
+                                : [];
                             hudElement[property.Key] = CompileHudElement(currentObj,
                                 absolutePath, relativePath, newHudElementRef,
                                 $"{objectPath}{property.Key}/");
@@ -628,7 +628,7 @@ public partial class HUD
                                 animations ??= HUDAnimations.Parse(File.ReadAllText(filePath));
 
                                 // Create new event or animation statements could stack over multiple 'apply customizations'.
-                                animations[animationOption.Key] = new List<HUDAnimation>();
+                                animations[animationOption.Key] = [];
 
                                 JToken[] animationEvents;
 
@@ -638,7 +638,7 @@ public partial class HUD
                                     if (animationsContainer.ContainsKey("true") && animationsContainer.ContainsKey("false"))
                                     {
                                         var selection = animationsContainer[userSetting.Value.ToLower()];
-                                        animationEvents = selection.ToArray();
+                                        animationEvents = [.. selection];
                                     }
                                     else
                                     {
@@ -647,7 +647,7 @@ public partial class HUD
                                 }
                                 else
                                 {
-                                    animationEvents = animationOption.Value.ToArray();
+                                    animationEvents = [.. animationOption.Value];
                                 }
 
                                 foreach (var option in animationEvents)
@@ -676,7 +676,7 @@ public partial class HUD
                 if (animations is not null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
             }
 
-            string[] resFileExtensions = { "res", "vmt", "vdf" };
+            string[] resFileExtensions = ["res", "vmt", "vdf"];
 
             foreach (var filePath in files)
             {
@@ -741,16 +741,16 @@ public partial class HUD
     /// <summary>
     /// Copies configuration file for transparent viewmodels into the HUD's cfg folder.
     /// </summary>
-    private async void CopyTransparentViewmodelAddon(bool enable = false)
+    private static async void CopyTransparentViewmodelAddon(bool enable = false)
     {
         try
         {
             const string fileName = "mastercomfig-transparent-viewmodels-addon.vpk";
 
             // Skip this step if TF2 is running, user already has the add-on or this feature is not enabled.
-            if (Process.GetProcessesByName("hl2").Any()
-                || Process.GetProcessesByName("tf").Any()
-                || Process.GetProcessesByName("tf_win64").Any()
+            if (Process.GetProcessesByName("hl2").Length != 0
+                || Process.GetProcessesByName("tf").Length != 0
+                || Process.GetProcessesByName("tf_win64").Length != 0
                 || File.Exists(MainWindow.HudPath + "/" + fileName)
                 || !enable) return;
 

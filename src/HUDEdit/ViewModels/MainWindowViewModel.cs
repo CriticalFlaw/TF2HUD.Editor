@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using HUDEdit.Assets;
 using Avalonia.Platform.Storage;
 using MsBox.Avalonia.Enums;
+using System.Runtime.InteropServices;
 
 namespace HUDEdit.ViewModels;
 
@@ -82,7 +83,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    private string _windowTitle = Assets.Resources.ui_title;
+    private string _windowTitle = Resources.ui_title;
     public string WindowTitle
     {
         get => _windowTitle;
@@ -108,7 +109,7 @@ internal partial class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            _hudList = new List<HUD>();
+            _hudList = [];
             var sharedControlsJson = new StreamReader(File.OpenRead("JSON/shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
             
             foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
@@ -212,7 +213,7 @@ internal partial class MainWindowViewModel : ViewModelBase
     /// Invokes HUD installation or setting the tf/custom directory, if not already set.
     /// </summary>
     [RelayCommand(CanExecute = nameof(CanInstall))]
-    public async void BtnInstall_Click()
+    public async Task BtnInstall_Click()
     {
         try
         {
@@ -224,7 +225,7 @@ internal partial class MainWindowViewModel : ViewModelBase
                 await Utilities.SetupDirectoryAsync(TopLevel, true);
 
             // Stop the process if Team Fortress 2 is still running.
-            if (Utilities.CheckIsGameRunning())
+            if (await Utilities.CheckIsGameRunning())
             {
                 Installing = false;
                 return;
@@ -244,7 +245,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             var download = ((EditHUDViewModel)CurrentPageViewModel).SelectedDownloadSource;
             foreach (var foundHud in Directory.GetDirectories(MainWindow.HudPath))
             {
-                if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}/info.vdf")) continue;
+                if (!foundHud[MainWindow.HudPath.Length..].ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}/info.vdf")) continue;
                 if (await Utilities.ShowPromptBox(Resources.info_unsupported_hud_found) == ButtonResult.No)
                 {
                     Installing = false;
@@ -292,7 +293,7 @@ internal partial class MainWindowViewModel : ViewModelBase
     /// Invokes HUD deletion from the tf/custom directory.
     /// </summary>
     [RelayCommand]
-    public void BtnUninstall_Click()
+    public async Task BtnUninstall_Click()
     {
         try
         {
@@ -300,7 +301,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             if (!SelectedHudInstalled) return;
 
             // Stop the process if Team Fortress 2 is still running.
-            if (Utilities.CheckIsGameRunning()) return;
+            if (await Utilities.CheckIsGameRunning()) return;
 
             // Remove the HUD from the tf/custom directory.
             App.Logger.Info($"Removing {SelectedHud.Name} from {MainWindow.HudPath}");
@@ -317,7 +318,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_uninstall, SelectedHud.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
+            await Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_uninstall, SelectedHud.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 
@@ -330,7 +331,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         if (SelectedHud == null) return;
 
         var selection = SelectedHud;
-        if ((Process.GetProcessesByName("hl2").Any() || Process.GetProcessesByName("tf").Any() || Process.GetProcessesByName("tf_win64").Any()) && selection.DirtyControls.Count > 0)
+        if ((Process.GetProcessesByName("hl2").Length != 0 || Process.GetProcessesByName("tf").Length != 0 || Process.GetProcessesByName("tf_win64").Length != 0) && selection.DirtyControls.Count > 0)
         {
             var message = selection.DirtyControls.Aggregate(Resources.info_game_restart, (current, control) => current + $"\n - {control}");
             if (await Utilities.ShowPromptBox(message) == ButtonResult.No) return;
@@ -349,7 +350,7 @@ internal partial class MainWindowViewModel : ViewModelBase
     /// Resets user settings for the selected HUD to their default values.
     /// </summary>
     [RelayCommand]
-    public async void BtnReset_Click()
+    public async Task BtnReset_Click()
     {
         // Ask the user if they want to reset before doing so.
         if (await Utilities.ShowPromptBox(Resources.info_hud_reset) == ButtonResult.No) return;
@@ -376,11 +377,11 @@ internal partial class MainWindowViewModel : ViewModelBase
         WindowTitle = Assets.Resources.ui_title;
     }
 
-    public void OpenDocSite() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
+    public static void OpenDocSite() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
 
-    public void OpenIssueTracker() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.IssueTrackerURL);
+    public static void OpenIssueTracker() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.IssueTrackerURL);
 
-    public void OpenOptionsMenu()
+    public static void OpenOptionsMenu()
     {
         var settings = new SettingsView();
         settings.Show();
@@ -390,18 +391,16 @@ internal partial class MainWindowViewModel : ViewModelBase
     /// Opens the settings menu for the editor.
     /// </summary>
     [RelayCommand]
-    public void LaunchTf2()
+    public static void LaunchTf2()
     {
-        var is64Bit = Environment.Is64BitProcess ? "Wow6432Node/" : string.Empty;
-        var steamPath = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "/steam.exe";
-        Process.Start(steamPath, "steam://rungameid/440");
+        Process.Start(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "xdg-open" : "steam", "steam://rungameid/440");
     }
 
     /// <summary>
     /// Adds a HUD from folder to the shared HUDs list.
     /// </summary>
     [RelayCommand]
-    public async void AddSharedHud()
+    public async Task AddSharedHud()
     {
         try
         {
@@ -419,7 +418,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception error)
         {
-            Utilities.ShowMessageBox(error.Message, MsBox.Avalonia.Enums.Icon.Error);
+            await Utilities.ShowMessageBox(error.Message, MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 
@@ -429,12 +428,12 @@ internal partial class MainWindowViewModel : ViewModelBase
     /// Synchronizes the local HUD schema files with the latest versions on GitHub.
     /// </summary>
     /// <returns>Whether updates are available</returns>
-    public async Task<bool> Update()
+    public static async Task<bool> Update()
     {
         try
         {
             var remoteFiles = (await Utilities.Fetch<GitJson[]>(App.Config.ConfigSettings.AppConfig.JsonListURL)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
-            List<Task> downloads = new();
+            List<Task> downloads = [];
 
             foreach (var remoteFile in remoteFiles)
             {
@@ -454,7 +453,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             // Remove HUD JSONs that aren't available online.
             foreach (var localFile in new DirectoryInfo("JSON").EnumerateFiles())
             {
-                if (remoteFiles.Count((x) => x.Name == localFile.Name) != 0) continue;
+                if (remoteFiles.Any((x) => x.Name == localFile.Name)) continue;
                 File.Delete(localFile.FullName);
                 App.Logger.Info($"Removed {localFile.Name}");
             }
