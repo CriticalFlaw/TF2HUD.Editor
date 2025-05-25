@@ -26,8 +26,10 @@ public partial class MainWindow : Avalonia.Controls.Window
         mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
         Utilities.SetupDirectoryAsync(this);
 
+#if !DEBUG
         // Check for updates
         if (App.Config.ConfigSettings.UserPrefs.AutoUpdate == true) UpdateAppSchema(true);
+#endif
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
