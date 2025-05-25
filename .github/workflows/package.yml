@@ -28,12 +28,22 @@ jobs:
     - name: Restore dependencies
       run: nuget restore src/HUDEdit/HUDEdit.csproj
         
-    - name: Publish solution
-      run: dotnet publish -c Release --output ./publish
+    - name: Publish for Windows
+      run: dotnet publish -c Release -r win-x64 --output ./publish/win-x64 --self-contained true -p:PublishSingleFile=true
       working-directory: src/HUDEdit
         
-    - name: Upload artifact
+    - name: Upload artifact for Windows
       uses: actions/upload-artifact@v4
       with:
-        name: TF2HUD-Editor
-        path: D:\a\TF2HUD.Editor\TF2HUD.Editor\src\HUDEdit\publish\
+        name: tf2hud-editor-win64
+        path: D:\a\TF2HUD.Editor\TF2HUD.Editor\src\HUDEdit\publish\win-x64
+        
+    - name: Publish for Linux
+      run: dotnet publish -c Release -r linux-x64 --output ./publish/linux-x64 --self-contained true -p:PublishSingleFile=true
+      working-directory: src/HUDEdit
+        
+    - name: Upload artifact for Linux
+      uses: actions/upload-artifact@v4
+      with:
+        name: tf2hud-editor-linux
+        path: D:\a\TF2HUD.Editor\TF2HUD.Editor\src\HUDEdit\publish\linux-x64
