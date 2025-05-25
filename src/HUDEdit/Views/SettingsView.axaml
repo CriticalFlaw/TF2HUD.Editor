@@ -5,6 +5,7 @@
 		xmlns:vm="clr-namespace:HUDEdit.ViewModels"
 		xmlns:v="clr-namespace:HUDEdit.Views"
 		xmlns:loc="clr-namespace:HUDEdit.Assets"
+		xmlns:classes="clr-namespace:HUDEdit.Classes"
 		xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
         mc:Ignorable="d" Width="1000" Height="320"
         x:Class="HUDEdit.Views.SettingsView"
@@ -16,6 +17,10 @@
 		<vm:SettingsViewModel/>
 	</Design.DataContext>
 
+	<Window.Resources>
+		<classes:DisableOnLinuxConverter x:Key="DisableOnLinux" />
+	</Window.Resources>
+	
 	<Border>
 		<Border.Background>
 			<ImageBrush Source="avares://HUDEdit/Assets/Images/background.png" Stretch="UniformToFill"/>
@@ -32,7 +37,7 @@
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
 
-			<HeaderedContentControl Header="Language" Grid.Row="0" Grid.Column="0">
+			<HeaderedContentControl Header="Language" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding ., Converter={StaticResource DisableOnLinux}}">
 				<WrapPanel HorizontalAlignment="Left">
 					<RadioButton x:Name="BtnLocalizeEn" Margin="5" Checked="BtnLocalize_OnClick">
 						<Image Source="avares://HUDEdit/Assets/Images/Flags/us.png" Width="75" />
@@ -66,7 +71,7 @@
 				<StackPanel HorizontalAlignment="Left">
 					<Button Content="{x:Static loc:Resources.ui_directory}" Classes="HudButton SettingsButton" Click="SetDirectory_OnClick" />
 					<Button Content="{x:Static loc:Resources.ui_refresh}" Classes="HudButton SettingsButton" Click="BtnRefresh_OnClick"/>
-					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Classes="HudButton SettingsButton" Click="BtnClearCache_Click"/>
+					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Classes="HudButton SettingsButton" Click="BtnClearCache_Click" IsEnabled="{Binding ., Converter={StaticResource DisableOnLinux}}"/>
 					<Button Content="{x:Static loc:Resources.ui_open_app_file}" Classes="HudButton SettingsButton" Click="BtnOpenAppSettings_Click"/>
 					<Button Content="{x:Static loc:Resources.ui_open_user_file}" Classes="HudButton SettingsButton" Click="BtnOpenUserSettings_Click"/>
 				</StackPanel>

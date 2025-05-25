@@ -78,7 +78,7 @@ public partial class HUD
                 {
                     if (folder[property].GetType() == typeof(Dictionary<string, dynamic>))
                     {
-                        if (property.Contains("."))
+                        if (property.Contains('.'))
                         {
                             var filePath = $"{folderPath}/{property}";
                             if (!Directory.Exists(Path.GetDirectoryName(filePath)))
@@ -676,7 +676,7 @@ public partial class HUD
                 if (animations is not null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
             }
 
-            string[] resFileExtensions = { "res", "vmt", "vdf" };
+            string[] resFileExtensions = ["res", "vmt", "vdf"];
 
             foreach (var filePath in files)
             {

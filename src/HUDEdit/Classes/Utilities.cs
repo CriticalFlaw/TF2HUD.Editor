@@ -178,7 +178,7 @@ public static class Utilities
     {
         if (string.IsNullOrWhiteSpace(url)) return;
         App.Logger.Info($"Opening URL: {url}");
-        Process.Start("explorer", url);
+        Process.Start(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "xdg-open" : "explorer", url);
     }
 
     /// <summary>
@@ -637,12 +637,6 @@ public static class Utilities
             {
                 await ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
             }
-        }
-        else
-        {
-            App.Logger.Info("No directory selected. Closing.");
-            await ShowMessageBox(Resources.info_path_cancelled, MsBox.Avalonia.Enums.Icon.Warning);
-            Environment.Exit(0);
         }
 
         // Check one more time if a valid directory has been set.

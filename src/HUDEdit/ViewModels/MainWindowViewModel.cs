@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using HUDEdit.Assets;
 using Avalonia.Platform.Storage;
 using MsBox.Avalonia.Enums;
+using System.Runtime.InteropServices;
 
 namespace HUDEdit.ViewModels;
 
@@ -82,7 +83,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    private string _windowTitle = Assets.Resources.ui_title;
+    private string _windowTitle = Resources.ui_title;
     public string WindowTitle
     {
         get => _windowTitle;
@@ -273,7 +274,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             SelectedHud.ApplyCustomizations();
 
             // Update timestamp
-            ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Assets.Resources.status_installed_now, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
+            ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_installed_now, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
 
             // Update Menu Buttons
             OnPropertyChanged(nameof(HighlightedHudInstalled));
@@ -342,7 +343,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         selection.ApplyCustomizations();
         selection.DirtyControls.Clear();
 
-        ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Assets.Resources.status_applied, selection.Name, DateTime.Now);
+        ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_applied, selection.Name, DateTime.Now);
     }
 
     /// <summary>
@@ -361,7 +362,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         selection.Settings.SaveSettings();
         selection.ApplyCustomizations();
         selection.DirtyControls.Clear();
-        ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Assets.Resources.status_reset, selection.Name, DateTime.Now);
+        ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_reset, selection.Name, DateTime.Now);
     }
 
     /// <summary>
@@ -373,7 +374,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         App.Logger.Info("Changing page view to: main menu");
         HighlightedHud = null;
         SelectedHud = null;
-        WindowTitle = Assets.Resources.ui_title;
+        WindowTitle = Resources.ui_title;
     }
 
     public void OpenDocSite() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
@@ -392,9 +393,7 @@ internal partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public void LaunchTf2()
     {
-        var is64Bit = Environment.Is64BitProcess ? "Wow6432Node/" : string.Empty;
-        var steamPath = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "/steam.exe";
-        Process.Start(steamPath, "steam://rungameid/440");
+        Process.Start(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "xdg-open" : "explorer", "steam://run/440");
     }
 
     /// <summary>
