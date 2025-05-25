@@ -218,8 +218,8 @@ public static class Utilities
         else
         {
             // If not Linux, then it must be Windows.
-            var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-            var pathFile = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "\\steamapps\\libraryfolders.vdf";
+            var is64Bit = Environment.Is64BitProcess ? "Wow6432Node/" : string.Empty;
+            var pathFile = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "/steamapps/libraryfolders.vdf";
             if (!File.Exists(pathFile)) return false;
 
             // Read the file and attempt to extract all library paths.
@@ -234,10 +234,10 @@ public static class Utilities
         // Loop through all known library paths to try and find TF2.
         foreach (var path in steamPaths)
         {
-            var pathTF = path + "\\steamapps\\common\\Team Fortress 2\\tf\\custom";
+            var pathTF = path + "/steamapps/common/Team Fortress 2/tf/custom";
             if (Directory.Exists(pathTF))
             {
-                App.Logger.Info($"Set target directory to: {pathTF.Replace("\\\\", "\\")}");
+                App.Logger.Info($"Set target directory to: {pathTF}");
                 App.Config.ConfigSettings.UserPrefs.HUDDirectory = pathTF;
                 App.SaveConfiguration();
                 return true;
@@ -252,7 +252,7 @@ public static class Utilities
     /// <returns>True if the set target directory is valid.</returns>
     public static bool CheckUserPath(string hudPath)
     {
-        return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf\\custom");
+        return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf/custom");
     }
 
     /// <summary>
@@ -378,20 +378,20 @@ public static class Utilities
         var archive = new ZipArchive(stream);
 
         // Zip files made with ZipFile.CreateFromDirectory do not include directory entries, so create root directory*
-        Directory.CreateDirectory($"{filePath}\\{hudName}");
+        Directory.CreateDirectory($"{filePath}/{hudName}");
 
         foreach (var entry in archive.Entries)
         {
             // Remove first folder name from entry.FullName e.g. "flawhud-master" => "".
-            var path = String.Join('\\', entry.FullName.Split("/")[1..]);
+            var path = String.Join('/', entry.FullName.Split("/")[1..]);
 
             // Ignore directory entries
             // path == "" is root directory entry
-            if (path != "" && !path.EndsWith('\\'))
+            if (path != "" && !path.EndsWith('/'))
             {
                 // *and ensure directory exists for each file
-                Directory.CreateDirectory($"{filePath}\\{hudName}\\{Path.GetDirectoryName(path)}");
-                entry.ExtractToFile($"{filePath}\\{hudName}\\{path}");
+                Directory.CreateDirectory($"{filePath}/{hudName}/{Path.GetDirectoryName(path)}");
+                entry.ExtractToFile($"{filePath}/{hudName}/{path}");
             }
         }
 
@@ -435,7 +435,7 @@ public static class Utilities
         ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath);
 
         // Move crosshairs folder to HUD
-        string targetDirectory = Path.Join(folderPath, "resource\\crosshairs");
+        string targetDirectory = Path.Join(folderPath, "resource/crosshairs");
         if (Directory.Exists(targetDirectory)) Directory.Delete(targetDirectory, true);
         Directory.Move(Path.Join(folderPath, Path.Join(crosshairsName, "crosshairs")), targetDirectory);
         Directory.Delete(Path.Join(folderPath, crosshairsName), true);
@@ -473,13 +473,13 @@ public static class Utilities
 
         await Task.WhenAll(
             // Add #base statements to HUD files as per https://github.com/Hypnootize/TF2-HUD-Crosshairs#installation
-            AddBaseReference("resource\\clientscheme.res", "../resource/crosshairs/crosshair_scheme.res"),
-            AddBaseReference("scripts\\hudlayout.res", "../resource/crosshairs/crosshair.res"),
+            AddBaseReference("resource/clientscheme.res", "../resource/crosshairs/crosshair_scheme.res"),
+            AddBaseReference("scripts/hudlayout.res", "../resource/crosshairs/crosshair.res"),
 
             // Add "file" reference to hudanimations_manifest.txt
             Task.Run(async () =>
             {
-                var filePath = Path.Join(folderPath, "scripts\\hudanimations_manifest.txt");
+                var filePath = Path.Join(folderPath, "scripts/hudanimations_manifest.txt");
 
                 // If the HUD does not contain a hudanimations_manifest.txt, use the string from tf2_misc_dir.vpk scripts/hudanimations_manifest.txt
                 var fileContents = File.Exists(filePath)
@@ -610,7 +610,7 @@ public static class Utilities
             MainWindow.HudPath != null &&
             Directory.Exists(MainWindow.HudPath) &&
             CheckUserPath(MainWindow.HudPath) &&
-            Directory.Exists($"{MainWindow.HudPath}\\{hud.Name}");
+            Directory.Exists($"{MainWindow.HudPath}/{hud.Name}");
     }
 
     /// <summary>
@@ -631,7 +631,7 @@ public static class Utilities
         if (folders.Count > 0)
         {
             var userPath = folders[0].TryGetLocalPath();
-            if (userPath.EndsWith("tf\\custom"))
+            if (userPath.EndsWith("tf/custom"))
             {
                 App.Config.ConfigSettings.UserPrefs.HUDDirectory = userPath;
                 App.SaveConfiguration();

@@ -109,19 +109,19 @@ internal partial class MainWindowViewModel : ViewModelBase
         try
         {
             _hudList = new List<HUD>();
-            var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
+            var sharedControlsJson = new StreamReader(File.OpenRead("JSON/shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
             
             foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
             {
                 // Extract HUD information from the file path and add it to the object list.
-                var fileInfo = jsonFile.Split("\\")[^1].Split(".");
+                var fileInfo = jsonFile.Replace("\\", "/").Split("/")[^1].Split(".");
                 if (fileInfo[^1] != "json" || fileInfo[0] == "shared-hud") continue;
 
                 if (fileInfo[0].Equals("common"))
                 {
                     // Load all common HUDS from `JSON/common.json` and shared controls from `JSON/shared-hud.json`
                     // For each hud, assign unique ids for the controls based on the hud name and add to HUDs list.
-                    var sharedHuds = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON\\common.json"), new UTF8Encoding(false)).ReadToEnd());
+                    var sharedHuds = JsonConvert.DeserializeObject<List<HudJson>>(new StreamReader(File.OpenRead("JSON/common.json"), new UTF8Encoding(false)).ReadToEnd());
 
                     foreach (var sharedHud in sharedHuds)
                     {
@@ -140,12 +140,12 @@ internal partial class MainWindowViewModel : ViewModelBase
             }
 
             // Local Shared HUDs
-            var localSharedPath = Directory.CreateDirectory($@"JSON\\Local").FullName;
+            var localSharedPath = Directory.CreateDirectory($@"JSON/Local").FullName;
 
             foreach (var sharedHud in Directory.EnumerateDirectories(localSharedPath))
             {
-                var hudName = sharedHud.Split('\\')[^1];
-                var hudBackgroundPath = $"{sharedHud}\\output.png";
+                var hudName = sharedHud.Split('/')[^1];
+                var hudBackgroundPath = $"{sharedHud}/output.png";
                 var hudBackground = File.Exists(hudBackgroundPath)
                     ? $"file://{hudBackgroundPath}"
                     : "avares://HUDEdit/Assets/Images/background.png";
@@ -158,7 +158,7 @@ internal partial class MainWindowViewModel : ViewModelBase
                     Layout = sharedProperties.Layout,
                     Links = new Links
                     {
-                        Download = [new Download() { Source = "GitHub", Link = $"file://{sharedHud}\\{hudName}.zip" }]
+                        Download = [new Download() { Source = "GitHub", Link = $"file://{sharedHud}/{hudName}.zip" }]
                     },
                     Controls = sharedProperties.Controls
                 }, false));
@@ -233,10 +233,10 @@ internal partial class MainWindowViewModel : ViewModelBase
             // Clear tf/custom directory of other installed HUDs.
             foreach (var x in HUDList)
             {
-                if (Directory.Exists($"{MainWindow.HudPath}\\{x.Name.ToLowerInvariant()}"))
+                if (Directory.Exists($"{MainWindow.HudPath}/{x.Name.ToLowerInvariant()}"))
                 {
                     App.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {MainWindow.HudPath}");
-                    Directory.Delete($"{MainWindow.HudPath}\\{x.Name.ToLowerInvariant()}", true);
+                    Directory.Delete($"{MainWindow.HudPath}/{x.Name.ToLowerInvariant()}", true);
                 }
             }
 
@@ -244,7 +244,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             var download = ((EditHUDViewModel)CurrentPageViewModel).SelectedDownloadSource;
             foreach (var foundHud in Directory.GetDirectories(MainWindow.HudPath))
             {
-                if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}\\info.vdf")) continue;
+                if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}/info.vdf")) continue;
                 if (await Utilities.ShowPromptBox(Resources.info_unsupported_hud_found) == ButtonResult.No)
                 {
                     Installing = false;
@@ -260,7 +260,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             if (SelectedHud.InstallCrosshairs)
             {
                 App.Logger.Info($"Installing crosshairs to {SelectedHud.Name}");
-                await Utilities.InstallCrosshairs($"{MainWindow.HudPath}\\{SelectedHud.Name}");
+                await Utilities.InstallCrosshairs($"{MainWindow.HudPath}/{SelectedHud.Name}");
             }
 
             // Update the page view.
@@ -304,7 +304,7 @@ internal partial class MainWindowViewModel : ViewModelBase
 
             // Remove the HUD from the tf/custom directory.
             App.Logger.Info($"Removing {SelectedHud.Name} from {MainWindow.HudPath}");
-            if (SelectedHud.Name != "") Directory.Delete($"{MainWindow.HudPath}\\{SelectedHud.Name}", true);
+            if (SelectedHud.Name != "") Directory.Delete($"{MainWindow.HudPath}/{SelectedHud.Name}", true);
 
             // Update timestamp
             ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_installed_not, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
@@ -392,8 +392,8 @@ internal partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public void LaunchTf2()
     {
-        var is64Bit = Environment.Is64BitProcess ? "Wow6432Node\\" : string.Empty;
-        var steamPath = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "\\steam.exe";
+        var is64Bit = Environment.Is64BitProcess ? "Wow6432Node/" : string.Empty;
+        var steamPath = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "/steam.exe";
         Process.Start(steamPath, "steam://rungameid/440");
     }
 
@@ -438,7 +438,7 @@ internal partial class MainWindowViewModel : ViewModelBase
 
             foreach (var remoteFile in remoteFiles)
             {
-                var localFilePath = $"JSON\\{remoteFile.Name}";
+                var localFilePath = $"JSON/{remoteFile.Name}";
                 bool newFile = false, fileChanged = false;
 
                 if (!File.Exists(localFilePath))
@@ -472,22 +472,22 @@ internal partial class MainWindowViewModel : ViewModelBase
 
     public async Task Add(string folderPath)
     {
-        var hudName = folderPath.Split('\\')[^1];
+        var hudName = folderPath.Split('/')[^1];
         var hudDetailsFolder = $@"{Directory.CreateDirectory($@"JSON\Local\{hudName}").FullName}";
         var hudJson = new HudJson
         {
             Name = hudName,
             Thumbnail = Task.Run(() =>
             {
-                var consoleFolder = $"{folderPath}\\materials\\console";
+                var consoleFolder = $"{folderPath}/materials/console";
                 var backgrounds = new[] { "2fort", "gravelpit", "mvm", "upward" };
-                var backgroundSelection = backgrounds.FirstOrDefault(background => File.Exists($"{consoleFolder}\\background_{background}_widescreen.vtf"));
+                var backgroundSelection = backgrounds.FirstOrDefault(background => File.Exists($"{consoleFolder}/background_{background}_widescreen.vtf"));
                 if (backgroundSelection is null) return backgroundSelection;
 
                 App.Logger.Info($"Found background file background_{backgroundSelection}_widescreen.vtf");
-                var inputPath = $"{consoleFolder}\\background_{backgroundSelection}_widescreen.vtf";
-                var outputPathTga = $"{consoleFolder}\\output.tga";
-                var outputPath = $"{hudDetailsFolder}\\output";
+                var inputPath = $"{consoleFolder}/background_{backgroundSelection}_widescreen.vtf";
+                var outputPathTga = $"{consoleFolder}/output.tga";
+                var outputPath = $"{hudDetailsFolder}/output";
 
                 string[] args =
                 [
@@ -496,7 +496,7 @@ internal partial class MainWindowViewModel : ViewModelBase
                     "-o",
                     $"\"{outputPathTga}\""
                 ];
-                var processInfo = new ProcessStartInfo($"{MainWindow.HudPath.Replace("\\tf\\custom", string.Empty)}\\bin\\vtf2tga.exe")
+                var processInfo = new ProcessStartInfo($"{MainWindow.HudPath.Replace("/tf/custom", string.Empty)}/bin/vtf2tga.exe")
                 {
                     Arguments = string.Join(" ", args),
                     RedirectStandardOutput = true
@@ -521,7 +521,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             {
                 Download = Task.Run(() =>
                 {
-                    var zipPath = $"{hudDetailsFolder}\\{hudName}.zip";
+                    var zipPath = $"{hudDetailsFolder}/{hudName}.zip";
                     ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
                     return new[] { new Download() { Source = "GitHub", Link = $"file://{zipPath}" } };
                 }).Result
@@ -533,7 +533,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         // TF2 HUD Crosshairs
         await Utilities.InstallCrosshairs(folderPath);
 
-        var sharedControlsJson = new StreamReader(File.OpenRead("JSON\\shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
+        var sharedControlsJson = new StreamReader(File.OpenRead("JSON/shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
         var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
         foreach (var group in hudControls.Controls)
         {

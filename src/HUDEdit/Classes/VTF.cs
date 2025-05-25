@@ -13,7 +13,7 @@ internal class VTF
 
     public VTF(string path)
     {
-        _tf2Path = path.Replace("\\tf\\custom", string.Empty);
+        _tf2Path = path.Replace("/tf/custom", string.Empty);
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ internal class VTF
     {
         // Resize image to square of larger proportional
         var image = new Bitmap(inFile);
-        var materialSrc = $"{_tf2Path}\\tf\\materialsrc";
+        var materialSrc = $"{_tf2Path}/tf/materialsrc";
 
         // Create materialsrc (ensure it exists)
         if (!Directory.Exists(materialSrc))
@@ -33,23 +33,23 @@ internal class VTF
 
         // Save image as .TGA (cast using TGASharpLib)
         var tgaSquareImage = (TGA)ResizeImage(image);
-        tgaSquareImage.Save($"{materialSrc}\\temp.tga");
+        tgaSquareImage.Save($"{materialSrc}/temp.tga");
 
         // Convert using VTEX
         VtexConvert(materialSrc, "temp");
 
         // Path to VTEX output file
-        var vtfOutput = $"{_tf2Path}\\tf\\materials\\temp.vtf";
+        var vtfOutput = $"{_tf2Path}/tf/materials/temp.vtf";
 
         // Create absolute path to output folder and make directory
-        var pathInfo = outFile.Split('\\', '/');
+        var pathInfo = outFile.Split('/', '/');
         pathInfo[^1] = "";
-        var directory = string.Join("\\", pathInfo);
+        var directory = string.Join("/", pathInfo);
         if (!Directory.Exists(directory))
             Directory.CreateDirectory(directory);
 
         // Make a backup of the existing background files.
-        var hudBgPath = new DirectoryInfo($"{MainWindow.HudPath}\\{App.Config.ConfigSettings.UserPrefs.SelectedHUD}\\materials\\console\\");
+        var hudBgPath = new DirectoryInfo($"{MainWindow.HudPath}/{App.Config.ConfigSettings.UserPrefs.SelectedHUD}/materials/console/");
         foreach (var file in hudBgPath.GetFiles())
             File.Delete(file.FullName);
 
@@ -57,8 +57,8 @@ internal class VTF
         File.Copy(vtfOutput, outFile, true);
 
         // Delete temporary tga and vtex output
-        File.Delete($"{materialSrc}\\temp.tga");
-        File.Delete($"{materialSrc}\\temp.txt");
+        File.Delete($"{materialSrc}/temp.tga");
+        File.Delete($"{materialSrc}/temp.txt");
         File.Delete(vtfOutput);
     }
 
@@ -88,7 +88,7 @@ internal class VTF
     private void VtexConvert(string folderPath, string fileName)
     {
         // Set the VTEX Args
-        File.WriteAllLines($"{folderPath}\\{fileName}.txt",
+        File.WriteAllLines($"{folderPath}/{fileName}.txt",
         [
             "pointsample 1",
             "nolod 1",
@@ -99,11 +99,11 @@ internal class VTF
         string[] args =
         [
             "-quiet",
-            $"\"{folderPath}\\{fileName}.tga\""
+            $"\"{folderPath}/{fileName}.tga\""
         ];
 
         // Call Vtex and pass the parameters.
-        var processInfo = new ProcessStartInfo($"{_tf2Path}\\bin\\vtex.exe")
+        var processInfo = new ProcessStartInfo($"{_tf2Path}/bin/vtex.exe")
         {
             Arguments = string.Join(" ", args),
             RedirectStandardOutput = true
