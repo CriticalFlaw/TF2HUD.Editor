@@ -26,10 +26,8 @@ public partial class MainWindow : Avalonia.Controls.Window
         mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
         Utilities.SetupDirectoryAsync(this);
 
-#if !DEBUG
         // Check for updates
         if (App.Config.ConfigSettings.UserPrefs.AutoUpdate == true) UpdateAppSchema(true);
-#endif
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -110,15 +108,24 @@ public partial class MainWindow : Avalonia.Controls.Window
     {
         try
         {
-            string appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, 3);
+            var localVersion = Assembly.GetExecutingAssembly().GetName().Version;
             var latestVersion = await new GitHubClient(new ProductHeaderValue("TF2HUD.Editor")).Repository.Release.GetLatest("CriticalFlaw", "TF2HUD.Editor");
             App.Logger.Info($"Checking for app update. Latest version is {latestVersion.TagName}");
 
-            if (appVersion.Equals(latestVersion.TagName)) return;
-            App.Logger.Info($"Update available from {appVersion} -> {latestVersion.TagName}");
-            if (await Utilities.ShowPromptBox(Assets.Resources.info_app_update) == ButtonResult.No) return;
-            Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.LatestUpdateURL);
+            // Parse the remote version (remove a leading 'v' if present)
+            if (!Version.TryParse(latestVersion.TagName.TrimStart('v'), out var remoteVersion))
+            {
+                App.Logger.Warn($"Failed to parse remote version: {latestVersion.TagName}");
+                return;
+            }
 
+            // Only update if remote version is *greater than* the local version
+            if (remoteVersion > localVersion)
+            {
+                App.Logger.Info($"Update available from {localVersion} -> {remoteVersion}");
+                if (await Utilities.ShowPromptBox(Assets.Resources.info_app_update) == ButtonResult.No) return;
+                Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.LatestUpdateURL);
+            }
         }
         catch (Exception e)
         {
