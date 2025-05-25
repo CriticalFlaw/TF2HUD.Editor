@@ -198,7 +198,7 @@ public static class Utilities
     /// <returns>False if there's no active process named hl2, tf, or tf_win64, otherwise return true and a warning message.</returns>
     public static bool CheckIsGameRunning()
     {
-        if (!Process.GetProcessesByName("hl2").Any() && !Process.GetProcessesByName("tf").Any() && !Process.GetProcessesByName("tf_win64").Any()) return false;
+        if (Process.GetProcessesByName("hl2").Length == 0 && Process.GetProcessesByName("tf").Length == 0 && Process.GetProcessesByName("tf_win64").Length == 0) return false;
         ShowMessageBox(Resources.info_game_running, MsBox.Avalonia.Enums.Icon.Warning);
         return true;
     }
@@ -211,24 +211,19 @@ public static class Utilities
     {
         var steamPaths = new List<string>();
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-        {
-            // TODO: Add the logic to find the root install directory on Linux
-        }
-        else
-        {
-            // If not Linux, then it must be Windows.
-            var is64Bit = Environment.Is64BitProcess ? "Wow6432Node/" : string.Empty;
-            var pathFile = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "/steamapps/libraryfolders.vdf";
-            if (!File.Exists(pathFile)) return false;
+        // Do not bother searching the registry if on Linux.
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return false;
 
-            // Read the file and attempt to extract all library paths.
-            using var reader = new StreamReader(pathFile);
-            foreach (Match match in Regex.Matches(reader.ReadToEnd(), "\"(.*)\"\t*\"(.*)\""))
-            {
-                if (match.Groups[1].Value.Equals("path"))
-                    steamPaths.Add(match.Groups[2].Value);
-            }
+        var is64Bit = Environment.Is64BitProcess ? "Wow6432Node/" : string.Empty;
+        var pathFile = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "/steamapps/libraryfolders.vdf";
+        if (!File.Exists(pathFile)) return false;
+
+        // Read the file and attempt to extract all library paths.
+        using var reader = new StreamReader(pathFile);
+        foreach (Match match in Regex.Matches(reader.ReadToEnd(), "\"(.*)\"\t*\"(.*)\""))
+        {
+            if (match.Groups[1].Value.Equals("path"))
+                steamPaths.Add(match.Groups[2].Value);
         }
 
         // Loop through all known library paths to try and find TF2.
@@ -640,20 +635,20 @@ public static class Utilities
             }
             else
             {
-                ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
+                await ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
             }
         }
         else
         {
             App.Logger.Info("No directory selected. Closing.");
-            ShowMessageBox(Resources.info_path_cancelled, MsBox.Avalonia.Enums.Icon.Warning);
+            await ShowMessageBox(Resources.info_path_cancelled, MsBox.Avalonia.Enums.Icon.Warning);
             Environment.Exit(0);
         }
 
         // Check one more time if a valid directory has been set.
         if (CheckUserPath(MainWindow.HudPath)) return;
         App.Logger.Info("Target directory still not set. Closing.");
-        ShowMessageBox(Resources.error_app_directory, MsBox.Avalonia.Enums.Icon.Warning);
+        await ShowMessageBox(Resources.error_app_directory, MsBox.Avalonia.Enums.Icon.Warning);
         Environment.Exit(0);
     }
 }
