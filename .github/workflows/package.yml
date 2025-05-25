@@ -7,43 +7,37 @@ on:
 jobs:
   package:
     runs-on: windows-latest
-    
+
+    strategy:
+      matrix:
+        rid: [win-x64, linux-x64]
+        include:
+          - rid: win-x64
+            artifact: tf2hud-editor-win64
+          - rid: linux-x64
+            artifact: tf2hud-editor-linux
+
     env:
       Solution_Name: TF2HUD.Editor.slnx
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-        
+
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.x'
 
-    - name: Setup NuGet
-      uses: nuget/setup-nuget@v2
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
     - name: Restore dependencies
-      run: nuget restore src/HUDEdit/HUDEdit.csproj
-        
-    - name: Publish for Windows
-      run: dotnet publish -c Release -r win-x64 --output ./publish/win-x64 --self-contained true -p:PublishSingleFile=true
+      run: dotnet restore src/HUDEdit/HUDEdit.csproj
+
+    - name: Publish for ${{ matrix.rid }}
+      run: dotnet publish -c Release -r ${{ matrix.rid }} --output ./publish/${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true
       working-directory: src/HUDEdit
-        
-    - name: Upload artifact for Windows
+
+    - name: Upload artifact for ${{ matrix.rid }}
       uses: actions/upload-artifact@v4
       with:
-        name: tf2hud-editor-win64
-        path: D:\a\TF2HUD.Editor\TF2HUD.Editor\src\HUDEdit\publish\win-x64
-        
-    - name: Publish for Linux
-      run: dotnet publish -c Release -r linux-x64 --output ./publish/linux-x64 --self-contained true -p:PublishSingleFile=true
-      working-directory: src/HUDEdit
-        
-    - name: Upload artifact for Linux
-      uses: actions/upload-artifact@v4
-      with:
-        name: tf2hud-editor-linux
-        path: D:\a\TF2HUD.Editor\TF2HUD.Editor\src\HUDEdit\publish\linux-x64
+        name: ${{ matrix.artifact }}
+        path: src/HUDEdit/publish/${{ matrix.rid }}
