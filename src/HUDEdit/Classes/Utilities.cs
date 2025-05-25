@@ -645,4 +645,38 @@ public static class Utilities
         await ShowMessageBox(Resources.error_app_directory, MsBox.Avalonia.Enums.Icon.Warning);
         Environment.Exit(0);
     }
+
+    /// <summary>
+    /// Creates the chapterbackgrounds.txt file in the specified path.
+    /// </summary>
+    public static void CreateChapterBackgroundsFile(string path)
+    {
+        // Ensure the directory exists
+        Directory.CreateDirectory(path);
+
+        // Define the full path to the text file
+        string filePath = Path.Combine(path, "chapterbackground.txt");
+
+        // Define the content
+        string content = @"""chapters""
+        {
+	        1	""background_upward""
+	        2	""background_upward""
+	        3	""background_upward""
+	        4	""background_upward""
+        }
+
+        ""BackgroundMaps""
+        {
+	        1	""background_upward""
+	        2	""background_upward""
+	        3	""background_upward""
+	        4	""background_upward""
+        }";
+
+        // Write the content to the file
+        File.WriteAllText(filePath, content);
+
+        App.Logger.Info($"Created chapterbackground.txt at {filePath}");
+    }
 }

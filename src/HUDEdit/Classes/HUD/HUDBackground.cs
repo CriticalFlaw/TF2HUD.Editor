@@ -85,7 +85,9 @@ internal class HUDBackground
                 // Copy the generated file to the backgrounds folder.
                 App.Logger.Info($"Copying \"{output}\" to \"{hudFolderPath}\"");
                 File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
-                File.Copy("Resources/chapterbackgrounds.txt", $"{hudFolderPath}/scripts/chapterbackgrounds.txt", true);
+
+                // Ensure chapterbackgrounds.txt exists
+                Utilities.CreateChapterBackgroundsFile($"{hudFolderPath}/scripts");
             }
             else
             {
@@ -104,8 +106,8 @@ internal class HUDBackground
                         File.Copy($"{disabledFolder}/{hudImagePath}.vtf", $"{consoleFolder}/background_upward_widescreen.vtf", true);
                     }
 
-                    App.Logger.Info($"Copying \"chapterbackgrounds.txt\" to \"{hudFolderPath}/scripts\"");
-                    File.Copy("Resources/chapterbackgrounds.txt", $"{hudFolderPath}/scripts/chapterbackgrounds.txt", true);
+                    // Ensure chapterbackgrounds.txt exists
+                    Utilities.CreateChapterBackgroundsFile($"{hudFolderPath}/scripts");
                 }
                 else if (useStockBackgrounds)
                 {
