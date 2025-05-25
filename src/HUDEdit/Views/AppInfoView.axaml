@@ -20,6 +20,7 @@
 			<Run Foreground="Red" Text="This is an in-development build. Please report any issues on the GitHub tracker." />
 			<LineBreak />
 			<Run Text="> Ported the application to AvaloniaUI for Linux compatability. " />
+			<Run Foreground="Red" Text="Not yet tested!" />
 			<LineBreak />
 			<Run Text="> Miscellenaous bug-fixes and improvements." />
 			<LineBreak />

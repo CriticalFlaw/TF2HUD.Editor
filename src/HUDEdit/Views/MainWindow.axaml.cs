@@ -70,7 +70,7 @@ public partial class MainWindow : Avalonia.Controls.Window
             // Remove HUD JSONs that aren't available online.
             foreach (var localFile in new DirectoryInfo("JSON").EnumerateFiles())
             {
-                if (!remoteFiles.Any((x) => x.Name == localFile.Name))
+                if (remoteFiles.Count((x) => x.Name == localFile.Name) == 0)
                 {
                     App.Logger.Info($"Deleting {localFile.Name}");
                     File.Delete(localFile.FullName);

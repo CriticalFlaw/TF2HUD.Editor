@@ -178,7 +178,7 @@ public static class Utilities
     {
         if (string.IsNullOrWhiteSpace(url)) return;
         App.Logger.Info($"Opening URL: {url}");
-        Process.Start(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "xdg-open" : "explorer", url);
+        Process.Start("explorer", url);
     }
 
     /// <summary>
@@ -196,10 +196,10 @@ public static class Utilities
     /// Checks if Team Fortress 2 is currently running.
     /// </summary>
     /// <returns>False if there's no active process named hl2, tf, or tf_win64, otherwise return true and a warning message.</returns>
-    public static async Task<bool> CheckIsGameRunning()
+    public static bool CheckIsGameRunning()
     {
         if (Process.GetProcessesByName("hl2").Length == 0 && Process.GetProcessesByName("tf").Length == 0 && Process.GetProcessesByName("tf_win64").Length == 0) return false;
-        await ShowMessageBox(Resources.info_game_running, MsBox.Avalonia.Enums.Icon.Warning);
+        ShowMessageBox(Resources.info_game_running, MsBox.Avalonia.Enums.Icon.Warning);
         return true;
     }
 

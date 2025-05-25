@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices;
 
 namespace HUDEdit.Views;
 
@@ -106,11 +105,11 @@ public partial class SettingsView : Avalonia.Controls.Window
 
     private void BtnOpenAppSettings_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        Process.Start(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "xdg-open" : "notepad.exe", $"{AppContext.BaseDirectory}/appsettings.json");
+        Process.Start("notepad.exe", $"{AppContext.BaseDirectory}/appsettings.json");
     }
 
     private void BtnOpenUserSettings_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        Process.Start(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "xdg-open" : "notepad.exe", $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor/settings.json");
+        Process.Start("notepad.exe", $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor/settings.json");
     }
 }
