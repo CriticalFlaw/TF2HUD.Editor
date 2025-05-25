@@ -15,13 +15,21 @@
 			<Run Text="your favorite Team Fortress 2 HUDs!" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.0 RC1" Margin="0,15,0,0" FontSize="30" />
+		<Label Classes="HeaderText" Content="Version 4.0 RC2" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
 			<Run Foreground="Red" Text="This is an in-development build. Please report any issues on the GitHub tracker." />
 			<LineBreak />
-			<Run Text="> Ported the application to AvaloniaUI for Linux compatability. " />
+			<Run Text="> Fixed file pathing not working on Linux." />
 			<LineBreak />
-			<Run Text="> Miscellenaous bug-fixes and improvements." />
+			<Run Text="> Fixed a crash when trying to open files or links on Linux." />
+			<LineBreak />
+			<Run Text="> Fixed logs not being saved properly on Linux." />
+			<LineBreak />
+			<Run Text="> Improved app version checking." />
+			<LineBreak />
+			<Run Text="> Implemented Avalonia's Message Boxes." />
+			<LineBreak />
+			<Run Text="> Removed Extended.Wpf.Toolkit." />
 			<LineBreak />
 			<LineBreak />
 		</TextBlock>
