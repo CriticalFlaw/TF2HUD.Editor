@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "dotnet-sdk"
+    directory: "/src/TF2HUD.Editor/HUDEditor.csproj"
+    schedule:
+      interval: "weekly"
