@@ -426,4 +426,4 @@ FodyWeavers.xsd
 build
 node_modules
 
-src/Shared/secrets.json
+src/HUDEdit/secrets.json
