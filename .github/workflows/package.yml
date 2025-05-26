@@ -1,5 +1,8 @@
 name: package
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   pull_request:

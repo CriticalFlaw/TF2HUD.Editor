@@ -1,8 +1,13 @@
 name: docs
+
+permissions:
+  contents: write
+  
 on:
   push:
     branches:
       - master
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

@@ -1,5 +1,8 @@
 name: build
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   push:
@@ -10,27 +13,31 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    
+
+    strategy:
+      matrix:
+        rid: [win-x64, linux-x64]
+        include:
+          - rid: win-x64
+            artifact: tf2hud-editor-win64
+          - rid: linux-x64
+            artifact: tf2hud-editor-linux
+
     env:
-      Solution_Name: TF2HUD.Editor.sln
+      Solution_Name: TF2HUD.Editor.slnx
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-        
+
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.x'
 
-    - name: Setup NuGet
-      uses: nuget/setup-nuget@v2
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
     - name: Restore dependencies
-      run: nuget restore src/TF2HUD.Editor.sln
-        
+      run: dotnet restore src/HUDEdit/HUDEdit.csproj
+      
     - name: Build solution
-      run: dotnet build -c Debug
-      working-directory: src/TF2HUD.Editor
+      run: dotnet build -c Debug -r ${{ matrix.rid }} 
+      working-directory: src/HUDEdit
