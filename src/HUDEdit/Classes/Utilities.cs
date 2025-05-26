@@ -501,6 +501,11 @@ public static class Utilities
         );
     }
 
+    public static async Task InstallCastingEssentials()
+    {
+        await DownloadFile(App.Config.ConfigSettings.AppConfig.MastercomfigVpkURL, $"{MainWindow.HudPath}/CastingEssentialsNext");
+    }
+
     public static Avalonia.Media.Imaging.Bitmap? LoadImage(string url)
     {
         try

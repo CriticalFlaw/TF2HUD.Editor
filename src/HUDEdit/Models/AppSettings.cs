@@ -72,4 +72,7 @@ public class AppConfig
 
     [JsonPropertyName("tf2_hud_crosshairs_zip")]
     public string CrosshairPackURL { get; set; } = "https://github.com/Hypnootize/TF2-HUD-Crosshairs/archive/refs/heads/master.zip";
+
+    [JsonPropertyName("castingessentials_zip")]
+    public string CastingEssentialsURL { get; set; } = "https://github.com/Hypnootize/TF2-HUD-Crosshairs/archive/refs/heads/master.zip";
 }
