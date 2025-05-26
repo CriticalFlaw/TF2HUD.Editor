@@ -441,7 +441,8 @@ public partial class HUD
         control.SelectionChanged += (sender, _) =>
         {
             var input = sender as ComboBox;
-            Settings.SetSetting(input?.Name, control.SelectedIndex.ToString());
+            var value = (control.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            Settings.SetSetting(input?.Name, value);
             CheckIsDirty(controlItem);
         };
 
