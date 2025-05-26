@@ -297,9 +297,9 @@ namespace HUDEdit.Assets {
         /// <summary>
         ///   Looks up a localized string similar to tf/custom directory is not set!.
         /// </summary>
-        public static string status_pathNotSet {
+        public static string status_path_notsets {
             get {
-                return ResourceManager.GetString("status_pathNotSet", resourceCulture);
+                return ResourceManager.GetString("status_path_notsets", resourceCulture);
             }
         }
         
@@ -507,6 +507,15 @@ namespace HUDEdit.Assets {
         public static string ui_options {
             get {
                 return ResourceManager.GetString("ui_options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bypass tf/custom folder rule.
+        /// </summary>
+        public static string ui_override_path_rule {
+            get {
+                return ResourceManager.GetString("ui_override_path_rule", resourceCulture);
             }
         }
         

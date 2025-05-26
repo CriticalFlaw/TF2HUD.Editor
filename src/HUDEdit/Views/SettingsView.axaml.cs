@@ -10,7 +10,7 @@ namespace HUDEdit.Views;
 
 public partial class SettingsView : Avalonia.Controls.Window
 {
-    private bool _isInitializing = true;
+    private readonly bool _isInitializing = true;
 
     public SettingsView()
     {
@@ -44,6 +44,7 @@ public partial class SettingsView : Avalonia.Controls.Window
 
         BtnAutoUpdate.IsChecked = App.Config.ConfigSettings.UserPrefs.AutoUpdate;
         BtnPersistXhair.IsChecked = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence;
+        BtnOverridePath.IsChecked = App.Config.ConfigSettings.UserPrefs.PathBypass;
 
         _isInitializing = false;
     }
@@ -51,7 +52,7 @@ public partial class SettingsView : Avalonia.Controls.Window
     /// <summary>
     /// Updates localization to the selected language.
     /// </summary>
-    private void BtnLocalize_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void BtnLocalize_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         // Ignore clicks during initialization
         if (_isInitializing) return;
@@ -75,13 +76,13 @@ public partial class SettingsView : Avalonia.Controls.Window
         Utilities.RestartApplication();
     }
 
-    private async void SetDirectory_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void SetDirectory_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         App.Logger.Info("Attempting to change the target directory.");
         await Utilities.SetupDirectoryAsync(this, true);
     }
 
-    private void BtnRefresh_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => MainWindow.UpdateAppSchema(false);
+    private void BtnRefresh_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => MainWindow.UpdateAppSchema(false);
 
     private async void BtnClearCache_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
@@ -98,9 +99,15 @@ public partial class SettingsView : Avalonia.Controls.Window
         App.SaveConfiguration();
     }
 
-    private void BtnAutoUpdate_OnClick(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void BtnAutoUpdate_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         App.Config.ConfigSettings.UserPrefs.AutoUpdate = BtnAutoUpdate.IsChecked ?? true;
+        App.SaveConfiguration();
+    }
+
+    private void BtnOverridePath_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        App.Config.ConfigSettings.UserPrefs.PathBypass = BtnOverridePath.IsChecked ?? true;
         App.SaveConfiguration();
     }
 

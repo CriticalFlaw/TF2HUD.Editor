@@ -221,8 +221,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             SelectedHud ??= HighlightedHud;
 
             // Force the user to set a directory before installing.
-            if (!Utilities.CheckUserPath(MainWindow.HudPath))
-                await Utilities.SetupDirectoryAsync(TopLevel, true);
+            if (!Utilities.CheckUserPath()) await Utilities.SetupDirectoryAsync(TopLevel, true);
 
             // Stop the process if Team Fortress 2 is still running.
             if (Utilities.CheckIsGameRunning())

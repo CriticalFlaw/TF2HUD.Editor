@@ -62,10 +62,12 @@ internal partial class EditHUDViewModel : ViewModelBase
 
         if (Utilities.CheckHudInstallation(hud))
             _status = string.Format(Assets.Resources.status_installed, hud.Name);
-        else if (Directory.Exists(MainWindow.HudPath))
-            _status = string.Format(Assets.Resources.status_installed_not, hud.Name);
         else
-            _status = Assets.Resources.status_pathNotSet;
+            _status = string.Format(Assets.Resources.status_installed_not, hud.Name);
+
+        if ((App.Config.ConfigSettings.UserPrefs.PathBypass && !Utilities.CheckUserPath()) ||
+            (!App.Config.ConfigSettings.UserPrefs.PathBypass & !MainWindow.HudPath.EndsWith("tf/custom")))
+            _status = Assets.Resources.status_path_notsets;
 
         _selectedPreset = _hud.Settings.Preset;
         Presets = new ObservableCollection<PresetViewModel>(Enum.GetValues<Preset>().Select((p) => new PresetViewModel(this, p)));

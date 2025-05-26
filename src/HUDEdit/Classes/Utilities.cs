@@ -20,6 +20,7 @@ using Avalonia.Platform.Storage;
 using HUDEdit.Assets;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
+using HUDEdit.ViewModels;
 
 namespace HUDEdit.Classes;
 
@@ -245,9 +246,9 @@ public static class Utilities
     /// Checks if the target directory is valid.
     /// </summary>
     /// <returns>True if the set target directory is valid.</returns>
-    public static bool CheckUserPath(string hudPath)
+    public static bool CheckUserPath()
     {
-        return !string.IsNullOrWhiteSpace(hudPath) && hudPath.EndsWith("tf/custom");
+        return !string.IsNullOrWhiteSpace(MainWindow.HudPath) && (App.Config.ConfigSettings.UserPrefs.PathBypass || MainWindow.HudPath.EndsWith("tf/custom"));
     }
 
     /// <summary>
@@ -537,6 +538,7 @@ public static class Utilities
             return null;
         }
     }
+
     public static Avalonia.Media.Imaging.Bitmap LoadFromResource(Uri resourceUri)
     {
         return new Avalonia.Media.Imaging.Bitmap(AssetLoader.Open(resourceUri));
@@ -544,6 +546,7 @@ public static class Utilities
 
     public static void RestartApplication()
     {
+        // TODO: Update for Linux
         try
         {
             // Get the current application's executable path
@@ -603,35 +606,35 @@ public static class Utilities
     {
         return hud != null &&
             MainWindow.HudPath != null &&
+            CheckUserPath() &&
             Directory.Exists(MainWindow.HudPath) &&
-            CheckUserPath(MainWindow.HudPath) &&
             Directory.Exists($"{MainWindow.HudPath}/{hud.Name}");
     }
 
     /// <summary>
-    /// Setups the target directory (tf/custom).
+    /// Sets up the target HUD installation directory.
     /// </summary>
-    /// <param name="userSet">If true, prompts the user to select the tf/custom using the folder browser.</param>
-    public static async Task SetupDirectoryAsync(Avalonia.Controls.Window mainWindow, bool userSet = false)
+    /// <param name="userSet">If true, will prompt the user to provide the target directory.</param>
+    public static async Task<bool> SetupDirectoryAsync(Avalonia.Controls.Window mainWindow, bool userSet = false)
     {
-        if ((SearchRegistry() || CheckUserPath(MainWindow.HudPath)) && !userSet) return;
+        if ((SearchRegistry() || CheckUserPath()) && !userSet) return true;
 
         App.Logger.Info("Target directory not set. Asking user to provide it.");
         var folders = await mainWindow.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
         {
-            Title = Assets.Resources.info_path_browser,
+            Title = Resources.info_path_browser,
             AllowMultiple = false
         });
 
         if (folders.Count > 0)
         {
-            var userPath = folders[0].TryGetLocalPath();
-            if (userPath.EndsWith("tf/custom"))
+            var userPath = folders[0].TryGetLocalPath().Replace("\\", "/");
+            if (App.Config.ConfigSettings.UserPrefs.PathBypass || userPath.EndsWith("tf/custom"))
             {
                 App.Config.ConfigSettings.UserPrefs.HUDDirectory = userPath;
                 App.SaveConfiguration();
                 MainWindow.HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
-                App.Logger.Info("Target directory set to: " + App.Config.ConfigSettings.UserPrefs.HUDDirectory);
+                App.Logger.Info($"Target directory set to: {MainWindow.HudPath}");
             }
             else
             {
@@ -640,10 +643,7 @@ public static class Utilities
         }
 
         // Check one more time if a valid directory has been set.
-        if (CheckUserPath(MainWindow.HudPath)) return;
-        App.Logger.Info("Target directory still not set. Closing.");
-        await ShowMessageBox(Resources.error_app_directory, MsBox.Avalonia.Enums.Icon.Warning);
-        Environment.Exit(0);
+        return CheckUserPath();
     }
 
     /// <summary>
