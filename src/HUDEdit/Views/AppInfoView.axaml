@@ -15,23 +15,17 @@
 			<Run Text="your favorite Team Fortress 2 HUDs!" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.0 RC2" Margin="0,15,0,0" FontSize="30" />
+		<Label Classes="HeaderText" Content="Version 4.0 RC3" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
 			<Run Foreground="Red" Text="This is an in-development build. Please report any issues on the GitHub tracker." />
 			<LineBreak />
-			<Run Text="> Fixed file pathing not working on Linux." />
+			<Run Text="> Added a toggle to bypass the tf/custom folder requirement." />
 			<LineBreak />
-			<Run Text="> Fixed a crash when trying to open files or links on Linux." />
+			<Run Text="> Added functionality to download and install CastingEssentialsNext." />
 			<LineBreak />
-			<Run Text="> Fixed logs not being saved properly on Linux." />
+			<Run Text="> Fixed chapterbackground.txt being missing." />
 			<LineBreak />
-			<Run Text="> Improved app version checking." />
-			<LineBreak />
-			<Run Text="> Implemented Avalonia's Message Boxes." />
-			<LineBreak />
-			<Run Text="> Removed Extended.Wpf.Toolkit." />
-			<LineBreak />
-			<LineBreak />
+			<Run Text="> Fixed crosshair index being applied instead of the actual character." />
 		</TextBlock>
 	</StackPanel>
 </UserControl>
