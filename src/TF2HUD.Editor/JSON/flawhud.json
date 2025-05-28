@@ -1807,24 +1807,6 @@
                 "true": "10",
                 "false": "5"
               }
-            },
-            "QuickplayLabel": {
-              "xpos": {
-                "true": "0",
-                "false": "5"
-              },
-              "ypos": {
-                "true": "10",
-                "false": "0"
-              },
-              "pin_to_sibling": {
-                "true": "MvMEntry",
-                "false": "ServerBrowserLabel"
-              },
-              "pin_to_sibling_corner": {
-                "true": "PIN_BOTTOMRIGHT",
-                "false": "PIN_TOPLEFT"
-              }
             }
           }
         }
