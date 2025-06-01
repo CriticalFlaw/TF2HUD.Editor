@@ -41,15 +41,12 @@
 					<!-- Items -->
 					<ItemsControl.ItemTemplate>
 						<DataTemplate>
-							<!--<Button
-                                Content="{Binding Preset}"
-                                Classes="{Binding Selected, Converter={StaticResource PresetSelectedStyleConverter}}"
-                                FontSize="25"
-                                Width="35"
-                                Height="35"
-                                Margin="1,0"
-                                Command="{Binding DataContext.ChangePresetCommand, RelativeSource={RelativeSource AncestorType={EditHUD}}}"
-                                CommandParameter="{Binding Preset}" />-->
+							<Button Content="{Binding Preset}" Command="{Binding ChangePresetCommand, RelativeSource={RelativeSource AncestorType=vm:EditHUDViewModel}}" CommandParameter="{Binding Preset}"
+								FontSize="25"
+								Width="35"
+								Height="35"
+								Margin="1,0" />
+							<!--Classes="{Binding Selected, Converter={StaticResource PresetSelectedStyleConverter}}"-->
 						</DataTemplate>
 					</ItemsControl.ItemTemplate>
 				</ItemsControl>
