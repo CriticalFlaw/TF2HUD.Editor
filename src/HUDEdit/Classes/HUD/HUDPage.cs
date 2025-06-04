@@ -10,6 +10,7 @@ using HorizontalAlignment = Avalonia.Layout.HorizontalAlignment;
 using GridLength = Avalonia.Controls.GridLength;
 using Avalonia.Media.Imaging;
 using Avalonia.Platform.Storage;
+using DialogHostAvalonia;
 
 namespace HUDEdit.Classes;
 
@@ -32,16 +33,6 @@ public partial class HUD
         if (Layout is not null) contentRow.Height = GridLength.Auto;
         container.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
         container.RowDefinitions.Add(contentRow);
-
-        // TODO: Create the preview modal
-        /*
-        var preview = new Avalonia.Controls.ChildWindow();
-        preview.MouseDoubleClick += (_, _) => { preview.Close(); };
-        var image = new Image();
-        image.Classes.Add("PreviewImage");
-        preview.Content = image;
-        container.Children.Add(preview);
-        */
 
         // NOTE: ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic for each section.
         dynamic sectionsContainer;
@@ -106,7 +97,7 @@ public partial class HUD
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
                         {
-                            sectionContent.Children.Add(CreatePreviewButton());
+                            sectionContent.Children.Add(CreatePreviewButton(controlItem.Preview));
                             App.Logger.Info($"Added a preview for {checkBoxInput.Name} ({controlItem.Preview})");
                         }
                         break;
@@ -126,7 +117,7 @@ public partial class HUD
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
                         {
-                            sectionContent.Children.Add(CreatePreviewButton());
+                            sectionContent.Children.Add(CreatePreviewButton(controlItem.Preview));
                             App.Logger.Info($"Added a preview for {colorInput.Name} ({controlItem.Preview})");
                         }
                         break;
@@ -149,7 +140,7 @@ public partial class HUD
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
                         {
-                            sectionContent.Children.Add(CreatePreviewButton());
+                            sectionContent.Children.Add(CreatePreviewButton(controlItem.Preview));
                             App.Logger.Info($"Added a preview for {comboBoxInput.Name} ({controlItem.Preview})");
                         }
                         break;
@@ -168,7 +159,7 @@ public partial class HUD
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
                         {
-                            sectionContent.Children.Add(CreatePreviewButton());
+                            sectionContent.Children.Add(CreatePreviewButton(controlItem.Preview));
                             App.Logger.Info($"Added a preview for {integerInput.Name} ({controlItem.Preview})");
                         }
                         break;
@@ -186,7 +177,7 @@ public partial class HUD
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
                         {
-                            sectionContent.Children.Add(CreatePreviewButton());
+                            sectionContent.Children.Add(CreatePreviewButton(controlItem.Preview));
                             App.Logger.Info($"Added a preview for {xhairInput.Name} ({controlItem.Preview})");
                         }
                         break;
@@ -284,7 +275,13 @@ public partial class HUD
         Grid.SetRow(scrollView, 1);
         container.Children.Add(scrollView);
         Controls.Children.Add(container);
-
+        //var dialogHost = new DialogHost
+        //{
+        //    Identifier = "MyHost",
+        //    Content = container,
+        //    IsOpen = true
+        //};
+        //Controls.Children.Add(dialogHost);
         IsRendered = true;
         return Controls;
     }
@@ -559,7 +556,7 @@ public partial class HUD
 
         //----
 
-        var control = new Avalonia.Controls.ColorPicker
+        var control = new ColorPicker
         {
             Name = Utilities.EncodeId(controlItem.Name),
             //ToolTip = tooltip
@@ -567,7 +564,7 @@ public partial class HUD
         //control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
         control.ColorChanged += (sender, _) =>
         {
-            var input = sender as Avalonia.Controls.ColorPicker;
+            var input = sender as ColorPicker;
             Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.Color.ToString()));
         };
 
@@ -641,18 +638,25 @@ public partial class HUD
         return control;
     }
 
-    private Button CreatePreviewButton()
+    private Button CreatePreviewButton(string url)
     {
+        // Create the preview modal
+        var image = new Image();
+        image.Classes.Add("PreviewImage");
+        image.Source = Utilities.LoadImage(url);
+
+        var border = new Border
+        {
+            Background = Brushes.Black,
+            Padding = new Thickness(2),
+            Child = image
+        };
+
         var control = new Button();
-        //control.Margin = new Thickness(0, lastTop, 0, 0);
+        //control.Margin = new Thickness(0, lastTop, 2, 0);
         control.VerticalAlignment = VerticalAlignment.Bottom;
         control.Classes.Add("PreviewButton");
-        control.Click += (_, _) =>
-        {
-            //preview.Caption = !string.IsNullOrWhiteSpace(tooltip) ? tooltip : id;
-            //image.Source = new Bitmap(new Uri(controlItem.Preview).ToString());
-            //preview.Show();
-        };
+        control.Click += (_, _) => DialogHost.Show(border, "PreviewModal");
         return control;
     }
 

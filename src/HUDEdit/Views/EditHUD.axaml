@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
 			 xmlns:vm="using:HUDEdit.ViewModels"
 			 xmlns:loc="clr-namespace:HUDEdit.Assets"
 			 xmlns:classes="clr-namespace:HUDEdit.Classes"
@@ -15,63 +16,69 @@
 		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
 		<classes:PresetSelectedStyleConverter x:Key="PresetSelectedStyleConverter" />
 	</UserControl.Resources>
+	
+	<dialogHost:DialogHost Identifier="PreviewModal" CloseOnClickAway="True">
+		<dialogHost:DialogHost.DialogContent>
+			<Image Source="/Assets/Images/mastercomfig.png"/>
+		</dialogHost:DialogHost.DialogContent>
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+			<Grid Grid.Row="0" Margin="15,5,15,0">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
 
-	<Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto" />
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<Grid Grid.Row="0" Margin="15,5,15,0">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*" />
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
+				<Label Content="{Binding Status}" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" />
+				<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
+					<ItemsControl ItemsSource="{Binding Presets}">
+						<!-- Container -->
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<WrapPanel VerticalAlignment="Center" />
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
 
-			<Label Content="{Binding Status}" VerticalAlignment="Center" VerticalContentAlignment="Center" Grid.Column="0" />
-			<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
-				<ItemsControl ItemsSource="{Binding Presets}">
-					<!-- Container -->
-					<ItemsControl.ItemsPanel>
-						<ItemsPanelTemplate>
-							<WrapPanel VerticalAlignment="Center" />
-						</ItemsPanelTemplate>
-					</ItemsControl.ItemsPanel>
+						<!-- Items -->
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Button Content="{Binding Preset}" Command="{Binding ChangePresetCommand, RelativeSource={RelativeSource AncestorType=vm:EditHUDViewModel}}" CommandParameter="{Binding Preset}"
+									FontSize="25"
+									Width="35"
+									Height="35"
+									Margin="1,0"
+										IsEnabled="{Binding Selected, Converter={StaticResource PresetSelectedStyleConverter}}"/>
+								<!--Classes="{Binding Selected, Converter={StaticResource PresetSelectedStyleConverter}}"-->
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</Grid>
 
-					<!-- Items -->
-					<ItemsControl.ItemTemplate>
-						<DataTemplate>
-							<Button Content="{Binding Preset}" Command="{Binding ChangePresetCommand, RelativeSource={RelativeSource AncestorType=vm:EditHUDViewModel}}" CommandParameter="{Binding Preset}"
-								FontSize="25"
-								Width="35"
-								Height="35"
-								Margin="1,0" />
-							<!--Classes="{Binding Selected, Converter={StaticResource PresetSelectedStyleConverter}}"-->
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
+				<WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2">
+					<WrapPanel VerticalAlignment="Center">
+						<Label Content="{x:Static loc:Resources.ui_download}" IsVisible="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}" />
+						<ComboBox Name="CbBranch" Margin="5,0" Padding="5" Height="35" Width="160" ItemsSource="{Binding Downloads}" SelectedItem="{Binding SelectedDownloadSource}" IsVisible="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}" />
+						<!--Note: Add DisplayMemberPath="Content"-->
+					</WrapPanel>
+
+					<WrapPanel Margin="0">
+						<Button Classes="LinkButton GitHubButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding GitHubUrl}" IsVisible="{Binding GitHubUrl, Converter={StaticResource LinkCheckConverterVisibility}}" />
+						<Button Classes="LinkButton TF2HudsButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding TF2HudsUrl}" IsVisible="{Binding TF2HudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
+							<Image Source="/Assets/Images/tf2huds.png" Margin="5"/>
+						</Button>
+						<Button Classes="LinkButton ComfigHudsButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding ComfigHudsUrl}" IsVisible="{Binding ComfigHudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
+							<Image Source="/Assets/Images/mastercomfig.png" Margin="5"/>
+						</Button>
+						<Button Classes="LinkButton DiscordButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding DiscordUrl}" IsVisible="{Binding DiscordUrl, Converter={StaticResource LinkCheckConverterVisibility}}"/>
+						<Button Classes="LinkButton SteamButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding SteamUrl}" IsVisible="{Binding SteamUrl, Converter={StaticResource LinkCheckConverterVisibility}}"/>
+					</WrapPanel>
+				</WrapPanel>
 			</Grid>
-
-			<WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2">
-				<WrapPanel VerticalAlignment="Center">
-					<Label Content="{x:Static loc:Resources.ui_download}" IsVisible="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}" />
-					<ComboBox Name="CbBranch" Margin="5,0" Padding="5" Height="35" Width="160" ItemsSource="{Binding Downloads}" SelectedItem="{Binding SelectedDownloadSource}" IsVisible="{Binding Downloads, Converter={StaticResource ComboBoxItemsConverterVisibility}}" />
-					<!--Note: Add DisplayMemberPath="Content"-->
-				</WrapPanel>
-
-				<WrapPanel Margin="0">
-					<Button Classes="LinkButton GitHubButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding GitHubUrl}" IsVisible="{Binding GitHubUrl, Converter={StaticResource LinkCheckConverterVisibility}}" />
-					<Button Classes="LinkButton TF2HudsButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding TF2HudsUrl}" IsVisible="{Binding TF2HudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
-						<Image Source="/Assets/Images/tf2huds.png" Margin="5"/>
-					</Button>
-					<Button Classes="LinkButton ComfigHudsButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding ComfigHudsUrl}" IsVisible="{Binding ComfigHudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
-						<Image Source="/Assets/Images/mastercomfig.png" Margin="5"/>
-					</Button>
-					<Button Classes="LinkButton DiscordButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding DiscordUrl}" IsVisible="{Binding DiscordUrl, Converter={StaticResource LinkCheckConverterVisibility}}"/>
-					<Button Classes="LinkButton SteamButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding SteamUrl}" IsVisible="{Binding SteamUrl, Converter={StaticResource LinkCheckConverterVisibility}}"/>
-				</WrapPanel>
-			</WrapPanel>
+			<ContentControl Content="{Binding Content}" Grid.Row="1" />
 		</Grid>
-		<ContentControl Content="{Binding Content}" Grid.Row="1" />
-	</Grid>
+	</dialogHost:DialogHost>
 </UserControl>
