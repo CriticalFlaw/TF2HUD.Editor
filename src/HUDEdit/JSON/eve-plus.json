@@ -15,15 +15,10 @@
     "0 4 5 6"
   ],
   "Links": {
+    "Download": "https://github.com/RoseyLemonz/eve-plus/releases/latest/download/eve-plus-main.zip",
     "GitHub": "https://github.com/RoseyLemonz/eve-plus",
     "ComfigHuds": "https://comfig.app/huds/page/eve-plus/",
-    "Discord": "https://discord.gg/p5JV3k5CfE",
-    "Download": [
-      {
-        "Source": "GitHub",
-        "Link": "https://github.com/RoseyLemonz/eve-plus/releases/latest/download/eve-plus-main.zip"
-      }
-    ]
+    "Discord": "https://discord.gg/p5JV3k5CfE"
   },
   "CustomizationsFolder": "#customization//_disabled",
   "EnabledFolder": "#customization",

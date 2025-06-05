@@ -16,15 +16,10 @@
     "1 1 1 1 1 1"
   ],
   "Links": {
+    "Download": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip",
     "GitHub": "https://github.com/Zeesastrous/ZeesHUD",
     "TF2Huds": "https://tf2huds.dev/hud/ZeesHUD",
-    "ComfigHuds": "https://comfig.app/huds/page/zeeshud/",
-    "Download": [
-      {
-        "Source": "GitHub",
-        "Link": "https://github.com/Zeesastrous/ZeesHUD/archive/refs/heads/main.zip"
-      }
-    ]
+    "ComfigHuds": "https://comfig.app/huds/page/zeeshud/"
   },
   "CustomizationsFolder": "#customizations//addons",
   "EnabledFolder": "#customizations//addons//_enabled",

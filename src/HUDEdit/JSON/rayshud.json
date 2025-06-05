@@ -16,17 +16,12 @@
     "4 4 4 4 5 5"
   ],
   "Links": {
+    "Download": "https://github.com/raysfire/rayshud/archive/master.zip",
     "GitHub": "https://github.com/raysfire/rayshud",
     "TF2Huds": "https://tf2huds.dev/hud/rayshud",
     "ComfigHuds": "https://comfig.app/huds/page/rayshud/",
     "Steam": "https://steamcommunity.com/groups/rayshud",
-    "Discord": "https://discord.gg/hTdtK9vBhE",
-    "Download": [
-      {
-        "Source": "GitHub",
-        "Link": "https://github.com/raysfire/rayshud/archive/master.zip"
-      }
-    ]
+    "Discord": "https://discord.gg/hTdtK9vBhE"
   },
   "Controls": {
     "UberCharge": [

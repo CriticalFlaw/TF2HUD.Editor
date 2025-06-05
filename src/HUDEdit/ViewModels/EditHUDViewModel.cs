@@ -37,17 +37,7 @@ internal partial class EditHUDViewModel : ViewModelBase
             OnPropertyChanged(nameof(SelectedPreset));
         }
     }
-    public IEnumerable<Download> Downloads { get; }
-    private Download _selectedDownloadSource;
-    public Download SelectedDownloadSource
-    {
-        get => _selectedDownloadSource;
-        set
-        {
-            _selectedDownloadSource = value;
-            OnPropertyChanged(nameof(SelectedDownloadSource));
-        }
-    }
+    public string DownloadLink => _hud.DownloadUrl;
     public string GitHubUrl => _hud.GitHubUrl;
     public string TF2HudsUrl => _hud.TF2HudsUrl;
     public string ComfigHudsUrl => _hud.ComfigHudsUrl;
@@ -71,8 +61,6 @@ internal partial class EditHUDViewModel : ViewModelBase
 
         _selectedPreset = _hud.Settings.Preset;
         Presets = new ObservableCollection<PresetViewModel>(Enum.GetValues<Preset>().Select((p) => new PresetViewModel(this, p)));
-        Downloads = new ObservableCollection<Download>(_hud.Download);
-        _selectedDownloadSource = _hud.Download.First();
         _mainWindowViewModel.WindowTitle = $"{Assets.Resources.ui_title} | {hud.Name}";
     }
 

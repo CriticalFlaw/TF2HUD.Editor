@@ -159,7 +159,7 @@ internal partial class MainWindowViewModel : ViewModelBase
                     Layout = sharedProperties.Layout,
                     Links = new Links
                     {
-                        Download = [new Download() { Source = "GitHub", Link = $"file://{sharedHud}/{hudName}.zip" }]
+                        Download = $"file://{sharedHud}/{hudName}.zip"
                     },
                     Controls = sharedProperties.Controls
                 }, false));
@@ -241,7 +241,6 @@ internal partial class MainWindowViewModel : ViewModelBase
             }
 
             // Check for unsupported HUDs in the tf/custom folder. Notify user if found.
-            var download = ((EditHUDViewModel)CurrentPageViewModel).SelectedDownloadSource;
             foreach (var foundHud in Directory.GetDirectories(MainWindow.HudPath))
             {
                 if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}/info.vdf")) continue;
@@ -254,7 +253,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             }
 
             // Download and install the selected HUD
-            await Utilities.DownloadHud(download.Link, MainWindow.HudPath, SelectedHud.Name);
+            await Utilities.DownloadHud(SelectedHud.DownloadUrl, MainWindow.HudPath, SelectedHud.Name);
 
             // Install Crosshairs
             if (SelectedHud.InstallCrosshairs)
@@ -521,7 +520,7 @@ internal partial class MainWindowViewModel : ViewModelBase
                 {
                     var zipPath = $"{hudDetailsFolder}/{hudName}.zip";
                     ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
-                    return new[] { new Download() { Source = "GitHub", Link = $"file://{zipPath}" } };
+                    return $"file://{zipPath}";
                 }).Result
             }
         };

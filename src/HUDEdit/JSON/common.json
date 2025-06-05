@@ -6,15 +6,10 @@
     "InstallCrosshairs": true,
     "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/7hud/7hud-banner.webp",
     "Links": {
+      "Download": "https://github.com/Sevin7/7HUD/archive/refs/heads/master.zip",
       "GitHub": "https://github.com/Sevin7/7HUD",
       "TF2Huds": "https://tf2huds.dev/hud/7HUD",
-      "Steam": "https://steamcommunity.com/groups/7HUD",
-      "Download": [
-        {
-          "Source": "GitHub",
-          "Link": "https://github.com/Sevin7/7HUD/archive/refs/heads/master.zip"
-        }
-      ]
+      "Steam": "https://steamcommunity.com/groups/7HUD"
     },
     "Screenshots": [
       "https://i.imgur.com/WJlr2wB.jpeg",
@@ -30,14 +25,9 @@
     "InstallCrosshairs": true,
     "Thumbnail": "https://i.imgur.com/emiISEi.png",
     "Links": {
+      "Download": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip",
       "GitHub": "https://github.com/n0kk/ahud",
-      "TF2Huds": "https://tf2huds.dev/hud/ahud",
-      "Download": [
-        {
-          "Source": "GitHub",
-          "Link": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip"
-        }
-      ]
+      "TF2Huds": "https://tf2huds.dev/hud/ahud"
     },
     "Screenshots": [
       "https://i.imgur.com/Kx70I3P.jpeg",
@@ -52,14 +42,9 @@
     "Author": "Broesel, Hypnotize",
     "Thumbnail": "https://static.tf2huds.dev/Broesel-Hud/img/zaguUvP.png",
     "Links": {
+      "Download": "https://github.com/TF2HUDsArchive/Broesel-Hud/archive/refs/heads/master.zip",
       "GitHub": "https://github.com/TF2HUDsArchive/Broesel-Hud",
-      "TF2Huds": "https://tf2huds.dev/hud/Broesel-Hud",
-      "Download": [
-        {
-          "Source": "GitHub",
-          "Link": "https://github.com/TF2HUDsArchive/Broesel-Hud/archive/refs/heads/master.zip"
-        }
-      ]
+      "TF2Huds": "https://tf2huds.dev/hud/Broesel-Hud"
     },
     "Screenshots": [
       "https://static.tf2huds.dev/Broesel-Hud/img/BKNQ0er.jpg",
@@ -74,14 +59,9 @@
     "Author": "flatline",
     "Thumbnail": "https://static.tf2huds.dev/cliphud/img/01_Main_Menu.jpg",
     "Links": {
+      "Download": "https://github.com/TF2HUDsArchive/Clip-Hud/archive/refs/heads/master.zip",
       "GitHub": "https://github.com/TF2HUDsArchive/Clip-Hud",
-      "TF2Huds": "https://tf2huds.dev/hud/cliphud",
-      "Download": [
-        {
-          "Source": "GitHub",
-          "Link": "https://github.com/TF2HUDsArchive/Clip-Hud/archive/refs/heads/master.zip"
-        }
-      ]
+      "TF2Huds": "https://tf2huds.dev/hud/cliphud"
     },
     "Screenshots": [
       "https://static.tf2huds.dev/cliphud/img/01_Main_Menu.jpg",
@@ -95,14 +75,9 @@
     "Author": "omnibombulator",
     "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/colly-hud/colly-hud-banner.webp",
     "Links": {
+      "Download": "https://github.com/omnibombulator/collyhud/archive/refs/heads/master.zip",
       "GitHub": "https://github.com/omnibombulator/collyhud",
-      "TF2Huds": "https://tf2huds.dev/hud/collyhud",
-      "Download": [
-        {
-          "Source": "GitHub",
-          "Link": "https://github.com/omnibombulator/collyhud/archive/refs/heads/master.zip"
-        }
-      ]
+      "TF2Huds": "https://tf2huds.dev/hud/collyhud"
     },
     "Screenshots": [
       "https://i.ibb.co/YXWyWDy/main-menu.jpg",
@@ -117,15 +92,10 @@
     "Author": "flatline",
     "Thumbnail": "https://static.tf2huds.dev/flathud/img/yRKoF7l.png",
     "Links": {
+      "Download": "https://github.com/flatlinee/flathud/archive/refs/heads/master.zip",
       "GitHub": "https://github.com/flatlinee/flathud",
       "TF2Huds": "https://tf2huds.dev/hud/flathud",
-      "Steam": "https://steamcommunity.com/groups/flathud",
-      "Download": [
-        {
-          "Source": "GitHub",
-          "Link": "https://github.com/flatlinee/flathud/archive/refs/heads/master.zip"
-        }
-      ]
+      "Steam": "https://steamcommunity.com/groups/flathud"
     },
     "Screenshots": [
       "https://static.tf2huds.dev/flathud/img/yRKoF7l.png",
@@ -140,15 +110,10 @@
     "Author": "flatline",
     "Thumbnail": "https://static.tf2huds.dev/omphud-redux/img/2tG4Q3L.jpg",
     "Links": {
+      "Download": "https://github.com/flatlinee/omphudedit/archive/refs/heads/master.zip",
       "GitHub": "https://github.com/flatlinee/omphudedit",
       "Steam": "https://steamcommunity.com/groups/omphudredux",
-      "TF2Huds": "https://tf2huds.dev/hud/omphud-redux",
-      "Download": [
-        {
-          "Source": "GitHub",
-          "Link": "https://github.com/flatlinee/omphudedit/archive/refs/heads/master.zip"
-        }
-      ]
+      "TF2Huds": "https://tf2huds.dev/hud/omphud-redux"
     },
     "Screenshots": [
       "https://static.tf2huds.dev/omphud-redux/img/2tG4Q3L.jpg",
@@ -163,14 +128,9 @@
     "Author": "PeachesTV",
     "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/peachhud/PeachHUD-banner.webp",
     "Links": {
+      "Download": "https://github.com/PapaPeach/PeachHUD/archive/refs/heads/master.zip",
       "GitHub": "https://github.com/PapaPeach/PeachHUD",
-      "TF2Huds": "https://tf2huds.dev/hud/PeachHUD",
-      "Download": [
-        {
-          "Source": "GitHub",
-          "Link": "https://github.com/PapaPeach/PeachHUD/archive/refs/heads/master.zip"
-        }
-      ]
+      "TF2Huds": "https://tf2huds.dev/hud/PeachHUD"
     },
     "Screenshots": [
       "https://i.imgur.com/4c3nhSV.jpeg",

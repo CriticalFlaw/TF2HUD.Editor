@@ -15,17 +15,12 @@
     "1 1 3 4"
   ],
   "Links": {
+    "Download": "https://github.com/CriticalFlaw/flawhud/archive/refs/heads/master.zip",
     "GitHub": "https://github.com/CriticalFlaw/flawhud",
     "TF2Huds": "https://tf2huds.dev/hud/FlawHUD",
     "ComfigHuds": "https://comfig.app/huds/page/flawhud/",
     "Steam": "https://steamcommunity.com/groups/FlawHUD",
-    "Discord": "https://discord.gg/hTdtK9vBhE",
-    "Download": [
-      {
-        "Source": "GitHub",
-        "Link": "https://github.com/CriticalFlaw/flawhud/archive/refs/heads/master.zip"
-      }
-    ]
+    "Discord": "https://discord.gg/hTdtK9vBhE"
   },
   "CustomizationsFolder": "resource//ui//#customizations",
   "EnabledFolder": "resource//ui//#customizations//_enabled",

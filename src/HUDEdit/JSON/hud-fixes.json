@@ -15,15 +15,10 @@
     "4 4 4 4"
   ],
   "Links": {
+    "Download": "https://github.com/CriticalFlaw/TF2HUD-Fixes/archive/refs/heads/main.zip",
     "GitHub": "https://github.com/CriticalFlaw/TF2HUD-Fixes",
     "ComfigHuds": "https://comfig.app/huds/page/hud-fixes/",
-    "Discord": "https://discord.gg/hTdtK9vBhE",
-    "Download": [
-      {
-        "Source": "GitHub",
-        "Link": "https://github.com/CriticalFlaw/TF2HUD-Fixes/archive/refs/heads/main.zip"
-      }
-    ]
+    "Discord": "https://discord.gg/hTdtK9vBhE"
   },
   "Controls": {
     "Crosshair": [

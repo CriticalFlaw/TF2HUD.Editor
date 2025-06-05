@@ -26,7 +26,7 @@ public partial class HUD
     public string Author { get; set; }
     public string CustomizationsFolder { get; set; }
     public string EnabledFolder { get; set; }
-    public Download[] Download;
+    public string DownloadUrl { get; set; }
     public string GitHubUrl { get; set; }
     public string TF2HudsUrl { get; set; }
     public string ComfigHudsUrl { get; set; }
@@ -59,7 +59,7 @@ public partial class HUD
         Author = schema.Author;
         CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
         EnabledFolder = schema.EnabledFolder ?? string.Empty;
-        Download = schema.Links.Download;
+        DownloadUrl = schema.Links.Download;
         GitHubUrl = schema.Links.GitHub ?? string.Empty;
         TF2HudsUrl = schema.Links.TF2Huds ?? string.Empty;
         ComfigHudsUrl = schema.Links.ComfigHuds ?? string.Empty;
