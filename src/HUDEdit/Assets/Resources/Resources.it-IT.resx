@@ -208,7 +208,7 @@
     <value>Cambia la cartella tf/custom.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Controlla presenza di aggiornamenti dello schema.</value>
+    <value />
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>Comunica un problema.</value>

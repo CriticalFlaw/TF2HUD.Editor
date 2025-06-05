@@ -211,7 +211,7 @@
     <value>Change the tf/custom directory.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Check for schema updates.</value>
+    <value>Refresh the page.</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>Report an issue.</value>

@@ -199,7 +199,7 @@
     <value>Changer le répertoire "tf/custom".</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Vérifier les mises à jour du schéma du HUD</value>
+    <value />
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>Signaler un problème</value>

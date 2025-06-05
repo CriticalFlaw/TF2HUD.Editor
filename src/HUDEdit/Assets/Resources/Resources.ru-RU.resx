@@ -211,7 +211,7 @@
     <value>Проверка обновлений схемы интерфейса.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Обновить схему.</value>
+    <value />
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>Сообщить об ошибке.</value>

@@ -208,7 +208,7 @@
     <value>Alterar diretório de tf/custom.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Verificar novas atualizações para o esquema de HUDs.</value>
+    <value />
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>Relatar um problema.</value>

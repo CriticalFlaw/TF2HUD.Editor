@@ -420,6 +420,13 @@ internal partial class MainWindowViewModel : ViewModelBase
         }
     }
 
+    [RelayCommand]
+    public async void RefreshPage()
+    {
+        // TODO: Implement a refresh mechanism for the current page.
+        Utilities.ShowMessageBox("Nothing Yet", MsBox.Avalonia.Enums.Icon.Setting);
+    }
+
     #endregion CLICK_EVENTS
 
     /// <summary>

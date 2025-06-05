@@ -211,7 +211,7 @@
     <value>Cambiar el directorio tf/custom.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>Buscar nuevas actualizaciones para el HUD.</value>
+    <value />
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>Reportar un Problema.</value>

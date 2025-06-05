@@ -297,9 +297,9 @@ namespace HUDEdit.Assets {
         /// <summary>
         ///   Looks up a localized string similar to tf/custom directory is not set!.
         /// </summary>
-        public static string status_path_notsets {
+        public static string status_path_notset {
             get {
-                return ResourceManager.GetString("status_path_notsets", resourceCulture);
+                return ResourceManager.GetString("status_path_notset", resourceCulture);
             }
         }
         

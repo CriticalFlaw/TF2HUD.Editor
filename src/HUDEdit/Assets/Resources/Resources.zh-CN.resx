@@ -208,7 +208,7 @@
     <value>更改 tf/custom 路径。</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value>检查模式更新。</value>
+    <value />
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>汇报问题。</value>
