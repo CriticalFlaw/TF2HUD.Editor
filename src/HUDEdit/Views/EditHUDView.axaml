@@ -8,13 +8,13 @@
 			 xmlns:classes="clr-namespace:HUDEdit.Classes"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HUDEdit.Views.EditHUDView"
+             x:Name="Root"
 			 x:DataType="vm:EditHUDViewModel">
 
 	<UserControl.Resources>
 		<classes:ComboBoxItemsConverterVisibility x:Key="ComboBoxItemsConverterVisibility" />
 		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
 		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
-		<classes:PresetSelectedStyleConverter x:Key="PresetSelectedStyleConverter" />
 	</UserControl.Resources>
 	
 	<dialogHost:DialogHost Identifier="PreviewModal" CloseOnClickAway="True">
@@ -46,13 +46,7 @@
 						<!-- Items -->
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Button Content="{Binding Preset}" Command="{Binding ChangePresetCommand, RelativeSource={RelativeSource AncestorType=vm:EditHUDViewModel}}" CommandParameter="{Binding Preset}"
-									FontSize="25"
-									Width="35"
-									Height="35"
-									Margin="1,0"
-										IsEnabled="{Binding Selected, Converter={StaticResource PresetSelectedStyleConverter}}"/>
-								<!--Classes="{Binding Selected, Converter={StaticResource PresetSelectedStyleConverter}}"-->
+								<Button Content="{Binding Preset}" Classes.PresetButtonSelected="{Binding Selected}" Classes.PresetButton="{Binding !Selected}" Command="{Binding DataContext.ChangePresetCommand, ElementName=Root}" CommandParameter="{Binding Preset}" />
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>

@@ -346,6 +346,35 @@
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
 		</Style>
 
+		<Style Selector="Button.PresetButton">
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
+			<Setter Property="FontSize" Value="25" />
+			<Setter Property="Foreground" Value="#EBE2CA" />
+			<Setter Property="Background" Value="#776B5F" />
+			<Setter Property="Margin" Value="1,0" />
+			<Setter Property="Width" Value="35" />
+			<Setter Property="Height" Value="35" />
+			<Setter Property="Cursor" Value="Hand" />
+
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="#934739"/>
+			</Style>
+		</Style>
+
+		<Style Selector="Button.PresetButtonSelected">
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
+			<Setter Property="FontSize" Value="25" />
+			<Setter Property="Foreground" Value="#EBE2CA" />
+			<Setter Property="Background" Value="#2e2b2a" />
+			<Setter Property="Margin" Value="1,0" />
+			<Setter Property="Width" Value="35" />
+			<Setter Property="Height" Value="35" />
+			
+			<Style Selector="^:pointerover">
+				<Setter Property="Background" Value="#DC6450"/>
+			</Style>
+		</Style>
+		
 		<Style Selector="Image.PreviewImage">
 			<Setter Property="Height" Value="600" />
 			<Setter Property="Width" Value="600" />
