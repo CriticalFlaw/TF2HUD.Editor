@@ -36,10 +36,10 @@
 			<ContentControl Content="{Binding CurrentPageViewModel}">
 				<ContentControl.DataTemplates>
 					<DataTemplate DataType="vm:EditHUDViewModel">
-						<v:EditHUD />
+						<v:EditHUDView />
 					</DataTemplate>
 					<DataTemplate DataType="vm:HomePageViewModel">
-						<v:HomePage />
+						<v:HomePageView />
 					</DataTemplate>
 				</ContentControl.DataTemplates>
 			</ContentControl>

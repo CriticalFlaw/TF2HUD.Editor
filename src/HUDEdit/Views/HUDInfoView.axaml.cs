@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace HUDEdit.Views;
 
-public partial class HUDInfo : UserControl
+public partial class HUDInfoView : UserControl
 {
-    public HUDInfo()
+    public HUDInfoView()
     {
         InitializeComponent();
     }

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:HUDEdit.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="HUDEdit.Views.HUDButton"
+             x:Class="HUDEdit.Views.HUDButtonView"
 			 x:DataType="vm:HUDButtonViewModel">
 
 	<Border Classes="HudListBorder" PointerPressed="Border_PointerPressed">

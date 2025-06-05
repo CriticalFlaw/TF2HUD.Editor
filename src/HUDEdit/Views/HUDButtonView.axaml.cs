@@ -5,9 +5,9 @@ using System;
 
 namespace HUDEdit.Views;
 
-public partial class HUDButton : UserControl
+public partial class HUDButtonView : UserControl
 {
-    public HUDButton()
+    public HUDButtonView()
     {
         InitializeComponent();
     }

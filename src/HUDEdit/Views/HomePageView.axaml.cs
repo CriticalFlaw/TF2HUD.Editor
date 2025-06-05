@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace HUDEdit.Views;
 
-public partial class HomePage : UserControl
+public partial class HomePageView : UserControl
 {
-    public HomePage()
+    public HomePageView()
     {
         InitializeComponent();
     }

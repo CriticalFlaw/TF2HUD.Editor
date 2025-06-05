@@ -6,7 +6,7 @@
 			 xmlns:loc="clr-namespace:HUDEdit.Assets"
 			 xmlns:classes="clr-namespace:HUDEdit.Classes"
              mc:Ignorable="d"
-             x:Class="HUDEdit.Views.HUDInfo"
+             x:Class="HUDEdit.Views.HUDInfoView"
 			 x:DataType="vm:HUDInfoViewModel">
 
 	<Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">

@@ -65,6 +65,18 @@
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	  </Compile>
+	  <Compile Update="Views\EditHUDView.axaml.cs">
+	    <DependentUpon>EditHUDView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\HomePageView.axaml.cs">
+	    <DependentUpon>HomePageView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\HUDButtonView.axaml.cs">
+	    <DependentUpon>HUDButtonView.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\HUDInfoView.axaml.cs">
+	    <DependentUpon>HUDInfoView.axaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\SettingsView.axaml.cs">
 	    <DependentUpon>SettingsView.axaml</DependentUpon>
 	  </Compile>
