@@ -275,13 +275,7 @@ public partial class HUD
         Grid.SetRow(scrollView, 1);
         container.Children.Add(scrollView);
         Controls.Children.Add(container);
-        //var dialogHost = new DialogHost
-        //{
-        //    Identifier = "MyHost",
-        //    Content = container,
-        //    IsOpen = true
-        //};
-        //Controls.Children.Add(dialogHost);
+
         IsRendered = true;
         return Controls;
     }
@@ -295,27 +289,27 @@ public partial class HUD
 
         //----
 
-        var control = new TextBox
+        var textbox = new TextBox
         {
             Name = Utilities.EncodeId(controlItem.Name),
             Width = 150,
             Text = Settings.GetSetting<string>(controlItem.Name) ?? string.Empty,
             //ToolTip = tooltip
         };
-        control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
-        control.LostFocus += (_, _) =>
+        textbox.Width = (controlItem.Width > 0) ? controlItem.Width : textbox.Width;
+        textbox.LostFocus += (_, _) =>
         {
-            Settings.SetSetting(control.Name, control.Text);
+            Settings.SetSetting(textbox.Name, textbox.Text);
             CheckIsDirty(controlItem);
         };
 
         //----
 
-        var container = new StackPanel();
-        container.Margin = new Thickness(10, 5, 0, 5);
-        container.Children.Add(label);
-        container.Children.Add(control);
-        return container;
+        var panel = new StackPanel();
+        panel.Margin = new Thickness(10, 5, 0, 5);
+        panel.Children.Add(label);
+        panel.Children.Add(textbox);
+        return panel;
     }
 
     private Grid CreateBackgroundSetter(Models.Controls controlItem)
@@ -350,17 +344,17 @@ public partial class HUD
 
         //----
 
-        // Create the Control.
-        var control = new Button
+        // Add browse button 
+        var browse = new Button
         {
             Name = Utilities.EncodeId(controlItem.Name),
             Content = Assets.Resources.ui_browse
         };
-        control.Classes.Add("BackgroundBrowseClear");
-        control.Click += async (_, _) =>
+        browse.Classes.Add("BackgroundBrowseClear");
+        browse.Click += async (_, _) =>
         {
             await Utilities.ShowMessageBox(Assets.Resources.info_background_override);
-            var files = await TopLevel.GetTopLevel(control).StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            var files = await TopLevel.GetTopLevel(browse).StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
                 Title = "Select an image file",
                 AllowMultiple = false,
@@ -383,8 +377,8 @@ public partial class HUD
             CheckIsDirty(controlItem);
         };
 
-        Grid.SetColumn(control, 0);
-        Grid.SetRow(control, 1);
+        Grid.SetColumn(browse, 0);
+        Grid.SetRow(browse, 1);
 
         //----
 
@@ -405,18 +399,18 @@ public partial class HUD
 
         //----
 
-        var container = new Grid();
-        container.Margin = new Thickness(10, lastTop, 0, 0);
-        container.ColumnDefinitions.Add(new ColumnDefinition());
-        container.ColumnDefinitions.Add(new ColumnDefinition());
-        container.RowDefinitions.Add(new RowDefinition());
-        container.RowDefinitions.Add(new RowDefinition());
-        container.RowDefinitions.Add(new RowDefinition());
-        container.Children.Add(label);
-        container.Children.Add(control);
-        container.Children.Add(clear);
-        container.Children.Add(image);
-        return container;
+        var panel = new Grid();
+        panel.Margin = new Thickness(10, lastTop, 0, 0);
+        panel.ColumnDefinitions.Add(new ColumnDefinition());
+        panel.ColumnDefinitions.Add(new ColumnDefinition());
+        panel.RowDefinitions.Add(new RowDefinition());
+        panel.RowDefinitions.Add(new RowDefinition());
+        panel.RowDefinitions.Add(new RowDefinition());
+        panel.Children.Add(label);
+        panel.Children.Add(browse);
+        panel.Children.Add(clear);
+        panel.Children.Add(image);
+        return panel;
     }
 
     private StackPanel CreateCrosshairPicker(Models.Controls controlItem)
@@ -428,17 +422,17 @@ public partial class HUD
 
         //----
 
-        var control = new ComboBox
+        var combobox = new ComboBox
         {
             Name = Utilities.EncodeId(controlItem.Name),
             //ToolTip = tooltip
         };
-        control.Classes.Add("CrosshairBox");
-        control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
-        control.SelectionChanged += (sender, _) =>
+        combobox.Classes.Add("CrosshairBox");
+        combobox.Width = (controlItem.Width > 0) ? controlItem.Width : combobox.Width;
+        combobox.SelectionChanged += (sender, _) =>
         {
             var input = sender as ComboBox;
-            var value = (control.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            var value = (combobox.SelectedItem as ComboBoxItem)?.Content?.ToString();
             Settings.SetSetting(input?.Name, value);
             CheckIsDirty(controlItem);
         };
@@ -448,23 +442,23 @@ public partial class HUD
             var item = new ComboBoxItem();
             item.Content = option;
             item.Classes.Add("CrosshairBoxItem");
-            control.Items.Add(item);
+            combobox.Items.Add(item);
         }
 
         // Set the selected value depending on the what's retrieved from the setting file.
         var index = Utilities.CrosshairStyles.IndexOf(Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name)));
-        control.SelectedIndex = (index >= 0) ? index : 0;
+        combobox.SelectedIndex = (index >= 0) ? index : 0;
 
         if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Style"))
-            control.SelectedValue = App.Config.ConfigSettings.UserPrefs.CrosshairStyle;
+            combobox.SelectedValue = App.Config.ConfigSettings.UserPrefs.CrosshairStyle;
 
         //----
 
-        var container = new StackPanel();
-        container.Margin = new Thickness(10, lastTop, 0, 5);
-        container.Children.Add(label);
-        container.Children.Add(control);
-        return container;
+        var panel = new StackPanel();
+        panel.Margin = new Thickness(10, lastTop, 0, 5);
+        panel.Children.Add(label);
+        panel.Children.Add(combobox);
+        return panel;
     }
 
     private StackPanel CreateNumberPicker(Models.Controls controlItem)
@@ -476,7 +470,7 @@ public partial class HUD
 
         //----
 
-        var control = new NumericUpDown
+        var numpicker = new NumericUpDown
         {
             Name = Utilities.EncodeId(controlItem.Name),
             Value = Settings.GetSetting<int>(Utilities.EncodeId(controlItem.Name)),
@@ -485,8 +479,8 @@ public partial class HUD
             Increment = controlItem.Increment,
             //ToolTip = tooltip
         };
-        control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
-        control.ValueChanged += (sender, _) =>
+        numpicker.Width = (controlItem.Width > 0) ? controlItem.Width : numpicker.Width;
+        numpicker.ValueChanged += (sender, _) =>
         {
             var input = sender as NumericUpDown;
             Settings.SetSetting(input.Name, input.Text);
@@ -494,15 +488,15 @@ public partial class HUD
         };
 
         if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Size"))
-            control.Value = App.Config.ConfigSettings.UserPrefs.CrosshairSize;
+            numpicker.Value = App.Config.ConfigSettings.UserPrefs.CrosshairSize;
 
         //----
 
-        var container = new StackPanel();
-        container.Margin = new Thickness(10, lastTop, 0, 0);
-        container.Children.Add(label);
-        container.Children.Add(control);
-        return container;
+        var panel = new StackPanel();
+        panel.Margin = new Thickness(10, lastTop, 0, 0);
+        panel.Children.Add(label);
+        panel.Children.Add(numpicker);
+        return panel;
     }
 
     private StackPanel CreateComboBox(Models.Controls controlItem)
@@ -514,17 +508,17 @@ public partial class HUD
 
         //----
 
-        var control = new ComboBox
+        var combobox = new ComboBox
         {
             Name = Utilities.EncodeId(controlItem.Name),
             Width = 150
             //ToolTip = tooltip
         };
-        control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
-        control.SelectionChanged += (sender, _) =>
+        combobox.Width = (controlItem.Width > 0) ? controlItem.Width : combobox.Width;
+        combobox.SelectionChanged += (sender, _) =>
         {
             var input = sender as ComboBox;
-            Settings.SetSetting(input?.Name, control.SelectedIndex.ToString());
+            Settings.SetSetting(input?.Name, combobox.SelectedIndex.ToString());
             CheckIsDirty(controlItem);
         };
 
@@ -532,19 +526,19 @@ public partial class HUD
         {
             var item = new ComboBoxItem();
             item.Content = option.Label;
-            control.Items.Add(item);
+            combobox.Items.Add(item);
         }
 
         // Set the selected value depending on the what's retrieved from the setting file.
-        control.SelectedIndex = int.Parse(Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name)));
+        combobox.SelectedIndex = int.Parse(Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name)));
 
         //----
 
-        var container = new StackPanel();
-        container.Margin = new Thickness(10, lastTop, 0, 5);
-        container.Children.Add(label);
-        container.Children.Add(control);
-        return container;
+        var panel = new StackPanel();
+        panel.Margin = new Thickness(10, lastTop, 0, 5);
+        panel.Children.Add(label);
+        panel.Children.Add(combobox);
+        return panel;
     }
 
     private StackPanel CreateColorPicker(Models.Controls controlItem)
@@ -556,13 +550,13 @@ public partial class HUD
 
         //----
 
-        var control = new ColorPicker
+        var colorpicker = new ColorPicker
         {
             Name = Utilities.EncodeId(controlItem.Name),
             //ToolTip = tooltip
         };
         //control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
-        control.ColorChanged += (sender, _) =>
+        colorpicker.ColorChanged += (sender, _) =>
         {
             var input = sender as ColorPicker;
             Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.Color.ToString()));
@@ -572,27 +566,27 @@ public partial class HUD
         try
         {
             if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Crosshair"))
-                control.Color = Utilities.ConvertToColor(App.Config.ConfigSettings.UserPrefs.CrosshairColor);
+                colorpicker.Color = Utilities.ConvertToColor(App.Config.ConfigSettings.UserPrefs.CrosshairColor);
             else
-                control.Color = Settings.GetSetting<Color>(Utilities.EncodeId(controlItem.Name));
+                colorpicker.Color = Settings.GetSetting<Color>(Utilities.EncodeId(controlItem.Name));
         }
         catch
         {
-            control.Color = Color.FromArgb(255, 0, 255, 0);
+            colorpicker.Color = Color.FromArgb(255, 0, 255, 0);
         }
 
         //----
 
-        var container = new StackPanel();
-        container.Margin = new Thickness(10, lastTop, 0, 10);
-        container.Children.Add(label);
-        container.Children.Add(control);
-        return container;
+        var panel = new StackPanel();
+        panel.Margin = new Thickness(10, lastTop, 0, 10);
+        panel.Children.Add(label);
+        panel.Children.Add(colorpicker);
+        return panel;
     }
 
     private Control CreateCheckbox(Models.Controls controlItem)
     {
-        var control = new CheckBox
+        var checkbox = new CheckBox
         {
             Name = Utilities.EncodeId(controlItem.Name),
             Content = controlItem.Label,
@@ -600,31 +594,31 @@ public partial class HUD
             IsChecked = Settings.GetSetting<bool>(Utilities.EncodeId(controlItem.Name)),
             //ToolTip = tooltip
         };
-        control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
-        control.IsCheckedChanged += (sender, _) =>
+        checkbox.Width = (controlItem.Width > 0) ? controlItem.Width : checkbox.Width;
+        checkbox.IsCheckedChanged += (sender, _) =>
         {
             var input = sender as CheckBox;
-            Settings.SetSetting(input?.Name, control.IsChecked?.ToString());
+            Settings.SetSetting(input?.Name, checkbox.IsChecked?.ToString());
             CheckIsDirty(controlItem);
         };
 
         // Persist the crosshair selection.
         if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Toggle Crosshair"))
-            control.IsChecked = App.Config.ConfigSettings.UserPrefs.CrosshairEnabled;
+            checkbox.IsChecked = App.Config.ConfigSettings.UserPrefs.CrosshairEnabled;
 
-        return control;
+        return checkbox;
     }
 
     private Button CreateResetButton(string? section)
     {
-        var control = new Button
+        var button = new Button
         {
             HorizontalAlignment = HorizontalAlignment.Right,
             Content = "\u0157",
             Opacity = 0.4
         };
-        control.Classes.Add("PreviewButton");
-        control.Click += (_, _) =>
+        button.Classes.Add("PreviewButton");
+        button.Click += (_, _) =>
         {
             if (!App.Config.ConfigSettings.UserPrefs.SelectedHUD.Equals(Name)) return;
             ResetSection(section);
@@ -633,9 +627,9 @@ public partial class HUD
             DirtyControls.Clear();
         };
 
-        Grid.SetColumn(control, 1);
+        Grid.SetColumn(button, 1);
 
-        return control;
+        return button;
     }
 
     private Button CreatePreviewButton(string url)
@@ -652,12 +646,10 @@ public partial class HUD
             Child = image
         };
 
-        var control = new Button();
-        //control.Margin = new Thickness(0, lastTop, 2, 0);
-        control.VerticalAlignment = VerticalAlignment.Bottom;
-        control.Classes.Add("PreviewButton");
-        control.Click += (_, _) => DialogHost.Show(border, "PreviewModal");
-        return control;
+        var button = new Button();
+        button.Classes.Add("PreviewButton");
+        button.Click += (_, _) => DialogHost.Show(border, "PreviewModal");
+        return button;
     }
 
     /// <summary>

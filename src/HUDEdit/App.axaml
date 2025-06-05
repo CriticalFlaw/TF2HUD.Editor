@@ -322,7 +322,8 @@
 			<Setter Property="Height" Value="25" />
 			<Setter Property="Content" Value="&#x048A;" />
 			<Setter Property="BorderThickness" Value="0" />
-			<Setter Property="VerticalAlignment" Value="Top" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="Margin" Value="5, 0, 0, 0" />
 
 			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="Black"/>
