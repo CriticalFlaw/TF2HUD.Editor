@@ -15,17 +15,15 @@
 			<Run Text="your favorite Team Fortress 2 HUDs!" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.0 RC3" Margin="0,15,0,0" FontSize="30" />
+		<Label Classes="HeaderText" Content="Version 4.0 Beta" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
 			<Run Foreground="Red" Text="This is an in-development build. Please report any issues on the GitHub tracker." />
 			<LineBreak />
-			<Run Text="> Added a toggle to bypass the tf/custom folder requirement." />
+			<Run Text="> Restored presets and preview modals." />
 			<LineBreak />
-			<Run Text="> Added functionality to download and install CastingEssentialsNext." />
+			<Run Text="> Removed ability to set multiple download sources." />
 			<LineBreak />
-			<Run Text="> Fixed chapterbackground.txt being missing." />
-			<LineBreak />
-			<Run Text="> Fixed crosshair index being applied instead of the actual character." />
+			<Run Text="> Added a button for refreshing the app without restart." />
 		</TextBlock>
 	</StackPanel>
 </UserControl>
