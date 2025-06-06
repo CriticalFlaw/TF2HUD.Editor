@@ -21,9 +21,6 @@ public partial class MainWindow : Avalonia.Controls.Window
     public MainWindow()
     {
         InitializeComponent();
-
-        var mainWindowViewModel = new MainWindowViewModel();
-        mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
         Utilities.SetupDirectoryAsync(this);
 
 #if !DEBUG
@@ -32,7 +29,7 @@ public partial class MainWindow : Avalonia.Controls.Window
 #endif
     }
 
-    private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    public void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(MainWindowViewModel.SelectedHud))
         {

@@ -1,9 +1,15 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Avalonia.Platform.Storage;
+using Avalonia.Threading;
+using CommunityToolkit.Mvvm.Input;
 using Crews.Utility.TgaSharp;
+using HUDEdit.Assets;
 using HUDEdit.Classes;
-using HUDEdit.Views;
-using Newtonsoft.Json;
 using HUDEdit.Models;
+using HUDEdit.Views;
+using Microsoft.Extensions.Configuration;
+using MsBox.Avalonia.Enums;
+using Newtonsoft.Json;
+using Sentry;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,16 +17,13 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using HUDEdit.Assets;
-using Avalonia.Platform.Storage;
-using MsBox.Avalonia.Enums;
-using System.Runtime.InteropServices;
 
 namespace HUDEdit.ViewModels;
 
-internal partial class MainWindowViewModel : ViewModelBase
+public partial class MainWindowViewModel : ViewModelBase
 {
     private List<HUD> _hudList;
     public IEnumerable<HUD> HUDList => _hudList;
@@ -106,7 +109,22 @@ internal partial class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        _hudList = LoadHUDs();
+        App.Setup();
+
+        // Setup Sentry
+        if (File.Exists("secrets.json"))
+        {
+            var secrets = new ConfigurationBuilder().AddJsonFile("secrets.json").Build();
+
+            Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
+            SentrySdk.Init(o =>
+            {
+                o.Dsn = secrets["Sentry:Dsn"];
+                o.Debug = true;
+            });
+        }
+
+        _hudList = LoadHUDs().Result;
 
         var selectedHud = this[App.Config.ConfigSettings.UserPrefs.SelectedHUD];
         _highlightedHud = selectedHud;
@@ -116,6 +134,14 @@ internal partial class MainWindowViewModel : ViewModelBase
         // Load thumbnails
         foreach (var hud in _hudList)
             hud.ThumbnailImage = Utilities.LoadImage(hud.Thumbnail);
+    }
+
+    private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    {
+        SentrySdk.CaptureException(e.Exception);
+
+        // Prevent the application from crashing
+        e.Handled = true;
     }
 
     /// <summary>
@@ -144,7 +170,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         return !Installing;
     }
 
-    private List<HUD> LoadHUDs()
+    private async Task<List<HUD>> LoadHUDs()
     {
         var hudList = new List<HUD>();
         var sharedControlsJson = File.ReadAllText("JSON/shared-hud.json", new UTF8Encoding(false));
@@ -173,8 +199,7 @@ internal partial class MainWindowViewModel : ViewModelBase
             }
         }
 
-        var localSharedPath = Directory.CreateDirectory(@"JSON/Local").FullName;
-        foreach (var sharedHud in Directory.EnumerateDirectories(localSharedPath))
+        foreach (var sharedHud in Directory.EnumerateDirectories(Directory.CreateDirectory(@"JSON/Local").FullName))
         {
             var hudName = sharedHud.Split('/')[^1];
             var hudBackgroundPath = $"{sharedHud}/output.png";
@@ -195,9 +220,6 @@ internal partial class MainWindowViewModel : ViewModelBase
                 Controls = sharedProperties.Controls
             }, false));
         }
-
-        foreach (var hud in hudList)
-            hud.ThumbnailImage = Utilities.LoadImage(hud.Thumbnail);
 
         return hudList;
     }
@@ -399,9 +421,9 @@ internal partial class MainWindowViewModel : ViewModelBase
                 await Add(folders[0].TryGetLocalPath());
             else return;
         }
-        catch (Exception error)
+        catch (Exception e)
         {
-            Utilities.ShowMessageBox(error.Message, MsBox.Avalonia.Enums.Icon.Error);
+            Utilities.ShowMessageBox(e.Message, MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 
@@ -411,7 +433,7 @@ internal partial class MainWindowViewModel : ViewModelBase
         // Dispose of the old viewmodel
         CurrentPageViewModel?.Dispose();
 
-        _hudList = LoadHUDs();
+        _hudList = LoadHUDs().Result;
         OnPropertyChanged(nameof(HUDList));
 
         // Restore selected HUD if it still exists

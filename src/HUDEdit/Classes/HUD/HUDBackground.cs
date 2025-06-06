@@ -87,7 +87,7 @@ internal class HUDBackground
                 File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
 
                 // Ensure chapterbackgrounds.txt exists
-                Utilities.CreateChapterBackgroundsFile($"{hudFolderPath}/scripts");
+                Utilities.CreateChapterBackgroundsFile(hudFolderPath);
             }
             else
             {
@@ -107,7 +107,7 @@ internal class HUDBackground
                     }
 
                     // Ensure chapterbackgrounds.txt exists
-                    Utilities.CreateChapterBackgroundsFile($"{hudFolderPath}/scripts");
+                    Utilities.CreateChapterBackgroundsFile(hudFolderPath);
                 }
                 else if (useStockBackgrounds)
                 {

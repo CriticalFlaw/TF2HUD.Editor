@@ -21,7 +21,7 @@ public partial class App : Application
 {
     public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
     public static ConfigurationModel Config { get; private set; }
-    public static IConfiguration Secrets { get; private set; }
+    public MainWindowViewModel MainWindowViewModel { get; } = new MainWindowViewModel();
 
     public override void Initialize()
     {
@@ -32,16 +32,18 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
+            var mainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = MainWindowViewModel
             };
+            MainWindowViewModel.PropertyChanged += mainWindow.MainWindowViewModelPropertyChanged;
+            desktop.MainWindow = mainWindow;
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    public App()
+    public static void Setup()
     {
         // Setup Logger
         XmlConfigurator.Configure(new FileInfo(Path.Combine(AppContext.BaseDirectory, "log4net.config")));
@@ -57,34 +59,13 @@ public partial class App : Application
 
         // Set user language
         Assets.Resources.Culture = new CultureInfo(Config.ConfigSettings.UserPrefs.Language);
-
-        // Setup Sentry
-        if (File.Exists("secrets.json"))
-        {
-            Secrets = new ConfigurationBuilder().AddJsonFile("secrets.json").Build();
-
-            Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
-            SentrySdk.Init(o =>
-            {
-                o.Dsn = Secrets["Sentry:Dsn"];
-                o.Debug = true;
-            });
-        }
-    }
-
-    private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-    {
-        SentrySdk.CaptureException(e.Exception);
-
-        // Prevent the application from crashing
-        e.Handled = true;
     }
 
     public static void SaveConfiguration()
     {
         var json = JsonSerializer.Serialize(Config, new JsonSerializerOptions
         {
-            WriteIndented = true // Pretty-print the JSON
+            WriteIndented = true
         });
 
         File.WriteAllText("appsettings.json", json);

@@ -20,7 +20,6 @@ using Avalonia.Platform.Storage;
 using HUDEdit.Assets;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
-using HUDEdit.ViewModels;
 
 namespace HUDEdit.Classes;
 
@@ -519,9 +518,9 @@ public static class Utilities
             using var stream = response.Content.ReadAsStreamAsync().Result;
             return new Avalonia.Media.Imaging.Bitmap(stream);
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            Console.WriteLine($"Error downloading image: {ex.Message}");
+            Console.WriteLine($"Error downloading image: {e.Message}");
             return null;
         }
     }
@@ -537,9 +536,9 @@ public static class Utilities
             await using var stream = await response.Content.ReadAsStreamAsync();
             return new Avalonia.Media.Imaging.Bitmap(stream);
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            Console.WriteLine($"Error loading image: {ex.Message}");
+            Console.WriteLine($"Error loading image: {e.Message}");
             return null;
         }
     }
@@ -567,9 +566,9 @@ public static class Utilities
             // Close the current application
             Environment.Exit(0);
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            Console.WriteLine($"Failed to restart application: {ex.Message}");
+            Console.WriteLine($"Failed to restart application: {e.Message}");
         }
     }
 
@@ -654,15 +653,8 @@ public static class Utilities
     /// <summary>
     /// Creates the chapterbackgrounds.txt file in the specified path.
     /// </summary>
-    public static void CreateChapterBackgroundsFile(string path)
+    public static void CreateChapterBackgroundsFile(string hudPath)
     {
-        // Ensure the directory exists
-        Directory.CreateDirectory(path);
-
-        // Define the full path to the text file
-        string filePath = Path.Combine(path, "chapterbackground.txt");
-
-        // Define the content
         string content = @"""chapters""
         {
 	        1	""background_upward""
@@ -679,9 +671,12 @@ public static class Utilities
 	        4	""background_upward""
         }";
 
-        // Write the content to the file
-        File.WriteAllText(filePath, content);
+        // Append the path with "/scripts" and create the directory if it doesn't exist.
+        hudPath += "/scripts";
+        Directory.CreateDirectory(hudPath);
 
-        App.Logger.Info($"Created chapterbackground.txt at {filePath}");
+        // Create chapterbackground.txt file with the contents.
+        File.WriteAllText(Path.Combine(hudPath, "chapterbackground.txt"), content);
+        App.Logger.Info($"Created chapterbackground.txt at {hudPath}");
     }
 }
