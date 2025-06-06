@@ -38,6 +38,7 @@ public partial class HUD
     public bool Unique;
     public readonly bool InstallCrosshairs;
     public string[] Screenshots { get; set; }
+    public List<Bitmap> ScreenshotImages { get; set; } = new();
 
     #endregion HUD PROPERTIES
 
@@ -71,6 +72,7 @@ public partial class HUD
         Unique = isUnique;
         InstallCrosshairs = schema.InstallCrosshairs;
         Screenshots = schema.Screenshots;
+        ScreenshotImages = new List<Bitmap>();
     }
 
     /// <summary>

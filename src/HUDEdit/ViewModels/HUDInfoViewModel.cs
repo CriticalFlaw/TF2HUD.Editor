@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Avalonia.Media.Imaging;
+using CommunityToolkit.Mvvm.Input;
 using HUDEdit.Classes;
 using System;
 using System.Collections.Generic;
@@ -23,15 +24,15 @@ internal partial class HUDInfoViewModel : ViewModelBase
         _mainWindowViewModel = mainWindowViewModel;
         Hud = hud;
         _screenshots = new ObservableCollection<ScreenshotViewModel>();
-        var screenshots = Hud.Screenshots ?? Array.Empty<object>();
 
-        for (int i = 0; i < screenshots.Length; i++)
+        // Use cached ScreenshotImages if available, otherwise fallback to empty
+        var images = Hud.ScreenshotImages ?? new List<Bitmap>();
+
+        for (int i = 0; i < images.Count; i++)
         {
-            var imageUrl = screenshots[i]?.ToString();
-            if (string.IsNullOrWhiteSpace(imageUrl))
+            var image = images[i];
+            if (image == null)
                 continue;
-
-            var image = Utilities.LoadImage(imageUrl);
 
             _screenshots.Add(new ScreenshotViewModel
             {

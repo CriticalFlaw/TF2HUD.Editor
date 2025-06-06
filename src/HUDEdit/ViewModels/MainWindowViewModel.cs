@@ -131,9 +131,27 @@ public partial class MainWindowViewModel : ViewModelBase
         _selectedHud = selectedHud;
         _currentPageViewModel = selectedHud != null ? new EditHUDViewModel(this, selectedHud) : new HomePageViewModel(this, HUDList);
 
-        // Load thumbnails
+        DownloadImages();
+    }
+
+    private async Task DownloadImages()
+    {
         foreach (var hud in _hudList)
-            hud.ThumbnailImage = Utilities.LoadImage(hud.Thumbnail);
+        {
+            hud.ThumbnailImage = await ImageCache.GetImageAsync(hud.Thumbnail);
+
+            // Load and cache screenshots
+            hud.ScreenshotImages = [];
+            if (hud.Screenshots != null)
+            {
+                foreach (var screenshotUrl in hud.Screenshots)
+                {
+                    var img = await ImageCache.GetImageAsync(screenshotUrl);
+                    if (img != null)
+                        hud.ScreenshotImages.Add(img);
+                }
+            }
+        }
     }
 
     private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -389,7 +407,7 @@ public partial class MainWindowViewModel : ViewModelBase
         App.Logger.Info("Changing page view to: main menu");
         HighlightedHud = null;
         SelectedHud = null;
-        WindowTitle = Resources.ui_title;
+        //WindowTitle = Resources.ui_title;
     }
 
     public void OpenDocSite() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
