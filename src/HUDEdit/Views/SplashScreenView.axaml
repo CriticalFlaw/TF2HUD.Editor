@@ -7,15 +7,18 @@
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="250"
         x:Class="HUDEdit.Views.SplashScreenView"
         x:DataType="vm:SplashScreenViewModel"
-		Icon="/Assets/Images/favicon.ico"
+		Icon="avares://HUDEdit/Assets/Images/favicon.ico"
         WindowStartupLocation="CenterScreen"
         SystemDecorations="None"
 		Background="Transparent"
 		Width="500" Height="250">
 
-	<Border BorderBrush="#EBE2CA" Background="#2E2B2A" BorderThickness="2" CornerRadius="15">
+	<Border BorderBrush="#EBE2CA" BorderThickness="1" CornerRadius="15">
+		<Border.Background>
+			<ImageBrush Source="avares://HUDEdit/Assets/Images/background.png" Stretch="UniformToFill"/>
+		</Border.Background>
 		<Grid RowDefinitions="*,Auto" ColumnDefinitions="*,Auto">
-			<Image Source="/Assets/Images/banner.png" Grid.ColumnSpan="2" Margin="15"/>
+			<Image Source="avares://HUDEdit/Assets/Images/banner.png" Grid.ColumnSpan="2" Margin="15"/>
 			<Label Grid.Row="1"
 				   DockPanel.Dock="Bottom"
 				   Content="{Binding StartupMessage}"
