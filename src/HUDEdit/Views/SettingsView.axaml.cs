@@ -89,6 +89,7 @@ public partial class SettingsView : Avalonia.Controls.Window
         if (await Utilities.ShowPromptBox(Assets.Resources.info_clear_cache) == ButtonResult.No) return;
 
         Directory.Delete($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor", true);
+        Directory.Delete("cache", true);
         Directory.Delete("JSON", true);
         MainWindow.UpdateAppSchema(true);
     }

@@ -10,7 +10,7 @@ namespace HUDEdit.Classes;
 
 public static class ImageCache
 {
-    private static readonly string CacheDir = Path.Combine(AppContext.BaseDirectory, "ImageCache");
+    private static readonly string CacheDir = Path.Combine(AppContext.BaseDirectory, "cache");
 
     static ImageCache()
     {

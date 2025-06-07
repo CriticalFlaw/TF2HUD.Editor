@@ -109,8 +109,6 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        App.Setup();
-
         // Setup Sentry
         if (File.Exists("secrets.json"))
         {
@@ -123,18 +121,9 @@ public partial class MainWindowViewModel : ViewModelBase
                 o.Debug = true;
             });
         }
-
-        _hudList = LoadHUDs().Result;
-
-        var selectedHud = this[App.Config.ConfigSettings.UserPrefs.SelectedHUD];
-        _highlightedHud = selectedHud;
-        _selectedHud = selectedHud;
-        _currentPageViewModel = selectedHud != null ? new EditHUDViewModel(this, selectedHud) : new HomePageViewModel(this, HUDList);
-
-        DownloadImages();
     }
 
-    private async Task DownloadImages()
+    public async Task DownloadImages()
     {
         foreach (var hud in _hudList)
         {
@@ -188,9 +177,9 @@ public partial class MainWindowViewModel : ViewModelBase
         return !Installing;
     }
 
-    private async Task<List<HUD>> LoadHUDs()
+    public Task LoadHUDs()
     {
-        var hudList = new List<HUD>();
+        _hudList = [];
         var sharedControlsJson = File.ReadAllText("JSON/shared-hud.json", new UTF8Encoding(false));
 
         foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
@@ -208,12 +197,12 @@ public partial class MainWindowViewModel : ViewModelBase
                         control.Name = $"{Utilities.EncodeId(sharedHud.Name)}_{Utilities.EncodeId(control.Name)}";
                     sharedHud.Layout = hudControls.Layout;
                     sharedHud.Controls = hudControls.Controls;
-                    hudList.Add(new HUD(sharedHud.Name, sharedHud, false));
+                    _hudList.Add(new HUD(sharedHud.Name, sharedHud, false));
                 }
             }
             else
             {
-                hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(File.ReadAllText(jsonFile, new UTF8Encoding(false))), true));
+                _hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(File.ReadAllText(jsonFile, new UTF8Encoding(false))), true));
             }
         }
 
@@ -225,7 +214,7 @@ public partial class MainWindowViewModel : ViewModelBase
                 ? $"file://{hudBackgroundPath}"
                 : "avares://HUDEdit/Assets/Images/background.png";
             var sharedProperties = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
-            hudList.Add(new HUD(hudName, new HudJson
+            _hudList.Add(new HUD(hudName, new HudJson
             {
                 Name = hudName,
                 Thumbnail = hudBackground,
@@ -239,7 +228,13 @@ public partial class MainWindowViewModel : ViewModelBase
             }, false));
         }
 
-        return hudList;
+        // Set current selection and viewmodel
+        var selectedHud = this[App.Config.ConfigSettings.UserPrefs.SelectedHUD];
+        _highlightedHud = selectedHud;
+        _selectedHud = selectedHud;
+        _currentPageViewModel = selectedHud != null ? new EditHUDViewModel(this, selectedHud) : new HomePageViewModel(this, HUDList);
+
+        return Task.CompletedTask;
     }
 
     #region CLICK_EVENTS
@@ -451,7 +446,7 @@ public partial class MainWindowViewModel : ViewModelBase
         // Dispose of the old viewmodel
         CurrentPageViewModel?.Dispose();
 
-        _hudList = LoadHUDs().Result;
+        await LoadHUDs();
         OnPropertyChanged(nameof(HUDList));
 
         // Restore selected HUD if it still exists

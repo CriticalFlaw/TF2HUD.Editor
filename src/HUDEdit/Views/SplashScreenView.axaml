@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:HUDEdit.ViewModels"
+		xmlns:loc="clr-namespace:HUDEdit.Assets"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="250"
+        x:Class="HUDEdit.Views.SplashScreenView"
+        x:DataType="vm:SplashScreenViewModel"
+		Icon="/Assets/Images/favicon.ico"
+        WindowStartupLocation="CenterScreen"
+        SystemDecorations="None"
+		Background="Transparent"
+		Width="500" Height="250">
+
+	<Border BorderBrush="#EBE2CA" Background="#2E2B2A" BorderThickness="2" CornerRadius="15">
+		<Grid RowDefinitions="*,Auto" ColumnDefinitions="*,Auto">
+			<Image Source="/Assets/Images/banner.png" Grid.ColumnSpan="2" Margin="15"/>
+			<Label Grid.Row="1"
+				   DockPanel.Dock="Bottom"
+				   Content="Now Loading..."
+				   Foreground="#EBE2CA"
+				   FontStyle="Oblique"
+				   FontFamily="{StaticResource Tf2Build}"
+				   VerticalAlignment="Center"
+				   HorizontalAlignment="Center" />
+			<Button Grid.Row="1" Grid.Column="1" DockPanel.Dock="Bottom" Command="{Binding Cancel}" Classes="HudButton" Width="100" Height="30" Content="Cancel" Margin="15"/>
+		</Grid>
+	</Border>
+</Window>

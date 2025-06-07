@@ -1,11 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using Avalonia.Threading;
 using log4net;
 using log4net.Config;
-using Microsoft.Extensions.Configuration;
-using Sentry;
 using HUDEdit.Models;
 using System;
 using System.IO;
@@ -14,6 +11,7 @@ using System.Text.Json;
 using HUDEdit.ViewModels;
 using System.Globalization;
 using HUDEdit.Views;
+using System.Threading.Tasks;
 
 namespace HUDEdit;
 
@@ -21,23 +19,51 @@ public partial class App : Application
 {
     public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
     public static ConfigurationModel Config { get; private set; }
-    public MainWindowViewModel MainWindowViewModel { get; } = new MainWindowViewModel();
 
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override void OnFrameworkInitializationCompleted()
+    public override async void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            var mainWindowVm = new MainWindowViewModel();
+            var splashScreenVm = new SplashScreenViewModel();
+            var splashScreen = new SplashScreenView
+            {
+                DataContext = splashScreenVm
+            };
+            desktop.MainWindow = splashScreen;
+            splashScreen.Show();
+
+            try
+            {
+                splashScreenVm.StartupMessage = "Initializing application...";
+                Setup();
+
+                splashScreenVm.StartupMessage = "Loading HUD schemas...";
+                await mainWindowVm.LoadHUDs();
+
+                splashScreenVm.StartupMessage = "Downloading and caching images...";
+                await mainWindowVm.DownloadImages();
+                await Task.Delay(5000, splashScreenVm.CancellationToken);
+            }
+            catch (TaskCanceledException)
+            {
+                splashScreen.Close();
+                return;
+            }
+
             var mainWindow = new MainWindow
             {
-                DataContext = MainWindowViewModel
+                DataContext = mainWindowVm
             };
-            MainWindowViewModel.PropertyChanged += mainWindow.MainWindowViewModelPropertyChanged;
             desktop.MainWindow = mainWindow;
+            mainWindowVm.PropertyChanged += mainWindow.MainWindowViewModelPropertyChanged;
+            mainWindow.Show();
+            splashScreen.Close();
         }
 
         base.OnFrameworkInitializationCompleted();
