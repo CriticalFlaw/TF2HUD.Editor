@@ -18,9 +18,8 @@
 			<Image Source="/Assets/Images/banner.png" Grid.ColumnSpan="2" Margin="15"/>
 			<Label Grid.Row="1"
 				   DockPanel.Dock="Bottom"
-				   Content="Now Loading..."
+				   Content="{Binding StartupMessage}"
 				   Foreground="#EBE2CA"
-				   FontStyle="Oblique"
 				   FontFamily="{StaticResource Tf2Build}"
 				   VerticalAlignment="Center"
 				   HorizontalAlignment="Center" />
