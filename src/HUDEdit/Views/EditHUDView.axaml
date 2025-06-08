@@ -14,7 +14,7 @@
 	<UserControl.Resources>
 		<classes:ComboBoxItemsConverterVisibility x:Key="ComboBoxItemsConverterVisibility" />
 		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
-		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+		<classes:NullCheckConverter x:Key="NullCheckConverter" />
 	</UserControl.Resources>
 	
 	<dialogHost:DialogHost Identifier="PreviewModal" CloseOnClickAway="True">

@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -15,40 +14,22 @@ namespace HUDEdit.Classes;
 
 public class NullCheckConverter : IValueConverter
 {
-    /// <summary>
-    /// Returns true if the provided value is not null or empty.
-    /// </summary>
+    // Returns true if value is not null (optionally, not empty string)
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value switch
-        {
-            null => false,
-            string s => !string.IsNullOrWhiteSpace(s),
-            bool => value,
-            _ => true
-        };
+        if (parameter as string == "string")
+            return value is string s && !string.IsNullOrWhiteSpace(s);
+        return value is not null;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class NotNullCheckConverter : IValueConverter
 {
-    /// <summary>
-    /// Returns true if the provided value is null.
-    /// </summary>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is null;
-    }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is null;
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class LinkCheckConverterVisibility : IValueConverter
@@ -62,36 +43,7 @@ public class LinkCheckConverterVisibility : IValueConverter
         };
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-}
-
-public class NullCheckConverterVisibility : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is not null;
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-}
-
-public class NotNullCheckConverterVisibility : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is null;
-    }
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class PageBackgroundConverter : IValueConverter
@@ -131,23 +83,14 @@ public class PageBackgroundConverter : IValueConverter
         return Utilities.ConvertToColorBrush(selection.Background);
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class DisplayUniqueHudsOnlyForegroundConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return (bool)value ? "\u05AE" : "\u05AF";
-    }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (bool)value ? "\u05AE" : "\u05AF";
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class BtnInstallContentConverter : IValueConverter
@@ -172,34 +115,19 @@ public class BtnInstallContentConverter : IValueConverter
         return Resources.ui_install ?? "Install";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class ComboBoxItemsConverterVisibility : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is not null && ((IEnumerable<object>)value).Count() > 1;
-    }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is not null && ((IEnumerable<object>)value).Count() > 1;
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class DisableOnLinuxConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return !RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-    }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => !RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

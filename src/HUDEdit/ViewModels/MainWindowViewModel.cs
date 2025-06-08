@@ -402,7 +402,7 @@ public partial class MainWindowViewModel : ViewModelBase
         App.Logger.Info("Changing page view to: main menu");
         HighlightedHud = null;
         SelectedHud = null;
-        //WindowTitle = Resources.ui_title;
+        WindowTitle = Resources.ui_title;
     }
 
     public void OpenDocSite() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);

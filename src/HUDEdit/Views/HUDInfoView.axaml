@@ -11,7 +11,7 @@
 
 	<Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">
 		<Grid.Resources>
-			<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+			<classes:NullCheckConverter x:Key="NullCheckConverter" />
 		</Grid.Resources>
 
 		<!-- HUD Name -->
@@ -33,7 +33,7 @@
 		</TextBlock>
 
 		<!-- Description -->
-		<TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Classes="BodyText" Margin="0,0,0,10" FontStyle="Italic" Text="{Binding Description}" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}" />
+		<TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Classes="BodyText" Margin="0,0,0,10" FontStyle="Italic" Text="{Binding Description}" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverter}}" />
 
 		<!-- Screenshot Gallery (below all content) -->
 		<ItemsControl ItemsSource="{Binding Screenshots}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
