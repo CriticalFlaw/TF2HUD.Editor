@@ -10,7 +10,7 @@
         x:Class="HUDEdit.Views.MainWindow"
 		x:DataType="vm:MainWindowViewModel"
         Title="{Binding WindowTitle}"
-		Icon="/Assets/Images/favicon.ico"
+		Icon="avares://HUDEdit/Assets/Images/favicon.ico"
 		Background="#2B2724">
 
 	<Design.DataContext>

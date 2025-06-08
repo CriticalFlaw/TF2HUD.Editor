@@ -19,7 +19,7 @@
 	
 	<dialogHost:DialogHost Identifier="PreviewModal" CloseOnClickAway="True">
 		<dialogHost:DialogHost.DialogContent>
-			<Image Source="/Assets/Images/mastercomfig.png"/>
+			<Image Source="avares://HUDEdit/Assets/Images/mastercomfig.png"/>
 		</dialogHost:DialogHost.DialogContent>
 		<Grid>
 			<Grid.RowDefinitions>
@@ -55,10 +55,10 @@
 				<WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2">
 					<Button Classes="LinkButton GitHubButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding GitHubUrl}" IsVisible="{Binding GitHubUrl, Converter={StaticResource LinkCheckConverterVisibility}}" />
 					<Button Classes="LinkButton TF2HudsButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding TF2HudsUrl}" IsVisible="{Binding TF2HudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
-						<Image Source="/Assets/Images/tf2huds.png" Margin="5"/>
+						<Image Source="avares://HUDEdit/Assets/Images/tf2huds.png" Margin="5"/>
 					</Button>
 					<Button Classes="LinkButton ComfigHudsButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding ComfigHudsUrl}" IsVisible="{Binding ComfigHudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
-						<Image Source="/Assets/Images/mastercomfig.png" Margin="5"/>
+						<Image Source="avares://HUDEdit/Assets/Images/mastercomfig.png" Margin="5"/>
 					</Button>
 					<Button Classes="LinkButton DiscordButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding DiscordUrl}" IsVisible="{Binding DiscordUrl, Converter={StaticResource LinkCheckConverterVisibility}}"/>
 					<Button Classes="LinkButton SteamButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding SteamUrl}" IsVisible="{Binding SteamUrl, Converter={StaticResource LinkCheckConverterVisibility}}"/>

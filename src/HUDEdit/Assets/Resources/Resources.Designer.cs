@@ -358,7 +358,7 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for schema updates..
+        ///   Looks up a localized string similar to Refresh the page..
         /// </summary>
         public static string tooltip_refresh {
             get {
@@ -579,6 +579,42 @@ namespace HUDEdit.Assets {
         public static string ui_settings {
             get {
                 return ResourceManager.GetString("ui_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancelling....
+        /// </summary>
+        public static string ui_splash_cancel {
+            get {
+                return ResourceManager.GetString("ui_splash_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading and caching images....
+        /// </summary>
+        public static string ui_splash_images {
+            get {
+                return ResourceManager.GetString("ui_splash_images", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initializing application....
+        /// </summary>
+        public static string ui_splash_initialize {
+            get {
+                return ResourceManager.GetString("ui_splash_initialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading HUD schemas....
+        /// </summary>
+        public static string ui_splash_schema {
+            get {
+                return ResourceManager.GetString("ui_splash_schema", resourceCulture);
             }
         }
         

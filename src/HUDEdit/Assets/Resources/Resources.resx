@@ -300,4 +300,16 @@
   <data name="ui_override_path_rule" xml:space="preserve">
     <value>Bypass tf/custom folder rule</value>
   </data>
+  <data name="ui_splash_initialize" xml:space="preserve">
+    <value>Initializing application...</value>
+  </data>
+  <data name="ui_splash_schema" xml:space="preserve">
+    <value>Loading HUD schemas...</value>
+  </data>
+  <data name="ui_splash_images" xml:space="preserve">
+    <value>Downloading and caching images...</value>
+  </data>
+  <data name="ui_splash_cancel" xml:space="preserve">
+    <value>Cancelling...</value>
+  </data>
 </root>

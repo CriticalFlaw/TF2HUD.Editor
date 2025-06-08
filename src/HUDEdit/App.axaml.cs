@@ -40,15 +40,15 @@ public partial class App : Application
 
             try
             {
-                splashScreenVm.StartupMessage = "Initializing application...";
+                splashScreenVm.StartupMessage = Assets.Resources.ui_splash_initialize;
                 Setup();
                 await Task.Delay(1000, splashScreenVm.CancellationToken);
 
-                splashScreenVm.StartupMessage = "Loading HUD schemas...";
+                splashScreenVm.StartupMessage = Assets.Resources.ui_splash_schema;
                 await mainWindowVm.LoadHUDs();
                 await Task.Delay(1000, splashScreenVm.CancellationToken);
 
-                splashScreenVm.StartupMessage = "Downloading and caching images...";
+                splashScreenVm.StartupMessage = Assets.Resources.ui_splash_images;
                 await mainWindowVm.DownloadImages();
             }
             catch (TaskCanceledException)

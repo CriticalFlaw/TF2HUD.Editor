@@ -288,4 +288,16 @@
   <data name="ui_override_path_rule" xml:space="preserve">
     <value />
   </data>
+  <data name="ui_splash_initialize" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_splash_schema" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_splash_images" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_splash_cancel" xml:space="preserve">
+    <value />
+  </data>
 </root>

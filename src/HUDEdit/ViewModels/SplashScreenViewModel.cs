@@ -17,7 +17,7 @@ public partial class SplashScreenViewModel : ViewModelBase
 
     public void Cancel()
     {
-        StartupMessage = "Cancelling...";
+        StartupMessage = Assets.Resources.ui_splash_cancel;
         _cts.Cancel();
     }
 

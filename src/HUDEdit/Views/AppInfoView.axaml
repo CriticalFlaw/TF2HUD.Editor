@@ -7,7 +7,7 @@
 			 x:DataType="vm:AppInfoViewModel"
              x:Class="HUDEdit.Views.AppInfoView">
 	<StackPanel>
-		<Image Source="/Assets/Images/banner.png" Height="142" Width="621" />
+		<Image Source="avares://HUDEdit/Assets/Images/banner.png" Height="142" Width="621" />
 		<TextBlock Classes="BodyText" FontSize="20" TextAlignment="Center" Margin="0,15,0,15">
 			<Run Foreground="#70B04A" Text="Install" />
 			<Run Text="and" />
