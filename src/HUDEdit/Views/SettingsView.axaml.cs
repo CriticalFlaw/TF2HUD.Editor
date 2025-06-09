@@ -82,7 +82,7 @@ public partial class SettingsView : Avalonia.Controls.Window
         await Utilities.SetupDirectoryAsync(this, true);
     }
 
-    private void BtnRefresh_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => MainWindow.UpdateAppSchema(false);
+    private void BtnRefresh_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e) => Utilities.UpdateAppSchema(false);
 
     private async void BtnClearCache_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
@@ -91,7 +91,7 @@ public partial class SettingsView : Avalonia.Controls.Window
         Directory.Delete($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor", true);
         Directory.Delete("cache", true);
         Directory.Delete("JSON", true);
-        MainWindow.UpdateAppSchema(true);
+        Utilities.UpdateAppSchema(true);
     }
 
     private void BtnPersistXhair_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)

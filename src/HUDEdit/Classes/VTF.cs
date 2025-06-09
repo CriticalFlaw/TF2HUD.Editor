@@ -49,7 +49,7 @@ internal class VTF
             Directory.CreateDirectory(directory);
 
         // Make a backup of the existing background files.
-        var hudBgPath = new DirectoryInfo($"{MainWindow.HudPath}/{App.Config.ConfigSettings.UserPrefs.SelectedHUD}/materials/console/");
+        var hudBgPath = new DirectoryInfo($"{App.HudPath}/{App.Config.ConfigSettings.UserPrefs.SelectedHUD}/materials/console/");
         foreach (var file in hudBgPath.GetFiles())
             File.Delete(file.FullName);
 

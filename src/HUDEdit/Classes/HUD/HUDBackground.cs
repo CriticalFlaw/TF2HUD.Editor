@@ -77,7 +77,7 @@ internal class HUDBackground
                 }
 
                 // Convert the provided image into a VTF format.
-                var converter = new VTF(MainWindow.HudPath.Replace("/tf/custom/", string.Empty));
+                var converter = new VTF(App.HudPath.Replace("/tf/custom/", string.Empty));
                 var output = $"{consoleFolder}/background_upward.vtf";
                 App.Logger.Info($"Converting \"{customImagePath}\" to \"{output}\"");
                 converter.Convert(customImagePath, output);

@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -29,10 +28,7 @@ public class NullCheckConverter : IValueConverter
         };
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class NotNullCheckConverter : IValueConverter
@@ -45,10 +41,7 @@ public class NotNullCheckConverter : IValueConverter
         return value is null;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class LinkCheckConverterVisibility : IValueConverter
@@ -62,10 +55,7 @@ public class LinkCheckConverterVisibility : IValueConverter
         };
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class NullCheckConverterVisibility : IValueConverter
@@ -75,10 +65,7 @@ public class NullCheckConverterVisibility : IValueConverter
         return value is not null;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class NotNullCheckConverterVisibility : IValueConverter
@@ -88,10 +75,7 @@ public class NotNullCheckConverterVisibility : IValueConverter
         return value is null;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class PageBackgroundConverter : IValueConverter
@@ -131,10 +115,7 @@ public class PageBackgroundConverter : IValueConverter
         return Utilities.ConvertToColorBrush(selection.Background);
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class DisplayUniqueHudsOnlyForegroundConverter : IValueConverter
@@ -144,10 +125,7 @@ public class DisplayUniqueHudsOnlyForegroundConverter : IValueConverter
         return (bool)value ? "\u05AE" : "\u05AF";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class BtnInstallContentConverter : IValueConverter
@@ -172,10 +150,7 @@ public class BtnInstallContentConverter : IValueConverter
         return Resources.ui_install ?? "Install";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class ComboBoxItemsConverterVisibility : IValueConverter
@@ -185,10 +160,7 @@ public class ComboBoxItemsConverterVisibility : IValueConverter
         return value is not null && ((IEnumerable<object>)value).Count() > 1;
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class DisableOnLinuxConverter : IValueConverter
@@ -198,8 +170,5 @@ public class DisableOnLinuxConverter : IValueConverter
         return !RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

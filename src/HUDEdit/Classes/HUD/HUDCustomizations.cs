@@ -23,7 +23,7 @@ public partial class HUD
         {
             // HUD Background Image.
             // Set the HUD Background image path when applying, because it's possible the user did not have their tf/custom folder set up when this HUD constructor was called.
-            HudBackground = new HUDBackground($"{MainWindow.HudPath}/{Name}/");
+            HudBackground = new HUDBackground($"{App.HudPath}/{Name}/");
 
             var hudSettings = ControlOptions.Values;
 
@@ -126,7 +126,7 @@ public partial class HUD
             }
 
             // Write hudFolders to the HUD once instead of each WriteToFile call reading and writing
-            IterateProperties(hudFolders, MainWindow.HudPath + "/" + Name);
+            IterateProperties(hudFolders, App.HudPath + "/" + Name);
             HudBackground.ApplyBackground();
             return true;
         }
@@ -146,7 +146,7 @@ public partial class HUD
         try
         {
             // Check if the customization folder exist.
-            var path = $"{MainWindow.HudPath}/{Name}/";
+            var path = $"{App.HudPath}/{Name}/";
             if (!Directory.Exists($"{path}/{CustomizationsFolder}")) return;
 
             // Check if the "enabled" folder exists. If not, create it.
@@ -681,7 +681,7 @@ public partial class HUD
             foreach (var filePath in files)
             {
                 var relativePath = string.Join('/', Regex.Split(filePath.Key, @"[\/]+"));
-                var absolutePath = MainWindow.HudPath + "/" + Name + "/" + string.Join('/', relativePath.Split('/'));
+                var absolutePath = App.HudPath + "/" + Name + "/" + string.Join('/', relativePath.Split('/'));
                 var extension = filePath.Key.Split(".")[^1];
 
                 if (resFileExtensions.Contains(extension))
@@ -751,11 +751,11 @@ public partial class HUD
             if (Process.GetProcessesByName("hl2").Any()
                 || Process.GetProcessesByName("tf").Any()
                 || Process.GetProcessesByName("tf_win64").Any()
-                || File.Exists(MainWindow.HudPath + "/" + fileName)
+                || File.Exists(App.HudPath + "/" + fileName)
                 || !enable) return;
 
             // Download a version of the transparent viewmodels add-on.
-            await Utilities.DownloadFile(App.Config.ConfigSettings.AppConfig.MastercomfigVpkURL, $"{MainWindow.HudPath}/{fileName}");
+            await Utilities.DownloadFile(App.Config.ConfigSettings.AppConfig.MastercomfigVpkURL, $"{App.HudPath}/{fileName}");
         }
         catch (Exception e)
         {

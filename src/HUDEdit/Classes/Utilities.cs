@@ -1,4 +1,14 @@
-﻿using System;
+﻿using Avalonia.Media;
+using Avalonia.Platform;
+using Avalonia.Platform.Storage;
+using HUDEdit.Assets;
+using HUDEdit.Models;
+using HUDEdit.Views;
+using Microsoft.Win32;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
+using Octokit;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -7,19 +17,11 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using HUDEdit.Models;
-using Microsoft.Win32;
-using Avalonia.Media;
 using Color = Avalonia.Media.Color;
-using System.Runtime.InteropServices;
-using HUDEdit.Views;
-using Avalonia.Platform;
-using Avalonia.Platform.Storage;
-using HUDEdit.Assets;
-using MsBox.Avalonia;
-using MsBox.Avalonia.Enums;
 
 namespace HUDEdit.Classes;
 
@@ -247,7 +249,7 @@ public static class Utilities
     /// <returns>True if the set target directory is valid.</returns>
     public static bool CheckUserPath()
     {
-        return !string.IsNullOrWhiteSpace(MainWindow.HudPath) && (App.Config.ConfigSettings.UserPrefs.PathBypass || MainWindow.HudPath.EndsWith("tf/custom"));
+        return !string.IsNullOrWhiteSpace(App.HudPath) && (App.Config.ConfigSettings.UserPrefs.PathBypass || App.HudPath.EndsWith("tf/custom"));
     }
 
     /// <summary>
@@ -502,7 +504,7 @@ public static class Utilities
 
     public static async Task InstallCastingEssentials()
     {
-        await DownloadFile(App.Config.ConfigSettings.AppConfig.MastercomfigVpkURL, $"{MainWindow.HudPath}/CastingEssentialsNext");
+        await DownloadFile(App.Config.ConfigSettings.AppConfig.MastercomfigVpkURL, $"{App.HudPath}/CastingEssentialsNext");
     }
 
     public static Avalonia.Media.Imaging.Bitmap? LoadImage(string url)
@@ -609,10 +611,10 @@ public static class Utilities
     public static bool CheckHudInstallation(HUD hud)
     {
         return hud != null &&
-            MainWindow.HudPath != null &&
+            App.HudPath != null &&
             CheckUserPath() &&
-            Directory.Exists(MainWindow.HudPath) &&
-            Directory.Exists($"{MainWindow.HudPath}/{hud.Name}");
+            Directory.Exists(App.HudPath) &&
+            Directory.Exists($"{App.HudPath}/{hud.Name}");
     }
 
     /// <summary>
@@ -637,8 +639,8 @@ public static class Utilities
             {
                 App.Config.ConfigSettings.UserPrefs.HUDDirectory = userPath;
                 App.SaveConfiguration();
-                MainWindow.HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
-                App.Logger.Info($"Target directory set to: {MainWindow.HudPath}");
+                App.HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
+                App.Logger.Info($"Target directory set to: {App.HudPath}");
             }
             else
             {
@@ -678,5 +680,101 @@ public static class Utilities
         // Create chapterbackground.txt file with the contents.
         File.WriteAllText(Path.Combine(hudPath, "chapterbackground.txt"), content);
         App.Logger.Info($"Created chapterbackground.txt at {hudPath}");
+    }
+
+    /// <summary>
+    /// Synchronizes the local HUD schema files with the latest versions on GitHub.
+    /// </summary>
+    /// <param name="silent">If true, the user will not be notified if there are no updates on startup.</param>
+    public static async void UpdateAppSchema(bool silent = true)
+    {
+        try
+        {
+            // Create the schema folder if it does not exist.
+            if (!Directory.Exists("JSON")) Directory.CreateDirectory("JSON");
+
+            var downloads = new List<Task>();
+            var remoteFiles = (await Fetch<GitJson[]>(App.Config.ConfigSettings.AppConfig.JsonListURL)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
+
+            foreach (var remoteFile in remoteFiles)
+            {
+                var localFilePath = $"JSON/{remoteFile.Name}";
+                bool newFile = false, fileChanged = false;
+
+                if (!File.Exists(localFilePath))
+                    newFile = true;
+                else
+                    fileChanged = remoteFile.SHA != GitHash(localFilePath);
+
+                if (!newFile && !fileChanged) continue;
+                App.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
+                downloads.Add(DownloadFile(remoteFile.Download, localFilePath));
+            }
+
+            // Remove HUD JSONs that aren't available online.
+            foreach (var localFile in new DirectoryInfo("JSON").EnumerateFiles())
+            {
+                if (remoteFiles.Count((x) => x.Name == localFile.Name) == 0)
+                {
+                    App.Logger.Info($"Deleting {localFile.Name}");
+                    File.Delete(localFile.FullName);
+                }
+            }
+
+            await Task.WhenAll(downloads);
+            if (Convert.ToBoolean(downloads.Count))
+            {
+                if (!silent) if (await ShowPromptBox(Resources.info_hud_update) == ButtonResult.No) return;
+                Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
+                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
+                Environment.Exit(0);
+            }
+            else
+            {
+                if (!silent) await ShowMessageBox(Resources.info_hud_update_none);
+            }
+        }
+        catch (Exception e)
+        {
+            App.Logger.Error(e.Message);
+            Console.WriteLine(e);
+        }
+        finally
+        {
+            UpdateAppVersion();
+        }
+    }
+
+    /// <summary>
+    /// Checks if there's a new version of the app available.
+    /// </summary>
+    public static async void UpdateAppVersion()
+    {
+        try
+        {
+            var localVersion = Assembly.GetExecutingAssembly().GetName().Version;
+            var latestVersion = await new GitHubClient(new ProductHeaderValue("TF2HUD.Editor")).Repository.Release.GetLatest("CriticalFlaw", "TF2HUD.Editor");
+            App.Logger.Info($"Checking for app update. Latest version is {latestVersion.TagName}");
+
+            // Parse the remote version (remove a leading 'v' if present)
+            if (!Version.TryParse(latestVersion.TagName.TrimStart('v'), out var remoteVersion))
+            {
+                App.Logger.Warn($"Failed to parse remote version: {latestVersion.TagName}");
+                return;
+            }
+
+            // Only update if remote version is *greater than* the local version
+            if (remoteVersion > localVersion)
+            {
+                App.Logger.Info($"Update available from {localVersion} -> {remoteVersion}");
+                if (await ShowPromptBox(Resources.info_app_update) == ButtonResult.No) return;
+                OpenWebpage(App.Config.ConfigSettings.AppConfig.LatestUpdateURL);
+            }
+        }
+        catch (Exception e)
+        {
+            App.Logger.Error(e.Message);
+            Console.WriteLine(e);
+        }
     }
 }

@@ -263,17 +263,17 @@ public partial class MainWindowViewModel : ViewModelBase
             // Clear tf/custom directory of other installed HUDs.
             foreach (var x in HUDList)
             {
-                if (Directory.Exists($"{MainWindow.HudPath}/{x.Name.ToLowerInvariant()}"))
+                if (Directory.Exists($"{App.HudPath}/{x.Name.ToLowerInvariant()}"))
                 {
-                    App.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {MainWindow.HudPath}");
-                    Directory.Delete($"{MainWindow.HudPath}/{x.Name.ToLowerInvariant()}", true);
+                    App.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {App.HudPath}");
+                    Directory.Delete($"{App.HudPath}/{x.Name.ToLowerInvariant()}", true);
                 }
             }
 
             // Check for unsupported HUDs in the tf/custom folder. Notify user if found.
-            foreach (var foundHud in Directory.GetDirectories(MainWindow.HudPath))
+            foreach (var foundHud in Directory.GetDirectories(App.HudPath))
             {
-                if (!foundHud.Remove(0, MainWindow.HudPath.Length).ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}/info.vdf")) continue;
+                if (!foundHud[App.HudPath.Length..].ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}/info.vdf")) continue;
                 if (await Utilities.ShowPromptBox(Resources.info_unsupported_hud_found) == ButtonResult.No)
                 {
                     Installing = false;
@@ -283,13 +283,13 @@ public partial class MainWindowViewModel : ViewModelBase
             }
 
             // Download and install the selected HUD
-            await Utilities.DownloadHud(SelectedHud.DownloadUrl, MainWindow.HudPath, SelectedHud.Name);
+            await Utilities.DownloadHud(SelectedHud.DownloadUrl, App.HudPath, SelectedHud.Name);
 
             // Install Crosshairs
             if (SelectedHud.InstallCrosshairs)
             {
                 App.Logger.Info($"Installing crosshairs to {SelectedHud.Name}");
-                await Utilities.InstallCrosshairs($"{MainWindow.HudPath}/{SelectedHud.Name}");
+                await Utilities.InstallCrosshairs($"{App.HudPath}/{SelectedHud.Name}");
             }
 
             // Update the page view.
@@ -332,8 +332,8 @@ public partial class MainWindowViewModel : ViewModelBase
             if (Utilities.CheckIsGameRunning()) return;
 
             // Remove the HUD from the tf/custom directory.
-            App.Logger.Info($"Removing {SelectedHud.Name} from {MainWindow.HudPath}");
-            if (SelectedHud.Name != "") Directory.Delete($"{MainWindow.HudPath}/{SelectedHud.Name}", true);
+            App.Logger.Info($"Removing {SelectedHud.Name} from {App.HudPath}");
+            if (SelectedHud.Name != "") Directory.Delete($"{App.HudPath}/{SelectedHud.Name}", true);
 
             // Update timestamp
             ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_installed_not, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
@@ -402,13 +402,16 @@ public partial class MainWindowViewModel : ViewModelBase
         App.Logger.Info("Changing page view to: main menu");
         HighlightedHud = null;
         SelectedHud = null;
-        //WindowTitle = Resources.ui_title;
+        WindowTitle = Resources.ui_title;
     }
 
+    [RelayCommand]
     public void OpenDocSite() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
 
+    [RelayCommand]
     public void OpenIssueTracker() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.IssueTrackerURL);
 
+    [RelayCommand]
     public void OpenOptionsMenu() => new SettingsView().Show();
 
     [RelayCommand]
@@ -466,7 +469,7 @@ public partial class MainWindowViewModel : ViewModelBase
         try
         {
             var remoteFiles = (await Utilities.Fetch<GitJson[]>(App.Config.ConfigSettings.AppConfig.JsonListURL)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
-            List<Task> downloads = new();
+            List<Task> downloads = [];
 
             foreach (var remoteFile in remoteFiles)
             {
@@ -528,7 +531,7 @@ public partial class MainWindowViewModel : ViewModelBase
                     "-o",
                     $"\"{outputPathTga}\""
                 ];
-                var processInfo = new ProcessStartInfo($"{MainWindow.HudPath.Replace("/tf/custom", string.Empty)}/bin/vtf2tga.exe")
+                var processInfo = new ProcessStartInfo($"{App.HudPath.Replace("/tf/custom", string.Empty)}/bin/vtf2tga.exe")
                 {
                     Arguments = string.Join(" ", args),
                     RedirectStandardOutput = true

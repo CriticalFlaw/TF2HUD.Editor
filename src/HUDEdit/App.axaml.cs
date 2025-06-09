@@ -19,6 +19,7 @@ public partial class App : Application
 {
     public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
     public static ConfigurationModel Config { get; private set; }
+    public static string HudPath { get; set; }
 
     public override void Initialize()
     {
@@ -84,8 +85,9 @@ public partial class App : Application
             PropertyNameCaseInsensitive = true
         }) ?? new ConfigurationModel();
 
-        // Set user language
+        // Set user preferences
         Assets.Resources.Culture = new CultureInfo(Config.ConfigSettings.UserPrefs.Language);
+        HudPath = Config.ConfigSettings.UserPrefs.HUDDirectory;
     }
 
     public static void SaveConfiguration()
