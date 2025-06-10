@@ -450,6 +450,7 @@ public partial class MainWindowViewModel : ViewModelBase
         CurrentPageViewModel?.Dispose();
 
         await LoadHUDs();
+        await DownloadImages();
         OnPropertyChanged(nameof(HUDList));
 
         // Restore selected HUD if it still exists
