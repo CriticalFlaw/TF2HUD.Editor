@@ -446,11 +446,9 @@ public partial class HUD
         }
 
         // Set the selected value depending on the what's retrieved from the setting file.
-        var index = Utilities.CrosshairStyles.IndexOf(Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name)));
+        var xhair = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence ? App.Config.ConfigSettings.UserPrefs.CrosshairStyle : Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name));
+        var index = Utilities.CrosshairStyles.IndexOf(xhair);
         combobox.SelectedIndex = (index >= 0) ? index : 0;
-
-        if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Style"))
-            combobox.SelectedValue = App.Config.ConfigSettings.UserPrefs.CrosshairStyle;
 
         //----
 

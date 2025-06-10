@@ -75,12 +75,7 @@ internal partial class EditHUDViewModel : ViewModelBase
     public void ChangePreset(Preset preset)
     {
         _hud.SetPreset(preset);
-
-        foreach (PresetViewModel p in Presets)
-        {
-            p.Selected = p.Preset == _hud.Settings.Preset;
-        }
-        
+        foreach (PresetViewModel p in Presets) p.Selected = p.Preset == _hud.Settings.Preset;
         OnPropertyChanged(nameof(Content));
     }
 
@@ -91,9 +86,6 @@ internal partial class EditHUDViewModel : ViewModelBase
     {
         base.Dispose();
         _mainWindowViewModel.PropertyChanged -= MainWindowViewModelPropertyChanged;
-        foreach (PresetViewModel p in Presets)
-        {
-            p.Dispose();
-        }
+        foreach (PresetViewModel p in Presets) p.Dispose();
     }
 }
