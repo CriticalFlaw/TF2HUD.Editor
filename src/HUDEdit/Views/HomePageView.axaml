@@ -45,14 +45,6 @@
 							</ItemsPanelTemplate>
 						</ItemsControl.ItemsPanel>
 						
-						<!-- Items Content Presenter -->
-						<ItemsControl.Styles>
-							<Style Selector="ContentPresenter">
-								<Setter Property="Grid.Column" Value="{Binding Column}" />
-								<Setter Property="Grid.Row" Value="{Binding Row}" />
-							</Style>
-						</ItemsControl.Styles>
-						
 						<!-- Items -->
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
