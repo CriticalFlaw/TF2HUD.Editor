@@ -1,7 +1,6 @@
 ﻿using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.Input;
 using HUDEdit.Classes;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -23,7 +22,7 @@ internal partial class HUDInfoViewModel : ViewModelBase
     {
         _mainWindowViewModel = mainWindowViewModel;
         Hud = hud;
-        _screenshots = new ObservableCollection<ScreenshotViewModel>();
+        _screenshots = [];
 
         // Use cached ScreenshotImages if available, otherwise fallback to empty
         var images = Hud.ScreenshotImages ?? new List<Bitmap>();
@@ -44,8 +43,5 @@ internal partial class HUDInfoViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public void BtnCustomize_Click()
-    {
-        _mainWindowViewModel.SelectHUD(Hud);
-    }
+    public void CustomizeHUD() => _mainWindowViewModel.SelectHUD(Hud);
 }

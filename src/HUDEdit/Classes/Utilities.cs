@@ -3,7 +3,6 @@ using Avalonia.Platform;
 using Avalonia.Platform.Storage;
 using HUDEdit.Assets;
 using HUDEdit.Models;
-using HUDEdit.Views;
 using Microsoft.Win32;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;

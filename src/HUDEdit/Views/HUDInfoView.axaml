@@ -20,7 +20,7 @@
 		<!-- Customize Button -->
 		<Button Grid.Row="0" Grid.Column="1"
 				Content="{x:Static loc:Resources.ui_customize}"
-				Command="{Binding BtnCustomize_ClickCommand}"
+				Command="{Binding CustomizeHUD}"
 				CommandParameter="{Binding Hud}"
 				Classes="HudButton"
 				HorizontalAlignment="Right"

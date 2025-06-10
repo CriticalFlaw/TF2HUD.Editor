@@ -7,13 +7,13 @@ namespace HUDEdit.Views;
 
 public partial class HUDButtonView : UserControl
 {
+    private DateTime _lastClickTime = DateTime.MinValue;
+    private const int DoubleClickThresholdMs = 300;
+
     public HUDButtonView()
     {
         InitializeComponent();
     }
-
-    private DateTime _lastClickTime = DateTime.MinValue;
-    private const int DoubleClickThresholdMs = 300; // tweak if needed
 
     private void Border_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
     {

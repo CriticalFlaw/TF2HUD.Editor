@@ -47,11 +47,11 @@
 
 		<HeaderedContentControl Grid.Row="1" Margin="10,0,10,10">
 			<WrapPanel HorizontalAlignment="Center">
-				<Button Classes="HudButton" Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}" Command="{Binding BtnInstall_ClickCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
-				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_uninstall}" Command="{Binding BtnUninstall_ClickCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"/>
-				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_apply}" Command="{Binding BtnSave_ClickCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}" />
-				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_reset}" Command="{Binding BtnReset_ClickCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
-				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_switch}" Command="{Binding BtnSwitch_ClickCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
+				<Button Classes="HudButton" Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}" Command="{Binding InstallHUD}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_uninstall}" Command="{Binding UninstallHUDCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"/>
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_apply}" Command="{Binding SaveHUDCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}" />
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_reset}" Command="{Binding ResetHUDCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_switch}" Command="{Binding SwitchHUDCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
 				<Button Classes="HudButton Icons" Content="=" Command="{Binding OpenOptionsMenu}" ToolTip.Tip="{x:Static loc:Resources.tooltip_options}"/>
 				<Button Classes="HudButton Icons" Content="&#x03C6;" Command="{Binding OpenIssueTracker}" ToolTip.Tip="{x:Static loc:Resources.tooltip_report}"/>
 				<Button Classes="HudButton Icons" Content="&#x0235;" Command="{Binding OpenDocSite}" ToolTip.Tip="{x:Static loc:Resources.tooltip_docs}"/>

@@ -1,5 +1,4 @@
 using Crews.Utility.TgaSharp;
-using HUDEdit.Views;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -9,11 +8,11 @@ namespace HUDEdit.Classes;
 
 internal class VTF
 {
-    private readonly string _tf2Path;
+    private readonly string Tf2Path;
 
     public VTF(string path)
     {
-        _tf2Path = path.Replace("/tf/custom", string.Empty);
+        Tf2Path = path.Replace("/tf/custom", string.Empty);
     }
 
     /// <summary>
@@ -25,7 +24,7 @@ internal class VTF
     {
         // Resize image to square of larger proportional
         var image = new Bitmap(inFile);
-        var materialSrc = $"{_tf2Path}/tf/materialsrc";
+        var materialSrc = $"{Tf2Path}/tf/materialsrc";
 
         // Create materialsrc (ensure it exists)
         if (!Directory.Exists(materialSrc))
@@ -39,7 +38,7 @@ internal class VTF
         VtexConvert(materialSrc, "temp");
 
         // Path to VTEX output file
-        var vtfOutput = $"{_tf2Path}/tf/materials/temp.vtf";
+        var vtfOutput = $"{Tf2Path}/tf/materials/temp.vtf";
 
         // Create absolute path to output folder and make directory
         var pathInfo = outFile.Split('/', '/');
@@ -103,7 +102,7 @@ internal class VTF
         ];
 
         // Call Vtex and pass the parameters.
-        var processInfo = new ProcessStartInfo($"{_tf2Path}/bin/vtex.exe")
+        var processInfo = new ProcessStartInfo($"{Tf2Path}/bin/vtex.exe")
         {
             Arguments = string.Join(" ", args),
             RedirectStandardOutput = true

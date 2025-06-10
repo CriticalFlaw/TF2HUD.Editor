@@ -1,13 +1,11 @@
 ﻿using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Input;
 using HUDEdit.Classes;
-using HUDEdit.Views;
 using HUDEdit.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 
 namespace HUDEdit.ViewModels;
@@ -43,7 +41,7 @@ internal partial class EditHUDViewModel : ViewModelBase
     public string ComfigHudsUrl => _hud.ComfigHudsUrl;
     public string DiscordUrl => _hud.DiscordUrl;
     public string SteamUrl => _hud.SteamUrl;
-    public Grid Content => _hud.GetControls();
+    public Grid Content { get; }
 
     public EditHUDViewModel(MainWindowViewModel mainWindowViewModel, HUD hud)
     {
@@ -62,6 +60,7 @@ internal partial class EditHUDViewModel : ViewModelBase
         _selectedPreset = _hud.Settings.Preset;
         Presets = new ObservableCollection<PresetViewModel>(Enum.GetValues<Preset>().Select((p) => new PresetViewModel(this, p)));
         _mainWindowViewModel.WindowTitle = $"{Assets.Resources.ui_title} | {hud.Name}";
+        Content = _hud.GetControls();
     }
 
     private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -86,10 +85,7 @@ internal partial class EditHUDViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public void OpenWebpage(string url)
-    {
-        Utilities.OpenWebpage(url);
-    }
+    public void OpenWebpage(string url) => Utilities.OpenWebpage(url);
 
     public override void Dispose()
     {

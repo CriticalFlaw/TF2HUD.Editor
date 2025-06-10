@@ -85,10 +85,7 @@ internal partial class HomePageViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public void BtnDisplayUniqueHudsOnly_Click()
-    {
-        DisplayUniqueHudsOnly = !DisplayUniqueHudsOnly;
-    }
+    public void DisplayUniqueHuds() => DisplayUniqueHudsOnly = !DisplayUniqueHudsOnly;
 
     public override void Dispose()
     {

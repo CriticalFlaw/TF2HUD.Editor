@@ -56,35 +56,4 @@ public static class ImageCache
             return null;
         }
     }
-
-    public static Bitmap? GetImage(string url)
-    {
-        var cachePath = GetCachePath(url);
-
-        if (File.Exists(cachePath))
-        {
-            try
-            {
-                using var stream = File.OpenRead(cachePath);
-                return new Bitmap(stream);
-            }
-            catch
-            {
-                File.Delete(cachePath);
-            }
-        }
-
-        try
-        {
-            using var client = new HttpClient();
-            var bytes = client.GetByteArrayAsync(url).Result;
-            File.WriteAllBytes(cachePath, bytes);
-            using var stream = new MemoryStream(bytes);
-            return new Bitmap(stream);
-        }
-        catch
-        {
-            return null;
-        }
-    }
 }

@@ -613,6 +613,7 @@ public partial class HUD
     {
         var button = new Button
         {
+            VerticalAlignment = VerticalAlignment.Top,
             HorizontalAlignment = HorizontalAlignment.Right,
             Content = "\u0157",
             Opacity = 0.4

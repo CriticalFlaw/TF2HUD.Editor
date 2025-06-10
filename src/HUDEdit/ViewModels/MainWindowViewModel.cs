@@ -80,8 +80,8 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             _installing = value;
             OnPropertyChanged(nameof(Installing));
-            BtnInstall_ClickCommand.NotifyCanExecuteChanged();
-            BtnUninstall_ClickCommand.NotifyCanExecuteChanged();
+            InstallHUDCommand.NotifyCanExecuteChanged();
+            UninstallHUDCommand.NotifyCanExecuteChanged();
         }
     }
 
@@ -167,15 +167,9 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public void SelectHUD(HUD hud)
-    {
-        SelectedHud = hud;
-    }
+    public void SelectHUD(HUD hud) => SelectedHud = hud;
 
-    public bool CanInstall()
-    {
-        return !Installing;
-    }
+    public bool CanInstall() => !Installing;
 
     public Task LoadHUDs()
     {
@@ -243,7 +237,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// Invokes HUD installation or setting the tf/custom directory, if not already set.
     /// </summary>
     [RelayCommand(CanExecute = nameof(CanInstall))]
-    public async void BtnInstall_Click()
+    public async void InstallHUD()
     {
         try
         {
@@ -321,7 +315,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// Invokes HUD deletion from the tf/custom directory.
     /// </summary>
     [RelayCommand]
-    public void BtnUninstall_Click()
+    public void UninstallHUD()
     {
         try
         {
@@ -354,7 +348,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// Saves and applies user settings to the HUD files.
     /// </summary>
     [RelayCommand]
-    public async Task BtnSave_ClickAsync()
+    public async Task SaveHUD()
     {
         if (SelectedHud == null) return;
 
@@ -378,7 +372,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// Resets user settings for the selected HUD to their default values.
     /// </summary>
     [RelayCommand]
-    public async void BtnReset_Click()
+    public async void ResetHUD()
     {
         // Ask the user if they want to reset before doing so.
         if (await Utilities.ShowPromptBox(Resources.info_hud_reset) == ButtonResult.No) return;
@@ -397,7 +391,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// Returns to the HUD selection page.
     /// </summary>
     [RelayCommand]
-    public void BtnSwitch_Click()
+    public void SwitchHUD()
     {
         App.Logger.Info("Changing page view to: main menu");
         HighlightedHud = null;
