@@ -76,7 +76,7 @@ public class HUDSettings
                 return (T)(object)Utilities.ConvertToColor(value);
 
             case "Int32":
-                return (T)(object)int.Parse(value);
+                return (T)(object)(int.TryParse(value, out var result) ? result : 0);
 
             case "String":
                 return (T)(object)value;

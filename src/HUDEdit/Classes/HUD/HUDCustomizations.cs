@@ -67,6 +67,7 @@ public partial class HUD
                                     App.Config.ConfigSettings.UserPrefs.CrosshairSize = int.Parse(setting.Value);
                                 break;
                         }
+                        App.SaveConfiguration();
                     }
                 }
             }

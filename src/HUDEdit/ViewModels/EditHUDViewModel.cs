@@ -41,7 +41,7 @@ internal partial class EditHUDViewModel : ViewModelBase
     public string ComfigHudsUrl => _hud.ComfigHudsUrl;
     public string DiscordUrl => _hud.DiscordUrl;
     public string SteamUrl => _hud.SteamUrl;
-    public Grid Content { get; }
+    public Grid Content { get; set; }
 
     public EditHUDViewModel(MainWindowViewModel mainWindowViewModel, HUD hud)
     {
@@ -76,6 +76,7 @@ internal partial class EditHUDViewModel : ViewModelBase
     {
         _hud.SetPreset(preset);
         foreach (PresetViewModel p in Presets) p.Selected = p.Preset == _hud.Settings.Preset;
+        Content = _hud.GetControls();
         OnPropertyChanged(nameof(Content));
     }
 
