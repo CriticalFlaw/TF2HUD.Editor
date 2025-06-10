@@ -13,7 +13,7 @@
 				<RowDefinition />
 				<RowDefinition />
 			</Grid.RowDefinitions>
-			<Border Classes="HudListImage" >
+			<Border Classes="HudListImage">
 				<Border.Background>
 					<ImageBrush Source="{Binding Thumbnail}" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"/>
 				</Border.Background>

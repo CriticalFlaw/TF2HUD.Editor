@@ -46,7 +46,7 @@
 						<!-- Items -->
 						<ItemsControl.ItemTemplate>
 							<DataTemplate>
-								<Button Content="{Binding Preset}" Classes.PresetButtonSelected="{Binding Selected}" Classes.PresetButton="{Binding !Selected}" Command="{Binding DataContext.ChangePresetCommand, ElementName=Root}" CommandParameter="{Binding Preset}" />
+								<Button Content="{Binding Preset}" Classes.HudButtonSelected="{Binding Selected}" Classes.HudButton="{Binding !Selected}" Command="{Binding DataContext.ChangePresetCommand, ElementName=Root}" CommandParameter="{Binding Preset}" Height="35" Width="35" FontSize="25" Margin="1,0" />
 							</DataTemplate>
 						</ItemsControl.ItemTemplate>
 					</ItemsControl>

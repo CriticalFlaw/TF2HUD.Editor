@@ -16,13 +16,13 @@
 		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
 		<StyleInclude Source="avares://MsBox.Avalonia.Markdown/Controls/MarkdownView.axaml" />
 		<dialogHostAvalonia:DialogHostStyles />
-		
+
 		<Style Selector="Label">
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
+			<Setter Property="FontSize" Value="16" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
 			<Setter Property="Foreground" Value="White" />
-			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
-			<Setter Property="FontSize" Value="16" />
 		</Style>
 
 		<Style Selector="Label.HeaderText">
@@ -58,17 +58,14 @@
 			<Setter Property="FontSize" Value="16" />
 		</Style>
 
-		<Style Selector="Label.OptionLabel.ComboBoxLabel">
-			<Setter Property="Width" Value="150" />
-		</Style>
-
 		<Style Selector="TextBox.SearchBox">
 			<Setter Property="Foreground" Value="WhiteSmoke" />
 			<Setter Property="Background" Value="#2B2724" />
 			<Setter Property="BorderThickness" Value="1" />
 			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<Setter Property="VerticalContentAlignment" Value="Center" />
-			<Setter Property="Margin" Value="0,0,10,0" />
+			<Setter Property="Margin" Value="0,0,5,0" />
+			<Setter Property="Height" Value="35" />
 		</Style>
 
 		<Style Selector="ComboBox">
@@ -186,7 +183,7 @@
 			</Setter>
 
 			<Style Selector="^:pointerover">
-				<Setter Property="Background" Value="#934739"/>
+				<Setter Property="Background" Value="#2E2B2A"/>
 			</Style>
 
 			<Style Selector="^:disabled">
@@ -194,24 +191,38 @@
 			</Style>
 		</Style>
 
-		<Style Selector="Button.HudButton.HudButtonSelected">
+		<Style Selector="Button.HudButton.Icons">
+			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
+			<Setter Property="FontSize" Value="33" />
+			<Setter Property="Width" Value="50" />
+		</Style>
+
+		<Style Selector="Button.HudButton.SettingsButton">
+			<Setter Property="Width" Value="265" />
+		</Style>
+
+		<Style Selector="Button.HudButtonSelected">
+			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
+			<Setter Property="FontSize" Value="16" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
-			<Setter Property="Background" Value="#DC6450" />
+			<Setter Property="Background" Value="#2E2B2A" />
+			<Setter Property="Margin" Value="5" />
+			<Setter Property="Width" Value="170" />
+			<Setter Property="Height" Value="40" />
 
 			<Style Selector="^:pointerover">
-				<Setter Property="Background" Value="#DC6450"/>
+				<Setter Property="Background" Value="#776B5F"/>
 			</Style>
 		</Style>
 
 		<Style Selector="Button.LinkButton">
 			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="FontSize" Value="33" />
+			<Setter Property="FontSize" Value="25" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Background" Value="#776B5F" />
-			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="Margin" Value="5" />
-			<Setter Property="Width" Value="50" />
-			<Setter Property="Height" Value="40" />
+			<Setter Property="Width" Value="35" />
+			<Setter Property="Height" Value="35" />
 			<Setter Property="Cursor" Value="Hand" />
 
 			<Setter Property="Template">
@@ -225,37 +236,18 @@
 			</Setter>
 
 			<Style Selector="^:pointerover">
-				<Setter Property="Foreground" Value="#FFFFFF"/>
-				<Setter Property="Background" Value="#934739"/>
+				<Setter Property="Background" Value="#2E2B2A"/>
 			</Style>
 
 			<Style Selector="^:disabled">
 				<Setter Property="Foreground" Value="#2B2724"/>
-				<Setter Property="Background" Value="#776B5F"/>
-			</Style>
-		</Style>
-
-		<Style Selector="Button.LinkButton.SettingsButton">
-			<Setter Property="Content" Value="&#x0683;" />
-			<Setter Property="FontSize" Value="25" />
-			<Setter Property="Foreground" Value="#FFFFFF" />
-			<Setter Property="Background" Value="#1B2838" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
-
-			<Style Selector="^:pointerover">
-				<Setter Property="Foreground" Value="#FFFFFF"/>
-				<Setter Property="Background" Value="#384452"/>
 			</Style>
 		</Style>
 
 		<Style Selector="Button.LinkButton.GitHubButton">
 			<Setter Property="Content" Value="&#x0692;" />
-			<Setter Property="FontSize" Value="25" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#171A21" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
 
 			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
@@ -264,10 +256,9 @@
 		</Style>
 
 		<Style Selector="Button.LinkButton.TF2HudsButton">
+			<Setter Property="FontSize" Value="33" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#111111" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
 
 			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
@@ -276,10 +267,9 @@
 		</Style>
 
 		<Style Selector="Button.LinkButton.ComfigHudsButton">
+			<Setter Property="FontSize" Value="33" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#439388" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
 
 			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
@@ -289,11 +279,8 @@
 
 		<Style Selector="Button.LinkButton.DiscordButton">
 			<Setter Property="Content" Value="&#x0689;" />
-			<Setter Property="FontSize" Value="25" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#5865F2" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
 
 			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
@@ -303,11 +290,8 @@
 
 		<Style Selector="Button.LinkButton.SteamButton">
 			<Setter Property="Content" Value="&#x0683;" />
-			<Setter Property="FontSize" Value="25" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#1B2838" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
 
 			<Style Selector="^:pointerover">
 				<Setter Property="Foreground" Value="#FFFFFF"/>
@@ -317,64 +301,26 @@
 
 		<Style Selector="Button.PreviewButton">
 			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="Background" Value="Transparent" />
-			<Setter Property="Foreground" Value="White" />
-			<Setter Property="Height" Value="25" />
 			<Setter Property="Content" Value="&#x048A;" />
+			<Setter Property="Foreground" Value="#EBE2CA" />
+			<Setter Property="Background" Value="Transparent" />
+			<Setter Property="Height" Value="25" />
 			<Setter Property="BorderThickness" Value="0" />
 			<Setter Property="VerticalAlignment" Value="Center" />
 			<Setter Property="Margin" Value="5, 0, 0, 0" />
 
 			<Style Selector="^:pointerover">
-				<Setter Property="Foreground" Value="Black"/>
+				<Setter Property="Foreground" Value="#2B2724"/>
 			</Style>
-		</Style>
-
-		<Style Selector="Button.FilterButton">
-			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="FontSize" Value="20" />
-		</Style>
-
-		<Style Selector="Button.HudButton.SettingsButton">
-			<Setter Property="Width" Value="265" />
 		</Style>
 
 		<Style Selector="Button.BackgroundBrowseClear">
 			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
-			<Setter Property="HorizontalAlignment" Value="Stretch" />
 			<Setter Property="Margin" Value="0 0 5 0" />
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
 			<Setter Property="HorizontalContentAlignment" Value="Center" />
 		</Style>
 
-		<Style Selector="Button.PresetButton">
-			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
-			<Setter Property="FontSize" Value="25" />
-			<Setter Property="Foreground" Value="#EBE2CA" />
-			<Setter Property="Background" Value="#776B5F" />
-			<Setter Property="Margin" Value="1,0" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
-			<Setter Property="Cursor" Value="Hand" />
-
-			<Style Selector="^:pointerover">
-				<Setter Property="Background" Value="#934739"/>
-			</Style>
-		</Style>
-
-		<Style Selector="Button.PresetButtonSelected">
-			<Setter Property="FontFamily" Value="{StaticResource Tf2Build}" />
-			<Setter Property="FontSize" Value="25" />
-			<Setter Property="Foreground" Value="#EBE2CA" />
-			<Setter Property="Background" Value="#2E2B2A" />
-			<Setter Property="Margin" Value="1,0" />
-			<Setter Property="Width" Value="35" />
-			<Setter Property="Height" Value="35" />
-			
-			<Style Selector="^:pointerover">
-				<Setter Property="Background" Value="#DC6450"/>
-			</Style>
-		</Style>
-		
 		<Style Selector="Image.PreviewImage">
 			<Setter Property="Height" Value="600" />
 			<Setter Property="Width" Value="600" />
