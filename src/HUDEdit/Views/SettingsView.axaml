@@ -10,17 +10,15 @@
         mc:Ignorable="d" Width="1000" Height="320"
         x:Class="HUDEdit.Views.SettingsView"
 		x:DataType="vm:SettingsViewModel"
-		Title="TF2 HUD Editor | Settings"
+		x:Name="Root"
+		Title="{x:Static loc:Resources.ui_options}"
 		Icon="/Assets/Images/favicon.ico">
-
-	<Design.DataContext>
-		<vm:SettingsViewModel/>
-	</Design.DataContext>
 
 	<Window.Resources>
 		<classes:DisableOnLinuxConverter x:Key="DisableOnLinux" />
+		<classes:LanguageSwitchConverter x:Key="LanguageSwitch" />
 	</Window.Resources>
-	
+
 	<Border>
 		<Border.Background>
 			<ImageBrush Source="avares://HUDEdit/Assets/Images/background.png" Stretch="UniformToFill"/>
@@ -38,26 +36,23 @@
 			</Grid.RowDefinitions>
 
 			<HeaderedContentControl Header="Language" Grid.Row="0" Grid.Column="0" IsEnabled="{Binding ., Converter={StaticResource DisableOnLinux}}">
-				<WrapPanel HorizontalAlignment="Left">
-					<RadioButton x:Name="BtnLocalizeEn" Margin="5" Checked="BtnLocalize_Click">
-						<Image Source="avares://HUDEdit/Assets/Images/Flags/us.png" Width="75" />
-					</RadioButton>
-					<RadioButton x:Name="BtnLocalizeFr" Margin="5" Checked="BtnLocalize_Click">
-						<Image Source="avares://HUDEdit/Assets/Images/Flags/fr.png" Width="60" />
-					</RadioButton>
-					<RadioButton x:Name="BtnLocalizeRu" Margin="5" Checked="BtnLocalize_Click">
-						<Image Source="avares://HUDEdit/Assets/Images/Flags/ru.png" Width="60" />
-					</RadioButton>
-					<RadioButton x:Name="BtnLocalizeBr" Margin="5" Checked="BtnLocalize_Click">
-						<Image Source="avares://HUDEdit/Assets/Images/Flags/br.png" Width="60" />
-					</RadioButton>
-					<RadioButton x:Name="BtnLocalizeIt" Margin="5" Checked="BtnLocalize_Click">
-						<Image Source="avares://HUDEdit/Assets/Images/Flags/it.png" Width="60" />
-					</RadioButton>
-					<RadioButton x:Name="BtnLocalizeCn" Margin="5" Checked="BtnLocalize_Click">
-						<Image Source="avares://HUDEdit/Assets/Images/Flags/cn.png" Width="60" />
-					</RadioButton>
-				</WrapPanel>
+				<ItemsControl ItemsSource="{Binding Languages}">
+					<!-- Container -->
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<WrapPanel/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+
+					<!-- Items -->
+					<ItemsControl.ItemTemplate>
+						<DataTemplate>
+							<RadioButton GroupName="LanguageFlags" Margin="5" IsChecked="{Binding DataContext.SelectedCulture, ElementName=Root, Mode=TwoWay, Converter={StaticResource LanguageSwitch}, ConverterParameter={Binding CultureCode}}">
+								<Image Source="{Binding FlagImagePath}" Width="60" />
+							</RadioButton>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
 			</HeaderedContentControl>
 
 			<HeaderedContentControl Header="Settings" Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">
@@ -65,7 +60,7 @@
 					<CheckBox Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox" IsChecked="{Binding PersistCrosshair}" />
 					<CheckBox Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox" IsChecked="{Binding AutoUpdate}" />
 					<CheckBox Content="{x:Static loc:Resources.ui_override_path_rule}" Classes="SettingCheckBox" IsChecked="{Binding OverridePath}" />
-					<Button Content="Save" Classes="HudButton SettingsButton" Command="{Binding SaveChangesCommand}" />
+					<Button Content="{x:Static loc:Resources.ui_save}" Classes="HudButton" Command="{Binding SaveChangesCommand}" />
 				</WrapPanel>
 			</HeaderedContentControl>
 

@@ -1,8 +1,14 @@
 ﻿using Avalonia.Controls;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using CommunityToolkit.Mvvm.Input;
+using HUDEdit.Assets;
 using HUDEdit.Classes;
+using HUDEdit.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -10,6 +16,36 @@ namespace HUDEdit.ViewModels;
 
 public partial class SettingsViewModel : ViewModelBase
 {
+    public ObservableCollection<Language> Languages { get; } =
+    [
+        new() { CultureCode = "en-US", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/us.png"))) },
+        new() { CultureCode = "fr-FR", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/fr.png"))) },
+        new() { CultureCode = "ru-RU", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/ru.png"))) },
+        new() { CultureCode = "pt-BR", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/br.png"))) },
+        new() { CultureCode = "it",    FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/it.png"))) },
+        new() { CultureCode = "zh-CN", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/cn.png"))) },
+    ];
+
+    private string _selectedCulture;
+    public string SelectedCulture
+    {
+        get => _selectedCulture;
+        set
+        {
+            if (_selectedCulture != value)
+            {
+                _selectedCulture = value;
+                OnPropertyChanged(nameof(SelectedCulture));
+
+                // Apply culture
+                Resources.Culture = new CultureInfo(value);
+                App.Config.ConfigSettings.UserPrefs.Language = value;
+                App.SaveConfiguration();
+                Utilities.ShowMessageBox(Resources.info_ask_restart);
+            }
+        }
+    }
+
     private bool _persistCrosshair;
     public bool PersistCrosshair
     {
@@ -17,7 +53,6 @@ public partial class SettingsViewModel : ViewModelBase
         set
         {
             _persistCrosshair = value;
-            App.Config.ConfigSettings.UserPrefs.CrosshairPersistence = _persistCrosshair;
             OnPropertyChanged(nameof(PersistCrosshair));
         }
     }
@@ -29,7 +64,6 @@ public partial class SettingsViewModel : ViewModelBase
         set
         {
             _autoUpdate = value;
-            App.Config.ConfigSettings.UserPrefs.AutoUpdate = _autoUpdate;
             OnPropertyChanged(nameof(AutoUpdate));
         }
     }
@@ -41,21 +75,27 @@ public partial class SettingsViewModel : ViewModelBase
         set
         {
             _overridePath = value;
-            App.Config.ConfigSettings.UserPrefs.PathBypass = _overridePath;
             OnPropertyChanged(nameof(OverridePath));
         }
     }
 
     public SettingsViewModel()
     {
+        SelectedCulture = App.Config.ConfigSettings.UserPrefs.Language ?? "en-US";
         PersistCrosshair = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence;
         AutoUpdate = App.Config.ConfigSettings.UserPrefs.AutoUpdate;
         OverridePath = App.Config.ConfigSettings.UserPrefs.PathBypass;
     }
 
-
     [RelayCommand]
-    private void SaveChanges() => App.SaveConfiguration();
+    private void SaveChanges()
+    {
+        App.Config.ConfigSettings.UserPrefs.Language = SelectedCulture;
+        App.Config.ConfigSettings.UserPrefs.CrosshairPersistence = PersistCrosshair;
+        App.Config.ConfigSettings.UserPrefs.AutoUpdate = AutoUpdate;
+        App.Config.ConfigSettings.UserPrefs.PathBypass = OverridePath;
+        App.SaveConfiguration();
+    }
 
     [RelayCommand]
     private async Task SetHudPath(Window window) => await Utilities.SetupDirectoryAsync(window, true);

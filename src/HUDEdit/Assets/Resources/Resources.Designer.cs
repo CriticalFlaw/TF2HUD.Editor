@@ -151,6 +151,15 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please restart the application to apply language change..
+        /// </summary>
+        public static string info_ask_restart {
+            get {
+                return ResourceManager.GetString("info_ask_restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setting a new background will override the current one. Use the &quot;Reinstall&quot; option to go revert to the default background..
         /// </summary>
         public static string info_background_override {
@@ -552,6 +561,15 @@ namespace HUDEdit.Assets {
         public static string ui_reset {
             get {
                 return ResourceManager.GetString("ui_reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save Changes.
+        /// </summary>
+        public static string ui_save {
+            get {
+                return ResourceManager.GetString("ui_save", resourceCulture);
             }
         }
         

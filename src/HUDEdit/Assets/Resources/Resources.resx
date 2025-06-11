@@ -312,4 +312,10 @@
   <data name="ui_splash_cancel" xml:space="preserve">
     <value>Cancelling...</value>
   </data>
+  <data name="ui_save" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="info_ask_restart" xml:space="preserve">
+    <value>Please restart the application to apply language change.</value>
+  </data>
 </root>
