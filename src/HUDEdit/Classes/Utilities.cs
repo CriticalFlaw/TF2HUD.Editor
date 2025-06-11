@@ -622,7 +622,12 @@ public static class Utilities
     /// <param name="userSet">If true, will prompt the user to provide the target directory.</param>
     public static async Task<bool> SetupDirectoryAsync(Avalonia.Controls.Window mainWindow, bool userSet = false)
     {
-        if ((SearchRegistry() || CheckUserPath()) && !userSet) return true;
+        App.Logger.Info("Attempting to change the target directory.");
+        if ((SearchRegistry() || CheckUserPath()) && !userSet)
+        {
+            App.Logger.Info("Target directory is valid. Skipping...");
+            return true;
+        }
 
         App.Logger.Info("Target directory not set. Asking user to provide it.");
         var folders = await mainWindow.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
@@ -775,5 +780,15 @@ public static class Utilities
             App.Logger.Error(e.Message);
             Console.WriteLine(e);
         }
+    }
+
+    public static async Task ClearAppCache()
+    {
+        if (await ShowPromptBox(Resources.info_clear_cache) == ButtonResult.No) return;
+
+        Directory.Delete($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor", true);
+        Directory.Delete("cache", true);
+        Directory.Delete("JSON", true);
+        UpdateAppSchema(true);
     }
 }
