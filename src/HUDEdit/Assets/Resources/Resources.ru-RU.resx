@@ -211,7 +211,7 @@
     <value>Проверка обновлений схемы интерфейса.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value />
+    <value>Обновить список или перезагрузить данные.</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>Сообщить об ошибке.</value>
@@ -234,14 +234,26 @@
   <data name="ui_clear" xml:space="preserve">
     <value>Очистить</value>
   </data>
+  <data name="ui_clear_cache" xml:space="preserve">
+    <value>Вы уверены, что хотите очистить кэш? Это удалит все кэшированные файлы.</value>
+  </data>
   <data name="ui_customize" xml:space="preserve">
     <value>Настроить</value>
   </data>
   <data name="ui_directory" xml:space="preserve">
     <value>Установить путь</value>
   </data>
+  <data name="ui_download" xml:space="preserve">
+    <value>Скачать:</value>
+  </data>
   <data name="ui_install" xml:space="preserve">
     <value>Установить</value>
+  </data>
+  <data name="ui_settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="ui_persist_xhair" xml:space="preserve">
+    <value>Сохранять выбранный прицел</value>
   </data>
   <data name="ui_refresh" xml:space="preserve">
     <value>Обновить</value>
@@ -270,58 +282,61 @@
   <data name="ui_options" xml:space="preserve">
     <value>Настройки</value>
   </data>
+  <data name="info_clear_cache" xml:space="preserve">
+    <value>Очистить кэш</value>
+  </data>
   <data name="ui_open_app_file" xml:space="preserve">
-    <value />
+    <value>Открыть настройки приложения</value>
   </data>
   <data name="ui_open_user_file" xml:space="preserve">
-    <value />
+    <value>Открыть пользовательские настройки</value>
   </data>
   <data name="ui_hud_created_by" xml:space="preserve">
-    <value />
+    <value>HUD создан</value>
   </data>
   <data name="info_path_cancelled" xml:space="preserve">
-    <value />
+    <value>Выбор пути отменён.</value>
   </data>
   <data name="ui_override_path_rule" xml:space="preserve">
-    <value />
+    <value>Игнорировать правило пути</value>
   </data>
   <data name="ui_splash_initialize" xml:space="preserve">
-    <value />
+    <value>Инициализация...</value>
   </data>
   <data name="ui_splash_schema" xml:space="preserve">
-    <value />
+    <value>Загрузка схем HUD...</value>
   </data>
   <data name="ui_splash_images" xml:space="preserve">
-    <value />
+    <value>Загрузка изображений...</value>
   </data>
   <data name="ui_splash_cancel" xml:space="preserve">
-    <value />
+    <value>Отмена...</value>
   </data>
   <data name="ui_save" xml:space="preserve">
-    <value />
+    <value>Сохранить</value>
   </data>
   <data name="info_ask_restart" xml:space="preserve">
-    <value />
+    <value>Доступна новая версия приложения. Скачать?</value>
   </data>
   <data name="ui_language" xml:space="preserve">
-    <value />
+    <value>Язык</value>
   </data>
   <data name="ui_language_en" xml:space="preserve">
-    <value />
+    <value>Английский</value>
   </data>
   <data name="ui_language_fr" xml:space="preserve">
-    <value />
+    <value>Французский</value>
   </data>
   <data name="ui_language_ru" xml:space="preserve">
-    <value />
+    <value>Русский</value>
   </data>
   <data name="ui_language_pt" xml:space="preserve">
-    <value />
+    <value>Португальский (Бразилия)</value>
   </data>
   <data name="ui_language_it" xml:space="preserve">
-    <value />
+    <value>Итальянский</value>
   </data>
   <data name="ui_language_cn" xml:space="preserve">
-    <value />
+    <value>Китайский (упрощённый)</value>
   </data>
 </root>

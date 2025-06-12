@@ -144,6 +144,9 @@
   <data name="info_add_hud" xml:space="preserve">
     <value>是否确定要将文件夹添加到共享HUD列表中？这将在本地添加文件夹，但不会将HUD上传到TF2HUD.Editor的联机数据库。</value>
   </data>
+  <data name="info_app_update" xml:space="preserve">
+    <value>有新版本的应用可用。要下载吗？</value>
+  </data>
   <data name="info_background_override" xml:space="preserve">
     <value>设置新背景将覆盖当前背景。使用“重新安装”选项返回到默认背景。</value>
   </data>
@@ -208,7 +211,7 @@
     <value>更改 tf/custom 路径。</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value />
+    <value>刷新列表或重新加载数据。</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>汇报问题。</value>
@@ -231,6 +234,9 @@
   <data name="ui_clear" xml:space="preserve">
     <value>清除</value>
   </data>
+  <data name="ui_clear_cache" xml:space="preserve">
+    <value>清除缓存</value>
+  </data>
   <data name="ui_customize" xml:space="preserve">
     <value>自定义</value>
   </data>
@@ -242,6 +248,9 @@
   </data>
   <data name="ui_install" xml:space="preserve">
     <value>安装</value>
+  </data>
+  <data name="ui_settings" xml:space="preserve">
+    <value>设置</value>
   </data>
   <data name="ui_persist_xhair" xml:space="preserve">
     <value>记住准星选择</value>
@@ -273,58 +282,61 @@
   <data name="ui_options" xml:space="preserve">
     <value>选项</value>
   </data>
+  <data name="info_clear_cache" xml:space="preserve">
+    <value>确定要清除缓存吗？这将删除所有缓存文件。</value>
+  </data>
   <data name="ui_open_app_file" xml:space="preserve">
-    <value />
+    <value>打开应用设置</value>
   </data>
   <data name="ui_open_user_file" xml:space="preserve">
-    <value />
+    <value>打开用户设置</value>
   </data>
   <data name="ui_hud_created_by" xml:space="preserve">
-    <value />
+    <value>HUD 创建者</value>
   </data>
   <data name="info_path_cancelled" xml:space="preserve">
-    <value />
+    <value>已取消路径选择。</value>
   </data>
   <data name="ui_override_path_rule" xml:space="preserve">
-    <value />
+    <value>忽略路径规则</value>
   </data>
   <data name="ui_splash_initialize" xml:space="preserve">
-    <value />
+    <value>正在初始化...</value>
   </data>
   <data name="ui_splash_schema" xml:space="preserve">
-    <value />
+    <value>正在加载HUD架构...</value>
   </data>
   <data name="ui_splash_images" xml:space="preserve">
-    <value />
+    <value>正在下载图片...</value>
   </data>
   <data name="ui_splash_cancel" xml:space="preserve">
-    <value />
+    <value>取消</value>
   </data>
   <data name="ui_save" xml:space="preserve">
-    <value />
+    <value>保存</value>
   </data>
   <data name="info_ask_restart" xml:space="preserve">
-    <value />
+    <value>语言已更改。请重新启动应用以使更改生效。</value>
   </data>
   <data name="ui_language" xml:space="preserve">
-    <value />
+    <value>语言</value>
   </data>
   <data name="ui_language_en" xml:space="preserve">
-    <value />
+    <value>英语</value>
   </data>
   <data name="ui_language_fr" xml:space="preserve">
-    <value />
+    <value>法语</value>
   </data>
   <data name="ui_language_ru" xml:space="preserve">
-    <value />
+    <value>俄语</value>
   </data>
   <data name="ui_language_pt" xml:space="preserve">
-    <value />
+    <value>葡萄牙语（巴西）</value>
   </data>
   <data name="ui_language_it" xml:space="preserve">
-    <value />
+    <value>意大利语</value>
   </data>
   <data name="ui_language_cn" xml:space="preserve">
-    <value />
+    <value>中文（简体）</value>
   </data>
 </root>

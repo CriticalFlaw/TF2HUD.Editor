@@ -144,6 +144,9 @@
   <data name="info_add_hud" xml:space="preserve">
     <value>Sicuro di voler aggiungere una cartella alla lista di HUD condivise? Questo aggiungera la cartella localmente ma la HUD non sarà aggiunta al database online di TF2HUD.Editor.</value>
   </data>
+  <data name="info_app_update" xml:space="preserve">
+    <value>È disponibile una nuova versione dell'applicazione. Vuoi scaricarla?</value>
+  </data>
   <data name="info_background_override" xml:space="preserve">
     <value>Mettere uno nuovo sfondo rimpiazzerà lo sfondo attuale. Usa l'opzione "Riavvia" per tornare allo sfondo base.</value>
   </data>
@@ -208,7 +211,7 @@
     <value>Cambia la cartella tf/custom.</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value />
+    <value>Aggiorna l'elenco o ricarica i dati.</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>Comunica un problema.</value>
@@ -231,6 +234,9 @@
   <data name="ui_clear" xml:space="preserve">
     <value>Chiarisci</value>
   </data>
+  <data name="ui_clear_cache" xml:space="preserve">
+    <value>Cancella cache</value>
+  </data>
   <data name="ui_customize" xml:space="preserve">
     <value>Personalizza</value>
   </data>
@@ -242,6 +248,9 @@
   </data>
   <data name="ui_install" xml:space="preserve">
     <value>Installa</value>
+  </data>
+  <data name="ui_settings" xml:space="preserve">
+    <value>Impostazioni</value>
   </data>
   <data name="ui_persist_xhair" xml:space="preserve">
     <value>Ricorda selezione mirino</value>
@@ -273,58 +282,61 @@
   <data name="ui_options" xml:space="preserve">
     <value>Opzioni</value>
   </data>
+  <data name="info_clear_cache" xml:space="preserve">
+    <value>Sei sicuro di voler cancellare la cache? Questo eliminerà tutti i file memorizzati.</value>
+  </data>
   <data name="ui_open_app_file" xml:space="preserve">
-    <value />
+    <value>Apri impostazioni applicazione</value>
   </data>
   <data name="ui_open_user_file" xml:space="preserve">
-    <value />
+    <value>Apri impostazioni utente</value>
   </data>
   <data name="ui_hud_created_by" xml:space="preserve">
-    <value />
+    <value>HUD creato da</value>
   </data>
   <data name="info_path_cancelled" xml:space="preserve">
-    <value />
+    <value>Selezione del percorso annullata.</value>
   </data>
   <data name="ui_override_path_rule" xml:space="preserve">
-    <value />
+    <value>Ignora regola percorso</value>
   </data>
   <data name="ui_splash_initialize" xml:space="preserve">
-    <value />
+    <value>Inizializzazione...</value>
   </data>
   <data name="ui_splash_schema" xml:space="preserve">
-    <value />
+    <value>Caricamento schemi HUD...</value>
   </data>
   <data name="ui_splash_images" xml:space="preserve">
-    <value />
+    <value>Download immagini...</value>
   </data>
   <data name="ui_splash_cancel" xml:space="preserve">
-    <value />
+    <value>Annulla...</value>
   </data>
   <data name="ui_save" xml:space="preserve">
-    <value />
+    <value>Salva</value>
   </data>
   <data name="info_ask_restart" xml:space="preserve">
-    <value />
+    <value>Lingua cambiata. Riavvia l'applicazione per applicare le modifiche.</value>
   </data>
   <data name="ui_language" xml:space="preserve">
-    <value />
+    <value>Lingua</value>
   </data>
   <data name="ui_language_en" xml:space="preserve">
-    <value />
+    <value>Inglese</value>
   </data>
   <data name="ui_language_fr" xml:space="preserve">
-    <value />
+    <value>Francese</value>
   </data>
   <data name="ui_language_ru" xml:space="preserve">
-    <value />
+    <value>Russo</value>
   </data>
   <data name="ui_language_pt" xml:space="preserve">
-    <value />
+    <value>Portoghese (Brasile)</value>
   </data>
   <data name="ui_language_it" xml:space="preserve">
-    <value />
+    <value>Italiano</value>
   </data>
   <data name="ui_language_cn" xml:space="preserve">
-    <value />
+    <value>Cinese (Semplificato)</value>
   </data>
 </root>

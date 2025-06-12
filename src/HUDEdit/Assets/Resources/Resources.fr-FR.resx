@@ -144,6 +144,9 @@
   <data name="info_add_hud" xml:space="preserve">
     <value>Êtes-vous sûr de vouloir ajouter un dossier à la liste des HUDs partagés? Ceci ajoutera le dossier localement mais n'enverra pas le HUD sur la base de donnée en ligne de TF2HUD.Editor.</value>
   </data>
+  <data name="info_app_update" xml:space="preserve">
+    <value>Une nouvelle version de l'application est disponible. Voulez-vous la télécharger ?</value>
+  </data>
   <data name="info_background_override" xml:space="preserve">
     <value>Ajouter un nouvel arrière-plan va remplacer celui déjà présent. Utilisez l'option "Réinstaller" pour revenir à l'arrière-plan par défaut.</value>
   </data>
@@ -171,6 +174,9 @@
   <data name="info_path_invalid" xml:space="preserve">
     <value>Soit vous avez sélectionné le même répertoire, soit votre sélection ne termine pas par "tf/custom". Veuillez réessayer.</value>
   </data>
+  <data name="info_unsupported_hud_found" xml:space="preserve">
+    <value>Un HUD non pris en charge a été trouvé dans tf/custom. Voulez-vous le supprimer pour continuer l'installation ?</value>
+  </data>
   <data name="status_applied" xml:space="preserve">
     <value>Personnalisations de {0} appliquées le {1}.</value>
   </data>
@@ -195,11 +201,18 @@
   <data name="tooltip_docs" xml:space="preserve">
     <value>Lire la documentation du projet.</value>
   </data>
+  <data name="tooltip_launch" xml:space="preserve">
+    <value>Lancer Team Fortress 2.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tooltip_options" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="tooltip_path" xml:space="preserve">
     <value>Changer le répertoire "tf/custom".</value>
   </data>
   <data name="tooltip_refresh" xml:space="preserve">
-    <value />
+    <value>Actualiser la liste ou recharger les données.</value>
   </data>
   <data name="tooltip_report" xml:space="preserve">
     <value>Signaler un problème</value>
@@ -222,14 +235,26 @@
   <data name="ui_clear" xml:space="preserve">
     <value>Effacer</value>
   </data>
+  <data name="ui_clear_cache" xml:space="preserve">
+    <value>Vider le cache</value>
+  </data>
   <data name="ui_customize" xml:space="preserve">
     <value>Personnaliser</value>
   </data>
   <data name="ui_directory" xml:space="preserve">
     <value>Définir un répertoire</value>
   </data>
+  <data name="ui_download" xml:space="preserve">
+    <value>Télécharger:</value>
+  </data>
   <data name="ui_install" xml:space="preserve">
     <value>Installer</value>
+  </data>
+  <data name="ui_settings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="ui_persist_xhair" xml:space="preserve">
+    <value>Conserver le réticule</value>
   </data>
   <data name="ui_refresh" xml:space="preserve">
     <value>Actualiser</value>
@@ -249,64 +274,70 @@
   <data name="ui_switch" xml:space="preserve">
     <value>Changer de HUD</value>
   </data>
+  <data name="ui_title" xml:space="preserve">
+    <value>Éditeur de HUD TF2</value>
+  </data>
   <data name="ui_uninstall" xml:space="preserve">
     <value>Désinstaller</value>
   </data>
   <data name="ui_options" xml:space="preserve">
     <value>Réglages</value>
   </data>
+  <data name="info_clear_cache" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir vider le cache ? Cela supprimera tous les fichiers en cache.</value>
+  </data>
   <data name="ui_open_app_file" xml:space="preserve">
-    <value />
+    <value>Ouvrir les paramètres de l'application</value>
   </data>
   <data name="ui_open_user_file" xml:space="preserve">
-    <value />
+    <value>Ouvrir les paramètres utilisateur</value>
   </data>
   <data name="ui_hud_created_by" xml:space="preserve">
-    <value />
+    <value>HUD créé par</value>
   </data>
   <data name="info_path_cancelled" xml:space="preserve">
-    <value />
+    <value>Sélection du chemin annulée.</value>
   </data>
   <data name="ui_override_path_rule" xml:space="preserve">
-    <value />
+    <value>Ignorer la règle de chemin</value>
   </data>
   <data name="ui_splash_initialize" xml:space="preserve">
-    <value />
+    <value>Initialisation...</value>
   </data>
   <data name="ui_splash_schema" xml:space="preserve">
-    <value />
+    <value>Chargement des schémas de HUD...</value>
   </data>
   <data name="ui_splash_images" xml:space="preserve">
-    <value />
+    <value>Téléchargement des images...</value>
   </data>
   <data name="ui_splash_cancel" xml:space="preserve">
-    <value />
+    <value>Annuler...</value>
   </data>
   <data name="ui_save" xml:space="preserve">
-    <value />
+    <value>Enregistrer</value>
   </data>
   <data name="info_ask_restart" xml:space="preserve">
-    <value />
+    <value>Langue modifiée. Veuillez redémarrer l'application pour appliquer les changements.</value>
   </data>
   <data name="ui_language" xml:space="preserve">
-    <value />
+    <value>Langue:</value>
   </data>
   <data name="ui_language_en" xml:space="preserve">
-    <value />
+    <value>Anglais</value>
   </data>
   <data name="ui_language_fr" xml:space="preserve">
-    <value />
+    <value>Français</value>
   </data>
   <data name="ui_language_ru" xml:space="preserve">
-    <value />
+    <value>Russe</value>
   </data>
   <data name="ui_language_pt" xml:space="preserve">
-    <value />
+    <value>Portugais (Brésil)</value>
   </data>
   <data name="ui_language_it" xml:space="preserve">
-    <value />
+    <value>Italien</value>
   </data>
   <data name="ui_language_cn" xml:space="preserve">
-    <value />
+    <value>Chinois (Simplifié)</value>
   </data>
 </root>

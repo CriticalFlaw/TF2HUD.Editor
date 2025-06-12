@@ -493,7 +493,7 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language.
+        ///   Looks up a localized string similar to Language:.
         /// </summary>
         public static string ui_language {
             get {
@@ -538,7 +538,7 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Portuguese.
+        ///   Looks up a localized string similar to Brazilian Portuguese.
         /// </summary>
         public static string ui_language_pt {
             get {
