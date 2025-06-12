@@ -493,6 +493,69 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string ui_language {
+            get {
+                return ResourceManager.GetString("ui_language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese.
+        /// </summary>
+        public static string ui_language_cn {
+            get {
+                return ResourceManager.GetString("ui_language_cn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string ui_language_en {
+            get {
+                return ResourceManager.GetString("ui_language_en", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to French.
+        /// </summary>
+        public static string ui_language_fr {
+            get {
+                return ResourceManager.GetString("ui_language_fr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Italian.
+        /// </summary>
+        public static string ui_language_it {
+            get {
+                return ResourceManager.GetString("ui_language_it", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portuguese.
+        /// </summary>
+        public static string ui_language_pt {
+            get {
+                return ResourceManager.GetString("ui_language_pt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Russian.
+        /// </summary>
+        public static string ui_language_ru {
+            get {
+                return ResourceManager.GetString("ui_language_ru", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open App Settings.
         /// </summary>
         public static string ui_open_app_file {

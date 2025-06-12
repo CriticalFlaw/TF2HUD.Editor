@@ -303,4 +303,25 @@
   <data name="info_ask_restart" xml:space="preserve">
     <value />
   </data>
+  <data name="ui_language" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_language_en" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_language_fr" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_language_ru" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_language_pt" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_language_it" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ui_language_cn" xml:space="preserve">
+    <value />
+  </data>
 </root>

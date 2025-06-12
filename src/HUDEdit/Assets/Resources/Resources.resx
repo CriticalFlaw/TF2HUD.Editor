@@ -318,4 +318,25 @@
   <data name="info_ask_restart" xml:space="preserve">
     <value>Please restart the application to apply language change.</value>
   </data>
+  <data name="ui_language" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="ui_language_en" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="ui_language_fr" xml:space="preserve">
+    <value>French</value>
+  </data>
+  <data name="ui_language_ru" xml:space="preserve">
+    <value>Russian</value>
+  </data>
+  <data name="ui_language_pt" xml:space="preserve">
+    <value>Portuguese</value>
+  </data>
+  <data name="ui_language_it" xml:space="preserve">
+    <value>Italian</value>
+  </data>
+  <data name="ui_language_cn" xml:space="preserve">
+    <value>Chinese</value>
+  </data>
 </root>

@@ -33,11 +33,10 @@
 				<RowDefinition Height="*"/>
 			</Grid.RowDefinitions>
 
-			<HeaderedContentControl Header="Settings" Grid.Row="1" Grid.Column="0" Margin="0,10,0,0">
+			<HeaderedContentControl Header="Settings" Grid.Row="1" Grid.Column="0">
 				<WrapPanel HorizontalAlignment="Left">
-					<ComboBox ItemsSource="{Binding Languages}"
-							  SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
-							  Width="200">
+					<Label Content="{x:Static loc:Resources.ui_language}" Foreground="#EBE2CA" FontFamily="{StaticResource Tf2Build}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+					<ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" Width="200" Margin="10,0,0,0">
 						<ComboBox.ItemTemplate>
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal" Spacing="8">
@@ -50,7 +49,7 @@
 					<CheckBox Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox" IsChecked="{Binding PersistCrosshair}" />
 					<CheckBox Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox" IsChecked="{Binding AutoUpdate}" />
 					<CheckBox Content="{x:Static loc:Resources.ui_override_path_rule}" Classes="SettingCheckBox" IsChecked="{Binding OverridePath}" />
-					<Button Content="{x:Static loc:Resources.ui_save}" Classes="HudButton" Command="{Binding SaveChangesCommand}" />
+					<Button Content="{x:Static loc:Resources.ui_save}" Classes="HudButton" Command="{Binding SaveChangesCommand}" Margin="10,0,0,0"/>
 				</WrapPanel>
 			</HeaderedContentControl>
 
