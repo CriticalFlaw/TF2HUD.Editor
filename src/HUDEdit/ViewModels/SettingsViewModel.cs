@@ -9,6 +9,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -18,33 +19,26 @@ public partial class SettingsViewModel : ViewModelBase
 {
     public ObservableCollection<Language> Languages { get; } =
     [
-        new() { CultureCode = "en-US", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/us.png"))) },
-        new() { CultureCode = "fr-FR", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/fr.png"))) },
-        new() { CultureCode = "ru-RU", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/ru.png"))) },
-        new() { CultureCode = "pt-BR", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/br.png"))) },
-        new() { CultureCode = "it",    FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/it.png"))) },
-        new() { CultureCode = "zh-CN", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/cn.png"))) },
+        new() { CultureCode = "en-US", CultureName = "English", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/us.png"))) },
+        new() { CultureCode = "fr-FR", CultureName = "French", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/fr.png"))) },
+        new() { CultureCode = "ru-RU", CultureName = "Russian", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/ru.png"))) },
+        new() { CultureCode = "pt-BR", CultureName = "Portuguese", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/br.png"))) },
+        new() { CultureCode = "it",    CultureName = "Italian", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/it.png"))) },
+        new() { CultureCode = "zh-CN", CultureName = "Chinese", FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/cn.png"))) },
     ];
 
-    private string _selectedCulture;
-    public string SelectedCulture
+    private Language _selectedLanguage;
+    public Language SelectedLanguage
     {
-        get => _selectedCulture;
+        get => _selectedLanguage;
         set
         {
-            if (_selectedCulture != value)
-            {
-                _selectedCulture = value;
-                OnPropertyChanged(nameof(SelectedCulture));
-
-                // Apply culture
-                Resources.Culture = new CultureInfo(value);
-                App.Config.ConfigSettings.UserPrefs.Language = value;
-                App.SaveConfiguration();
-                Utilities.ShowMessageBox(Resources.info_ask_restart);
-            }
+            _selectedLanguage = value;
+            OnPropertyChanged(nameof(SelectedLanguage));
+            SelectedCulture = value.CultureCode;
         }
     }
+    public string SelectedCulture { get; private set; } = App.Config.ConfigSettings.UserPrefs.Language ?? "en-US";
 
     private bool _persistCrosshair;
     public bool PersistCrosshair
@@ -81,7 +75,7 @@ public partial class SettingsViewModel : ViewModelBase
 
     public SettingsViewModel()
     {
-        SelectedCulture = App.Config.ConfigSettings.UserPrefs.Language ?? "en-US";
+        SelectedLanguage = Languages.FirstOrDefault(l => l.CultureCode == SelectedCulture);
         PersistCrosshair = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence;
         AutoUpdate = App.Config.ConfigSettings.UserPrefs.AutoUpdate;
         OverridePath = App.Config.ConfigSettings.UserPrefs.PathBypass;
@@ -95,6 +89,9 @@ public partial class SettingsViewModel : ViewModelBase
         App.Config.ConfigSettings.UserPrefs.AutoUpdate = AutoUpdate;
         App.Config.ConfigSettings.UserPrefs.PathBypass = OverridePath;
         App.SaveConfiguration();
+
+        // Ask the user to restart the app if they've changed the language
+        if (Resources.Culture != new CultureInfo(SelectedCulture)) Utilities.ShowMessageBox(Resources.info_ask_restart);
     }
 
     [RelayCommand]

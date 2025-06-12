@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -15,9 +14,6 @@ namespace HUDEdit.Classes;
 
 public class NullCheckConverter : IValueConverter
 {
-    /// <summary>
-    /// Returns true if the provided value is not null or empty.
-    /// </summary>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return value switch
@@ -34,13 +30,7 @@ public class NullCheckConverter : IValueConverter
 
 public class NotNullCheckConverter : IValueConverter
 {
-    /// <summary>
-    /// Returns true if the provided value is null.
-    /// </summary>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is null;
-    }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is null;
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
@@ -61,20 +51,14 @@ public class LinkCheckConverterVisibility : IValueConverter
 
 public class NullCheckConverterVisibility : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is not null;
-    }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is not null;
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class NotNullCheckConverterVisibility : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is null;
-    }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is null;
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
@@ -121,10 +105,7 @@ public class PageBackgroundConverter : IValueConverter
 
 public class DisplayUniqueHudsOnlyForegroundConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return (bool)value ? "\u05AE" : "\u05AF";
-    }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (bool)value ? "\u05AE" : "\u05AF";
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
@@ -156,33 +137,14 @@ public class BtnInstallContentConverter : IValueConverter
 
 public class ComboBoxItemsConverterVisibility : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value is not null && ((IEnumerable<object>)value).Count() > 1;
-    }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is not null && ((IEnumerable<object>)value).Count() > 1;
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 }
 
 public class DisableOnLinuxConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return !RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-    }
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => !RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
-}
-
-public class LanguageSwitchConverter : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value?.ToString() == parameter?.ToString();
-
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        if (value is true && parameter is string cultureCode)
-            return cultureCode;
-
-        return AvaloniaProperty.UnsetValue;
-    }
 }
