@@ -5,8 +5,8 @@
              RequestedThemeVariant="Default">
 
 	<Application.Resources>
-		<FontFamily x:Key="Tf2Build">avares://HUDEdit/Assets/Fonts/tf2build.ttf#TF2 Build</FontFamily>
-		<FontFamily x:Key="Tf2Secondary">avares://HUDEdit/Assets/Fonts/TF2secondary.ttf#TF2 Secondary</FontFamily>
+		<FontFamily x:Key="Tf2Build">avares://HUDEdit/Assets/Fonts/TF2Build.ttf#TF2 Build</FontFamily>
+		<FontFamily x:Key="Tf2Secondary">avares://HUDEdit/Assets/Fonts/TF2Secondary.ttf#TF2 Secondary</FontFamily>
 		<FontFamily x:Key="Crosshairs">avares://HUDEdit/Assets/Fonts/TF2Crosshairs.ttf#TF2Crosshairs</FontFamily>
 		<FontFamily x:Key="Icons">avares://HUDEdit/Assets/Fonts/Hypnotize Icons Master.ttf#Hypnotize Icons Master</FontFamily>
 	</Application.Resources>

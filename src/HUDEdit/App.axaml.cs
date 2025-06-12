@@ -41,12 +41,12 @@ public partial class App : Application
 
             try
             {
-                splashScreenVm.StartupMessage = Assets.Resources.ui_splash_initialize;
                 Setup();
+                splashScreenVm.StartupMessage = Assets.Resources.ui_splash_initialize;
                 await Task.Delay(1000, splashScreenVm.CancellationToken);
 
-                splashScreenVm.StartupMessage = Assets.Resources.ui_splash_schema;
                 await mainWindowVm.LoadHUDs();
+                splashScreenVm.StartupMessage = Assets.Resources.ui_splash_schema;
                 await Task.Delay(1000, splashScreenVm.CancellationToken);
 
                 splashScreenVm.StartupMessage = Assets.Resources.ui_splash_images;

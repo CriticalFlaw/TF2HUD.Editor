@@ -204,9 +204,8 @@
   <data name="tooltip_launch" xml:space="preserve">
     <value>Lancer Team Fortress 2.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="tooltip_options" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="tooltip_options" xml:space="preserve">
+    <value>Afficher le menu des options</value>
   </data>
   <data name="tooltip_path" xml:space="preserve">
     <value>Changer le répertoire "tf/custom".</value>
