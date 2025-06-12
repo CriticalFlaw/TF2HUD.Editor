@@ -10,6 +10,7 @@
 		<RepositoryUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</RepositoryUrl>
 		<AssemblyVersion>4.0</AssemblyVersion>
 		<ApplicationIcon>Assets\Images\favicon.ico</ApplicationIcon>
+		<UserSecretsId>9eaa806c-2792-4144-8e6b-34cf8056dfc4</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -55,6 +56,7 @@
 		<PackageReference Include="MessageBox.Avalonia.Markdown" Version="3.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.5" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Octokit" Version="14.0.0" />
 		<PackageReference Include="Sentry" Version="5.10.0" />

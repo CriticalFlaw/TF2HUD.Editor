@@ -1,15 +1,12 @@
 ﻿using Avalonia.Platform.Storage;
-using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Input;
 using Crews.Utility.TgaSharp;
 using HUDEdit.Assets;
 using HUDEdit.Classes;
 using HUDEdit.Models;
 using HUDEdit.Views;
-using Microsoft.Extensions.Configuration;
 using MsBox.Avalonia.Enums;
 using Newtonsoft.Json;
-using Sentry;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -109,18 +106,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        // Setup Sentry
-        if (File.Exists("secrets.json"))
-        {
-            var secrets = new ConfigurationBuilder().AddJsonFile("secrets.json").Build();
 
-            Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
-            SentrySdk.Init(o =>
-            {
-                o.Dsn = secrets["Sentry:Dsn"];
-                o.Debug = true;
-            });
-        }
     }
 
     public async Task DownloadImages()
@@ -141,14 +127,6 @@ public partial class MainWindowViewModel : ViewModelBase
                 }
             }
         }
-    }
-
-    private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
-    {
-        SentrySdk.CaptureException(e.Exception);
-
-        // Prevent the application from crashing
-        e.Handled = true;
     }
 
     /// <summary>
