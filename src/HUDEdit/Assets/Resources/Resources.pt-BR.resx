@@ -123,9 +123,6 @@
   <data name="error_hud_install" xml:space="preserve">
     <value>Ocorreu um erro ao instalar {0}.</value>
   </data>
-  <data name="error_hud_missing" xml:space="preserve">
-    <value>Não foi possível encontrar a HUD {0}!</value>
-  </data>
   <data name="error_hud_uninstall" xml:space="preserve">
     <value>Ocorreu um erro ao desinstalar {0}.</value>
   </data>
@@ -338,5 +335,14 @@
   </data>
   <data name="ui_language_cn" xml:space="preserve">
     <value>Chinês (Simplificado)</value>
+  </data>
+  <data name="header_error" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="header_warning" xml:space="preserve">
+    <value>Aviso</value>
+  </data>
+  <data name="header_info" xml:space="preserve">
+    <value>Informação</value>
   </data>
 </root>

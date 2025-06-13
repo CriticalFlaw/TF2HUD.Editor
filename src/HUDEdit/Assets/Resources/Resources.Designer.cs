@@ -79,15 +79,6 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot find HUD {0}!.
-        /// </summary>
-        public static string error_hud_missing {
-            get {
-                return ResourceManager.GetString("error_hud_missing", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An error occurred while uninstalling {0}..
         /// </summary>
         public static string error_hud_uninstall {
@@ -115,6 +106,24 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string header_error {
+            get {
+                return ResourceManager.GetString("header_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string header_info {
+            get {
+                return ResourceManager.GetString("header_info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restart Required..
         /// </summary>
         public static string header_restart_required {
@@ -129,6 +138,15 @@ namespace HUDEdit.Assets {
         public static string header_update_none {
             get {
                 return ResourceManager.GetString("header_update_none", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string header_warning {
+            get {
+                return ResourceManager.GetString("header_warning", resourceCulture);
             }
         }
         

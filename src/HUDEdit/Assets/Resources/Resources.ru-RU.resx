@@ -123,9 +123,6 @@
   <data name="error_hud_install" xml:space="preserve">
     <value>Произошла ошибка при установке {0}.</value>
   </data>
-  <data name="error_hud_missing" xml:space="preserve">
-    <value>Невозможно найти интерфейс {0}!</value>
-  </data>
   <data name="error_hud_uninstall" xml:space="preserve">
     <value>Произошла ошибка при удалении {0}.</value>
   </data>
@@ -338,5 +335,14 @@
   </data>
   <data name="ui_language_cn" xml:space="preserve">
     <value>Китайский (упрощённый)</value>
+  </data>
+  <data name="header_error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="header_warning" xml:space="preserve">
+    <value>Предупреждение</value>
+  </data>
+  <data name="header_info" xml:space="preserve">
+    <value>Информация</value>
   </data>
 </root>

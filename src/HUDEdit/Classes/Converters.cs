@@ -70,7 +70,7 @@ public class PageBackgroundConverter : IValueConverter
         var defaultBg = "avares://HUDEdit/Assets/Images/background.png";
         if (value is null) return new ImageBrush
         {
-            Source = new Bitmap(AssetLoader.Open(new Uri(defaultBg))),
+            Source = Utilities.LoadFromResource(defaultBg),
             Stretch = Stretch.UniformToFill
         };
 
@@ -80,7 +80,7 @@ public class PageBackgroundConverter : IValueConverter
         {
             return new ImageBrush
             {
-                Source = new Bitmap(AssetLoader.Open(new Uri(selection.Background))),
+                Source = Utilities.LoadFromResource(selection.Background),
                 Stretch = Stretch.UniformToFill,
                 Opacity = selection.Opacity
             };

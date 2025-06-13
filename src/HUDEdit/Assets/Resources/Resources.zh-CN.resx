@@ -123,9 +123,6 @@
   <data name="error_hud_install" xml:space="preserve">
     <value>在安装 {0} 时发生了错误。</value>
   </data>
-  <data name="error_hud_missing" xml:space="preserve">
-    <value>无法找到HUD {0} ！</value>
-  </data>
   <data name="error_hud_uninstall" xml:space="preserve">
     <value>在卸载 {0} 时发生了错误。</value>
   </data>
@@ -338,5 +335,14 @@
   </data>
   <data name="ui_language_cn" xml:space="preserve">
     <value>中文（简体）</value>
+  </data>
+  <data name="header_error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="header_warning" xml:space="preserve">
+    <value>警告</value>
+  </data>
+  <data name="header_info" xml:space="preserve">
+    <value>信息</value>
   </data>
 </root>

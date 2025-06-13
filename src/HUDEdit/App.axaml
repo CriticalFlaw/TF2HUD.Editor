@@ -14,7 +14,6 @@
 	<Application.Styles>
 		<FluentTheme />
 		<StyleInclude Source="avares://Avalonia.Controls.ColorPicker/Themes/Fluent/Fluent.xaml" />
-		<StyleInclude Source="avares://MsBox.Avalonia.Markdown/Controls/MarkdownView.axaml" />
 		<dialogHostAvalonia:DialogHostStyles />
 
 		<Style Selector="Label">

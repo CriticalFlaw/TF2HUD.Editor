@@ -1,6 +1,4 @@
 ﻿using Avalonia.Controls;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
 using CommunityToolkit.Mvvm.Input;
 using HUDEdit.Assets;
 using HUDEdit.Classes;
@@ -19,12 +17,12 @@ public partial class SettingsViewModel : ViewModelBase
 {
     public ObservableCollection<Language> Languages { get; } =
     [
-        new() { CultureCode = "en-US", CultureName = Resources.ui_language_en, FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/us.png"))) },
-        new() { CultureCode = "fr-FR", CultureName = Resources.ui_language_fr, FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/fr.png"))) },
-        new() { CultureCode = "ru-RU", CultureName = Resources.ui_language_ru, FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/ru.png"))) },
-        new() { CultureCode = "pt-BR", CultureName = Resources.ui_language_pt, FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/br.png"))) },
-        new() { CultureCode = "it",    CultureName = Resources.ui_language_it, FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/it.png"))) },
-        new() { CultureCode = "zh-CN", CultureName = Resources.ui_language_cn, FlagImagePath = new Bitmap(AssetLoader.Open(new Uri("avares://HUDEdit/Assets/Images/Flags/cn.png"))) },
+        new() { CultureCode = "en-US", CultureName = Resources.ui_language_en, FlagImagePath = Utilities.LoadFromResource("avares://HUDEdit/Assets/Images/Flags/us.png") },
+        new() { CultureCode = "fr-FR", CultureName = Resources.ui_language_fr, FlagImagePath = Utilities.LoadFromResource("avares://HUDEdit/Assets/Images/Flags/fr.png") },
+        new() { CultureCode = "ru-RU", CultureName = Resources.ui_language_ru, FlagImagePath = Utilities.LoadFromResource("avares://HUDEdit/Assets/Images/Flags/ru.png") },
+        new() { CultureCode = "pt-BR", CultureName = Resources.ui_language_pt, FlagImagePath = Utilities.LoadFromResource("avares://HUDEdit/Assets/Images/Flags/br.png") },
+        new() { CultureCode = "it",    CultureName = Resources.ui_language_it, FlagImagePath = Utilities.LoadFromResource("avares://HUDEdit/Assets/Images/Flags/it.png") },
+        new() { CultureCode = "zh-CN", CultureName = Resources.ui_language_cn, FlagImagePath = Utilities.LoadFromResource("avares://HUDEdit/Assets/Images/Flags/cn.png") },
     ];
 
     private Language _selectedLanguage;

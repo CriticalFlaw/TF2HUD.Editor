@@ -354,7 +354,7 @@ public static class Utilities
     /// <param name="hudName">Proper name for the HUD being downloaded</param>
     public static async Task DownloadHud(string url, string filePath, string hudName)
     {
-        HttpClient client = new();
+        using HttpClient client = new();
         client.DefaultRequestHeaders.Add("User-Agent", "request");
 
         App.Logger.Info($"Downloading {hudName} from {url}");
@@ -512,9 +512,7 @@ public static class Utilities
         {
             using var httpClient = new HttpClient();
             using var response = httpClient.GetAsync(url).Result;
-
-            if (!response.IsSuccessStatusCode)
-                return null;
+            response.EnsureSuccessStatusCode();
 
             using var stream = response.Content.ReadAsStreamAsync().Result;
             return new Avalonia.Media.Imaging.Bitmap(stream);
@@ -526,27 +524,9 @@ public static class Utilities
         }
     }
 
-    public static async Task<Avalonia.Media.Imaging.Bitmap?> LoadImageAsync(string url)
+    public static Avalonia.Media.Imaging.Bitmap LoadFromResource(string url)
     {
-        try
-        {
-            using HttpClient client = new();
-            var response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
-
-            await using var stream = await response.Content.ReadAsStreamAsync();
-            return new Avalonia.Media.Imaging.Bitmap(stream);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error loading image: {e.Message}");
-            return null;
-        }
-    }
-
-    public static Avalonia.Media.Imaging.Bitmap LoadFromResource(Uri resourceUri)
-    {
-        return new Avalonia.Media.Imaging.Bitmap(AssetLoader.Open(resourceUri));
+        return new Avalonia.Media.Imaging.Bitmap(AssetLoader.Open(new Uri(url)));
     }
 
     public static void RestartApplication()
@@ -576,20 +556,28 @@ public static class Utilities
     /// <summary>
     /// Displays a set type of message box to the user.
     /// </summary>
-    public static async Task ShowMessageBox(string message, MsBox.Avalonia.Enums.Icon type = MsBox.Avalonia.Enums.Icon.None)
+    public static async Task ShowMessageBox(string message, MsBox.Avalonia.Enums.Icon type = MsBox.Avalonia.Enums.Icon.Info)
     {
+        var header = Resources.header_info;
+
         switch (type)
         {
             case MsBox.Avalonia.Enums.Icon.Error:
+                header = Resources.header_error;
                 App.Logger.Error(message);
                 break;
 
             case MsBox.Avalonia.Enums.Icon.Warning:
+                header = Resources.header_warning;
                 App.Logger.Warn(message);
+                break;
+
+            default:
+                App.Logger.Info(message);
                 break;
         }
 
-        await MessageBoxManager.GetMessageBoxStandard(title: "Notice!", text: message, ButtonEnum.Ok, icon: type).ShowAsync();
+        await MessageBoxManager.GetMessageBoxStandard(title: header, text: message, ButtonEnum.Ok, icon: type).ShowAsync();
     }
 
     /// <summary>
