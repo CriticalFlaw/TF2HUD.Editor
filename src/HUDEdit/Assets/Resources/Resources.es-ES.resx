@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="error_app_directory" xml:space="preserve">
-    <value>Se debe configurar el directorio tf/custom para usar este editor.</value>
-  </data>
   <data name="error_hud_install" xml:space="preserve">
     <value>Ha ocurrido un error mientras se instalaba {0}.</value>
   </data>
@@ -131,12 +128,6 @@
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
     <value>No se ha podido reconocer la extensión del archivo '{0}'.</value>
-  </data>
-  <data name="header_restart_required" xml:space="preserve">
-    <value>Se Requiere Reiniciar.</value>
-  </data>
-  <data name="header_update_none" xml:space="preserve">
-    <value>No Se Encontraron Actualizaciones.</value>
   </data>
   <data name="info_add_hud" xml:space="preserve">
     <value>¿Estás seguro de que quieres añadir un directorio a la lista de HUDs compartidos? Esto añadirá el directorio localmente pero no subirá el HUD a la base de datos de TF2HUD.Editor.</value>
@@ -152,9 +143,6 @@
   </data>
   <data name="info_game_running" xml:space="preserve">
     <value>No se puede continuar porque Team Fortress 2 sigue ejecutándose. Por favor, cierra el juego e inténtalo de nuevo.</value>
-  </data>
-  <data name="info_hud_backup" xml:space="preserve">
-    <value>Se ha encontrado una instalación de {0}. Para evitar conflictos, se ha creado una copia de seguridad.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
     <value>¿Estás seguro de que quieres reiniciar todas las personalizaciones a su valor por defecto?</value>
@@ -204,9 +192,6 @@
   <data name="tooltip_options" xml:space="preserve">
     <value>Ver menú de opciones.</value>
   </data>
-  <data name="tooltip_path" xml:space="preserve">
-    <value>Cambiar el directorio tf/custom.</value>
-  </data>
   <data name="tooltip_refresh" xml:space="preserve">
     <value>Actualizar la lista o recargar los datos.</value>
   </data>
@@ -218,9 +203,6 @@
   </data>
   <data name="ui_author" xml:space="preserve">
     <value>Creado por: {0}</value>
-  </data>
-  <data name="ui_back" xml:space="preserve">
-    <value>Volver Atrás</value>
   </data>
   <data name="ui_browse" xml:space="preserve">
     <value>Buscar</value>
@@ -240,14 +222,8 @@
   <data name="ui_directory" xml:space="preserve">
     <value>Seleccionar ruta para tf/custom</value>
   </data>
-  <data name="ui_download" xml:space="preserve">
-    <value>Descargar:</value>
-  </data>
   <data name="ui_install" xml:space="preserve">
     <value>Instalar</value>
-  </data>
-  <data name="ui_settings" xml:space="preserve">
-    <value>Configuración</value>
   </data>
   <data name="ui_persist_xhair" xml:space="preserve">
     <value>Recordar punto de mira seleccionado</value>
@@ -287,12 +263,6 @@
   </data>
   <data name="ui_open_user_file" xml:space="preserve">
     <value>Abrir configuración de usuario</value>
-  </data>
-  <data name="ui_hud_created_by" xml:space="preserve">
-    <value>HUD creado por</value>
-  </data>
-  <data name="info_path_cancelled" xml:space="preserve">
-    <value>Selección de ruta cancelada.</value>
   </data>
   <data name="ui_override_path_rule" xml:space="preserve">
     <value>Ignorar regla de ruta</value>

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="error_app_directory" xml:space="preserve">
-    <value>A tf/custom directory must be set in order to use this editor.</value>
-  </data>
   <data name="error_hud_install" xml:space="preserve">
     <value>An error occurred while installing {0}.</value>
   </data>
@@ -131,12 +128,6 @@
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Could not recognize file extension '{0}'.</value>
-  </data>
-  <data name="header_restart_required" xml:space="preserve">
-    <value>Restart Required.</value>
-  </data>
-  <data name="header_update_none" xml:space="preserve">
-    <value>No Updates Found.</value>
   </data>
   <data name="info_add_hud" xml:space="preserve">
     <value>Are you sure you want to add a folder to the list of shared HUDs? This will add the folder locally but will not upload the HUD to TF2HUD.Editor's online database.</value>
@@ -152,9 +143,6 @@
   </data>
   <data name="info_game_running" xml:space="preserve">
     <value>Unable to continue because Team Fortress 2 is still running. Please close the game then try again.</value>
-  </data>
-  <data name="info_hud_backup" xml:space="preserve">
-    <value>An existing {0} installation was found. To avoid conflicts, a backup has been created.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
     <value>Are you sure you want to reset all customizations back to their defaults?</value>
@@ -204,9 +192,6 @@
   <data name="tooltip_options" xml:space="preserve">
     <value>View options menu.</value>
   </data>
-  <data name="tooltip_path" xml:space="preserve">
-    <value>Change the tf/custom directory.</value>
-  </data>
   <data name="tooltip_refresh" xml:space="preserve">
     <value>Refresh the page.</value>
   </data>
@@ -218,9 +203,6 @@
   </data>
   <data name="ui_author" xml:space="preserve">
     <value>Created by: {0}</value>
-  </data>
-  <data name="ui_back" xml:space="preserve">
-    <value>Back</value>
   </data>
   <data name="ui_browse" xml:space="preserve">
     <value>Browse</value>
@@ -240,14 +222,8 @@
   <data name="ui_directory" xml:space="preserve">
     <value>Change tf/custom path</value>
   </data>
-  <data name="ui_download" xml:space="preserve">
-    <value>Download:</value>
-  </data>
   <data name="ui_install" xml:space="preserve">
     <value>Install</value>
-  </data>
-  <data name="ui_settings" xml:space="preserve">
-    <value>Settings</value>
   </data>
   <data name="ui_persist_xhair" xml:space="preserve">
     <value>Remember crosshair selection</value>
@@ -287,12 +263,6 @@
   </data>
   <data name="ui_open_user_file" xml:space="preserve">
     <value>Open User Settings</value>
-  </data>
-  <data name="ui_hud_created_by" xml:space="preserve">
-    <value>Created by:</value>
-  </data>
-  <data name="info_path_cancelled" xml:space="preserve">
-    <value>You have to select a valid tf/custom directory to use this application. Please try again.</value>
   </data>
   <data name="ui_override_path_rule" xml:space="preserve">
     <value>Bypass tf/custom folder rule</value>

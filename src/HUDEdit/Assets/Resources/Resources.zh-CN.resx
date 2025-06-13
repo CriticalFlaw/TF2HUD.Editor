@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="error_app_directory" xml:space="preserve">
-    <value>要使用此编辑器，必须设置 tf/custom 目录。</value>
-  </data>
   <data name="error_hud_install" xml:space="preserve">
     <value>在安装 {0} 时发生了错误。</value>
   </data>
@@ -131,12 +128,6 @@
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
     <value>无法识别文件扩展名 '{0}'。</value>
-  </data>
-  <data name="header_restart_required" xml:space="preserve">
-    <value>需要重新启动。</value>
-  </data>
-  <data name="header_update_none" xml:space="preserve">
-    <value>没有找到更新。</value>
   </data>
   <data name="info_add_hud" xml:space="preserve">
     <value>是否确定要将文件夹添加到共享HUD列表中？这将在本地添加文件夹，但不会将HUD上传到TF2HUD.Editor的联机数据库。</value>
@@ -152,9 +143,6 @@
   </data>
   <data name="info_game_running" xml:space="preserve">
     <value>无法继续，因为军团要塞2仍在运行。请关闭游戏，然后重试。</value>
-  </data>
-  <data name="info_hud_backup" xml:space="preserve">
-    <value>找到了现有的 {0} 安装。为避免冲突，已创建备份。</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
     <value>是否确实要将所有自定义设置重置为默认值？</value>
@@ -204,9 +192,6 @@
   <data name="tooltip_options" xml:space="preserve">
     <value>查看选项菜单。</value>
   </data>
-  <data name="tooltip_path" xml:space="preserve">
-    <value>更改 tf/custom 路径。</value>
-  </data>
   <data name="tooltip_refresh" xml:space="preserve">
     <value>刷新列表或重新加载数据。</value>
   </data>
@@ -218,9 +203,6 @@
   </data>
   <data name="ui_author" xml:space="preserve">
     <value>创建于：{0}</value>
-  </data>
-  <data name="ui_back" xml:space="preserve">
-    <value>返回</value>
   </data>
   <data name="ui_browse" xml:space="preserve">
     <value>浏览</value>
@@ -240,14 +222,8 @@
   <data name="ui_directory" xml:space="preserve">
     <value>设置路径到 tf/custom</value>
   </data>
-  <data name="ui_download" xml:space="preserve">
-    <value>下载：</value>
-  </data>
   <data name="ui_install" xml:space="preserve">
     <value>安装</value>
-  </data>
-  <data name="ui_settings" xml:space="preserve">
-    <value>设置</value>
   </data>
   <data name="ui_persist_xhair" xml:space="preserve">
     <value>记住准星选择</value>
@@ -287,12 +263,6 @@
   </data>
   <data name="ui_open_user_file" xml:space="preserve">
     <value>打开用户设置</value>
-  </data>
-  <data name="ui_hud_created_by" xml:space="preserve">
-    <value>HUD 创建者</value>
-  </data>
-  <data name="info_path_cancelled" xml:space="preserve">
-    <value>已取消路径选择。</value>
   </data>
   <data name="ui_override_path_rule" xml:space="preserve">
     <value>忽略路径规则</value>

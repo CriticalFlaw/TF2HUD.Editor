@@ -11,7 +11,7 @@ internal partial class HUDInfoViewModel : ViewModelBase
     private readonly MainWindowViewModel _mainWindowViewModel;
     public HUD Hud { get; }
     public string Name => Hud.Name;
-    public string Author => Hud.Author;
+    public string Author => string.Format(Assets.Resources.ui_author, Hud.Author);
     public string Description => Hud.Description;
     private ObservableCollection<ScreenshotViewModel> _screenshots;
     public IEnumerable<ScreenshotViewModel> Screenshots => _screenshots;

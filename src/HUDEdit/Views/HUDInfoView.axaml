@@ -27,10 +27,7 @@
 				Margin="10,0,0,0"/>
 
 		<!-- Author -->
-		<TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Classes="BodyText" Margin="0,0,0,5" FontStyle="Italic">
-			<Run Text="{x:Static loc:Resources.ui_hud_created_by}" />
-			<Run Text="{Binding Author}" />
-		</TextBlock>
+		<TextBlock Text="{Binding Author}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Classes="BodyText" Margin="0,0,0,5" FontStyle="Italic"/>
 
 		<!-- Description -->
 		<TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Classes="BodyText" Margin="0,0,0,10" FontStyle="Italic" Text="{Binding Description}" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}" />

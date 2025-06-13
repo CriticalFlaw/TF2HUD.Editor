@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="error_app_directory" xml:space="preserve">
-    <value>Для использования этого редактора необходимо установить каталог tf/custom.</value>
-  </data>
   <data name="error_hud_install" xml:space="preserve">
     <value>Произошла ошибка при установке {0}.</value>
   </data>
@@ -131,12 +128,6 @@
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Не удалось распознать расширение файла '{0}'.</value>
-  </data>
-  <data name="header_restart_required" xml:space="preserve">
-    <value>Требуется перезапуск.</value>
-  </data>
-  <data name="header_update_none" xml:space="preserve">
-    <value>Обновления не найдены.</value>
   </data>
   <data name="info_add_hud" xml:space="preserve">
     <value>Вы уверены, что хотите добавить папку в общий список интерфейсов? Это добавит папку локально, но не загрузит интерфейс в онлайн базу данных TF2HUD.Editor.</value>
@@ -152,9 +143,6 @@
   </data>
   <data name="info_game_running" xml:space="preserve">
     <value>Невозможно продолжить, потому что Team Fortress 2 всё ещё запущен. Пожалуйста, закройте игру и повторите попытку.</value>
-  </data>
-  <data name="info_hud_backup" xml:space="preserve">
-    <value>Найдена существующая установка {0}. Чтобы избежать конфликтов, была создана резервная копия.</value>
   </data>
   <data name="info_hud_reset" xml:space="preserve">
     <value>Вы уверены, что хотите вернуть все настройки к значениям по умолчанию?</value>
@@ -204,9 +192,6 @@
   <data name="tooltip_options" xml:space="preserve">
     <value>Открыть меню настроек.</value>
   </data>
-  <data name="tooltip_path" xml:space="preserve">
-    <value>Проверка обновлений схемы интерфейса.</value>
-  </data>
   <data name="tooltip_refresh" xml:space="preserve">
     <value>Обновить список или перезагрузить данные.</value>
   </data>
@@ -218,9 +203,6 @@
   </data>
   <data name="ui_author" xml:space="preserve">
     <value>Создатель: {0}</value>
-  </data>
-  <data name="ui_back" xml:space="preserve">
-    <value>Назад</value>
   </data>
   <data name="ui_browse" xml:space="preserve">
     <value>Обзор</value>
@@ -240,14 +222,8 @@
   <data name="ui_directory" xml:space="preserve">
     <value>Установить путь</value>
   </data>
-  <data name="ui_download" xml:space="preserve">
-    <value>Скачать:</value>
-  </data>
   <data name="ui_install" xml:space="preserve">
     <value>Установить</value>
-  </data>
-  <data name="ui_settings" xml:space="preserve">
-    <value>Настройки</value>
   </data>
   <data name="ui_persist_xhair" xml:space="preserve">
     <value>Сохранять выбранный прицел</value>
@@ -287,12 +263,6 @@
   </data>
   <data name="ui_open_user_file" xml:space="preserve">
     <value>Открыть пользовательские настройки</value>
-  </data>
-  <data name="ui_hud_created_by" xml:space="preserve">
-    <value>HUD создан</value>
-  </data>
-  <data name="info_path_cancelled" xml:space="preserve">
-    <value>Выбор пути отменён.</value>
   </data>
   <data name="ui_override_path_rule" xml:space="preserve">
     <value>Игнорировать правило пути</value>

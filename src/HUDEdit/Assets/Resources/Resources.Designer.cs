@@ -61,15 +61,6 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A tf/custom directory must be set in order to use this editor..
-        /// </summary>
-        public static string error_app_directory {
-            get {
-                return ResourceManager.GetString("error_app_directory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An error occurred while installing {0}..
         /// </summary>
         public static string error_hud_install {
@@ -120,24 +111,6 @@ namespace HUDEdit.Assets {
         public static string header_info {
             get {
                 return ResourceManager.GetString("header_info", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Restart Required..
-        /// </summary>
-        public static string header_restart_required {
-            get {
-                return ResourceManager.GetString("header_restart_required", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No Updates Found..
-        /// </summary>
-        public static string header_update_none {
-            get {
-                return ResourceManager.GetString("header_update_none", resourceCulture);
             }
         }
         
@@ -214,15 +187,6 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An existing {0} installation was found. To avoid conflicts, a backup has been created..
-        /// </summary>
-        public static string info_hud_backup {
-            get {
-                return ResourceManager.GetString("info_hud_backup", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to reset all customizations back to their defaults?.
         /// </summary>
         public static string info_hud_reset {
@@ -255,15 +219,6 @@ namespace HUDEdit.Assets {
         public static string info_path_browser {
             get {
                 return ResourceManager.GetString("info_path_browser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You have to select a valid tf/custom directory to use this application. Please try again..
-        /// </summary>
-        public static string info_path_cancelled {
-            get {
-                return ResourceManager.GetString("info_path_cancelled", resourceCulture);
             }
         }
         
@@ -376,15 +331,6 @@ namespace HUDEdit.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change the tf/custom directory..
-        /// </summary>
-        public static string tooltip_path {
-            get {
-                return ResourceManager.GetString("tooltip_path", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Refresh the page..
         /// </summary>
         public static string tooltip_refresh {
@@ -417,15 +363,6 @@ namespace HUDEdit.Assets {
         public static string ui_author {
             get {
                 return ResourceManager.GetString("ui_author", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Back.
-        /// </summary>
-        public static string ui_back {
-            get {
-                return ResourceManager.GetString("ui_back", resourceCulture);
             }
         }
         
@@ -480,24 +417,6 @@ namespace HUDEdit.Assets {
         public static string ui_directory {
             get {
                 return ResourceManager.GetString("ui_directory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Download:.
-        /// </summary>
-        public static string ui_download {
-            get {
-                return ResourceManager.GetString("ui_download", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Created by:.
-        /// </summary>
-        public static string ui_hud_created_by {
-            get {
-                return ResourceManager.GetString("ui_hud_created_by", resourceCulture);
             }
         }
         
@@ -669,15 +588,6 @@ namespace HUDEdit.Assets {
         public static string ui_select {
             get {
                 return ResourceManager.GetString("ui_select", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settings.
-        /// </summary>
-        public static string ui_settings {
-            get {
-                return ResourceManager.GetString("ui_settings", resourceCulture);
             }
         }
         
