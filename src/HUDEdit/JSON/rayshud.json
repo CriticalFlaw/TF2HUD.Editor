@@ -1072,23 +1072,6 @@
         }
       },
       {
-        "Name": "rh_toggle_disguise_image",
-        "Label": "Spy Disguise Image",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle the spy silhouette seen when changing the disguise.",
-        "Value": "false",
-        "Files": {
-          "resource/ui/hudplayerclass.res": {
-            "PlayerStatusSpyOutlineImage": {
-              "image": {
-                "true": "../hud/class_spy_outline",
-                "false": "../vgui/replay/thumbnails/transparent"
-              }
-            }
-          }
-        }
-      },
-      {
         "Name": "rh_toggle_menu_image",
         "Label": "Main Menu Class Images",
         "Type": "Checkbox",
@@ -1379,6 +1362,23 @@
               "image": {
                 "true": "../vgui/replay/thumbnails/transparent",
                 "false": "../hud/class_spy_outline"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "rh_toggle_disguise_image",
+        "Label": "Spy Disguise Image",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle the spy silhouette seen when changing the disguise.",
+        "Value": "false",
+        "Files": {
+          "resource/ui/hudplayerclass.res": {
+            "PlayerStatusSpyOutlineImage": {
+              "image": {
+                "true": "../hud/class_spy_outline",
+                "false": "../vgui/replay/thumbnails/transparent"
               }
             }
           }
