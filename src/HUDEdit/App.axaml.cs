@@ -92,12 +92,17 @@ public partial class App : Application
         // Setup Sentry
         var secrets = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
 
-        SentrySdk.Init(o =>
+        var sentryDsn = secrets["Sentry:Dsn"];
+        
+        if (!string.IsNullOrWhiteSpace(sentryDsn))
         {
-            o.Dsn = secrets["Sentry:Dsn"];
-            o.Debug = true;
-        });
-
+            SentrySdk.Init(o =>
+            {
+                o.Dsn = sentryDsn;
+                o.Debug = true;
+            });
+        }
+        
         // Set user preferences
         Assets.Resources.Culture = new CultureInfo(Config.ConfigSettings.UserPrefs.Language);
         HudPath = Config.ConfigSettings.UserPrefs.HUDDirectory;
