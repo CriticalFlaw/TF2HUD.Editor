@@ -75,4 +75,7 @@ public class AppConfig
 
     [JsonPropertyName("castingessentials_zip")]
     public string CastingEssentialsURL { get; set; } = "https://github.com/Hypnootize/TF2-HUD-Crosshairs/archive/refs/heads/master.zip";
+
+    [JsonPropertyName("sentry_dsn")]
+    public string SentryDsn { get; set; } = "https://4e922f3f78a96ed10bd15cc899a69924@o287333.ingest.us.sentry.io/4509027513597952";
 }

@@ -7,7 +7,6 @@ using HUDEdit.ViewModels;
 using HUDEdit.Views;
 using log4net;
 using log4net.Config;
-using Microsoft.Extensions.Configuration;
 using Sentry;
 using System;
 using System.Globalization;
@@ -90,19 +89,12 @@ public partial class App : Application
         }) ?? new ConfigurationModel();
 
         // Setup Sentry
-        var secrets = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
-
-        var sentryDsn = secrets["Sentry:Dsn"];
-        
-        if (!string.IsNullOrWhiteSpace(sentryDsn))
+        SentrySdk.Init(o =>
         {
-            SentrySdk.Init(o =>
-            {
-                o.Dsn = sentryDsn;
-                o.Debug = true;
-            });
-        }
-        
+            o.Dsn = Config.ConfigSettings.AppConfig.SentryDsn;
+            o.Debug = true;
+        });
+
         // Set user preferences
         Assets.Resources.Culture = new CultureInfo(Config.ConfigSettings.UserPrefs.Language);
         HudPath = Config.ConfigSettings.UserPrefs.HUDDirectory;

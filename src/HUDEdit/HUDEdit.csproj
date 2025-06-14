@@ -10,7 +10,6 @@
 		<RepositoryUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</RepositoryUrl>
 		<AssemblyVersion>4.0</AssemblyVersion>
 		<ApplicationIcon>Assets\Images\favicon.ico</ApplicationIcon>
-		<UserSecretsId>9eaa806c-2792-4144-8e6b-34cf8056dfc4</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
