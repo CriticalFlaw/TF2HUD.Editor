@@ -23,7 +23,23 @@
 			<LineBreak />
 			<Run Text="> Removed ability to set multiple download sources." />
 			<LineBreak />
+			<Run Text="> Fixed long load times when launching the app or switching between pages." />
+			<LineBreak />
+			<Run Text="> Fixed the app icon not being used." />
+			<LineBreak />
+			<Run Text="> Fixed crosshairs not persisting when the option is enabled." />
+			<LineBreak />
+			<Run Text="> Added missing localization text." />
+			<LineBreak />
+			<Run Text="> Added Jakadak's extended TF2 fonts." />
+			<LineBreak />
 			<Run Text="> Added a button for refreshing the app without restart." />
+			<LineBreak />
+			<Run Text="> Added a splash screen when launching the app." />
+			<LineBreak />
+			<Run Text="> Added Sentry for remote app performance monitorings." />
+			<LineBreak />
+			<Run Text="> Miscellaneous backend improvements and code cleanup." />
 		</TextBlock>
 	</StackPanel>
 </UserControl>
