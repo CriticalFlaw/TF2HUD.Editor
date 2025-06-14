@@ -12,10 +12,7 @@ public static class ImageCache
 {
     private static readonly string CacheDir = Path.Combine(AppContext.BaseDirectory, "cache");
 
-    static ImageCache()
-    {
-        Directory.CreateDirectory(CacheDir);
-    }
+    static ImageCache() => Directory.CreateDirectory(CacheDir);
 
     private static string GetCachePath(string url)
     {

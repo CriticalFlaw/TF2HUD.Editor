@@ -99,10 +99,10 @@ public partial class SettingsViewModel : ViewModelBase
     private void UpdateApp() => Utilities.UpdateAppSchema(false);
 
     [RelayCommand]
-    private void OpenAppSettings() => Process.Start(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "xdg-open" : "notepad.exe", $"{AppContext.BaseDirectory}/appsettings.json");
+    private void OpenAppSettings() => Utilities.OpenWebpage($"{AppContext.BaseDirectory}/appsettings.json");
 
     [RelayCommand]
-    private void OpenUserSettings() => Process.Start(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "xdg-open" : "notepad.exe", $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor/settings.json");
+    private void OpenUserSettings() => Utilities.OpenWebpage($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor/settings.json");
 
     [RelayCommand]
     private async Task ClearAppCache() => await Utilities.ClearAppCache();

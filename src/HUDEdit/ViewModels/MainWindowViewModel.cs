@@ -104,11 +104,6 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    public MainWindowViewModel()
-    {
-
-    }
-
     public async Task DownloadImages()
     {
         foreach (var hud in _hudList)
@@ -387,7 +382,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public void OpenOptionsMenu() => new SettingsView().Show();
 
     [RelayCommand]
-    public void LaunchTf2() => Process.Start(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "xdg-open" : "explorer", "steam://run/440");
+    public void LaunchTf2() => Utilities.OpenWebpage("steam://run/440");
 
     /// <summary>
     /// Adds a HUD from folder to the shared HUDs list.

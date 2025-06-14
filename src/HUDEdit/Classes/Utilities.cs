@@ -21,6 +21,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Color = Avalonia.Media.Color;
+using Path = System.IO.Path;
 
 namespace HUDEdit.Classes;
 
@@ -172,14 +173,25 @@ public static class Utilities
     }
 
     /// <summary>
-    /// Opens the provided path in browser or Windows Explorer.
+    /// Opens provided link in the default web browser.
     /// </summary>
-    /// <param name="url">URL link to open.</param>
-    public static void OpenWebpage(string url)
+    public static void OpenWebpage(string path)
     {
-        if (string.IsNullOrWhiteSpace(url)) return;
-        App.Logger.Info($"Opening URL: {url}");
-        Process.Start(RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "xdg-open" : "explorer", url);
+        if (string.IsNullOrWhiteSpace(path)) return;
+        App.Logger.Info($"Opening URL: {path}");
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            Process.Start("xdg-open", path);
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            Process.Start("open", path);
+        }
     }
 
     /// <summary>
@@ -212,8 +224,8 @@ public static class Utilities
     {
         var steamPaths = new List<string>();
 
-        // Do not bother searching the registry if on Linux.
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) return false;
+        // Do not bother searching the registry if not on Windows.
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return false;
 
         var is64Bit = Environment.Is64BitProcess ? "Wow6432Node/" : string.Empty;
         var pathFile = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "/steamapps/libraryfolders.vdf";
@@ -529,30 +541,6 @@ public static class Utilities
         return new Avalonia.Media.Imaging.Bitmap(AssetLoader.Open(new Uri(url)));
     }
 
-    public static void RestartApplication()
-    {
-        // TODO: Update for Linux
-        try
-        {
-            // Get the current application's executable path
-            var processStartInfo = new ProcessStartInfo
-            {
-                FileName = Environment.ProcessPath ?? AppContext.BaseDirectory,
-                UseShellExecute = true
-            };
-
-            // Start a new instance
-            Process.Start(processStartInfo);
-
-            // Close the current application
-            Environment.Exit(0);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Failed to restart application: {e.Message}");
-        }
-    }
-
     /// <summary>
     /// Displays a set type of message box to the user.
     /// </summary>
@@ -588,7 +576,7 @@ public static class Utilities
     /// </returns>
     public static async Task<ButtonResult> ShowPromptBox(string message)
     {
-        return await MessageBoxManager.GetMessageBoxStandard(title: "Input Required!", text: message, ButtonEnum.YesNo, icon: MsBox.Avalonia.Enums.Icon.Question).ShowAsync();
+        return await MessageBoxManager.GetMessageBoxStandard(title: Resources.header_info, text: message, ButtonEnum.YesNo, icon: MsBox.Avalonia.Enums.Icon.Question).ShowAsync();
     }
 
     /// <summary>
