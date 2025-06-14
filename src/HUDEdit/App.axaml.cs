@@ -65,6 +65,7 @@ public partial class App : Application
                 DataContext = mainWindowVm
             };
             desktop.MainWindow = mainWindow;
+            mainWindowVm.TopLevel = mainWindow;
             mainWindowVm.PropertyChanged += mainWindow.MainWindowViewModelPropertyChanged;
             mainWindow.Show();
             splashScreen.Close();

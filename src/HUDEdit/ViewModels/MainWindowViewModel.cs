@@ -14,7 +14,6 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -218,7 +217,8 @@ public partial class MainWindowViewModel : ViewModelBase
             SelectedHud ??= HighlightedHud;
 
             // Force the user to set a directory before installing.
-            if (!Utilities.CheckUserPath()) await Utilities.SetupDirectoryAsync(TopLevel, true);
+            if (!Utilities.CheckUserPath())
+                if (await Utilities.SetupDirectoryAsync(TopLevel, true) == false) return;
 
             // Stop the process if Team Fortress 2 is still running.
             if (Utilities.CheckIsGameRunning())
