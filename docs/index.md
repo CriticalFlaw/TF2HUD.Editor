@@ -11,10 +11,6 @@ slug: /
     &nbsp;
     ·
     &nbsp;
-    <a href="https://criticalflaw.ca/TF2HUD.Editor">Documentation</a>
-    &nbsp;
-    ·
-    &nbsp;
     <a href="https://criticalflaw.ca/TF2HUD.Editor/screenshots/">Screenshots</a>
     &nbsp;
     ·
@@ -42,7 +38,7 @@ slug: /
 
 1. Download and install the [Microsoft .NET 8.0 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0/runtime) for desktop apps.
 2. Download and extract the [latest version of the editor][download-link].
-3. Run the executable **TF2HUD.Editor.exe**
+3. Run the executable **HUDEdit.exe**
 
 ---
 
@@ -58,7 +54,8 @@ Always use to the latest version of the editor for best compatability with suppo
 [package-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/package.yml
 [docs-shield]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml/badge.svg
 [docs-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml
-[download-shield]: https://img.shields.io/github/downloads/criticalflaw/tf2hud.editor/total?style=flat-square
+[download-shield]: https://img.shields.io/github/downloads/criticalflaw/tf2hud.editor/total
 [download-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
-[discord-shield]: https://img.shields.io/badge/Discord-criticalflaw-7289da.svg?style=flat-square&logo=discord
+[discord-shield]: https://img.shields.io/badge/Discord-criticalflaw-7289da.svg?logo=discord
 [discord-link]: https://discord.gg/hTdtK9vBhE
+[issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
