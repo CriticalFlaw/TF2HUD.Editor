@@ -17,8 +17,6 @@
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
 		<Label Classes="HeaderText" Content="Version 4.0 Beta" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
-			<Run Foreground="Red" Text="This is an in-development build. Please report any issues on the GitHub tracker." />
-			<LineBreak />
 			<Run Text="> Restored presets and preview modals." />
 			<LineBreak />
 			<Run Text="> Removed ability to set multiple download sources." />
@@ -38,8 +36,6 @@
 			<Run Text="> Added a splash screen when launching the app." />
 			<LineBreak />
 			<Run Text="> Added Sentry for remote app performance monitorings." />
-			<LineBreak />
-			<Run Text="> Miscellaneous backend improvements and code cleanup." />
 		</TextBlock>
 	</StackPanel>
 </UserControl>
