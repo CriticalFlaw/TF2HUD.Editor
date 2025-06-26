@@ -60,7 +60,7 @@ public partial class HUD
         Author = schema.Author;
         CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
         EnabledFolder = schema.EnabledFolder ?? string.Empty;
-        DownloadUrl = schema.Links.Download;
+        DownloadUrl = schema.Links.Update;
         GitHubUrl = schema.Links.GitHub ?? string.Empty;
         TF2HudsUrl = schema.Links.TF2Huds ?? string.Empty;
         ComfigHudsUrl = schema.Links.ComfigHuds ?? string.Empty;

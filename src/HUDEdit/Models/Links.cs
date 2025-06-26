@@ -9,5 +9,5 @@ public class Links
     [JsonPropertyName("TF2Huds")] public string TF2Huds;
     [JsonPropertyName("ComfigHuds")] public string ComfigHuds;
     [JsonPropertyName("Steam")] public string Steam;
-    [JsonPropertyName("Download")] public string Download;
+    [JsonPropertyName("Update")] public string Update;  // TODO: Change to Download after user migration to 4.0
 }

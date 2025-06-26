@@ -188,7 +188,7 @@ public partial class MainWindowViewModel : ViewModelBase
                 Layout = sharedProperties.Layout,
                 Links = new Links
                 {
-                    Download = $"file://{sharedHud}/{hudName}.zip"
+                    Update = $"file://{sharedHud}/{hudName}.zip"
                 },
                 Controls = sharedProperties.Controls
             }, false));
@@ -522,7 +522,7 @@ public partial class MainWindowViewModel : ViewModelBase
             }).Result,
             Links = new Links
             {
-                Download = Task.Run(() =>
+                Update = Task.Run(() =>
                 {
                     var zipPath = $"{hudDetailsFolder}/{hudName}.zip";
                     ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
