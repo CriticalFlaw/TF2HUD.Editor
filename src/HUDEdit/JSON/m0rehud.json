@@ -184,7 +184,6 @@
           }
         ]
       },
-
       //{
       //  "Name": "mh_minmode",
       //  "Label": "Toggle Minmode",
@@ -674,20 +673,10 @@
         }
       },
       {
-        "Name": "mh_health_buff",
+        "Name": "mh_health_buff_style",
         "Label": "Health Buff",
         "Type": "ComboBox",
         "Value": "2",
-        "ComboDirectories": [
-          "Health Ammo Uber Animation Style/[Health Buff] Animated Buff Rectangle + Big Font",
-          "Health Ammo Uber Animation Style/[Health Buff] Animated Buff Rectangle + Small Font",
-          "Health Ammo Uber Animation Style/[Health Buff] Buff Cross + Big Font (Default ON)",
-          "Health Ammo Uber Animation Style/[Health Buff] Buff Cross + Small Font",
-          "Health Ammo Uber Animation Style/[Health Buff] No Buff Cross + Big Font",
-          "Health Ammo Uber Animation Style/[Health Buff] No Buff Cross + Small Font",
-          "Health Ammo Uber Animation Style/[Health Buff] Static Buff Rectangle + Big Font",
-          "Health Ammo Uber Animation Style/[Health Buff] Static Buff Rectangle + Small Font"
-        ],
         "Options": [
           {
             "Label": "Buff Rectangle, Big Font",
