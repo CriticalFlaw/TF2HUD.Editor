@@ -330,7 +330,7 @@ public partial class HUD
             Width = 200,
             HorizontalAlignment = HorizontalAlignment.Left,
             VerticalAlignment = VerticalAlignment.Top,
-            //Margin = new Thickness(0, 10, 0, 0)
+            Margin = new Thickness(0, 10, 0, 0)
         };
 
         Grid.SetColumn(image, 0);
@@ -340,7 +340,7 @@ public partial class HUD
         var imageSource = Settings.GetSetting<string>(controlItem.Name);
         if (!string.IsNullOrWhiteSpace(imageSource))
             if (Uri.TryCreate(imageSource, UriKind.Absolute, out var path))
-                image.Source = new Bitmap(path.ToString());
+                image.Source = new Bitmap(path.LocalPath);
 
         //----
 
@@ -372,6 +372,7 @@ public partial class HUD
             {
                 await using var stream = await files[0].OpenReadAsync();
                 image.Source = new Bitmap(stream);
+                Settings.SetSetting(controlItem.Name, files[0].Path.ToString());
             }
 
             CheckIsDirty(controlItem);

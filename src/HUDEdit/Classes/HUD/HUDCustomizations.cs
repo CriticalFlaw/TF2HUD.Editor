@@ -730,7 +730,7 @@ public partial class HUD
 
         if (string.Equals(special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase) &&
             Uri.TryCreate(userSetting.Value, UriKind.Absolute, out _))
-            HudBackground.SetCustomBackground(userSetting.Value);
+            HudBackground.SetCustomBackground(new Uri(userSetting.Value));
 
         if (string.Equals(special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
             CopyTransparentViewmodelAddon(enable);

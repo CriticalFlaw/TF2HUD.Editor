@@ -20,10 +20,10 @@ internal class VTF
     /// </summary>
     /// <param name="inFile">Path and file name of the image to be converted.</param>
     /// <param name="outFile">Output path and file name for the VTF.</param>
-    public void Convert(string inFile, string outFile)
+    public void Convert(Uri inFile, string outFile)
     {
         // Resize image to square of larger proportional
-        var image = new Bitmap(inFile);
+        var image = new Bitmap(inFile.LocalPath);
         var materialSrc = $"{Tf2Path}/tf/materialsrc";
 
         // Create materialsrc (ensure it exists)

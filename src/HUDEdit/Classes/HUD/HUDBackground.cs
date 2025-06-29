@@ -18,7 +18,7 @@ internal class HUDBackground
 {
     private readonly string hudFolderPath;
     private string hudImagePath;
-    private string customImagePath;
+    private Uri customImagePath;
     private bool useCustomBackground;
     private bool useHUDBackground;
     private bool useStockBackgrounds;
@@ -41,9 +41,9 @@ internal class HUDBackground
         useHUDBackground = true;
     }
 
-    public void SetCustomBackground(string imagePath)
+    public void SetCustomBackground(Uri imagePath)
     {
-        if (imagePath == "") return;
+        if (imagePath is null) return;
         App.Logger.Info($"Setting custom background to: {imagePath}");
         customImagePath = imagePath;
         useCustomBackground = true;
@@ -62,12 +62,8 @@ internal class HUDBackground
             if (!Directory.Exists(disabledFolder))
                 Directory.CreateDirectory(disabledFolder);
 
-            if (useCustomBackground && !string.IsNullOrWhiteSpace(customImagePath))
+            if (useCustomBackground && customImagePath is not null)
             {
-                // Check that the supplied image path is valid
-                App.Logger.Info($"Validating {customImagePath}");
-                if (!Uri.TryCreate(customImagePath, UriKind.Absolute, out _)) return;
-
                 // Move all existing files to the disabled folder.
                 foreach (var filePath in Directory.GetFiles(consoleFolder))
                 {

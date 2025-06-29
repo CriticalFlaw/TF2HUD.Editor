@@ -657,9 +657,9 @@ public static class Utilities
         hudPath += "/scripts";
         Directory.CreateDirectory(hudPath);
 
-        // Create chapterbackground.txt file with the contents.
-        File.WriteAllText(Path.Combine(hudPath, "chapterbackground.txt"), content);
-        App.Logger.Info($"Created chapterbackground.txt at {hudPath}");
+        // Create chapterbackgrounds.txt file with the contents.
+        File.WriteAllText(Path.Combine(hudPath, "chapterbackgrounds.txt"), content);
+        App.Logger.Info($"Created chapterbackgrounds.txt at {hudPath}");
     }
 
     /// <summary>
