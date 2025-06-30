@@ -1,5 +1,8 @@
 name: package
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
   pull_request:
@@ -7,33 +10,37 @@ on:
 jobs:
   package:
     runs-on: windows-latest
-    
+
+    strategy:
+      matrix:
+        rid: [win-x64, linux-x64]
+        include:
+          - rid: win-x64
+            artifact: tf2hud-editor-win64
+          - rid: linux-x64
+            artifact: tf2hud-editor-linux
+
     env:
-      Solution_Name: TF2HUD.Editor.sln
+      Solution_Name: TF2HUD.Editor.slnx
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-        
+
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.x'
 
-    - name: Setup NuGet
-      uses: nuget/setup-nuget@v2
-      env:
-        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-
     - name: Restore dependencies
-      run: nuget restore src/TF2HUD.Editor.sln
-        
-    - name: Publish solution
-      run: dotnet publish -c Release --output ./publish
-      working-directory: src/TF2HUD.Editor
-        
-    - name: Upload artifact
+      run: dotnet restore src/HUDEditor/HUDEditor.csproj
+
+    - name: Publish for ${{ matrix.rid }}
+      run: dotnet publish -c Release -r ${{ matrix.rid }} --output ./publish/${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true
+      working-directory: src/HUDEditor
+
+    - name: Upload artifact for ${{ matrix.rid }}
       uses: actions/upload-artifact@v4
       with:
-        name: TF2HUD-Editor
-        path: D:\a\TF2HUD.Editor\TF2HUD.Editor\src\TF2HUD.Editor\publish\
+        name: ${{ matrix.artifact }}
+        path: src/HUDEditor/publish/${{ matrix.rid }}

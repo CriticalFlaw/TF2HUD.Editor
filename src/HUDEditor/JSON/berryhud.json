@@ -1,0 +1,383 @@
+{
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "hexereii",
+  "Description": "Personal HUD dedicated to competitive TF2 players; Highlander, Sixes, Ultiduo, MGE.",
+  "Thumbnail": "https://i.imgur.com/wvmjCwr.png",
+  "Screenshots": [
+    "https://i.imgur.com/wvmjCwr.png",
+    "https://i.imgur.com/eklQSi3.png",
+    "https://i.imgur.com/59MqcRq.png",
+    "https://i.imgur.com/6ZbkhR4.png"
+  ],
+  "Background": "https://i.imgur.com/CeKu3f3.png",
+  "Layout": [
+    "0 0 0 0",
+    "1 1 2 2",
+    "3 3 3 3"
+  ],
+  "Links": {
+    "Update": "https://github.com/hexereii/BerryHUD/archive/refs/heads/main.zip",
+    "GitHub": "https://github.com/hexereii/BerryHUD",
+    "TF2Huds": "https://tf2huds.dev/hud/BerryHUD"
+  },
+  "CustomizationsFolder": "customizations",
+  "EnabledFolder": "",
+  "Controls": {
+    "General": [
+      {
+        "Name": "berryhud_color_health",
+        "Label": "Health",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player's health.",
+        "Value": "235 235 235 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_shadow",
+        "Label": "Shadow",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of shadows.",
+        "Value": "0 0 0 150",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Shadows": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_heal_number",
+        "Label": "Heal Numbers",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of heal numbers.",
+        "Value": "40 200 110 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Heal Numbers": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_damage_number",
+        "Label": "Last Damage",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of damage numbers.",
+        "Value": "235 235 235 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Last Damage Done": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_ubercharge",
+        "Label": "ÜberCharge",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of ubercharge.",
+        "Value": "200 220 243 200",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ubercharge": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_ubercharge_full",
+        "Label": "ÜberCharge Full",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of ubercharge when full.",
+        "Value": "224 255 255 180",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ubercharge Full": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Health Colors": [
+      {
+        "Name": "berryhud_color_health_buff",
+        "Label": "Buffed",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player's health when buffed.",
+        "Value": "150 200 220 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Buff": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_health_buff_target",
+        "Label": "Buffed Target",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of target's health when buffed.",
+        "Value": "150 200 220 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Buff Target": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_health_buff_spec",
+        "Label": "Buffed Spectator",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of spectator's health when buffed.",
+        "Value": "150 200 220 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Buff Spec": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_health_hurt",
+        "Label": "Hurt",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of player's health when hurt.",
+        "Value": "235 235 235 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Hurt": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_health_hurt_target",
+        "Label": "Hurt Target",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of target's health when hurt.",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Hurt Target": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_health_hurt_spec",
+        "Label": "Hurt Spectator",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of spectator's health when hurt.",
+        "Value": "255 0 0 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health Hurt Spec": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Ammo Colors": [
+      {
+        "Name": "berryhud_color_ammo_clip",
+        "Label": "In-Clip",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of ammo in clip.",
+        "Value": "235 235 235 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_ammo_reserve",
+        "Label": "In-Reserve",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of ammo in reserve.",
+        "Value": "235 235 235 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_ammo_noclip",
+        "Label": "No Clip",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of ammo no clip.",
+        "Value": "235 235 235 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo No Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_ammo_clip_low",
+        "Label": "In-Clip Low",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of ammo in clip when low.",
+        "Value": "245 70 70 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Clip Low": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_ammo_reserve_low",
+        "Label": "In-Reserve Low",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of ammo in reserve when low.",
+        "Value": "245 70 70 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo In Reserve Low": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "berryhud_color_ammo_noclip_low",
+        "Label": "No Clip Low",
+        "Type": "ColorPicker",
+        "ToolTip": "Color of ammo no clip when low.",
+        "Value": "245 70 70 255",
+        "Restart": true,
+        "Files": {
+          "customizations/Colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo No Clip Low": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Customizations": [
+      {
+        "Name": "berryhud_class_selection_hl",
+        "Label": "Highlander Class Select",
+        "Type": "Checkbox",
+        "ToolTip": "Optimize class selection screen for Highlander.",
+        "Value": "true",
+        "Files": {
+          "resource/ui/ClassSelection.res": {
+            "comment": [
+              "#base \"../../customizations/ClassSelection_HL.res\""
+            ]
+          }
+        }
+      },
+      {
+        "Name": "berryhud_friendlist",
+        "Label": "Display Friend List",
+        "Type": "Checkbox",
+        "ToolTip": "Display friend list on the main menu.",
+        "Value": "true",
+        "Files": {
+          "customizations/FriendsList.res": {
+            "comment": [
+              "#base \"../resource/ui/alternatives/FriendsList_Off.res\""
+            ]
+          }
+        }
+      },
+      {
+        "Name": "berryhud_damage_numbers",
+        "Label": "Display Damage Numbers",
+        "Type": "Checkbox",
+        "ToolTip": "Display damage numbers.",
+        "Value": "true",
+        "Files": {
+          "customizations/DamagePositions.res": {
+            "comment": [
+              "#base \"../resource/ui/alternatives/Damage_Off.res\""
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

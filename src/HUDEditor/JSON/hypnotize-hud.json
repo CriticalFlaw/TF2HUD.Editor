@@ -1,0 +1,819 @@
+{
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "Author": "Hypnotize",
+  "Description": "Material TF2 Hud that aims to keep a really simple in-game ui and modern menus.",
+  "Thumbnail": "https://i.imgur.com/Vkeq53Q.png",
+  "Screenshots": [
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hypnotizehud/hypnotizehud-menu.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hypnotizehud/hypnotizehud-buff.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hypnotizehud/hypnotizehud-scoreboard.webp",
+    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hypnotizehud/hypnotizehud-spectator.webp"
+  ],
+  "Background": "27 29 32 255",
+  "Layout": [
+    "0 1 1",
+    "0 2 2",
+    "3 4 4"
+  ],
+  "Links": {
+    "Update": "https://github.com/Hypnootize/hypnotizehud/archive/refs/heads/master.zip",
+    "GitHub": "https://github.com/Hypnootize/hypnotizehud",
+    "TF2Huds": "https://tf2huds.dev/hud/Hypnotize-Hud",
+    "ComfigHuds": "https://comfig.app/huds/page/hypnotizehud/"
+  },
+  "CustomizationsFolder": "customizations",
+  "EnabledFolder": "customizations",
+  "Controls": {
+    "General": [
+      {
+        "Name": "hh_toggle_scoreboard",
+        "Label": "Short Stats Scoreboard",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/scoreboards.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/scoreboard_nostats.res",
+                "false": "../resource/ui/scoreboard_fullstats.res"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_health_panel",
+        "Label": "Display Health Box",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/health_styles.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/hudplayerhealth_box.res",
+                "false": "../resource/ui/hudplayerhealth_normal.res"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_transparent_viewmodels",
+        "Label": "Transparent Viewmodel",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/transparent_viewmodels.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/transparent_viewmodels.res",
+                "false": "../resource/ui/transparent_viewmodels_off.res"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_team_status",
+        "Label": "Smaller Team Healthbars",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/team_status.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/hudmatchstatus_smallhealth.res",
+                "false": "../resource/ui/hudmatchstatus_bighealth.res"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_pause_menu_background",
+        "Label": "Transparent Pause Menu BG",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/pausemenu_background.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/pausemenutransparent.res",
+                "false": "../resource/ui/pausemenugrey.res"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_streamer_mode",
+        "Label": "Streamer Mode",
+        "Type": "CheckBox",
+        "Value": "false",
+        "RenameFile": {
+          "OldName": "customizations/streamermode_/",
+          "NewName": "customizations/streamermode/",
+          "Restart": true
+        }
+      },
+      {
+        "Name": "hh_toggle_speedometer",
+        "Label": "Speedometer",
+        "Type": "CheckBox",
+        "Value": "false",
+        "Files": {
+          "customizations/speedometer.res": {
+            "#base": [
+              {
+                "true": "../resource/ui/speedometer.res",
+                "false": "../resource/ui/speedometer_off.res"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_resolution",
+        "Label": "Resolution",
+        "Type": "ComboBox",
+        "Value": "2",
+        "Options": [
+          {
+            "Label": "4x3",
+            "Value": "0",
+            "RenameFile": {
+              "OldName": "customizations/resolutions/4x3_/",
+              "NewName": "customizations/resolutions/4x3/"
+            }
+          },
+          {
+            "Label": "5x4",
+            "Value": "1",
+            "RenameFile": {
+              "OldName": "customizations/resolutions/5x4_/",
+              "NewName": "customizations/resolutions/5x4/"
+            }
+          },
+          {
+            "Label": "16x9",
+            "Value": "2",
+            "RenameFile": {
+              "OldName": "customizations/resolutions/16x9_/",
+              "NewName": "customizations/resolutions/16x9/"
+            }
+          },
+          {
+            "Label": "16x10",
+            "Value": "3",
+            "RenameFile": {
+              "OldName": "customizations/resolutions/16x10_/",
+              "NewName": "customizations/resolutions/16x10/"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "hh_toggle_font",
+        "Label": "Font",
+        "Type": "ComboBox",
+        "ToolTip": "Change to different font options.",
+        "Value": "10",
+        "Restart": true,
+        "Options": [
+          {
+            "Label": "Avenir",
+            "Value": "0",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_avenir.res"
+              }
+            }
+          },
+          {
+            "Label": "Cerbetica",
+            "Value": "1",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_cerbetica.res"
+              }
+            }
+          },
+          {
+            "Label": "Futura",
+            "Value": "2",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_futura.res"
+              }
+            }
+          },
+          {
+            "Label": "Lato",
+            "Value": "3",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_lato.res"
+              }
+            }
+          },
+          {
+            "Label": "Neutra",
+            "Value": "4",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_neutra.res"
+              }
+            }
+          },
+          {
+            "Label": "Nexa",
+            "Value": "5",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_nexa.res"
+              }
+            }
+          },
+          {
+            "Label": "Product",
+            "Value": "6",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_product.res"
+              }
+            }
+          },
+          {
+            "Label": "Quake",
+            "Value": "7",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_quake.res"
+              }
+            }
+          },
+          {
+            "Label": "Renogare",
+            "Value": "8",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_renogare.res"
+              }
+            }
+          },
+          {
+            "Label": "Roboto",
+            "Value": "9",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_roboto.res"
+              }
+            }
+          },
+          {
+            "Label": "Rubik",
+            "Value": "10",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_rubik.res"
+              }
+            }
+          },
+          {
+            "Label": "Surface",
+            "Value": "11",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_surface.res"
+              }
+            }
+          },
+          {
+            "Label": "TF2",
+            "Value": "12",
+            "Files": {
+              "customizations/alternative_fonts.res": {
+                "#base": "../resource/scheme/alternative_fonts/fonts_tf2.res"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "Name": "hh_toggle_damage",
+        "Label": "Damage Value Size",
+        "Type": "ComboBox",
+        "Value": "2",
+        "Options": [
+          {
+            "Label": "Small, Shadow",
+            "Value": "0",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_small_shadow.res"
+              }
+            }
+          },
+          {
+            "Label": "Small, Outline",
+            "Value": "1",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_small_outline.res"
+              }
+            }
+          },
+          {
+            "Label": "Medium, Shadow",
+            "Value": "2",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_medium_shadow.res"
+              }
+            }
+          },
+          {
+            "Label": "Medium, Outline",
+            "Value": "3",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_medium_outline.res"
+              }
+            }
+          },
+          {
+            "Label": "Big, Shadow",
+            "Value": "4",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_big_shadow.res"
+              }
+            }
+          },
+          {
+            "Label": "Big, Outline",
+            "Value": "5",
+            "Files": {
+              "customizations/damage.res": {
+                "#base": "../resource/ui/huddamage_big_outline.res"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "Health": [
+      {
+        "Name": "hh_color_health_number",
+        "Label": "Health Normal",
+        "Type": "ColorPicker",
+        "Value": "227 228 230 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health_Numbers": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_health_buff",
+        "Label": "Health Buffed",
+        "Type": "ColorPicker",
+        "Value": "30 175 255 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Buffed_Health": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_health_buff_pulse",
+        "Label": "Buffed Pulse",
+        "Type": "ColorPicker",
+        "Value": "80 150 255 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Buffed_Health_Pulse": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_health_low",
+        "Label": "Health Low",
+        "Type": "ColorPicker",
+        "Value": "255 50 50 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Low_Health": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_health_low_pulse",
+        "Label": "Low Pulse",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Low_Health_Pulse": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_health_gain",
+        "Label": "Health Gained",
+        "Type": "ColorPicker",
+        "Value": "75 210 75 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health_Gained": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_health_lost",
+        "Label": "Health Lost",
+        "Type": "ColorPicker",
+        "Value": "255 50 50 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Health_Lost": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Ammo": [
+      {
+        "Name": "hh_color_ammo_clip",
+        "Label": "Ammo In Clip",
+        "Type": "ColorPicker",
+        "Value": "227 228 230 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo_In_Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_ammo_reserve",
+        "Label": "Ammo Reserve",
+        "Type": "ColorPicker",
+        "Value": "227 228 230 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo_In_Reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_ammo_no_clip",
+        "Label": "Ammo No Clip",
+        "Type": "ColorPicker",
+        "Value": "227 228 230 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Ammo_No_Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_ammo_low_clip",
+        "Label": "Low In Clip",
+        "Type": "ColorPicker",
+        "Value": "255 50 50 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Low_Ammo_In_Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_ammo_low_clip_pulse",
+        "Label": "Low In Clip Pulse",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Low_Ammo_In_Clip_Pulse": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_ammo_low_reserve",
+        "Label": "Low Reserve",
+        "Type": "ColorPicker",
+        "Value": "255 50 50 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Low_Ammo_In_Reserve": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_ammo_low_reserve_pulse",
+        "Label": "Low Reserve Pulse",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Low_Ammo_In_Reserve_Pulse": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_ammo_low_no_clip",
+        "Label": "Low No Clip",
+        "Type": "ColorPicker",
+        "Value": "255 50 50 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Low_Ammo_No_Clip": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_ammo_low_no_clip_pulse",
+        "Label": "Low No Clip Pulse",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Low_Ammo_No_Clip_Pulse": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "UberCharge": [
+      {
+        "Name": "hh_color_ubercharge",
+        "Label": "Full Uber",
+        "Type": "ColorPicker",
+        "Value": "30 175 255 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Full_Ubercharge": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_ubercharge_pulse",
+        "Label": "Full Uber Pulse",
+        "Type": "ColorPicker",
+        "Value": "80 150 255 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Full_Ubercharge_Pulse": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_heal_number",
+        "Label": "Heal Numbers",
+        "Type": "ColorPicker",
+        "Value": "0 255 0 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Heal_Numbers": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_last_damage",
+        "Label": "Damage Done",
+        "Type": "ColorPicker",
+        "Value": "227 228 230 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Last_Damage_Done": "$value"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "Crosshair": [
+      {
+        "Name": "hh_val_xhair_style",
+        "Label": "Style",
+        "ToolTip": "Style of crosshair.",
+        "Type": "Crosshair",
+        "Value": "A",
+        "Files": {
+          "customizations/crosshairs_and_hitmarker.res": {
+            "CustomCrosshair": {
+              "labelText": "$value"
+            },
+            "CustomCrosshairBlurShadow": {
+              "labelText": "$value"
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_crosshair",
+        "Label": "Normal",
+        "Type": "ColorPicker",
+        "Value": "227 228 230 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_crosshair_pulse",
+        "Label": "Pulse",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "Crosshair_Pulse": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_color_crosshair_hitmarker",
+        "Label": "Hitmarker",
+        "Type": "ColorPicker",
+        "Value": "255 0 0 255",
+        "Files": {
+          "customizations/colors.res": {
+            "Scheme": {
+              "Colors": {
+                "HitMarker": "$value"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_val_xhair_size",
+        "Label": "Size",
+        "Type": "IntegerUpDown",
+        "Value": "18",
+        "Minimum": "10",
+        "Maximum": "30",
+        "Increment": "1",
+        "Files": {
+          "customizations/crosshairs_and_hitmarker.res": {
+            "CustomCrosshair": {
+              "font": "Size:$value | Outline:{$hh_val_xhair_outline ? ON : OFF}"
+            },
+            "CustomCrosshairBlurShadow": {
+              "font": "Size:$value | Blur:ON"
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_xhair_enable",
+        "Label": "Crosshair",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "customizations/crosshairs_and_hitmarker.res": {
+            "CustomCrosshair": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_val_xhair_outline",
+        "Label": "Outline",
+        "Type": "Checkbox",
+        "Value": "false"
+      },
+      {
+        "Name": "hh_toggle_xhair_blur_enable",
+        "Label": "Blur",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "customizations/crosshairs_and_hitmarker.res": {
+            "CustomCrosshairBlurShadow": {
+              "visible": {
+                "true": "1",
+                "false": "0"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_crosshair_event",
+        "Label": "Pulse",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "customizations/crosshairs_and_hitmarker_animation.txt": {
+            "uncomment": [
+              "Animate \t\"CustomCrosshair\""
+            ]
+          }
+        }
+      },
+      {
+        "Name": "hh_toggle_hitmarker_event",
+        "Label": "Hitmarker",
+        "Type": "Checkbox",
+        "Value": "false",
+        "Files": {
+          "customizations/crosshairs_and_hitmarker_animation.txt": {
+            "uncomment": [
+              "Animate \t\"Hitmarker\""
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

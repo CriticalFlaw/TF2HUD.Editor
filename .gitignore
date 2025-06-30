@@ -425,3 +425,5 @@ FodyWeavers.xsd
 .docusaurus
 build
 node_modules
+
+src/HUDEdit/secrets.json

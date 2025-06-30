@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="error_hud_install" xml:space="preserve">
+    <value>Une erreur s’est produite lors de l’installation de {0}.</value>
+  </data>
+  <data name="error_hud_uninstall" xml:space="preserve">
+    <value>Une erreur s'est produite lors de la désinstallation de {0}.</value>
+  </data>
+  <data name="error_transparent_vm" xml:space="preserve">
+    <value>Une erreur s’est produite lors de l'activation des "viewmodels" transparents.</value>
+  </data>
+  <data name="error_unknown_extension" xml:space="preserve">
+    <value>Impossible de reconnaître l'extension de fichier '{0}'.</value>
+  </data>
+  <data name="info_add_hud" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir ajouter un dossier à la liste des HUDs partagés? Ceci ajoutera le dossier localement mais n'enverra pas le HUD sur la base de donnée en ligne de TF2HUD.Editor.</value>
+  </data>
+  <data name="info_app_update" xml:space="preserve">
+    <value>Une nouvelle version de l'application est disponible. Voulez-vous la télécharger ?</value>
+  </data>
+  <data name="info_background_override" xml:space="preserve">
+    <value>Ajouter un nouvel arrière-plan va remplacer celui déjà présent. Utilisez l'option "Réinstaller" pour revenir à l'arrière-plan par défaut.</value>
+  </data>
+  <data name="info_game_restart" xml:space="preserve">
+    <value>Les modifications suivantes nécessitent le redémarrage du jeu:</value>
+  </data>
+  <data name="info_game_running" xml:space="preserve">
+    <value>Impossible de continuer, car Team Fortress 2 est toujours en cours d'exécution. Veuillez fermer le jeu puis réessayer.</value>
+  </data>
+  <data name="info_hud_reset" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir réinitialiser toutes les personnalisations par défaut?</value>
+  </data>
+  <data name="info_hud_update" xml:space="preserve">
+    <value>Une mise à jour du schéma du HUD est disponible. Souhaitez-vous redémarrer maintenant pour appliquer les nouvelles modifications?</value>
+  </data>
+  <data name="info_hud_update_none" xml:space="preserve">
+    <value>Votre HUD est à jour. Veuillez revérifier plus tard.</value>
+  </data>
+  <data name="info_path_browser" xml:space="preserve">
+    <value>Sélectionnez votre répertoire "tf/custom". Si un répertoire invalide est désigné, plusieurs options seront indisponibles.</value>
+  </data>
+  <data name="info_path_invalid" xml:space="preserve">
+    <value>Soit vous avez sélectionné le même répertoire, soit votre sélection ne termine pas par "tf/custom". Veuillez réessayer.</value>
+  </data>
+  <data name="info_unsupported_hud_found" xml:space="preserve">
+    <value>Un HUD non pris en charge a été trouvé dans tf/custom. Voulez-vous le supprimer pour continuer l'installation ?</value>
+  </data>
+  <data name="status_applied" xml:space="preserve">
+    <value>Personnalisations de {0} appliquées le {1}.</value>
+  </data>
+  <data name="status_installed" xml:space="preserve">
+    <value>{0} est installé!</value>
+  </data>
+  <data name="status_installed_not" xml:space="preserve">
+    <value>{0} n'est pas installé!</value>
+  </data>
+  <data name="status_installed_now" xml:space="preserve">
+    <value>Installation de {0} terminée le {1}.</value>
+  </data>
+  <data name="status_path_notset" xml:space="preserve">
+    <value>Le répertoire "tf/custom" n'est pas défini!</value>
+  </data>
+  <data name="status_reset" xml:space="preserve">
+    <value>Personnalisations de {0} réinitialisées le {1}.</value>
+  </data>
+  <data name="tooltip_addhud" xml:space="preserve">
+    <value>Ajouter un nouveau HUD.</value>
+  </data>
+  <data name="tooltip_docs" xml:space="preserve">
+    <value>Lire la documentation du projet.</value>
+  </data>
+  <data name="tooltip_launch" xml:space="preserve">
+    <value>Lancer Team Fortress 2.</value>
+  </data>
+  <data name="tooltip_options" xml:space="preserve">
+    <value>Afficher le menu des options</value>
+  </data>
+  <data name="tooltip_refresh" xml:space="preserve">
+    <value>Actualiser la liste ou recharger les données.</value>
+  </data>
+  <data name="tooltip_report" xml:space="preserve">
+    <value>Signaler un problème</value>
+  </data>
+  <data name="ui_apply" xml:space="preserve">
+    <value>Appliquer les modifications</value>
+  </data>
+  <data name="ui_author" xml:space="preserve">
+    <value>Créé par: {0}</value>
+  </data>
+  <data name="ui_browse" xml:space="preserve">
+    <value>Parcourir</value>
+  </data>
+  <data name="ui_check_updates" xml:space="preserve">
+    <value>Check automatiquement les mises à jour.</value>
+  </data>
+  <data name="ui_clear" xml:space="preserve">
+    <value>Effacer</value>
+  </data>
+  <data name="ui_clear_cache" xml:space="preserve">
+    <value>Vider le cache</value>
+  </data>
+  <data name="ui_customize" xml:space="preserve">
+    <value>Personnaliser</value>
+  </data>
+  <data name="ui_directory" xml:space="preserve">
+    <value>Définir un répertoire</value>
+  </data>
+  <data name="ui_install" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="ui_persist_xhair" xml:space="preserve">
+    <value>Conserver le réticule</value>
+  </data>
+  <data name="ui_refresh" xml:space="preserve">
+    <value>Actualiser</value>
+  </data>
+  <data name="ui_reinstall" xml:space="preserve">
+    <value>Réinstaller</value>
+  </data>
+  <data name="ui_reset" xml:space="preserve">
+    <value>Réinitialisation par défaut</value>
+  </data>
+  <data name="ui_search" xml:space="preserve">
+    <value>Recherche:</value>
+  </data>
+  <data name="ui_select" xml:space="preserve">
+    <value>Sélectionne un HUD</value>
+  </data>
+  <data name="ui_switch" xml:space="preserve">
+    <value>Changer de HUD</value>
+  </data>
+  <data name="ui_title" xml:space="preserve">
+    <value>Éditeur de HUD TF2</value>
+  </data>
+  <data name="ui_uninstall" xml:space="preserve">
+    <value>Désinstaller</value>
+  </data>
+  <data name="ui_options" xml:space="preserve">
+    <value>Réglages</value>
+  </data>
+  <data name="info_clear_cache" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir vider le cache ? Cela supprimera tous les fichiers en cache.</value>
+  </data>
+  <data name="ui_open_app_file" xml:space="preserve">
+    <value>Ouvrir les paramètres de l'application</value>
+  </data>
+  <data name="ui_open_user_file" xml:space="preserve">
+    <value>Ouvrir les paramètres utilisateur</value>
+  </data>
+  <data name="ui_override_path_rule" xml:space="preserve">
+    <value>Ignorer la règle de chemin</value>
+  </data>
+  <data name="ui_splash_initialize" xml:space="preserve">
+    <value>Initialisation...</value>
+  </data>
+  <data name="ui_splash_schema" xml:space="preserve">
+    <value>Chargement des schémas de HUD...</value>
+  </data>
+  <data name="ui_splash_images" xml:space="preserve">
+    <value>Téléchargement des images...</value>
+  </data>
+  <data name="ui_splash_cancel" xml:space="preserve">
+    <value>Annuler...</value>
+  </data>
+  <data name="ui_save" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="info_ask_restart" xml:space="preserve">
+    <value>Langue modifiée. Veuillez redémarrer l'application pour appliquer les changements.</value>
+  </data>
+  <data name="ui_language" xml:space="preserve">
+    <value>Langue:</value>
+  </data>
+  <data name="ui_language_en" xml:space="preserve">
+    <value>Anglais</value>
+  </data>
+  <data name="ui_language_fr" xml:space="preserve">
+    <value>Français</value>
+  </data>
+  <data name="ui_language_ru" xml:space="preserve">
+    <value>Russe</value>
+  </data>
+  <data name="ui_language_pt" xml:space="preserve">
+    <value>Portugais (Brésil)</value>
+  </data>
+  <data name="ui_language_it" xml:space="preserve">
+    <value>Italien</value>
+  </data>
+  <data name="ui_language_cn" xml:space="preserve">
+    <value>Chinois (Simplifié)</value>
+  </data>
+  <data name="header_error" xml:space="preserve">
+    <value>Erreur</value>
+  </data>
+  <data name="header_warning" xml:space="preserve">
+    <value>Avertissement</value>
+  </data>
+  <data name="header_info" xml:space="preserve">
+    <value>Information</value>
+  </data>
+</root>
