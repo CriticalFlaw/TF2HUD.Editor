@@ -36,8 +36,8 @@ jobs:
         dotnet-version: '8.x'
 
     - name: Restore dependencies
-      run: dotnet restore src/HUDEdit/HUDEdit.csproj
+      run: dotnet restore src/HUDEditor/HUDEditor.csproj
       
     - name: Build solution
       run: dotnet build -c Debug -r ${{ matrix.rid }} 
-      working-directory: src/HUDEdit
+      working-directory: src/HUDEditor

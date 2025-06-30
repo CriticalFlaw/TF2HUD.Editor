@@ -33,14 +33,14 @@ jobs:
         dotnet-version: '8.x'
 
     - name: Restore dependencies
-      run: dotnet restore src/HUDEdit/HUDEdit.csproj
+      run: dotnet restore src/HUDEditor/HUDEditor.csproj
 
     - name: Publish for ${{ matrix.rid }}
       run: dotnet publish -c Release -r ${{ matrix.rid }} --output ./publish/${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true
-      working-directory: src/HUDEdit
+      working-directory: src/HUDEditor
 
     - name: Upload artifact for ${{ matrix.rid }}
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.artifact }}
-        path: src/HUDEdit/publish/${{ matrix.rid }}
+        path: src/HUDEditor/publish/${{ matrix.rid }}
