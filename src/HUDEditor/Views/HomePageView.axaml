@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:HUDEditor.ViewModels"
+             xmlns:v="clr-namespace:HUDEditor.Views"
+             xmlns:loc="clr-namespace:HUDEditor.Assets"
+             xmlns:classes="clr-namespace:HUDEditor.Classes"
+             mc:Ignorable="d"
+             x:Class="HUDEditor.Views.HomePageView"
+             x:DataType="vm:HomePageViewModel">
+
+	<UserControl.Resources>
+		<classes:DisplayUniqueHudsOnlyForegroundConverter x:Key="DisplayUniqueHudsOnlyForegroundConverter" />
+	</UserControl.Resources>
+
+	<HeaderedContentControl Margin="10,0,10,0">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="5*" />
+				<ColumnDefinition Width="5*" />
+			</Grid.ColumnDefinitions>
+
+			<!-- HUD Search List -->
+			<Grid Grid.Column="0" Margin="5">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="auto" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="auto" />
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+
+				<TextBox Classes="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Watermark="{x:Static loc:Resources.ui_search}" Grid.Column="1" Grid.Row="0" />
+				<Button Classes="LinkButton" Content="{Binding DisplayUniqueHudsOnly, Converter={StaticResource DisplayUniqueHudsOnlyForegroundConverter}}" Command="{Binding DisplayUniqueHuds}" Margin="0,0,2,0" Grid.Column="2" Grid.Row="0" />
+
+				<ScrollViewer Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="-5,10,0,0">
+					<ItemsControl ItemsSource="{Binding HUDListView}">
+						<!-- Container -->
+						<ItemsControl.ItemsPanel>
+							<ItemsPanelTemplate>
+								<WrapPanel HorizontalAlignment="Left"/>
+							</ItemsPanelTemplate>
+						</ItemsControl.ItemsPanel>
+						
+						<!-- Items -->
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<v:HUDButtonView />
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
+			</Grid>
+
+			<!-- Info Panel -->
+			<ScrollViewer VerticalScrollBarVisibility="Hidden" Grid.Column="1" Margin="20,0,10,0">
+				<ContentControl Content="{Binding Info}" >
+					<ContentControl.DataTemplates>
+						<DataTemplate DataType="vm:AppInfoViewModel">
+							<v:AppInfoView />
+						</DataTemplate>
+						<DataTemplate DataType="vm:HUDInfoViewModel">
+							<v:HUDInfoView />
+						</DataTemplate>
+					</ContentControl.DataTemplates>
+				</ContentControl>
+			</ScrollViewer>
+		</Grid>
+	</HeaderedContentControl>
+</UserControl>

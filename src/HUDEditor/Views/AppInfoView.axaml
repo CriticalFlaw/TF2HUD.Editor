@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="clr-namespace:HUDEditor.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:DataType="vm:AppInfoViewModel"
+             x:Class="HUDEditor.Views.AppInfoView">
+	<StackPanel>
+		<Image Source="avares://HUDEditor/Assets/Images/banner.png" Height="142" Width="621" />
+		<TextBlock Classes="BodyText" FontSize="20" TextAlignment="Center" Margin="0,15,0,15">
+			<Run Foreground="#70B04A" Text="Install" />
+			<Run Text="and" />
+			<Run Foreground="#38F3AB" Text="customize" />
+			<Run Text="your favorite Team Fortress 2 HUDs!" />
+		</TextBlock>
+		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
+		<Label Classes="HeaderText" Content="Version 4.0 Beta" Margin="0,15,0,0" FontSize="30" />
+		<TextBlock Classes="BodyText">
+			<Run Text="> Restored presets and preview modals." />
+			<LineBreak />
+			<Run Text="> Removed ability to set multiple download sources." />
+			<LineBreak />
+			<Run Text="> Fixed long load times when launching the app or switching between pages." />
+			<LineBreak />
+			<Run Text="> Fixed the app icon not being used." />
+			<LineBreak />
+			<Run Text="> Fixed crosshairs not persisting when the option is enabled." />
+			<LineBreak />
+			<Run Text="> Added missing localization text." />
+			<LineBreak />
+			<Run Text="> Added Jakadak's extended TF2 fonts." />
+			<LineBreak />
+			<Run Text="> Added a button for refreshing the app without restart." />
+			<LineBreak />
+			<Run Text="> Added a splash screen when launching the app." />
+			<LineBreak />
+			<Run Text="> Added Sentry for remote app performance monitorings." />
+		</TextBlock>
+	</StackPanel>
+</UserControl>

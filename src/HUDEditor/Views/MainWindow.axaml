@@ -1,0 +1,64 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:HUDEditor.ViewModels"
+		xmlns:v="clr-namespace:HUDEditor.Views"
+		xmlns:loc="clr-namespace:HUDEditor.Assets"
+		xmlns:classes="clr-namespace:HUDEditor.Classes"
+        mc:Ignorable="d"
+        x:Class="HUDEditor.Views.MainWindow"
+		x:DataType="vm:MainWindowViewModel"
+        Title="{Binding WindowTitle}"
+		Icon="avares://HUDEditor/Assets/Images/favicon.ico"
+		Background="#2B2724">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<Window.Resources>
+		<classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
+		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
+		<classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
+		<classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
+		<classes:NullCheckConverter x:Key="NullCheckConverter" />
+		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+		<classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
+	</Window.Resources>
+
+	<Grid Background="{Binding SelectedHud, Converter={StaticResource PageBackgroundConverter}}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0">
+			<ContentControl Content="{Binding CurrentPageViewModel}">
+				<ContentControl.DataTemplates>
+					<DataTemplate DataType="vm:EditHUDViewModel">
+						<v:EditHUDView />
+					</DataTemplate>
+					<DataTemplate DataType="vm:HomePageViewModel">
+						<v:HomePageView />
+					</DataTemplate>
+				</ContentControl.DataTemplates>
+			</ContentControl>
+		</Grid>
+
+		<HeaderedContentControl Grid.Row="1" Margin="10,0,10,10">
+			<WrapPanel HorizontalAlignment="Center">
+				<Button Classes="HudButton" Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}" Command="{Binding InstallHUD}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_uninstall}" Command="{Binding UninstallHUDCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"/>
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_apply}" Command="{Binding SaveHUDCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}" />
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_reset}" Command="{Binding ResetHUDCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
+				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_switch}" Command="{Binding SwitchHUDCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
+				<Button Classes="HudButton Icons" Content="=" Command="{Binding OpenOptionsMenu}" ToolTip.Tip="{x:Static loc:Resources.tooltip_options}"/>
+				<Button Classes="HudButton Icons" Content="&#x03C6;" Command="{Binding OpenIssueTracker}" ToolTip.Tip="{x:Static loc:Resources.tooltip_report}"/>
+				<Button Classes="HudButton Icons" Content="&#x0235;" Command="{Binding OpenDocSite}" ToolTip.Tip="{x:Static loc:Resources.tooltip_docs}"/>
+				<Button Classes="HudButton Icons" Content="!" Command="{Binding LaunchTf2}" ToolTip.Tip="{x:Static loc:Resources.tooltip_launch}" IsVisible="{Binding SelectedHud, Converter={StaticResource NullCheckConverterVisibility}}"/>
+				<Button Classes="HudButton Icons" Content="&#x0583;" Command="{Binding AddSharedHud}" ToolTip.Tip="{x:Static loc:Resources.tooltip_addhud}" IsVisible="{Binding SelectedHud, Converter={StaticResource NotNullCheckConverterVisibility}}"/>
+				<Button Classes="HudButton Icons" Content="&#x0155;" Command="{Binding RefreshPage}" ToolTip.Tip="{x:Static loc:Resources.tooltip_refresh}" />
+			</WrapPanel>
+		</HeaderedContentControl>
+	</Grid>
+</Window>

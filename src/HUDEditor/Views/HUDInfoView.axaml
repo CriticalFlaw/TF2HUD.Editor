@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:vm="using:HUDEditor.ViewModels"
+			 xmlns:loc="clr-namespace:HUDEditor.Assets"
+			 xmlns:classes="clr-namespace:HUDEditor.Classes"
+             mc:Ignorable="d"
+             x:Class="HUDEditor.Views.HUDInfoView"
+			 x:DataType="vm:HUDInfoViewModel">
+
+	<Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+		<Grid.Resources>
+			<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+		</Grid.Resources>
+
+		<!-- HUD Name -->
+		<Label Grid.Row="0" Grid.Column="0" Classes="HeaderText" Content="{Binding Name}" Margin="0,0,5,0"/>
+
+		<!-- Customize Button -->
+		<Button Grid.Row="0" Grid.Column="1"
+				Content="{x:Static loc:Resources.ui_customize}"
+				Command="{Binding CustomizeHUD}"
+				CommandParameter="{Binding Hud}"
+				Classes="HudButton"
+				HorizontalAlignment="Right"
+				Margin="10,0,0,0"/>
+
+		<!-- Author -->
+		<TextBlock Text="{Binding Author}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Classes="BodyText" Margin="0,0,0,5" FontStyle="Italic"/>
+
+		<!-- Description -->
+		<TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Classes="BodyText" Margin="0,0,0,10" FontStyle="Italic" Text="{Binding Description}" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}" />
+
+		<!-- Screenshot Gallery (below all content) -->
+		<ItemsControl ItemsSource="{Binding Screenshots}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+			<!-- Container -->
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<WrapPanel />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<!-- Items Content Presenter -->
+			<ItemsControl.Styles>
+				<Style Selector="ContentPresenter">
+					<Setter Property="Grid.Column" Value="{Binding Column}" />
+					<Setter Property="Grid.Row" Value="{Binding Row}" />
+				</Style>
+			</ItemsControl.Styles>
+
+			<!-- Items -->
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<Image Source="{Binding ImageSource}" Width="250" Margin="5" Grid.Row="{Binding Row}" Grid.Column="{Binding Column}" />
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</Grid>
+</UserControl>
