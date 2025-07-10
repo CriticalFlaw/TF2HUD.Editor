@@ -27,18 +27,17 @@
 
 ### Installation
 
-1. Download and install the [Microsoft .NET 8.0 Runtime](https://dotnet.microsoft.com/download/dotnet/8.0/runtime) for desktop apps.
-2. Download and extract the [latest version of the editor][download-link].
-3. Run the executable **TF2HUD.Editor.exe**
+1. Download and extract the [latest release][download-link].
+2. Launch **HUDEditor.exe** as admin.
 ---
 
 ### Acknowledgements
-* [CriticalFlaw](https://github.com/CriticalFlaw) and [Revan](https://github.com/cooolbros) - Code, Design and Documentation.
-* [mastercoms](https://github.com/mastercoms) - Transparent Viewmodels Add-On
-* [Zeesastrous](https://github.com/Zeesastrous) - Project Banner
-* [hypnotize](https://github.com/Hypnootize) - Crosshairs and Icons
+* [CriticalFlaw](https://github.com/CriticalFlaw) and [Revan](https://github.com/cooolbros) - Code, Design, Documentation.
+* [mastercoms](https://github.com/mastercoms) - Transparent Viewmodels Add-On.
+* [Zeesastrous](https://github.com/Zeesastrous) - Project Banner.
+* [hypnotize](https://github.com/Hypnootize) - Crosshairs and Icons.
 
-#### Localizations
+#### Localization
 * [Blueberryy](https://github.com/Blueberryy) - Russian
 * [tacokete](https://github.com/tacokete) - French
 * [KayaDLX](https://github.com/KayaDLX) - French
