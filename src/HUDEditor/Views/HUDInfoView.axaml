@@ -32,7 +32,7 @@
 		<!-- Description -->
 		<TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Classes="BodyText" Margin="0,0,0,10" FontStyle="Italic" Text="{Binding Description}" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}" />
 
-		<!-- Screenshot Gallery (below all content) -->
+		<!-- Screenshot Gallery -->
 		<ItemsControl ItemsSource="{Binding Screenshots}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
 			<!-- Container -->
 			<ItemsControl.ItemsPanel>
@@ -52,7 +52,9 @@
 			<!-- Items -->
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<Image Source="{Binding ImageSource}" Width="250" Margin="5" Grid.Row="{Binding Row}" Grid.Column="{Binding Column}" />
+					<Border Margin="5" MaxWidth="300" MinWidth="150">
+						<Image Source="{Binding ImageSource}" Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+					</Border>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
 		</ItemsControl>
