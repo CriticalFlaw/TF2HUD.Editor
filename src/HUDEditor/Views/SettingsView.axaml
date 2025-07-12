@@ -15,6 +15,7 @@
 
 	<Window.Resources>
 		<classes:DisableOnLinuxConverter x:Key="DisableOnLinux" />
+		<classes:SettingsFileExistsConverter x:Key="SettingsFileExists" />
 	</Window.Resources>
 
 	<Border>
@@ -58,7 +59,7 @@
 					<Button Content="{x:Static loc:Resources.ui_directory}" Classes="HudButton SettingsButton" Command="{Binding SetHudPathCommand}" CommandParameter="{Binding $parent[Window]}" />
 					<Button Content="{x:Static loc:Resources.ui_refresh}" Classes="HudButton SettingsButton" Command="{Binding UpdateAppCommand}"/>
 					<Button Content="{x:Static loc:Resources.ui_open_app_file}" Classes="HudButton SettingsButton" Command="{Binding OpenAppSettingsCommand}"/>
-					<Button Content="{x:Static loc:Resources.ui_open_user_file}" Classes="HudButton SettingsButton" Command="{Binding OpenUserSettingsCommand}"/>
+					<Button Content="{x:Static loc:Resources.ui_open_user_file}" Classes="HudButton SettingsButton" Command="{Binding OpenUserSettingsCommand}" IsEnabled="{Binding ., Converter={StaticResource SettingsFileExists}}"/>
 					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Classes="HudButton SettingsButton" Command="{Binding ClearAppCacheCommand}" IsEnabled="{Binding ., Converter={StaticResource DisableOnLinux}}"/>
 				</StackPanel>
 			</HeaderedContentControl>
