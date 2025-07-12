@@ -767,4 +767,14 @@ public static class Utilities
         Directory.Delete("JSON", true);
         UpdateAppSchema(true);
     }
+
+    public static async Task<string> CreateHudZipAsync(string folderPath, string hudDetailsFolder, string hudName)
+    {
+        return await Task.Run(() =>
+        {
+            var zipPath = Path.Combine(hudDetailsFolder, $"{hudName}.zip");
+            ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
+            return $"file://{zipPath}";
+        });
+    }
 }

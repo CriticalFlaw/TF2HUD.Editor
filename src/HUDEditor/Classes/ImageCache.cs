@@ -42,9 +42,19 @@ public static class ImageCache
 
         try
         {
-            using var client = new HttpClient();
-            var bytes = await client.GetByteArrayAsync(url);
-            await File.WriteAllBytesAsync(cachePath, bytes);
+            byte[] bytes;
+
+            if (url.StartsWith("file://", StringComparison.OrdinalIgnoreCase))
+            {
+                var localPath = new Uri(url).LocalPath; // safely converts file:// to local path
+                bytes = await File.ReadAllBytesAsync(localPath);
+            }
+            else
+            {
+                using var client = new HttpClient();
+                bytes = await client.GetByteArrayAsync(url);
+                await File.WriteAllBytesAsync(cachePath, bytes);
+            }
             using var stream = new MemoryStream(bytes);
             return new Bitmap(stream);
         }

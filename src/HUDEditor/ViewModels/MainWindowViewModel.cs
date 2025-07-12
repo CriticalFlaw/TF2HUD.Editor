@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +33,7 @@ public partial class MainWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(HighlightedHudInstalled));
         }
     }
-    
+
     public bool HighlightedHudInstalled => Utilities.CheckHudInstallation(HighlightedHud);
     private HUD _selectedHud;
     public HUD SelectedHud
@@ -63,11 +62,11 @@ public partial class MainWindowViewModel : ViewModelBase
         get => _currentPageViewModel;
         private set
         {
-        	_currentPageViewModel = value;
-        	OnPropertyChanged(nameof(CurrentPageViewModel));
+            _currentPageViewModel = value;
+            OnPropertyChanged(nameof(CurrentPageViewModel));
         }
     }
-    
+
     private bool _installing;
     public bool Installing
     {
@@ -100,26 +99,6 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             _mainWindow = value;
             OnPropertyChanged();
-        }
-    }
-
-    public async Task DownloadImages()
-    {
-        foreach (var hud in _hudList)
-        {
-            hud.ThumbnailImage = await ImageCache.GetImageAsync(hud.Thumbnail);
-
-            // Load and cache screenshots
-            hud.ScreenshotImages = [];
-            if (hud.Screenshots != null)
-            {
-                foreach (var screenshotUrl in hud.Screenshots)
-                {
-                    var img = await ImageCache.GetImageAsync(screenshotUrl);
-                    if (img != null)
-                        hud.ScreenshotImages.Add(img);
-                }
-            }
         }
     }
 
@@ -174,24 +153,24 @@ public partial class MainWindowViewModel : ViewModelBase
 
         foreach (var sharedHud in Directory.EnumerateDirectories(Directory.CreateDirectory(@"JSON/Local").FullName))
         {
-            var hudName = sharedHud.Split('/')[^1];
-            var hudBackgroundPath = $"{sharedHud}/output.png";
+            var hudName = Path.GetFileName(sharedHud.Replace("\\", "/"));
+            var hudBackgroundPath = Path.Combine(sharedHud, "output.png");
             var hudBackground = File.Exists(hudBackgroundPath)
                 ? $"file://{hudBackgroundPath}"
                 : "avares://HUDEditor/Assets/Images/background.png";
             var sharedProperties = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
-            _hudList.Add(new HUD(hudName, new HudJson
+
+            var hudJson = new HudJson
             {
                 Name = hudName,
                 Thumbnail = hudBackground,
                 Background = hudBackground,
+                Links = new Links { Update = $"file://{sharedHud}/{hudName}.zip" },
                 Layout = sharedProperties.Layout,
-                Links = new Links
-                {
-                    Update = $"file://{sharedHud}/{hudName}.zip"
-                },
                 Controls = sharedProperties.Controls
-            }, false));
+            };
+
+            _hudList.Add(new HUD(hudName, hudJson, false));
         }
 
         // Set current selection and viewmodel
@@ -400,9 +379,8 @@ public partial class MainWindowViewModel : ViewModelBase
                 AllowMultiple = false
             });
 
-            if (folders.Count > 0)
-                await Add(folders[0].TryGetLocalPath());
-            else return;
+            if (folders.Count <= 0) return;
+            await Add(folders[0].TryGetLocalPath());
         }
         catch (Exception e)
         {
@@ -475,82 +453,107 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public async Task Add(string folderPath)
     {
-        var hudName = folderPath.Split('/')[^1];
-        var hudDetailsFolder = $@"{Directory.CreateDirectory($@"JSON\Local\{hudName}").FullName}";
-        var hudJson = new HudJson
-        {
-            Name = hudName,
-            Thumbnail = Task.Run(() =>
-            {
-                var consoleFolder = $"{folderPath}/materials/console";
-                var backgrounds = new[] { "2fort", "gravelpit", "mvm", "upward" };
-                var backgroundSelection = backgrounds.FirstOrDefault(background => File.Exists($"{consoleFolder}/background_{background}_widescreen.vtf"));
-                if (backgroundSelection is null) return backgroundSelection;
-
-                App.Logger.Info($"Found background file background_{backgroundSelection}_widescreen.vtf");
-                var inputPath = $"{consoleFolder}/background_{backgroundSelection}_widescreen.vtf";
-                var outputPathTga = $"{consoleFolder}/output.tga";
-                var outputPath = $"{hudDetailsFolder}/output";
-
-                string[] args =
-                [
-                    "-i",
-                    $"\"{inputPath}\"",
-                    "-o",
-                    $"\"{outputPathTga}\""
-                ];
-                var processInfo = new ProcessStartInfo($"{App.HudPath.Replace("/tf/custom", string.Empty)}/bin/vtf2tga.exe")
-                {
-                    Arguments = string.Join(" ", args),
-                    RedirectStandardOutput = true
-                };
-                var process = Process.Start(processInfo);
-                while (!process.StandardOutput.EndOfStream)
-                    App.Logger.Info(process.StandardOutput.ReadLine());
-                process.WaitForExit();
-                process.Close();
-
-                File.Move(outputPathTga, $"{outputPath}.tga", true);
-
-                var tga = new TGA($"{outputPath}.tga");
-                var rectImage = new Bitmap(1920, 1080);
-                var graphics = Graphics.FromImage(rectImage);
-                graphics.DrawImage((Image)tga, 0, 0, rectImage.Width, rectImage.Height);
-                rectImage.Save($"{outputPath}.png");
-
-                return $"file://{outputPath}.png";
-            }).Result,
-            Links = new Links
-            {
-                Update = Task.Run(() =>
-                {
-                    var zipPath = $"{hudDetailsFolder}/{hudName}.zip";
-                    ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
-                    return $"file://{zipPath}";
-                }).Result
-            }
-        };
-
-        hudJson.Background = hudJson.Thumbnail;
-
-        // TF2 HUD Crosshairs
-        await Utilities.InstallCrosshairs(folderPath);
-
+        folderPath = folderPath.Replace("\\", "/");
+        var hudName = Path.GetFileName(folderPath);
+        var hudDetailsFolder = $@"{Directory.CreateDirectory($@"JSON/Local/{hudName}").FullName}".Replace("\\", "/");
+        var thumbnail = await GenerateThumbnailAsync(folderPath, hudDetailsFolder);
+        var updateLink = await Utilities.CreateHudZipAsync(folderPath, hudDetailsFolder, hudName);
         var sharedControlsJson = new StreamReader(File.OpenRead("JSON/shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
         var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
         foreach (var group in hudControls.Controls)
         {
             foreach (var control in hudControls.Controls[group.Key])
-                control.Name = $"{Utilities.EncodeId(hudJson.Name)}_{Utilities.EncodeId(control.Name)}";
+                control.Name = $"{Utilities.EncodeId(hudName)}_{Utilities.EncodeId(control.Name)}";
         }
 
-        hudJson.Layout = hudControls.Layout;
-        hudJson.Controls = hudControls.Controls;
+        // Install the crosshairs
+        await Utilities.InstallCrosshairs(folderPath);
+
+        var hudJson = new HudJson
+        {
+            Name = hudName,
+            Thumbnail = thumbnail,
+            Background = thumbnail,
+            Links = new Links { Update = updateLink },
+            Layout = hudControls.Layout,
+            Controls = hudControls.Controls
+        };
 
         var hud = new HUD(hudName, hudJson, false);
         _hudList.Add(hud);
         _hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
-
         SelectedHud = hud;
+    }
+
+    private async Task<string?> GenerateThumbnailAsync(string folderPath, string hudDetailsFolder)
+    {
+        var consoleFolder = $"{folderPath}/materials/console";
+        var backgrounds = new[] { "2fort", "gravelpit", "mvm", "upward" };
+        var backgroundSelection = backgrounds.FirstOrDefault(background => File.Exists($"{consoleFolder}/background_{background}_widescreen.vtf"));
+        if (backgroundSelection is null) return backgroundSelection;
+
+        App.Logger.Info($"Found background file background_{backgroundSelection}_widescreen.vtf");
+        var inputPath = $"{consoleFolder}/background_{backgroundSelection}_widescreen.vtf";
+        var outputPathTga = $"{consoleFolder}/output.tga";
+        var outputPath = $"{hudDetailsFolder}/output";
+
+        string[] args =
+        [
+            "-i",
+                    $"\"{inputPath}\"",
+                    "-o",
+                    $"\"{outputPathTga}\""
+        ];
+
+        var workingDir = $"{App.HudPath.Replace("/tf/custom", string.Empty)}/bin";
+        var exePath = Path.Combine(workingDir, "vtf2tga.exe");
+        var processInfo = new ProcessStartInfo
+        {
+            FileName = exePath,
+            Arguments = string.Join(" ", args),
+            WorkingDirectory = workingDir,
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true
+        };
+
+        if (!File.Exists(exePath)) throw new FileNotFoundException("VTF2TGA not found at expected location.", exePath);
+
+        var process = Process.Start(processInfo);
+        while (!process.StandardOutput.EndOfStream)
+            App.Logger.Info(process.StandardOutput.ReadLine());
+        process.WaitForExit();
+        process.Close();
+
+        File.Move(outputPathTga, $"{outputPath}.tga", true);
+
+        var tga = new TGA($"{outputPath}.tga");
+        var rectImage = new Bitmap(1920, 1080);
+        var graphics = Graphics.FromImage(rectImage);
+        graphics.DrawImage((Image)tga, 0, 0, rectImage.Width, rectImage.Height);
+        rectImage.Save($"{outputPath}.png");
+
+        return $"file://{outputPath}.png";
+    }
+
+    public async Task DownloadImages()
+    {
+        foreach (var hud in _hudList)
+        {
+            hud.ThumbnailImage = await ImageCache.GetImageAsync(hud.Thumbnail);
+
+            // Load and cache screenshots
+            hud.ScreenshotImages = [];
+            if (hud.Screenshots != null)
+            {
+                foreach (var screenshotUrl in hud.Screenshots)
+                {
+                    var img = await ImageCache.GetImageAsync(screenshotUrl);
+                    if (img != null)
+                        hud.ScreenshotImages.Add(img);
+                }
+            }
+        }
     }
 }
