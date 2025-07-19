@@ -15,21 +15,15 @@
 			<Run Text="your favorite Team Fortress 2 HUDs!" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.0" Margin="0,15,0,0" FontSize="30" />
+		<Label Classes="HeaderText" Content="Version 4.1" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
-			<Run Text="> Migrated the app to AvaloniaUI, enabling Linux and macOS compatability." />
+			<Run Text="> The app now requires admin privileges to lauch." />
 			<LineBreak />
-			<Run Text="> Fixed crosshairs not persisting when the option is enabled." />
+			<Run Text="> Increased the size of the HUD screenshot gallery." />
 			<LineBreak />
-			<Run Text="> Added Jakadak's extended TF2 fonts." />
+			<Run Text="> Fixed 'Open User Settings' button being accessible when the file is not present." />
 			<LineBreak />
-			<Run Text="> Added a button for refreshing the app without restart." />
-			<LineBreak />
-			<Run Text="> Added a splash screen when launching the app." />
-			<LineBreak />
-			<Run Text="> Added Sentry for remote app performance monitorings." />
-			<LineBreak />
-			<Run Text="> Added a toggle to bypass the tf/custom path rule." />
+			<Run Text="> Fixed not being able to add local HUDs." />
 		</TextBlock>
 	</StackPanel>
 </UserControl>
