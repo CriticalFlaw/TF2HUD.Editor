@@ -1841,12 +1841,11 @@
                     "inset_eq_y": "55"
                   }
                 },
-                "classmodelpanelanchor": {
-                  "xpos": "p.103"
-                },
                 "classmodelpanel": {
-                  "pin_corner_to_sibling": "PIN_TOPLEFT",
-                  "pin_to_sibling_corner": "PIN_TOPRIGHT"
+                  "xpos": "0",
+                  "wide": "300",
+                  "pin_corner_to_sibling": "PIN_TOPRIGHT",
+                  "pin_to_sibling_corner": "PIN_TOPLEFT"
                 },
                 "CharacterLoadoutButton": {
                   "xpos": "3",
@@ -1878,10 +1877,9 @@
                     "inset_eq_y": "0"
                   }
                 },
-                "classmodelpanelanchor": {
-                  "xpos": "p.63"
-                },
                 "classmodelpanel": {
+                  "xpos": "100",
+                  "wide": "400",
                   "pin_corner_to_sibling": "PIN_TOPRIGHT",
                   "pin_to_sibling_corner": "PIN_TOPLEFT"
                 },
@@ -1915,12 +1913,11 @@
                     "inset_eq_y": "0"
                   }
                 },
-                "classmodelpanelanchor": {
-                  "xpos": "p.63"
-                },
                 "classmodelpanel": {
+                  "xpos": "200",
+                  "wide": "400",
                   "pin_corner_to_sibling": "PIN_TOPRIGHT",
-                  "pin_to_sibling_corner": "PIN_TOPLEFT"
+                  "pin_to_sibling_corner": "PIN_TOPRIGHT"
                 },
                 "CharacterLoadoutButton": {
                   "xpos": "-1",
