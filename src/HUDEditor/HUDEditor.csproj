@@ -51,12 +51,12 @@
 		<PackageReference Include="DialogHost.Avalonia" Version="0.9.3" />
 		<PackageReference Include="log4net" Version="3.1.0" />
 		<PackageReference Include="MessageBox.Avalonia" Version="3.2.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.6" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.6" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.6" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.7" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Octokit" Version="14.0.0" />
-		<PackageReference Include="Sentry" Version="5.11.2" />
+		<PackageReference Include="Sentry" Version="5.12.0" />
 	</ItemGroup>
 
 	<ItemGroup>
