@@ -180,17 +180,24 @@ public static class Utilities
         if (string.IsNullOrWhiteSpace(path)) return;
         App.Logger.Info($"Opening URL: {path}");
 
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        try
         {
-            Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", path);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", path);
+            }
         }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        catch (Exception e)
         {
-            Process.Start("xdg-open", path);
-        }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            Process.Start("open", path);
+            ShowMessageBox(e.Message, MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 

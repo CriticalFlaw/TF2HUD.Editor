@@ -5,10 +5,9 @@ using HUDEditor.Classes;
 using HUDEditor.Models;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace HUDEditor.ViewModels;
@@ -99,10 +98,10 @@ public partial class SettingsViewModel : ViewModelBase
     private void UpdateApp() => Utilities.UpdateAppSchema(false);
 
     [RelayCommand]
-    private void OpenAppSettings() => Utilities.OpenWebpage($"{AppContext.BaseDirectory}/appsettings.json");
+    private void OpenAppSettings() => Utilities.OpenWebpage(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
 
     [RelayCommand]
-    private void OpenUserSettings() => Utilities.OpenWebpage($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor/settings.json");
+    private void OpenUserSettings() => Utilities.OpenWebpage(Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TF2HUD.Editor"), "settings.json"));
 
     [RelayCommand]
     private async Task ClearAppCache() => await Utilities.ClearAppCache();
