@@ -15,15 +15,15 @@
 			<Run Text="your favorite Team Fortress 2 HUDs!" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.1" Margin="0,15,0,0" FontSize="30" />
+		<Label Classes="HeaderText" Content="Version 4.2" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
-			<Run Text="> The app now requires admin privileges to lauch." />
+			<Run Text="> Fixed pathing for opening user and app setting files." />
 			<LineBreak />
-			<Run Text="> Increased the size of the HUD screenshot gallery." />
+			<Run Text="> Fixed schema updates not working due to an outdated URL." />
 			<LineBreak />
-			<Run Text="> Fixed 'Open User Settings' button being accessible when the file is not present." />
+			<Run Text="> Fixed schemas not being re-downloaded if they are missing." />
 			<LineBreak />
-			<Run Text="> Fixed not being able to add local HUDs." />
+			<Run Text="> Adedd a button for opening the latest available log file." />
 		</TextBlock>
 	</StackPanel>
 </UserControl>

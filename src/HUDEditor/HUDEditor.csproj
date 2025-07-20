@@ -8,8 +8,8 @@
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 		<PackageProjectUrl>https://criticalflaw.ca/TF2HUD.Editor/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/CriticalFlaw/TF2HUD.Editor</RepositoryUrl>
-		<AssemblyVersion>4.1</AssemblyVersion>
-		<Version>4.1.0</Version>
+		<AssemblyVersion>4.2</AssemblyVersion>
+		<Version>4.2.0</Version>
 		<ApplicationIcon>Assets\Images\favicon.ico</ApplicationIcon>
 	</PropertyGroup>
 
