@@ -7,7 +7,7 @@
 		xmlns:loc="clr-namespace:HUDEditor.Assets"
 		xmlns:classes="clr-namespace:HUDEditor.Classes"
 		xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
-        mc:Ignorable="d" Width="1000" Height="320"
+        mc:Ignorable="d" Width="1000" Height="370"
         x:Class="HUDEditor.Views.SettingsView"
 		x:DataType="vm:SettingsViewModel"
 		Title="{x:Static loc:Resources.ui_options}"
@@ -58,9 +58,10 @@
 				<StackPanel HorizontalAlignment="Left">
 					<Button Content="{x:Static loc:Resources.ui_directory}" Classes="HudButton SettingsButton" Command="{Binding SetHudPathCommand}" CommandParameter="{Binding $parent[Window]}" />
 					<Button Content="{x:Static loc:Resources.ui_refresh}" Classes="HudButton SettingsButton" Command="{Binding UpdateAppCommand}"/>
+					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Classes="HudButton SettingsButton" Command="{Binding ClearAppCacheCommand}" IsEnabled="{Binding ., Converter={StaticResource DisableOnLinux}}"/>
 					<Button Content="{x:Static loc:Resources.ui_open_app_file}" Classes="HudButton SettingsButton" Command="{Binding OpenAppSettingsCommand}"/>
 					<Button Content="{x:Static loc:Resources.ui_open_user_file}" Classes="HudButton SettingsButton" Command="{Binding OpenUserSettingsCommand}" IsEnabled="{Binding ., Converter={StaticResource SettingsFileExists}}"/>
-					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Classes="HudButton SettingsButton" Command="{Binding ClearAppCacheCommand}" IsEnabled="{Binding ., Converter={StaticResource DisableOnLinux}}"/>
+					<Button Content="{x:Static loc:Resources.ui_open_log_file}" Classes="HudButton SettingsButton" Command="{Binding OpenLatestLogFileCommand}"/>
 				</StackPanel>
 			</HeaderedContentControl>
 		</Grid>

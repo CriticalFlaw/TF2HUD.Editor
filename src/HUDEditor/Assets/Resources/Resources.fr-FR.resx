@@ -315,4 +315,7 @@
   <data name="header_info" xml:space="preserve">
     <value>Information</value>
   </data>
+  <data name="ui_open_log_file" xml:space="preserve">
+    <value>Ouvrir le dernier fichier journal</value>
+  </data>
 </root>

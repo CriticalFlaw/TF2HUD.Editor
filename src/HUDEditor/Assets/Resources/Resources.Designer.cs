@@ -502,6 +502,15 @@ namespace HUDEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open Latest Log File.
+        /// </summary>
+        public static string ui_open_log_file {
+            get {
+                return ResourceManager.GetString("ui_open_log_file", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open User Settings.
         /// </summary>
         public static string ui_open_user_file {

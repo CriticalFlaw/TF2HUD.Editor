@@ -98,11 +98,34 @@ public partial class SettingsViewModel : ViewModelBase
     private void UpdateApp() => Utilities.UpdateAppSchema(false);
 
     [RelayCommand]
+    private async Task ClearAppCache() => await Utilities.ClearAppCache();
+
+    [RelayCommand]
     private void OpenAppSettings() => Utilities.OpenWebpage(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
 
     [RelayCommand]
-    private void OpenUserSettings() => Utilities.OpenWebpage(Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TF2HUD.Editor"), "settings.json"));
+    private void OpenUserSettings() => Utilities.OpenWebpage(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TF2HUD.Editor", "settings.json"));
 
     [RelayCommand]
-    private async Task ClearAppCache() => await Utilities.ClearAppCache();
+    private void OpenLatestLogFile()
+    {
+        var logsFolder = "logs";
+        if (!Directory.Exists(logsFolder))
+        {
+            Utilities.ShowMessageBox("No logs folder found.");
+            return;
+        }
+
+        var latestLogFile = Directory.GetFiles(logsFolder)
+            .OrderByDescending(File.GetLastWriteTime)
+            .FirstOrDefault();
+
+        if (latestLogFile == null)
+        {
+            Utilities.ShowMessageBox("No log files found.");
+            return;
+        }
+
+        Utilities.OpenWebpage(latestLogFile);
+    }
 }
