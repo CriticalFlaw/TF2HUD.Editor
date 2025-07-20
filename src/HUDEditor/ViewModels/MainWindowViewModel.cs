@@ -125,7 +125,7 @@ public partial class MainWindowViewModel : ViewModelBase
     public async Task LoadHUDs()
     {
         _hudList = [];
-        await Utilities.UpdateAppSchema();
+        if (!Directory.Exists("JSON")) await Utilities.UpdateAppSchema();
         var sharedControlsJson = File.ReadAllText("JSON/shared-hud.json", new UTF8Encoding(false));
 
         foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
