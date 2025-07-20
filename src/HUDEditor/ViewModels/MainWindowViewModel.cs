@@ -122,9 +122,10 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public bool CanInstall() => !Installing;
 
-    public Task LoadHUDs()
+    public async Task LoadHUDs()
     {
         _hudList = [];
+        await Utilities.UpdateAppSchema();
         var sharedControlsJson = File.ReadAllText("JSON/shared-hud.json", new UTF8Encoding(false));
 
         foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
@@ -178,8 +179,6 @@ public partial class MainWindowViewModel : ViewModelBase
         _highlightedHud = selectedHud;
         _selectedHud = selectedHud;
         _currentPageViewModel = selectedHud != null ? new EditHUDViewModel(this, selectedHud) : new HomePageViewModel(this, HUDList);
-
-        return Task.CompletedTask;
     }
 
     #region CLICK_EVENTS
@@ -405,51 +404,6 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     #endregion CLICK_EVENTS
-
-    /// <summary>
-    /// Synchronizes the local HUD schema files with the latest versions on GitHub.
-    /// </summary>
-    /// <returns>Whether updates are available</returns>
-    public async Task<bool> Update()
-    {
-        try
-        {
-            var remoteFiles = (await Utilities.Fetch<GitJson[]>(App.Config.ConfigSettings.AppConfig.JsonListURL)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
-            List<Task> downloads = [];
-
-            foreach (var remoteFile in remoteFiles)
-            {
-                var localFilePath = $"JSON/{remoteFile.Name}";
-                bool newFile = false, fileChanged = false;
-
-                if (!File.Exists(localFilePath))
-                    newFile = true;
-                else
-                    fileChanged = remoteFile.SHA != Utilities.GitHash(localFilePath);
-
-                if (!newFile && !fileChanged) continue;
-                App.Logger.Info($"Downloading {remoteFile.Name} ({(newFile ? "newFile" : "")}, {(fileChanged ? "fileChanged" : "")})");
-                downloads.Add(Utilities.DownloadFile(remoteFile.Download, localFilePath));
-            }
-
-            // Remove HUD JSONs that aren't available online.
-            foreach (var localFile in new DirectoryInfo("JSON").EnumerateFiles())
-            {
-                if (remoteFiles.Count((x) => x.Name == localFile.Name) != 0) continue;
-                File.Delete(localFile.FullName);
-                App.Logger.Info($"Removed {localFile.Name}");
-            }
-
-            await Task.WhenAll(downloads);
-            return Convert.ToBoolean(downloads.Count);
-        }
-        catch (Exception e)
-        {
-            App.Logger.Error(e.Message);
-            Console.WriteLine(e);
-            return false;
-        }
-    }
 
     public async Task Add(string folderPath)
     {

@@ -673,7 +673,7 @@ public static class Utilities
     /// Synchronizes the local HUD schema files with the latest versions on GitHub.
     /// </summary>
     /// <param name="silent">If true, the user will not be notified if there are no updates on startup.</param>
-    public static async void UpdateAppSchema(bool silent = true)
+    public static async Task UpdateAppSchema(bool silent = true)
     {
         try
         {
