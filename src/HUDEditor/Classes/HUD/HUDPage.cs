@@ -372,7 +372,8 @@ public partial class HUD
             {
                 await using var stream = await files[0].OpenReadAsync();
                 image.Source = new Bitmap(stream);
-                Settings.SetSetting(controlItem.Name, files[0].Path.ToString());
+                var imgPath = await ImageCache.SaveToCacheAsync(files[0].Path.AbsolutePath.ToString());
+                Settings.SetSetting(controlItem.Name, imgPath);
             }
 
             CheckIsDirty(controlItem);

@@ -1,10 +1,10 @@
+using Avalonia.Media.Imaging;
 using System;
 using System.IO;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Avalonia.Media.Imaging;
 
 namespace HUDEditor.Classes;
 
@@ -57,6 +57,31 @@ public static class ImageCache
             }
             using var stream = new MemoryStream(bytes);
             return new Bitmap(stream);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    public static async Task<string?> SaveToCacheAsync(string url)
+    {
+        if (string.IsNullOrWhiteSpace(url) || !File.Exists(url)) return null;
+
+        try
+        {
+            var cachePath = GetCachePath(url);
+
+            // Only copy if not already cached
+            if (!File.Exists(cachePath))
+            {
+                await using var fileStream = File.OpenRead(url);
+                fileStream.Position = 0; // Reset stream position after hashing
+                await using var destStream = File.Create(cachePath);
+                await fileStream.CopyToAsync(destStream);
+            }
+
+            return cachePath;
         }
         catch
         {
