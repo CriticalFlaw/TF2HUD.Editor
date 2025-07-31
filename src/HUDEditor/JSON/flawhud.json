@@ -1845,7 +1845,45 @@
                   "xpos": "0",
                   "wide": "300",
                   "pin_corner_to_sibling": "PIN_TOPRIGHT",
-                  "pin_to_sibling_corner": "PIN_TOPLEFT"
+                  "pin_to_sibling_corner": "PIN_TOPLEFT",
+                  "customclassdata": {
+                      "Scout": {
+                        "fov": "30",
+                        "origin_y": "-15"
+                      },
+                      "Sniper": {
+                        "fov": "30",
+                        "origin_y": "-15"
+                      },
+                      "Soldier": {
+                        "fov": "30",
+                        "origin_y": "-15"
+                      },
+                      "Demoman": {
+                        "fov": "30",
+                        "origin_y": "-15"
+                      },
+                      "Medic": {
+                        "fov": "30",
+                        "origin_y": "-15"
+                      },
+                      "Heavy": {
+                        "fov": "30",
+                        "origin_y": "-15"
+                      },
+                      "Pyro": {
+                        "fov": "30",
+                        "origin_y": "-15"
+                      },
+                      "Spy": {
+                        "fov": "30",
+                        "origin_y": "-15"
+                      },
+                      "Engineer": {
+                        "fov": "30",
+                        "origin_y": "-15"
+                      }
+                  }
                 },
                 "CharacterLoadoutButton": {
                   "xpos": "3",
@@ -1855,7 +1893,45 @@
                 },
                 "TauntLoadoutButton": {
                   "pin_corner_to_sibling": "PIN_TOPRIGHT",
-                  "pin_to_sibling_corner": "PIN_TOPLEFT"
+                  "pin_to_sibling_corner": "PIN_TOPLEFT",
+                  "customclassdata": {
+                      "Scout": {
+                        "fov": "35",
+                        "origin_y": "10"
+                      },
+                      "Sniper": {
+                        "fov": "37",
+                        "origin_y": "10"
+                      },
+                      "Soldier": {
+                        "fov": "38",
+                        "origin_y": "10"
+                      },
+                      "Demoman": {
+                        "fov": "37",
+                        "origin_y": "10"
+                      },
+                      "Medic": {
+                        "fov": "35",
+                        "origin_y": "10"
+                      },
+                      "Heavy": {
+                        "fov": "40",
+                        "origin_y": "10"
+                      },
+                      "Pyro": {
+                        "fov": "37",
+                        "origin_y": "10"
+                      },
+                      "Spy": {
+                        "fov": "37",
+                        "origin_y": "0"
+                      },
+                      "Engineer": {
+                        "fov": "37",
+                        "origin_y": "10"
+                      }
+                  }
                 },
                 "RedButton": {
                   "xpos": "0",
@@ -1881,7 +1957,45 @@
                   "xpos": "100",
                   "wide": "400",
                   "pin_corner_to_sibling": "PIN_TOPRIGHT",
-                  "pin_to_sibling_corner": "PIN_TOPLEFT"
+                  "pin_to_sibling_corner": "PIN_TOPLEFT",
+                  "customclassdata": {
+                      "Scout": {
+                        "fov": "35",
+                        "origin_y": "10"
+                      },
+                      "Sniper": {
+                        "fov": "37",
+                        "origin_y": "10"
+                      },
+                      "Soldier": {
+                        "fov": "38",
+                        "origin_y": "10"
+                      },
+                      "Demoman": {
+                        "fov": "37",
+                        "origin_y": "10"
+                      },
+                      "Medic": {
+                        "fov": "35",
+                        "origin_y": "10"
+                      },
+                      "Heavy": {
+                        "fov": "40",
+                        "origin_y": "10"
+                      },
+                      "Pyro": {
+                        "fov": "37",
+                        "origin_y": "10"
+                      },
+                      "Spy": {
+                        "fov": "37",
+                        "origin_y": "0"
+                      },
+                      "Engineer": {
+                        "fov": "37",
+                        "origin_y": "10"
+                      }
+                  }
                 },
                 "CharacterLoadoutButton": {
                   "xpos": "-1",
