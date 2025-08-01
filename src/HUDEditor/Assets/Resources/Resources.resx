@@ -316,6 +316,9 @@
     <value>Information</value>
   </data>
   <data name="ui_open_log_file" xml:space="preserve">
-    <value>Open Latest Log File</value>
+    <value>Open Latest Logs</value>
+  </data>
+  <data name="ui_disable_sentry" xml:space="preserve">
+    <value>Disable error tracking using Sentry</value>
   </data>
 </root>

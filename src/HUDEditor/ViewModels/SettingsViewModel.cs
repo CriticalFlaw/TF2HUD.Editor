@@ -70,12 +70,24 @@ public partial class SettingsViewModel : ViewModelBase
         }
     }
 
+    private bool _disableSentry;
+    public bool DisableSentry
+    {
+        get => _disableSentry;
+        set
+        {
+            _disableSentry = value;
+            OnPropertyChanged(nameof(DisableSentry));
+        }
+    }
+
     public SettingsViewModel()
     {
         SelectedLanguage = Languages.FirstOrDefault(l => l.CultureCode == SelectedCulture);
         PersistCrosshair = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence;
         AutoUpdate = App.Config.ConfigSettings.UserPrefs.AutoUpdate;
         OverridePath = App.Config.ConfigSettings.UserPrefs.PathBypass;
+        DisableSentry = App.Config.ConfigSettings.UserPrefs.DisableSentry;
     }
 
     [RelayCommand]
@@ -85,6 +97,7 @@ public partial class SettingsViewModel : ViewModelBase
         App.Config.ConfigSettings.UserPrefs.CrosshairPersistence = PersistCrosshair;
         App.Config.ConfigSettings.UserPrefs.AutoUpdate = AutoUpdate;
         App.Config.ConfigSettings.UserPrefs.PathBypass = OverridePath;
+        App.Config.ConfigSettings.UserPrefs.DisableSentry = DisableSentry;
         App.SaveConfiguration();
 
         // Ask the user to restart the app if they've changed the language

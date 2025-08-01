@@ -34,6 +34,9 @@ public class UserPreferences
     [JsonPropertyName("app_path_bypass")]
     public bool PathBypass { get; set; } = false;
 
+    [JsonPropertyName("app_disable_sentry")]
+    public bool DisableSentry { get; set; } = false;
+
     [JsonPropertyName("app_xhair_persist")]
     public bool CrosshairPersistence { get; set; } = false;
 

@@ -50,6 +50,7 @@
 					<CheckBox Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox" IsChecked="{Binding PersistCrosshair}" />
 					<CheckBox Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox" IsChecked="{Binding AutoUpdate}" />
 					<CheckBox Content="{x:Static loc:Resources.ui_override_path_rule}" Classes="SettingCheckBox" IsChecked="{Binding OverridePath}" />
+					<CheckBox Content="{x:Static loc:Resources.ui_disable_sentry}" Classes="SettingCheckBox" IsChecked="{Binding DisableSentry}" />
 					<Button Content="{x:Static loc:Resources.ui_save}" Classes="HudButton" Command="{Binding SaveChangesCommand}" Margin="10,0,0,0"/>
 				</WrapPanel>
 			</HeaderedContentControl>

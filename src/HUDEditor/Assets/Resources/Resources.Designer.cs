@@ -421,6 +421,15 @@ namespace HUDEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable error tracking using Sentry.
+        /// </summary>
+        public static string ui_disable_sentry {
+            get {
+                return ResourceManager.GetString("ui_disable_sentry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Install.
         /// </summary>
         public static string ui_install {
@@ -502,7 +511,7 @@ namespace HUDEditor.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open Latest Log File.
+        ///   Looks up a localized string similar to Open Latest Logs.
         /// </summary>
         public static string ui_open_log_file {
             get {

@@ -90,11 +90,14 @@ public partial class App : Application
         }) ?? new ConfigurationModel();
 
         // Setup Sentry
-        SentrySdk.Init(o =>
+        if (!Config.ConfigSettings.UserPrefs.DisableSentry)
         {
-            o.Dsn = Config.ConfigSettings.AppConfig.SentryDsn;
-            o.Debug = true;
-        });
+            SentrySdk.Init(o =>
+            {
+                o.Dsn = Config.ConfigSettings.AppConfig.SentryDsn;
+                o.Debug = true;
+            });
+        }
 
         // Set user preferences
         Assets.Resources.Culture = new CultureInfo(Config.ConfigSettings.UserPrefs.Language);
