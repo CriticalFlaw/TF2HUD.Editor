@@ -11,8 +11,8 @@
   ],
   "Background": "https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c47-a17b47cbaf0c.png",
   "Layout": [
-    "0 1 2 3",
-    "4 4 4 4"
+    "0 2 3 1",
+    "4 4 4 1"
   ],
   "Links": {
     "Update": "https://github.com/CriticalFlaw/TF2HUD-Fixes/archive/refs/heads/main.zip",
@@ -194,6 +194,100 @@
               "font": {
                 "true": "HudFontMediumSmallBold",
                 "false": "HudClassHealth"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf_toggle_center_uber",
+        "Label": "Center Ubercharge Meter",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle ubercharge meter appearing near the crosshair.",
+        "Value": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "HudMedicCharge": {
+              "xpos^[$WIN32]": {
+                "true": "c-70",
+                "false": "r138"
+              },
+              "ypos^[$WIN32]": {
+                "true": "c-25",
+                "false": "r69"
+              },
+              "xpos_minmode^[$WIN32]": {
+                "true": "c-52",
+                "false": "r100"
+              },
+              "ypos_minmode^[$WIN32]": {
+                "true": "c-10",
+                "false": "r34"
+              }
+            }
+          },
+          "resource/ui/hudmediccharge.res": {
+            "Background": {
+              "visible": {
+                "true": "0",
+                "false": "1"
+              }
+            },
+            "ChargeLabel": {
+              "xpos": {
+                "true": "40",
+                "false": "30"
+              },
+              "ypos": {
+                "true": "45",
+                "false": "24"
+              },
+              "xpos_minmode": {
+                "true": "51",
+                "false": "11"
+              },
+              "ypos_minmode": {
+                "true": "31",
+                "false": "11"
+              }
+            },
+            "HealthClusterIcon": {
+              "visible": {
+                "true": "0",
+                "false": "1"
+              }
+            }
+          }
+        }
+      },
+      {
+        "Name": "tf_toggle_center_metal",
+        "Label": "Center Metal Counter",
+        "Type": "Checkbox",
+        "ToolTip": "Toggle metal counter appearing near the crosshair.",
+        "Value": "false",
+        "Files": {
+          "scripts/hudlayout.res": {
+            "CHudAccountPanel": {
+              "xpos^[$WIN32]": {
+                "true": "c-45",
+                "false": "r162"
+              },
+              "ypos^[$WIN32]": {
+                "true": "c-100",
+                "false": "r152"
+              },
+              "ypos_minmode^[$WIN32]": {
+                "true": "c-100",
+                "false": "r134"
+              }
+            }
+          },
+          "resource/ui/hudaccountpanel.res": {
+            "AccountBG": {
+              "visible": {
+                "true": "0",
+                "false": "1"
               }
             }
           }
