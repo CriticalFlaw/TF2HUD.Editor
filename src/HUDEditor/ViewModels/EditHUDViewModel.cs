@@ -39,6 +39,7 @@ internal partial class EditHUDViewModel : ViewModelBase
     public string GitHubUrl => _hud.GitHubUrl;
     public string TF2HudsUrl => _hud.TF2HudsUrl;
     public string ComfigHudsUrl => _hud.ComfigHudsUrl;
+    public string GameBananaUrl => _hud.GameBananaUrl;
     public string DiscordUrl => _hud.DiscordUrl;
     public string SteamUrl => _hud.SteamUrl;
     public Grid Content { get; set; }

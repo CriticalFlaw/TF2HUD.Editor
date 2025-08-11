@@ -276,6 +276,17 @@
 			</Style>
 		</Style>
 
+		<Style Selector="Button.LinkButton.GameBananaButton">
+			<Setter Property="FontSize" Value="33" />
+			<Setter Property="Foreground" Value="#6CB1E1" />
+			<Setter Property="Background" Value="#1C272E" />
+
+			<Style Selector="^:pointerover">
+				<Setter Property="Foreground" Value="#6CB1E1"/>
+				<Setter Property="Background" Value="#384452"/>
+			</Style>
+		</Style>
+
 		<Style Selector="Button.LinkButton.DiscordButton">
 			<Setter Property="Content" Value="&#x0689;" />
 			<Setter Property="Foreground" Value="#FFFFFF" />

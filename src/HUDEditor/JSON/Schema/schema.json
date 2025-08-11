@@ -66,6 +66,10 @@
         "Discord": {
           "type": "string",
           "pattern": "^https?:\/\/.*$"
+        },
+        "GameBanana": {
+          "type": "string",
+          "pattern": "^https?:\/\/.*$"
         }
       },
       "required": [

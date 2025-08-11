@@ -30,6 +30,7 @@ public partial class HUD
     public string GitHubUrl { get; set; }
     public string TF2HudsUrl { get; set; }
     public string ComfigHudsUrl { get; set; }
+    public string GameBananaUrl { get; set; }
     public string SteamUrl { get; set; }
     public string DiscordUrl { get; set; }
     public Dictionary<string, Models.Controls[]> ControlOptions;
@@ -64,6 +65,7 @@ public partial class HUD
         GitHubUrl = schema.Links.GitHub ?? string.Empty;
         TF2HudsUrl = schema.Links.TF2Huds ?? string.Empty;
         ComfigHudsUrl = schema.Links.ComfigHuds ?? string.Empty;
+        GameBananaUrl = schema.Links.GameBanana ?? string.Empty;
         SteamUrl = schema.Links.Steam ?? string.Empty;
         DiscordUrl = schema.Links.Discord ?? string.Empty;
         ControlOptions = schema.Controls;
