@@ -19,21 +19,21 @@
     ]
   },
   {
-    "Name": "ahud",
-    "Description": "A custom HUD for Team Fortress 2. Inspired from various HUDs, including, but not limited to, rayshud, yahud, and omphud.",
-    "Author": "Nokk",
+    "Name": "ahud-cc",
+    "Description": "A modern update to original ahud.",
+    "Author": "jakadak, Nokk",
     "InstallCrosshairs": true,
-    "Thumbnail": "https://i.imgur.com/emiISEi.png",
+    "Thumbnail": "https://static.tf2huds.dev/ahud-cc/img/ahud-cc.png",
     "Links": {
-      "Update": "https://github.com/n0kk/ahud/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/n0kk/ahud",
-      "TF2Huds": "https://tf2huds.dev/hud/ahud"
+      "Update": "https://github.com/jakadak/ahud-cc/archive/refs/heads/master.zip",
+      "GitHub": "https://github.com/jakadak/ahud-cc",
+      "TF2Huds": "https://tf2huds.dev/hud/ahud-cc"
     },
     "Screenshots": [
-      "https://i.imgur.com/Kx70I3P.jpeg",
-      "https://i.imgur.com/UDuTSgV.jpeg",
-      "https://i.imgur.com/cigUnUo.jpeg",
-      "https://i.imgur.com/N7VjUXt.jpeg"
+      "https://static.tf2huds.dev/ahud-cc/img/jnLvG82.png",
+      "https://static.tf2huds.dev/ahud-cc/img/z1TlYCe.png",
+      "https://static.tf2huds.dev/ahud-cc/img/yWW5unT.jpg",
+      "https://static.tf2huds.dev/ahud-cc/img/TJmP2wd.jpg"
     ]
   },
   {
@@ -87,6 +87,21 @@
     ]
   },
   {
+    "Name": "essentialsHUD",
+    "Description": "Spectator HUD for Team Fortress 2 developed by Essentials.TF ",
+    "Author": "EssentialsTF",
+    "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/essentialshud/banner.webp",
+    "Links": {
+      "Update": "https://github.com/CriticalFlaw/essentialsHUD/archive/refs/heads/master.zip",
+      "GitHub": "https://github.com/CriticalFlaw/essentialsHUD",
+      "ComfigHuds": "https://comfig.app/huds/page/essentialshud/"
+    },
+    "Screenshots": [
+      "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/essentialshud/spectator.webp",
+      "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/essentialshud/hud.webp"
+    ]
+  },
+  {
     "Name": "flathud",
     "Description": "A custom TF2 HUD by flatline. Its bold design gives you the most amount of info in the least amount of space.",
     "Author": "flatline",
@@ -137,6 +152,24 @@
       "https://i.imgur.com/EPCBcoB.jpeg",
       "https://i.imgur.com/1WJGsNS.jpeg",
       "https://i.imgur.com/M1LjwtS.jpeg"
+    ]
+  },
+  {
+    "Name": "WeirdcoreHUD",
+    "Description": "the coolest tf2 hud (yes, I am humble) ",
+    "Author": "Tomma",
+    "Thumbnail": "https://static.tf2huds.dev/WeirdcoreHUD/img/2.0%20wallpaper.png",
+    "Links": {
+      "Update": "https://github.com/zTomma/WeirdcoreHUD/archive/refs/heads/master.zip",
+      "GitHub": "https://github.com/zTomma/WeirdcoreHUD",
+      "ComfigHuds": "https://comfig.app/huds/page/weirdcorehud/",
+      "TF2Huds": "https://tf2huds.dev/hud/WeirdcoreHUD"
+    },
+    "Screenshots": [
+      "https://static.tf2huds.dev/WeirdcoreHUD/img/kmE1paX.jpg",
+      "https://static.tf2huds.dev/WeirdcoreHUD/img/fRgUhZu.png",
+      "https://static.tf2huds.dev/WeirdcoreHUD/img/3AeiuGD.png",
+      "https://static.tf2huds.dev/WeirdcoreHUD/img/6pF9v88.png"
     ]
   }
 ]
