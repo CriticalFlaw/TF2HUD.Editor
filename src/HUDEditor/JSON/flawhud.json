@@ -22,8 +22,6 @@
     "Steam": "https://steamcommunity.com/groups/FlawHUD",
     "Discord": "https://discord.gg/hTdtK9vBhE"
   },
-  "CustomizationsFolder": "resource//ui//#customizations",
-  "EnabledFolder": "resource//ui//#customizations//_enabled",
   "Controls": {
     "HUD Colors": [
       {
@@ -386,7 +384,7 @@
         "Width": 100,
         "Value": "<",
         "Files": {
-          "resource/ui/hudplayerclass.res": {
+          "resource/ui/customizations/crosshair/crosshair_base.res": {
             "CustomCrosshair": {
               "labelText": "$value"
             }
@@ -403,7 +401,7 @@
         "Increment": "1",
         "ToolTip": "Size of the crosshair.",
         "Files": {
-          "resource/ui/hudplayerclass.res": {
+          "resource/ui/customizations/crosshair/crosshair_base.res": {
             "CustomCrosshair": {
               "font": "Size:$value"
             }
@@ -453,7 +451,7 @@
         "ToolTip": "Toggle crosshair feature.",
         "Value": "false",
         "Files": {
-          "resource/ui/hudplayerclass.res": {
+          "resource/ui/customizations/crosshair/crosshair_base.res": {
             "CustomCrosshair": {
               "visible": {
                 "true": "1",
@@ -487,7 +485,7 @@
         "ToolTip": "Toggle the spy silhouette seen when changing the disguise.",
         "Value": "true",
         "Files": {
-          "resource/ui/hudplayerclass.res": {
+          "resource/ui/hudplayerclass_base.res": {
             "PlayerStatusSpyOutlineImage": {
               "image": {
                 "true": "../hud/class_spy_outline",
@@ -505,7 +503,7 @@
         "Special": "TransparentViewmodels",
         "Value": "false",
         "Files": {
-          "scripts/hudlayout.res": {
+          "resource/ui/customizations/transparent_viewmodels/transparent_viewmodels.res": {
             "TransparentViewmodel": {
               "visible": {
                 "true": "1",
@@ -583,7 +581,7 @@
         "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
         "Value": "false",
         "Files": {
-          "resource/ui/hudplayerclass.res": {
+          "resource/ui/hudplayerclass_base.res": {
             "PlayerStatusClassImage": {
               "wide": {
                 "true": "0",
@@ -657,7 +655,7 @@
         "Value": "false",
         "Restart": false,
         "Files": {
-          "resource/ui/hudplayerclass.res": {
+          "resource/ui/hudplayerclass_base.res": {
             "Speedometer": {
               "visible": {
                 "true": "1",
@@ -799,7 +797,7 @@
         "ToolTip": "Position the player health and ammo in the corners of the screen.",
         "Value": "false",
         "Files": {
-          "resource/ui/huddamageaccount.res": {
+          "resource/ui/huddamageaccount_base.res": {
             "DamageAccountValue": {
               "xpos": {
                 "true": "10",
@@ -921,7 +919,7 @@
               }
             }
           },
-          "resource/ui/hudplayerclass.res": {
+          "resource/ui/hudplayerclass_base.res": {
             "PlayerStatusClassImage": {
               "ypos": {
                 "true": "r127",
@@ -1161,7 +1159,7 @@
             "Label": "Bold, Large",
             "Value": "0",
             "Files": {
-              "resource/ui/huddamageaccount.res": {
+              "resource/ui/huddamageaccount_base.res": {
                 "CDamageAccountPanel": {
                   "delta_item_font": "FontBold20Outline",
                   "delta_item_font_big": "FontBold20Outline"
@@ -1181,7 +1179,7 @@
             "Label": "Bold, Small",
             "Value": "1",
             "Files": {
-              "resource/ui/huddamageaccount.res": {
+              "resource/ui/huddamageaccount_base.res": {
                 "CDamageAccountPanel": {
                   "delta_item_font": "FontBold14Outline",
                   "delta_item_font_big": "FontBold14Outline"
@@ -1201,7 +1199,7 @@
             "Label": "Thin, Large",
             "Value": "2",
             "Files": {
-              "resource/ui/huddamageaccount.res": {
+              "resource/ui/huddamageaccount_base.res": {
                 "CDamageAccountPanel": {
                   "delta_item_font": "FontRegular20",
                   "delta_item_font_big": "FontRegular20"
@@ -1221,7 +1219,7 @@
             "Label": "Thin, Small",
             "Value": "3",
             "Files": {
-              "resource/ui/huddamageaccount.res": {
+              "resource/ui/huddamageaccount_base.res": {
                 "CDamageAccountPanel": {
                   "delta_item_font": "FontRegular14",
                   "delta_item_font_big": "FontRegular14"
