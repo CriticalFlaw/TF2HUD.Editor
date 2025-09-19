@@ -403,7 +403,7 @@
         "Files": {
           "resource/ui/customizations/crosshair/crosshair_base.res": {
             "CustomCrosshair": {
-              "font": "Size:$value"
+              "font": "Size_$value"
             }
           }
         }
