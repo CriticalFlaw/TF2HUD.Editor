@@ -1354,26 +1354,11 @@
                 },
                 "PlayerStatusHealthBonusImage": {
                   "xpos": "9999"
-                },
-                "PlayerHealthValue": {
-                  "font": "FontBold50"
-                },
-                "PlayerHealthShadow": {
-                  "font": "ScanlineShadow"
                 }
               },
               "resource/ui/hudammoweapons.res": {
                 "AmmoBG": {
                   "bgcolor_override": "BGBlack"
-                },
-                "AmmoInClipShadow": {
-                  "font": "ScanlineShadow"
-                },
-                "AmmoInReserveShadow": {
-                  "font": "ScanlineShadowSmall"
-                },
-                "AmmoNoClipShadow": {
-                  "font": "ScanlineShadow"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1407,26 +1392,11 @@
                 },
                 "PlayerStatusHealthBonusImage": {
                   "xpos": "9999"
-                },
-                "PlayerHealthValue": {
-                  "font": "FontBold50"
-                },
-                "PlayerHealthShadow": {
-                  "font": "FontBold50"
                 }
               },
               "resource/ui/hudammoweapons.res": {
                 "AmmoBG": {
                   "bgcolor_override": "Transparent"
-                },
-                "AmmoInClipShadow": {
-                  "font": "FontBold50"
-                },
-                "AmmoInReserveShadow": {
-                  "font": "FontBold22"
-                },
-                "AmmoNoClipShadow": {
-                  "font": "FontBold50"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1460,26 +1430,11 @@
                 },
                 "PlayerStatusHealthBonusImage": {
                   "xpos": "23"
-                },
-                "PlayerHealthValue": {
-                  "font": "HudFontBiggerBold"
-                },
-                "PlayerHealthShadow": {
-                  "font": "HudFontBiggerBold"
                 }
               },
               "resource/ui/hudammoweapons.res": {
                 "AmmoBG": {
                   "bgcolor_override": "BGBlack"
-                },
-                "AmmoInClipShadow": {
-                  "font": "ScanlineShadow"
-                },
-                "AmmoInReserveShadow": {
-                  "font": "ScanlineShadowSmall"
-                },
-                "AmmoNoClipShadow": {
-                  "font": "ScanlineShadow"
                 }
               },
               "scripts/hudanimations_custom.txt": {
@@ -1513,26 +1468,11 @@
                 },
                 "PlayerStatusHealthBonusImage": {
                   "xpos": "9999"
-                },
-                "PlayerHealthValue": {
-                  "font": "FontBold50"
-                },
-                "PlayerHealthShadow": {
-                  "font": "ScanlineShadow"
                 }
               },
               "resource/ui/hudammoweapons.res": {
                 "AmmoBG": {
                   "bgcolor_override": "Transparent"
-                },
-                "AmmoInClipShadow": {
-                  "font": "ScanlineShadow"
-                },
-                "AmmoInReserveShadow": {
-                  "font": "ScanlineShadowSmall"
-                },
-                "AmmoNoClipShadow": {
-                  "font": "ScanlineShadow"
                 }
               },
               "scripts/hudanimations_custom.txt": {
