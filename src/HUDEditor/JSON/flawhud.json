@@ -943,7 +943,7 @@
               }
             }
           },
-          "resource/ui/hudplayerhealth.res": {
+          "resource/ui/hudplayerhealth_base.res": {
             "HudPlayerHealth": {
               "xpos": {
                 "true": "10",
@@ -1342,7 +1342,7 @@
             "Label": "Colored Text",
             "Value": "0",
             "Files": {
-              "resource/ui/hudplayerhealth.res": {
+              "resource/ui/hudplayerhealth_base.res": {
                 "PlayerStatusHealthImage": {
                   "visible": "0"
                 },
@@ -1356,22 +1356,25 @@
                   "xpos": "9999"
                 }
               },
-              "resource/ui/hudammoweapons.res": {
+              "resource/ui/hudammoweapons_base.res": {
                 "AmmoBG": {
                   "bgcolor_override": "BGBlack"
                 }
               },
               "scripts/hudanimations_custom.txt": {
                 "comment": [
-                  "Animate HealthBG",
-                  "Animate AmmoBG"
+                  "RunEvent HudHealthBonusBox",
+                  "RunEvent HudHealthDyingBox",
+                  "RunEvent HudHealthStopBox",
+                  "RunEvent HudAmmoLowBox",
+                  "RunEvent HudAmmoStopBox"
                 ],
                 "uncomment": [
-                  "Animate PlayerHealthValue",
-                  "Animate PlayerHealthShadow",
-                  "Animate AmmoInClip",
-                  "Animate AmmoInReserve",
-                  "Animate AmmoNoClip"
+                  "RunEvent HudHealthBonusText",
+                  "RunEvent HudHealthDyingText",
+                  "RunEvent HudHealthStopText",
+                  "RunEvent HudAmmoLowText",
+                  "RunEvent HudAmmoStopText"
                 ]
               }
             }
@@ -1380,7 +1383,7 @@
             "Label": "Colored Box",
             "Value": "1",
             "Files": {
-              "resource/ui/hudplayerhealth.res": {
+              "resource/ui/hudplayerhealth_base.res": {
                 "PlayerStatusHealthImage": {
                   "visible": "0"
                 },
@@ -1394,22 +1397,25 @@
                   "xpos": "9999"
                 }
               },
-              "resource/ui/hudammoweapons.res": {
+              "resource/ui/hudammoweapons_base.res": {
                 "AmmoBG": {
                   "bgcolor_override": "Transparent"
                 }
               },
               "scripts/hudanimations_custom.txt": {
                 "comment": [
-                  "Animate PlayerHealthValue",
-                  "Animate PlayerHealthShadow",
-                  "Animate AmmoInClip",
-                  "Animate AmmoInReserve",
-                  "Animate AmmoNoClip"
+                  "RunEvent HudHealthBonusText",
+                  "RunEvent HudHealthDyingText",
+                  "RunEvent HudHealthStopText",
+                  "RunEvent HudAmmoLowText",
+                  "RunEvent HudAmmoStopText"
                 ],
                 "uncomment": [
-                  "Animate HealthBG",
-                  "Animate AmmoBG"
+                  "RunEvent HudHealthBonusBox",
+                  "RunEvent HudHealthDyingBox",
+                  "RunEvent HudHealthStopBox",
+                  "RunEvent HudAmmoLowBox",
+                  "RunEvent HudAmmoStopBox"
                 ]
               }
             }
@@ -1418,7 +1424,7 @@
             "Label": "Health Cross",
             "Value": "2",
             "Files": {
-              "resource/ui/hudplayerhealth.res": {
+              "resource/ui/hudplayerhealth_base.res": {
                 "PlayerStatusHealthImage": {
                   "visible": "1"
                 },
@@ -1432,22 +1438,25 @@
                   "xpos": "23"
                 }
               },
-              "resource/ui/hudammoweapons.res": {
+              "resource/ui/hudammoweapons_base.res": {
                 "AmmoBG": {
                   "bgcolor_override": "BGBlack"
                 }
               },
               "scripts/hudanimations_custom.txt": {
                 "comment": [
-                  "Animate HealthBG",
-                  "Animate PlayerHealthValue",
-                  "Animate PlayerHealthShadow",
-                  "Animate AmmoInClip",
-                  "Animate AmmoInReserve",
-                  "Animate AmmoNoClip"
+                  "RunEvent HudHealthBonusBox",
+                  "RunEvent HudHealthDyingBox",
+                  "RunEvent HudHealthStopBox",
+                  "RunEvent HudAmmoLowBox",
+                  "RunEvent HudAmmoStopBox"
+                  "RunEvent HudHealthBonusText",
+                  "RunEvent HudHealthDyingText",
+                  "RunEvent HudHealthStopText"
                 ],
                 "uncomment": [
-                  "Animate AmmoBG"
+                  "RunEvent HudAmmoLowText",
+                  "RunEvent HudAmmoStopText"
                 ]
               }
             }
@@ -1456,7 +1465,7 @@
             "Label": "Colored Text, No Box",
             "Value": "3",
             "Files": {
-              "resource/ui/hudplayerhealth.res": {
+              "resource/ui/hudplayerhealth_base.res": {
                 "PlayerStatusHealthImage": {
                   "visible": "0"
                 },
@@ -1470,22 +1479,25 @@
                   "xpos": "9999"
                 }
               },
-              "resource/ui/hudammoweapons.res": {
+              "resource/ui/hudammoweapons_base.res": {
                 "AmmoBG": {
                   "bgcolor_override": "Transparent"
                 }
               },
               "scripts/hudanimations_custom.txt": {
                 "comment": [
-                  "Animate HealthBG",
-                  "Animate AmmoBG"
+                  "RunEvent HudHealthBonusBox",
+                  "RunEvent HudHealthDyingBox",
+                  "RunEvent HudHealthStopBox",
+                  "RunEvent HudAmmoLowBox",
+                  "RunEvent HudAmmoStopBox"
                 ],
                 "uncomment": [
-                  "Animate PlayerHealthValue",
-                  "Animate PlayerHealthShadow",
-                  "Animate AmmoInClip",
-                  "Animate AmmoInReserve",
-                  "Animate AmmoNoClip"
+                  "RunEvent HudHealthBonusText",
+                  "RunEvent HudHealthDyingText",
+                  "RunEvent HudHealthStopText",
+                  "RunEvent HudAmmoLowText",
+                  "RunEvent HudAmmoStopText"
                 ]
               }
             }
