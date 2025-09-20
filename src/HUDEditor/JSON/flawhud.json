@@ -605,7 +605,7 @@
         "Value": "false",
         "Restart": false,
         "Files": {
-          "resource/ui/scoreboard.res": {
+          "resource/ui/scoreboard_base.res": {
             "BlueBG": {
               "ypos": {
                 "true": "50",
