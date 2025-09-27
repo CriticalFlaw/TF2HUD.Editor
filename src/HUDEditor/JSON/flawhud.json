@@ -1449,7 +1449,7 @@
                   "RunEvent HudHealthDyingBox",
                   "RunEvent HudHealthStopBox",
                   "RunEvent HudAmmoLowBox",
-                  "RunEvent HudAmmoStopBox"
+                  "RunEvent HudAmmoStopBox",
                   "RunEvent HudHealthBonusText",
                   "RunEvent HudHealthDyingText",
                   "RunEvent HudHealthStopText"
