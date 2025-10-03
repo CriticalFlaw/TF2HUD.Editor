@@ -31,7 +31,6 @@
         "ToolTip": "Primary theme and text color.",
         "Value": "235 226 202 255",
         "Restart": true,
-        "Pulse": true,
         "Files": {
           "resource/scheme/clientscheme_colors.res": {
             "Scheme": {
@@ -1513,7 +1512,7 @@
         "Minimum": "0",
         "Maximum": "9",
         "Files": {
-          "scripts/hudlayout.res": {
+          "resource/ui/customizations/killfeed/killfeed.res": {
             "HudDeathNotice": {
               "MaxDeathNotices": "$value"
             }
@@ -1862,7 +1861,7 @@
                         "origin_y": "10"
                       },
                       "Medic": {
-                        "fov": "35",
+                        "fov": "37",
                         "origin_y": "10"
                       },
                       "Heavy": {
@@ -1926,7 +1925,7 @@
                         "origin_y": "10"
                       },
                       "Medic": {
-                        "fov": "35",
+                        "fov": "37",
                         "origin_y": "10"
                       },
                       "Heavy": {
