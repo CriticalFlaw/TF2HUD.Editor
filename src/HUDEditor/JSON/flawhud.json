@@ -1713,14 +1713,30 @@
           "resource/ui/matchmakingplaylist.res": {
             "CasualEntry": {
               "xpos": {
-                "true": "140",
+                "true": "40",
                 "false": "r210"
               }
             },
             "CompetitiveLabel": {
               "xpos": {
-                "true": "10",
+                "true": "0",
                 "false": "5"
+              },
+              "ypos": {
+                "true": "10",
+                "false": "0"
+              },
+              "pin_to_sibling": {
+                "true": "CasualEntry",
+                "false": "CasualLabel"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_TOPRIGHT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_BOTTOMLEFT",
+                "false": "PIN_TOPLEFT"
               }
             },
             "MvMLabel": {
@@ -1733,18 +1749,38 @@
                 "false": "0"
               },
               "pin_to_sibling": {
-                "true": "CasualEntry",
+                "true": "CompetitiveEntry",
                 "false": "CompetitiveLabel"
               },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_TOPRIGHT"
+              },
               "pin_to_sibling_corner": {
-                "true": "PIN_BOTTOMRIGHT",
+                "true": "PIN_BOTTOMLEFT",
                 "false": "PIN_TOPLEFT"
               }
             },
             "ServerBrowserLabel": {
               "xpos": {
-                "true": "10",
+                "true": "0",
                 "false": "5"
+              },
+              "ypos": {
+                "true": "10",
+                "false": "0"
+              },
+              "pin_to_sibling": {
+                "true": "MvMEntry",
+                "false": "MvMLabel"
+              },
+              "pin_corner_to_sibling": {
+                "true": "PIN_TOPLEFT",
+                "false": "PIN_TOPRIGHT"
+              },
+              "pin_to_sibling_corner": {
+                "true": "PIN_BOTTOMLEFT",
+                "false": "PIN_TOPLEFT"
               }
             }
           }
