@@ -32,7 +32,8 @@ public partial class HUD
         var contentRow = new RowDefinition();
         if (Layout is not null) contentRow.Height = GridLength.Auto;
         container.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-        container.RowDefinitions.Add(contentRow);
+        container.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
 
         // NOTE: ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic for each section.
         dynamic sectionsContainer;
@@ -61,6 +62,8 @@ public partial class HUD
             //sectionsContainer.Margin = new Thickness(10);
         }
 
+        sectionsContainer.VerticalAlignment = VerticalAlignment.Stretch;
+        sectionsContainer.HorizontalAlignment = HorizontalAlignment.Stretch;
         Grid.SetRow(sectionsContainer, 1);
         var groupBoxIndex = 0;
 
@@ -270,8 +273,14 @@ public partial class HUD
 
         var scrollView = new ScrollViewer()
         {
-            Content = sectionsContainer
+            Content = sectionsContainer,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Auto
         };
+        scrollView.SetValue(Grid.RowProperty, 1);
+        scrollView.VerticalAlignment = VerticalAlignment.Stretch;
+        scrollView.HorizontalAlignment = HorizontalAlignment.Stretch;
+
         Grid.SetRow(scrollView, 1);
         container.Children.Add(scrollView);
         Controls.Children.Add(container);
