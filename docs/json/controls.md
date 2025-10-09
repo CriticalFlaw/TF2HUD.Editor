@@ -248,6 +248,22 @@ Only the selected ComboBox value RenameFile.NewName will be enabled, other optio
 
 ---
 
+### WriteFile
+
+**Optional**. Creates a file in the `tf/cfg/[hud name]` directory with text depending on the state of the checkbox. This property is useful for HUDs that utilize log-based customizations. In the below example, if the checkbox is checked a file `../tf/cfg/[hud name]/hud_color.txt` will be created with "#base ../../custom/hud/resource/ui/customizations/colors/color_red.res" as its text. If the checkbox is unchecked, the same file will be created but it will be empty.
+
+```json
+"Label": "Change color to Red",
+"Type": "CheckBox",
+"WriteFile": {
+	"FileName": "hud_color.txt",
+	"TrueText": "#base ../../custom/hud/resource/ui/customizations/colors/color_red.res",
+	"FalseText": ""
+}
+```
+
+---
+
 ### ComboFiles
 
 **Optional, ComboBox Only**. Lists all the files that will be handled by this control, this is used for returning everything back to normal if the user does not make a selection.
