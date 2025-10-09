@@ -57,7 +57,7 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.9" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="Octokit" Version="14.0.0" />
-		<PackageReference Include="Sentry" Version="5.15.0" />
+		<PackageReference Include="Sentry" Version="5.16.0" />
 	</ItemGroup>
 
 	<ItemGroup>
