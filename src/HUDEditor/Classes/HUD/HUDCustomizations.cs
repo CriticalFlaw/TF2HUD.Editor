@@ -125,7 +125,7 @@ public partial class HUD
                 }
             }
 
-            // Write hudFolders to the HUD once instead of each WriteToFile call reading and writing
+            // Write HudFolders to the HUD once instead of each WriteToFile call reading and writing
             IterateProperties(hudFolders, App.HudPath + "/" + Name);
             HudBackground.ApplyBackground();
             return true;
@@ -330,6 +330,25 @@ public partial class HUD
                     enable = !string.Equals(userSetting.Value, "0");
 
                 EvaluateSpecial(special, userSetting, enable, specialParameters);
+            }
+
+            // Create and write to files as instructed in the HUD's schema
+            if (hudSetting.WriteFile is not null && !string.IsNullOrWhiteSpace(hudSetting.WriteFile.FileName))
+            {
+                // Find tf/cfg directory and create the HUD's cfg directory if it doesn't exist
+                var cfgPath = Path.GetFullPath(App.HudPath.Replace("/custom", "/cfg"));
+                var hudFolder = Path.Combine(cfgPath, Name);
+                if (!Directory.Exists(hudFolder)) Directory.CreateDirectory(hudFolder);
+
+                // Create the file based on WriteFile.FilePath and WriteFile.Contents
+                var filePath = Path.Combine(hudFolder, hudSetting.WriteFile.FileName);
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+                // Write to the file depending on the value of the setting
+                if (userSetting.Value.ToLowerInvariant() == "true")
+                    File.WriteAllText(filePath, hudSetting.WriteFile.TrueText ?? string.Empty);
+                else
+                    File.WriteAllText(filePath, hudSetting.WriteFile.FalseText ?? string.Empty);
             }
 
             if (files is null) return;

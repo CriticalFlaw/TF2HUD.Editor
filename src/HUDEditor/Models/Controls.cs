@@ -28,4 +28,5 @@ public class Controls
     [JsonPropertyName("Type")] public string Type;
     [JsonPropertyName("Value")] public string Value = "0";
     [JsonPropertyName("Width")] public int Width;
+    [JsonPropertyName("WriteFile")] public WriteFile WriteFile;
 }

@@ -232,11 +232,7 @@
               "Name",
               "Label",
               "Value"
-            ],
-            "oneOf": [
-                { "required": ["RenameFile"] },
-                { "required": ["WriteFile"] }
-            ],
+            ]
           }
         }
       }

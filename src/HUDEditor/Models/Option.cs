@@ -9,6 +9,7 @@ public class Option
     [JsonPropertyName("Files")] public JObject Files;
     [JsonPropertyName("Label")] public string Label;
     [JsonPropertyName("RenameFile")] public RenameFile RenameFile;
+    [JsonPropertyName("WriteFile")] public WriteFile WriteFile;
     [JsonPropertyName("Special")] public string Special;
     [JsonPropertyName("SpecialParameters")] public string[] SpecialParameters;
     [JsonPropertyName("Value")] public string Value;
