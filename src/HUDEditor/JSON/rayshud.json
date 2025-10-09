@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
   "Author": "Raysfire",
   "Description": "A simplistic yet bold hud for TF2 made to cut out a lot of clutter included that of the stock hud. Comes with a range of various vivid colors associated with both low health as well as ammo to make important information easily accessible and noticeable.",
   "Thumbnail": "https://i.imgur.com/jWOoerl.png",

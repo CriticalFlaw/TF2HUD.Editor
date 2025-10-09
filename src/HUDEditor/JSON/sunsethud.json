@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
   "Author": "Hypnotize",
   "Description": "A Very Bright TF2 Hud",
   "Thumbnail": "https://i.imgur.com/BL2wVRe.png",

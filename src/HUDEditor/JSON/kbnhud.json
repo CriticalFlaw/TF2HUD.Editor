@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
   "Author": "Jotunn",
   "Description": "A TF2 HUD boiled down for competitive play and no-frills streamlining of as many elements as possible. Based on KNHUD with lots of customization from a long life and user suggestions. Pairs best with sniping. Thanks for 10 amazing years of this HUD!",
   "Thumbnail": "https://i.imgur.com/ehYUnaI.png",

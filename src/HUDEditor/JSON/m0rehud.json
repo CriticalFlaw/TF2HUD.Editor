@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
   "Author": "m0re, Hypnotize",
   "Description": "Clean, functional and minimalistic HUD created by m0re.",
   "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-banner.webp",

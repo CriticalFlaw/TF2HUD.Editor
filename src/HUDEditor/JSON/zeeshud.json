@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
   "Author": "Zeesastrous",
   "Description": "ZeesHUD is a stylish and ambitious HUD inspired by retro punk aesthetics.",
   "Thumbnail": "https://i.imgur.com/RC89MAt.png",

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
   "Author": "CriticalFlaw",
   "Description": "Bug fixes and minor visual improvements to the default Team Fortress 2 HUD.",
   "Thumbnail": "https://user-images.githubusercontent.com/6818236/135371575-a5a7697c-a5d1-43e7-ae59-0369affe99f0.png",

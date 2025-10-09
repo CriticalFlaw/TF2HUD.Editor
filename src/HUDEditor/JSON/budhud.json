@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
   "Author": "Whisker",
   "Description": "A Team Fortress 2 hud inspired by whayay's yahud and rays' rayshud.",
   "Thumbnail": "https://i.imgur.com/w3ztZdz.png",

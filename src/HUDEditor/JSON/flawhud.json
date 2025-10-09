@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/TF2HUD.Editor/JSON/Schema/schema.json",
+  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
   "Author": "CriticalFlaw",
   "Description": "Custom HUD for Team Fortress 2, with the focus on minimalistic design and dark themed colors.",
   "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/flawhud/banner.webp",
