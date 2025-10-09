@@ -164,6 +164,26 @@
                   "type": "string"
                 }
               },
+              "WriteFile": {
+                "type": "object",
+                "properties": {
+                  "FileName": {
+                    "type": "string"
+                  },
+                  "TrueText": {
+                    "type": "string"
+                  },
+                  "FalseText": {
+                    "type": "string"
+                  }
+                }
+              },
+              "ComboFiles": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "ComboDirectories": {
                 "type": "array",
                 "items": {
@@ -212,7 +232,11 @@
               "Name",
               "Label",
               "Value"
-            ]
+            ],
+            "oneOf": [
+                { "required": ["RenameFile"] },
+                { "required": ["WriteFile"] }
+            ],
           }
         }
       }
