@@ -8,22 +8,26 @@
              x:Class="HUDEditor.Views.AppInfoView">
 	<StackPanel>
 		<Image Source="avares://HUDEditor/Assets/Images/banner.png" Height="142" Width="621" />
-		<TextBlock Classes="BodyText" FontSize="20" TextAlignment="Center" Margin="0,15,0,15">
+		<TextBlock Classes="BodyText" TextAlignment="Center" Margin="0,15,0,15">
 			<Run Foreground="#70B04A" Text="Install" />
 			<Run Text="and" />
 			<Run Foreground="#38F3AB" Text="customize" />
 			<Run Text="your favorite Team Fortress 2 HUDs!" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.2" Margin="0,15,0,0" FontSize="30" />
+		<Label Classes="HeaderText" Content="Version 4.3" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
-			<Run Text="> Fixed pathing for opening user and app setting files." />
+			<Run Text="> Fixed custom background images were not being backed-up." />
 			<LineBreak />
-			<Run Text="> Fixed schema updates not working due to an outdated URL." />
+			<Run Text="> Fixed the app not using the Windows dark theme." />
 			<LineBreak />
-			<Run Text="> Fixed schemas not being re-downloaded if they are missing." />
+			<Run Text="> Fixed the app not filling the screen when maximized." />
 			<LineBreak />
-			<Run Text="> Adedd a button for opening the latest available log file." />
+			<Run Text="> Added an option to opt-out of Sentry error tracking." />
+			<LineBreak />
+			<Run Text="> Added support for GameBanana links." />
+			<LineBreak />
+			<Run Text="> Added support for writing HUD files to the tf/cfg folder." />
 		</TextBlock>
 	</StackPanel>
 </UserControl>

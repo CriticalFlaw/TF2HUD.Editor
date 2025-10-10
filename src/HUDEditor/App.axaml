@@ -108,7 +108,7 @@
 
 		<Style Selector="TextBlock.BodyText">
 			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
-			<Setter Property="FontSize" Value="15" />
+			<Setter Property="FontSize" Value="18" />
 			<Setter Property="TextWrapping" Value="Wrap" />
 			<Setter Property="Foreground" Value="#A49E9E" />
 			<Setter Property="TextAlignment" Value="Left" />
