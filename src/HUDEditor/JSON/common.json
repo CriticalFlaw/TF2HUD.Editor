@@ -126,24 +126,6 @@
         ]
     },
     {
-        "Name": "Improved Default HUD",
-        "Description": "This is not a custom HUD in its usual meaning; instead, the focus is to add some fixes and improvements for the standard Team Fortress 2 UI, while keeping the style.",
-        "Author": "Eniere, Tiagoquix",
-        "Thumbnail": "https://github.com/idhud-tf2/idhud/raw/main/improved_default_hud_banner.png",
-        "Links": {
-            "Update": "https://github.com/idhud-tf2/idhud/archive/refs/heads/main.zip",
-            "GitHub": "https://github.com/idhud-tf2/idhud",
-            "ComfigHuds": "https://comfig.app/huds/page/improved-default-hud/",
-            "TF2Huds": "https://tf2huds.dev/hud/Improved-default-HUD"
-        },
-        "Screenshots": [
-            "https://static.tf2huds.dev/Improved-default-HUD/img/dVBjZia.jpeg",
-            "https://static.tf2huds.dev/Improved-default-HUD/img/wHgVSQD.jpeg",
-            "https://static.tf2huds.dev/Improved-default-HUD/img/kJ0vgmA.png",
-            "https://static.tf2huds.dev/Improved-default-HUD/img/BZkxhx9.jpeg"
-        ]
-    },
-    {
         "Name": "Half-Life 2 HUD",
         "Description": "HL2 style hud for all your nostalgia needs.",
         "Author": "Village Green Preserver",
