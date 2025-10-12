@@ -1,219 +1,219 @@
 [
-  {
-    "Name": "7HUD",
-    "Description": "Originally based off an old yA version. Hope you guys like it. Updates are typically delayed because I'm a full-time student, but I love TF2 and can't live without this HUD anymore, so you can always expect an update at some point. You should grab 4Plug to take full advantage of the customization of this hud.",
-    "Author": "sevin",
-    "InstallCrosshairs": true,
-    "Thumbnail": "https://static.tf2huds.dev/7HUD/img/ecdc30e3-ceb6-4763-a14a-95b4e3e0d756.jpg",
-    "Links": {
-      "Update": "https://github.com/Sevin7/7hud/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/Sevin7/7HUD",
-      "TF2Huds": "https://tf2huds.dev/hud/7HUD",
-      "ComfigHuds": "https://comfig.app/huds/page/7hud/",
-      "GameBanana": "https://gamebanana.com/mods/26849",
-      "Steam": "https://steamcommunity.com/groups/7HUD"
+    {
+        "Name": "7HUD",
+        "Description": "Originally based off an old yA version. Hope you guys like it. Updates are typically delayed because I'm a full-time student, but I love TF2 and can't live without this HUD anymore, so you can always expect an update at some point. You should grab 4Plug to take full advantage of the customization of this hud.",
+        "Author": "sevin",
+        "InstallCrosshairs": true,
+        "Thumbnail": "https://static.tf2huds.dev/7HUD/img/ecdc30e3-ceb6-4763-a14a-95b4e3e0d756.jpg",
+        "Links": {
+            "Update": "https://github.com/Sevin7/7hud/archive/refs/heads/master.zip",
+            "GitHub": "https://github.com/Sevin7/7HUD",
+            "TF2Huds": "https://tf2huds.dev/hud/7HUD",
+            "ComfigHuds": "https://comfig.app/huds/page/7hud/",
+            "GameBanana": "https://gamebanana.com/mods/26849",
+            "Steam": "https://steamcommunity.com/groups/7HUD"
+        },
+        "Screenshots": [
+            "https://static.tf2huds.dev/7HUD/img/irMjzu8.jpg",
+            "https://static.tf2huds.dev/7HUD/img/4LYvkSr.jpg",
+            "https://static.tf2huds.dev/7HUD/img/RUfMUYg.jpg",
+            "https://static.tf2huds.dev/7HUD/img/xC1nhRD.jpg"
+        ]
     },
-    "Screenshots": [
-      "https://static.tf2huds.dev/7HUD/img/irMjzu8.jpg",
-      "https://static.tf2huds.dev/7HUD/img/4LYvkSr.jpg",
-      "https://static.tf2huds.dev/7HUD/img/RUfMUYg.jpg",
-      "https://static.tf2huds.dev/7HUD/img/xC1nhRD.jpg"
-    ]
-  },
-  {
-    "Name": "ahud-cc",
-    "Description": "A modern update to original ahud.",
-    "Author": "jakadak, Nokk",
-    "InstallCrosshairs": true,
-    "Thumbnail": "https://static.tf2huds.dev/ahud-cc/img/ahud-cc.png",
-    "Links": {
-      "Update": "https://github.com/jakadak/ahud-cc/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/jakadak/ahud-cc",
-      "TF2Huds": "https://tf2huds.dev/hud/ahud-cc",
-      "ComfigHuds": "https://comfig.app/huds/page/ahud-cc/",
-      "GameBanana": "https://gamebanana.com/mods/530465ahud"
+    {
+        "Name": "ahud-cc",
+        "Description": "A modern update to original ahud.",
+        "Author": "jakadak, Nokk",
+        "InstallCrosshairs": true,
+        "Thumbnail": "https://static.tf2huds.dev/ahud-cc/img/ahud-cc.png",
+        "Links": {
+            "Update": "https://github.com/jakadak/ahud-cc/archive/refs/heads/master.zip",
+            "GitHub": "https://github.com/jakadak/ahud-cc",
+            "TF2Huds": "https://tf2huds.dev/hud/ahud-cc",
+            "ComfigHuds": "https://comfig.app/huds/page/ahud-cc/",
+            "GameBanana": "https://gamebanana.com/mods/530465ahud"
+        },
+        "Screenshots": [
+            "https://static.tf2huds.dev/ahud-cc/img/jnLvG82.png",
+            "https://static.tf2huds.dev/ahud-cc/img/z1TlYCe.png",
+            "https://static.tf2huds.dev/ahud-cc/img/yWW5unT.jpg",
+            "https://static.tf2huds.dev/ahud-cc/img/TJmP2wd.jpg"
+        ]
     },
-    "Screenshots": [
-      "https://static.tf2huds.dev/ahud-cc/img/jnLvG82.png",
-      "https://static.tf2huds.dev/ahud-cc/img/z1TlYCe.png",
-      "https://static.tf2huds.dev/ahud-cc/img/yWW5unT.jpg",
-      "https://static.tf2huds.dev/ahud-cc/img/TJmP2wd.jpg"
-    ]
-  },
-  {
-    "Name": "Broesel Hud",
-    "Description": "A classic hud created by Broesel, now maintained by Hypnotize",
-    "Author": "Broesel, Hypnotize",
-    "Thumbnail": "https://static.tf2huds.dev/Broesel-Hud/img/zaguUvP.png",
-    "Links": {
-      "Update": "https://github.com/TF2HUDsArchive/Broesel-Hud/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/TF2HUDsArchive/Broesel-Hud",
-      "TF2Huds": "https://tf2huds.dev/hud/Broesel-Hud",
-      "ComfigHuds": "https://comfig.app/huds/page/broesel-hud/"
+    {
+        "Name": "Broesel Hud",
+        "Description": "A classic hud created by Broesel, now maintained by Hypnotize",
+        "Author": "Broesel, Hypnotize",
+        "Thumbnail": "https://static.tf2huds.dev/Broesel-Hud/img/zaguUvP.png",
+        "Links": {
+            "Update": "https://github.com/TF2HUDsArchive/Broesel-Hud/archive/refs/heads/master.zip",
+            "GitHub": "https://github.com/TF2HUDsArchive/Broesel-Hud",
+            "TF2Huds": "https://tf2huds.dev/hud/Broesel-Hud",
+            "ComfigHuds": "https://comfig.app/huds/page/broesel-hud/"
+        },
+        "Screenshots": [
+            "https://static.tf2huds.dev/Broesel-Hud/img/BKNQ0er.jpg",
+            "https://static.tf2huds.dev/Broesel-Hud/img/1sSXCOH.jpg",
+            "https://static.tf2huds.dev/Broesel-Hud/img/rI15aXm.jpg",
+            "https://static.tf2huds.dev/Broesel-Hud/img/KEJt3Od.png"
+        ]
     },
-    "Screenshots": [
-      "https://static.tf2huds.dev/Broesel-Hud/img/BKNQ0er.jpg",
-      "https://static.tf2huds.dev/Broesel-Hud/img/1sSXCOH.jpg",
-      "https://static.tf2huds.dev/Broesel-Hud/img/rI15aXm.jpg",
-      "https://static.tf2huds.dev/Broesel-Hud/img/KEJt3Od.png"
-    ]
-  },
-  {
-    "Name": "cliphud",
-    "Description": "HUD created for the HUDS.TF contest wayyyy back in 2015.",
-    "Author": "flatline",
-    "Thumbnail": "https://static.tf2huds.dev/cliphud/img/01_Main_Menu.jpg",
-    "Links": {
-      "Update": "https://github.com/TF2HUDsArchive/Clip-Hud/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/TF2HUDsArchive/Clip-Hud",
-      "TF2Huds": "https://tf2huds.dev/hud/cliphud",
-      "ComfigHuds": "https://comfig.app/huds/page/clip-hud/"
+    {
+        "Name": "cliphud",
+        "Description": "HUD created for the HUDS.TF contest wayyyy back in 2015.",
+        "Author": "flatline",
+        "Thumbnail": "https://static.tf2huds.dev/cliphud/img/01_Main_Menu.jpg",
+        "Links": {
+            "Update": "https://github.com/TF2HUDsArchive/Clip-Hud/archive/refs/heads/master.zip",
+            "GitHub": "https://github.com/TF2HUDsArchive/Clip-Hud",
+            "TF2Huds": "https://tf2huds.dev/hud/cliphud",
+            "ComfigHuds": "https://comfig.app/huds/page/clip-hud/"
+        },
+        "Screenshots": [
+            "https://static.tf2huds.dev/cliphud/img/01_Main_Menu.jpg",
+            "https://static.tf2huds.dev/cliphud/img/02_Health_Buff.jpg",
+            "https://static.tf2huds.dev/cliphud/img/03_Health_Ammo_Low.jpg",
+            "https://static.tf2huds.dev/cliphud/img/04_Scoreboard.jpg"
+        ]
     },
-    "Screenshots": [
-      "https://static.tf2huds.dev/cliphud/img/01_Main_Menu.jpg",
-      "https://static.tf2huds.dev/cliphud/img/02_Health_Buff.jpg",
-      "https://static.tf2huds.dev/cliphud/img/03_Health_Ammo_Low.jpg",
-      "https://static.tf2huds.dev/cliphud/img/04_Scoreboard.jpg"
-    ]
-  },
-  {
-    "Name": "collyhud",
-    "Author": "collycat, Joseph of Arimathea",
-    "Thumbnail": "https://static.tf2huds.dev/collyhud/img/M1M8goe.png",
-    "Links": {
-      "Update": "https://github.com/omnibombulator/collyhud/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/omnibombulator/collyhud",
-      "TF2Huds": "https://tf2huds.dev/hud/collyhud",
-      "ComfigHuds": "https://comfig.app/huds/page/colly-hud/"
+    {
+        "Name": "collyhud",
+        "Author": "collycat, Joseph of Arimathea",
+        "Thumbnail": "https://static.tf2huds.dev/collyhud/img/M1M8goe.png",
+        "Links": {
+            "Update": "https://github.com/omnibombulator/collyhud/archive/refs/heads/master.zip",
+            "GitHub": "https://github.com/omnibombulator/collyhud",
+            "TF2Huds": "https://tf2huds.dev/hud/collyhud",
+            "ComfigHuds": "https://comfig.app/huds/page/colly-hud/"
+        },
+        "Screenshots": [
+            "https://static.tf2huds.dev/collyhud/img/XhGNouo.jpg",
+            "https://static.tf2huds.dev/collyhud/img/6brfr3G.jpg",
+            "https://static.tf2huds.dev/collyhud/img/PMYLMDE.png"
+        ]
     },
-    "Screenshots": [
-      "https://static.tf2huds.dev/collyhud/img/XhGNouo.jpg",
-      "https://static.tf2huds.dev/collyhud/img/6brfr3G.jpg",
-      "https://static.tf2huds.dev/collyhud/img/PMYLMDE.png"
-    ]
-  },
-  {
-    "Name": "coolerHUD",
-    "Description": "A vanilla styled HUD for Team Fortress 2!",
-    "Author": "Pyromaniax",
-    "Thumbnail": "https://static.tf2huds.dev/Cooler-HUD/img/Cooler%20HUD%20Banner.png",
-    "Links": {
-      "Update": "https://github.com/Pyromaniax/Cooler-HUD/archive/refs/heads/main.zip",
-      "GitHub": "https://github.com/Pyromaniax/Cooler-HUD",
-      "TF2Huds": "https://tf2huds.dev/hud/Cooler-HUD",
-      "GameBanana": "https://gamebanana.com/mods/609267"
+    {
+        "Name": "coolerHUD",
+        "Description": "A vanilla styled HUD for Team Fortress 2!",
+        "Author": "Pyromaniax",
+        "Thumbnail": "https://static.tf2huds.dev/Cooler-HUD/img/Cooler%20HUD%20Banner.png",
+        "Links": {
+            "Update": "https://github.com/Pyromaniax/Cooler-HUD/archive/refs/heads/main.zip",
+            "GitHub": "https://github.com/Pyromaniax/Cooler-HUD",
+            "TF2Huds": "https://tf2huds.dev/hud/Cooler-HUD",
+            "GameBanana": "https://gamebanana.com/mods/609267"
+        },
+        "Screenshots": [
+            "https://static.tf2huds.dev/Cooler-HUD/img/Preview%20-%20Cooler%20HUD%20(3).jpg",
+            "https://static.tf2huds.dev/Cooler-HUD/img/Preview%20-%20Cooler%20HUD%20(5).jpg",
+            "https://static.tf2huds.dev/Cooler-HUD/img/Preview%20-%20Cooler%20HUD%20(1).jpg",
+            "https://static.tf2huds.dev/Cooler-HUD/img/Preview%20-%20Cooler%20HUD%20(12).jpg"
+        ]
     },
-    "Screenshots": [
-      "https://static.tf2huds.dev/Cooler-HUD/img/Preview%20-%20Cooler%20HUD%20(3).jpg",
-      "https://static.tf2huds.dev/Cooler-HUD/img/Preview%20-%20Cooler%20HUD%20(5).jpg",
-      "https://static.tf2huds.dev/Cooler-HUD/img/Preview%20-%20Cooler%20HUD%20(1).jpg",
-      "https://static.tf2huds.dev/Cooler-HUD/img/Preview%20-%20Cooler%20HUD%20(12).jpg"
-    ]
-  },
-  {
-    "Name": "essentialsHUD",
-    "Description": "Spectator HUD for Team Fortress 2 developed by Essentials.TF",
-    "Author": "EssentialsTF",
-    "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/essentialshud/banner.webp",
-    "Links": {
-      "Update": "https://github.com/CriticalFlaw/essentialsHUD/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/CriticalFlaw/essentialsHUD",
-      "ComfigHuds": "https://comfig.app/huds/page/essentialshud/"
+    {
+        "Name": "essentialsHUD",
+        "Description": "Spectator HUD for Team Fortress 2 developed by Essentials.TF",
+        "Author": "EssentialsTF",
+        "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/essentialshud/banner.webp",
+        "Links": {
+            "Update": "https://github.com/CriticalFlaw/essentialsHUD/archive/refs/heads/master.zip",
+            "GitHub": "https://github.com/CriticalFlaw/essentialsHUD",
+            "ComfigHuds": "https://comfig.app/huds/page/essentialshud/"
+        },
+        "Screenshots": [
+            "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/essentialshud/spectator.webp",
+            "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/essentialshud/hud.webp"
+        ]
     },
-    "Screenshots": [
-      "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/essentialshud/spectator.webp",
-      "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/essentialshud/hud.webp"
-    ]
-  },
-  {
-    "Name": "Improved Default HUD",
-    "Description": "This is not a custom HUD in its usual meaning; instead, the focus is to add some fixes and improvements for the standard Team Fortress 2 UI, while keeping the style.",
-    "Author": "Eniere, Tiagoquix",
-    "Thumbnail": "https://github.com/idhud-tf2/idhud/raw/main/improved_default_hud_banner.png",
-    "Links": {
-      "Update": "https://github.com/idhud-tf2/idhud/archive/refs/heads/main.zip",
-      "GitHub": "https://github.com/idhud-tf2/idhud",
-      "ComfigHuds": "https://comfig.app/huds/page/improved-default-hud/",
-      "TF2Huds": "https://tf2huds.dev/hud/Improved-default-HUD"
+    {
+        "Name": "Improved Default HUD",
+        "Description": "This is not a custom HUD in its usual meaning; instead, the focus is to add some fixes and improvements for the standard Team Fortress 2 UI, while keeping the style.",
+        "Author": "Eniere, Tiagoquix",
+        "Thumbnail": "https://github.com/idhud-tf2/idhud/raw/main/improved_default_hud_banner.png",
+        "Links": {
+            "Update": "https://github.com/idhud-tf2/idhud/archive/refs/heads/main.zip",
+            "GitHub": "https://github.com/idhud-tf2/idhud",
+            "ComfigHuds": "https://comfig.app/huds/page/improved-default-hud/",
+            "TF2Huds": "https://tf2huds.dev/hud/Improved-default-HUD"
+        },
+        "Screenshots": [
+            "https://static.tf2huds.dev/Improved-default-HUD/img/dVBjZia.jpeg",
+            "https://static.tf2huds.dev/Improved-default-HUD/img/wHgVSQD.jpeg",
+            "https://static.tf2huds.dev/Improved-default-HUD/img/kJ0vgmA.png",
+            "https://static.tf2huds.dev/Improved-default-HUD/img/BZkxhx9.jpeg"
+        ]
     },
-    "Screenshots": [
-      "https://static.tf2huds.dev/Improved-default-HUD/img/dVBjZia.jpeg",
-      "https://static.tf2huds.dev/Improved-default-HUD/img/wHgVSQD.jpeg",
-      "https://static.tf2huds.dev/Improved-default-HUD/img/kJ0vgmA.png",
-      "https://static.tf2huds.dev/Improved-default-HUD/img/BZkxhx9.jpeg"
-    ]
-  },
-  {
-    "Name": "Half-Life 2 HUD",
-    "Description": "HL2 style hud for all your nostalgia needs.",
-    "Author": "Village Green Preserver",
-    "Thumbnail": "https://static.tf2huds.dev/Half-Life-2-HUD/img/F88ScUQ.png",
-    "Links": {
-      "Update": "https://github.com/VillageGreenPreserver/Half-Life-2-Hud/archive/refs/heads/main.zip",
-      "GitHub": "https://github.com/VillageGreenPreserver/Half-Life-2-Hud",
-      "TF2Huds": "https://tf2huds.dev/hud/Half-Life-2-HUD",
-      "ComfigHuds": "https://comfig.app/huds/page/half-life-2-hud/",
-      "GameBanana": "https://gamebanana.com/mods/390057"
+    {
+        "Name": "Half-Life 2 HUD",
+        "Description": "HL2 style hud for all your nostalgia needs.",
+        "Author": "Village Green Preserver",
+        "Thumbnail": "https://static.tf2huds.dev/Half-Life-2-HUD/img/F88ScUQ.png",
+        "Links": {
+            "Update": "https://github.com/VillageGreenPreserver/Half-Life-2-Hud/archive/refs/heads/main.zip",
+            "GitHub": "https://github.com/VillageGreenPreserver/Half-Life-2-Hud",
+            "TF2Huds": "https://tf2huds.dev/hud/Half-Life-2-HUD",
+            "ComfigHuds": "https://comfig.app/huds/page/half-life-2-hud/",
+            "GameBanana": "https://gamebanana.com/mods/390057"
+        },
+        "Screenshots": [
+            "https://static.tf2huds.dev/Half-Life-2-HUD/img/TRlX2GW.png",
+            "https://static.tf2huds.dev/Half-Life-2-HUD/img/N%C3%A4ytt%C3%B6kuva%20(688).png",
+            "https://static.tf2huds.dev/Half-Life-2-HUD/img/lpXGxQY.png",
+            "https://static.tf2huds.dev/Half-Life-2-HUD/img/JRwhy0B.png"
+        ]
     },
-    "Screenshots": [
-      "https://static.tf2huds.dev/Half-Life-2-HUD/img/TRlX2GW.png",
-      "https://static.tf2huds.dev/Half-Life-2-HUD/img/N%C3%A4ytt%C3%B6kuva%20(688).png",
-      "https://static.tf2huds.dev/Half-Life-2-HUD/img/lpXGxQY.png",
-      "https://static.tf2huds.dev/Half-Life-2-HUD/img/JRwhy0B.png"
-    ]
-  },
-  {
-    "Name": "omphud",
-    "Author": "omp, Hypnotize",
-    "Thumbnail": "https://github.com/TF2HUDsArchive/OMP-Hud/raw/screenshots/07_Health_Buff.jpg",
-    "Links": {
-      "Update": "https://github.com/TF2HUDsArchive/OMP-Hud/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/TF2HUDsArchive/OMP-Hud",
-      "Steam": "https://steamcommunity.com/groups/tf2hud",
-      "ComfigHuds": "https://comfig.app/huds/page/omp-hud/"
+    {
+        "Name": "omphud",
+        "Author": "omp, Hypnotize",
+        "Thumbnail": "https://github.com/TF2HUDsArchive/OMP-Hud/raw/screenshots/07_Health_Buff.jpg",
+        "Links": {
+            "Update": "https://github.com/TF2HUDsArchive/OMP-Hud/archive/refs/heads/master.zip",
+            "GitHub": "https://github.com/TF2HUDsArchive/OMP-Hud",
+            "Steam": "https://steamcommunity.com/groups/tf2hud",
+            "ComfigHuds": "https://comfig.app/huds/page/omp-hud/"
+        },
+        "Screenshots": [
+            "https://github.com/TF2HUDsArchive/OMP-Hud/raw/screenshots/07_Health_Buff.jpg",
+            "https://github.com/TF2HUDsArchive/OMP-Hud/raw/screenshots/08_Health_Ammo_Low.jpg",
+            "https://github.com/TF2HUDsArchive/OMP-Hud/raw/screenshots/11_Scoreboard.jpg",
+            "https://github.com/TF2HUDsArchive/OMP-Hud/raw/screenshots/14_Win.jpg"
+        ]
     },
-    "Screenshots": [
-      "https://github.com/TF2HUDsArchive/OMP-Hud/raw/screenshots/07_Health_Buff.jpg",
-      "https://github.com/TF2HUDsArchive/OMP-Hud/raw/screenshots/08_Health_Ammo_Low.jpg",
-      "https://github.com/TF2HUDsArchive/OMP-Hud/raw/screenshots/11_Scoreboard.jpg",
-      "https://github.com/TF2HUDsArchive/OMP-Hud/raw/screenshots/14_Win.jpg"
-    ]
-  },
-  {
-    "Name": "PeachHUD",
-    "Description": "A Team Fortress 2 HUD made by Peaches and streamlined for competitive, while maintaining a clean and minimalistic look.",
-    "Author": "peaches",
-    "Thumbnail": "https://static.tf2huds.dev/PeachHUD/img/4c3nhSV.jpg",
-    "Links": {
-      "Update": "https://github.com/PapaPeach/PeachHUD/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/PapaPeach/PeachHUD",
-      "TF2Huds": "https://tf2huds.dev/hud/PeachHUD",
-      "ComfigHuds": "https://comfig.app/huds/page/peachhud/"
+    {
+        "Name": "PeachHUD",
+        "Description": "A Team Fortress 2 HUD made by Peaches and streamlined for competitive, while maintaining a clean and minimalistic look.",
+        "Author": "peaches",
+        "Thumbnail": "https://static.tf2huds.dev/PeachHUD/img/4c3nhSV.jpg",
+        "Links": {
+            "Update": "https://github.com/PapaPeach/PeachHUD/archive/refs/heads/master.zip",
+            "GitHub": "https://github.com/PapaPeach/PeachHUD",
+            "TF2Huds": "https://tf2huds.dev/hud/PeachHUD",
+            "ComfigHuds": "https://comfig.app/huds/page/peachhud/"
+        },
+        "Screenshots": [
+            "https://static.tf2huds.dev/PeachHUD/img/V0nXWoJ.jpg",
+            "https://static.tf2huds.dev/PeachHUD/img/1WJGsNS.jpg",
+            "https://static.tf2huds.dev/PeachHUD/img/M1LjwtS.jpg",
+            "https://static.tf2huds.dev/PeachHUD/img/VTxShXI.jpg"
+        ]
     },
-    "Screenshots": [
-      "https://static.tf2huds.dev/PeachHUD/img/V0nXWoJ.jpg",
-      "https://static.tf2huds.dev/PeachHUD/img/1WJGsNS.jpg",
-      "https://static.tf2huds.dev/PeachHUD/img/M1LjwtS.jpg",
-      "https://static.tf2huds.dev/PeachHUD/img/VTxShXI.jpg"
-    ]
-  },
-  {
-    "Name": "WeirdcoreHUD",
-    "Description": "the coolest tf2 hud (yes, I am humble) ",
-    "Author": "Tomma",
-    "Thumbnail": "https://static.tf2huds.dev/WeirdcoreHUD/img/2.0%20wallpaper.png",
-    "Links": {
-      "Update": "https://github.com/zTomma/WeirdcoreHUD/archive/refs/heads/master.zip",
-      "GitHub": "https://github.com/zTomma/WeirdcoreHUD",
-      "ComfigHuds": "https://comfig.app/huds/page/weirdcorehud/",
-      "TF2Huds": "https://tf2huds.dev/hud/WeirdcoreHUD",
-      "GameBanana": "https://gamebanana.com/mods/505518"
-    },
-    "Screenshots": [
-      "https://static.tf2huds.dev/WeirdcoreHUD/img/kmE1paX.jpg",
-      "https://static.tf2huds.dev/WeirdcoreHUD/img/fRgUhZu.png",
-      "https://static.tf2huds.dev/WeirdcoreHUD/img/3AeiuGD.png",
-      "https://static.tf2huds.dev/WeirdcoreHUD/img/6pF9v88.png"
-    ]
-  }
+    {
+        "Name": "WeirdcoreHUD",
+        "Description": "the coolest tf2 hud (yes, I am humble) ",
+        "Author": "Tomma",
+        "Thumbnail": "https://static.tf2huds.dev/WeirdcoreHUD/img/2.0%20wallpaper.png",
+        "Links": {
+            "Update": "https://github.com/zTomma/WeirdcoreHUD/archive/refs/heads/master.zip",
+            "GitHub": "https://github.com/zTomma/WeirdcoreHUD",
+            "ComfigHuds": "https://comfig.app/huds/page/weirdcorehud/",
+            "TF2Huds": "https://tf2huds.dev/hud/WeirdcoreHUD",
+            "GameBanana": "https://gamebanana.com/mods/505518"
+        },
+        "Screenshots": [
+            "https://static.tf2huds.dev/WeirdcoreHUD/img/kmE1paX.jpg",
+            "https://static.tf2huds.dev/WeirdcoreHUD/img/fRgUhZu.png",
+            "https://static.tf2huds.dev/WeirdcoreHUD/img/3AeiuGD.png",
+            "https://static.tf2huds.dev/WeirdcoreHUD/img/6pF9v88.png"
+        ]
+    }
 ]
