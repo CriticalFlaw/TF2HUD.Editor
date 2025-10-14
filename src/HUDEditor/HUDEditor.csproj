@@ -18,16 +18,32 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="appsettings.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="JSON\**">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="Assets\Images\favicon.ico" />
-	  <Content Include="log4net.config">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="JSON\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Images\favicon.ico" />
+		<Content Include="Assets\Tools\vtex2.exe">
+			<Link>vtex2.exe</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Tools\vtex2">
+			<Link>vtex2</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Tools\vtfview">
+			<Link>vtfview</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\Tools\vtfview.exe">
+			<Link>vtfview.exe</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="log4net.config">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -61,32 +77,32 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Assets\Resources\Resources.Designer.cs">
-	    <DependentUpon>Resources.resx</DependentUpon>
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	  </Compile>
-	  <Compile Update="Views\EditHUDView.axaml.cs">
-	    <DependentUpon>EditHUDView.axaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\HomePageView.axaml.cs">
-	    <DependentUpon>HomePageView.axaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\HUDButtonView.axaml.cs">
-	    <DependentUpon>HUDButtonView.axaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\HUDInfoView.axaml.cs">
-	    <DependentUpon>HUDInfoView.axaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\SettingsView.axaml.cs">
-	    <DependentUpon>SettingsView.axaml</DependentUpon>
-	  </Compile>
+		<Compile Update="Assets\Resources\Resources.Designer.cs">
+			<DependentUpon>Resources.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Views\EditHUDView.axaml.cs">
+			<DependentUpon>EditHUDView.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\HomePageView.axaml.cs">
+			<DependentUpon>HomePageView.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\HUDButtonView.axaml.cs">
+			<DependentUpon>HUDButtonView.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\HUDInfoView.axaml.cs">
+			<DependentUpon>HUDInfoView.axaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\SettingsView.axaml.cs">
+			<DependentUpon>SettingsView.axaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Assets\Resources\Resources.resx">
-	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	  </EmbeddedResource>
+		<EmbeddedResource Update="Assets\Resources\Resources.resx">
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+			<Generator>PublicResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
 	</ItemGroup>
 </Project>
