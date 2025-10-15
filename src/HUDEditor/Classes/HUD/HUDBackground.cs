@@ -71,15 +71,8 @@ internal class HUDBackground
                     File.Move(filePath, $"{disabledFolder}/{filePath.Split("/")[^1]}", true);
                 }
 
-                // Convert the provided image into a VTF format.
-                var converter = new VTF(App.HudPath.Replace("/tf/custom/", string.Empty));
-                var output = $"{consoleFolder}/background_upward.vtf";
-                App.Logger.Info($"Converting \"{customImagePath}\" to \"{output}\"");
-                converter.Convert(customImagePath, output);
-
-                // Copy the generated file to the backgrounds folder.
-                App.Logger.Info($"Copying \"{output}\" to \"{hudFolderPath}\"");
-                File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
+                // Convert the provided image into a VTF format then copy it to the console folder.
+                VTF.Convert(customImagePath);
 
                 // Ensure chapterbackgrounds.txt exists
                 Utilities.CreateChapterBackgroundsFile(hudFolderPath);
@@ -131,7 +124,14 @@ internal class HUDBackground
                         File.Move(filePath, $"{consoleFolder}/{filePath.Split("/")[^1]}", true);
                     }
 
-                    Directory.Delete(disabledFolder);
+                    try
+                    {
+                        Directory.Delete(disabledFolder, true);
+                    }
+                    catch (IOException ex)
+                    {
+                        App.Logger.Warn($"Could not delete folder {disabledFolder}: {ex.Message}");
+                    }
 
                     App.Logger.Info($"Enable VTF/VMT files");
                     foreach (var filePath in Directory.GetFiles(consoleFolder))

@@ -1,63 +1,64 @@
-using Crews.Utility.TgaSharp;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace HUDEditor.Classes;
 
-internal class VTF
+public static class VTF
 {
-    private readonly string Tf2Path;
-
-    public VTF(string path)
-    {
-        Tf2Path = path.Replace("/tf/custom", string.Empty);
-    }
-
     /// <summary>
     /// Converts an image file into a VTF texture file to be used in-game.
     /// </summary>
-    /// <param name="inFile">Path and file name of the image to be converted.</param>
-    /// <param name="outFile">Output path and file name for the VTF.</param>
-    public void Convert(Uri inFile, string outFile)
+    /// <param name="image">Path and file name of the image to be converted.</param>
+    /// <seealso cref="https://github.com/StrataSource/vtex2"/>
+    public static void Convert(Uri image)
     {
-        // Resize image to square of larger proportional
-        var image = new Bitmap(inFile.LocalPath);
-        var materialSrc = $"{Tf2Path}/tf/materialsrc";
+        var tempFile = Path.Combine(AppContext.BaseDirectory, "temp.png");
+        ResizeImage(new Bitmap(image.LocalPath)).Save(tempFile);
 
-        // Create materialsrc (ensure it exists)
-        if (!Directory.Exists(materialSrc))
-            Directory.CreateDirectory(materialSrc);
+        var process = new Process
+        {
+            StartInfo = new ProcessStartInfo
+            {
+                FileName = Path.Combine(AppContext.BaseDirectory, RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "vtex2" : "vtex2.exe"),
+                Arguments = $"convert --srgb --normal -f dxt1 --no-mips -o background_upward.vtf \"{tempFile}\"",
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            }
+        };
 
-        // Save image as .TGA (cast using TGASharpLib)
-        var tgaSquareImage = (TGA)ResizeImage(image);
-        tgaSquareImage.Save($"{materialSrc}/temp.tga");
+        process.Start();
+        process.WaitForExit();
 
-        // Convert using VTEX
-        VtexConvert(materialSrc, "temp");
+        ///-----
 
         // Path to VTEX output file
-        var vtfOutput = $"{Tf2Path}/tf/materials/temp.vtf";
+        var vtfOutput = Path.Combine(AppContext.BaseDirectory, "background_upward.vtf");
 
-        // Create absolute path to output folder and make directory
-        var pathInfo = outFile.Split('/', '/');
-        pathInfo[^1] = "";
-        var directory = string.Join("/", pathInfo);
-        if (!Directory.Exists(directory))
-            Directory.CreateDirectory(directory);
+        if (!File.Exists(vtfOutput))
+        {
+            _ = Utilities.ShowMessageBox("Failed to convert image. Please try a different file.", MsBox.Avalonia.Enums.Icon.Error);
+            return;
+        }
 
-        // Make a backup of the existing background files.
-        var hudBgPath = new DirectoryInfo($"{App.HudPath}/{App.Config.ConfigSettings.UserPrefs.SelectedHUD}/materials/console/");
-        foreach (var file in hudBgPath.GetFiles())
+        var hudBgPath = $"{App.HudPath}/{App.Config.ConfigSettings.UserPrefs.SelectedHUD}/materials/console/";
+
+        // Delete existing background files.
+        foreach (var file in new DirectoryInfo(hudBgPath).GetFiles())
             File.Delete(file.FullName);
 
-        // Copy vtf from vtex output to user defined path
-        File.Copy(vtfOutput, outFile, true);
+        // Move the final vtf to user defined path
+        var output = Path.Combine(hudBgPath, "background_upward.vtf");
+        App.Logger.Info($"Copying \"{output}\" to \"{hudBgPath}\"");
+        File.Move(vtfOutput, output, true);
+        File.Copy(output, output.Replace("background_upward", "background_upward_widescreen"), true);
 
-        // Delete temporary tga and vtex output
-        File.Delete($"{materialSrc}/temp.tga");
-        File.Delete($"{materialSrc}/temp.txt");
+        // Clean up temp files
+        File.Delete(tempFile);
         File.Delete(vtfOutput);
     }
 
@@ -66,7 +67,7 @@ internal class VTF
     /// </summary>
     /// <param name="image">Bitmap of the input image file.</param>
     /// <returns>Bitmap of the resized image file.</returns>
-    private static Bitmap ResizeImage(Bitmap image)
+    public static Bitmap ResizeImage(Bitmap image)
     {
         // Image size is the greater of both the width and height rounded up to the nearest power of 2
         var size = (int)Math.Max(Math.Pow(2, Math.Ceiling(Math.Log(image.Width) / Math.Log(2))), Math.Pow(2, Math.Ceiling(Math.Log(image.Height) / Math.Log(2))));
@@ -76,41 +77,5 @@ internal class VTF
         var graphics = Graphics.FromImage(squareImage);
         graphics.DrawImage(image, 0, 0, size, size);
         return squareImage;
-    }
-
-    /// <summary>
-    /// Uses the Valve Texture Tool (Vtex) to convert a Targa file (TGA) into a Valve Texture File (VTF).
-    /// </summary>
-    /// <param name="folderPath">Input image file path.</param>
-    /// <param name="fileName">Name of the image to be converted.</param>
-    /// <remarks>See: https://developer.valvesoftware.com/wiki/Vtex_compile_parameters </remarks>
-    private void VtexConvert(string folderPath, string fileName)
-    {
-        // Set the VTEX Args
-        File.WriteAllLines($"{folderPath}/{fileName}.txt",
-        [
-            "pointsample 1",
-            "nolod 1",
-            "nomip 1"
-        ]);
-
-        // Set the VTEX CLI Args
-        string[] args =
-        [
-            "-quiet",
-            $"\"{folderPath}/{fileName}.tga\""
-        ];
-
-        // Call Vtex and pass the parameters.
-        var processInfo = new ProcessStartInfo($"{Tf2Path}/bin/vtex.exe")
-        {
-            Arguments = string.Join(" ", args),
-            RedirectStandardOutput = true
-        };
-        var process = Process.Start(processInfo);
-        while (!process.StandardOutput.EndOfStream) App.Logger.Info(process.StandardOutput.ReadLine());
-        process.WaitForExit();
-        process.Close();
-        process.Dispose();
     }
 }
