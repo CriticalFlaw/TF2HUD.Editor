@@ -1,663 +1,663 @@
 {
-  "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
-  "Author": "CriticalFlaw",
-  "Description": "Bug fixes and minor visual improvements to the default Team Fortress 2 HUD.",
-  "Thumbnail": "https://user-images.githubusercontent.com/6818236/135371575-a5a7697c-a5d1-43e7-ae59-0369affe99f0.png",
-  "Screenshots": [
-    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/menu.webp",
-    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/loadout.webp",
-    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/hud.webp",
-    "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/customizations.webp"
-  ],
-  "Background": "https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c47-a17b47cbaf0c.png",
-  "Layout": [
-    "0 2 3 1",
-    "4 4 4 1"
-  ],
-  "Links": {
-    "Update": "https://github.com/CriticalFlaw/TF2HUD-Fixes/archive/refs/heads/main.zip",
-    "GitHub": "https://github.com/CriticalFlaw/TF2HUD-Fixes",
-    "ComfigHuds": "https://comfig.app/huds/page/hud-fixes/",
-    "Discord": "https://discord.gg/hTdtK9vBhE"
-  },
-  "Controls": {
-    "Crosshair": [
-      {
-        "Name": "tf_toggle_xhair_enable",
-        "Label": "Crosshair",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle crosshair feature.",
-        "Value": "false",
-        "Files": {
-          "resource/ui/#customizations/crosshair/crosshair_base.res": {
-            "CustomCrosshair": {
-              "visible": {
-                "true": "1",
-                "false": "0"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_toggle_xhair_pulse",
-        "Label": "Hitmarker",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle hitmarker animation.",
-        "Value": "true",
-        "Files": {
-          "scripts/hudanimations_custom.txt": {
-            "uncomment": [
-              "Animate CustomCrosshair"
-            ]
-          }
-        }
-      },
-      {
-        "Name": "tf_val_xhair_style",
-        "Label": "Style",
-        "ToolTip": "Style of crosshair.",
-        "Type": "Crosshair",
-        "Value": "<",
-        "Files": {
-          "resource/ui/#customizations/crosshair/crosshair_base.res": {
-            "CustomCrosshair": {
-              "labelText": "$value"
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_val_xhair_size",
-        "Label": "Size",
-        "Type": "IntegerUpDown",
-        "Value": "18",
-        "Minimum": "10",
-        "Maximum": "30",
-        "Increment": "1",
-        "ToolTip": "Size of the crosshair.",
-        "Files": {
-          "resource/ui/#customizations/crosshair/crosshair_base.res": {
-            "CustomCrosshair": {
-              "font": "Size-$value"
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_xhair_normal",
-        "Label": "Crosshair",
-        "Type": "ColorPicker",
-        "ToolTip": "Default crosshair color.",
-        "Value": "255 255 255 255",
-        "Restart": true,
-        "Files": {
-          "resource/ui/#customizations/crosshair/crosshair_scheme.res": {
-            "Scheme": {
-              "Colors": {
-                "Crosshair": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_xhair_pulse",
-        "Label": "Hitmarker",
-        "Type": "ColorPicker",
-        "ToolTip": "Color of crosshair when hitting another player.",
-        "Value": "255 0 0 255",
-        "Restart": true,
-        "Files": {
-          "resource/ui/#customizations/crosshair/crosshair_scheme.res": {
-            "Scheme": {
-              "Colors": {
-                "Hitmarker": "$value"
-              }
-            }
-          }
-        }
-      }
+    "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
+    "Author": "CriticalFlaw",
+    "Description": "Bug fixes and minor visual improvements to the default Team Fortress 2 HUD.",
+    "Thumbnail": "https://user-images.githubusercontent.com/6818236/135371575-a5a7697c-a5d1-43e7-ae59-0369affe99f0.png",
+    "Screenshots": [
+        "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/menu.webp",
+        "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/loadout.webp",
+        "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/hud.webp",
+        "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hud-fixes/customizations.webp"
     ],
-    "Gameplay": [
-      {
-        "Name": "tf_toggle_disguise_image",
-        "Label": "Spy Disguise Image",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle the spy silhouette seen while changing disguises.",
-        "Value": "true",
-        "Files": {
-          "resource/ui/#customizations/spy_disguise/spy_disguise_base.res": {
-            "PlayerStatusSpyOutlineImage": {
-              "image": {
-                "true": "../hud/class_spy_outline",
-                "false": "replay/thumbnails/blank"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_toggle_player_model",
-        "Label": "Hide 3D Player Model",
-        "Type": "Checkbox",
-        "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
-        "Value": "false",
-        "Files": {
-          "resource/ui/#customizations/player_model/player_model_base.res": {
-            "classmodelpanel": {
-              "wide": {
-                "true": "0",
-                "false": "100"
-              },
-              "wide_minmode": {
-                "true": "0",
-                "false": "52"
-              }
+    "Background": "https://user-images.githubusercontent.com/6818236/123523002-0061aa00-d68f-11eb-8c47-a17b47cbaf0c.png",
+    "Layout": [
+        "0 2 3 1",
+        "4 4 4 1"
+    ],
+    "Links": {
+        "Update": "https://github.com/CriticalFlaw/TF2HUD-Fixes/archive/refs/heads/main.zip",
+        "GitHub": "https://github.com/CriticalFlaw/TF2HUD-Fixes",
+        "ComfigHuds": "https://comfig.app/huds/page/hud-fixes/",
+        "Discord": "https://discord.gg/hTdtK9vBhE"
+    },
+    "Controls": {
+        "Crosshair": [
+            {
+                "Name": "tf_toggle_xhair_enable",
+                "Label": "Crosshair",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle crosshair feature.",
+                "Value": "false",
+                "Files": {
+                    "resource/ui/#customizations/crosshair/crosshair_base.res": {
+                        "CustomCrosshair": {
+                            "visible": {
+                                "true": "1",
+                                "false": "0"
+                            }
+                        }
+                    }
+                }
             },
-            "classmodelpanelBG": {
-              "wide": {
-                "true": "0",
-                "false": "109"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_toggle_transparent_viewmodels",
-        "Label": "Transparent Viewmodels",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle transparent viewmodels.",
-        "Special": "TransparentViewmodels",
-        "Value": "false",
-        "Files": {
-          "resource/ui/#customizations/transparent_viewmodels/transparent_viewmodels_base.res": {
-            "TransparentViewmodel": {
-              "visible": {
-                "true": "1",
-                "false": "0"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_bold_health_value",
-        "Label": "Bold Player Health Font",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle bold player health value.",
-        "Value": "false",
-        "Files": {
-          "resource/ui/hudplayerhealth.res": {
-            "PlayerStatusHealthValue": {
-              "font": {
-                "true": "HudFontMediumSmallBold",
-                "false": "HudClassHealth"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_toggle_center_uber",
-        "Label": "Center Ubercharge Meter",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle ubercharge meter appearing near the crosshair.",
-        "Value": "false",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "HudMedicCharge": {
-              "xpos^[$WIN32]": {
-                "true": "c-70",
-                "false": "r138"
-              },
-              "ypos^[$WIN32]": {
-                "true": "c-25",
-                "false": "r69"
-              },
-              "xpos_minmode^[$WIN32]": {
-                "true": "c-52",
-                "false": "r100"
-              },
-              "ypos_minmode^[$WIN32]": {
-                "true": "c-10",
-                "false": "r34"
-              }
-            }
-          },
-          "resource/ui/hudmediccharge.res": {
-            "Background": {
-              "visible": {
-                "true": "0",
-                "false": "1"
-              }
+            {
+                "Name": "tf_toggle_xhair_pulse",
+                "Label": "Hitmarker",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle hitmarker animation.",
+                "Value": "true",
+                "Files": {
+                    "scripts/hudanimations_custom.txt": {
+                        "uncomment": [
+                            "Animate CustomCrosshair"
+                        ]
+                    }
+                }
             },
-            "ChargeLabel": {
-              "xpos": {
-                "true": "40",
-                "false": "30"
-              },
-              "ypos": {
-                "true": "45",
-                "false": "24"
-              },
-              "xpos_minmode": {
-                "true": "51",
-                "false": "11"
-              },
-              "ypos_minmode": {
-                "true": "31",
-                "false": "11"
-              }
+            {
+                "Name": "tf_val_xhair_style",
+                "Label": "Style",
+                "ToolTip": "Style of crosshair.",
+                "Type": "Crosshair",
+                "Value": "<",
+                "Files": {
+                    "resource/ui/#customizations/crosshair/crosshair_base.res": {
+                        "CustomCrosshair": {
+                            "labelText": "$value"
+                        }
+                    }
+                }
             },
-            "HealthClusterIcon": {
-              "visible": {
-                "true": "0",
-                "false": "1"
-              }
+            {
+                "Name": "tf_val_xhair_size",
+                "Label": "Size",
+                "Type": "IntegerUpDown",
+                "Value": "18",
+                "Minimum": "10",
+                "Maximum": "30",
+                "Increment": "1",
+                "ToolTip": "Size of the crosshair.",
+                "Files": {
+                    "resource/ui/#customizations/crosshair/crosshair_base.res": {
+                        "CustomCrosshair": {
+                            "font": "Size-$value"
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_xhair_normal",
+                "Label": "Crosshair",
+                "Type": "ColorPicker",
+                "ToolTip": "Default crosshair color.",
+                "Value": "255 255 255 255",
+                "Restart": true,
+                "Files": {
+                    "resource/ui/#customizations/crosshair/crosshair_scheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "Crosshair": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_xhair_pulse",
+                "Label": "Hitmarker",
+                "Type": "ColorPicker",
+                "ToolTip": "Color of crosshair when hitting another player.",
+                "Value": "255 0 0 255",
+                "Restart": true,
+                "Files": {
+                    "resource/ui/#customizations/crosshair/crosshair_scheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "Hitmarker": "$value"
+                            }
+                        }
+                    }
+                }
             }
-          }
-        }
-      },
-      {
-        "Name": "tf_toggle_center_metal",
-        "Label": "Center Metal Counter",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle metal counter appearing near the crosshair.",
-        "Value": "false",
-        "Files": {
-          "scripts/hudlayout.res": {
-            "CHudAccountPanel": {
-              "xpos^[$WIN32]": {
-                "true": "c-45",
-                "false": "r162"
-              },
-              "ypos^[$WIN32]": {
-                "true": "c-100",
-                "false": "r152"
-              },
-              "ypos_minmode^[$WIN32]": {
-                "true": "c-100",
-                "false": "r134"
-              }
+        ],
+        "Gameplay": [
+            {
+                "Name": "tf_toggle_disguise_image",
+                "Label": "Spy Disguise Image",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle the spy silhouette seen while changing disguises.",
+                "Value": "true",
+                "Files": {
+                    "resource/ui/#customizations/spy_disguise/spy_disguise_base.res": {
+                        "PlayerStatusSpyOutlineImage": {
+                            "image": {
+                                "true": "../hud/class_spy_outline",
+                                "false": "replay/thumbnails/blank"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_toggle_player_model",
+                "Label": "Hide 3D Player Model",
+                "Type": "Checkbox",
+                "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
+                "Value": "false",
+                "Files": {
+                    "resource/ui/#customizations/player_model/player_model_base.res": {
+                        "classmodelpanel": {
+                            "wide": {
+                                "true": "0",
+                                "false": "100"
+                            },
+                            "wide_minmode": {
+                                "true": "0",
+                                "false": "52"
+                            }
+                        },
+                        "classmodelpanelBG": {
+                            "wide": {
+                                "true": "0",
+                                "false": "109"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_toggle_transparent_viewmodels",
+                "Label": "Transparent Viewmodels",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle transparent viewmodels.",
+                "Special": "TransparentViewmodels",
+                "Value": "false",
+                "Files": {
+                    "resource/ui/#customizations/transparent_viewmodels/transparent_viewmodels_base.res": {
+                        "TransparentViewmodel": {
+                            "visible": {
+                                "true": "1",
+                                "false": "0"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_bold_health_value",
+                "Label": "Bold Player Health Font",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle bold player health value.",
+                "Value": "false",
+                "Files": {
+                    "resource/ui/hudplayerhealth.res": {
+                        "PlayerStatusHealthValue": {
+                            "font": {
+                                "true": "HudFontMediumSmallBold",
+                                "false": "HudClassHealth"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_toggle_center_uber",
+                "Label": "Center Ubercharge Meter",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle ubercharge meter appearing near the crosshair.",
+                "Value": "false",
+                "Files": {
+                    "scripts/hudlayout.res": {
+                        "HudMedicCharge": {
+                            "xpos^[$WIN32]": {
+                                "true": "c-70",
+                                "false": "r138"
+                            },
+                            "ypos^[$WIN32]": {
+                                "true": "c-25",
+                                "false": "r69"
+                            },
+                            "xpos_minmode^[$WIN32]": {
+                                "true": "c-52",
+                                "false": "r100"
+                            },
+                            "ypos_minmode^[$WIN32]": {
+                                "true": "c-10",
+                                "false": "r34"
+                            }
+                        }
+                    },
+                    "resource/ui/hudmediccharge.res": {
+                        "Background": {
+                            "visible": {
+                                "true": "0",
+                                "false": "1"
+                            }
+                        },
+                        "ChargeLabel": {
+                            "xpos": {
+                                "true": "40",
+                                "false": "30"
+                            },
+                            "ypos": {
+                                "true": "45",
+                                "false": "24"
+                            },
+                            "xpos_minmode": {
+                                "true": "51",
+                                "false": "11"
+                            },
+                            "ypos_minmode": {
+                                "true": "31",
+                                "false": "11"
+                            }
+                        },
+                        "HealthClusterIcon": {
+                            "visible": {
+                                "true": "0",
+                                "false": "1"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_toggle_center_metal",
+                "Label": "Center Metal Counter",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle metal counter appearing near the crosshair.",
+                "Value": "false",
+                "Files": {
+                    "scripts/hudlayout.res": {
+                        "CHudAccountPanel": {
+                            "xpos^[$WIN32]": {
+                                "true": "c-45",
+                                "false": "r162"
+                            },
+                            "ypos^[$WIN32]": {
+                                "true": "c-100",
+                                "false": "r152"
+                            },
+                            "ypos_minmode^[$WIN32]": {
+                                "true": "c-100",
+                                "false": "r134"
+                            }
+                        }
+                    },
+                    "resource/ui/hudaccountpanel.res": {
+                        "AccountBG": {
+                            "visible": {
+                                "true": "0",
+                                "false": "1"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_val_killfeed_rows",
+                "Label": "Killfeed Rows",
+                "Type": "IntegerUpDown",
+                "ToolTip": "Change the number of rows seen on the killfeed.",
+                "Value": "4",
+                "Minimum": "0",
+                "Maximum": "9",
+                "Increment": "1",
+                "Files": {
+                    "resource/ui/#customizations/killfeed/killfeed_base.res": {
+                        "HudDeathNotice": {
+                            "MaxDeathNotices": "$value"
+                        }
+                    }
+                }
             }
-          },
-          "resource/ui/hudaccountpanel.res": {
-            "AccountBG": {
-              "visible": {
-                "true": "0",
-                "false": "1"
-              }
+        ],
+        "Damage Value": [
+            {
+                "Name": "tf_show_damage_numbers",
+                "Label": "Display Near Health",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle displaying the damage number near the player's health.",
+                "Value": "true",
+                "Files": {
+                    "resource/ui/#customizations/damage/last_damage_base.res": {
+                        "DamageAccountValue": {
+                            "visible": {
+                                "true": "1",
+                                "false": "0"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_larger_damage_numbers",
+                "Label": "Use TF2 Build Font",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle damage number font between TF2 Secondary and TF2 Build.",
+                "Value": "false",
+                "Files": {
+                    "resource/ui/#customizations/damage/float_damage_base.res": {
+                        "CDamageAccountPanel": {
+                            "delta_item_font": {
+                                "true": "HudFontSmallBold",
+                                "false": "HudFontSmall"
+                            },
+                            "delta_item_font_big": {
+                                "true": "HudFontMediumBold",
+                                "false": "HudFontMedium"
+                            }
+                        }
+                    },
+                    "resource/ui/#customizations/damage/last_damage_base.res": {
+                        "DamageAccountValue": {
+                            "font": {
+                                "true": "HudFontMediumBold",
+                                "false": "HudFontMedium"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_damage_color",
+                "Label": "Active Color",
+                "Type": "ColorPicker",
+                "Value": "255 255 0 255",
+                "Restart": false,
+                "Files": {
+                    "resource/ui/#customizations/damage/last_damage_base.res": {
+                        "DamageAccountValue": {
+                            "fgcolor": "$value"
+                        }
+                    }
+                }
             }
-          }
-        }
-      },
-      {
-        "Name": "tf_val_killfeed_rows",
-        "Label": "Killfeed Rows",
-        "Type": "IntegerUpDown",
-        "ToolTip": "Change the number of rows seen on the killfeed.",
-        "Value": "4",
-        "Minimum": "0",
-        "Maximum": "9",
-        "Increment": "1",
-        "Files": {
-          "resource/ui/#customizations/killfeed/killfeed_base.res": {
-            "HudDeathNotice": {
-              "MaxDeathNotices": "$value"
+        ],
+        "Main Menu": [
+            {
+                "Name": "tf_toggle_menu_image",
+                "Label": "Main Menu Class Images",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle the character images seen on the main menu.",
+                "Value": "true",
+                "Restart": true,
+                "Files": {
+                    "resource/ui/mainmenuoverride.res": {
+                        "TFCharacterImage": {
+                            "ypos": {
+                                "true": "-80",
+                                "false": "9999"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_custom_background",
+                "Label": "Set Custom Background",
+                "Type": "CustomBackground",
+                "Special": "CustomBackground",
+                "ToolTip": "Replace the main menu background with a custom image.",
+                "Restart": true
             }
-          }
-        }
-      }
-    ],
-    "Damage Value": [
-      {
-        "Name": "tf_show_damage_numbers",
-        "Label": "Display Near Health",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle displaying the damage number near the player's health.",
-        "Value": "true",
-        "Files": {
-          "resource/ui/#customizations/damage/last_damage_base.res": {
-            "DamageAccountValue": {
-              "visible": {
-                "true": "1",
-                "false": "0"
-              }
+        ],
+        "Item Quality": [
+            {
+                "Name": "tf_color_normal",
+                "Label": "Normal",
+                "Type": "ColorPicker",
+                "Value": "178 178 178 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "QualityColorNormal": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_unique",
+                "Label": "Unique",
+                "Type": "ColorPicker",
+                "Value": "255 215 0 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "QualityColorUnique": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_strange",
+                "Label": "Strange",
+                "Type": "ColorPicker",
+                "Value": "207 106 50 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "QualityColorStrange": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_vintage",
+                "Label": "Vintage",
+                "Type": "ColorPicker",
+                "Value": "71 98 145 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "QualityColorVintage": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_haunted",
+                "Label": "Haunted",
+                "Type": "ColorPicker",
+                "Value": "56 243 171 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "QualityColorHaunted": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_genuine",
+                "Label": "Genuine",
+                "Type": "ColorPicker",
+                "Value": "77 116 85 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "QualityColorrarity1": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_collectors",
+                "Label": "Collectors",
+                "Type": "ColorPicker",
+                "Value": "170 0 0 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "QualityColorCollectors": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_unusual",
+                "Label": "Unusual",
+                "Type": "ColorPicker",
+                "Value": "134 80 172 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "QualityColorrarity4": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_community",
+                "Label": "Community",
+                "Type": "ColorPicker",
+                "Value": "112 176 74 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "QualityColorCommunity": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_valve",
+                "Label": "Valve",
+                "Type": "ColorPicker",
+                "Value": "165 15 121 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "QualityColorDeveloper": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_civilian",
+                "Label": "Civilian",
+                "Type": "ColorPicker",
+                "Value": "176 195 217 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "ItemRarityCommon": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_freelance",
+                "Label": "Freelance",
+                "Type": "ColorPicker",
+                "Value": "94 152 217 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "ItemRarityUncommon": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_mercenary",
+                "Label": "Mercenary",
+                "Type": "ColorPicker",
+                "Value": "75 105 255 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "ItemRarityRare": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_commando",
+                "Label": "Commando",
+                "Type": "ColorPicker",
+                "Value": "136 71 255 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "ItemRarityMythical": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_assassin",
+                "Label": "Assassin",
+                "Type": "ColorPicker",
+                "Value": "211 44 230 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "ItemRarityLegendary": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "tf_color_elite",
+                "Label": "Elite",
+                "Type": "ColorPicker",
+                "Value": "235 75 75 255",
+                "Restart": true,
+                "Files": {
+                    "resource/clientscheme.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "ItemRarityAncient": "$value"
+                            }
+                        }
+                    }
+                }
             }
-          }
-        }
-      },
-      {
-        "Name": "tf_larger_damage_numbers",
-        "Label": "Use TF2 Build Font",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle damage number font between TF2 Secondary and TF2 Build.",
-        "Value": "false",
-        "Files": {
-          "resource/ui/#customizations/damage/float_damage_base.res": {
-            "CDamageAccountPanel": {
-              "delta_item_font": {
-                "true": "HudFontSmallBold",
-                "false": "HudFontSmall"
-              },
-              "delta_item_font_big": {
-                "true": "HudFontMediumBold",
-                "false": "HudFontMedium"
-              }
-            }
-          },
-          "resource/ui/#customizations/damage/last_damage_base.res": {
-            "DamageAccountValue": {
-              "font": {
-                "true": "HudFontMediumBold",
-                "false": "HudFontMedium"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_damage_color",
-        "Label": "Active Color",
-        "Type": "ColorPicker",
-        "Value": "255 255 0 255",
-        "Restart": false,
-        "Files": {
-          "resource/ui/#customizations/damage/last_damage_base.res": {
-            "DamageAccountValue": {
-              "fgcolor": "$value"
-            }
-          }
-        }
-      }
-    ],
-    "Main Menu": [
-      {
-        "Name": "tf_toggle_menu_image",
-        "Label": "Main Menu Class Images",
-        "Type": "Checkbox",
-        "ToolTip": "Toggle the character images seen on the main menu.",
-        "Value": "true",
-        "Restart": true,
-        "Files": {
-          "resource/ui/mainmenuoverride.res": {
-            "TFCharacterImage": {
-              "ypos": {
-                "true": "-80",
-                "false": "9999"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_custom_background",
-        "Label": "Set Custom Background",
-        "Type": "CustomBackground",
-        "Special": "CustomBackground",
-        "ToolTip": "Replace the main menu background with a custom image.",
-        "Restart": true
-      }
-    ],
-    "Item Quality": [
-      {
-        "Name": "tf_color_normal",
-        "Label": "Normal",
-        "Type": "ColorPicker",
-        "Value": "178 178 178 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorNormal": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_unique",
-        "Label": "Unique",
-        "Type": "ColorPicker",
-        "Value": "255 215 0 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorUnique": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_strange",
-        "Label": "Strange",
-        "Type": "ColorPicker",
-        "Value": "207 106 50 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorStrange": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_vintage",
-        "Label": "Vintage",
-        "Type": "ColorPicker",
-        "Value": "71 98 145 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorVintage": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_haunted",
-        "Label": "Haunted",
-        "Type": "ColorPicker",
-        "Value": "56 243 171 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorHaunted": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_genuine",
-        "Label": "Genuine",
-        "Type": "ColorPicker",
-        "Value": "77 116 85 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorrarity1": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_collectors",
-        "Label": "Collectors",
-        "Type": "ColorPicker",
-        "Value": "170 0 0 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorCollectors": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_unusual",
-        "Label": "Unusual",
-        "Type": "ColorPicker",
-        "Value": "134 80 172 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorrarity4": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_community",
-        "Label": "Community",
-        "Type": "ColorPicker",
-        "Value": "112 176 74 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorCommunity": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_valve",
-        "Label": "Valve",
-        "Type": "ColorPicker",
-        "Value": "165 15 121 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "QualityColorDeveloper": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_civilian",
-        "Label": "Civilian",
-        "Type": "ColorPicker",
-        "Value": "176 195 217 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "ItemRarityCommon": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_freelance",
-        "Label": "Freelance",
-        "Type": "ColorPicker",
-        "Value": "94 152 217 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "ItemRarityUncommon": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_mercenary",
-        "Label": "Mercenary",
-        "Type": "ColorPicker",
-        "Value": "75 105 255 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "ItemRarityRare": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_commando",
-        "Label": "Commando",
-        "Type": "ColorPicker",
-        "Value": "136 71 255 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "ItemRarityMythical": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_assassin",
-        "Label": "Assassin",
-        "Type": "ColorPicker",
-        "Value": "211 44 230 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "ItemRarityLegendary": "$value"
-              }
-            }
-          }
-        }
-      },
-      {
-        "Name": "tf_color_elite",
-        "Label": "Elite",
-        "Type": "ColorPicker",
-        "Value": "235 75 75 255",
-        "Restart": true,
-        "Files": {
-          "resource/clientscheme.res": {
-            "Scheme": {
-              "Colors": {
-                "ItemRarityAncient": "$value"
-              }
-            }
-          }
-        }
-      }
-    ]
-  }
+        ]
+    }
 }
