@@ -36,6 +36,7 @@
 * [mastercoms](https://github.com/mastercoms) - Transparent Viewmodels Add-On.
 * [Zeesastrous](https://github.com/Zeesastrous) - Project Banner.
 * [hypnotize](https://github.com/Hypnootize) - Crosshairs and Icons.
+* [StrataSource](https://github.com/StrataSource) - vtex2 Tool.
 
 #### Localization
 * [Blueberryy](https://github.com/Blueberryy) - Russian
