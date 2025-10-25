@@ -1,5 +1,6 @@
 {
     "title": "TF2 HUD Editor JSON Schema",
+    "version": "v2025.1025",
     "properties": {
         "Author": {
             "type": "string"
@@ -176,12 +177,6 @@
                                     "FalseText": {
                                         "type": "string"
                                     }
-                                }
-                            },
-                            "ComboFiles": {
-                                "type": "array",
-                                "items": {
-                                    "type": "string"
                                 }
                             },
                             "ComboDirectories": {
