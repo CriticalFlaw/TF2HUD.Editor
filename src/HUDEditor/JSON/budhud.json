@@ -4,7 +4,7 @@
     "Description": "A Team Fortress 2 hud inspired by whayay's yahud and rays' rayshud.",
     "Thumbnail": "https://i.imgur.com/w3ztZdz.png",
     "Screenshots": [
-        "https://i.imgur.com/AitQ5wC.png",
+        "https://i.imgur.com/67jbjyQ.png",
         "https://i.imgur.com/eB7U5OB.png",
         "https://i.imgur.com/VnR64vs.jpg",
         "https://i.imgur.com/RsxVFw2.jpeg"
@@ -35,481 +35,80 @@
                 "ToolTip": "Change to a HUD style used by community members.",
                 "Value": "0",
                 "Options": [
-                    {
-                        "Label": "Default",
-                        "Value": "0"
-                    },
-                    {
-                        "Label": "Uncle Dane",
-                        "Value": "1",
-                        "RenameFile": {
-                            "OldName": "#users/dane_/",
-                            "NewName": "#users/dane/"
-                        }
-                    },
-                    {
-                        "Label": "jayhyunpae",
-                        "Value": "2",
-                        "RenameFile": {
-                            "OldName": "#users/jayhyunpae_/",
-                            "NewName": "#users/jayhyunpae/"
-                        }
-                    },
-                    {
-                        "Label": "truktruk",
-                        "Value": "5",
-                        "RenameFile": {
-                            "OldName": "#users/truktruk_/",
-                            "NewName": "#users/truktruk/"
-                        }
-                    },
-                    {
-                        "Label": "Whisker",
-                        "Value": "6",
-                        "RenameFile": {
-                            "OldName": "#users/whisker_/",
-                            "NewName": "#users/whisker/"
-                        }
-                    },
-                    {
-                        "Label": "Zenith",
-                        "Value": "7",
-                        "RenameFile": {
-                            "OldName": "#users/zenith_/",
-                            "NewName": "#users/zenith/"
-                        }
-                    },
-                    {
-                        "Label": "powah",
-                        "Value": "8",
-                        "RenameFile": {
-                            "OldName": "#users/powah_/",
-                            "NewName": "#users/powah/"
-                        }
-                    }
+                    { "Label": "No Profile", "Value": "0" },
+                    { "Label": "jayhyunpae", "Value": "2", "RenameFile": { "OldName": "#users/jayhyunpae_/", "NewName": "#users/jayhyunpae/" } },
+                    { "Label": "powah", "Value": "8", "RenameFile": { "OldName": "#users/powah_/", "NewName": "#users/powah/" } },
+                    { "Label": "truktruk", "Value": "5", "RenameFile": { "OldName": "#users/truktruk_/", "NewName": "#users/truktruk/" } },
+                    { "Label": "Uncle Dane", "Value": "1", "RenameFile": { "OldName": "#users/dane_/", "NewName": "#users/dane/" } },
+                    { "Label": "Whisker", "Value": "6", "RenameFile": { "OldName": "#users/whisker_/", "NewName": "#users/whisker/" } },
+                    { "Label": "zenith", "Value": "7", "RenameFile": { "OldName": "#users/zenith_/", "NewName": "#users/zenith/" } }
                 ]
             },
-            {
-                "Name": "bh_player_hideclassmodel",
-                "Label": "Disable 3D Player Model",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_player_hideclassmodel.res"
-            },
-            {
-                "Name": "bh_chat_lowerleft",
-                "Label": "Move Chat to Bottom",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_chat_lowerleft.res"
-            },
-            {
-                "Name": "bh_player_teamindicator",
-                "Label": "Team Indicator",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_player_teamindicator.res"
-            },
-            {
-                "Name": "bh_player_transparentviewmodels",
-                "Label": "Transparent Viewmodels",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_player_transparentviewmodels.res"
-            },
-            {
-                "Name": "bh_game_hidecontracker",
-                "Label": "Hide Contracker",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_game_hidecontracker.res"
-            },
-            {
-                "Name": "bh_speedometer",
-                "Label": "Speedometer",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_speedometer.res"
-            }
+            { "Name": "bh_player_hideclassmodel", "Label": "Disable 3D Player Model", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_hideclassmodel.res" },
+            { "Name": "bh_player_teamindicator", "Label": "Team Indicator", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_teamindicator.res" },
+            { "Name": "bh_player_transparentviewmodels", "Label": "Transparent Viewmodels", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_transparentviewmodels.res" },
+            { "Name": "bh_game_hidecontracker", "Label": "Hide Contracker", "Type": "Checkbox", "Value": "false", "FileName": "bh_game_hidecontracker.res" },
+            { "Name": "bh_speedometer", "Label": "Speedometer", "Type": "Checkbox", "Value": "false", "FileName": "bh_speedometer.res" },
+            { "Name": "bh_animate_hidedisguiseanimation", "Label": "Hide Disguise Animation", "Type": "Checkbox", "Value": "false", "FileName": "bh_animate_hidedisguiseanimation.txt" },
+            { "Name": "bh_player_hidedamageindicator", "Label": "Hide Damage Indicator", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_hidedamageindicator.res" },
+            { "Name": "bh_player_hidestaticdamage", "Label": "Hide Static Damage", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_hidestaticdamage.res" },
+            { "Name": "bh_player_showcontrolpointprogressbar", "Label": "Show Control Point Progress", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_showcontrolpointprogressbar.res" },
+            { "Name": "bh_player_showvoiceavatars", "Label": "Show Voice Avatars", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_showvoiceavatars.res" }
+        ],
+        "Chat": [
+            { "Name": "bh_chat_lowerleft", "Label": "Move Chat to Bottom", "Type": "Checkbox", "Value": "false", "FileName": "bh_chat_lowerleft.res" },
+            { "Name": "bh_chat_upperleft", "Label": "Chat Upper Left", "Type": "Checkbox", "Value": "false", "FileName": "bh_chat_upperleft.res" }
         ],
         "Health and Ammo": [
-            {
-                "Name": "bh_player_healthcross_inset",
-                "Label": "Health Cross",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_player_healthcross_inset.res"
-            },
-            {
-                "Name": "bh_player_healthbox",
-                "Label": "Health Box",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_player_healthbox.res"
-            },
-            {
-                "Name": "bh_player_ammobox",
-                "Label": "Ammo Box",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_player_ammobox.res"
-            },
-            {
-                "Name": "bh_size_healthammomain",
-                "Label": "Health / Main Ammo Size",
-                "Type": "IntegerUpDown",
-                "Value": "40",
-                "Minimum": "0",
-                "Maximum": "9999",
-                "Restart": true,
-                "Files": {
-                    "_budhud/resource/clientscheme_lato.res": {
-                        "Scheme": {
-                            "Fonts": {
-                                "bh_Font_HealthAmmoMain": {
-                                    "1": {
-                                        "tall": "$value"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "bh_size_ammoreserve",
-                "Label": "Ammo Reserve Size",
-                "Type": "IntegerUpDown",
-                "Value": "24",
-                "Minimum": "0",
-                "Maximum": "9999",
-                "Restart": true,
-                "Files": {
-                    "_budhud/resource/clientscheme_lato.res": {
-                        "Scheme": {
-                            "Fonts": {
-                                "bh_Font_AmmoReserve": {
-                                    "1": {
-                                        "tall": "$value"
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        ],
-        "Main Menu": [
-            {
-                "Name": "bh_menu_hidefriends",
-                "Label": "Hide Friends",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_menu_hidefriends.res"
-            },
-            {
-                "Name": "bh_menu_hidegif",
-                "Label": "Hide Menu GIF",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_menu_hidegif.res"
-            },
-            {
-                "Name": "bh_menu_hidenews",
-                "Label": "Hide News Panel",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_menu_hidenews.res"
-            },
-            {
-                "Name": "bh_menu_hidestats",
-                "Label": "Hide Matchmaking Stats",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_menu_hidestats.res"
-            },
-            {
-                "Name": "bh_menu_hidefavorites",
-                "Label": "Hide Server Favorites",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_menu_hidefavorites.res"
-            },
-            {
-                "Name": "bh_feeling_festive",
-                "Label": "Enable Festive Menu",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_feeling_festive.res"
-            },
-            {
-                "Name": "bh_feeling_spooky",
-                "Label": "Enable Spooky Menu",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_feeling_spooky.res"
-            }
+            { "Name": "bh_player_boxes", "Label": "Player Boxes", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_boxes.res", "ToolTip": "This will add a box behind the health and ammo that is animated when health is buffed or low" },
+            { "Name": "bh_player_healthcross", "Label": "Health Cross", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_healthcross.res" },
+            { "Name": "bh_player_healthcross_inset", "Label": "Health Cross (Number Inset)", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_healthcross_inset.res" },
+            { "Name": "bh_player_largeammo", "Label": "Large Ammo", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_largeammo.res" },
+            { "Name": "bh_player_largehealth", "Label": "Large Health", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_largehealth.res" },
+            { "Name": "bh_animate_foreground", "Label": "Animate Foreground", "Type": "Checkbox", "Value": "false", "FileName": "bh_animate_foreground.txt" },
+            { "Name": "bh_size_healthammomain", "Label": "Health / Main Ammo Size", "Type": "IntegerUpDown", "Value": "40", "Minimum": "0", "Maximum": "9999", "Restart": true, "Files": { "_budhud/resource/clientscheme_lato.res": { "Scheme": { "Fonts": { "bh_Font_HealthAmmoMain": { "1": { "tall": "$value" } } } } } } },
+            { "Name": "bh_size_ammoreserve", "Label": "Ammo Reserve Size", "Type": "IntegerUpDown", "Value": "24", "Minimum": "0", "Maximum": "9999", "Restart": true, "Files": { "_budhud/resource/clientscheme_lato.res": { "Scheme": { "Fonts": { "bh_Font_AmmoReserve": { "1": { "tall": "$value" } } } } } } }
         ],
         "TargetID & Medic": [
-            {
-                "Name": "bh_targetid_healthcross2",
-                "Label": "Health Cross",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_targetid_healthcross2.res"
-            },
-            {
-                "Name": "bh_targetid_largehealth",
-                "Label": "Large Health Size",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_targetid_largehealth.res"
-            },
-            {
-                "Name": "bh_uber_largeuberpercentage",
-                "Label": "Large Uber Percentage",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_uber_largeuberpercentage.res"
-            },
-            {
-                "Name": "bh_uber_longchargemeter",
-                "Label": "Full Width Charge Meter",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_uber_longchargemeter.res"
-            },
-            {
-                "Name": "bh_uber_percentagenearcrosshair",
-                "Label": "Uber Percent Near xHair",
-                "Type": "Checkbox",
-                "Value": "false",
-                "FileName": "bh_uber_percentagenearcrosshair.res"
-            }
+            { "Name": "bh_targetid_healthcross2", "Label": "Health Cross", "Type": "Checkbox", "Value": "false", "FileName": "bh_targetid_healthcross2.res" },
+            { "Name": "bh_targetid_largehealth", "Label": "Large Health Size", "Type": "Checkbox", "Value": "false", "FileName": "bh_targetid_largehealth.res" },
+            { "Name": "bh_uber_largeuberpercentage", "Label": "Large Uber Percentage", "Type": "Checkbox", "Value": "false", "FileName": "bh_uber_largeuberpercentage.res" },
+            { "Name": "bh_uber_longchargemeter", "Label": "Full Width Charge Meter", "Type": "Checkbox", "Value": "false", "FileName": "bh_uber_longchargemeter.res" },
+            { "Name": "bh_uber_percentagenearcrosshair", "Label": "Uber Percent Near xHair", "Type": "Checkbox", "Value": "false", "FileName": "bh_uber_percentagenearcrosshair.res" },
+            { "Name": "bh_targetid_healthcross", "Label": "TargetID Health Cross", "Type": "Checkbox", "Value": "false", "FileName": "bh_targetid_healthcross" },
+            { "Name": "bh_targetid_showavatars", "Label": "Show Avatars", "Type": "Checkbox", "Value": "false", "FileName": "bh_targetid_showavatars.res" },
+            { "Name": "bh_medic_rainbowcharge", "Label": "Rainbow Charge", "Type": "Checkbox", "Value": "false", "FileName": "bh_medic_rainbowcharge.txt" }
         ],
         "Health Colors": [
-            {
-                "Name": "bh_Health_Main",
-                "Label": "Normal",
-                "Type": "ColorPicker",
-                "Value": "255 255 255 255",
-                "Restart": true,
-                "Files": {
-                    "_budhud/resource/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "bh_Health_Main": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "bh_Health_Low",
-                "Label": "Low",
-                "Type": "ColorPicker",
-                "Value": "186 032 032 255",
-                "Restart": true,
-                "Files": {
-                    "_budhud/resource/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "bh_Health_Low": "$value"
-                            }
-                        }
-                    }
-                }
-            }
+            { "Name": "bh_Health_Main", "Label": "Normal", "Type": "ColorPicker", "Value": "255 255 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Health_Main": "$value" } } } } },
+            { "Name": "bh_Health_Shadow", "Label": "Shadow", "Type": "ColorPicker", "Value": "0 0 0 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Health_Shadow": "$value" } } } } },
+            { "Name": "bh_Health_Low", "Label": "Low", "Type": "ColorPicker", "Value": "186 032 032 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Health_Low": "$value" } } } } },
+            { "Name": "bh_Health_Buff", "Label": "Buff", "Type": "ColorPicker", "Value": "0 153 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Health_Buff": "$value" } } } } },
+            { "Name": "bh_Health_Pickup", "Label": "Pickup", "Type": "ColorPicker", "Value": "240 134 049 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Health_Pickup": "$value" } } } } }
         ],
         "Ammo Colors": [
-            {
-                "Name": "bh_Ammo_Main",
-                "Label": "Normal",
-                "Type": "ColorPicker",
-                "Value": "255 255 255 255",
-                "Restart": true,
-                "Files": {
-                    "_budhud/resource/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "bh_Ammo_Main": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "bh_Ammo_Reserve",
-                "Label": "Reserve",
-                "Type": "ColorPicker",
-                "Value": "255 255 255 255",
-                "Restart": true,
-                "Files": {
-                    "_budhud/resource/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "bh_Ammo_Reserve": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "bh_Ammo_Low",
-                "Label": "Low",
-                "Type": "ColorPicker",
-                "Value": "186 032 032 255",
-                "Restart": true,
-                "Files": {
-                    "_budhud/resource/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "bh_Ammo_Low": "$value"
-                            }
-                        }
-                    }
-                }
-            }
+            { "Name": "bh_Ammo_Main", "Label": "Normal", "Type": "ColorPicker", "Value": "255 255 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Ammo_Main": "$value" } } } } },
+            { "Name": "bh_Ammo_Reserve", "Label": "Reserve", "Type": "ColorPicker", "Value": "255 255 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Ammo_Reserve": "$value" } } } } },
+            { "Name": "bh_Ammo_Low", "Label": "Low", "Type": "ColorPicker", "Value": "186 032 032 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Ammo_Low": "$value" } } } } },
+            { "Name": "bh_Ammo_Main_Shadow", "Label": "Normal Shadow", "Type": "ColorPicker", "Value": "0 0 0 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Ammo_Main_Shadow": "$value" } } } } },
+            { "Name": "bh_Ammo_Reserve_Shadow", "Label": "Reserve Shadow", "Type": "ColorPicker", "Value": "0 0 0 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Ammo_Reserve_Shadow": "$value" } } } } },
+            { "Name": "bh_Ammo_Pickup", "Label": "Pickup", "Type": "ColorPicker", "Value": "240 134 049 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Ammo_Pickup": "$value" } } } } }
         ],
-        "Engineer Customizations": [
-            {
-                "Name": "bh_building_display_h",
-                "Label": "Building Display\nHorizontal Pos.",
-                "Type": "IntegerUpDown",
-                "Value": "0",
-                "Minimum": "0",
-                "Maximum": "1000",
-                "Increment": "1",
-                "Width": 140,
-                "ToolTip": "Increase the number to move the display to the right.",
-                "Files": {
-                    "_budhud/scripts/hudlayout.res": {
-                        "bh_BuildPin": {
-                            "xpos": "$value"
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "bh_building_display_v",
-                "Label": "Building Display\nVertical Pos.",
-                "Type": "IntegerUpDown",
-                "Value": "105",
-                "Minimum": "0",
-                "Maximum": "1000",
-                "Increment": "1",
-                "Width": 140,
-                "ToolTip": "Increase the number to move the display down.",
-                "Files": {
-                    "_budhud/scripts/hudlayout.res": {
-                        "bh_BuildPin": {
-                            "ypos": "$value"
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "bh_metal_position",
-                "Label": "Metal Count Under XHair",
-                "Type": "Checkbox",
-                "Value": "false",
-                "Files": {
-                    "_budhud/scripts/hudlayout.res": {
-                        "CHudAccountPanel": {
-                            "ypos": {
-                                "true": "c-3",
-                                "false": "c110"
-                            }
-                        }
-                    }
-                }
-            }
+        "Medic Colors": [
+            { "Name": "bh_UberMeter_Base", "Label": "Uber Meter Fill Color", "Type": "ColorPicker", "Value": "255 255 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Base": "$value" } } } } },
+            { "Name": "bh_UberMeter_Background", "Label": "Uber Meter Background", "Type": "ColorPicker", "Value": "150 150 150 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Background": "$value" } } } } },
+            { "Name": "bh_UberMeter_Flash1", "Label": "Uber Meter Flash 1", "Type": "ColorPicker", "Value": "243 157 048 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Flash1": "$value" } } } } },
+            { "Name": "bh_UberMeter_Flash2", "Label": "Uber Meter Flash 2", "Type": "ColorPicker", "Value": "204 093 027 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Flash2": "$value" } } } } },
+            { "Name": "bh_UberLabel_Base", "Label": "Uber Percentage Base", "Type": "ColorPicker", "Value": "255 255 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberLabel_Base": "$value" } } } } },
+            { "Name": "bh_UberLabel_Flash1", "Label": "Uber Percentage Flash 1", "Type": "ColorPicker", "Value": "243 157 048 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberLabel_Flash1": "$value" } } } } },
+            { "Name": "bh_UberLabel_Flash2", "Label": "Uber Percentage Flash 2", "Type": "ColorPicker", "Value": "204 093 027 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberLabel_Flash2": "$value" } } } } },
+            { "Name": "bh_HealColor", "Label": "Heal Color", "Type": "ColorPicker", "Value": "0 153 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_HealColor": "$value" } } } } },
+            { "Name": "bh_UberDrop", "Label": "Uber Drop Color", "Type": "ColorPicker", "Value": "255 105 180 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberDrop": "$value" } } } } }
         ],
-        "Crosshair (Hypnotize's Unified Crosshair Pack)": [
-            {
-                "Name": "bh_val_xhair_style",
-                "Label": "Style",
-                "ToolTip": "Style of crosshair.",
-                "Type": "Crosshair",
-                "Value": "F",
-                "Files": {
-                    "#customization/_enabled/bh_crosshairs.res": {
-                        "hud_crosshair_1": {
-                            "labeltext": "$value"
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "bh_val_xhair_size",
-                "Label": "Size",
-                "Type": "IntegerUpDown",
-                "Value": "18",
-                "Minimum": "10",
-                "Maximum": "30",
-                "Increment": "1",
-                "ToolTip": "Size of the crosshair.",
-                "Files": {
-                    "#customization/_enabled/bh_crosshairs.res": {
-                        "hud_crosshair_1": {
-                            "font": "Crosshair: TF2Crosshairs | Size: $value | Outline: On"
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "bh_hud_crosshair_1",
-                "Label": "Color (Normal)",
-                "Type": "ColorPicker",
-                "Value": "255 255 255 255",
-                "Restart": true,
-                "Files": {
-                    "_budhud/resource/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "hud_crosshair_1": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "bh_hud_crosshair_1_flash",
-                "Label": "Color (Damage)",
-                "Type": "ColorPicker",
-                "Value": "240 134 049 255",
-                "Restart": true,
-                "Files": {
-                    "_budhud/resource/clientscheme_colors.res": {
-                        "Scheme": {
-                            "Colors": {
-                                "hud_crosshair_1_flash": "$value"
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "Name": "bh_toggle_xhair_enable",
-                "Label": "Show Crosshair",
-                "Type": "Checkbox",
-                "ToolTip": "Toggle crosshair feature.",
-                "Value": "false",
-                "Files": {
-                    "#customization/_enabled/bh_crosshairs.res": {
-                        "hud_crosshair_1": {
-                            "visible": {
-                                "true": "1",
-                                "false": "0"
-                            },
-                            "enabled": {
-                                "true": "1",
-                                "false": "0"
-                            }
-                        }
-                    }
-                }
-            }
+        "Misc Colors": [
+            { "Name": "bh_Metal", "Label": "Metal", "Type": "ColorPicker", "Value": "255 255 255 255", "ToolTip": "General metallic color", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Metal": "$value" } } } } },
+            { "Name": "bh_Metal_Shadow", "Label": "Metal Shadow", "Type": "ColorPicker", "Value": "0 0 0 255", "ToolTip": "Shadow for metallic elements", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Metal_Shadow": "$value" } } } } },
+            { "Name": "bh_hudDMGDisplay", "Label": "Damage Display", "Type": "ColorPicker", "Value": "243 157 048 255", "ToolTip": "Static damage number that appears bottom center of screen", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_hudDMGDisplay": "$value" } } } } }
         ]
     }
 }
