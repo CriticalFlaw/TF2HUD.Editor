@@ -14,7 +14,11 @@
         "0 1 2 3",
         "0 1 2 3",
         "4 4 5 5",
-        "6 6 7 7"
+        "4 4 5 5",
+        "6 6 7 7",
+        "6 6 7 7",
+        "8 8 9 9",
+        "8 8 9 9"
     ],
     "Links": {
         "Update": "https://github.com/rbjaxter/budhud/archive/master.zip",
@@ -109,6 +113,84 @@
             { "Name": "bh_Metal", "Label": "Metal", "Type": "ColorPicker", "Value": "255 255 255 255", "ToolTip": "General metallic color", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Metal": "$value" } } } } },
             { "Name": "bh_Metal_Shadow", "Label": "Metal Shadow", "Type": "ColorPicker", "Value": "0 0 0 255", "ToolTip": "Shadow for metallic elements", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Metal_Shadow": "$value" } } } } },
             { "Name": "bh_hudDMGDisplay", "Label": "Damage Display", "Type": "ColorPicker", "Value": "243 157 048 255", "ToolTip": "Static damage number that appears bottom center of screen", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_hudDMGDisplay": "$value" } } } } }
+        ],
+        "Engineer Customizations": [
+            {
+                "Name": "bh_building_display_h",
+                "Label": "Building Display\nHorizontal Pos.",
+                "Type": "IntegerUpDown",
+                "Value": "0",
+                "Minimum": "0",
+                "Maximum": "1000",
+                "Increment": "1",
+                "Width": 140,
+                "ToolTip": "Increase the number to move the display to the right.",
+                "Files": { "_budhud/scripts/hudlayout.res": { "bh_BuildPin": { "xpos": "$value" } } }
+            },
+            {
+                "Name": "bh_building_display_v",
+                "Label": "Building Display\nVertical Pos.",
+                "Type": "IntegerUpDown",
+                "Value": "105",
+                "Minimum": "0",
+                "Maximum": "1000",
+                "Increment": "1",
+                "Width": 140,
+                "ToolTip": "Increase the number to move the display down.",
+                "Files": { "_budhud/scripts/hudlayout.res": { "bh_BuildPin": { "ypos": "$value" } } }
+            },
+            {
+                "Name": "bh_metal_position",
+                "Label": "Metal Count Under XHair",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Files": { "_budhud/scripts/hudlayout.res": { "CHudAccountPanel": { "ypos": { "true": "c-3", "false": "c110" } } } }
+            }
+        ],
+        "Crosshair (Hypnotize's Unified Crosshair Pack)": [
+            {
+                "Name": "bh_val_xhair_style",
+                "Label": "Style",
+                "ToolTip": "Style of crosshair.",
+                "Type": "Crosshair",
+                "Value": "F",
+                "Files": { "#customization/_enabled/bh_crosshairs.res": { "hud_crosshair_1": { "labeltext": "$value" } } }
+            },
+            {
+                "Name": "bh_val_xhair_size",
+                "Label": "Size",
+                "Type": "IntegerUpDown",
+                "Value": "18",
+                "Minimum": "10",
+                "Maximum": "30",
+                "Increment": "1",
+                "ToolTip": "Size of the crosshair.",
+                "Files": { "#customization/_enabled/bh_crosshairs.res": { "hud_crosshair_1": { "font": "Crosshair: TF2Crosshairs | Size: $value | Outline: On" } } }
+            },
+            {
+                "Name": "bh_hud_crosshair_1",
+                "Label": "Color (Normal)",
+                "Type": "ColorPicker",
+                "Value": "255 255 255 255",
+                "Restart": true,
+                "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "hud_crosshair_1": "$value" } } } }
+            },
+            {
+                "Name": "bh_hud_crosshair_1_flash",
+                "Label": "Color (Damage)",
+                "Type": "ColorPicker",
+                "Value": "240 134 049 255",
+                "Restart": true,
+                "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "hud_crosshair_1_flash": "$value" } } } }
+            },
+            {
+                "Name": "bh_toggle_xhair_enable",
+                "Label": "Show Crosshair",
+                "Type": "Checkbox",
+                "ToolTip": "Toggle crosshair feature.",
+                "Value": "false",
+                "Files": { "#customization/_enabled/bh_crosshairs.res": { "hud_crosshair_1": { "visible": { "true": "1", "false": "0" }, "enabled": { "true": "1", "false": "0" } } } }
+            }
         ]
     }
 }
