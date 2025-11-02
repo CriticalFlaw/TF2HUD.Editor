@@ -3,37 +3,50 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HUDEditor.ViewModels"
-		xmlns:v="clr-namespace:HUDEditor.Views"
-		xmlns:loc="clr-namespace:HUDEditor.Assets"
-		xmlns:classes="clr-namespace:HUDEditor.Classes"
-		xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
-        mc:Ignorable="d" Width="1000" Height="370"
+        xmlns:v="clr-namespace:HUDEditor.Views"
+        xmlns:loc="clr-namespace:HUDEditor.Assets"
+        xmlns:classes="clr-namespace:HUDEditor.Classes"
+        xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+        mc:Ignorable="d"
+        Width="1000" Height="400"
         x:Class="HUDEditor.Views.SettingsView"
-		x:DataType="vm:SettingsViewModel"
-		Title="{x:Static loc:Resources.ui_options}"
-		Icon="/Assets/Images/favicon.ico">
+        x:DataType="vm:SettingsViewModel"
+        Title="{x:Static loc:Resources.ui_options}"
+        Icon="/Assets/Images/favicon.ico">
 
 	<Window.Resources>
 		<classes:DisableOnLinuxConverter x:Key="DisableOnLinux" />
 		<classes:SettingsFileExistsConverter x:Key="SettingsFileExists" />
+		<classes:IsUserPathValidConverter x:Key="IsUserPathValid" />
 	</Window.Resources>
 
 	<Border>
 		<Border.Background>
-			<ImageBrush Source="avares://HUDEditor/Assets/Images/background.png" Stretch="UniformToFill"/>
+			<ImageBrush Source="avares://HUDEditor/Assets/Images/background.png" Stretch="UniformToFill" />
 		</Border.Background>
+
 		<Grid Margin="20,10,20,20">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="*"/>
-				<!-- For Settings + Language -->
-				<ColumnDefinition Width="Auto"/>
-				<!-- For Troubleshooting -->
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
+			
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"/>
-				<RowDefinition Height="*"/>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*" />
 			</Grid.RowDefinitions>
 
+			<!-- User Path -->
+			<HeaderedContentControl Header="User Path" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
+				<WrapPanel HorizontalAlignment="Left">
+					<Label Content="{Binding IsPathValid}" Foreground="{Binding ., Converter={StaticResource IsUserPathValid}}" FontFamily="{StaticResource Icons}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5"/>
+					<Label Content="{Binding UserPath}" Foreground="#EBE2CA" FontFamily="{StaticResource Tf2Build}" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="5"/>
+					<Button Content="{x:Static loc:Resources.ui_directory}" Classes="HudButton SettingsButton" Command="{Binding SetHudPathCommand}" CommandParameter="{Binding $parent[Window]}" />
+				</WrapPanel>
+			</HeaderedContentControl>
+
+			<!-- Settings -->
 			<HeaderedContentControl Header="Settings" Grid.Row="1" Grid.Column="0">
 				<WrapPanel HorizontalAlignment="Left">
 					<Label Content="{x:Static loc:Resources.ui_language}" Foreground="#EBE2CA" FontFamily="{StaticResource Tf2Build}" VerticalAlignment="Center" Margin="10,0,0,0"/>
@@ -42,11 +55,12 @@
 							<DataTemplate>
 								<StackPanel Orientation="Horizontal" Spacing="8">
 									<Image Source="{Binding FlagImagePath}" Width="30" />
-									<TextBlock Text="{Binding CultureName}" VerticalAlignment="Center"/>
+									<TextBlock Text="{Binding CultureName}" VerticalAlignment="Center" />
 								</StackPanel>
 							</DataTemplate>
 						</ComboBox.ItemTemplate>
 					</ComboBox>
+
 					<CheckBox Content="{x:Static loc:Resources.ui_persist_xhair}" Classes="SettingCheckBox" IsChecked="{Binding PersistCrosshair}" />
 					<CheckBox Content="{x:Static loc:Resources.ui_check_updates}" Classes="SettingCheckBox" IsChecked="{Binding AutoUpdate}" />
 					<CheckBox Content="{x:Static loc:Resources.ui_override_path_rule}" Classes="SettingCheckBox" IsChecked="{Binding OverridePath}" />
@@ -55,14 +69,14 @@
 				</WrapPanel>
 			</HeaderedContentControl>
 
-			<HeaderedContentControl Header="Troubleshooting" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="10,0,0,0">
+			<!-- Troubleshooting -->
+			<HeaderedContentControl Header="Troubleshooting" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
 				<StackPanel HorizontalAlignment="Left">
-					<Button Content="{x:Static loc:Resources.ui_directory}" Classes="HudButton SettingsButton" Command="{Binding SetHudPathCommand}" CommandParameter="{Binding $parent[Window]}" />
-					<Button Content="{x:Static loc:Resources.ui_refresh}" Classes="HudButton SettingsButton" Command="{Binding UpdateAppCommand}"/>
-					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Classes="HudButton SettingsButton" Command="{Binding ClearAppCacheCommand}" IsEnabled="{Binding ., Converter={StaticResource DisableOnLinux}}"/>
-					<Button Content="{x:Static loc:Resources.ui_open_app_file}" Classes="HudButton SettingsButton" Command="{Binding OpenAppSettingsCommand}"/>
-					<Button Content="{x:Static loc:Resources.ui_open_user_file}" Classes="HudButton SettingsButton" Command="{Binding OpenUserSettingsCommand}" IsEnabled="{Binding ., Converter={StaticResource SettingsFileExists}}"/>
-					<Button Content="{x:Static loc:Resources.ui_open_log_file}" Classes="HudButton SettingsButton" Command="{Binding OpenLatestLogFileCommand}"/>
+					<Button Content="{x:Static loc:Resources.ui_refresh}" Classes="HudButton SettingsButton" Command="{Binding UpdateAppCommand}" />
+					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Classes="HudButton SettingsButton" Command="{Binding ClearAppCacheCommand}" IsEnabled="{Binding ., Converter={StaticResource DisableOnLinux}}" />
+					<Button Content="{x:Static loc:Resources.ui_open_app_file}" Classes="HudButton SettingsButton" Command="{Binding OpenAppSettingsCommand}" />
+					<Button Content="{x:Static loc:Resources.ui_open_user_file}" Classes="HudButton SettingsButton" Command="{Binding OpenUserSettingsCommand}" IsEnabled="{Binding ., Converter={StaticResource SettingsFileExists}}" />
+					<Button Content="{x:Static loc:Resources.ui_open_log_file}" Classes="HudButton SettingsButton" Command="{Binding OpenLatestLogFileCommand}" />
 				</StackPanel>
 			</HeaderedContentControl>
 		</Grid>

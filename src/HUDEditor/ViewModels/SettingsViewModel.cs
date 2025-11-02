@@ -81,6 +81,28 @@ public partial class SettingsViewModel : ViewModelBase
         }
     }
 
+    private string _userPath;
+    public string UserPath
+    {
+        get => _userPath;
+        set
+        {
+            _userPath = value;
+            OnPropertyChanged(nameof(UserPath));
+        }
+    }
+
+    private string _isPathValid;
+    public string IsPathValid
+    {
+        get => _isPathValid;
+        set
+        {
+            _isPathValid = value;
+            OnPropertyChanged(nameof(IsPathValid));
+        }
+    }
+
     public SettingsViewModel()
     {
         SelectedLanguage = Languages.FirstOrDefault(l => l.CultureCode == SelectedCulture);
@@ -88,6 +110,8 @@ public partial class SettingsViewModel : ViewModelBase
         AutoUpdate = App.Config.ConfigSettings.UserPrefs.AutoUpdate;
         OverridePath = App.Config.ConfigSettings.UserPrefs.PathBypass;
         DisableSentry = App.Config.ConfigSettings.UserPrefs.DisableSentry;
+        UserPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
+        IsPathValid = Utilities.CheckUserPath() ? "\u0096" : "\u0097";
     }
 
     [RelayCommand]

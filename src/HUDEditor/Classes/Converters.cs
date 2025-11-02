@@ -152,3 +152,9 @@ public class SettingsFileExistsConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => File.Exists(($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor/settings.json"));
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }
+
+public class IsUserPathValidConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => Utilities.CheckUserPath() ? "#3F7F47" : "#FF0000";
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
+}
