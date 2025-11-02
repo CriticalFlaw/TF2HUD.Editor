@@ -13,11 +13,8 @@
     "Layout": [
         "0 1 2 3",
         "0 1 2 3",
-        "4 4 5 5",
-        "4 4 5 5",
-        "6 6 7 7",
-        "6 6 7 7",
-        "8 8 9 9",
+        "4 5 6 7",
+        "4 5 6 7",
         "8 8 9 9"
     ],
     "Links": {
@@ -57,7 +54,8 @@
             { "Name": "bh_player_hidedamageindicator", "Label": "Hide Damage Indicator", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_hidedamageindicator.res" },
             { "Name": "bh_player_hidestaticdamage", "Label": "Hide Static Damage", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_hidestaticdamage.res" },
             { "Name": "bh_player_showcontrolpointprogressbar", "Label": "Show Control Point Progress", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_showcontrolpointprogressbar.res" },
-            { "Name": "bh_player_showvoiceavatars", "Label": "Show Voice Avatars", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_showvoiceavatars.res" }
+            { "Name": "bh_player_showvoiceavatars", "Label": "Show Voice Avatars", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_showvoiceavatars.res" },
+            { "Name": "bh_metal_position", "Label": "Metal Count Under XHair", "Type": "Checkbox", "Value": "false", "Files": { "_budhud/scripts/hudlayout.res": { "CHudAccountPanel": { "ypos": { "true": "c-3", "false": "c110" } } } } }
         ],
         "Chat": [
             { "Name": "bh_chat_lowerleft", "Label": "Move Chat to Bottom", "Type": "Checkbox", "Value": "false", "FileName": "bh_chat_lowerleft.res" },
@@ -70,18 +68,29 @@
             { "Name": "bh_player_largeammo", "Label": "Large Ammo", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_largeammo.res" },
             { "Name": "bh_player_largehealth", "Label": "Large Health", "Type": "Checkbox", "Value": "false", "FileName": "bh_player_largehealth.res" },
             { "Name": "bh_animate_foreground", "Label": "Animate Foreground", "Type": "Checkbox", "Value": "false", "FileName": "bh_animate_foreground.txt" },
-            { "Name": "bh_size_healthammomain", "Label": "Health / Main Ammo Size", "Type": "IntegerUpDown", "Value": "40", "Minimum": "0", "Maximum": "9999", "Restart": true, "Files": { "_budhud/resource/clientscheme_lato.res": { "Scheme": { "Fonts": { "bh_Font_HealthAmmoMain": { "1": { "tall": "$value" } } } } } } },
-            { "Name": "bh_size_ammoreserve", "Label": "Ammo Reserve Size", "Type": "IntegerUpDown", "Value": "24", "Minimum": "0", "Maximum": "9999", "Restart": true, "Files": { "_budhud/resource/clientscheme_lato.res": { "Scheme": { "Fonts": { "bh_Font_AmmoReserve": { "1": { "tall": "$value" } } } } } } }
+            { "Name": "bh_size_healthammomain", "Label": "Health/Main Ammo Size", "Width": "200", "Type": "IntegerUpDown", "Value": "40", "Minimum": "0", "Maximum": "9999", "Restart": true, "Files": { "_budhud/resource/clientscheme_lato.res": { "Scheme": { "Fonts": { "bh_Font_HealthAmmoMain": { "1": { "tall": "$value" } } } } } } },
+            { "Name": "bh_size_ammoreserve", "Label": "Ammo Reserve Size", "Width": "200", "Type": "IntegerUpDown", "Value": "24", "Minimum": "0", "Maximum": "9999", "Restart": true, "Files": { "_budhud/resource/clientscheme_lato.res": { "Scheme": { "Fonts": { "bh_Font_AmmoReserve": { "1": { "tall": "$value" } } } } } } }
         ],
         "TargetID & Medic": [
             { "Name": "bh_targetid_healthcross2", "Label": "Health Cross", "Type": "Checkbox", "Value": "false", "FileName": "bh_targetid_healthcross2.res" },
             { "Name": "bh_targetid_largehealth", "Label": "Large Health Size", "Type": "Checkbox", "Value": "false", "FileName": "bh_targetid_largehealth.res" },
+            { "Name": "bh_targetid_healthcross", "Label": "TargetID Health Cross", "Type": "Checkbox", "Value": "false", "FileName": "bh_targetid_healthcross" },
+            { "Name": "bh_targetid_showavatars", "Label": "Show Avatars", "Type": "Checkbox", "Value": "false", "FileName": "bh_targetid_showavatars.res" }
+        ],
+        "Medic Customizations": [
             { "Name": "bh_uber_largeuberpercentage", "Label": "Large Uber Percentage", "Type": "Checkbox", "Value": "false", "FileName": "bh_uber_largeuberpercentage.res" },
             { "Name": "bh_uber_longchargemeter", "Label": "Full Width Charge Meter", "Type": "Checkbox", "Value": "false", "FileName": "bh_uber_longchargemeter.res" },
             { "Name": "bh_uber_percentagenearcrosshair", "Label": "Uber Percent Near xHair", "Type": "Checkbox", "Value": "false", "FileName": "bh_uber_percentagenearcrosshair.res" },
-            { "Name": "bh_targetid_healthcross", "Label": "TargetID Health Cross", "Type": "Checkbox", "Value": "false", "FileName": "bh_targetid_healthcross" },
-            { "Name": "bh_targetid_showavatars", "Label": "Show Avatars", "Type": "Checkbox", "Value": "false", "FileName": "bh_targetid_showavatars.res" },
-            { "Name": "bh_medic_rainbowcharge", "Label": "Rainbow Charge", "Type": "Checkbox", "Value": "false", "FileName": "bh_medic_rainbowcharge.txt" }
+            { "Name": "bh_medic_rainbowcharge", "Label": "Rainbow Charge", "Type": "Checkbox", "Value": "false", "FileName": "bh_medic_rainbowcharge.txt" },
+            { "Name": "bh_UberMeter_Base", "Label": "Uber Fill Color", "Type": "ColorPicker", "Value": "255 255 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Base": "$value" } } } } },
+            { "Name": "bh_UberMeter_Background", "Label": "Uber BG", "Type": "ColorPicker", "Value": "150 150 150 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Background": "$value" } } } } },
+            { "Name": "bh_UberMeter_Flash1", "Label": "Uber Flash 1", "Type": "ColorPicker", "Value": "243 157 048 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Flash1": "$value" } } } } },
+            { "Name": "bh_UberMeter_Flash2", "Label": "Uber Flash 2", "Type": "ColorPicker", "Value": "204 093 027 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Flash2": "$value" } } } } },
+            { "Name": "bh_UberLabel_Base", "Label": "Uber % Base", "Type": "ColorPicker", "Value": "255 255 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberLabel_Base": "$value" } } } } },
+            { "Name": "bh_UberLabel_Flash1", "Label": "Uber % Flash 1", "Type": "ColorPicker", "Value": "243 157 048 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberLabel_Flash1": "$value" } } } } },
+            { "Name": "bh_UberLabel_Flash2", "Label": "Uber % Flash 2", "Type": "ColorPicker", "Value": "204 093 027 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberLabel_Flash2": "$value" } } } } },
+            { "Name": "bh_HealColor", "Label": "Heal Color", "Type": "ColorPicker", "Value": "0 153 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_HealColor": "$value" } } } } },
+            { "Name": "bh_UberDrop", "Label": "Uber Drop Color", "Type": "ColorPicker", "Value": "255 105 180 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberDrop": "$value" } } } } }
         ],
         "Health Colors": [
             { "Name": "bh_Health_Main", "Label": "Normal", "Type": "ColorPicker", "Value": "255 255 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Health_Main": "$value" } } } } },
@@ -98,59 +107,20 @@
             { "Name": "bh_Ammo_Reserve_Shadow", "Label": "Reserve Shadow", "Type": "ColorPicker", "Value": "0 0 0 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Ammo_Reserve_Shadow": "$value" } } } } },
             { "Name": "bh_Ammo_Pickup", "Label": "Pickup", "Type": "ColorPicker", "Value": "240 134 049 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Ammo_Pickup": "$value" } } } } }
         ],
-        "Medic Colors": [
-            { "Name": "bh_UberMeter_Base", "Label": "Uber Meter Fill Color", "Type": "ColorPicker", "Value": "255 255 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Base": "$value" } } } } },
-            { "Name": "bh_UberMeter_Background", "Label": "Uber Meter Background", "Type": "ColorPicker", "Value": "150 150 150 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Background": "$value" } } } } },
-            { "Name": "bh_UberMeter_Flash1", "Label": "Uber Meter Flash 1", "Type": "ColorPicker", "Value": "243 157 048 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Flash1": "$value" } } } } },
-            { "Name": "bh_UberMeter_Flash2", "Label": "Uber Meter Flash 2", "Type": "ColorPicker", "Value": "204 093 027 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberMeter_Flash2": "$value" } } } } },
-            { "Name": "bh_UberLabel_Base", "Label": "Uber Percentage Base", "Type": "ColorPicker", "Value": "255 255 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberLabel_Base": "$value" } } } } },
-            { "Name": "bh_UberLabel_Flash1", "Label": "Uber Percentage Flash 1", "Type": "ColorPicker", "Value": "243 157 048 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberLabel_Flash1": "$value" } } } } },
-            { "Name": "bh_UberLabel_Flash2", "Label": "Uber Percentage Flash 2", "Type": "ColorPicker", "Value": "204 093 027 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberLabel_Flash2": "$value" } } } } },
-            { "Name": "bh_HealColor", "Label": "Heal Color", "Type": "ColorPicker", "Value": "0 153 255 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_HealColor": "$value" } } } } },
-            { "Name": "bh_UberDrop", "Label": "Uber Drop Color", "Type": "ColorPicker", "Value": "255 105 180 255", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_UberDrop": "$value" } } } } }
-        ],
-        "Misc Colors": [
-            { "Name": "bh_Metal", "Label": "Metal", "Type": "ColorPicker", "Value": "255 255 255 255", "ToolTip": "General metallic color", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Metal": "$value" } } } } },
-            { "Name": "bh_Metal_Shadow", "Label": "Metal Shadow", "Type": "ColorPicker", "Value": "0 0 0 255", "ToolTip": "Shadow for metallic elements", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Metal_Shadow": "$value" } } } } },
-            { "Name": "bh_hudDMGDisplay", "Label": "Damage Display", "Type": "ColorPicker", "Value": "243 157 048 255", "ToolTip": "Static damage number that appears bottom center of screen", "Restart": true, "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_hudDMGDisplay": "$value" } } } } }
-        ],
-        "Engineer Customizations": [
+        "Crosshairs / Misc Colors": [
             {
-                "Name": "bh_building_display_h",
-                "Label": "Building Display\nHorizontal Pos.",
-                "Type": "IntegerUpDown",
-                "Value": "0",
-                "Minimum": "0",
-                "Maximum": "1000",
-                "Increment": "1",
-                "Width": 140,
-                "ToolTip": "Increase the number to move the display to the right.",
-                "Files": { "_budhud/scripts/hudlayout.res": { "bh_BuildPin": { "xpos": "$value" } } }
-            },
-            {
-                "Name": "bh_building_display_v",
-                "Label": "Building Display\nVertical Pos.",
-                "Type": "IntegerUpDown",
-                "Value": "105",
-                "Minimum": "0",
-                "Maximum": "1000",
-                "Increment": "1",
-                "Width": 140,
-                "ToolTip": "Increase the number to move the display down.",
-                "Files": { "_budhud/scripts/hudlayout.res": { "bh_BuildPin": { "ypos": "$value" } } }
-            },
-            {
-                "Name": "bh_metal_position",
-                "Label": "Metal Count Under XHair",
+                "Name": "bh_toggle_xhair_enable",
+                "Label": "Show Crosshair",
+                "Width": "200",
                 "Type": "Checkbox",
+                "ToolTip": "Toggle crosshair feature.",
                 "Value": "false",
-                "Files": { "_budhud/scripts/hudlayout.res": { "CHudAccountPanel": { "ypos": { "true": "c-3", "false": "c110" } } } }
-            }
-        ],
-        "Crosshair (Hypnotize's Unified Crosshair Pack)": [
+                "Files": { "#customization/_enabled/bh_crosshairs.res": { "hud_crosshair_1": { "visible": { "true": "1", "false": "0" }, "enabled": { "true": "1", "false": "0" } } } }
+            },
             {
                 "Name": "bh_val_xhair_style",
                 "Label": "Style",
+                "Width": "80",
                 "ToolTip": "Style of crosshair.",
                 "Type": "Crosshair",
                 "Value": "F",
@@ -160,6 +130,7 @@
                 "Name": "bh_val_xhair_size",
                 "Label": "Size",
                 "Type": "IntegerUpDown",
+                "Width": "150",
                 "Value": "18",
                 "Minimum": "10",
                 "Maximum": "30",
@@ -184,12 +155,31 @@
                 "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "hud_crosshair_1_flash": "$value" } } } }
             },
             {
-                "Name": "bh_toggle_xhair_enable",
-                "Label": "Show Crosshair",
-                "Type": "Checkbox",
-                "ToolTip": "Toggle crosshair feature.",
-                "Value": "false",
-                "Files": { "#customization/_enabled/bh_crosshairs.res": { "hud_crosshair_1": { "visible": { "true": "1", "false": "0" }, "enabled": { "true": "1", "false": "0" } } } }
+                "Name": "bh_Metal",
+                "Label": "Metal",
+                "Type": "ColorPicker",
+                "Value": "255 255 255 255",
+                "ToolTip": "General metallic color",
+                "Restart": true,
+                "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Metal": "$value" } } } }
+            },
+            {
+                "Name": "bh_Metal_Shadow",
+                "Label": "Metal Shadow",
+                "Type": "ColorPicker",
+                "Value": "0 0 0 255",
+                "ToolTip": "Shadow for metallic elements",
+                "Restart": true,
+                "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_Metal_Shadow": "$value" } } } }
+            },
+            {
+                "Name": "bh_hudDMGDisplay",
+                "Label": "Damage Display",
+                "Type": "ColorPicker",
+                "Value": "243 157 048 255",
+                "ToolTip": "Static damage number that appears bottom center of screen",
+                "Restart": true,
+                "Files": { "_budhud/resource/clientscheme_colors.res": { "Scheme": { "Colors": { "bh_hudDMGDisplay": "$value" } } } }
             }
         ]
     }
