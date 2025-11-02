@@ -224,7 +224,7 @@ public static class Utilities
     }
 
     /// <summary>
-    /// Searchs registry for the Team Fortress 2 installation directory.
+    /// Searches registry for the Team Fortress 2 installation directory.
     /// </summary>
     /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
     public static bool SearchRegistry()
@@ -235,7 +235,8 @@ public static class Utilities
         if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return false;
 
         var is64Bit = Environment.Is64BitProcess ? "Wow6432Node/" : string.Empty;
-        var pathFile = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null) + "/steamapps/libraryfolders.vdf";
+        var regPath = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null);
+        var pathFile = Path.Combine(regPath, "/steamapps/libraryfolders.vdf");
         if (!File.Exists(pathFile)) return false;
 
         // Read the file and attempt to extract all library paths.
@@ -249,7 +250,7 @@ public static class Utilities
         // Loop through all known library paths to try and find TF2.
         foreach (var path in steamPaths)
         {
-            var pathTF = path + "/steamapps/common/Team Fortress 2/tf/custom";
+            var pathTF = Path.Combine(path, "/steamapps/common/Team Fortress 2/tf/custom");
             if (Directory.Exists(pathTF))
             {
                 App.Logger.Info($"Set target directory to: {pathTF}");
@@ -538,7 +539,7 @@ public static class Utilities
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error downloading image: {e.Message}");
+        App.Logger.Error($"Error downloading image: {e.Message}");
             return null;
         }
     }
