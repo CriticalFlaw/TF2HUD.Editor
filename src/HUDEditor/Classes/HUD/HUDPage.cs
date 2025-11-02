@@ -302,8 +302,7 @@ public partial class HUD
         {
             Name = Utilities.EncodeId(controlItem.Name),
             Width = 150,
-            Text = Settings.GetSetting<string>(controlItem.Name) ?? string.Empty,
-            //ToolTip = tooltip
+            Text = Settings.GetSetting<string>(controlItem.Name) ?? string.Empty
         };
         textbox.Width = (controlItem.Width > 0) ? controlItem.Width : textbox.Width;
         textbox.LostFocus += (_, _) =>
@@ -311,6 +310,7 @@ public partial class HUD
             Settings.SetSetting(textbox.Name, textbox.Text);
             CheckIsDirty(controlItem);
         };
+        ToolTip.SetTip(textbox, controlItem.Tooltip);
 
         //----
 
@@ -433,11 +433,8 @@ public partial class HUD
 
         //----
 
-        var combobox = new ComboBox
-        {
-            Name = Utilities.EncodeId(controlItem.Name),
-            //ToolTip = tooltip
-        };
+        var combobox = new ComboBox();
+        combobox.Name = Utilities.EncodeId(controlItem.Name);
         combobox.Classes.Add("CrosshairBox");
         combobox.Width = (controlItem.Width > 0) ? controlItem.Width : combobox.Width;
         combobox.SelectionChanged += (sender, _) =>
@@ -447,6 +444,7 @@ public partial class HUD
             Settings.SetSetting(input?.Name, value);
             CheckIsDirty(controlItem);
         };
+        ToolTip.SetTip(combobox, controlItem.Tooltip);
 
         foreach (var option in Utilities.CrosshairStyles)
         {
@@ -485,8 +483,7 @@ public partial class HUD
             Value = Settings.GetSetting<int>(Utilities.EncodeId(controlItem.Name)),
             Minimum = controlItem.Minimum,
             Maximum = controlItem.Maximum,
-            Increment = controlItem.Increment,
-            //ToolTip = tooltip
+            Increment = controlItem.Increment
         };
         numpicker.Width = (controlItem.Width > 0) ? controlItem.Width : numpicker.Width;
         numpicker.ValueChanged += (sender, _) =>
@@ -495,6 +492,7 @@ public partial class HUD
             Settings.SetSetting(input.Name, input.Text);
             CheckIsDirty(controlItem);
         };
+        ToolTip.SetTip(numpicker, controlItem.Tooltip);
 
         if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Size"))
             numpicker.Value = App.Config.ConfigSettings.UserPrefs.CrosshairSize;
@@ -521,7 +519,6 @@ public partial class HUD
         {
             Name = Utilities.EncodeId(controlItem.Name),
             Width = 150
-            //ToolTip = tooltip
         };
         combobox.Width = (controlItem.Width > 0) ? controlItem.Width : combobox.Width;
         combobox.SelectionChanged += (sender, _) =>
@@ -530,6 +527,7 @@ public partial class HUD
             Settings.SetSetting(input?.Name, combobox.SelectedIndex.ToString());
             CheckIsDirty(controlItem);
         };
+        ToolTip.SetTip(combobox, controlItem.Tooltip);
 
         foreach (var option in controlItem.Options)
         {
@@ -561,8 +559,7 @@ public partial class HUD
 
         var colorpicker = new ColorPicker
         {
-            Name = Utilities.EncodeId(controlItem.Name),
-            //ToolTip = tooltip
+            Name = Utilities.EncodeId(controlItem.Name)
         };
         //control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
         colorpicker.ColorChanged += (sender, _) =>
@@ -570,6 +567,7 @@ public partial class HUD
             var input = sender as ColorPicker;
             Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.Color.ToString()));
         };
+        ToolTip.SetTip(colorpicker, controlItem.Tooltip);
 
         // Attempt to bind the color from the settings.
         try
@@ -600,8 +598,7 @@ public partial class HUD
             Name = Utilities.EncodeId(controlItem.Name),
             Content = controlItem.Label,
             Margin = new Thickness(10, lastTop, 0, 0),
-            IsChecked = Settings.GetSetting<bool>(Utilities.EncodeId(controlItem.Name)),
-            //ToolTip = tooltip
+            IsChecked = Settings.GetSetting<bool>(Utilities.EncodeId(controlItem.Name))
         };
         checkbox.Width = (controlItem.Width > 0) ? controlItem.Width : checkbox.Width;
         checkbox.IsCheckedChanged += (sender, _) =>
@@ -610,6 +607,7 @@ public partial class HUD
             Settings.SetSetting(input?.Name, checkbox.IsChecked?.ToString());
             CheckIsDirty(controlItem);
         };
+        ToolTip.SetTip(checkbox, controlItem.Tooltip);
 
         // Persist the crosshair selection.
         if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Toggle Crosshair"))
