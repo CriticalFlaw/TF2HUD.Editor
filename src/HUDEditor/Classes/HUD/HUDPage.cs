@@ -259,7 +259,7 @@ public partial class HUD
 
             var scrollViewer = new ScrollViewer
             {
-                VerticalScrollBarVisibility = ScrollBarVisibility.Hidden,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Visible,
                 Background = new SolidColorBrush(Colors.Transparent),
                 Content = sectionContent
             };
@@ -274,8 +274,8 @@ public partial class HUD
         var scrollView = new ScrollViewer()
         {
             Content = sectionsContainer,
-            VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-            HorizontalScrollBarVisibility = ScrollBarVisibility.Auto
+            VerticalScrollBarVisibility = ScrollBarVisibility.Visible,
+            HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden
         };
         scrollView.SetValue(Grid.RowProperty, 1);
         scrollView.VerticalAlignment = VerticalAlignment.Stretch;
@@ -628,6 +628,7 @@ public partial class HUD
             Opacity = 0.4
         };
         button.Classes.Add("PreviewButton");
+        button.ZIndex = 1;
         button.Click += (_, _) =>
         {
             if (!App.Config.ConfigSettings.UserPrefs.SelectedHUD.Equals(Name)) return;
@@ -637,7 +638,7 @@ public partial class HUD
             DirtyControls.Clear();
         };
 
-        Grid.SetColumn(button, 1);
+        Grid.SetColumn(button, 0);
 
         return button;
     }
