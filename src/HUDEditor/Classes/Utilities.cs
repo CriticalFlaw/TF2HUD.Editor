@@ -234,10 +234,11 @@ public static class Utilities
         // Do not bother searching the registry if not on Windows.
         if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return false;
 
-        var is64Bit = Environment.Is64BitProcess ? "Wow6432Node/" : string.Empty;
-        var regPath = (string)Registry.GetValue($@"HKEY_LOCAL_MACHINE\Software\{is64Bit}Valve\Steam", "InstallPath", null);
-        var pathFile = Path.Combine(regPath, "/steamapps/libraryfolders.vdf");
-        if (!File.Exists(pathFile)) return false;
+        // Get Steam install path from registry.
+        var regPath = (string?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\Software\Valve\Steam", "InstallPath", null)
+            ?? (string?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\Software\WOW6432Node\Valve\Steam", "InstallPath", null);
+        if (string.IsNullOrWhiteSpace(regPath)) return false;
+        var pathFile = Path.Combine(regPath, "steamapps", "libraryfolders.vdf");
 
         // Read the file and attempt to extract all library paths.
         using var reader = new StreamReader(pathFile);
