@@ -16,7 +16,7 @@
 		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
 		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
 	</UserControl.Resources>
-	
+
 	<dialogHost:DialogHost Identifier="PreviewModal" CloseOnClickAway="True">
 		<dialogHost:DialogHost.DialogContent>
 			<Image Source="avares://HUDEditor/Assets/Images/mastercomfig.png"/>

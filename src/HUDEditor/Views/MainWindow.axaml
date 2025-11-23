@@ -7,6 +7,7 @@
 		xmlns:loc="clr-namespace:HUDEditor.Assets"
 		xmlns:classes="clr-namespace:HUDEditor.Classes"
         mc:Ignorable="d"
+        Width="1300" Height="730"
         x:Class="HUDEditor.Views.MainWindow"
 		x:DataType="vm:MainWindowViewModel"
         Title="{Binding WindowTitle}"
@@ -47,7 +48,7 @@
 
 		<HeaderedContentControl Grid.Row="1" Margin="10,0,10,10">
 			<WrapPanel HorizontalAlignment="Center">
-				<Button Classes="HudButton" Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}" Command="{Binding InstallHUD}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>
+				<Button Classes="HudButton" Content="{Binding SelectedHud, Converter={StaticResource BtnInstallContentConverter}}" Command="{Binding InstallHUDCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}" />
 				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_uninstall}" Command="{Binding UninstallHUDCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}"/>
 				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_apply}" Command="{Binding SaveHUDCommand}" IsEnabled="{Binding SelectedHudInstalled, Converter={StaticResource NullCheckConverter}}" />
 				<Button Classes="HudButton" Content="{x:Static loc:Resources.ui_reset}" Command="{Binding ResetHUDCommand}" IsEnabled="{Binding SelectedHud, Converter={StaticResource NullCheckConverter}}"/>

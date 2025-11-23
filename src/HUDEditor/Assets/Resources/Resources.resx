@@ -265,7 +265,7 @@
     <value>Open User Settings</value>
   </data>
   <data name="ui_override_path_rule" xml:space="preserve">
-    <value>Bypass tf/custom folder rule</value>
+    <value>Bypass the tf/custom directory rule</value>
   </data>
   <data name="ui_splash_initialize" xml:space="preserve">
     <value>Initializing application...</value>

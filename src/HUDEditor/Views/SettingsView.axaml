@@ -8,7 +8,7 @@
         xmlns:classes="clr-namespace:HUDEditor.Classes"
         xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
         mc:Ignorable="d"
-        Width="1000" Height="400"
+        Width="1000" Height="450"
         x:Class="HUDEditor.Views.SettingsView"
         x:DataType="vm:SettingsViewModel"
         Title="{x:Static loc:Resources.ui_options}"
@@ -30,7 +30,7 @@
 				<ColumnDefinition Width="*" />
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
-			
+
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>

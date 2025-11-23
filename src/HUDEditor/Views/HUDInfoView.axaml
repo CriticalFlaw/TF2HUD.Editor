@@ -9,22 +9,13 @@
              x:Class="HUDEditor.Views.HUDInfoView"
 			 x:DataType="vm:HUDInfoViewModel">
 
-	<Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">
+	<Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">
 		<Grid.Resources>
 			<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
 		</Grid.Resources>
 
 		<!-- HUD Name -->
 		<Label Grid.Row="0" Grid.Column="0" Classes="HeaderText" Content="{Binding Name}" Margin="0,0,5,0"/>
-
-		<!-- Customize Button -->
-		<Button Grid.Row="0" Grid.Column="1"
-				Content="{x:Static loc:Resources.ui_customize}"
-				Command="{Binding CustomizeHUD}"
-				CommandParameter="{Binding Hud}"
-				Classes="HudButton"
-				HorizontalAlignment="Right"
-				Margin="10,0,0,0"/>
 
 		<!-- Author -->
 		<TextBlock Text="{Binding Author}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Classes="BodyText" Margin="0,0,0,5" FontStyle="Italic"/>
@@ -33,7 +24,7 @@
 		<TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Classes="BodyText" Margin="0,0,0,10" FontStyle="Italic" Text="{Binding Description}" IsVisible="{Binding Description, Converter={StaticResource NullCheckConverterVisibility}}" />
 
 		<!-- Screenshot Gallery -->
-		<ItemsControl ItemsSource="{Binding Screenshots}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+		<ItemsControl ItemsSource="{Binding Screenshots}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
 			<!-- Container -->
 			<ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
@@ -58,5 +49,8 @@
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
 		</ItemsControl>
+
+		<!-- Customize Button -->
+		<Button Classes="HudButton" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" FontSize="40" Width="610" Height="45" HorizontalAlignment="Stretch" Content="{x:Static loc:Resources.ui_customize}" Command="{Binding CustomizeHUD}" CommandParameter="{Binding Hud}" />
 	</Grid>
 </UserControl>

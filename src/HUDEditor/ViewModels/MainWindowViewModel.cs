@@ -186,12 +186,13 @@ public partial class MainWindowViewModel : ViewModelBase
     /// <summary>
     /// Invokes HUD installation or setting the tf/custom directory, if not already set.
     /// </summary>
-    [RelayCommand(CanExecute = nameof(CanInstall))]
-    public async void InstallHUD()
+    [RelayCommand]
+    public async Task InstallHUD()
     {
         try
         {
             Installing = true;
+
             SelectedHud ??= HighlightedHud;
 
             // Force the user to set a directory before installing.
@@ -253,11 +254,14 @@ public partial class MainWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(HighlightedHudInstalled));
             OnPropertyChanged(nameof(SelectedHud));
             OnPropertyChanged(nameof(SelectedHudInstalled));
-            Installing = false;
         }
         catch (Exception e)
         {
             await Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_install, SelectedHud.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
+            Installing = false;
+        }
+        finally
+        {
             Installing = false;
         }
     }

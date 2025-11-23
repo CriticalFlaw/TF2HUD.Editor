@@ -217,6 +217,7 @@
 		<Style Selector="Button.LinkButton">
 			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
 			<Setter Property="FontSize" Value="25" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Background" Value="#776B5F" />
 			<Setter Property="Margin" Value="5" />
