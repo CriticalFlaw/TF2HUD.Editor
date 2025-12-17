@@ -15,9 +15,14 @@
 ---
 
 ### Installation
-
-1. Download and extract the [latest release][download-link].
+1. Download and extract the [latest release](https://github.com/CriticalFlaw/TF2HUD.Editor/releases/latest).
 2. Launch **HUDEditor.exe** as admin.
+
+If you need help, report a bug or ask a question related to the project...
+* [Read the project documentation](https://criticalflaw.ca/TF2HUD.Editor/).
+* [Open a ticket on our issue tracker](https://github.com/CriticalFlaw/TF2HUD.Editor/issues).
+* [Join our Discord Server](https://discord.gg/hTdtK9vBhE).
+
 ---
 
 ### Acknowledgements
@@ -35,27 +40,7 @@
 * [thejaviertc](https://github.com/thejaviertc) - Spanish
 * [SignorUpB](https://github.com/SignorUpB) - Italian
 * [HotoCocoaco](https://github.com/HotoCocoaco) - Simplified Chinese
----
 
-### Help/Support
-
-If you need help, report a bug or ask a question related to the project...
-* [Read the project documentation][docs-link].
-* [Open a ticket on our issue tracker][issues-link].
-* [Join our Discord Server][discord-link].
----
-
-### How to Contribute
-
-Contributions towards the project are welcomed and encouraged. Some ways you can contribute include:
-* Code changes towards new features, enhancements and bug fixes. For on-going tasks, see our [issue tracker][issues-link].
-* Adding support for other HUDs by creating schema files. See [this section of our documentation](https://criticalflaw.ca/TF2HUD.Editor/json/intro/) for instructions.
-* Maintaining, expanding and improving [this documentation][docs-link] to help to other users.
-* Adding localizations of missing languages or improving them [here](https://github.com/CriticalFlaw/TF2HUD.Editor/tree/master/src/TF2HUD.Editor/Properties).
-* Sponsor this project through [GitHub Sponsors](https://github.com/sponsors/CriticalFlaw).
-[docs-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/actions/workflows/docs.yml
-[download-shield]: https://img.shields.io/github/downloads/criticalflaw/tf2hud.editor/total
-[download-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/releases
-[discord-shield]: https://img.shields.io/badge/Discord-criticalflaw-7289da.svg?logo=discord
-[discord-link]: https://discord.gg/hTdtK9vBhE
-[issues-link]: https://github.com/CriticalFlaw/TF2HUD.Editor/issues
+<a href="https://github.com/criticalflaw/TF2HUD.Editor/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=criticalflaw/TF2HUD.Editor" />
+</a>
