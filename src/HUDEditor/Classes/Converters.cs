@@ -1,3 +1,4 @@
+using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using HUDEditor.Assets;
@@ -12,7 +13,7 @@ namespace HUDEditor.Classes;
 
 public class NullCheckConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return value switch
         {
@@ -23,19 +24,19 @@ public class NullCheckConverter : IValueConverter
         };
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class NotNullCheckConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is null;
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => value is null;
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class LinkCheckConverterVisibility : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return value switch
         {
@@ -44,26 +45,26 @@ public class LinkCheckConverterVisibility : IValueConverter
         };
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class NullCheckConverterVisibility : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is not null;
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => value is not null;
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class NotNullCheckConverterVisibility : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is null;
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => value is null;
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class PageBackgroundConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         var defaultBg = "avares://HUDEditor/Assets/Images/background.png";
         if (value is null) return new ImageBrush
@@ -98,23 +99,23 @@ public class PageBackgroundConverter : IValueConverter
         return Utilities.ConvertToColorBrush(selection.Background);
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class DisplayUniqueHudsOnlyForegroundConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => (bool)value ? "\u05AE" : "\u05AF";
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => (value as bool? == true) ? "\u05AE" : "\u05AF";
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class BtnInstallContentConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        var hud = (HUD)value;
-        if (hud is not null)
+        if (value is not null)
         {
+            var hud = (HUD)value;
             App.Logger.Info($"User selected: {hud.Name}");
             if (Directory.Exists($"{App.Config.ConfigSettings.UserPrefs.HUDDirectory}/{hud.Name}"))
             {
@@ -130,31 +131,31 @@ public class BtnInstallContentConverter : IValueConverter
         return Resources.ui_install ?? "Install";
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class ComboBoxItemsConverterVisibility : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => value is not null && ((IEnumerable<object>)value).Count() > 1;
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => value is not null && ((IEnumerable<object>)value).Count() > 1;
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class DisableOnLinuxConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => !RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => !RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class SettingsFileExistsConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => File.Exists(($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor/settings.json"));
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => File.Exists(($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor/settings.json"));
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 
 public class IsUserPathValidConverter : IValueConverter
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) => Utilities.CheckUserPath() ? "#3F7F47" : "#FF0000";
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => Utilities.CheckUserPath() ? "#3F7F47" : "#FF0000";
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }

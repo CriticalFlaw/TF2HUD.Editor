@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace HUDEditor.ViewModels;
 
@@ -82,7 +83,7 @@ internal partial class EditHUDViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public void OpenWebpage(string url) => Utilities.OpenWebpage(url);
+    public static async Task OpenWebpage(string url) => await Utilities.OpenWebpage(url);
 
     public override void Dispose()
     {

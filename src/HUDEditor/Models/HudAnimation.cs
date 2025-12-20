@@ -8,7 +8,7 @@ internal abstract class HUDAnimation
     public string? Conditional { get; set; }
     public abstract override string ToString();
 
-    protected string Print(string str)
+    protected static string Print(string str)
     {
         return Regex.IsMatch(str, "\\s") ? $"\"{str}\"" : str;
     }

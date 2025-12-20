@@ -760,7 +760,7 @@ public partial class HUD
     /// <summary>
     /// Copies configuration file for transparent viewmodels into the HUD's cfg folder.
     /// </summary>
-    private async void CopyTransparentViewmodelAddon(bool enable = false)
+    private static async void CopyTransparentViewmodelAddon(bool enable = false)
     {
         try
         {

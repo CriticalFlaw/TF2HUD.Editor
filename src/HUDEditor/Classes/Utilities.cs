@@ -175,7 +175,7 @@ public static class Utilities
     /// <summary>
     /// Opens provided link in the default web browser.
     /// </summary>
-    public static void OpenWebpage(string path)
+    public static async Task OpenWebpage(string path)
     {
         if (string.IsNullOrWhiteSpace(path)) return;
         App.Logger.Info($"Opening URL: {path}");
@@ -197,7 +197,7 @@ public static class Utilities
         }
         catch (Exception e)
         {
-            ShowMessageBox(e.Message, MsBox.Avalonia.Enums.Icon.Error);
+            await ShowMessageBox(e.Message, MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 
@@ -216,10 +216,10 @@ public static class Utilities
     /// Checks if Team Fortress 2 is currently running.
     /// </summary>
     /// <returns>False if there's no active process named hl2, tf, or tf_win64, otherwise return true and a warning message.</returns>
-    public static bool CheckIsGameRunning()
+    public static async Task<bool> CheckIsGameRunning()
     {
         if (Process.GetProcessesByName("hl2").Length == 0 && Process.GetProcessesByName("tf").Length == 0 && Process.GetProcessesByName("tf_win64").Length == 0) return false;
-        ShowMessageBox(Resources.info_game_running, MsBox.Avalonia.Enums.Icon.Warning);
+        await ShowMessageBox(Resources.info_game_running, MsBox.Avalonia.Enums.Icon.Warning);
         return true;
     }
 
@@ -540,7 +540,7 @@ public static class Utilities
         }
         catch (Exception e)
         {
-        App.Logger.Error($"Error downloading image: {e.Message}");
+            App.Logger.Error($"Error downloading image: {e.Message}");
             return null;
         }
     }
@@ -757,7 +757,7 @@ public static class Utilities
             {
                 App.Logger.Info($"Update available from {localVersion} -> {remoteVersion}");
                 if (await ShowPromptBox(Resources.info_app_update) == ButtonResult.No) return;
-                OpenWebpage(App.Config.ConfigSettings.AppConfig.LatestUpdateURL);
+                await OpenWebpage(App.Config.ConfigSettings.AppConfig.LatestUpdateURL);
             }
         }
         catch (Exception e)
@@ -774,7 +774,7 @@ public static class Utilities
         Directory.Delete($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor", true);
         Directory.Delete("cache", true);
         Directory.Delete("JSON", true);
-        UpdateAppSchema(true);
+        await UpdateAppSchema(true);
     }
 
     public static async Task<string> CreateHudZipAsync(string folderPath, string hudDetailsFolder, string hudName)

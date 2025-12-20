@@ -115,7 +115,7 @@ public partial class SettingsViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void SaveChanges()
+    private async Task SaveChanges()
     {
         App.Config.ConfigSettings.UserPrefs.Language = SelectedCulture;
         App.Config.ConfigSettings.UserPrefs.CrosshairPersistence = PersistCrosshair;
@@ -125,31 +125,31 @@ public partial class SettingsViewModel : ViewModelBase
         App.SaveConfiguration();
 
         // Ask the user to restart the app if they've changed the language
-        if (Resources.Culture != new CultureInfo(SelectedCulture)) Utilities.ShowMessageBox(Resources.info_ask_restart);
+        if (Resources.Culture != new CultureInfo(SelectedCulture)) await Utilities.ShowMessageBox(Resources.info_ask_restart);
     }
 
     [RelayCommand]
-    private async Task SetHudPath(Window window) => await Utilities.SetupDirectoryAsync(window, true);
+    private static async Task SetHudPath(Window window) => await Utilities.SetupDirectoryAsync(window, true);
 
     [RelayCommand]
-    private void UpdateApp() => Utilities.UpdateAppSchema(false);
+    private static async Task UpdateApp() => await Utilities.UpdateAppSchema(false);
 
     [RelayCommand]
-    private async Task ClearAppCache() => await Utilities.ClearAppCache();
+    private static async Task ClearAppCache() => await Utilities.ClearAppCache();
 
     [RelayCommand]
-    private void OpenAppSettings() => Utilities.OpenWebpage(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
+    private static async Task OpenAppSettings() => await Utilities.OpenWebpage(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
 
     [RelayCommand]
-    private void OpenUserSettings() => Utilities.OpenWebpage(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TF2HUD.Editor", "settings.json"));
+    private static async Task OpenUserSettings() => await Utilities.OpenWebpage(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TF2HUD.Editor", "settings.json"));
 
     [RelayCommand]
-    private void OpenLatestLogFile()
+    private static async Task OpenLatestLogFile()
     {
         var logsFolder = "logs";
         if (!Directory.Exists(logsFolder))
         {
-            Utilities.ShowMessageBox("No logs folder found.");
+            await Utilities.ShowMessageBox("No logs folder found.");
             return;
         }
 
@@ -159,10 +159,10 @@ public partial class SettingsViewModel : ViewModelBase
 
         if (latestLogFile == null)
         {
-            Utilities.ShowMessageBox("No log files found.");
+            await Utilities.ShowMessageBox("No log files found.");
             return;
         }
 
-        Utilities.OpenWebpage(latestLogFile);
+        await Utilities.OpenWebpage(latestLogFile);
     }
 }

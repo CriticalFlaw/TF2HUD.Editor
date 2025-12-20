@@ -200,7 +200,7 @@ public partial class MainWindowViewModel : ViewModelBase
                 if (await Utilities.SetupDirectoryAsync(TopLevel, true) == false) return;
 
             // Stop the process if Team Fortress 2 is still running.
-            if (Utilities.CheckIsGameRunning())
+            if (await Utilities.CheckIsGameRunning())
             {
                 Installing = false;
                 return;
@@ -270,7 +270,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// Invokes HUD deletion from the tf/custom directory.
     /// </summary>
     [RelayCommand]
-    public void UninstallHUD()
+    public async Task UninstallHUD()
     {
         try
         {
@@ -278,7 +278,7 @@ public partial class MainWindowViewModel : ViewModelBase
             if (!SelectedHudInstalled) return;
 
             // Stop the process if Team Fortress 2 is still running.
-            if (Utilities.CheckIsGameRunning()) return;
+            if (await Utilities.CheckIsGameRunning()) return;
 
             // Remove the HUD from the tf/custom directory.
             App.Logger.Info($"Removing {SelectedHud.Name} from {App.HudPath}");
@@ -295,7 +295,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_uninstall, SelectedHud.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
+            await Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_uninstall, SelectedHud.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 
@@ -327,7 +327,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// Resets user settings for the selected HUD to their default values.
     /// </summary>
     [RelayCommand]
-    public async void ResetHUD()
+    public async Task ResetHUD()
     {
         // Ask the user if they want to reset before doing so.
         if (await Utilities.ShowPromptBox(Resources.info_hud_reset) == ButtonResult.No) return;
@@ -355,22 +355,22 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public void OpenDocSite() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
+    public static async Task OpenDocSite() => await Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
 
     [RelayCommand]
-    public void OpenIssueTracker() => Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.IssueTrackerURL);
+    public static async Task OpenIssueTracker() => await Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.IssueTrackerURL);
 
     [RelayCommand]
-    public void OpenOptionsMenu() => new SettingsView().Show();
+    public static void OpenOptionsMenu() => new SettingsView().Show();
 
     [RelayCommand]
-    public void LaunchTf2() => Utilities.OpenWebpage("steam://run/440");
+    public static async Task LaunchTf2() => await Utilities.OpenWebpage("steam://run/440");
 
     /// <summary>
     /// Adds a HUD from folder to the shared HUDs list.
     /// </summary>
     [RelayCommand]
-    public async void AddSharedHud()
+    public async Task AddSharedHud()
     {
         try
         {
@@ -387,12 +387,12 @@ public partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            Utilities.ShowMessageBox(e.Message, MsBox.Avalonia.Enums.Icon.Error);
+            await Utilities.ShowMessageBox(e.Message, MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 
     [RelayCommand]
-    public async void RefreshPage()
+    public async Task RefreshPage()
     {
         // Dispose of the old viewmodel
         CurrentPageViewModel?.Dispose();
