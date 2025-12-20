@@ -355,16 +355,16 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public static async Task OpenDocSite() => await Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
+    public async Task OpenDocSite() => await Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.DocumentationURL);
 
     [RelayCommand]
-    public static async Task OpenIssueTracker() => await Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.IssueTrackerURL);
+    public async Task OpenIssueTracker() => await Utilities.OpenWebpage(App.Config.ConfigSettings.AppConfig.IssueTrackerURL);
 
     [RelayCommand]
-    public static void OpenOptionsMenu() => new SettingsView().Show();
+    public void OpenOptionsMenu() => new SettingsView().Show();
 
     [RelayCommand]
-    public static async Task LaunchTf2() => await Utilities.OpenWebpage("steam://run/440");
+    public async Task LaunchTf2() => await Utilities.OpenWebpage("steam://run/440");
 
     /// <summary>
     /// Adds a HUD from folder to the shared HUDs list.
