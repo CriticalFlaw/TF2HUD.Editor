@@ -449,15 +449,10 @@
                 "Type": "Checkbox",
                 "ToolTip": "Toggle crosshair feature.",
                 "Value": "false",
-                "Files": {
-                    "resource/ui/customizations/crosshair/crosshair_base.res": {
-                        "CustomCrosshair": {
-                            "visible": {
-                                "true": "1",
-                                "false": "0"
-                            }
-                        }
-                    }
+                "WriteFile": {
+                    "FileName": "hud_crosshair_visibility.txt",
+                    "TrueText": "x{CustomCrosshair{visible 1}}",
+                    "FalseText": ""
                 }
             },
             {
@@ -466,32 +461,24 @@
                 "Type": "Checkbox",
                 "ToolTip": "Toggle hitmarker animation.",
                 "Value": "true",
-                "Files": {
-                    "scripts/hudanimations_hitmarker.txt": {
-                        "uncomment": [
-                            "StopEvent HitMarker",
-                            "RunEvent HitMarker"
-                        ]
-                    }
+                "WriteFile": {
+                    "FileName": "hud_crosshair_animation.txt",
+                    "TrueText": "event DamagedPlayer{RunEvent CrosshairFlash 0.0}",
+                    "FalseText": ""
                 }
             }
         ],
         "Customizations": [
             {
                 "Name": "fh_toggle_disguise_image",
-                "Label": "Show Disguise Image",
+                "Label": "Hide Disguise Outline",
                 "Type": "Checkbox",
                 "ToolTip": "Toggle the spy silhouette seen when changing the disguise.",
-                "Value": "true",
-                "Files": {
-                    "resource/ui/hudplayerclass_base.res": {
-                        "PlayerStatusSpyOutlineImage": {
-                            "image": {
-                                "true": "../hud/class_spy_outline",
-                                "false": "replay/thumbnails/transparent"
-                            }
-                        }
-                    }
+                "Value": "false",
+                "WriteFile": {
+                    "FileName": "hud_disguise_anim.txt",
+                    "TrueText": "#base ../../custom/flawhud/resource/ui/customizations/disguise/hud_disguise_anim_off.res",
+                    "FalseText": ""
                 }
             },
             {
@@ -501,15 +488,10 @@
                 "ToolTip": "Toggle transparent viewmodels.",
                 "Special": "TransparentViewmodels",
                 "Value": "false",
-                "Files": {
-                    "resource/ui/customizations/transparent_viewmodels/transparent_viewmodels.res": {
-                        "TransparentViewmodel": {
-                            "visible": {
-                                "true": "1",
-                                "false": "0"
-                            }
-                        }
-                    }
+                "WriteFile": {
+                    "FileName": "hud_transparent_viewmodels.txt",
+                    "TrueText": "#base ../../custom/flawhud/resource/ui/customizations/transparent_viewmodels/transparent_viewmodels.res",
+                    "FalseText": ""
                 }
             },
             {
@@ -579,21 +561,10 @@
                 "Type": "Checkbox",
                 "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
                 "Value": "false",
-                "Files": {
-                    "resource/ui/hudplayerclass_base.res": {
-                        "PlayerStatusClassImage": {
-                            "wide": {
-                                "true": "0",
-                                "false": "75"
-                            }
-                        },
-                        "classmodelpanel": {
-                            "wide": {
-                                "true": "0",
-                                "false": "150"
-                            }
-                        }
-                    }
+                "WriteFile": {
+                    "FileName": "hud_player_model.txt",
+                    "TrueText": "#base ../../custom/flawhud/resource/ui/customizations/player_model/player_model_off.res",
+                    "FalseText": ""
                 }
             },
             {
@@ -603,47 +574,10 @@
                 "ToolTip": "Expand the scoreboard to show 32 players.",
                 "Value": "false",
                 "Restart": false,
-                "Files": {
-                    "resource/ui/scoreboard_base.res": {
-                        "BlueBG": {
-                            "ypos": {
-                                "true": "50",
-                                "false": "83"
-                            }
-                        },
-                        "BluePlayerBG": {
-                            "tall": {
-                                "true": "270",
-                                "false": "210"
-                            }
-                        },
-                        "RedPlayerBG": {
-                            "tall": {
-                                "true": "270",
-                                "false": "210"
-                            }
-                        },
-                        "BluePlayerList": {
-                            "ypos": {
-                                "true": "c-138",
-                                "false": "c-106"
-                            },
-                            "tall": {
-                                "true": "270",
-                                "false": "206"
-                            }
-                        },
-                        "RedPlayerList": {
-                            "ypos": {
-                                "true": "c-138",
-                                "false": "c-106"
-                            },
-                            "tall": {
-                                "true": "270",
-                                "false": "206"
-                            }
-                        }
-                    }
+                "WriteFile": {
+                    "FileName": "hud_scoreboard_style.txt",
+                    "TrueText": "#base ../../custom/flawhud/resource/ui/customizations/scoreboard/scoreboard_large.res",
+                    "FalseText": ""
                 }
             },
             {
@@ -653,15 +587,10 @@
                 "ToolTip": "Displays a speedometer under the crosshair",
                 "Value": "false",
                 "Restart": false,
-                "Files": {
-                    "resource/ui/hudplayerclass_base.res": {
-                        "Speedometer": {
-                            "visible": {
-                                "true": "1",
-                                "false": "0"
-                            }
-                        }
-                    }
+                "WriteFile": {
+                    "FileName": "hud_speedometer.txt",
+                    "TrueText": "#base ../../custom/flawhud/resource/ui/customizations/speedometer/speedometer_on.res",
+                    "FalseText": ""
                 }
             },
             {
@@ -1148,6 +1077,19 @@
                 }
             },
             {
+                "Name": "fh_uber_counter",
+                "Label": "Enable Uber Counter",
+                "Type": "Checkbox",
+                "ToolTip": "Enables a meter used for tracking other team's uber build.",
+                "Value": "false",
+                "Restart": false,
+                "WriteFile": {
+                    "FileName": "hud_uber_counter.txt",
+                    "TrueText": "event UberTimer{RunEvent UberTimerHide 0.0 RunEvent UberTimerRun 0.1}",
+                    "FalseText": ""
+                }
+            },
+            {
                 "Name": "fh_val_damage_values",
                 "Label": "Damage Numbers",
                 "Type": "ComboBox",
@@ -1528,13 +1470,10 @@
                 "ToolTip": "Toggle to the Code Pro fonts instead of TF2 Build.",
                 "Value": "false",
                 "Restart": true,
-                "Files": {
-                    "resource/clientscheme.res": {
-                        "replace": [
-                            "clientscheme_fonts.res",
-                            "clientscheme_fonts_pro.res"
-                        ]
-                    }
+                "WriteFile": {
+                    "FileName": "hud_font.txt",
+                    "TrueText": "#base ../../custom/flawhud/resource/scheme/clientscheme_fonts_pro.res",
+                    "FalseText": "#base ../../custom/flawhud/resource/scheme/clientscheme_fonts.res"
                 }
             },
             {
