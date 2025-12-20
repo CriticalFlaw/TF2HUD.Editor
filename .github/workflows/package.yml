@@ -25,12 +25,12 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: '8.x'
+        dotnet-version: '8.0.x'
 
     - name: Restore dependencies
       run: dotnet restore src/HUDEditor/HUDEditor.csproj
@@ -40,7 +40,7 @@ jobs:
       working-directory: src/HUDEditor
 
     - name: Upload artifact for ${{ matrix.rid }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: ${{ matrix.artifact }}
         path: src/HUDEditor/publish/${{ matrix.rid }}
