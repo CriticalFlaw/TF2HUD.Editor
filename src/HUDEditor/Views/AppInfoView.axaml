@@ -15,19 +15,19 @@
 			<Run Text="your favorite Team Fortress 2 HUDs!" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.3" Margin="0,15,0,0" FontSize="30" />
+		<Label Classes="HeaderText" Content="Version 4.4" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
-			<Run Text="> Fixed custom background images were not being backed-up." />
+			<Run Text="> Implemented vtex2 for generating custom backgrounds on Linux" />
 			<LineBreak />
-			<Run Text="> Fixed the app not using the Windows dark theme." />
+			<Run Text="> Added missing crosshair options." />
 			<LineBreak />
-			<Run Text="> Fixed the app not filling the screen when maximized." />
+			<Run Text="> Added a label that shows the current user path in the settings menu." />
 			<LineBreak />
-			<Run Text="> Added an option to opt-out of Sentry error tracking." />
+			<Run Text="> Fixed scrollbars not being visible when available." />
 			<LineBreak />
-			<Run Text="> Added support for GameBanana links." />
+			<Run Text="> Fixed tooltips not displaying." />
 			<LineBreak />
-			<Run Text="> Added support for writing HUD files to the tf/cfg folder." />
+			<Run Text="> General backend fixes and improvements." />
 		</TextBlock>
 	</StackPanel>
 </UserControl>
