@@ -21,7 +21,7 @@
 			<Setter Property="FontSize" Value="16" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="Foreground" Value="White" />
+			<Setter Property="Foreground" Value="#EBE2CA" />
 		</Style>
 
 		<Style Selector="Label.HeaderText">
@@ -52,7 +52,7 @@
 			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="Foreground" Value="White" />
+			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Width" Value="125" />
 			<Setter Property="FontSize" Value="16" />
 		</Style>
@@ -93,7 +93,7 @@
 			<Setter Property="FontFamily" Value="{StaticResource Tf2Secondary}" />
 			<Setter Property="HorizontalAlignment" Value="Left" />
 			<Setter Property="VerticalAlignment" Value="Top" />
-			<Setter Property="Foreground" Value="White" />
+			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="FontSize" Value="16" />
 		</Style>
 
