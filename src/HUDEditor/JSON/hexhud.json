@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
     "Author": "Hypnotize",
     "Description": "TF2 HUD based on hexagon shapes.",
-    "Thumbnail": "https://i.imgur.com/bftu1ep.png",
+    "Thumbnail": "https://static.tf2huds.dev/HExHUD/img/00_Banner.png",
     "Screenshots": [
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hexhud/hexhud-menu.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hexhud/hexhud-buff.webp",

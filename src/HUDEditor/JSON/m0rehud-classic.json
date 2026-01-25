@@ -3,14 +3,14 @@
     "Author": "m0re, Hypnotize",
     "Name": "m0rehud (Classic)",
     "Description": "No customizations, no extra edits, just a goold old m0rehud kept as close as it's original version as possible but updated to work with the latest TF2 updates.'",
-    "Thumbnail": "https://imgur.com/5F69xvd.png",
+    "Thumbnail": "https://i.postimg.cc/DfXbyJjc/image.png",
     "Screenshots": [
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-menu.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-buff.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-scoreboard.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/m0rehud/m0rehud-spectator.webp"
     ],
-    "Background": "https://i.imgur.com/vZmMuKh.png",
+    "Background": "https://i.postimg.cc/bNfSGy4P/image.png",
     "Layout": [
         "0 0 1 1",
         "6 6 1 1",

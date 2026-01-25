@@ -2,12 +2,10 @@
     "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
     "Author": "RoseyLemonz",
     "Description": "Updated version of e.v.e HUD by Sinders for modern TF2",
-    "Thumbnail": "https://i.imgur.com/j8WM5Cd.jpeg",
+    "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/eve-plus/eveplusmenu.webp",
     "Screenshots": [
-        "https://i.imgur.com/j8WM5Cd.jpeg",
-        "https://i.imgur.com/EGfRjNi.jpeg",
-        "https://i.imgur.com/42iA9R2.jpeg",
-        "https://i.imgur.com/Lv4OYH8.jpeg"
+        "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/eve-plus/eveplusmenu.webp",
+        "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/eve-plus/eveplus1.webp"
     ],
     "Layout": [
         "3 1 2 2",

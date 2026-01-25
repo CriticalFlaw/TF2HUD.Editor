@@ -2,14 +2,14 @@
     "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
     "Author": "Raysfire",
     "Description": "A simplistic yet bold hud for TF2 made to cut out a lot of clutter included that of the stock hud. Comes with a range of various vivid colors associated with both low health as well as ammo to make important information easily accessible and noticeable.",
-    "Thumbnail": "https://i.imgur.com/jWOoerl.png",
+    "Thumbnail": "https://static.tf2huds.dev/rayshud/img/rayshud-banner.png",
     "Screenshots": [
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/rayshud/menu.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/rayshud/hud.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/rayshud/scoreboard.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/rayshud/loadout.webp"
     ],
-    "Background": "https://i.imgur.com/vC7qekD.png",
+    "Background": "https://i.postimg.cc/x1tXFK8j/image.png",
     "Layout": [
         "0 0 1 1 5 5",
         "2 2 3 3 5 5",

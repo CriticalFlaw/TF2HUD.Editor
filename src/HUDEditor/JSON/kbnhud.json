@@ -2,14 +2,14 @@
     "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
     "Author": "Jotunn",
     "Description": "A TF2 HUD boiled down for competitive play and no-frills streamlining of as many elements as possible. Based on KNHUD with lots of customization from a long life and user suggestions. Pairs best with sniping. Thanks for 10 amazing years of this HUD!",
-    "Thumbnail": "https://i.imgur.com/ehYUnaI.png",
+    "Thumbnail": "https://static.tf2huds.dev/KBNHud/img/ehYUnaI.png",
     "Screenshots": [
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/kbnhud/02-kbnhud-main-menu.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/kbnhud/05-kbnhud-in-game.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/kbnhud/10-kbnhud-32p-scoreboard.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/kbnhud/11-kbnhud-tournament-spectator.webp"
     ],
-    "Background": "https://i.imgur.com/cBFURIz.png",
+    "Background": "https://i.postimg.cc/vBpgtbBv/image.png",
     "Layout": [
         "0 1 7 10",
         "0 4 7 10",

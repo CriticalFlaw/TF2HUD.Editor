@@ -2,14 +2,14 @@
     "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
     "Author": "Hypnotize",
     "Description": "A Very Bright TF2 Hud",
-    "Thumbnail": "https://i.imgur.com/BL2wVRe.png",
+    "Thumbnail": "https://static.tf2huds.dev/Sunset-Hud/img/Q5Fecgg.png",
     "Screenshots": [
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/sunsethud/sunsethud-menu.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/sunsethud/sunsethud-normal.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/sunsethud/sunsethud-scoreboard.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/sunsethud/sunsethud-spectator.webp"
     ],
-    "Background": "https://i.imgur.com/4063Tfc.png",
+    "Background": "https://i.postimg.cc/0N4b9P7c/image.png",
     "Layout": [
         "0 1 1",
         "0 2 2",

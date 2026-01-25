@@ -2,14 +2,14 @@
     "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
     "Author": "hexereii",
     "Description": "Personal HUD dedicated to competitive TF2 players; Highlander, Sixes, Ultiduo, MGE.",
-    "Thumbnail": "https://i.imgur.com/wvmjCwr.png",
+    "Thumbnail": "https://static.tf2huds.dev/BerryHUD/img/wvmjCwr.png",
     "Screenshots": [
-        "https://i.imgur.com/wvmjCwr.png",
-        "https://i.imgur.com/eklQSi3.png",
-        "https://i.imgur.com/59MqcRq.png",
-        "https://i.imgur.com/6ZbkhR4.png"
+        "https://static.tf2huds.dev/BerryHUD/img/wvmjCwr.png",
+        "https://static.tf2huds.dev/BerryHUD/img/eklQSi3.png",
+        "https://static.tf2huds.dev/BerryHUD/img/59MqcRq.png",
+        "https://static.tf2huds.dev/BerryHUD/img/XzsFJgB.png"
     ],
-    "Background": "https://i.imgur.com/CeKu3f3.png",
+    "Background": "https://i.postimg.cc/3NBr6T1W/Ce-Ku3f3.png",
     "Layout": [
         "0 0 0 0",
         "1 1 2 2",

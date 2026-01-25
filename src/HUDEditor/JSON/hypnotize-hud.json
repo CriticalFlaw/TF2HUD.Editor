@@ -2,7 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
     "Author": "Hypnotize",
     "Description": "Material TF2 Hud that aims to keep a really simple in-game ui and modern menus.",
-    "Thumbnail": "https://i.imgur.com/Vkeq53Q.png",
+    "Thumbnail": "https://static.tf2huds.dev/Hypnotize-Hud/img/Nq0ArKR.png",
     "Screenshots": [
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hypnotizehud/hypnotizehud-menu.webp",
         "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/hypnotizehud/hypnotizehud-buff.webp",

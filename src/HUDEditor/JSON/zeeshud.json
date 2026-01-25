@@ -2,14 +2,14 @@
     "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
     "Author": "Zeesastrous",
     "Description": "ZeesHUD is a stylish and ambitious HUD inspired by retro punk aesthetics.",
-    "Thumbnail": "https://i.imgur.com/RC89MAt.png",
+    "Thumbnail": "https://static.tf2huds.dev/ZeesHUD/img/zeeshudlogo_card%20copy.png",
     "Screenshots": [
-        "https://i.imgur.com/TpWc1sD.jpeg",
-        "https://i.imgur.com/LnmdopX.jpeg",
-        "https://i.imgur.com/HMneh83.jpeg",
-        "https://i.imgur.com/kQ3Awsc.jpeg"
+        "https://static.tf2huds.dev/ZeesHUD/img/VFspDhv.jpg",
+        "https://static.tf2huds.dev/ZeesHUD/img/MzN1XSn.jpg",
+        "https://static.tf2huds.dev/ZeesHUD/img/9niNBz2.jpg",
+        "https://static.tf2huds.dev/ZeesHUD/img/UeslQhZ.jpg"
     ],
-    "Background": "https://i.imgur.com/U4m1mOx.png",
+    "Background": "https://i.postimg.cc/sXZ1Xqc5/image.png",
     "Layout": [
         "0 0 4 4 3 3",
         "5 5 2 2 3 3",
