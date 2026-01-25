@@ -19,7 +19,7 @@ namespace HUDEditor.Assets {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -538,7 +538,7 @@ namespace HUDEditor.Assets {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bypass tf/custom folder rule.
+        ///   Looks up a localized string similar to Bypass the tf/custom directory rule.
         /// </summary>
         public static string ui_override_path_rule {
             get {
@@ -624,6 +624,15 @@ namespace HUDEditor.Assets {
         public static string ui_splash_images {
             get {
                 return ResourceManager.GetString("ui_splash_images", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading and caching images...({0}/{1}).
+        /// </summary>
+        public static string ui_splash_images_download {
+            get {
+                return ResourceManager.GetString("ui_splash_images_download", resourceCulture);
             }
         }
         

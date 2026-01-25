@@ -17,16 +17,12 @@
 		<Border.Background>
 			<ImageBrush Source="avares://HUDEditor/Assets/Images/background.png" Stretch="UniformToFill"/>
 		</Border.Background>
-		<Grid RowDefinitions="*,Auto" ColumnDefinitions="*,Auto">
-			<Image Source="avares://HUDEditor/Assets/Images/banner.png" Grid.ColumnSpan="2" Margin="15"/>
-			<Label Grid.Row="1"
-				   DockPanel.Dock="Bottom"
-				   Content="{Binding StartupMessage}"
-				   Foreground="#EBE2CA"
-				   FontFamily="{StaticResource Tf2Build}"
-				   VerticalAlignment="Center"
-				   HorizontalAlignment="Center" />
-			<Button Grid.Row="1" Grid.Column="1" DockPanel.Dock="Bottom" Command="{Binding Cancel}" Classes="HudButton" Width="100" Height="30" Content="Cancel" Margin="15"/>
+		
+		<Grid RowDefinitions="*,Auto,Auto" ColumnDefinitions="*,Auto">
+			<Image Source="avares://HUDEditor/Assets/Images/banner.png" Grid.Row="0" Grid.ColumnSpan="2"/>
+			<Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding StartupMessage}" Foreground="#EBE2CA" FontFamily="{StaticResource Tf2Build}" FontSize="15"/>
+			<Button Grid.Row="1" Grid.Column="1" Command="{Binding Cancel}" Classes="HudButton" Width="100" Height="30" Content="Cancel" Margin="0,0,15,15"/>
+			<ProgressBar Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Minimum="0" Maximum="{Binding TotalImages}" Value="{Binding ImagesDownloaded}" Margin="15,0,15,15" />
 		</Grid>
 	</Border>
 </Window>

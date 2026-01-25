@@ -398,7 +398,6 @@ public partial class MainWindowViewModel : ViewModelBase
         CurrentPageViewModel?.Dispose();
 
         await LoadHUDs();
-        await DownloadImages();
         OnPropertyChanged(nameof(HUDList));
 
         // Restore selected HUD if it still exists
@@ -493,25 +492,5 @@ public partial class MainWindowViewModel : ViewModelBase
         rectImage.Save($"{outputPath}.png");
 
         return $"file://{outputPath}.png";
-    }
-
-    public async Task DownloadImages()
-    {
-        foreach (var hud in _hudList)
-        {
-            hud.ThumbnailImage = await ImageCache.GetImageAsync(hud.Thumbnail);
-
-            // Load and cache screenshots
-            hud.ScreenshotImages = [];
-            if (hud.Screenshots != null)
-            {
-                foreach (var screenshotUrl in hud.Screenshots)
-                {
-                    var img = await ImageCache.GetImageAsync(screenshotUrl);
-                    if (img != null)
-                        hud.ScreenshotImages.Add(img);
-                }
-            }
-        }
     }
 }

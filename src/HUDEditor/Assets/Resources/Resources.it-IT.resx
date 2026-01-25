@@ -276,6 +276,9 @@
   <data name="ui_splash_images" xml:space="preserve">
     <value>Download immagini...</value>
   </data>
+  <data name="ui_splash_images_download" xml:space="preserve">
+    <value>Download immagini...({0}/{1})</value>
+  </data>
   <data name="ui_splash_cancel" xml:space="preserve">
     <value>Annulla...</value>
   </data>
