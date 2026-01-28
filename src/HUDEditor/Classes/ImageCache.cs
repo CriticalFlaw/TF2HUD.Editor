@@ -1,3 +1,4 @@
+using Avalonia.Controls.Shapes;
 using Avalonia.Media.Imaging;
 using System;
 using System.IO;
@@ -5,6 +6,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Path = System.IO.Path;
 
 namespace HUDEditor.Classes;
 
@@ -54,6 +56,7 @@ public static class ImageCache
                 using var client = new HttpClient();
                 bytes = await client.GetByteArrayAsync(url);
                 await File.WriteAllBytesAsync(cachePath, bytes);
+                App.Logger.Info($"Downloaded: {cachePath}");
             }
             using var stream = new MemoryStream(bytes);
             return new Bitmap(stream);
@@ -85,6 +88,7 @@ public static class ImageCache
         }
         catch
         {
+            App.Logger.Error($"Failed to Download: {url}");
             return null;
         }
     }
