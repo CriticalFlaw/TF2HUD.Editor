@@ -333,7 +333,7 @@ public partial class MainWindowViewModel : ViewModelBase
         if (await Utilities.ShowPromptBox(Resources.info_hud_reset) == ButtonResult.No) return;
 
         App.Logger.Info("------");
-        App.Logger.Info("Resetting user settings");
+        App.Logger.Info($"Resetting {SelectedHud.Name} settings");
         var selection = SelectedHud;
         selection.ResetAll();
         selection.Settings.SaveSettings();

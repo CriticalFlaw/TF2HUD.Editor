@@ -20,6 +20,7 @@ public partial class HUD
     {
         try
         {
+            App.Logger.Info($"Applying {Name} settings");
             // HUD Background Image.
             // Set the HUD Background image path when applying, because it's possible the user did not have their tf/custom folder set up when this HUD constructor was called.
             HudBackground = new HUDBackground($"{App.HudPath}/{Name}/");
@@ -34,6 +35,7 @@ public partial class HUD
             // 'IterateFolder' and 'IterateHUDFileProperties' will write the properties to this.
             var hudFolders = new Dictionary<string, dynamic>();
 
+            App.Logger.Info($"------");
             foreach (var group in hudSettings)
             {
                 foreach (var control in group)
@@ -286,8 +288,7 @@ public partial class HUD
     {
         try
         {
-            App.Logger.Info($"------");
-            App.Logger.Info($"Applying: {userSetting.Name}");
+            App.Logger.Info($"Applying {userSetting.Name}");
             var (files, special, specialParameters) = GetControlInfo(hudSetting, userSetting);
 
             string EvaluateValue(string input)
@@ -399,11 +400,9 @@ public partial class HUD
                         if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
                         {
                             hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()];
-                            App.Logger.Info($"Set \"{property.Key}\" to \"{hudElement[property.Key]}\"");
                         }
                         else
                         {
-                            App.Logger.Info($"Go to \"{property.Key}\"");
                             var newHudElementRef = hudElementRef.ContainsKey(property.Key)
                                 ? (Dictionary<string, dynamic>)hudElementRef[property.Key]
                                 : new Dictionary<string, dynamic>();
@@ -443,7 +442,6 @@ public partial class HUD
                             App.Logger.Warn($"{relativePath} -> {objectPath} already contains key {property.Key}!");
 
                         hudElement[property.Key] = EvaluateValue(property.Value.ToString());
-                        App.Logger.Info($"Set \"{property.Key}\" to \"{property.Value}\"");
                     }
                 }
 
@@ -536,7 +534,6 @@ public partial class HUD
 
                 // Don't read animations file unless the user requests a new event the majority of the animation customizations are for enabling/disabling events, which use the 'replace' keyword
                 Dictionary<string, List<HUDAnimation>> animations = null;
-                App.Logger.Info($"Processing \"{filePath}\"");
 
                 foreach (var animationOption in animationOptions)
                     switch (animationOption.Key.ToLowerInvariant())
@@ -706,7 +703,6 @@ public partial class HUD
                 if (resFileExtensions.Contains(extension))
                 {
                     var hudFile = Utilities.CreateNestedObject(hudFolders, relativePath.Split('/'));
-                    App.Logger.Info($"Open \"{relativePath}\"");
                     Utilities.Merge(hudFile, CompileHudElement(filePath.Value?.ToObject<JObject>(), absolutePath, relativePath, hudFile, ""));
                 }
                 else if (string.Equals(extension, "txt"))
@@ -753,8 +749,6 @@ public partial class HUD
 
         if (string.Equals(special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
             CopyTransparentViewmodelAddon(enable);
-
-        App.Logger.Info("Option not selected");
     }
 
     /// <summary>

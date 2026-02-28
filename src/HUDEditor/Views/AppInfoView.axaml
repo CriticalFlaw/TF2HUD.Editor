@@ -6,8 +6,8 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 x:DataType="vm:AppInfoViewModel"
              x:Class="HUDEditor.Views.AppInfoView">
-	<StackPanel>
-		<Image Source="avares://HUDEditor/Assets/Images/banner.png" Height="142" Width="621" />
+	<StackPanel Margin="20">
+		<Image Source="avares://HUDEditor/Assets/Images/banner.png" Margin="150,0,150,0" />
 		<TextBlock Classes="BodyText" TextAlignment="Center" Margin="0,15,0,15">
 			<Run Foreground="#70B04A" Text="Install" />
 			<Run Text="and" />
@@ -15,7 +15,7 @@
 			<Run Text="your favorite Team Fortress 2 HUDs!" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.4" Margin="0,15,0,0" FontSize="30" />
+		<Label Classes="HeaderText" Content="Version 4.5" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
 			<Run Text="> Implemented vtex2 for generating custom backgrounds on Linux" />
 			<LineBreak />

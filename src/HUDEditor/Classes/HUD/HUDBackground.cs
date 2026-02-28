@@ -99,7 +99,7 @@ internal class HUDBackground
                 }
                 else if (useStockBackgrounds)
                 {
-                    App.Logger.Info($"Disable VTF/VMT files");
+                    App.Logger.Info($"Disabling VTF/VMT files");
                     foreach (var filePath in Directory.GetFiles(consoleFolder))
                     {
                         if (filePath.EndsWith(".vtf"))
@@ -128,9 +128,9 @@ internal class HUDBackground
                     {
                         Directory.Delete(disabledFolder, true);
                     }
-                    catch (IOException ex)
+                    catch (IOException e)
                     {
-                        App.Logger.Warn($"Could not delete folder {disabledFolder}: {ex.Message}");
+                        App.Logger.Warn($"Could not delete folder {disabledFolder}: {e.Message}");
                     }
 
                     App.Logger.Info($"Enable VTF/VMT files");

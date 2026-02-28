@@ -76,6 +76,7 @@ public partial class App : Application
         XmlConfigurator.Configure(new FileInfo(Path.Combine(AppContext.BaseDirectory, "log4net.config")));
         Logger.Info("=======================================================");
         Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
+        App.Logger.Info($"------");
 
         // Load Configuration
         var json = File.ReadAllText("appsettings.json");

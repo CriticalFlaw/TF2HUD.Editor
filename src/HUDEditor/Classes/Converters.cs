@@ -116,7 +116,7 @@ public class BtnInstallContentConverter : IValueConverter
         if (value is not null)
         {
             var hud = (HUD)value;
-            App.Logger.Info($"User selected: {hud.Name}");
+            App.Logger.Info($"Selected HUD is {hud.Name}");
             if (Directory.Exists($"{App.Config.ConfigSettings.UserPrefs.HUDDirectory}/{hud.Name}"))
             {
                 App.Logger.Info($"{hud.Name} is installed");
@@ -127,7 +127,7 @@ public class BtnInstallContentConverter : IValueConverter
             return Resources.ui_install ?? "Install";
         }
 
-        App.Logger.Warn("User selected HUD is null. Returning to the main menu");
+        App.Logger.Warn("Selected HUD is null. Returning to the main menu");
         return Resources.ui_install ?? "Install";
     }
 

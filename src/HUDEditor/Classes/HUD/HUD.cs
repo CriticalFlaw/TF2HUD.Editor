@@ -120,12 +120,12 @@ public partial class HUD
                 case CheckBox check:
                     if (bool.TryParse(control.Value, out var value))
                         check.IsChecked = value;
-                    App.Logger.Info($"Reset {control.Name} to {value}");
+                    App.Logger.Info($"Resetting {control.Name} to \"{value}\"");
                     break;
 
                 case ColorPicker color:
                     color.Color = Utilities.ConvertToColor(control.Value);
-                    App.Logger.Info($"Reset {control.Name} to {color.Color}");
+                    App.Logger.Info($"Resetting {control.Name} to \"{color.Color}\"");
                     break;
 
                 case ComboBox combo:
@@ -139,17 +139,17 @@ public partial class HUD
                     else
                         index = int.Parse(control.Value);
                     combo.SelectedIndex = index;
-                    App.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                    App.Logger.Info($"Resetting {control.Name} to \"{control.Value}\"");
                     break;
 
                 case NumericUpDown integer:
                     integer.Text = control.Value;
-                    App.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                    App.Logger.Info($"Resetting {control.Name} to \"{control.Value}\"");
                     break;
 
                 case TextBox text:
                     text.Text = control.Value;
-                    App.Logger.Info($"Reset {control.Name} to \"{control.Value}\"");
+                    App.Logger.Info($"Resetting {control.Name} to \"{control.Value}\"");
                     break;
             }
         }

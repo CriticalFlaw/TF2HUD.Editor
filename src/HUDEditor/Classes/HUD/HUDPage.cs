@@ -95,7 +95,6 @@ public partial class HUD
                         // Add to page.
                         sectionContent.Children.Add(checkBoxInput);
                         controlItem.Control = checkBoxInput;
-                        App.Logger.Info($"Added {checkBoxInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -115,7 +114,6 @@ public partial class HUD
                         // Add to page.
                         sectionContent.Children.Add(colorContainer);
                         controlItem.Control = colorInput;
-                        App.Logger.Info($"Added {colorInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -138,7 +136,6 @@ public partial class HUD
                         // Add to page.
                         sectionContent.Children.Add(comboBoxContainer);
                         controlItem.Control = comboBoxInput;
-                        App.Logger.Info($"Added {comboBoxInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -157,7 +154,6 @@ public partial class HUD
                         // Add to page.
                         sectionContent.Children.Add(integerContainer);
                         controlItem.Control = integerInput;
-                        App.Logger.Info($"Added {integerInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -175,7 +171,6 @@ public partial class HUD
                         // Add to page.
                         sectionContent.Children.Add(xhairContainer);
                         controlItem.Control = xhairInput;
-                        App.Logger.Info($"Added {xhairInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
 
                         // Create a preview button if the control has a preview image.
                         if (!string.IsNullOrWhiteSpace(controlItem.Preview))
@@ -193,7 +188,6 @@ public partial class HUD
                         // Add to page.
                         sectionContent.Children.Add(bgContainer);
                         controlItem.Control = bgInput;
-                        App.Logger.Info($"Added {bgInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
                         break;
 
                     case "text":
@@ -204,7 +198,6 @@ public partial class HUD
                         // Add to page.
                         sectionContent.Children.Add(textContainer);
                         controlItem.Control = textInput;
-                        App.Logger.Info($"Added {textInput.Name} ({controlItem.Type.ToLowerInvariant()}) to the page");
                         break;
 
                     default:

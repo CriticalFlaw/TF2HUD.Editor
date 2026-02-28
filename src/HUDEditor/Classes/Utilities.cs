@@ -62,7 +62,6 @@ public static class Utilities
     /// <param name="index">Line number to which to add a comment tag.</param>
     public static string CommentTextLine(string[] lines, int index)
     {
-        App.Logger.Info($"Commenting line {index}");
         return string.Concat("//", lines[index].Replace("//", string.Empty));
     }
 
@@ -73,7 +72,6 @@ public static class Utilities
     /// <param name="index">Line number from which to remove a comment tag.</param>
     public static string UncommentTextLine(string[] lines, int index)
     {
-        App.Logger.Info($"Uncommenting line {index}");
         return lines[index].Replace("//", string.Empty);
     }
 
@@ -99,7 +97,6 @@ public static class Utilities
     public static string ConvertToRgba(string hex)
     {
         var color = ColorTranslator.FromHtml(hex);
-        App.Logger.Info($"Converting {hex} to {color}");
         return $"{color.R} {color.G} {color.B} {color.A}";
     }
 
@@ -607,10 +604,10 @@ public static class Utilities
     /// <param name="userSet">If true, will prompt the user to provide the target directory.</param>
     public static async Task<bool> SetupDirectoryAsync(Avalonia.Controls.Window mainWindow, bool userSet = false)
     {
-        App.Logger.Info("Attempting to change the target directory.");
+        App.Logger.Info("Checking target directory...");
         if ((SearchRegistry() || CheckUserPath()) && !userSet)
         {
-            App.Logger.Info("Target directory is valid. Skipping...");
+            App.Logger.Info($"Target directory is set to {App.HudPath}");
             return true;
         }
 
@@ -663,7 +660,7 @@ public static class Utilities
         }";
 
         // Append the path with "/scripts" and create the directory if it doesn't exist.
-        hudPath += "/scripts";
+        hudPath += "\\scripts";
         Directory.CreateDirectory(hudPath);
 
         // Create chapterbackgrounds.txt file with the contents.
