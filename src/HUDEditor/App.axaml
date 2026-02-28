@@ -174,7 +174,7 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
-						<Border Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}}" CornerRadius="5">
+						<Border Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" CornerRadius="5">
 							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 						</Border>
 					</ControlTemplate>
@@ -216,8 +216,7 @@
 
 		<Style Selector="Button.LinkButton">
 			<Setter Property="FontFamily" Value="{StaticResource Icons}" />
-			<Setter Property="FontSize" Value="25" />
-			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="FontSize" Value="30" />
 			<Setter Property="Foreground" Value="#EBE2CA" />
 			<Setter Property="Background" Value="#776B5F" />
 			<Setter Property="Margin" Value="5" />
@@ -228,7 +227,7 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="Button">
-						<Border Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}}" CornerRadius="5">
+						<Border Background="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" CornerRadius="5">
 							<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="{TemplateBinding Foreground}"/>
 						</Border>
 					</ControlTemplate>
