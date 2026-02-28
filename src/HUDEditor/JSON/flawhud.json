@@ -475,10 +475,12 @@
                 "Type": "Checkbox",
                 "ToolTip": "Toggle the spy silhouette seen when changing the disguise.",
                 "Value": "false",
-                "WriteFile": {
-                    "FileName": "hud_disguise_anim.txt",
-                    "TrueText": "#base ../../custom/flawhud/resource/ui/customizations/disguise/hud_disguise_anim_off.res",
-                    "FalseText": ""
+                "Files": {
+                    "scripts/hudanimations_custom.txt": {
+                        "comment": [
+                            "Animate PlayerStatusSpyOutlineImage"
+                        ]
+                    }
                 }
             },
             {
@@ -599,7 +601,6 @@
                 "Type": "Checkbox",
                 "ToolTip": "Use the bulky style of item meters.",
                 "Value": "false",
-                "Restart": true,
                 "Files": {
                     "resource/ui/huddemomancharge.res": {
                         "ItemEffectMeterLabel": {
@@ -1454,7 +1455,7 @@
                 "Minimum": "0",
                 "Maximum": "9",
                 "Files": {
-                    "resource/ui/customizations/killfeed/killfeed.res": {
+                    "resource/ui/customizations/killfeed/killfeed_base.res": {
                         "HudDeathNotice": {
                             "MaxDeathNotices": "$value"
                         }
