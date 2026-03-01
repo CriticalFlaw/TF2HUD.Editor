@@ -174,24 +174,7 @@ public partial class HUD
                     {
                         case "checkbox":
                             if (control.RenameFile is not null)
-                            {
-                                if (control.RenameFile.OldName.EndsWith('/'))
-                                {
-                                    if (Directory.Exists(path + control.RenameFile.NewName))
-                                        Directory.Move(path + control.RenameFile.NewName, path + control.RenameFile.OldName);
-
-                                    if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
-                                        Directory.Move(path + control.RenameFile.OldName, path + control.RenameFile.NewName);
-                                }
-                                else
-                                {
-                                    if (File.Exists(path + control.RenameFile.NewName))
-                                        File.Move(path + control.RenameFile.NewName, path + control.RenameFile.OldName);
-
-                                    if (string.Equals(setting.Value, "true", StringComparison.CurrentCultureIgnoreCase))
-                                        File.Move(path + control.RenameFile.OldName, path + control.RenameFile.NewName);
-                                }
-                            }
+                                RenameFileOrFolder(Name, control.RenameFile.OldName, control.RenameFile.NewName, setting.Value);
 
                             var fileName = Utilities.GetFileNames(control);
                             if (fileName is null or not string) continue; // File name not found, skipping.
@@ -222,22 +205,7 @@ public partial class HUD
                         case "select":
                         case "combobox":
                             foreach (var option in control.Options.Where(x => x.RenameFile is not null))
-                                if (option.RenameFile.OldName.EndsWith('/'))
-                                {
-                                    if (Directory.Exists(path + option.RenameFile.NewName))
-                                        Directory.Move(path + option.RenameFile.NewName, path + option.RenameFile.OldName);
-
-                                    if (string.Equals(option.Value, setting.Value))
-                                        Directory.Move(path + option.RenameFile.OldName, path + option.RenameFile.NewName);
-                                }
-                                else
-                                {
-                                    if (File.Exists(path + option.RenameFile.NewName))
-                                        File.Move(path + option.RenameFile.NewName, path + option.RenameFile.OldName);
-
-                                    if (string.Equals(option.Value, setting.Value))
-                                        File.Move(path + option.RenameFile.OldName, path + option.RenameFile.NewName);
-                                }
+                                RenameFileOrFolder(Name, option.RenameFile.OldName, option.RenameFile.NewName, string.Equals(option.Value, setting.Value).ToString());   // TODO: does Name need to be path?
 
                             var fileNames = Utilities.GetFileNames(control);
                             if (fileNames is null or not string[]) continue; // File names not found, skipping.
@@ -356,7 +324,8 @@ public partial class HUD
             if (hudSetting.WriteFile is not null && !string.IsNullOrWhiteSpace(hudSetting.WriteFile.FileName))
             {
                 // Create the file based on WriteFile.FilePath and WriteFile.Contents
-                var filePath = Path.Combine(Name, hudSetting.WriteFile.FileName);
+                var hudPath = Path.Combine(Path.GetFullPath(App.HudPath), Name);
+                var filePath = Path.Combine(hudPath, hudSetting.WriteFile.FileName);
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
 
                 // Write to the file depending on the value of the setting
@@ -365,6 +334,10 @@ public partial class HUD
                 else
                     File.WriteAllText(filePath, hudSetting.WriteFile.FalseText ?? string.Empty);
             }
+
+            // Rename file or folder within the HUD directory
+            if (hudSetting.RenameFile is not null)
+                RenameFileOrFolder(Name, hudSetting.RenameFile.OldName, hudSetting.RenameFile.NewName, userSetting.Value);   // TODO: does Name need to be path?
 
             if (files is null) return;
 
@@ -814,6 +787,32 @@ public partial class HUD
         {
             string newDestinationDir = Path.Combine(destination, subDir.Name);
             CopyDirectory(subDir.FullName, newDestinationDir);
+        }
+    }
+
+    static void RenameFileOrFolder(string hudName, string oldName, string newName, string userValue)
+    {
+        if (string.IsNullOrWhiteSpace(oldName) || string.IsNullOrWhiteSpace(newName)) return;
+
+        var hudPath = Path.Combine(Path.GetFullPath(App.HudPath), hudName);
+        var oldPath = Path.Combine(hudPath, oldName);
+        var newPath = Path.Combine(hudPath, newName);
+
+        if (oldPath.EndsWith('/'))
+        {
+            if (Directory.Exists(newPath))
+                Directory.Move(newPath, oldPath);
+
+            if (string.Equals(userValue, "true", StringComparison.CurrentCultureIgnoreCase))
+                Directory.Move(oldPath, newPath);
+        }
+        else
+        {
+            if (File.Exists(newPath))
+                File.Move(newPath, oldPath);
+
+            if (string.Equals(userValue, "true", StringComparison.CurrentCultureIgnoreCase))
+                File.Move(oldPath, newPath);
         }
     }
 }
