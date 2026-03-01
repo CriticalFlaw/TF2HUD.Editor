@@ -1,0 +1,622 @@
+{
+    "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
+    "Author": "Vexcenot",
+    "Description": "Vanilla Centered TF2 Hud with default health and ammo in the middle.",
+    "Thumbnail": "https://raw.githubusercontent.com/mastercomfig/hud-db/main/hud-resources/middlemann/middlemann-banner.webp",
+    "Screenshots": [
+        "https://static.tf2huds.dev/-Middle-Mann/img/6kPDUa8.png",
+        "https://static.tf2huds.dev/-Middle-Mann/img/0GJLJGw.png",
+        "https://static.tf2huds.dev/-Middle-Mann/img/bAKYkYc.png",
+        "https://static.tf2huds.dev/-Middle-Mann/img/KDFYp0l.png"
+    ],
+    "Background": "https://wiki.teamfortress.com/w/images/thumb/9/92/Background_2fort.png/1280px-Background_2fort.png",
+    "Layout": [
+        "0 2 3",
+        "0 2 3",
+        "1 2 3"
+    ],
+    "Links": {
+        "Update": "https://github.com/Vexcenot/-middle-mann/archive/refs/heads/master.zip",
+        "GitHub": "https://github.com/Vexcenot/-Middle-Mann",
+        "TF2Huds": "https://tf2huds.dev/hud/-Middle-Mann",
+        "GameBanana": "https://gamebanana.com/mods/445578",
+        "Discord": "https://discord.gg/9QzHkQx"
+    },
+    "Controls": {
+        "HUD Colors": [
+            {
+                "Name": "mm_color_target_health",
+                "Label": "Target Health",
+                "Type": "ColorPicker",
+                "Value": "0 253 31 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/mm_colors.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "TargetHealth": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "mm_color_target_damage",
+                "Label": "Target Damage",
+                "Type": "ColorPicker",
+                "Value": "254 148 9 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/mm_colors.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "TargetDamage": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "mm_color_blu_team",
+                "Label": "Blue Team",
+                "Type": "ColorPicker",
+                "Value": "101 121 140 210",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/clientscheme_colors.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "G_TeamBlue": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "mm_color_blu_team_bg",
+                "Label": "Blue Team BG",
+                "Type": "ColorPicker",
+                "Value": "58 78 89 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/clientscheme_colors.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "G_TeamBlueBG": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "mm_color_red_team",
+                "Label": "Red Team",
+                "Type": "ColorPicker",
+                "Value": "164 65 62 235",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/clientscheme_colors.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "G_TeamRed": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "mm_color_red_team_bg",
+                "Label": "Red Team BG",
+                "Type": "ColorPicker",
+                "Value": "97 29 29 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/clientscheme_colors.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "G_TeamRedBG": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "mm_color_menu_accent",
+                "Label": "Menu Accent",
+                "Type": "ColorPicker",
+                "Value": "208 147 75 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/clientscheme_colors.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "Menu_Accent": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "mm_color_xhair_normal",
+                "Label": "HUD Crosshair",
+                "Type": "ColorPicker",
+                "Value": "255 255 255 255",
+                "Restart": true,
+                "Files": {
+                    "customizations/hud_crosshairs.res": {
+                        "CustomCrosshair": {
+                            "fgcolor": "$value"
+                        }
+                    }
+                }
+            },
+        ],
+        "Crosshair": [
+            {
+                "Name": "mm_val_xhair_style",
+                "Label": "Style",
+                "Type": "Crosshair",
+                "Value": "?",
+                "Files": {
+                    "customizations/hud_crosshairs.res": {
+                        "CustomCrosshair": {
+                            "labelText": "$value"
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "mm_val_xhair_size",
+                "Label": "Size",
+                "Type": "IntegerUpDown",
+                "Value": "18",
+                "Minimum": "10",
+                "Maximum": "30",
+                "Increment": "1",
+                "Files": {
+                    "customizations/hud_crosshairs.res": {
+                        "CustomCrosshair": {
+                            "font": "Size:$value | Outline:OFF"
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "mm_color_xhair_visibility",
+                "Label": "Toggle Crosshair",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Files": {
+                    "customizations/hud_crosshairs.res": {
+                        "CustomCrosshair": {
+                            "visible": {
+                                "true": "1",
+                                "false": "0"
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "Customizations": [
+            {
+                "Name": "mm_toggle_canteen_location",
+                "Label": "MvM Canteen on the right",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteFile": {
+                    "FileName": "customizations/canteenlocation.res",
+                    "TrueText": "#base \"../resource/ui/customizations/mvmbottle/bottle_right.res\"",
+                    "FalseText": "#base \"../resource/ui/customizations/mvmbottle/bottle_left.res\""
+                }
+            },
+            {
+                "Name": "mm_toggle_chat_position",
+                "Label": "In-Game Chat on top left",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteFile": {
+                    "FileName": "customizations/chatposition.res",
+                    "TrueText": "#base \"../resource/ui/customizations/chat/chat_top.res\"",
+                    "FalseText": "#base \"../resource/ui/customizations/chat/chat_default.res\""
+                }
+            },
+            {
+                "Name": "mm_toggle_killfeed_position",
+                "Label": "Ultrawide-Friendly Killfeed",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteFile": {
+                    "FileName": "customizations/killfeed.res",
+                    "TrueText": "#base \"../scripts/customizations/killfeed/killfeed_ultrawide.res\"",
+                    "FalseText": "#base \"../scripts/customizations/killfeed/killfeed_default.res\""
+                }
+            },
+            {
+                "Name": "mm_toggle_killstreak_blood",
+                "Label": "Disable Killstreak Splatter",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteFile": {
+                    "FileName": "customizations/killstreak_blood.res",
+                    "TrueText": "#base \"../resource/ui/customizations/ksblood/blood_off.res\"",
+                    "FalseText": "#base \"../resource/ui/customizations/ksblood/blood_on.res\""
+                }
+            },
+            {
+                "Name": "mm_toggle_medic_positionings",
+                "Label": "Alternative Medic Positionings",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteFile": {
+                    "FileName": "customizations/medic_alternative.res",
+                    "TrueText": "#base \"medic_alt/medic_alt.res\"",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "mm_toggle_player_model",
+                "Label": "Disable Player Model",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteFile": {
+                    "FileName": "customizations/playermodel.res",
+                    "TrueText": "#base \"../resource/ui/customizations/playermodel/playermodel_off.res\"",
+                    "FalseText": "#base \"../resource/ui/customizations/playermodel/playermodel_on.res\""
+                }
+            },
+            {
+                "Name": "mm_toggle_time_panel",
+                "Label": "Default Time Panel",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteFile": {
+                    "FileName": "customizations/timepanel.res",
+                    "TrueText": "#base \"../resource/ui/customizations/timepanel/timepanel_default.res\"",
+                    "FalseText": "#base \"../resource/ui/customizations/timepanel/timepanel_fancy.res\""
+                }
+            },
+            {
+                "Name": "mm_toggle_streamer_mode",
+                "Label": "Streamer Mode",
+                "Type": "CheckBox",
+                "Value": "false",
+                "Width": 250,
+                "RenameFile": {
+                    "OldName": "customizations/streamermode_/",
+                    "NewName": "customizations/streamermode/",
+                    "Restart": false    // TODO is this needed?
+                }
+            },
+            {
+                "Name": "mm_toggle_class_select",
+                "Label": "Classic Class Select",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteFile": {
+                    "FileName": "customizations/class_selection.res",
+                    "TrueText": "#base \"../resource/ui/customizations/class_selection/selection_vanilla.res\"",
+                    "FalseText": "#base \"../resource/ui/customizations/class_selection/selection_default.res\""
+                }
+            },
+            {
+                "Name": "mm_toggle_sidemann",
+                "Label": "Enable Sidemann",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteFile": {
+                    "FileName": "customizations/sidemann-toggle.res",
+                    "TrueText": "#base \"sidemann/sidemann.res\"",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "mm_toggle_transparent_viewmodels",
+                "Label": "Transparent Viewmodels",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteFile": {
+                    "FileName": "customizations/transparent_viewmodels.res",
+                    "TrueText": "#base \"../scripts/customizations/transparent_viewmodels.res\"",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "mm_val_damage_values",
+                "Label": "Health Style",
+                "Type": "ComboBox",
+                "Value": "0",
+                "Width": 150,
+                "Options": [
+                    {
+                        "Label": "Above HP/Player",
+                        "Value": "0",
+                        "Files": {
+                            "customizations/damagenumbers.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/last_damage/lastdamage_ammo.res\"",
+                                    "#base \"../resource/ui/customizations/last_damage/lastdamage_center.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../resource/ui/customizations/last_damage/lastdamage_health.res\""
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "Above Ammo",
+                        "Value": "1",
+                        "Files": {
+                            "customizations/damagenumbers.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/last_damage/lastdamage_health.res\"",
+                                    "#base \"../resource/ui/customizations/last_damage/lastdamage_center.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../resource/ui/customizations/last_damage/lastdamage_ammo.res\""
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "Below Crosshair",
+                        "Value": "2",
+                        "Files": {
+                            "customizations/damagenumbers.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/last_damage/lastdamage_health.res\"",
+                                    "#base \"../resource/ui/customizations/last_damage/lastdamage_ammo.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../resource/ui/customizations/last_damage/lastdamage_center.res\""
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "Name": "mm_val_hp_warning",
+                "Label": "Health Warning",
+                "Type": "ComboBox",
+                "Value": "0",
+                "Width": 150,
+                "Options": [
+                    {
+                        "Label": "None",
+                        "Value": "0",
+                        "Files": {
+                            "customizations/hp-warning.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_vanilla.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_cross.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_hpalert.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_overwatch.res\""
+                                ],
+                                "uncomment": [
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "Big Vanilla Cross",
+                        "Value": "1",
+                        "Files": {
+                            "customizations/hp-warning.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_cross.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_hpalert.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_overwatch.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_vanilla.res\""
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "Cross Next to HP",
+                        "Value": "2",
+                        "Files": {
+                            "customizations/hp-warning.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_vanilla.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_hpalert.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_overwatch.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_cross.res\""
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "Small 'Low Heath' Warning",
+                        "Value": "3",
+                        "Files": {
+                            "customizations/hp-warning.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_vanilla.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_cross.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_overwatch.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_hpalert.res\""
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "Overwatch Styled",
+                        "Value": "4",
+                        "Files": {
+                            "customizations/hp-warning.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_vanilla.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_cross.res\"",
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_hpalert.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../resource/ui/customizations/hpalert/hudplayerhealth_overwatch.res\""
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "Name": "mm_val_meters_position",
+                "Label": "Item Meter Position",
+                "Type": "ComboBox",
+                "Value": "0",
+                "Width": 150,
+                "Options": [
+                    {
+                        "Label": "Default",
+                        "Value": "0",
+                        "Files": {
+                            "customizations/meters_position.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/meter_position/meters_ammo.res\"",
+                                    "#base \"../resource/ui/customizations/meter_position/meters_side.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../resource/ui/customizations/meter_position/meters_center.res\""
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "Above Ammo",
+                        "Value": "1",
+                        "Files": {
+                            "customizations/meters_position.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/meter_position/meters_center.res\"",
+                                    "#base \"../resource/ui/customizations/meter_position/meters_side.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../resource/ui/customizations/meter_position/meters_ammo.res\""
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "Side",
+                        "Value": "2",
+                        "Files": {
+                            "customizations/meters_position.res": {
+                                "comment": [
+                                    "#base \"../resource/ui/customizations/meter_position/meters_center.res\"",
+                                    "#base \"../resource/ui/customizations/meter_position/meters_ammo.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../resource/ui/customizations/meter_position/meters_side.res\""
+                                ]
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "Name": "mm_val_vignette",
+                "Label": "Vignette Strength",
+                "Type": "ComboBox",
+                "Value": "0",
+                "Width": 150,
+                "Options": [
+                    {
+                        "Label": "0%",
+                        "Value": "0",
+                        "Files": {
+                            "customizations/vignette.res": {
+                                "comment": [
+                                    "#base \"../scripts/customizations/vignette/vignette25.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette50.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette75.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette100.res\""
+                                ],
+                                "uncomment": [
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "25%",
+                        "Value": "1",
+                        "Files": {
+                            "customizations/vignette.res": {
+                                "comment": [
+                                    "#base \"../scripts/customizations/vignette/vignette50.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette75.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette100.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../scripts/customizations/vignette/vignette25.res\""
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "50%",
+                        "Value": "2",
+                        "Files": {
+                            "customizations/vignette.res": {
+                                "comment": [
+                                    "#base \"../scripts/customizations/vignette/vignette25.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette75.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette100.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../scripts/customizations/vignette/vignette50.res\""
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "75%",
+                        "Value": "3",
+                        "Files": {
+                            "customizations/vignette.res": {
+                                "comment": [
+                                    "#base \"../scripts/customizations/vignette/vignette25.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette50.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette100.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../scripts/customizations/vignette/vignette75.res\""
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "Label": "100%",
+                        "Value": "4",
+                        "Files": {
+                            "customizations/vignette.res": {
+                                "comment": [
+                                    "#base \"../scripts/customizations/vignette/vignette25.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette50.res\"",
+                                    "#base \"../scripts/customizations/vignette/vignette75.res\""
+                                ],
+                                "uncomment": [
+                                    "#base \"../scripts/customizations/vignette/vignette100.res\""
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
