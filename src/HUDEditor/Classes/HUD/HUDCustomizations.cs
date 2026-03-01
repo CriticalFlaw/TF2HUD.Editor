@@ -333,16 +333,30 @@ public partial class HUD
                 EvaluateSpecial(special, userSetting, enable, specialParameters);
             }
 
-            // Create and write to files as instructed in the HUD's schema
-            if (hudSetting.WriteFile is not null && !string.IsNullOrWhiteSpace(hudSetting.WriteFile.FileName))
+            // Create and write to files to the HUD's tf/cfg directory
+            if (hudSetting.WriteCfg is not null && !string.IsNullOrWhiteSpace(hudSetting.WriteCfg.FileName))
             {
                 // Find tf/cfg directory and create the HUD's cfg directory if it doesn't exist
                 var cfgPath = Path.GetFullPath(App.HudPath.Replace("/custom", "/cfg"));
                 var hudFolder = Path.Combine(cfgPath, Name);
                 if (!Directory.Exists(hudFolder)) Directory.CreateDirectory(hudFolder);
 
+                // Create the file based on WriteCfg.FilePath and WriteCfg.Contents
+                var filePath = Path.Combine(hudFolder, hudSetting.WriteCfg.FileName);
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+                // Write to the file depending on the value of the setting
+                if (userSetting.Value.ToLowerInvariant() == "true")
+                    File.WriteAllText(filePath, hudSetting.WriteCfg.TrueText ?? string.Empty);
+                else
+                    File.WriteAllText(filePath, hudSetting.WriteCfg.FalseText ?? string.Empty);
+            }
+
+            // Create and write to files to the HUD's tf/custom directory
+            if (hudSetting.WriteFile is not null && !string.IsNullOrWhiteSpace(hudSetting.WriteFile.FileName))
+            {
                 // Create the file based on WriteFile.FilePath and WriteFile.Contents
-                var filePath = Path.Combine(hudFolder, hudSetting.WriteFile.FileName);
+                var filePath = Path.Combine(Name, hudSetting.WriteFile.FileName);
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
 
                 // Write to the file depending on the value of the setting

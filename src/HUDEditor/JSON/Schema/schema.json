@@ -179,6 +179,20 @@
                                     }
                                 }
                             },
+                            "WriteCfg": {
+                                "type": "object",
+                                "properties": {
+                                    "FileName": {
+                                        "type": "string"
+                                    },
+                                    "TrueText": {
+                                        "type": "string"
+                                    },
+                                    "FalseText": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
                             "ComboDirectories": {
                                 "type": "array",
                                 "items": {

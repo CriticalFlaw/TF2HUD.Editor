@@ -10,6 +10,7 @@ public class Option
     [JsonPropertyName("Label")] public string Label;
     [JsonPropertyName("RenameFile")] public RenameFile RenameFile;
     [JsonPropertyName("WriteFile")] public WriteFile WriteFile;
+    [JsonPropertyName("WriteCfg")] public WriteCfg WriteCfg;
     [JsonPropertyName("Special")] public string Special;
     [JsonPropertyName("SpecialParameters")] public string[] SpecialParameters;
     [JsonPropertyName("Value")] public string Value;
