@@ -41,7 +41,7 @@
                 "ToolTip": "Toggle hitmarker animation.",
                 "Value": "true",
                 "Files": {
-                    "scripts/hudanimations_custom.txt": {
+                    "_tf2hud/scripts/hudanimations_custom.txt": {
                         "uncomment": [
                             "Animate CustomCrosshair"
                         ]
@@ -55,7 +55,7 @@
                 "Type": "Crosshair",
                 "Value": "<",
                 "Files": {
-                    "resource/ui/#customizations/crosshair/crosshair_base.res": {
+                    "_extras/_customizations/crosshair/crosshair_base.res": {
                         "CustomCrosshair": {
                             "labelText": "$value"
                         }
@@ -72,7 +72,7 @@
                 "Increment": "1",
                 "ToolTip": "Size of the crosshair.",
                 "Files": {
-                    "resource/ui/#customizations/crosshair/crosshair_base.res": {
+                    "_extras/_customizations/crosshair/crosshair_base.res": {
                         "CustomCrosshair": {
                             "font": "Size-$value"
                         }
@@ -87,7 +87,7 @@
                 "Value": "255 255 255 255",
                 "Restart": true,
                 "Files": {
-                    "resource/ui/#customizations/crosshair/crosshair_scheme.res": {
+                    "_extras/_customizations/crosshair/crosshair_scheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "Crosshair": "$value"
@@ -104,7 +104,7 @@
                 "Value": "255 0 0 255",
                 "Restart": true,
                 "Files": {
-                    "resource/ui/#customizations/crosshair/crosshair_scheme.res": {
+                    "_extras/_customizations/crosshair/crosshair_scheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "Hitmarker": "$value"
@@ -159,7 +159,7 @@
                 "ToolTip": "Toggle bold player health value.",
                 "Value": "false",
                 "Files": {
-                    "resource/ui/hudplayerhealth.res": {
+                    "_tf2hud/resource/ui/hudplayerhealth.res": {
                         "PlayerStatusHealthValue": {
                             "font": {
                                 "true": "HudFontMediumSmallBold",
@@ -176,7 +176,7 @@
                 "ToolTip": "Toggle ubercharge meter appearing near the crosshair.",
                 "Value": "false",
                 "Files": {
-                    "scripts/hudlayout.res": {
+                    "_tf2hud/scripts/hudlayout.res": {
                         "HudMedicCharge": {
                             "xpos^[$WIN32]": {
                                 "true": "c-70",
@@ -196,7 +196,7 @@
                             }
                         }
                     },
-                    "resource/ui/hudmediccharge.res": {
+                    "_tf2hud/resource/ui/hudmediccharge.res": {
                         "Background": {
                             "visible": {
                                 "true": "0",
@@ -237,7 +237,7 @@
                 "ToolTip": "Toggle metal counter appearing near the crosshair.",
                 "Value": "false",
                 "Files": {
-                    "scripts/hudlayout.res": {
+                    "_tf2hud/scripts/hudlayout.res": {
                         "CHudAccountPanel": {
                             "xpos^[$WIN32]": {
                                 "true": "c-45",
@@ -253,7 +253,7 @@
                             }
                         }
                     },
-                    "resource/ui/hudaccountpanel.res": {
+                    "_tf2hud/resource/ui/hudaccountpanel.res": {
                         "AccountBG": {
                             "visible": {
                                 "true": "0",
@@ -286,7 +286,7 @@
                 "Maximum": "9",
                 "Increment": "1",
                 "Files": {
-                    "resource/ui/#customizations/killfeed/killfeed_base.res": {
+                    "_tf2hud/scripts/hudlayout.res": {
                         "HudDeathNotice": {
                             "MaxDeathNotices": "$value"
                         }
@@ -302,7 +302,7 @@
                 "ToolTip": "Toggle displaying the damage number near the player's health.",
                 "Value": "true",
                 "Files": {
-                    "resource/ui/#customizations/damage/last_damage_base.res": {
+                    "_tf2hud/resource/ui/huddamageaccount.res": {
                         "DamageAccountValue": {
                             "visible": {
                                 "true": "1",
@@ -319,7 +319,7 @@
                 "ToolTip": "Toggle damage number font between TF2 Secondary and TF2 Build.",
                 "Value": "false",
                 "Files": {
-                    "resource/ui/#customizations/damage/float_damage_base.res": {
+                    "_tf2hud/resource/ui/huddamageaccount.res": {
                         "CDamageAccountPanel": {
                             "delta_item_font": {
                                 "true": "HudFontSmallBold",
@@ -331,7 +331,7 @@
                             }
                         }
                     },
-                    "resource/ui/#customizations/damage/last_damage_base.res": {
+                    "_extras/resource/ui/huddamageaccount.res": {
                         "DamageAccountValue": {
                             "font": {
                                 "true": "HudFontMediumBold",
@@ -348,7 +348,7 @@
                 "Value": "255 255 0 255",
                 "Restart": false,
                 "Files": {
-                    "resource/ui/#customizations/damage/last_damage_base.res": {
+                    "_extras/resource/ui/huddamageaccount.res": {
                         "DamageAccountValue": {
                             "fgcolor": "$value"
                         }
@@ -365,7 +365,7 @@
                 "Value": "true",
                 "Restart": true,
                 "Files": {
-                    "resource/ui/mainmenuoverride.res": {
+                    "_tf2hud/resource/ui/mainmenuoverride.res": {
                         "TFCharacterImage": {
                             "ypos": {
                                 "true": "-80",
@@ -392,7 +392,7 @@
                 "Value": "178 178 178 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "QualityColorNormal": "$value"
@@ -408,7 +408,7 @@
                 "Value": "255 215 0 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "QualityColorUnique": "$value"
@@ -424,7 +424,7 @@
                 "Value": "207 106 50 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "QualityColorStrange": "$value"
@@ -440,7 +440,7 @@
                 "Value": "71 98 145 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "QualityColorVintage": "$value"
@@ -456,7 +456,7 @@
                 "Value": "56 243 171 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "QualityColorHaunted": "$value"
@@ -472,7 +472,7 @@
                 "Value": "77 116 85 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "QualityColorrarity1": "$value"
@@ -488,7 +488,7 @@
                 "Value": "170 0 0 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "QualityColorCollectors": "$value"
@@ -504,7 +504,7 @@
                 "Value": "134 80 172 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "QualityColorrarity4": "$value"
@@ -520,7 +520,7 @@
                 "Value": "112 176 74 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "QualityColorCommunity": "$value"
@@ -536,7 +536,7 @@
                 "Value": "165 15 121 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "QualityColorDeveloper": "$value"
@@ -552,7 +552,7 @@
                 "Value": "176 195 217 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "ItemRarityCommon": "$value"
@@ -568,7 +568,7 @@
                 "Value": "94 152 217 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "ItemRarityUncommon": "$value"
@@ -584,7 +584,7 @@
                 "Value": "75 105 255 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "ItemRarityRare": "$value"
@@ -600,7 +600,7 @@
                 "Value": "136 71 255 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "ItemRarityMythical": "$value"
@@ -616,7 +616,7 @@
                 "Value": "211 44 230 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "ItemRarityLegendary": "$value"
@@ -632,7 +632,7 @@
                 "Value": "235 75 75 255",
                 "Restart": true,
                 "Files": {
-                    "resource/clientscheme.res": {
+                    "_tf2hud/resource/clientscheme.res": {
                         "Scheme": {
                             "Colors": {
                                 "ItemRarityAncient": "$value"
