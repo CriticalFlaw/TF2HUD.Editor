@@ -16,6 +16,9 @@
         "InstallCrosshairs": {
             "type": "boolean"
         },
+        "AppVersion": {
+            "type": "string"
+        },
         "Layout": {
             "type": "array",
             "items": {

@@ -38,6 +38,7 @@ public partial class HUD
     public List<string> DirtyControls;
     public bool Unique;
     public readonly bool InstallCrosshairs;
+    public string AppVersion { get; set; }
     public string[] Screenshots { get; set; }
     public List<Bitmap> ScreenshotImages { get; set; } = new();
 
@@ -73,6 +74,7 @@ public partial class HUD
         DirtyControls = new List<string>();
         Unique = isUnique;
         InstallCrosshairs = schema.InstallCrosshairs;
+        AppVersion = schema.AppVersion;
         Screenshots = schema.Screenshots;
         ScreenshotImages = new List<Bitmap>();
     }

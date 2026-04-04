@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using HUDEditor.Classes;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 
 namespace HUDEditor.ViewModels;
 
@@ -68,6 +70,20 @@ internal partial class HomePageViewModel : ViewModelBase
         HUDListView.Clear();
 
         var filtered = _allHuds.Where(x => (!DisplayUniqueHudsOnly || x.Unique) && (string.IsNullOrWhiteSpace(SearchText) || x.Name.ToLowerInvariant().Contains(SearchText)));
+
+        // Filter out HUDs not compatible with current app version
+        var currentAppVersion = Assembly.GetEntryAssembly()?.GetName().Version;
+        filtered = filtered.Where(x =>
+        {
+            if (string.IsNullOrWhiteSpace(x.Hud.AppVersion))
+                return true;
+
+            if (!Version.TryParse(x.Hud.AppVersion, out var requiredVersion))
+                return true; // or false, depending on how strict you want to be
+
+            return currentAppVersion >= requiredVersion;
+        });
+
         foreach (var hud in filtered) HUDListView.Add(hud);
     }
 

@@ -19,4 +19,5 @@ public class HudJson
     [JsonPropertyName("Screenshots")] public string[] Screenshots;
     [JsonPropertyName("Thumbnail")] public string Thumbnail;
     [JsonPropertyName("InstallCrosshairs")] public bool InstallCrosshairs;
+    [JsonPropertyName("AppVersion")] public string AppVersion;
 }
