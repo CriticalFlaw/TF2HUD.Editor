@@ -5,7 +5,7 @@
         xmlns:vm="clr-namespace:HUDEditor.ViewModels"
         xmlns:v="clr-namespace:HUDEditor.Views"
         xmlns:loc="clr-namespace:HUDEditor.Assets"
-        xmlns:classes="clr-namespace:HUDEditor.Classes"
+        xmlns:converters="clr-namespace:HUDEditor.Converters"
         xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
         mc:Ignorable="d"
         Width="1000" Height="450"
@@ -15,9 +15,9 @@
         Icon="/Assets/Images/favicon.ico">
 
 	<Window.Resources>
-		<classes:DisableOnLinuxConverter x:Key="DisableOnLinux" />
-		<classes:SettingsFileExistsConverter x:Key="SettingsFileExists" />
-		<classes:IsUserPathValidConverter x:Key="IsUserPathValid" />
+		<converters:DisableOnLinuxConverter x:Key="DisableOnLinux" />
+		<converters:SettingsFileExistsConverter x:Key="SettingsFileExists" />
+		<converters:IsUserPathValidConverter x:Key="IsUserPathValid" />
 	</Window.Resources>
 
 	<Border>

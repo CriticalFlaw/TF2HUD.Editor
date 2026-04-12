@@ -5,16 +5,16 @@
 			 xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
 			 xmlns:vm="using:HUDEditor.ViewModels"
 			 xmlns:loc="clr-namespace:HUDEditor.Assets"
-			 xmlns:classes="clr-namespace:HUDEditor.Classes"
+			 xmlns:converters="clr-namespace:HUDEditor.Converters"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="HUDEditor.Views.EditHUDView"
              x:Name="Root"
 			 x:DataType="vm:EditHUDViewModel">
 
 	<UserControl.Resources>
-		<classes:ComboBoxItemsConverterVisibility x:Key="ComboBoxItemsConverterVisibility" />
-		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
-		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+		<converters:ComboBoxItemsConverterVisibility x:Key="ComboBoxItemsConverterVisibility" />
+		<converters:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
+		<converters:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
 	</UserControl.Resources>
 
 	<dialogHost:DialogHost Identifier="PreviewModal" CloseOnClickAway="True">

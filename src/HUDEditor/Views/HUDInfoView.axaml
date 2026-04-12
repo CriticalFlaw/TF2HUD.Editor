@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:HUDEditor.ViewModels"
 			 xmlns:loc="clr-namespace:HUDEditor.Assets"
-			 xmlns:classes="clr-namespace:HUDEditor.Classes"
+			 xmlns:converters="clr-namespace:HUDEditor.Converters"
              mc:Ignorable="d"
              x:Class="HUDEditor.Views.HUDInfoView"
 			 x:DataType="vm:HUDInfoViewModel">
 
 	<Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*,Auto">
 		<Grid.Resources>
-			<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+			<converters:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
 		</Grid.Resources>
 
 		<!-- HUD Name -->

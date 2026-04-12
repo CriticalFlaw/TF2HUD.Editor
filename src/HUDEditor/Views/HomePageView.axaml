@@ -5,13 +5,13 @@
              xmlns:vm="clr-namespace:HUDEditor.ViewModels"
              xmlns:v="clr-namespace:HUDEditor.Views"
              xmlns:loc="clr-namespace:HUDEditor.Assets"
-             xmlns:classes="clr-namespace:HUDEditor.Classes"
+             xmlns:converters="clr-namespace:HUDEditor.Converters"
              mc:Ignorable="d"
              x:Class="HUDEditor.Views.HomePageView"
              x:DataType="vm:HomePageViewModel">
 
 	<UserControl.Resources>
-		<classes:DisplayUniqueHudsOnlyForegroundConverter x:Key="DisplayUniqueHudsOnlyForegroundConverter" />
+		<converters:DisplayUniqueHudsOnlyForegroundConverter x:Key="DisplayUniqueHudsOnlyForegroundConverter" />
 	</UserControl.Resources>
 
 	<HeaderedContentControl Margin="10,0,10,0">

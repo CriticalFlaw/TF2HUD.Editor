@@ -2,6 +2,7 @@ using Avalonia.Data;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using HUDEditor.Assets;
+using HUDEditor.Classes;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace HUDEditor.Classes;
+namespace HUDEditor.Converters;
 
 public class NullCheckConverter : IValueConverter
 {
@@ -74,7 +75,7 @@ public class PageBackgroundConverter : IValueConverter
         };
 
         var selection = (HUD)value;
-        selection.Background ??= defaultBg;
+        if (string.IsNullOrEmpty(selection.Background)) selection.Background = defaultBg;
         if (selection.Background.StartsWith("avares"))
         {
             return new ImageBrush

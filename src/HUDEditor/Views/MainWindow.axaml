@@ -5,7 +5,7 @@
         xmlns:vm="clr-namespace:HUDEditor.ViewModels"
 		xmlns:v="clr-namespace:HUDEditor.Views"
 		xmlns:loc="clr-namespace:HUDEditor.Assets"
-		xmlns:classes="clr-namespace:HUDEditor.Classes"
+		xmlns:conveters="clr-namespace:HUDEditor.Converters"
         mc:Ignorable="d"
         Width="1300" Height="730"
         x:Class="HUDEditor.Views.MainWindow"
@@ -19,13 +19,13 @@
 	</Design.DataContext>
 
 	<Window.Resources>
-		<classes:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
-		<classes:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
-		<classes:NotNullCheckConverter x:Key="NotNullCheckConverter" />
-		<classes:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
-		<classes:NullCheckConverter x:Key="NullCheckConverter" />
-		<classes:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
-		<classes:PageBackgroundConverter x:Key="PageBackgroundConverter" />
+		<conveters:BtnInstallContentConverter x:Key="BtnInstallContentConverter" />
+		<conveters:LinkCheckConverterVisibility x:Key="LinkCheckConverterVisibility" />
+		<conveters:NotNullCheckConverter x:Key="NotNullCheckConverter" />
+		<conveters:NotNullCheckConverterVisibility x:Key="NotNullCheckConverterVisibility" />
+		<conveters:NullCheckConverter x:Key="NullCheckConverter" />
+		<conveters:NullCheckConverterVisibility x:Key="NullCheckConverterVisibility" />
+		<conveters:PageBackgroundConverter x:Key="PageBackgroundConverter" />
 	</Window.Resources>
 
 	<Grid Background="{Binding SelectedHud, Converter={StaticResource PageBackgroundConverter}}">
