@@ -52,7 +52,7 @@ public partial class HUD
     /// <param name="isUnique">Marks the HUD as having unique customizations.</param>
     public HUD(string name, HudJson schema, bool isUnique)
     {
-        Name = schema.Name ?? name;
+        Name = (!string.IsNullOrEmpty(schema.Name)) ? schema.Name : name;
         Settings = new HUDSettings(Name);
         Opacity = schema.Opacity;
         Maximize = schema.Maximize;

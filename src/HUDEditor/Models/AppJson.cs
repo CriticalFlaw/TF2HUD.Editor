@@ -1,5 +1,7 @@
 ﻿namespace HUDEditor.Models;
 
+using HUDEditor.Assets;
+using HUDEditor.Classes;
 using System.Text.Json.Serialization;
 
 public class ConfigurationModel
@@ -81,4 +83,11 @@ public class AppConfig
 
     [JsonPropertyName("sentry_dsn")]
     public string SentryDsn { get; set; } = "https://4e922f3f78a96ed10bd15cc899a69924@o287333.ingest.us.sentry.io/4509027513597952";
+}
+
+public class Language
+{
+    public string CultureCode { get; set; } = "en-US";
+    public string CultureName { get; set; } = Resources.ui_language_en;
+    public Avalonia.Media.Imaging.Bitmap FlagImagePath { get; set; } = Utilities.LoadFromResource("avares://HUDEditor/Assets/Images/Flags/us.png");
 }
