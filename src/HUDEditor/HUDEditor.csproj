@@ -52,28 +52,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="11.3.12" />
-		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.3.12" />
-		<PackageReference Include="Avalonia.Desktop" Version="11.3.12" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.12" />
+		<PackageReference Include="Avalonia" Version="11.3.13" />
+		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.3.13" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.3.13" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.13" />
 		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.12" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Include="Avalonia.Diagnostics" Version="11.3.12">
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.3.13">
 			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
 			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 		<PackageReference Include="Crews.Utility.TgaSharp" Version="1.0.0" />
-		<PackageReference Include="DialogHost.Avalonia" Version="0.10.4" />
+		<PackageReference Include="DialogHost.Avalonia" Version="0.11.0" />
 		<PackageReference Include="log4net" Version="3.3.0" />
 		<PackageReference Include="MessageBox.Avalonia" Version="3.3.1.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.3" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.3" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.5" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="Octokit" Version="14.0.0" />
-		<PackageReference Include="ReactiveUI.Avalonia" Version="11.4.3" />
-		<PackageReference Include="Sentry" Version="6.1.0" />
+		<PackageReference Include="ReactiveUI.Avalonia" Version="11.4.12" />
+		<PackageReference Include="Sentry" Version="6.3.1" />
 	</ItemGroup>
 
 	<ItemGroup>
