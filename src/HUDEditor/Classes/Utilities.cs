@@ -365,11 +365,11 @@ public static class Utilities
     }
 
     /// <summary>
-    /// Downloads and prepares the HUD for use.
+    /// Downloads and extracts a HUD zip archive to the tf/custom directory.
     /// </summary>
-    /// <param name="url">Download link for the HUD</param>
-    /// <param name="filePath">Path to where the HUD should be installed to</param>
-    /// <param name="hudName">Proper name for the HUD being downloaded</param>
+    /// <param name="url">Direct download URL for the HUD zip.</param>
+    /// <param name="filePath">tf/custom directory to install into.</param>
+    /// <param name="hudName">Formatted name of the downloaded HUD.</param>
     public static async Task DownloadHud(string url, string filePath, string hudName)
     {
         using HttpClient client = new();
@@ -382,35 +382,44 @@ public static class Utilities
             : await client.GetByteArrayAsync(uri);
 
         if (bytes.Length == 0)
-        {
-            // GameBanana returns 200 with an empty response for missing download links.
-            throw new HttpRequestException($"Response from download source did not return a valid zip file");
-        }
+            throw new HttpRequestException("Response from download source did not return a valid zip file.");
 
         // Create new ZIP object from bytes.
-        var stream = new MemoryStream(bytes);
-        var archive = new ZipArchive(stream);
+        using var stream = new MemoryStream(bytes);
+        using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
 
-        // Zip files made with ZipFile.CreateFromDirectory do not include directory entries, so create root directory*
-        Directory.CreateDirectory($"{filePath}/{hudName}");
+        // Resolve the canonical destination once — all entries must stay under this root.
+        var destinationRoot = Path.GetFullPath(Path.Combine(filePath, hudName));
+        if (!destinationRoot.EndsWith(Path.DirectorySeparatorChar))
+            destinationRoot += Path.DirectorySeparatorChar;
+
+        Directory.CreateDirectory(destinationRoot);
 
         foreach (var entry in archive.Entries)
         {
-            // Remove first folder name from entry.FullName e.g. "flawhud-master" => "".
-            var path = String.Join('/', entry.FullName.Split("/")[1..]);
+            // Remove the top-level folder name (e.g. "flawhud-master/") from the path.
+            var relativePath = string.Join('/', entry.FullName.Split('/')[1..]);
 
-            // Ignore directory entries
-            // path == "" is root directory entry
-            if (path != "" && !path.EndsWith('/'))
+            // Skip directory entries and the stripped root.
+            if (string.IsNullOrEmpty(relativePath) || relativePath.EndsWith('/'))
+                continue;
+
+            // Skip if the result doesn't start with our destination root, potentially malicious.
+            var targetPath = Path.GetFullPath(Path.Combine(destinationRoot, relativePath));
+            if (!targetPath.StartsWith(destinationRoot, StringComparison.OrdinalIgnoreCase))
             {
-                // *and ensure directory exists for each file
-                Directory.CreateDirectory($"{filePath}/{hudName}/{Path.GetDirectoryName(path)}");
-                entry.ExtractToFile($"{filePath}/{hudName}/{path}");
+                App.Logger.Warn($"Skipping potentially malicious zip entry: \"{entry.FullName}\"");
+                continue;
             }
+
+            var targetDir = Path.GetDirectoryName(targetPath)!;
+            Directory.CreateDirectory(targetDir);
+
+            App.Logger.Info($"Extracting: {relativePath}");
+            entry.ExtractToFile(targetPath, overwrite: true);
         }
 
-        // Clean the application directory.
-        archive.Dispose();
+        App.Logger.Info($"Extraction complete: {destinationRoot}");
     }
 
     /// <summary>
@@ -445,14 +454,14 @@ public static class Utilities
 
         // Download TF2 HUD Crosshairs
         await DownloadFile(App.Config.ConfigSettings.AppConfig.CrosshairPackURL, crosshairsZipFileName);
-        if (Directory.Exists(crosshairsName)) Directory.Delete(crosshairsName, true);
+        DeleteDirectory(crosshairsName);
         ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath);
 
         // Move crosshairs folder to HUD
         string targetDirectory = Path.Join(folderPath, "resource/crosshairs");
-        if (Directory.Exists(targetDirectory)) Directory.Delete(targetDirectory, true);
+        DeleteDirectory(targetDirectory);
         Directory.Move(Path.Join(folderPath, Path.Join(crosshairsName, "crosshairs")), targetDirectory);
-        Directory.Delete(Path.Join(folderPath, crosshairsName), true);
+        DeleteDirectory(Path.Join(folderPath, crosshairsName));
 
         async Task AddBaseReference(string relativeFilePath, string baseFilePath)
         {
@@ -618,24 +627,30 @@ public static class Utilities
             AllowMultiple = false
         });
 
-        if (folders.Count > 0)
+        if (folders.Count == 0)
+            return false;
+
+        var localPath = folders[0].TryGetLocalPath();
+        if (localPath is null)
         {
-            var userPath = folders[0].TryGetLocalPath().Replace("\\", "/");
-            if (App.Config.ConfigSettings.UserPrefs.PathBypass || userPath.EndsWith("tf/custom"))
-            {
-                App.Config.ConfigSettings.UserPrefs.HUDDirectory = userPath;
-                App.SaveConfiguration();
-                App.HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
-                App.Logger.Info($"Target directory set to: {App.HudPath}");
-            }
-            else
-            {
-                await ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
-            }
+            App.Logger.Warn("Selected folder could not be resolved to a local path.");
+            await ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
+            return false;
         }
 
-        // Check one more time if a valid directory has been set.
-        return CheckUserPath();
+        App.HudPath = localPath.Replace("\\", "/");
+        if (!CheckUserPath())
+        {
+            App.Logger.Warn($"Invalid path selected: {App.HudPath}");
+            await ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
+            App.HudPath = string.Empty;
+            return false;
+        }
+
+        App.Config.ConfigSettings.UserPrefs.HUDDirectory = App.HudPath;
+        App.SaveConfiguration();
+        App.Logger.Info($"Target directory set to: {App.HudPath}");
+        return true;
     }
 
     /// <summary>
@@ -768,9 +783,9 @@ public static class Utilities
     {
         if (await ShowPromptBox(Resources.info_clear_cache) == ButtonResult.No) return;
 
-        Directory.Delete($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor", true);
-        Directory.Delete("cache", true);
-        Directory.Delete("JSON", true);
+        DeleteDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor");
+        DeleteDirectory("cache");
+        DeleteDirectory("JSON");
         await UpdateAppSchema(true);
     }
 
@@ -782,5 +797,18 @@ public static class Utilities
             ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
             return $"file://{zipPath}";
         });
+    }
+
+    public static void RenameExtension(string path, string oldExt, string newExt)
+    {
+        var newPath = path[..^oldExt.Length] + newExt;
+        App.Logger.Info($"Renaming \"{path}\" → \"{newPath}\"");
+        File.Move(path, newPath, overwrite: true);
+    }
+
+    public static void DeleteDirectory(string path)
+    {
+        try { Directory.Delete(path, recursive: true); }
+        catch (IOException e) { App.Logger.Warn($"Could not delete \"{path}\": {e.Message}"); }
     }
 }

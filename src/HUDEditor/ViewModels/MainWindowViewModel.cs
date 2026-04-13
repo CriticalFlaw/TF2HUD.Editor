@@ -212,7 +212,7 @@ public partial class MainWindowViewModel : ViewModelBase
                 if (Directory.Exists($"{App.HudPath}/{x.Name.ToLowerInvariant()}"))
                 {
                     App.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {App.HudPath}");
-                    Directory.Delete($"{App.HudPath}/{x.Name.ToLowerInvariant()}", true);
+                    Utilities.DeleteDirectory($"{App.HudPath}/{x.Name.ToLowerInvariant()}");
                 }
             }
 
@@ -225,7 +225,7 @@ public partial class MainWindowViewModel : ViewModelBase
                     Installing = false;
                     return;
                 }
-                Directory.Delete(foundHud, true);
+                Utilities.DeleteDirectory(foundHud);
             }
 
             // Download and install the selected HUD
@@ -282,7 +282,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
             // Remove the HUD from the tf/custom directory.
             App.Logger.Info($"Removing {SelectedHud.Name} from {App.HudPath}");
-            if (SelectedHud.Name != "") Directory.Delete($"{App.HudPath}/{SelectedHud.Name}", true);
+            if (SelectedHud.Name != "") Utilities.DeleteDirectory($"{App.HudPath}/{SelectedHud.Name}");
 
             // Update timestamp
             ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_installed_not, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
