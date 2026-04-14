@@ -226,38 +226,64 @@ public static class Utilities
     /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
     public static bool SearchRegistry()
     {
-        var steamPaths = new List<string>();
-
         // Do not bother searching the registry if not on Windows.
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return false;
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            return false;
 
-        // Get Steam install path from registry.
-        var regPath = (string?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\Software\Valve\Steam", "InstallPath", null)
-            ?? (string?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\Software\WOW6432Node\Valve\Steam", "InstallPath", null);
-        if (string.IsNullOrWhiteSpace(regPath)) return false;
-        var pathFile = Path.Combine(regPath, "steamapps", "libraryfolders.vdf");
+        var steamPath = GetSteamInstallPath();
+        if (string.IsNullOrWhiteSpace(steamPath))
+            return false;
 
-        // Read the file and attempt to extract all library paths.
-        using var reader = new StreamReader(pathFile);
-        foreach (Match match in Regex.Matches(reader.ReadToEnd(), "\"(.*)\"\t*\"(.*)\""))
+        var libraryFile = Path.Combine(steamPath, "steamapps", "libraryfolders.vdf");
+        if (!File.Exists(libraryFile))
+            return false;
+
+        foreach (var library in ParseLibraryFolders(libraryFile))
         {
-            if (match.Groups[1].Value.Equals("path"))
-                steamPaths.Add(match.Groups[2].Value);
-        }
+            var tf2Path = Path.Combine(library, "steamapps", "common", "Team Fortress 2", "tf", "custom");
 
-        // Loop through all known library paths to try and find TF2.
-        foreach (var path in steamPaths)
-        {
-            var pathTF = Path.Combine(path, "/steamapps/common/Team Fortress 2/tf/custom");
-            if (Directory.Exists(pathTF))
+            if (Directory.Exists(tf2Path))
             {
-                App.Logger.Info($"Set target directory to: {pathTF}");
-                App.Config.ConfigSettings.UserPrefs.HUDDirectory = pathTF;
+                App.Logger.Info($"Set target directory to: {tf2Path}");
+                App.Config.ConfigSettings.UserPrefs.HUDDirectory = tf2Path;
                 App.SaveConfiguration();
                 return true;
             }
         }
+
         return false;
+    }
+
+    private static string? GetSteamInstallPath()
+    {
+        foreach (var view in new[] { RegistryView.Registry64, RegistryView.Registry32 })
+        {
+            using var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, view);
+            using var subKey = baseKey.OpenSubKey(@"SOFTWARE\Valve\Steam");
+
+            var value = subKey?.GetValue("InstallPath") as string;
+            if (!string.IsNullOrWhiteSpace(value))
+                return value;
+        }
+
+        return null;
+    }
+
+    private static IEnumerable<string> ParseLibraryFolders(string filePath)
+    {
+        var paths = new List<string>();
+
+        foreach (var line in File.ReadLines(filePath))
+        {
+            var match = Regex.Match(line, "\"path\"\\s*\"([^\"]+)\"");
+            if (match.Success)
+            {
+                var path = match.Groups[1].Value.Replace(@"\\", @"\");
+                paths.Add(path);
+            }
+        }
+
+        return paths;
     }
 
     /// <summary>
