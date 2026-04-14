@@ -30,6 +30,8 @@ public partial class App : Application
 
     public override async void OnFrameworkInitializationCompleted()
     {
+        Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var mainWindowVm = new MainWindowViewModel();
@@ -66,7 +68,6 @@ public partial class App : Application
             splashScreen.Close();
         }
 
-        Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
         base.OnFrameworkInitializationCompleted();
     }
 
@@ -76,23 +77,43 @@ public partial class App : Application
         XmlConfigurator.Configure(new FileInfo(Path.Combine(AppContext.BaseDirectory, "log4net.config")));
         Logger.Info("=======================================================");
         Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
-        App.Logger.Info($"------");
+        Logger.Info("------");
 
         // Load Configuration
-        var json = File.ReadAllText("appsettings.json");
-        Config = JsonSerializer.Deserialize<ConfigurationModel>(json, new JsonSerializerOptions
+        var configPath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
+        try
         {
-            PropertyNameCaseInsensitive = true
-        }) ?? new ConfigurationModel();
+            if (!File.Exists(configPath))
+                Logger.Warn($"Config file not found at \"{configPath}\".");
+            else
+            {
+                var json = File.ReadAllText(configPath);
+                Config = JsonSerializer.Deserialize<ConfigurationModel>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new ConfigurationModel();
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error($"Failed to load \"{configPath}\": {ex.Message}. Using defaults.");
+        }
+        Config ??= new ConfigurationModel();
 
-        // Setup Sentry
+        // Setup Sentry — HUDEDITOR_SENTRY_DSN is applied by a GitHub Action during packaging.
         if (!Config.ConfigSettings.UserPrefs.DisableSentry)
         {
-            SentrySdk.Init(o =>
+            var dsn = Environment.GetEnvironmentVariable("HUDEDITOR_SENTRY_DSN") ?? Config.ConfigSettings.AppConfig.SentryDsn;
+            if (!string.IsNullOrWhiteSpace(dsn))
             {
-                o.Dsn = Config.ConfigSettings.AppConfig.SentryDsn;
-                o.Debug = true;
-            });
+                SentrySdk.Init(o =>
+                {
+                    o.Dsn = dsn;
+                    o.Debug = false;
+                });
+            }
+            else
+                Logger.Warn("Sentry DSN not configured — error reporting disabled.");
         }
 
         // Set user preferences
@@ -110,11 +131,16 @@ public partial class App : Application
 
     public static void SaveConfiguration()
     {
+        var configPath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
+        var tempPath = configPath + ".tmp";
+
         var json = JsonSerializer.Serialize(Config, new JsonSerializerOptions
         {
             WriteIndented = true
         });
 
-        File.WriteAllText("appsettings.json", json);
+        // Write to a temp file first, then replace the real config to prevents a crash mid-write.
+        File.WriteAllText(tempPath, json);
+        File.Move(tempPath, configPath, overwrite: true);
     }
 }
