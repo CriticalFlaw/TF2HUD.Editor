@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -128,6 +128,9 @@
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Не удалось распознать расширение файла '{0}'.</value>
+  </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>Не удалось преобразовать изображение. Попробуйте другой файл.</value>
   </data>
   <data name="info_add_hud" xml:space="preserve">
     <value>Вы уверены, что хотите добавить папку в общий список интерфейсов? Это добавит папку локально, но не загрузит интерфейс в онлайн базу данных TF2HUD.Editor.</value>
@@ -322,6 +325,57 @@
     <value>Открыть последний файл</value>
   </data>
   <data name="ui_disable_sentry" xml:space="preserve">
-    <value />
+    <value>Отключить отслеживание ошибок Sentry</value>
+  </data>
+  <data name="ui_cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="settings_user_path" xml:space="preserve">
+    <value>Путь пользователя</value>
+  </data>
+  <data name="settings_settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="settings_troubleshooting" xml:space="preserve">
+    <value>Устранение неполадок</value>
+  </data>
+  <data name="appinfo_install" xml:space="preserve">
+    <value>Установить</value>
+  </data>
+  <data name="appinfo_and" xml:space="preserve">
+    <value>и</value>
+  </data>
+  <data name="appinfo_favorite_huds" xml:space="preserve">
+    <value>ваши любимые HUDs Team Fortress 2!</value>
+  </data>
+  <data name="appinfo_version" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="changelog_vtex2" xml:space="preserve">
+    <value>Реализация vtex2 для создания пользовательского фона в Linux</value>
+  </data>
+  <data name="changelog_crosshair" xml:space="preserve">
+    <value>Добавлены отсутствующие параметры прицела</value>
+  </data>
+  <data name="changelog_user_path" xml:space="preserve">
+    <value>Добавлена метка с отображением текущего пути пользователя в меню настроек</value>
+  </data>
+  <data name="changelog_scrollbars" xml:space="preserve">
+    <value>Исправлены полосы прокрутки, которые не отображались</value>
+  </data>
+  <data name="changelog_tooltips" xml:space="preserve">
+    <value>Исправлены всплывающие подсказки, которые не отображались</value>
+  </data>
+  <data name="changelog_backend" xml:space="preserve">
+    <value>Общие исправления и улучшения бэкенда</value>
+  </data>
+  <data name="error_logs_folder" xml:space="preserve">
+    <value>Папка журналов не найдена.</value>
+  </data>
+  <data name="error_no_log_files" xml:space="preserve">
+    <value>Файлы журнала не найдены.</value>
+  </data>
+  <data name="dialog_select_image" xml:space="preserve">
+    <value>Выберите файл изображения</value>
   </data>
 </root>

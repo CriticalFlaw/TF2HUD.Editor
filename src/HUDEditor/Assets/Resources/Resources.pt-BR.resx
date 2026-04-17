@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -128,6 +128,9 @@
   </data>
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Não foi possível reconhecer a extensão de arquivo "{0}".</value>
+  </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>Falha ao converter a imagem. Por favor, tente outro arquivo.</value>
   </data>
   <data name="info_add_hud" xml:space="preserve">
     <value>Tem certeza de que deseja adicionar uma pasta à lista de HUDs compartilhadas? A pasta será adicionada localmente, mas a HUD não será enviada ao banco de dados on-line do TF2HUD.Editor.</value>
@@ -322,6 +325,57 @@
     <value>Abrir o último arquivo de log</value>
   </data>
   <data name="ui_disable_sentry" xml:space="preserve">
-    <value />
+    <value>Desativar rastreamento de erros do Sentry</value>
+  </data>
+  <data name="ui_cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="settings_user_path" xml:space="preserve">
+    <value>Caminho do usuário</value>
+  </data>
+  <data name="settings_settings" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="settings_troubleshooting" xml:space="preserve">
+    <value>Solução de problemas</value>
+  </data>
+  <data name="appinfo_install" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
+  <data name="appinfo_and" xml:space="preserve">
+    <value>e</value>
+  </data>
+  <data name="appinfo_favorite_huds" xml:space="preserve">
+    <value>seus HUDs favoritos de Team Fortress 2!</value>
+  </data>
+  <data name="appinfo_version" xml:space="preserve">
+    <value>Versão</value>
+  </data>
+  <data name="changelog_vtex2" xml:space="preserve">
+    <value>Implementação do vtex2 para geração de plano de fundo personalizado no Linux</value>
+  </data>
+  <data name="changelog_crosshair" xml:space="preserve">
+    <value>Adicionadas opções de mira faltantes</value>
+  </data>
+  <data name="changelog_user_path" xml:space="preserve">
+    <value>Adicionado rótulo mostrando o caminho do usuário atual no menu de configurações</value>
+  </data>
+  <data name="changelog_scrollbars" xml:space="preserve">
+    <value>Correção das barras de rolagem que não eram exibidas</value>
+  </data>
+  <data name="changelog_tooltips" xml:space="preserve">
+    <value>Correção das dicas de ferramenta que não eram exibidas</value>
+  </data>
+  <data name="changelog_backend" xml:space="preserve">
+    <value>Correções e melhorias gerais do backend</value>
+  </data>
+  <data name="error_logs_folder" xml:space="preserve">
+    <value>Pasta de logs não encontrada.</value>
+  </data>
+  <data name="error_no_log_files" xml:space="preserve">
+    <value>Nenhum arquivo de log encontrado.</value>
+  </data>
+  <data name="dialog_select_image" xml:space="preserve">
+    <value>Selecionar um arquivo de imagem</value>
   </data>
 </root>

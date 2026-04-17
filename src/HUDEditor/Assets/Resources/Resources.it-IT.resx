@@ -129,6 +129,9 @@
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Non è stata riconosciuta l'estensione del file '{0}'.</value>
   </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>Conversione dell'immagine non riuscita. Riprova con un altro file.</value>
+  </data>
   <data name="info_add_hud" xml:space="preserve">
     <value>Sicuro di voler aggiungere una cartella alla lista di HUD condivise? Questo aggiungera la cartella localmente ma la HUD non sarà aggiunta al database online di TF2HUD.Editor.</value>
   </data>
@@ -322,6 +325,57 @@
     <value>Apri l’ultimo file di log</value>
   </data>
   <data name="ui_disable_sentry" xml:space="preserve">
-    <value />
+    <value>Disabilita il tracciamento errori Sentry</value>
+  </data>
+  <data name="ui_cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="settings_user_path" xml:space="preserve">
+    <value>Percorso utente</value>
+  </data>
+  <data name="settings_settings" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="settings_troubleshooting" xml:space="preserve">
+    <value>Risoluzione problemi</value>
+  </data>
+  <data name="appinfo_install" xml:space="preserve">
+    <value>Installa</value>
+  </data>
+  <data name="appinfo_and" xml:space="preserve">
+    <value>e</value>
+  </data>
+  <data name="appinfo_favorite_huds" xml:space="preserve">
+    <value>i tuoi HUD di Team Fortress 2 preferiti!</value>
+  </data>
+  <data name="appinfo_version" xml:space="preserve">
+    <value>Versione</value>
+  </data>
+  <data name="changelog_vtex2" xml:space="preserve">
+    <value>Implementazione di vtex2 per la generazione di sfondi personalizzati su Linux</value>
+  </data>
+  <data name="changelog_crosshair" xml:space="preserve">
+    <value>Aggiunte opzioni di mirino mancanti</value>
+  </data>
+  <data name="changelog_user_path" xml:space="preserve">
+    <value>Aggiunta etichetta che mostra il percorso utente corrente nel menu impostazioni</value>
+  </data>
+  <data name="changelog_scrollbars" xml:space="preserve">
+    <value>Corrette le barre di scorrimento che non venivano visualizzate</value>
+  </data>
+  <data name="changelog_tooltips" xml:space="preserve">
+    <value>Corretti i suggerimenti che non venivano visualizzati</value>
+  </data>
+  <data name="changelog_backend" xml:space="preserve">
+    <value>Correzioni e miglioramenti generali del backend</value>
+  </data>
+  <data name="error_logs_folder" xml:space="preserve">
+    <value>Cartella log non trovata.</value>
+  </data>
+  <data name="error_no_log_files" xml:space="preserve">
+    <value>Nessun file di log trovato.</value>
+  </data>
+  <data name="dialog_select_image" xml:space="preserve">
+    <value>Seleziona un file immagine</value>
   </data>
 </root>

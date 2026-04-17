@@ -129,6 +129,9 @@
   <data name="error_unknown_extension" xml:space="preserve">
     <value>无法识别文件扩展名 '{0}'。</value>
   </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>图片转换失败，请尝试其他文件。</value>
+  </data>
   <data name="info_add_hud" xml:space="preserve">
     <value>是否确定要将文件夹添加到共享HUD列表中？这将在本地添加文件夹，但不会将HUD上传到TF2HUD.Editor的联机数据库。</value>
   </data>

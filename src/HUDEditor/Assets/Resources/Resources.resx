@@ -129,6 +129,9 @@
   <data name="error_unknown_extension" xml:space="preserve">
     <value>Could not recognize file extension '{0}'.</value>
   </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>Failed to convert image. Please try a different file.</value>
+  </data>
   <data name="info_add_hud" xml:space="preserve">
     <value>Are you sure you want to add a folder to the list of shared HUDs? This will add the folder locally but will not upload the HUD to TF2HUD.Editor's online database.</value>
   </data>
@@ -325,46 +328,46 @@
     <value>Disable error tracking using Sentry</value>
   </data>
   <data name="ui_cancel" xml:space="preserve">
-    <value>取消</value>
+    <value>Cancel</value>
   </data>
   <data name="settings_user_path" xml:space="preserve">
-    <value>用户路径</value>
+    <value>User Path</value>
   </data>
   <data name="settings_settings" xml:space="preserve">
-    <value>设置</value>
+    <value>Settings</value>
   </data>
   <data name="settings_troubleshooting" xml:space="preserve">
-    <value>故障排除</value>
+    <value>Troubleshooting</value>
   </data>
   <data name="appinfo_install" xml:space="preserve">
-    <value>安装</value>
+    <value>Install</value>
   </data>
   <data name="appinfo_and" xml:space="preserve">
-    <value>和</value>
+    <value>and</value>
   </data>
   <data name="appinfo_favorite_huds" xml:space="preserve">
-    <value>你最爱的 Team Fortress 2 HUDs！</value>
+    <value>your favorite Team Fortress 2 HUDs!</value>
   </data>
   <data name="appinfo_version" xml:space="preserve">
-    <value>版本</value>
+    <value>Version</value>
   </data>
   <data name="changelog_vtex2" xml:space="preserve">
-    <value>在 Linux 上实现 vtex2 生成自定义背景</value>
+    <value>Implemented vtex2 for custom background generation on Linux</value>
   </data>
   <data name="changelog_crosshair" xml:space="preserve">
-    <value>添加缺失的准星选项。</value>
+    <value>Added missing crosshair options</value>
   </data>
   <data name="changelog_user_path" xml:space="preserve">
-    <value>在设置菜单中添加显示当前用户路径的标签。</value>
+    <value>Added label showing current user path in settings menu</value>
   </data>
   <data name="changelog_scrollbars" xml:space="preserve">
-    <value>修复了滚动条在可用时不显示的问题。</value>
+    <value>Fixed scrollbars not showing when available</value>
   </data>
   <data name="changelog_tooltips" xml:space="preserve">
-    <value>修复了工具提示不显示的问题。</value>
+    <value>Fixed tooltips not showing</value>
   </data>
   <data name="changelog_backend" xml:space="preserve">
-    <value>常规后端修复和改进。</value>
+    <value>General backend fixes and improvements</value>
   </data>
   <data name="error_logs_folder" xml:space="preserve">
     <value>No logs folder found.</value>

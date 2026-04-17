@@ -18,7 +18,7 @@
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
 		<TextBlock Classes="HeaderText" TextAlignment="Center" Margin="0,15,0,0" FontSize="30">
 			<Run Text="{x:Static loc:Resources.appinfo_version}" />
-			<Run Text=" 4.5" />
+			<Run Text=" " /><Run Text="{Binding AppVersion}" />
 		</TextBlock>
 		<TextBlock Classes="BodyText">
 			<Run Text="{x:Static loc:Resources.changelog_vtex2}" />
