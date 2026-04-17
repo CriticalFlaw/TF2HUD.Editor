@@ -12,6 +12,7 @@ on:
 
 jobs:
   build:
+    if: github.event_name != 'push' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/dev')
     runs-on: windows-latest
 
     strategy:
