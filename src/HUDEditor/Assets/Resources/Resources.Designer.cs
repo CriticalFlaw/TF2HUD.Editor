@@ -707,5 +707,131 @@ namespace HUDEditor.Assets {
                 return ResourceManager.GetString("ui_uninstall", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ui_cancel {
+            get {
+                return ResourceManager.GetString("ui_cancel", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to User Path.
+        /// </summary>
+        public static string settings_user_path {
+            get {
+                return ResourceManager.GetString("settings_user_path", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string settings_settings {
+            get {
+                return ResourceManager.GetString("settings_settings", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Troubleshooting.
+        /// </summary>
+        public static string settings_troubleshooting {
+            get {
+                return ResourceManager.GetString("settings_troubleshooting", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Install.
+        /// </summary>
+        public static string appinfo_install {
+            get {
+                return ResourceManager.GetString("appinfo_install", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to and.
+        /// </summary>
+        public static string appinfo_and {
+            get {
+                return ResourceManager.GetString("appinfo_and", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to your favorite Team Fortress 2 HUDs!.
+        /// </summary>
+        public static string appinfo_favorite_huds {
+            get {
+                return ResourceManager.GetString("appinfo_favorite_huds", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string appinfo_version {
+            get {
+                return ResourceManager.GetString("appinfo_version", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Implemented vtex2 for generating custom backgrounds on Linux.
+        /// </summary>
+        public static string changelog_vtex2 {
+            get {
+                return ResourceManager.GetString("changelog_vtex2", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Added missing crosshair options..
+        /// </summary>
+        public static string changelog_crosshair {
+            get {
+                return ResourceManager.GetString("changelog_crosshair", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Added a label that shows the current user path in the settings menu..
+        /// </summary>
+        public static string changelog_user_path {
+            get {
+                return ResourceManager.GetString("changelog_user_path", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Fixed scrollbars not being visible when available..
+        /// </summary>
+        public static string changelog_scrollbars {
+            get {
+                return ResourceManager.GetString("changelog_scrollbars", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Fixed tooltips not displaying..
+        /// </summary>
+        public static string changelog_tooltips {
+            get {
+                return ResourceManager.GetString("changelog_tooltips", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to General backend fixes and improvements..
+        /// </summary>
+        public static string changelog_backend {
+            get {
+                return ResourceManager.GetString("changelog_backend", resourceCulture);
+            }
+        }
     }
 }
