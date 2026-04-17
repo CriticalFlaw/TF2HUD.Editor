@@ -142,6 +142,15 @@ namespace HUDEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select an image file.
+        /// </summary>
+        public static string dialog_select_image {
+            get {
+                return ResourceManager.GetString("dialog_select_image", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to add a folder to the list of shared HUDs? This will add the folder locally but will not upload the HUD to TF2HUD.Editor&apos;s online database..
         /// </summary>
         public static string info_add_hud {
