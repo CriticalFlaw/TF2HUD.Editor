@@ -325,46 +325,46 @@
     <value>Disable error tracking using Sentry</value>
   </data>
   <data name="ui_cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="settings_user_path" xml:space="preserve">
-    <value>User Path</value>
+    <value>用户路径</value>
   </data>
   <data name="settings_settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>设置</value>
   </data>
   <data name="settings_troubleshooting" xml:space="preserve">
-    <value>Troubleshooting</value>
+    <value>故障排除</value>
   </data>
   <data name="appinfo_install" xml:space="preserve">
-    <value>Install</value>
+    <value>安装</value>
   </data>
   <data name="appinfo_and" xml:space="preserve">
-    <value>and</value>
+    <value>和</value>
   </data>
   <data name="appinfo_favorite_huds" xml:space="preserve">
-    <value>your favorite Team Fortress 2 HUDs!</value>
+    <value>你最爱的 Team Fortress 2 HUDs！</value>
   </data>
   <data name="appinfo_version" xml:space="preserve">
-    <value>Version</value>
+    <value>版本</value>
   </data>
   <data name="changelog_vtex2" xml:space="preserve">
-    <value>Implemented vtex2 for generating custom backgrounds on Linux</value>
+    <value>在 Linux 上实现 vtex2 生成自定义背景</value>
   </data>
   <data name="changelog_crosshair" xml:space="preserve">
-    <value>Added missing crosshair options.</value>
+    <value>添加缺失的准星选项。</value>
   </data>
   <data name="changelog_user_path" xml:space="preserve">
-    <value>Added a label that shows the current user path in the settings menu.</value>
+    <value>在设置菜单中添加显示当前用户路径的标签。</value>
   </data>
   <data name="changelog_scrollbars" xml:space="preserve">
-    <value>Fixed scrollbars not being visible when available.</value>
+    <value>修复了滚动条在可用时不显示的问题。</value>
   </data>
   <data name="changelog_tooltips" xml:space="preserve">
-    <value>Fixed tooltips not displaying.</value>
+    <value>修复了工具提示不显示的问题。</value>
   </data>
   <data name="changelog_backend" xml:space="preserve">
-    <value>General backend fixes and improvements.</value>
+    <value>常规后端修复和改进。</value>
   </data>
   <data name="error_logs_folder" xml:space="preserve">
     <value>No logs folder found.</value>

@@ -96,8 +96,35 @@ public partial class App : Application
         }
 
         // Set user preferences
-        Assets.Resources.Culture = new CultureInfo(Config.ConfigSettings.UserPrefs.Language);
+        var language = Config.ConfigSettings.UserPrefs.Language;
+        var systemLanguage = GetSystemLanguage();
+        if (string.IsNullOrEmpty(language) || (language == "en-US" && systemLanguage != "en-US"))
+        {
+            language = systemLanguage;
+            Config.ConfigSettings.UserPrefs.Language = language;
+            SaveConfiguration();
+        }
+        Assets.Resources.Culture = new CultureInfo(language);
         HudPath = Config.ConfigSettings.UserPrefs.HUDDirectory;
+    }
+
+    private static string GetSystemLanguage()
+    {
+        var systemCulture = CultureInfo.CurrentUICulture;
+        var cultureName = systemCulture.Name;
+
+        if (cultureName.StartsWith("zh", StringComparison.OrdinalIgnoreCase))
+            return "zh-CN";
+        if (cultureName.StartsWith("fr", StringComparison.OrdinalIgnoreCase))
+            return "fr-FR";
+        if (cultureName.StartsWith("ru", StringComparison.OrdinalIgnoreCase))
+            return "ru-RU";
+        if (cultureName.StartsWith("pt", StringComparison.OrdinalIgnoreCase))
+            return "pt-BR";
+        if (cultureName.StartsWith("it", StringComparison.OrdinalIgnoreCase))
+            return "it";
+
+        return "en-US";
     }
 
     private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
