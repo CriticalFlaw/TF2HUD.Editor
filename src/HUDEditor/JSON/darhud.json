@@ -1,0 +1,429 @@
+{
+    "$schema": "https://raw.githubusercontent.com/CriticalFlaw/TF2HUD.Editor/master/src/HUDEditor/JSON/Schema/schema.json",
+    "Author": "DarSitam",
+    "Description": "HUD aimed to be more modern-looking while keeping the aspect of TF2.",
+    "Thumbnail": "https://static.tf2huds.dev/DarHUD/img/logo-v2-bg.png",
+    "Screenshots": [
+        "https://static.tf2huds.dev/DarHUD/img/raotdJw.jpeg",
+        "https://static.tf2huds.dev/DarHUD/img/ERNN0yF.jpeg",
+        "https://static.tf2huds.dev/DarHUD/img/XBDFVa6.jpeg",
+        "https://static.tf2huds.dev/DarHUD/img/QnpLdD1.jpeg"
+    ],
+    "Background": "https://wiki.teamfortress.com/w/images/thumb/f/fa/Background_2fort_widescreen_copy.png/1280px-Background_2fort_widescreen_copy.png",
+    "Layout": [
+        "0 1 2",
+        "0 1 2"
+    ],
+    "Links": {
+        "Update": "https://github.com/DarSitam/darhud/archive/refs/heads/master.zip",
+        "GitHub": "https://github.com/DarSitam/darhud",
+        "TF2Huds": "https://tf2huds.dev/hud/DarHUD",
+        "ComfigHuds": "https://comfig.app/huds/page/darhud/",
+        "GameBanana": "https://gamebanana.com/mods/463048"
+    },
+    "Controls": {
+        "Colors": [
+            {
+                "Name": "dh_color_health_normal",
+                "Label": "Health Normal",
+                "Type": "ColorPicker",
+                "Value": "235 226 202 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/colors_custom.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "HealthNormal": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "dh_color_health_warning",
+                "Label": "Health Warning",
+                "Type": "ColorPicker",
+                "Value": "255 0 0 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/colors_custom.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "HealthWarning": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "dh_color_health_max",
+                "Label": "Max Health",
+                "Type": "ColorPicker",
+                "Value": "235 226 202 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/colors_custom.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "MaxHealth": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "dh_color_health_gain",
+                "Label": "Health Gain",
+                "Type": "ColorPicker",
+                "Value": "0 202 133 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/colors_custom.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "HealthGain": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "dh_color_health_low",
+                "Label": "Health Low",
+                "Type": "ColorPicker",
+                "Value": "255 230 0 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/colors_custom.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "HealthLow": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "dh_color_ammo_normal",
+                "Label": "Ammo Normal",
+                "Type": "ColorPicker",
+                "Value": "235 226 202 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/colors_custom.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "AmmoNormal": "$value"
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "Name": "dh_color_ammo_reserve",
+                "Label": "Ammo Reserve",
+                "Type": "ColorPicker",
+                "Value": "235 226 202 255",
+                "Restart": true,
+                "Files": {
+                    "resource/scheme/colors_custom.res": {
+                        "Scheme": {
+                            "Colors": {
+                                "AmmoReserve": "$value"
+                            }
+                        }
+                    }
+                }
+            }
+        ],
+        "In-Game": [
+            {
+                "Name": "dh_toggle_centered_ubercharge",
+                "Label": "Centered UberCharge",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "ubercharge.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/ubercharge/centered_ubercharge.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_centered_weapon_charge",
+                "Label": "Centered Weapon Charge",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "weapon_charge.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/charge/centered_weapon_charge.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_centered_item_meters",
+                "Label": "Centered Item Meters",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "top_meter.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/meters/centered_top_meter.res",
+                    "FalseText": ""
+                },
+                "WriteCfg": {
+                    "FileName": "middle_meter.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/meters/centered_middle_meter.res",
+                    "FalseText": ""
+                },
+                "WriteCfg": {
+                    "FileName": "bottom_meter.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/meters/centered_bottom_meter.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_centered_metal",
+                "Label": "Centered Metal Counter",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "engi_metal.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/engi_metal/centered_engineer_metal.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_centered_stickies",
+                "Label": "Centered Sticky Counter",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "demo_stickies.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/stickies/centered_stickies.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_centered_shield",
+                "Label": "Centered Shield Charge",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteCfg": {
+                    "FileName": "shield_charge.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/shield_charge/centered_shield_charge.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dr_val_killstreak_pos",
+                "Label": "Killstreak Position",
+                "Type": "ComboBox",
+                "Value": "0",
+                "Width": 250,
+                "Options": [
+                    {
+                        "Label": "Default",
+                        "Value": "0",
+                        "WriteFile": {
+                            "FileName": "customizations/killstreak.res",
+                            "TrueText": "",
+                            "FalseText": ""
+                        }
+                    },
+                    {
+                        "Label": "Top Right",
+                        "Value": "1",
+                        "WriteFile": {
+                            "FileName": "customizations/killstreak.res",
+                            "TrueText": "#base ../../custom/darhud/resource/ui/customizations/killstreak/topright_killstreak.res",
+                            "FalseText": ""
+                        }
+                    },
+                    {
+                        "Label": "Bottom Right",
+                        "Value": "2",
+                        "WriteFile": {
+                            "FileName": "customizations/killstreak.res",
+                            "TrueText": "#base ../../custom/darhud/resource/ui/customizations/killstreak/bottomright_killstreak.res",
+                            "FalseText": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "Name": "dh_toggle_alt_overheal",
+                "Label": "Alternate Overheal Pos",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "overheal.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/health/healthcross_alt.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_damage_num",
+                "Label": "Show Damage Numbers",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "damagevalue.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/health/damage_value.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_alt_spec_health",
+                "Label": "Alternate Spectator Health",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "spectatorguihealth.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/spectatorguihealth/alt_spectatorguihealth.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_alt_scoreboard",
+                "Label": "Separated Scoreboards",
+                "Type": "Checkbox",
+                "Value": "false",
+                "Width": 250,
+                "WriteCfg": {
+                    "FileName": "scoreboard.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/scoreboard/separated_scoreboard.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dr_val_class_selection",
+                "Label": "Class Selection",
+                "Type": "ComboBox",
+                "Value": "0",
+                "Width": 250,
+                "Options": [
+                    {
+                        "Label": "Default",
+                        "Value": "0",
+                        "WriteFile": {
+                            "FileName": "class_selection.res",
+                            "TrueText": "",
+                            "FalseText": ""
+                        }
+                    },
+                    {
+                        "Label": "Alternative",
+                        "Value": "1",
+                        "WriteFile": {
+                            "FileName": "class_selection.res",
+                            "TrueText": "#base ../../custom/darhud/resource/ui/customizations/class_selection/alt_classselection.res",
+                            "FalseText": ""
+                        }
+                    },
+                    {
+                        "Label": "Old",
+                        "Value": "2",
+                        "WriteFile": {
+                            "FileName": "class_selection.res",
+                            "TrueText": "#base ../../custom/darhud/resource/ui/customizations/class_selection/old_classselection.res",
+                            "FalseText": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "Name": "dh_toggle_mvm_exp_window",
+                "Label": "Expanded MvM Upgrade Window",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "upgradewindow.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/mvm_upgrades/upgradewindow/expanded_upgradewindow.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_mvm_exp_items",
+                "Label": "Expanded MvM Upgrade Items",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "upgradeitem.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/mvm_upgrades/upgradeitem/expanded_upgradeitem.res",
+                    "FalseText": ""
+                }
+            }
+        ],
+        "Main Menu": [
+            {
+                "Name": "dr_val_tf_logo",
+                "Label": "TF Logo Style",
+                "Type": "ComboBox",
+                "Value": "0",
+                "Width": 250,
+                "Options": [
+                    {
+                        "Label": "Default",
+                        "Value": "0",
+                        "WriteFile": {
+                            "FileName": "tflogo.res",
+                            "TrueText": "",
+                            "FalseText": ""
+                        }
+                    },
+                    {
+                        "Label": "Alt",
+                        "Value": "1",
+                        "WriteFile": {
+                            "FileName": "class_selection.res",
+                            "TrueText": "#base ../../custom/darhud/resource/ui/customizations/logo/tf2logo_alt.res",
+                            "FalseText": ""
+                        }
+                    },
+                    {
+                        "Label": "Dar",
+                        "Value": "2",
+                        "WriteFile": {
+                            "FileName": "class_selection.res",
+                            "TrueText": "#base ../../custom/darhud/resource/ui/customizations/logo/tf2logo_dar.res",
+                            "FalseText": ""
+                        }
+                    }
+                ]
+            },
+            {
+                "Name": "dh_toggle_menu_character",
+                "Label": "Hide Character Images",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "mainmenu_character.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/mainmenu/no_mainmenu_character.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_loading_stats",
+                "Label": "Hide Loading Screen Stats",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "loading_stats.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/loading_screen/no_stats.res",
+                    "FalseText": ""
+                }
+            },
+            {
+                "Name": "dh_toggle_loading_duels",
+                "Label": "Hide Loading Screen Duels",
+                "Type": "Checkbox",
+                "Value": "false",
+                "WriteCfg": {
+                    "FileName": "loading_duels.txt",
+                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/leaderboard/no_duels.res",
+                    "FalseText": ""
+                }
+            }
+        ]
+    }
+}
