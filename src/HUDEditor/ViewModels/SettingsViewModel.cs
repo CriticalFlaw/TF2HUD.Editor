@@ -105,7 +105,7 @@ public partial class SettingsViewModel : ViewModelBase
 
     public SettingsViewModel()
     {
-        SelectedLanguage = Languages.FirstOrDefault(l => l.CultureCode == SelectedCulture);
+        SelectedLanguage = Languages.FirstOrDefault(l => l.CultureCode == SelectedCulture) ?? Languages.First();
         PersistCrosshair = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence;
         AutoUpdate = App.Config.ConfigSettings.UserPrefs.AutoUpdate;
         OverridePath = App.Config.ConfigSettings.UserPrefs.PathBypass;

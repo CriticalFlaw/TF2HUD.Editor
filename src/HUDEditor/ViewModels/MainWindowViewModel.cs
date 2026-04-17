@@ -126,7 +126,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         _hudList = [];
         if (!Directory.Exists("JSON")) await Utilities.UpdateAppSchema();
-        var sharedControlsJson = File.ReadAllText("JSON/shared-hud.json", new UTF8Encoding(false));
+        var sharedControlsJson = await File.ReadAllTextAsync("JSON/shared-hud.json", new UTF8Encoding(false));
 
         foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
         {
@@ -248,7 +248,8 @@ public partial class MainWindowViewModel : ViewModelBase
             SelectedHud.ApplyCustomizations();
 
             // Update timestamp
-            ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_installed_now, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
+            if (CurrentPageViewModel is EditHUDViewModel editVm)
+                editVm.Status = string.Format(Resources.status_installed_now, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
 
             // Update Menu Buttons
             OnPropertyChanged(nameof(HighlightedHudInstalled));
@@ -285,7 +286,8 @@ public partial class MainWindowViewModel : ViewModelBase
             if (SelectedHud.Name != "") Utilities.DeleteDirectory($"{App.HudPath}/{SelectedHud.Name}");
 
             // Update timestamp
-            ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_installed_not, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
+            if (CurrentPageViewModel is EditHUDViewModel editVm)
+                editVm.Status = string.Format(Resources.status_installed_not, App.Config.ConfigSettings.UserPrefs.SelectedHUD, DateTime.Now);
 
             // Update Menu Buttons
             OnPropertyChanged(nameof(HighlightedHud));
@@ -320,7 +322,8 @@ public partial class MainWindowViewModel : ViewModelBase
         selection.ApplyCustomizations();
         selection.DirtyControls.Clear();
 
-        ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_applied, selection.Name, DateTime.Now);
+        if (CurrentPageViewModel is EditHUDViewModel editVm)
+            editVm.Status = string.Format(Resources.status_applied, selection.Name, DateTime.Now);
     }
 
     /// <summary>
@@ -339,7 +342,9 @@ public partial class MainWindowViewModel : ViewModelBase
         selection.Settings.SaveSettings();
         selection.ApplyCustomizations();
         selection.DirtyControls.Clear();
-        ((EditHUDViewModel)CurrentPageViewModel).Status = string.Format(Resources.status_reset, selection.Name, DateTime.Now);
+
+        if (CurrentPageViewModel is EditHUDViewModel editVm)
+            editVm.Status = string.Format(Resources.status_reset, selection.Name, DateTime.Now);
     }
 
     /// <summary>
@@ -394,9 +399,6 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public async Task RefreshPage()
     {
-        // Dispose of the old viewmodel
-        CurrentPageViewModel?.Dispose();
-
         await LoadHUDs();
         OnPropertyChanged(nameof(HUDList));
 
@@ -480,7 +482,7 @@ public partial class MainWindowViewModel : ViewModelBase
         var process = Process.Start(processInfo);
         while (!process.StandardOutput.EndOfStream)
             App.Logger.Info(process.StandardOutput.ReadLine());
-        process.WaitForExit();
+        await process.WaitForExitAsync();
         process.Close();
 
         File.Move(outputPathTga, $"{outputPath}.tga", true);

@@ -103,8 +103,9 @@ public partial class SplashScreenViewModel : ViewModelBase
         }
     }
 
-    private async Task<Avalonia.Media.Imaging.Bitmap?> DownloadAndReportAsync(string url)
+    private async Task<Avalonia.Media.Imaging.Bitmap?> DownloadAndReportAsync(string url, CancellationToken ct)
     {
+        ct.ThrowIfCancellationRequested();
         var bitmap = await ImageCache.GetImageAsync(url);
         ImagesDownloaded++;
         return bitmap;
