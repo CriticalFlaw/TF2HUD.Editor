@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="clr-namespace:HUDEditor.ViewModels"
+			 xmlns:loc="clr-namespace:HUDEditor.Assets"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 x:DataType="vm:AppInfoViewModel"
              x:Class="HUDEditor.Views.AppInfoView">
