@@ -49,9 +49,7 @@ public partial class MainWindowViewModel : ViewModelBase
             CurrentPageViewModel?.Dispose();
             CurrentPageViewModel = _selectedHud != null ? new EditHUDViewModel(this, SelectedHud) : new HomePageViewModel(this, HUDList);
             App.Logger.Info($"Changing page view to: {(_selectedHud?.Name ?? "Home")}");
-
             App.Config.ConfigSettings.UserPrefs.SelectedHUD = SelectedHud?.Name ?? string.Empty;
-            App.SaveConfiguration();
         }
     }
 
@@ -118,7 +116,11 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    public void SelectHUD(HUD hud) => SelectedHud = hud;
+    public void SelectHUD(HUD hud)
+    {
+        SelectedHud = hud;
+        App.SaveConfiguration();
+    }
 
     public bool CanInstall() => !Installing;
 
@@ -357,6 +359,7 @@ public partial class MainWindowViewModel : ViewModelBase
         HighlightedHud = null;
         SelectedHud = null;
         WindowTitle = Resources.ui_title;
+        App.SaveConfiguration();
     }
 
     [RelayCommand]
@@ -442,6 +445,7 @@ public partial class MainWindowViewModel : ViewModelBase
         _hudList.Add(hud);
         _hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
         SelectedHud = hud;
+        App.SaveConfiguration();
     }
 
     private async Task<string?> GenerateThumbnailAsync(string folderPath, string hudDetailsFolder)
