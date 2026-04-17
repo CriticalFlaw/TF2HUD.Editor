@@ -51,6 +51,14 @@ pnpm start-docs
 
 ---
 
+## CI/CD
+
+- `build.yml` — 构建 Debug 版本（win-x64 和 linux-x64）
+- `package.yml` — 发布 Release 单文件可执行程序
+- `docs.yml` — 构建并部署 Docusaurus 文档站到 GitHub Pages
+
+---
+
 ## 致谢
 
 * [CriticalFlaw](https://github.com/CriticalFlaw) 和 [Revan](https://github.com/cooolbros) — 代码、设计、文档
