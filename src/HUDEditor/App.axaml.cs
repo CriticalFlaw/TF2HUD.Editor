@@ -100,10 +100,10 @@ public partial class App : Application
         }
         Config ??= new ConfigurationModel();
 
-        // Setup Sentry — HUDEDITOR_SENTRY_DSN is applied by a GitHub Action during packaging.
+        // Setup Sentry — SENTRY_DSN is applied by a GitHub Action during packaging.
         if (!Config.ConfigSettings.UserPrefs.DisableSentry)
         {
-            var dsn = Environment.GetEnvironmentVariable("HUDEDITOR_SENTRY_DSN") ?? Config.ConfigSettings.AppConfig.SentryDsn;
+            var dsn = Environment.GetEnvironmentVariable("SENTRY_DSN") ?? Config.ConfigSettings.AppConfig.SentryDsn;
             if (!string.IsNullOrWhiteSpace(dsn))
             {
                 SentrySdk.Init(o =>

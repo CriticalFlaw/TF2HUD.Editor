@@ -60,7 +60,7 @@ public partial class SplashScreenViewModel : ViewModelBase
 
     public CancellationToken CancellationToken => _cts.Token;
 
-    public async Task DownloadImages(IEnumerable<HUD> _hudList)
+    public async Task DownloadImages(IEnumerable<HUD> _hudList, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -81,7 +81,8 @@ public partial class SplashScreenViewModel : ViewModelBase
 
             foreach (var hud in _hudList)
             {
-                hud.ThumbnailImage = await DownloadAndReportAsync(hud.Thumbnail);
+                cancellationToken.ThrowIfCancellationRequested();
+                hud.ThumbnailImage = await DownloadAndReportAsync(hud.Thumbnail, cancellationToken);
 
                 // Load and cache screenshots
                 hud.ScreenshotImages = [];
@@ -89,7 +90,8 @@ public partial class SplashScreenViewModel : ViewModelBase
                 {
                     foreach (var screenshotUrl in hud.Screenshots)
                     {
-                        var img = await DownloadAndReportAsync(screenshotUrl);
+                        cancellationToken.ThrowIfCancellationRequested();
+                        var img = await DownloadAndReportAsync(screenshotUrl, cancellationToken);
                         if (img != null)
                             hud.ScreenshotImages.Add(img);
                     }
