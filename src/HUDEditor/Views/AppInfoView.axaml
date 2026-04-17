@@ -9,25 +9,28 @@
 	<StackPanel Margin="20">
 		<Image Source="avares://HUDEditor/Assets/Images/banner.png" Margin="150,0,150,0" />
 		<TextBlock Classes="BodyText" TextAlignment="Center" Margin="0,15,0,15">
-			<Run Foreground="#70B04A" Text="Install" />
-			<Run Text="and" />
-			<Run Foreground="#38F3AB" Text="customize" />
-			<Run Text="your favorite Team Fortress 2 HUDs!" />
+			<Run Foreground="#70B04A" Text="{x:Static loc:Resources.appinfo_install}" />
+			<Run Text="{x:Static loc:Resources.appinfo_and}" />
+			<Run Foreground="#38F3AB" Text="{x:Static loc:Resources.ui_customize}" />
+			<Run Text="{x:Static loc:Resources.appinfo_favorite_huds}" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.5" Margin="0,15,0,0" FontSize="30" />
+		<TextBlock Classes="HeaderText" TextAlignment="Center" Margin="0,15,0,0" FontSize="30">
+			<Run Text="{x:Static loc:Resources.appinfo_version}" />
+			<Run Text=" 4.5" />
+		</TextBlock>
 		<TextBlock Classes="BodyText">
-			<Run Text="> Implemented vtex2 for generating custom backgrounds on Linux" />
+			<Run Text="{x:Static loc:Resources.changelog_vtex2}" />
 			<LineBreak />
-			<Run Text="> Added missing crosshair options." />
+			<Run Text="{x:Static loc:Resources.changelog_crosshair}" />
 			<LineBreak />
-			<Run Text="> Added a label that shows the current user path in the settings menu." />
+			<Run Text="{x:Static loc:Resources.changelog_user_path}" />
 			<LineBreak />
-			<Run Text="> Fixed scrollbars not being visible when available." />
+			<Run Text="{x:Static loc:Resources.changelog_scrollbars}" />
 			<LineBreak />
-			<Run Text="> Fixed tooltips not displaying." />
+			<Run Text="{x:Static loc:Resources.changelog_tooltips}" />
 			<LineBreak />
-			<Run Text="> General backend fixes and improvements." />
+			<Run Text="{x:Static loc:Resources.changelog_backend}" />
 		</TextBlock>
 	</StackPanel>
 </UserControl>

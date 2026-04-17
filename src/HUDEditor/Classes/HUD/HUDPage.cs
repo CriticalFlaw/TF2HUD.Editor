@@ -358,7 +358,7 @@ public partial class HUD
             await Utilities.ShowMessageBox(Assets.Resources.info_background_override);
             var files = await TopLevel.GetTopLevel(browse).StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
-                Title = "Select an image file",
+                Title = Assets.Resources.dialog_select_image,
                 AllowMultiple = false,
                 FileTypeFilter =
                 [

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -322,6 +322,57 @@
     <value>打开最新日志文件</value>
   </data>
   <data name="ui_disable_sentry" xml:space="preserve">
-    <value />
+    <value>禁用 Sentry 错误跟踪</value>
+  </data>
+  <data name="ui_cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="settings_user_path" xml:space="preserve">
+    <value>用户路径</value>
+  </data>
+  <data name="settings_settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="settings_troubleshooting" xml:space="preserve">
+    <value>故障排除</value>
+  </data>
+  <data name="appinfo_install" xml:space="preserve">
+    <value>安装</value>
+  </data>
+  <data name="appinfo_and" xml:space="preserve">
+    <value>并</value>
+  </data>
+  <data name="appinfo_favorite_huds" xml:space="preserve">
+    <value>自定义你最喜欢的《军团要塞2》HUD！</value>
+  </data>
+  <data name="appinfo_version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="changelog_vtex2" xml:space="preserve">
+    <value>在 Linux 上实现 vtex2 以生成自定义背景</value>
+  </data>
+  <data name="changelog_crosshair" xml:space="preserve">
+    <value>添加缺失的准星选项</value>
+  </data>
+  <data name="changelog_user_path" xml:space="preserve">
+    <value>在设置菜单中添加显示当前用户路径的标签</value>
+  </data>
+  <data name="changelog_scrollbars" xml:space="preserve">
+    <value>修复滚动条在可用时不显示的问题</value>
+  </data>
+  <data name="changelog_tooltips" xml:space="preserve">
+    <value>修复工具提示不显示的问题</value>
+  </data>
+  <data name="changelog_backend" xml:space="preserve">
+    <value>常规后端修复和改进</value>
+  </data>
+  <data name="error_logs_folder" xml:space="preserve">
+    <value>未找到日志文件夹。</value>
+  </data>
+  <data name="error_no_log_files" xml:space="preserve">
+    <value>未找到日志文件。</value>
+  </data>
+  <data name="dialog_select_image" xml:space="preserve">
+    <value>选择图片文件</value>
   </data>
 </root>
