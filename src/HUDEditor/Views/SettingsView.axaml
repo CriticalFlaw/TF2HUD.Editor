@@ -38,7 +38,7 @@
 			</Grid.RowDefinitions>
 
 			<!-- User Path -->
-			<HeaderedContentControl Header="User Path" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
+			<HeaderedContentControl Header="{x:Static loc:Resources.settings_user_path}" Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,10">
 				<WrapPanel HorizontalAlignment="Left">
 					<Label Content="{Binding IsPathValid}" Foreground="{Binding ., Converter={StaticResource IsUserPathValid}}" FontFamily="{StaticResource Icons}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="5"/>
 					<Label Content="{Binding UserPath}" Foreground="#EBE2CA" FontFamily="{StaticResource Tf2Build}" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="5"/>
@@ -47,7 +47,7 @@
 			</HeaderedContentControl>
 
 			<!-- Settings -->
-			<HeaderedContentControl Header="Settings" Grid.Row="1" Grid.Column="0">
+			<HeaderedContentControl Header="{x:Static loc:Resources.settings_settings}" Grid.Row="1" Grid.Column="0">
 				<WrapPanel HorizontalAlignment="Left">
 					<Label Content="{x:Static loc:Resources.ui_language}" Foreground="#EBE2CA" FontFamily="{StaticResource Tf2Build}" VerticalAlignment="Center" Margin="10,0,0,0"/>
 					<ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}" Width="200" Margin="10,0,0,0">
@@ -70,7 +70,7 @@
 			</HeaderedContentControl>
 
 			<!-- Troubleshooting -->
-			<HeaderedContentControl Header="Troubleshooting" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
+			<HeaderedContentControl Header="{x:Static loc:Resources.settings_troubleshooting}" Grid.Row="1" Grid.Column="1" Margin="10,0,0,0">
 				<StackPanel HorizontalAlignment="Left">
 					<Button Content="{x:Static loc:Resources.ui_refresh}" Classes="HudButton SettingsButton" Command="{Binding UpdateAppCommand}" />
 					<Button Content="{x:Static loc:Resources.ui_clear_cache}" Classes="HudButton SettingsButton" Command="{Binding ClearAppCacheCommand}" IsEnabled="{Binding ., Converter={StaticResource DisableOnLinux}}" />

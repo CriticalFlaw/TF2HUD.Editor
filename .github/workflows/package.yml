@@ -38,6 +38,8 @@ jobs:
     - name: Publish for ${{ matrix.rid }}
       run: dotnet publish -c Release -r ${{ matrix.rid }} --output ./publish/${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true
       working-directory: src/HUDEditor
+      env:
+        SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
     - name: Upload artifact for ${{ matrix.rid }}
       uses: actions/upload-artifact@v6

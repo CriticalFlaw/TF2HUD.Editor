@@ -322,6 +322,42 @@
     <value>打开最新日志文件</value>
   </data>
   <data name="ui_disable_sentry" xml:space="preserve">
-    <value />
+    <value>禁用 Sentry 错误跟踪</value>
+  </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>图片转换失败，请尝试其他文件。</value>
+  </data>
+  <data name="ui_cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="settings_user_path" xml:space="preserve">
+    <value>用户路径</value>
+  </data>
+  <data name="settings_settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="settings_troubleshooting" xml:space="preserve">
+    <value>故障排除</value>
+  </data>
+  <data name="appinfo_install" xml:space="preserve">
+    <value>安装</value>
+  </data>
+  <data name="appinfo_and" xml:space="preserve">
+    <value>并</value>
+  </data>
+  <data name="appinfo_favorite_huds" xml:space="preserve">
+    <value>自定义你最喜欢的《军团要塞2》HUD！</value>
+  </data>
+  <data name="appinfo_version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="error_logs_folder" xml:space="preserve">
+    <value>未找到日志文件夹。</value>
+  </data>
+  <data name="error_no_log_files" xml:space="preserve">
+    <value>未找到日志文件。</value>
+  </data>
+  <data name="dialog_select_image" xml:space="preserve">
+    <value>选择图片文件</value>
   </data>
 </root>

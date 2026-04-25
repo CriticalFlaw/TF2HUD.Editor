@@ -322,6 +322,42 @@
     <value>Apri l’ultimo file di log</value>
   </data>
   <data name="ui_disable_sentry" xml:space="preserve">
-    <value />
+    <value>Disabilita il tracciamento errori Sentry</value>
+  </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>Conversione dell'immagine non riuscita. Riprova con un altro file.</value>
+  </data>
+  <data name="ui_cancel" xml:space="preserve">
+    <value>Annulla</value>
+  </data>
+  <data name="settings_user_path" xml:space="preserve">
+    <value>Percorso utente</value>
+  </data>
+  <data name="settings_settings" xml:space="preserve">
+    <value>Impostazioni</value>
+  </data>
+  <data name="settings_troubleshooting" xml:space="preserve">
+    <value>Risoluzione problemi</value>
+  </data>
+  <data name="appinfo_install" xml:space="preserve">
+    <value>Installa</value>
+  </data>
+  <data name="appinfo_and" xml:space="preserve">
+    <value>e</value>
+  </data>
+  <data name="appinfo_favorite_huds" xml:space="preserve">
+    <value>i tuoi HUD di Team Fortress 2 preferiti!</value>
+  </data>
+  <data name="appinfo_version" xml:space="preserve">
+    <value>Versione</value>
+  </data>
+  <data name="error_logs_folder" xml:space="preserve">
+    <value>Cartella log non trovata.</value>
+  </data>
+  <data name="error_no_log_files" xml:space="preserve">
+    <value>Nessun file di log trovato.</value>
+  </data>
+  <data name="dialog_select_image" xml:space="preserve">
+    <value>Seleziona un file immagine</value>
   </data>
 </root>

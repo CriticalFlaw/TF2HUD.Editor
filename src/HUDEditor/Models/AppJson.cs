@@ -28,7 +28,7 @@ public class UserPreferences
     public string HUDDirectory { get; set; } = string.Empty;
 
     [JsonPropertyName("user_language")]
-    public string Language { get; set; } = "en-US";
+    public string Language { get; set; } = string.Empty;
 
     [JsonPropertyName("app_update_auto")]
     public bool AutoUpdate { get; set; } = true;
