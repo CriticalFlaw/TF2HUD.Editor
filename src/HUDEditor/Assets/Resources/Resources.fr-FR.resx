@@ -322,6 +322,42 @@
     <value>Ouvrir le dernier fichier journal</value>
   </data>
   <data name="ui_disable_sentry" xml:space="preserve">
-    <value />
+    <value>Désactiver le suivi d'erreurs Sentry</value>
+  </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>Échec de la conversion de l'image. Veuillez essayer un autre fichier.</value>
+  </data>
+  <data name="ui_cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="settings_user_path" xml:space="preserve">
+    <value>Chemin utilisateur</value>
+  </data>
+  <data name="settings_settings" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="settings_troubleshooting" xml:space="preserve">
+    <value>Dépannage</value>
+  </data>
+  <data name="appinfo_install" xml:space="preserve">
+    <value>Installer</value>
+  </data>
+  <data name="appinfo_and" xml:space="preserve">
+    <value>et</value>
+  </data>
+  <data name="appinfo_favorite_huds" xml:space="preserve">
+    <value>vos HUDs Team Fortress 2 préférés !</value>
+  </data>
+  <data name="appinfo_version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="error_logs_folder" xml:space="preserve">
+    <value>Aucun dossier de journaux trouvé.</value>
+  </data>
+  <data name="error_no_log_files" xml:space="preserve">
+    <value>Aucun fichier journal trouvé.</value>
+  </data>
+  <data name="dialog_select_image" xml:space="preserve">
+    <value>Sélectionner un fichier image</value>
   </data>
 </root>

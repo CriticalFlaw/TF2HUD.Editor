@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -836,5 +837,21 @@ public static class Utilities
     {
         try { Directory.Delete(path, recursive: true); }
         catch (IOException e) { App.Logger.Warn($"Could not delete \"{path}\": {e.Message}"); }
+    }
+
+    public static string GetSystemLanguage()
+    {
+        var systemCulture = CultureInfo.CurrentUICulture;
+        var cultureName = systemCulture.Name;
+
+        return cultureName.ToLowerInvariant() switch
+        {
+            var s when s.StartsWith("zh") => "zh-CN",
+            var s when s.StartsWith("fr") => "fr-FR",
+            var s when s.StartsWith("ru") => "ru-RU",
+            var s when s.StartsWith("pt") => "pt-BR",
+            var s when s.StartsWith("it") => "it",
+            _ => "en-US"
+        };
     }
 }

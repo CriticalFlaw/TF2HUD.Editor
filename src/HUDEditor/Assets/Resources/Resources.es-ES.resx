@@ -322,6 +322,42 @@
     <value>Abrir el último archivo de registro</value>
   </data>
   <data name="ui_disable_sentry" xml:space="preserve">
-    <value />
+    <value>Desactivar el seguimiento de errores de Sentry</value>
+  </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>Error al convertir la imagen. Por favor, prueba con otro archivo.</value>
+  </data>
+  <data name="ui_cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="settings_user_path" xml:space="preserve">
+    <value>Ruta de usuario</value>
+  </data>
+  <data name="settings_settings" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="settings_troubleshooting" xml:space="preserve">
+    <value>Solución de problemas</value>
+  </data>
+  <data name="appinfo_install" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
+  <data name="appinfo_and" xml:space="preserve">
+    <value>y</value>
+  </data>
+  <data name="appinfo_favorite_huds" xml:space="preserve">
+    <value>¡tus HUDs de Team Fortress 2 favoritos!</value>
+  </data>
+  <data name="appinfo_version" xml:space="preserve">
+    <value>Versión</value>
+  </data>
+  <data name="error_logs_folder" xml:space="preserve">
+    <value>No se encontró la carpeta de registros.</value>
+  </data>
+  <data name="error_no_log_files" xml:space="preserve">
+    <value>No se encontraron archivos de registro.</value>
+  </data>
+  <data name="dialog_select_image" xml:space="preserve">
+    <value>Seleccionar un archivo de imagen</value>
   </data>
 </root>

@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using HUDEditor.Classes;
 using HUDEditor.Models;
 using HUDEditor.ViewModels;
 using HUDEditor.Views;
@@ -117,7 +118,15 @@ public partial class App : Application
         }
 
         // Set user preferences
-        Assets.Resources.Culture = new CultureInfo(Config.ConfigSettings.UserPrefs.Language);
+        var language = Config.ConfigSettings.UserPrefs.Language;
+        var systemLanguage = Utilities.GetSystemLanguage();
+        if (string.IsNullOrEmpty(language) || (language == "en-US" && systemLanguage != "en-US"))
+        {
+            language = systemLanguage;
+            Config.ConfigSettings.UserPrefs.Language = language;
+            SaveConfiguration();
+        }
+        Assets.Resources.Culture = new CultureInfo(language);
         HudPath = Config.ConfigSettings.UserPrefs.HUDDirectory;
     }
 

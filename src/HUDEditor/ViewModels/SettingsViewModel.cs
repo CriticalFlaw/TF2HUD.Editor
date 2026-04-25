@@ -149,7 +149,7 @@ public partial class SettingsViewModel : ViewModelBase
         var logsFolder = "logs";
         if (!Directory.Exists(logsFolder))
         {
-            await Utilities.ShowMessageBox("No logs folder found.");
+            await Utilities.ShowMessageBox(Resources.error_logs_folder);
             return;
         }
 
@@ -159,7 +159,7 @@ public partial class SettingsViewModel : ViewModelBase
 
         if (latestLogFile == null)
         {
-            await Utilities.ShowMessageBox("No log files found.");
+            await Utilities.ShowMessageBox(Resources.error_no_log_files);
             return;
         }
 
