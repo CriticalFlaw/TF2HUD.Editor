@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -226,38 +227,64 @@ public static class Utilities
     /// <returns>True if the TF2 directory was found through the registry, otherwise return False.</returns>
     public static bool SearchRegistry()
     {
-        var steamPaths = new List<string>();
-
         // Do not bother searching the registry if not on Windows.
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return false;
+        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            return false;
 
-        // Get Steam install path from registry.
-        var regPath = (string?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\Software\Valve\Steam", "InstallPath", null)
-            ?? (string?)Registry.GetValue(@"HKEY_LOCAL_MACHINE\Software\WOW6432Node\Valve\Steam", "InstallPath", null);
-        if (string.IsNullOrWhiteSpace(regPath)) return false;
-        var pathFile = Path.Combine(regPath, "steamapps", "libraryfolders.vdf");
+        var steamPath = GetSteamInstallPath();
+        if (string.IsNullOrWhiteSpace(steamPath))
+            return false;
 
-        // Read the file and attempt to extract all library paths.
-        using var reader = new StreamReader(pathFile);
-        foreach (Match match in Regex.Matches(reader.ReadToEnd(), "\"(.*)\"\t*\"(.*)\""))
+        var libraryFile = Path.Combine(steamPath, "steamapps", "libraryfolders.vdf");
+        if (!File.Exists(libraryFile))
+            return false;
+
+        foreach (var library in ParseLibraryFolders(libraryFile))
         {
-            if (match.Groups[1].Value.Equals("path"))
-                steamPaths.Add(match.Groups[2].Value);
-        }
+            var tf2Path = Path.Combine(library, "steamapps", "common", "Team Fortress 2", "tf", "custom");
 
-        // Loop through all known library paths to try and find TF2.
-        foreach (var path in steamPaths)
-        {
-            var pathTF = Path.Combine(path, "/steamapps/common/Team Fortress 2/tf/custom");
-            if (Directory.Exists(pathTF))
+            if (Directory.Exists(tf2Path))
             {
-                App.Logger.Info($"Set target directory to: {pathTF}");
-                App.Config.ConfigSettings.UserPrefs.HUDDirectory = pathTF;
+                App.Logger.Info($"Set target directory to: {tf2Path}");
+                App.Config.ConfigSettings.UserPrefs.HUDDirectory = tf2Path;
                 App.SaveConfiguration();
                 return true;
             }
         }
+
         return false;
+    }
+
+    private static string? GetSteamInstallPath()
+    {
+        foreach (var view in new[] { RegistryView.Registry64, RegistryView.Registry32 })
+        {
+            using var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, view);
+            using var subKey = baseKey.OpenSubKey(@"SOFTWARE\Valve\Steam");
+
+            var value = subKey?.GetValue("InstallPath") as string;
+            if (!string.IsNullOrWhiteSpace(value))
+                return value;
+        }
+
+        return null;
+    }
+
+    private static IEnumerable<string> ParseLibraryFolders(string filePath)
+    {
+        var paths = new List<string>();
+
+        foreach (var line in File.ReadLines(filePath))
+        {
+            var match = Regex.Match(line, "\"path\"\\s*\"([^\"]+)\"");
+            if (match.Success)
+            {
+                var path = match.Groups[1].Value.Replace(@"\\", @"\");
+                paths.Add(path);
+            }
+        }
+
+        return paths;
     }
 
     /// <summary>
@@ -365,11 +392,11 @@ public static class Utilities
     }
 
     /// <summary>
-    /// Downloads and prepares the HUD for use.
+    /// Downloads and extracts a HUD zip archive to the tf/custom directory.
     /// </summary>
-    /// <param name="url">Download link for the HUD</param>
-    /// <param name="filePath">Path to where the HUD should be installed to</param>
-    /// <param name="hudName">Proper name for the HUD being downloaded</param>
+    /// <param name="url">Direct download URL for the HUD zip.</param>
+    /// <param name="filePath">tf/custom directory to install into.</param>
+    /// <param name="hudName">Formatted name of the downloaded HUD.</param>
     public static async Task DownloadHud(string url, string filePath, string hudName)
     {
         using HttpClient client = new();
@@ -382,35 +409,44 @@ public static class Utilities
             : await client.GetByteArrayAsync(uri);
 
         if (bytes.Length == 0)
-        {
-            // GameBanana returns 200 with an empty response for missing download links.
-            throw new HttpRequestException($"Response from download source did not return a valid zip file");
-        }
+            throw new HttpRequestException("Response from download source did not return a valid zip file.");
 
         // Create new ZIP object from bytes.
-        var stream = new MemoryStream(bytes);
-        var archive = new ZipArchive(stream);
+        using var stream = new MemoryStream(bytes);
+        using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
 
-        // Zip files made with ZipFile.CreateFromDirectory do not include directory entries, so create root directory*
-        Directory.CreateDirectory($"{filePath}/{hudName}");
+        // Resolve the canonical destination once — all entries must stay under this root.
+        var destinationRoot = Path.GetFullPath(Path.Combine(filePath, hudName));
+        if (!destinationRoot.EndsWith(Path.DirectorySeparatorChar))
+            destinationRoot += Path.DirectorySeparatorChar;
+
+        Directory.CreateDirectory(destinationRoot);
 
         foreach (var entry in archive.Entries)
         {
-            // Remove first folder name from entry.FullName e.g. "flawhud-master" => "".
-            var path = String.Join('/', entry.FullName.Split("/")[1..]);
+            // Remove the top-level folder name (e.g. "flawhud-master/") from the path.
+            var relativePath = string.Join('/', entry.FullName.Split('/')[1..]);
 
-            // Ignore directory entries
-            // path == "" is root directory entry
-            if (path != "" && !path.EndsWith('/'))
+            // Skip directory entries and the stripped root.
+            if (string.IsNullOrEmpty(relativePath) || relativePath.EndsWith('/'))
+                continue;
+
+            // Skip if the result doesn't start with our destination root, potentially malicious.
+            var targetPath = Path.GetFullPath(Path.Combine(destinationRoot, relativePath));
+            if (!targetPath.StartsWith(destinationRoot, StringComparison.OrdinalIgnoreCase))
             {
-                // *and ensure directory exists for each file
-                Directory.CreateDirectory($"{filePath}/{hudName}/{Path.GetDirectoryName(path)}");
-                entry.ExtractToFile($"{filePath}/{hudName}/{path}");
+                App.Logger.Warn($"Skipping potentially malicious zip entry: \"{entry.FullName}\"");
+                continue;
             }
+
+            var targetDir = Path.GetDirectoryName(targetPath)!;
+            Directory.CreateDirectory(targetDir);
+
+            App.Logger.Info($"Extracting: {relativePath}");
+            entry.ExtractToFile(targetPath, overwrite: true);
         }
 
-        // Clean the application directory.
-        archive.Dispose();
+        App.Logger.Info($"Extraction complete: {destinationRoot}");
     }
 
     /// <summary>
@@ -445,14 +481,14 @@ public static class Utilities
 
         // Download TF2 HUD Crosshairs
         await DownloadFile(App.Config.ConfigSettings.AppConfig.CrosshairPackURL, crosshairsZipFileName);
-        if (Directory.Exists(crosshairsName)) Directory.Delete(crosshairsName, true);
+        DeleteDirectory(crosshairsName);
         ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath);
 
         // Move crosshairs folder to HUD
         string targetDirectory = Path.Join(folderPath, "resource/crosshairs");
-        if (Directory.Exists(targetDirectory)) Directory.Delete(targetDirectory, true);
+        DeleteDirectory(targetDirectory);
         Directory.Move(Path.Join(folderPath, Path.Join(crosshairsName, "crosshairs")), targetDirectory);
-        Directory.Delete(Path.Join(folderPath, crosshairsName), true);
+        DeleteDirectory(Path.Join(folderPath, crosshairsName));
 
         async Task AddBaseReference(string relativeFilePath, string baseFilePath)
         {
@@ -618,24 +654,30 @@ public static class Utilities
             AllowMultiple = false
         });
 
-        if (folders.Count > 0)
+        if (folders.Count == 0)
+            return false;
+
+        var localPath = folders[0].TryGetLocalPath();
+        if (localPath is null)
         {
-            var userPath = folders[0].TryGetLocalPath().Replace("\\", "/");
-            if (App.Config.ConfigSettings.UserPrefs.PathBypass || userPath.EndsWith("tf/custom"))
-            {
-                App.Config.ConfigSettings.UserPrefs.HUDDirectory = userPath;
-                App.SaveConfiguration();
-                App.HudPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
-                App.Logger.Info($"Target directory set to: {App.HudPath}");
-            }
-            else
-            {
-                await ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
-            }
+            App.Logger.Warn("Selected folder could not be resolved to a local path.");
+            await ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
+            return false;
         }
 
-        // Check one more time if a valid directory has been set.
-        return CheckUserPath();
+        App.HudPath = localPath.Replace("\\", "/");
+        if (!CheckUserPath())
+        {
+            App.Logger.Warn($"Invalid path selected: {App.HudPath}");
+            await ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
+            App.HudPath = string.Empty;
+            return false;
+        }
+
+        App.Config.ConfigSettings.UserPrefs.HUDDirectory = App.HudPath;
+        App.SaveConfiguration();
+        App.Logger.Info($"Target directory set to: {App.HudPath}");
+        return true;
     }
 
     /// <summary>
@@ -768,9 +810,9 @@ public static class Utilities
     {
         if (await ShowPromptBox(Resources.info_clear_cache) == ButtonResult.No) return;
 
-        Directory.Delete($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor", true);
-        Directory.Delete("cache", true);
-        Directory.Delete("JSON", true);
+        DeleteDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor");
+        DeleteDirectory("cache");
+        DeleteDirectory("JSON");
         await UpdateAppSchema(true);
     }
 
@@ -781,6 +823,46 @@ public static class Utilities
             var zipPath = Path.Combine(hudDetailsFolder, $"{hudName}.zip");
             ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
             return $"file://{zipPath}";
+        });
+    }
+
+    public static void RenameExtension(string path, string oldExt, string newExt)
+    {
+        var newPath = path[..^oldExt.Length] + newExt;
+        App.Logger.Info($"Renaming \"{path}\" → \"{newPath}\"");
+        File.Move(path, newPath, overwrite: true);
+    }
+
+    public static void DeleteDirectory(string path)
+    {
+        try { Directory.Delete(path, recursive: true); }
+        catch (IOException e) { App.Logger.Warn($"Could not delete \"{path}\": {e.Message}"); }
+    }
+
+    public static string GetSystemLanguage()
+    {
+        var systemCulture = CultureInfo.CurrentUICulture;
+        var cultureName = systemCulture.Name;
+
+        return cultureName.ToLowerInvariant() switch
+        {
+            var s when s.StartsWith("zh") => "zh-CN",
+            var s when s.StartsWith("fr") => "fr-FR",
+            var s when s.StartsWith("ru") => "ru-RU",
+            var s when s.StartsWith("pt") => "pt-BR",
+            var s when s.StartsWith("it") => "it",
+            _ => "en-US"
+        };
+    }
+
+    public static void OpenLocalFile(string path)
+    {
+        if (!File.Exists(path)) return;
+
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = path,
+            UseShellExecute = true
         });
     }
 }

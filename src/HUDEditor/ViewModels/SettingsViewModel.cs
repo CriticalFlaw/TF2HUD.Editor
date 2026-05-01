@@ -5,6 +5,7 @@ using HUDEditor.Classes;
 using HUDEditor.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -24,7 +25,7 @@ public partial class SettingsViewModel : ViewModelBase
         new() { CultureCode = "zh-CN", CultureName = Resources.ui_language_cn, FlagImagePath = Utilities.LoadFromResource("avares://HUDEditor/Assets/Images/Flags/cn.png") },
     ];
 
-    private Language _selectedLanguage;
+    private Language _selectedLanguage = null!;
     public Language SelectedLanguage
     {
         get => _selectedLanguage;
@@ -35,7 +36,17 @@ public partial class SettingsViewModel : ViewModelBase
             SelectedCulture = value.CultureCode;
         }
     }
-    public string SelectedCulture { get; private set; } = App.Config.ConfigSettings.UserPrefs.Language ?? "en-US";
+
+    private string _selectedCulture = App.Config.ConfigSettings.UserPrefs.Language ?? "en-US";
+    public string SelectedCulture
+    {
+        get => _selectedCulture;
+        private set
+        {
+            _selectedCulture = value;
+            OnPropertyChanged(nameof(SelectedCulture));
+        }
+    }
 
     private bool _persistCrosshair;
     public bool PersistCrosshair
@@ -81,7 +92,7 @@ public partial class SettingsViewModel : ViewModelBase
         }
     }
 
-    private string _userPath;
+    private string _userPath = null!;
     public string UserPath
     {
         get => _userPath;
@@ -92,7 +103,7 @@ public partial class SettingsViewModel : ViewModelBase
         }
     }
 
-    private string _isPathValid;
+    private string _isPathValid = null!;
     public string IsPathValid
     {
         get => _isPathValid;
@@ -105,13 +116,13 @@ public partial class SettingsViewModel : ViewModelBase
 
     public SettingsViewModel()
     {
-        SelectedLanguage = Languages.FirstOrDefault(l => l.CultureCode == SelectedCulture);
+        SelectedLanguage = Languages.FirstOrDefault(l => l.CultureCode == SelectedCulture) ?? Languages.First();
         PersistCrosshair = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence;
         AutoUpdate = App.Config.ConfigSettings.UserPrefs.AutoUpdate;
         OverridePath = App.Config.ConfigSettings.UserPrefs.PathBypass;
         DisableSentry = App.Config.ConfigSettings.UserPrefs.DisableSentry;
         UserPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
-        IsPathValid = Utilities.CheckUserPath() ? "\u0096" : "\u0097";
+        RefreshPathStatus();
     }
 
     [RelayCommand]
@@ -122,14 +133,24 @@ public partial class SettingsViewModel : ViewModelBase
         App.Config.ConfigSettings.UserPrefs.AutoUpdate = AutoUpdate;
         App.Config.ConfigSettings.UserPrefs.PathBypass = OverridePath;
         App.Config.ConfigSettings.UserPrefs.DisableSentry = DisableSentry;
+        App.Config.ConfigSettings.UserPrefs.HUDDirectory = UserPath;
+        App.HudPath = UserPath;
         App.SaveConfiguration();
 
         // Ask the user to restart the app if they've changed the language
-        if (Resources.Culture != new CultureInfo(SelectedCulture)) await Utilities.ShowMessageBox(Resources.info_ask_restart);
+        if (Resources.Culture != new CultureInfo(SelectedCulture))
+            await Utilities.ShowMessageBox(Resources.info_ask_restart);
     }
 
     [RelayCommand]
-    private static async Task SetHudPath(Window window) => await Utilities.SetupDirectoryAsync(window, true);
+    private async Task SetHudPath(Window window)
+    {
+        await Utilities.SetupDirectoryAsync(window, true);
+
+        // Refresh UI to reflect the newly chosen path
+        UserPath = App.Config.ConfigSettings.UserPrefs.HUDDirectory;
+        RefreshPathStatus();
+    }
 
     [RelayCommand]
     private static async Task UpdateApp() => await Utilities.UpdateAppSchema(false);
@@ -138,10 +159,18 @@ public partial class SettingsViewModel : ViewModelBase
     private static async Task ClearAppCache() => await Utilities.ClearAppCache();
 
     [RelayCommand]
-    private static async Task OpenAppSettings() => await Utilities.OpenWebpage(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
+    private static Task OpenAppSettings()
+    {
+        Utilities.OpenLocalFile(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
+        return Task.CompletedTask;
+    }
 
     [RelayCommand]
-    private static async Task OpenUserSettings() => await Utilities.OpenWebpage(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TF2HUD.Editor", "settings.json"));
+    private static Task OpenUserSettings()
+    {
+        Utilities.OpenLocalFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TF2HUD.Editor", "settings.json"));
+        return Task.CompletedTask;
+    }
 
     [RelayCommand]
     private static async Task OpenLatestLogFile()
@@ -149,7 +178,7 @@ public partial class SettingsViewModel : ViewModelBase
         var logsFolder = "logs";
         if (!Directory.Exists(logsFolder))
         {
-            await Utilities.ShowMessageBox("No logs folder found.");
+            await Utilities.ShowMessageBox(Resources.error_logs_folder);
             return;
         }
 
@@ -159,10 +188,15 @@ public partial class SettingsViewModel : ViewModelBase
 
         if (latestLogFile == null)
         {
-            await Utilities.ShowMessageBox("No log files found.");
+            await Utilities.ShowMessageBox(Resources.error_no_log_files);
             return;
         }
 
-        await Utilities.OpenWebpage(latestLogFile);
+        Utilities.OpenLocalFile(latestLogFile);
+    }
+
+    private void RefreshPathStatus()
+    {
+        IsPathValid = Utilities.CheckUserPath() ? "\u0096" : "\u0097";
     }
 }

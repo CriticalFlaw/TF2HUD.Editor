@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using Avalonia.VisualTree;
 using HUDEditor.ViewModels;
 using System;
 
@@ -19,7 +18,8 @@ public partial class HUDButtonView : UserControl
     {
         if (DataContext is not HUDButtonViewModel hudVM) return;
 
-        var mainVM = (this.GetVisualRoot() as Window)?.DataContext as MainWindowViewModel;
+        var topLevel = TopLevel.GetTopLevel(this);
+        var mainVM = topLevel?.DataContext as MainWindowViewModel;
         if (mainVM == null) return;
 
         var now = DateTime.UtcNow;
