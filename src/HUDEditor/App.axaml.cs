@@ -20,9 +20,9 @@ namespace HUDEditor;
 
 public partial class App : Application
 {
-    public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
-    public static ConfigurationModel Config { get; private set; }
-    public static string HudPath { get; set; }
+    public static readonly ILog Logger = LogManager.GetLogger(typeof(App));
+    public static ConfigurationModel Config { get; private set; } = null!;
+    public static string HudPath { get; set; } = null!;
 
     public override void Initialize()
     {
@@ -130,7 +130,7 @@ public partial class App : Application
         HudPath = Config.ConfigSettings.UserPrefs.HUDDirectory;
     }
 
-    private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    private void App_DispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs e)
     {
         SentrySdk.CaptureException(e.Exception);
 
@@ -148,7 +148,7 @@ public partial class App : Application
             WriteIndented = true
         });
 
-        // Write to a temp file first, then replace the real config to prevents a crash mid-write.
+        // Write to a temp file first, then replace the real config to prevent a crash mid-write.
         File.WriteAllText(tempPath, json);
         File.Move(tempPath, configPath, overwrite: true);
     }

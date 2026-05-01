@@ -32,9 +32,9 @@ public partial class SplashScreenViewModel : ViewModelBase
     }
 
     public string ImageDownloadStatus =>
-    TotalImages == 0
-        ? Assets.Resources.ui_splash_images
-        : string.Format(Assets.Resources.ui_splash_images_download, ImagesDownloaded, TotalImages);
+        TotalImages == 0
+            ? Assets.Resources.ui_splash_images
+            : string.Format(Assets.Resources.ui_splash_images_download, ImagesDownloaded, TotalImages);
 
     private string _staticStartupMessage = Assets.Resources.ui_splash_initialize;
     private bool _isDownloadingImages;
@@ -50,24 +50,27 @@ public partial class SplashScreenViewModel : ViewModelBase
         OnPropertyChanged(nameof(StartupMessage));
     }
 
-
-    public void Cancel()
-    {
-        _cts.Cancel();
-    }
+    public void Cancel() => _cts.Cancel();
 
     private readonly CancellationTokenSource _cts = new();
-
     public CancellationToken CancellationToken => _cts.Token;
 
-    public async Task DownloadImages(IEnumerable<HUD> _hudList, CancellationToken cancellationToken = default)
+    /// <summary>
+    /// Downloads and caches thumbnail and screenshot images for all HUDs.
+    /// </summary>
+    public async Task DownloadImages(IEnumerable<HUD> hudList, CancellationToken cancellationToken = default)
     {
+        // Link the external token with the internal one so either can cancel.
+        using var linked = CancellationTokenSource.CreateLinkedTokenSource(_cts.Token, cancellationToken);
+        var ct = linked.Token;
+
         try
         {
             _isDownloadingImages = true;
             OnPropertyChanged(nameof(StartupMessage));
+
             var imageUrls = new List<string>();
-            foreach (var hud in _hudList)
+            foreach (var hud in hudList)
             {
                 if (!string.IsNullOrWhiteSpace(hud.Thumbnail))
                     imageUrls.Add(hud.Thumbnail);
@@ -79,19 +82,18 @@ public partial class SplashScreenViewModel : ViewModelBase
             TotalImages = imageUrls.Count;
             ImagesDownloaded = 0;
 
-            foreach (var hud in _hudList)
+            foreach (var hud in hudList)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-                hud.ThumbnailImage = await DownloadAndReportAsync(hud.Thumbnail, cancellationToken);
+                ct.ThrowIfCancellationRequested();
+                hud.ThumbnailImage = await DownloadAndReportAsync(hud.Thumbnail, ct);
 
-                // Load and cache screenshots
                 hud.ScreenshotImages = [];
-                if (hud.Screenshots != null)
+                if (hud.Screenshots.Length > 0)
                 {
                     foreach (var screenshotUrl in hud.Screenshots)
                     {
-                        cancellationToken.ThrowIfCancellationRequested();
-                        var img = await DownloadAndReportAsync(screenshotUrl, cancellationToken);
+                        ct.ThrowIfCancellationRequested();
+                        var img = await DownloadAndReportAsync(screenshotUrl, ct);
                         if (img != null)
                             hud.ScreenshotImages.Add(img);
                     }
@@ -105,8 +107,14 @@ public partial class SplashScreenViewModel : ViewModelBase
         }
     }
 
-    private async Task<Avalonia.Media.Imaging.Bitmap?> DownloadAndReportAsync(string url, CancellationToken ct)
+    private async Task<Avalonia.Media.Imaging.Bitmap?> DownloadAndReportAsync(string? url, CancellationToken ct)
     {
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            ImagesDownloaded++;
+            return null;
+        }
+
         ct.ThrowIfCancellationRequested();
         var bitmap = await ImageCache.GetImageAsync(url);
         ImagesDownloaded++;

@@ -854,4 +854,15 @@ public static class Utilities
             _ => "en-US"
         };
     }
+
+    public static void OpenLocalFile(string path)
+    {
+        if (!File.Exists(path)) return;
+
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = path,
+            UseShellExecute = true
+        });
+    }
 }
