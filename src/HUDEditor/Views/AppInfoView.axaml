@@ -16,19 +16,19 @@
 			<Run Text="{x:Static loc:Resources.appinfo_favorite_huds}" />
 		</TextBlock>
 		<Border Background="#A49E9E" HorizontalAlignment="Stretch" Height="1" />
-		<Label Classes="HeaderText" Content="Version 4.5" Margin="0,15,0,0" FontSize="30" />
+		<Label Classes="HeaderText" Content="Version 4.5 (Beta)" Margin="0,15,0,0" FontSize="30" />
 		<TextBlock Classes="BodyText">
-			<Run Text="> Implemented vtex2 for generating custom backgrounds on Linux" />
+			<Run Text="> Upgraded to .NET 10 and Avalonia 12" />
 			<LineBreak />
-			<Run Text="> Added missing crosshair options." />
+			<Run Text="> Added darhud and middle-mann" />
 			<LineBreak />
-			<Run Text="> Added a label that shows the current user path in the settings menu." />
+			<Run Text="> Added a progress bar to the initialization screen" />
 			<LineBreak />
-			<Run Text="> Fixed scrollbars not being visible when available." />
+			<Run Text="> Improvements to directory search, HUD downloader and custom background functions" />
 			<LineBreak />
-			<Run Text="> Fixed tooltips not displaying." />
+			<Run Text="> Added missing localization text" />
 			<LineBreak />
-			<Run Text="> General backend fixes and improvements." />
+			<Run Text="> The app now defaults to the system language if not already set" />
 		</TextBlock>
 	</StackPanel>
 </UserControl>
