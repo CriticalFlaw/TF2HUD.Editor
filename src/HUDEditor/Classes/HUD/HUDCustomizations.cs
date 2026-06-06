@@ -156,8 +156,7 @@ public partial class HUD
                 Directory.CreateDirectory($"{path}/{EnabledFolder}");
 
             // Get user's settings for the selected HUD.
-            var userSettings = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(HUDSettings.UserFile))
-                ?.Settings.Where(x => x.Hud == Name);
+            var userSettings = (JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(HUDSettings.UserFile)) ?.Settings ?? []).Where(x => x.Hud == Name);
 
             foreach (var group in hudSettings)
             {
@@ -527,12 +526,6 @@ public partial class HUD
                     {
                         case "replace":
                             {
-                                // Example:
-                                // "replace": [
-                                //   "HudSpyDisguiseFadeIn_disabled",
-                                //   "HudSpyDisguiseFadeIn"
-                                // ]
-
                                 var values = animationOption.Value!.ToArray();
 
                                 string find, replace;
@@ -552,12 +545,6 @@ public partial class HUD
                             }
                         case "comment":
                             {
-                                // Example:
-                                // "comment": [
-                                //   "StopEvent",
-                                //   "StopEvent"
-                                // ]
-
                                 var values = animationOption.Value!.ToArray();
 
                                 if (bool.TryParse(userSetting.Value, out var valid))
@@ -583,12 +570,6 @@ public partial class HUD
                             }
                         case "uncomment":
                             {
-                                // Example:
-                                // "uncomment": [
-                                //   "StopEvent",
-                                //   "StopEvent"
-                                // ]
-
                                 var values = animationOption.Value!.ToArray();
 
                                 if (bool.TryParse(userSetting.Value, out var valid))
@@ -614,20 +595,6 @@ public partial class HUD
                             }
                         default:
                             {
-                                // animation
-                                // example:
-                                // "HudHealthBonusPulse": [
-                                //   {
-                                //     "Type": "Animate",
-                                //     "Element": "PlayerStatusHealthValue",
-                                //     "Property": "Fgcolor",
-                                //     "Value": "0 170 255 255",
-                                //     "Interpolator": "Linear",
-                                //     "Delay": "0",
-                                //     "Duration": "0"
-                                //   }
-                                // ]
-
                                 animations ??= HUDAnimations.Parse(File.ReadAllText(filePath));
 
                                 // Create new event or animation statements could stack over multiple 'apply customizations'.
@@ -715,9 +682,14 @@ public partial class HUD
         if (!string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
             return (hudSetting.Files, hudSetting.Special, hudSetting.SpecialParameters);
 
-        // Determine files using the files of the selected item's label or value
-        // Could cause issues if label and value are both numbers but numbered differently
-        var selected = hudSetting.Options.First(x => x.Label == userSetting.Value || x.Value == userSetting.Value);
+        // Determine files using the selected item's label or value
+        var selected = hudSetting.Options.FirstOrDefault(x => x.Label == userSetting.Value || x.Value == userSetting.Value);
+        if (selected is null)
+        {
+            App.Logger.Warn($"No matching option found for control '{hudSetting.Name}' with value '{userSetting.Value}'. Skipping file writes.");
+            return (null, null, null);
+        }
+
         return (selected.Files, selected.Special, selected.SpecialParameters);
     }
 

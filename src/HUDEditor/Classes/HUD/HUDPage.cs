@@ -546,7 +546,6 @@ public partial class HUD
         var label = new Label();
         label.Content = controlItem.Label;
         label.Classes.Add("OptionLabel");
-        //label.Width = (controlItem.Width > 0) ? controlItem.Width : label.Width;
 
         //----
 
@@ -554,7 +553,6 @@ public partial class HUD
         {
             Name = Utilities.EncodeId(controlItem.Name)
         };
-        //control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
         colorpicker.ColorChanged += (sender, _) =>
         {
             var input = sender as ColorPicker;
@@ -572,6 +570,7 @@ public partial class HUD
         }
         catch
         {
+            // Default color if unable to load it from settings.
             colorpicker.Color = Color.FromArgb(255, 0, 255, 0);
         }
 

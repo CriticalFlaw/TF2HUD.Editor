@@ -50,7 +50,7 @@ public partial class App : Application
                 await Task.Delay(1000, splashScreenVm.CancellationToken);
                 await mainWindowVm.LoadHUDs();
                 await Task.Delay(1000, splashScreenVm.CancellationToken);
-                await splashScreenVm.DownloadImages(mainWindowVm.HUDList);
+                await splashScreenVm.DownloadImages(mainWindowVm.HUDList, splashScreenVm.CancellationToken);
             }
             catch (TaskCanceledException)
             {
