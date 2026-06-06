@@ -161,24 +161,39 @@
             },
             {
                 "Name": "dh_toggle_centered_item_meters",
-                "Label": "Centered Item Meters",
-                "Type": "Checkbox",
-                "Value": "false",
-                "WriteCfg": {
-                    "FileName": "top_meter.txt",
-                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/meters/centered_top_meter.res",
-                    "FalseText": ""
-                },
-                "WriteCfg": {
-                    "FileName": "middle_meter.txt",
-                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/meters/centered_middle_meter.res",
-                    "FalseText": ""
-                },
-                "WriteCfg": {
-                    "FileName": "bottom_meter.txt",
-                    "TrueText": "#base ../../custom/darhud/resource/ui/customizations/meters/centered_bottom_meter.res",
-                    "FalseText": ""
-                }
+                "Label": "Centered Item Meters Pos",
+                "Type": "ComboBox",
+                "Value": "0",
+                "Width": 250,
+                "Options": [
+                    {
+                        "Label": "Top",
+                        "Value": "0",
+                        "WriteCfg": {
+                            "FileName": "top_meter.txt",
+                            "TrueText": "#base ../../custom/darhud/resource/ui/customizations/meters/centered_top_meter.res",
+                            "FalseText": ""
+                        }
+                    },
+                    {
+                        "Label": "Middle",
+                        "Value": "1",
+                        "WriteCfg": {
+                            "FileName": "middle_meter.txt",
+                            "TrueText": "#base ../../custom/darhud/resource/ui/customizations/meters/centered_middle_meter.res",
+                            "FalseText": ""
+                        }
+                    },
+                    {
+                        "Label": "Bottom",
+                        "Value": "2",
+                        "WriteCfg": {
+                            "FileName": "bottom_meter.txt",
+                            "TrueText": "#base ../../custom/darhud/resource/ui/customizations/meters/centered_bottom_meter.res",
+                            "FalseText": ""
+                        }
+                    }
+                ]
             },
             {
                 "Name": "dh_toggle_centered_metal",
