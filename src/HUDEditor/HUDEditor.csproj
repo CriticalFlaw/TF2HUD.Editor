@@ -52,25 +52,26 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="12.0.3" />
-		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="12.0.3" />
-		<PackageReference Include="Avalonia.Desktop" Version="12.0.3" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.3" />
-		<PackageReference Include="Avalonia.Fonts.Inter" Version="12.0.3" />
+		<PackageReference Include="Avalonia" Version="12.1.0" />
+		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="12.1.0" />
+		<PackageReference Include="Avalonia.Desktop" Version="12.1.0" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.0" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.1" />
+		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 		<PackageReference Include="Crews.Utility.TgaSharp" Version="1.0.0" />
 		<PackageReference Include="DialogHost.Avalonia" Version="0.12.2" />
-		<PackageReference Include="log4net" Version="3.3.1" />
+		<PackageReference Include="log4net" Version="3.3.2" />
 		<PackageReference Include="MessageBox.Avalonia" Version="12.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.8" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.8" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.8" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.9" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="Octokit" Version="14.0.0" />
-		<PackageReference Include="ReactiveUI.Avalonia" Version="12.0.1" />
-		<PackageReference Include="Sentry" Version="6.5.0" />
+		<PackageReference Include="ReactiveUI.Avalonia" Version="12.0.3" />
+		<PackageReference Include="Sentry" Version="6.6.0" />
+		<PackageReference Include="TargaSharp" Version="0.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
