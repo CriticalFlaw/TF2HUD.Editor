@@ -128,18 +128,27 @@ other text
 
     [Fact]
     [Trait("Category", "Windows")]
-    public void ValidatePathEndsWithCustom_ReturnsCorrectValue()
+    public void ValidatePathEndsWithCustom_ReturnsCorrectValueWithNormalization()
     {
-        // This is a helper test showing the logic that CheckUserPath uses
+        // Test that paths with mixed separators are normalized correctly
         var path1 = @"C:\Program Files\Steam\steamapps\common\Team Fortress 2\tf\custom";
         var path2 = @"C:\Program Files\Steam\steamapps\common\Team Fortress 2\tf";
-        var path3 = string.Empty;
+        var path3 = @"C:/Program Files/Steam/steamapps/common/Team Fortress 2/tf/custom"; // forward slashes
+        var path4 = string.Empty;
 
-        // These assertions show what CheckUserPath logic does:
-        Assert.True(path1.EndsWith("tf\\custom"));  // Path ends with tf/custom
-        Assert.False(path2.EndsWith("tf\\custom")); // Path does NOT end with tf/custom
+        var sep = System.IO.Path.DirectorySeparatorChar;
+        var expectedEndPath = $"tf{sep}custom";
+
+        // Normalize paths to OS separator and check ending
+        var normalizedPath1 = path1.Replace('/', sep).Replace('\\', sep);
+        var normalizedPath2 = path2.Replace('/', sep).Replace('\\', sep);
+        var normalizedPath3 = path3.Replace('/', sep).Replace('\\', sep);
+
+        Assert.True(normalizedPath1.EndsWith(expectedEndPath, StringComparison.OrdinalIgnoreCase));
+        Assert.False(normalizedPath2.EndsWith(expectedEndPath, StringComparison.OrdinalIgnoreCase));
+        Assert.True(normalizedPath3.EndsWith(expectedEndPath, StringComparison.OrdinalIgnoreCase));
         Assert.False(string.IsNullOrWhiteSpace(path1)); // Path is not null/whitespace
-        Assert.True(string.IsNullOrWhiteSpace(path3)); // Path is null/whitespace
+        Assert.True(string.IsNullOrWhiteSpace(path4)); // Path is null/whitespace
     }
 
     [Fact]

@@ -148,7 +148,7 @@ public partial class HUD
         try
         {
             // Check if the customization folder exist.
-            var path = $"{App.HudPath}/{Name}/";
+            var path = $"{App.HudPath}\\{Name}\\";
             if (!Directory.Exists($"{path}/{CustomizationsFolder}")) return;
 
             // Check if the "enabled" folder exists. If not, create it.
@@ -304,7 +304,7 @@ public partial class HUD
             if (hudSetting.WriteCfg is not null && !string.IsNullOrWhiteSpace(hudSetting.WriteCfg.FileName))
             {
                 // Find tf/cfg directory and create the HUD's cfg directory if it doesn't exist
-                var cfgPath = Path.GetFullPath(App.HudPath.Replace("/custom", "/cfg"));
+                var cfgPath = Path.GetFullPath(App.HudPath.Replace("\\custom", "\\cfg"));
                 var hudFolder = Path.Combine(cfgPath, Name);
                 if (!Directory.Exists(hudFolder)) Directory.CreateDirectory(hudFolder);
 
@@ -770,7 +770,10 @@ public partial class HUD
         var oldPath = Path.Combine(hudPath, oldName);
         var newPath = Path.Combine(hudPath, newName);
 
-        if (oldPath.EndsWith('/'))
+        // Check if oldPath is a directory by testing if it ends with directory separator or contains trailing slash
+        var isDirectory = oldPath.EndsWith(Path.DirectorySeparatorChar) || oldPath.EndsWith('/');
+
+        if (isDirectory)
         {
             if (Directory.Exists(newPath))
                 Directory.Move(newPath, oldPath);

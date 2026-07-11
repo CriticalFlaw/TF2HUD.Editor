@@ -72,7 +72,7 @@ public class Controls
     [JsonPropertyName("Increment")]
     public int Increment { get; set; } = 2;
 
-    [JsonPropertyName(";")]
+    [JsonPropertyName("Label")]
     public string Label { get; set; } = string.Empty;
 
     [JsonPropertyName("Maximum")]

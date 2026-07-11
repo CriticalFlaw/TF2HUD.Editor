@@ -293,7 +293,16 @@ public static class Utilities
     /// <returns>True if the set target directory is valid.</returns>
     public static bool CheckUserPath()
     {
-        return !string.IsNullOrWhiteSpace(App.HudPath) && (App.Config.ConfigSettings.UserPrefs.PathBypass || App.HudPath.EndsWith("tf/custom"));
+        if (string.IsNullOrWhiteSpace(App.HudPath))
+            return false;
+
+        if (App.Config.ConfigSettings.UserPrefs.PathBypass)
+            return true;
+
+        // Normalize path and check if it ends with tf\custom (or tf/custom on Unix)
+        var normalizedPath = App.HudPath.Replace('/', Path.DirectorySeparatorChar).Replace('\\', Path.DirectorySeparatorChar);
+        var expectedEndPath = $"tf{Path.DirectorySeparatorChar}custom";
+        return normalizedPath.EndsWith(expectedEndPath, StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>
@@ -425,6 +434,7 @@ public static class Utilities
         foreach (var entry in archive.Entries)
         {
             // Remove the top-level folder name (e.g. "flawhud-master/") from the path.
+            // Note: ZIP files always use forward slashes for paths regardless of platform
             var relativePath = string.Join('/', entry.FullName.Split('/')[1..]);
 
             // Skip directory entries and the stripped root.
@@ -432,7 +442,7 @@ public static class Utilities
                 continue;
 
             // Skip if the result doesn't start with our destination root, potentially malicious.
-            var targetPath = Path.GetFullPath(Path.Combine(destinationRoot, relativePath));
+            var targetPath = Path.GetFullPath(Path.Combine(destinationRoot, relativePath.Replace('/', Path.DirectorySeparatorChar)));
             if (!targetPath.StartsWith(destinationRoot, StringComparison.OrdinalIgnoreCase))
             {
                 App.Logger.Warn($"Skipping potentially malicious zip entry: \"{entry.FullName}\"");

@@ -468,7 +468,7 @@ public partial class MainWindowViewModel : ViewModelBase
                     $"\"{outputPathTga}\""
         ];
 
-        var workingDir = $"{App.HudPath.Replace("/tf/custom", string.Empty)}/bin";
+        var workingDir = $"{App.HudPath.Replace("tf\\custom", string.Empty)}bin";
         var exePath = Path.Combine(workingDir, "vtf2tga.exe");
         var processInfo = new ProcessStartInfo
         {
