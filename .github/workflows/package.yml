@@ -34,6 +34,10 @@ jobs:
 
     - name: Restore dependencies
       run: dotnet restore src/HUDEditor/HUDEditor.csproj
+      
+    - name: Test solution
+      run: dotnet test -c Release -r ${{ matrix.rid }} 
+      working-directory: src/HUDEditor
 
     - name: Publish for ${{ matrix.rid }}
       run: dotnet publish -c Release -r ${{ matrix.rid }} --output ./publish/${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true

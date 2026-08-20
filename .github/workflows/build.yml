@@ -38,6 +38,10 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/HUDEditor/HUDEditor.csproj
       
+    - name: Test solution
+      run: dotnet test -c Debug -r ${{ matrix.rid }} 
+      working-directory: src/HUDEditor
+      
     - name: Build solution
       run: dotnet build -c Debug -r ${{ matrix.rid }} 
       working-directory: src/HUDEditor
