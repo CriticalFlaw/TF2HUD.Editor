@@ -31,7 +31,7 @@ internal class Animate : HUDAnimation
 
     public override string ToString()
     {
-        return $"{Type} {Print(Element)} {Print(Property)} {Print(Property)} {Print(Value)} {Interpolator} {Delay} {Duration}" + PrintConditional();
+        return $"{Type} {Print(Element)} {Print(Property)} {Print(Value)} {Interpolator} {Delay} {Duration}" + PrintConditional();
     }
 }
 

@@ -322,6 +322,42 @@
     <value>Открыть последний файл</value>
   </data>
   <data name="ui_disable_sentry" xml:space="preserve">
-    <value />
+    <value>Отключить отслеживание ошибок Sentry</value>
+  </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>Не удалось преобразовать изображение. Попробуйте другой файл.</value>
+  </data>
+  <data name="ui_cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="settings_user_path" xml:space="preserve">
+    <value>Путь пользователя</value>
+  </data>
+  <data name="settings_settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="settings_troubleshooting" xml:space="preserve">
+    <value>Устранение неполадок</value>
+  </data>
+  <data name="appinfo_install" xml:space="preserve">
+    <value>Установи</value>
+  </data>
+  <data name="appinfo_and" xml:space="preserve">
+    <value>и</value>
+  </data>
+  <data name="appinfo_favorite_huds" xml:space="preserve">
+    <value>ваши любимые HUDs Team Fortress 2!</value>
+  </data>
+  <data name="appinfo_version" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="error_logs_folder" xml:space="preserve">
+    <value>Папка журналов не найдена.</value>
+  </data>
+  <data name="error_no_log_files" xml:space="preserve">
+    <value>Файлы журнала не найдены.</value>
+  </data>
+  <data name="dialog_select_image" xml:space="preserve">
+    <value>Выберите файл изображения</value>
   </data>
 </root>

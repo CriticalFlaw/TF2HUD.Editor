@@ -449,7 +449,7 @@
                 "Type": "Checkbox",
                 "ToolTip": "Toggle crosshair feature.",
                 "Value": "false",
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_crosshair_visibility.txt",
                     "TrueText": "x{CustomCrosshair{visible 1}}",
                     "FalseText": ""
@@ -461,7 +461,7 @@
                 "Type": "Checkbox",
                 "ToolTip": "Toggle hitmarker animation.",
                 "Value": "true",
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_crosshair_animation.txt",
                     "TrueText": "event DamagedPlayer{RunEvent CrosshairFlash 0.0}",
                     "FalseText": ""
@@ -490,7 +490,7 @@
                 "ToolTip": "Toggle transparent viewmodels.",
                 "Special": "TransparentViewmodels",
                 "Value": "false",
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_transparent_viewmodels.txt",
                     "TrueText": "#base ../../custom/flawhud/resource/ui/customizations/transparent_viewmodels/transparent_viewmodels.res",
                     "FalseText": ""
@@ -563,7 +563,7 @@
                 "Type": "Checkbox",
                 "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
                 "Value": "false",
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_player_model.txt",
                     "TrueText": "#base ../../custom/flawhud/resource/ui/customizations/player_model/player_model_off.res",
                     "FalseText": ""
@@ -576,7 +576,7 @@
                 "ToolTip": "Expand the scoreboard to show 32 players.",
                 "Value": "false",
                 "Restart": false,
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_scoreboard_style.txt",
                     "TrueText": "#base ../../custom/flawhud/resource/ui/customizations/scoreboard/scoreboard_large.res",
                     "FalseText": ""
@@ -589,7 +589,7 @@
                 "ToolTip": "Displays a speedometer under the crosshair",
                 "Value": "false",
                 "Restart": false,
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_speedometer.txt",
                     "TrueText": "#base ../../custom/flawhud/resource/ui/customizations/speedometer/speedometer_on.res",
                     "FalseText": ""
@@ -1084,7 +1084,7 @@
                 "ToolTip": "Enables a meter used for tracking other team's uber build.",
                 "Value": "false",
                 "Restart": false,
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_uber_counter.txt",
                     "TrueText": "event UberTimer{RunEvent UberTimerHide 0.0 RunEvent UberTimerRun 0.1}",
                     "FalseText": ""
@@ -1471,7 +1471,7 @@
                 "ToolTip": "Toggle to the Code Pro fonts instead of TF2 Build.",
                 "Value": "false",
                 "Restart": true,
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_font.txt",
                     "TrueText": "#base ../../custom/flawhud/resource/scheme/clientscheme_fonts_pro.res",
                     "FalseText": "#base ../../custom/flawhud/resource/scheme/clientscheme_fonts.res"

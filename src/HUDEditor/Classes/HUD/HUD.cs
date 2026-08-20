@@ -56,26 +56,30 @@ public partial class HUD
         Settings = new HUDSettings(Name);
         Opacity = schema.Opacity;
         Maximize = schema.Maximize;
-        Thumbnail = schema.Thumbnail;
-        Background = schema.Background;
-        Description = schema.Description;
-        Author = schema.Author;
+        Thumbnail = schema.Thumbnail ?? string.Empty;
+        Background = schema.Background ?? string.Empty;
+        Description = schema.Description ?? string.Empty;
+        Author = schema.Author ?? string.Empty;
         CustomizationsFolder = schema.CustomizationsFolder ?? string.Empty;
         EnabledFolder = schema.EnabledFolder ?? string.Empty;
-        DownloadUrl = schema.Links.Update;
-        GitHubUrl = schema.Links.GitHub ?? string.Empty;
-        TF2HudsUrl = schema.Links.TF2Huds ?? string.Empty;
-        ComfigHudsUrl = schema.Links.ComfigHuds ?? string.Empty;
-        GameBananaUrl = schema.Links.GameBanana ?? string.Empty;
-        SteamUrl = schema.Links.Steam ?? string.Empty;
-        DiscordUrl = schema.Links.Discord ?? string.Empty;
-        ControlOptions = schema.Controls;
-        LayoutOptions = schema.Layout;
+
+        // Links can be null on the schema, so use safe navigation + coalesce to empty.
+        DownloadUrl = schema.Links?.Update ?? string.Empty;
+        GitHubUrl = schema.Links?.GitHub ?? string.Empty;
+        TF2HudsUrl = schema.Links?.TF2Huds ?? string.Empty;
+        ComfigHudsUrl = schema.Links?.ComfigHuds ?? string.Empty;
+        GameBananaUrl = schema.Links?.GameBanana ?? string.Empty;
+        SteamUrl = schema.Links?.Steam ?? string.Empty;
+        DiscordUrl = schema.Links?.Discord ?? string.Empty;
+
+        // Collections from schema may be null; provide defaults to avoid CS8600/CS8602.
+        ControlOptions = schema.Controls ?? new Dictionary<string, Models.Controls[]>();
+        LayoutOptions = schema.Layout ?? Array.Empty<string>();
         DirtyControls = new List<string>();
         Unique = isUnique;
         InstallCrosshairs = schema.InstallCrosshairs;
-        AppVersion = schema.AppVersion;
-        Screenshots = schema.Screenshots;
+        AppVersion = schema.AppVersion ?? string.Empty;
+        Screenshots = schema.Screenshots ?? Array.Empty<string>();
         ScreenshotImages = new List<Bitmap>();
     }
 
@@ -88,7 +92,7 @@ public partial class HUD
         Settings.Preset = preset;
         IsRendered = false;
         Controls = new Grid();
-        App.Logger.Info($"Changing {Name} to Preset-{Settings.Preset}");
+        App.Logger.Info($"Changed {Name} to Preset-{Settings.Preset}");
     }
 
     /// <summary>
@@ -96,8 +100,10 @@ public partial class HUD
     /// </summary>
     public void ResetAll()
     {
+        if (ControlOptions == null) return;
+
         foreach (var section in ControlOptions.Keys)
-            for (var x = 0; x < ControlOptions[section].Length; x++)
+            for (var x = 0; x < (ControlOptions[section]?.Length ?? 0); x++)
                 ResetControl(ControlOptions[section][x]);
     }
 
@@ -106,7 +112,11 @@ public partial class HUD
     /// </summary>
     private void ResetSection(string selection)
     {
-        foreach (var section in ControlOptions[selection])
+        if (ControlOptions == null) return;
+
+        if (!ControlOptions.TryGetValue(selection, out var controls) || controls == null) return;
+
+        foreach (var section in controls)
             ResetControl(section);
     }
 
@@ -117,40 +127,69 @@ public partial class HUD
     {
         try
         {
-            switch (control.Control)
+            if (control == null) return;
+
+            var ctrl = control.Control;
+            if (ctrl == null) return; // nothing to reset
+
+            // Use type pattern matching with null guards
+            switch (ctrl)
             {
                 case CheckBox check:
-                    if (bool.TryParse(control.Value, out var value))
-                        check.IsChecked = value;
-                    App.Logger.Info($"Resetting {control.Name} to \"{value}\"");
+                    bool cbValue = false;
+                    if (!string.IsNullOrEmpty(control.Value))
+                        bool.TryParse(control.Value, out cbValue);
+                    check.IsChecked = cbValue;
+                    App.Logger.Info($"Resetting {control.Name} to \"{cbValue}\"");
                     break;
 
                 case ColorPicker color:
-                    color.Color = Utilities.ConvertToColor(control.Value);
-                    App.Logger.Info($"Resetting {control.Name} to \"{color.Color}\"");
+                    if (!string.IsNullOrEmpty(control.Value))
+                    {
+                        color.Color = Utilities.ConvertToColor(control.Value);
+                        App.Logger.Info($"Resetting {control.Name} to \"{color.Color}\"");
+                    }
+                    else
+                    {
+                        App.Logger.Info($"Resetting {control.Name} skipped (no color value)");
+                    }
                     break;
 
                 case ComboBox combo:
                     var index = 0;
                     // If we're dealing with crosshairs, find the correct index.
-                    if (((ComboBoxItem)combo.Items[0]).Classes.Contains("CrosshairBoxItem"))
+                    ComboBoxItem firstItem = null;
+                    if (combo.Items != null)
                     {
-                        var xhair = Utilities.CrosshairStyles.IndexOf(control.Value);
+                        foreach (var it in combo.Items)
+                        {
+                            firstItem = it as ComboBoxItem;
+                            break;
+                        }
+                    }
+
+                    if (firstItem != null && firstItem.Classes.Contains("CrosshairBoxItem"))
+                    {
+                        var xhair = Utilities.CrosshairStyles.IndexOf(control.Value ?? string.Empty);
                         index = (xhair >= 0) ? xhair : index;
                     }
                     else
-                        index = int.Parse(control.Value);
+                    {
+                        if (!int.TryParse(control.Value, out index))
+                            index = 0;
+                    }
+
                     combo.SelectedIndex = index;
                     App.Logger.Info($"Resetting {control.Name} to \"{control.Value}\"");
                     break;
 
                 case NumericUpDown integer:
-                    integer.Text = control.Value;
+                    integer.Text = control.Value ?? string.Empty;
                     App.Logger.Info($"Resetting {control.Name} to \"{control.Value}\"");
                     break;
 
                 case TextBox text:
-                    text.Text = control.Value;
+                    text.Text = control.Value ?? string.Empty;
                     App.Logger.Info($"Resetting {control.Name} to \"{control.Value}\"");
                     break;
             }
