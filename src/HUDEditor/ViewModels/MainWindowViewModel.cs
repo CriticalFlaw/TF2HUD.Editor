@@ -1,6 +1,5 @@
 ﻿using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.Input;
-using Crews.Utility.TgaSharp;
 using HUDEditor.Assets;
 using HUDEditor.Classes;
 using HUDEditor.Models;
@@ -10,7 +9,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -127,53 +125,61 @@ public partial class MainWindowViewModel : ViewModelBase
     public async Task LoadHUDs()
     {
         _hudList = [];
-        if (!Directory.Exists("JSON")) await Utilities.UpdateAppSchema();
-        var sharedControlsJson = await File.ReadAllTextAsync("JSON/shared-hud.json", new UTF8Encoding(false));
+        var jsonFolder = Utilities.JsonFolder;
+        var sharedHudFile = Path.Combine(jsonFolder, "shared-hud.json");
+        if (!File.Exists(sharedHudFile)) await Utilities.UpdateAppSchema();
+        if (!File.Exists(sharedHudFile))
+            throw new FileNotFoundException("HUD schema files are missing and could not be downloaded. Check your internet connection and restart the app.", sharedHudFile);
+        var sharedControlsJson = await File.ReadAllTextAsync(sharedHudFile, new UTF8Encoding(false));
 
-        foreach (var jsonFile in Directory.EnumerateFiles("JSON"))
+        foreach (var jsonFile in Directory.EnumerateFiles(jsonFolder, "*.json"))
         {
-            var fileInfo = jsonFile.Replace("\\", "/").Split("/")[^1].Split(".");
-            if (fileInfo[^1] != "json" || fileInfo[0] == "shared-hud") continue;
+            var fileName = Path.GetFileNameWithoutExtension(jsonFile);
+            if (fileName == "shared-hud") continue;
 
-            if (fileInfo[0].Equals("common"))
+            // One malformed schema shouldn't prevent the editor from starting.
+            try
             {
-                var sharedHuds = JsonConvert.DeserializeObject<List<HudJson>>(File.ReadAllText("JSON/common.json", new UTF8Encoding(false)));
-                foreach (var sharedHud in sharedHuds)
+                if (fileName.Equals("common"))
                 {
-                    var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
-                    foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
-                        control.Name = $"{Utilities.EncodeId(sharedHud.Name)}_{Utilities.EncodeId(control.Name)}";
-                    sharedHud.Layout = hudControls.Layout;
-                    sharedHud.Controls = hudControls.Controls;
-                    _hudList.Add(new HUD(sharedHud.Name, sharedHud, false));
+                    var sharedHuds = JsonConvert.DeserializeObject<List<HudJson>>(File.ReadAllText(jsonFile, new UTF8Encoding(false))) ?? [];
+                    foreach (var sharedHud in sharedHuds)
+                    {
+                        var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson)!;
+                        foreach (var control in hudControls.Controls.SelectMany(group => hudControls.Controls[group.Key]))
+                            control.Name = $"{Utilities.EncodeId(sharedHud.Name)}_{Utilities.EncodeId(control.Name)}";
+                        sharedHud.Layout = hudControls.Layout;
+                        sharedHud.Controls = hudControls.Controls;
+                        _hudList.Add(new HUD(sharedHud.Name, sharedHud, false));
+                    }
+                }
+                else
+                {
+                    var schema = JsonConvert.DeserializeObject<HudJson>(File.ReadAllText(jsonFile, new UTF8Encoding(false)));
+                    if (schema is not null) _hudList.Add(new HUD(fileName, schema, true));
                 }
             }
-            else
+            catch (Exception e)
             {
-                _hudList.Add(new HUD(fileInfo[0], JsonConvert.DeserializeObject<HudJson>(File.ReadAllText(jsonFile, new UTF8Encoding(false))), true));
+                App.Logger.Error($"Failed to load HUD schema \"{jsonFile}\": {e.Message}");
             }
         }
 
-        foreach (var sharedHud in Directory.EnumerateDirectories(Directory.CreateDirectory(@"JSON/Local").FullName))
+        foreach (var sharedHud in Directory.EnumerateDirectories(Directory.CreateDirectory(Path.Combine(jsonFolder, "Local")).FullName))
         {
-            var hudName = Path.GetFileName(sharedHud.Replace("\\", "/"));
+            var hudName = Path.GetFileName(sharedHud);
+            var zipPath = Path.Combine(sharedHud, $"{hudName}.zip");
+            if (!File.Exists(zipPath))
+            {
+                App.Logger.Warn($"Skipping local HUD \"{hudName}\": archive not found at \"{zipPath}\".");
+                continue;
+            }
+
             var hudBackgroundPath = Path.Combine(sharedHud, "output.png");
             var hudBackground = File.Exists(hudBackgroundPath)
-                ? $"file://{hudBackgroundPath}"
+                ? new Uri(hudBackgroundPath).AbsoluteUri
                 : "avares://HUDEditor/Assets/Images/background.png";
-            var sharedProperties = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
-
-            var hudJson = new HudJson
-            {
-                Name = hudName,
-                Thumbnail = hudBackground,
-                Background = hudBackground,
-                Links = new Links { Update = $"file://{sharedHud}/{hudName}.zip" },
-                Layout = sharedProperties.Layout,
-                Controls = sharedProperties.Controls
-            };
-
-            _hudList.Add(new HUD(hudName, hudJson, false));
+            _hudList.Add(CreateLocalHud(hudName, hudBackground, new Uri(zipPath).AbsoluteUri, sharedControlsJson));
         }
 
         // Set current selection and viewmodel
@@ -181,6 +187,49 @@ public partial class MainWindowViewModel : ViewModelBase
         _highlightedHud = selectedHud;
         _selectedHud = selectedHud;
         _currentPageViewModel = selectedHud != null ? new EditHUDViewModel(this, selectedHud) : new HomePageViewModel(this, HUDList);
+    }
+
+    /// <summary>
+    /// Builds a HUD object for a HUD added from a local folder, using the shared HUD controls.
+    /// </summary>
+    private static HUD CreateLocalHud(string hudName, string background, string updateLink, string sharedControlsJson)
+    {
+        var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson)!;
+        foreach (var control in hudControls.Controls.SelectMany(group => group.Value))
+            control.Name = $"{Utilities.EncodeId(hudName)}_{Utilities.EncodeId(control.Name)}";
+
+        var hudJson = new HudJson
+        {
+            Name = hudName,
+            Thumbnail = background,
+            Background = background,
+            Links = new Links { Update = updateLink },
+            Layout = hudControls.Layout,
+            Controls = hudControls.Controls,
+            // Install the crosshair pack into the installed copy, not the user's source folder.
+            InstallCrosshairs = true
+        };
+
+        return new HUD(hudName, hudJson, false);
+    }
+
+    /// <summary>
+    /// Loads thumbnail and screenshot images for HUDs that don't have them yet (uses the on-disk cache).
+    /// </summary>
+    public async Task LoadHudImagesAsync()
+    {
+        foreach (var hud in _hudList.Where(x => x.ThumbnailImage is null))
+        {
+            if (!string.IsNullOrWhiteSpace(hud.Thumbnail))
+                hud.ThumbnailImage = await ImageCache.GetImageAsync(hud.Thumbnail);
+
+            hud.ScreenshotImages = [];
+            foreach (var screenshot in hud.Screenshots)
+            {
+                var image = await ImageCache.GetImageAsync(screenshot);
+                if (image is not null) hud.ScreenshotImages.Add(image);
+            }
+        }
     }
 
     #region CLICK_EVENTS
@@ -208,30 +257,31 @@ public partial class MainWindowViewModel : ViewModelBase
                 return;
             }
 
-            // Clear tf/custom directory of other installed HUDs.
-            foreach (var x in HUDList)
-            {
-                if (Directory.Exists($"{App.HudPath}/{x.Name.ToLowerInvariant()}"))
-                {
-                    App.Logger.Info($"Removing {x.Name.ToLowerInvariant()} from {App.HudPath}");
-                    Utilities.DeleteDirectory($"{App.HudPath}/{x.Name.ToLowerInvariant()}");
-                }
-            }
+            // Download first, so a failed download doesn't leave the user without a HUD.
+            var hudArchive = await Utilities.DownloadHudArchive(SelectedHud.DownloadUrl, SelectedHud.Name);
 
             // Check for unsupported HUDs in the tf/custom folder. Notify user if found.
+            var knownHuds = HUDList.Select(x => x.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
             foreach (var foundHud in Directory.GetDirectories(App.HudPath))
             {
-                if (!foundHud[App.HudPath.Length..].ToLowerInvariant().Contains("hud") || !File.Exists($"{foundHud}/info.vdf")) continue;
+                var folderName = Path.GetFileName(foundHud);
+                if (knownHuds.Contains(folderName)) continue;
+                if (!folderName.Contains("hud", StringComparison.OrdinalIgnoreCase) || !File.Exists(Path.Combine(foundHud, "info.vdf"))) continue;
                 if (await Utilities.ShowPromptBox(Resources.info_unsupported_hud_found) == ButtonResult.No)
-                {
-                    Installing = false;
                     return;
-                }
                 Utilities.DeleteDirectory(foundHud);
             }
 
-            // Download and install the selected HUD
-            await Utilities.DownloadHud(SelectedHud.DownloadUrl, App.HudPath, SelectedHud.Name);
+            // Clear tf/custom directory of other installed HUDs (match case-insensitively for Linux).
+            foreach (var foundHud in Directory.GetDirectories(App.HudPath))
+            {
+                if (!knownHuds.Contains(Path.GetFileName(foundHud))) continue;
+                App.Logger.Info($"Removing {foundHud}");
+                Utilities.DeleteDirectory(foundHud);
+            }
+
+            // Install the selected HUD
+            Utilities.ExtractHud(hudArchive, App.HudPath, SelectedHud.Name);
 
             // Install Crosshairs
             if (SelectedHud.InstallCrosshairs)
@@ -247,7 +297,8 @@ public partial class MainWindowViewModel : ViewModelBase
                 return;
             }
             SelectedHud.Settings.SaveSettings();
-            SelectedHud.ApplyCustomizations();
+            if (!SelectedHud.ApplyCustomizations())
+                await Utilities.ShowMessageBox(Resources.error_hud_apply_partial, MsBox.Avalonia.Enums.Icon.Warning);
 
             // Update timestamp
             if (CurrentPageViewModel is EditHUDViewModel editVm)
@@ -260,8 +311,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            await Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_install, SelectedHud.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
-            Installing = false;
+            await Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_install, SelectedHud?.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
         }
         finally
         {
@@ -321,8 +371,9 @@ public partial class MainWindowViewModel : ViewModelBase
         App.Logger.Info("------");
         App.Logger.Info("Applying user settings");
         selection.Settings.SaveSettings();
-        selection.ApplyCustomizations();
+        var applied = selection.ApplyCustomizations();
         selection.DirtyControls.Clear();
+        if (!applied) await Utilities.ShowMessageBox(Resources.error_hud_apply_partial, MsBox.Avalonia.Enums.Icon.Warning);
 
         if (CurrentPageViewModel is EditHUDViewModel editVm)
             editVm.Status = string.Format(Resources.status_applied, selection.Name, DateTime.Now);
@@ -334,6 +385,8 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public async Task ResetHUD()
     {
+        if (SelectedHud == null) return;
+
         // Ask the user if they want to reset before doing so.
         if (await Utilities.ShowPromptBox(Resources.info_hud_reset) == ButtonResult.No) return;
 
@@ -342,8 +395,9 @@ public partial class MainWindowViewModel : ViewModelBase
         var selection = SelectedHud;
         selection.ResetAll();
         selection.Settings.SaveSettings();
-        selection.ApplyCustomizations();
+        var applied = !Utilities.CheckHudInstallation(selection) || selection.ApplyCustomizations();
         selection.DirtyControls.Clear();
+        if (!applied) await Utilities.ShowMessageBox(Resources.error_hud_apply_partial, MsBox.Avalonia.Enums.Icon.Warning);
 
         if (CurrentPageViewModel is EditHUDViewModel editVm)
             editVm.Status = string.Format(Resources.status_reset, selection.Name, DateTime.Now);
@@ -391,7 +445,13 @@ public partial class MainWindowViewModel : ViewModelBase
             });
 
             if (folders.Count <= 0) return;
-            await Add(folders[0].TryGetLocalPath());
+            var localPath = folders[0].TryGetLocalPath();
+            if (localPath is null)
+            {
+                await Utilities.ShowMessageBox(Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
+                return;
+            }
+            await Add(localPath);
         }
         catch (Exception e)
         {
@@ -402,11 +462,16 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     public async Task RefreshPage()
     {
+        var previousPage = CurrentPageViewModel;
         await LoadHUDs();
+        previousPage?.Dispose();
+        await LoadHudImagesAsync();
         OnPropertyChanged(nameof(HUDList));
 
-        // Restore selected HUD if it still exists
-        SelectedHud = this[SelectedHud?.Name];
+        // Restore the selected HUD if it still exists. Read the selection now rather than before reloading,
+        // since the user may have switched pages while images were loading.
+        var selection = App.Config.ConfigSettings.UserPrefs.SelectedHUD;
+        SelectedHud = string.IsNullOrEmpty(selection) ? null : this[selection];
 
         App.Logger.Info($"Refreshed HUD list and reloaded page: {SelectedHud?.Name ?? "home"} page");
     }
@@ -415,88 +480,67 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public async Task Add(string folderPath)
     {
-        folderPath = folderPath.Replace("\\", "/");
+        folderPath = Path.GetFullPath(folderPath).TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         var hudName = Path.GetFileName(folderPath);
-        var hudDetailsFolder = $@"{Directory.CreateDirectory($@"JSON/Local/{hudName}").FullName}".Replace("\\", "/");
-        var thumbnail = await GenerateThumbnailAsync(folderPath, hudDetailsFolder);
-        var updateLink = await Utilities.CreateHudZipAsync(folderPath, hudDetailsFolder, hudName);
-        var sharedControlsJson = new StreamReader(File.OpenRead("JSON/shared-hud.json"), new UTF8Encoding(false)).ReadToEnd();
-        var hudControls = JsonConvert.DeserializeObject<HudJson>(sharedControlsJson);
-        foreach (var group in hudControls.Controls)
+
+        if (this[hudName] is not null)
         {
-            foreach (var control in hudControls.Controls[group.Key])
-                control.Name = $"{Utilities.EncodeId(hudName)}_{Utilities.EncodeId(control.Name)}";
+            await Utilities.ShowMessageBox(string.Format(Resources.error_hud_exists, hudName), MsBox.Avalonia.Enums.Icon.Warning);
+            return;
         }
 
-        // Install the crosshairs
-        await Utilities.InstallCrosshairs(folderPath);
-
-        var hudJson = new HudJson
+        var hudDetailsFolder = Directory.CreateDirectory(Path.Combine(Utilities.JsonFolder, "Local", hudName)).FullName;
+        try
         {
-            Name = hudName,
-            Thumbnail = thumbnail,
-            Background = thumbnail,
-            Links = new Links { Update = updateLink },
-            Layout = hudControls.Layout,
-            Controls = hudControls.Controls
-        };
+            var thumbnail = await GenerateThumbnailAsync(folderPath, hudDetailsFolder);
+            var updateLink = await Utilities.CreateHudZipAsync(folderPath, hudDetailsFolder, hudName);
+            var sharedControlsJson = await File.ReadAllTextAsync(Path.Combine(Utilities.JsonFolder, "shared-hud.json"), new UTF8Encoding(false));
 
-        var hud = new HUD(hudName, hudJson, false);
-        _hudList.Add(hud);
-        _hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
-        SelectedHud = hud;
-        App.SaveConfiguration();
+            var hud = CreateLocalHud(hudName, thumbnail ?? "avares://HUDEditor/Assets/Images/background.png", updateLink, sharedControlsJson);
+            if (thumbnail is not null) hud.ThumbnailImage = await ImageCache.GetImageAsync(thumbnail);
+
+            _hudList.Add(hud);
+            _hudList.Sort((a, b) => string.CompareOrdinal(a.Name, b.Name));
+            SelectedHud = hud;
+            App.SaveConfiguration();
+        }
+        catch
+        {
+            // Don't leave a half-added HUD behind; it would show up in the list on the next launch.
+            Utilities.DeleteDirectory(hudDetailsFolder);
+            throw;
+        }
     }
 
-    private async Task<string?> GenerateThumbnailAsync(string folderPath, string hudDetailsFolder)
+    /// <summary>
+    /// Generates a thumbnail from the HUD's main menu background, if it has one. Returns null on failure.
+    /// </summary>
+    private static async Task<string?> GenerateThumbnailAsync(string folderPath, string hudDetailsFolder)
     {
-        var consoleFolder = $"{folderPath}/materials/console";
+        var consoleFolder = Path.Combine(folderPath, "materials", "console");
         var backgrounds = new[] { "2fort", "gravelpit", "mvm", "upward" };
-        var backgroundSelection = backgrounds.FirstOrDefault(background => File.Exists($"{consoleFolder}/background_{background}_widescreen.vtf"));
-        if (backgroundSelection is null) return backgroundSelection;
+        var backgroundSelection = backgrounds.FirstOrDefault(background => File.Exists(Path.Combine(consoleFolder, $"background_{background}_widescreen.vtf")));
+        if (backgroundSelection is null) return null;
 
         App.Logger.Info($"Found background file background_{backgroundSelection}_widescreen.vtf");
-        var inputPath = $"{consoleFolder}/background_{backgroundSelection}_widescreen.vtf";
-        var outputPathTga = $"{consoleFolder}/output.tga";
-        var outputPath = $"{hudDetailsFolder}/output";
+        var inputPath = Path.Combine(consoleFolder, $"background_{backgroundSelection}_widescreen.vtf");
+        var extractedPath = Path.Combine(hudDetailsFolder, "extracted.png");
+        var outputPath = Path.Combine(hudDetailsFolder, "output.png");
 
-        string[] args =
-        [
-            "-i",
-                    $"\"{inputPath}\"",
-                    "-o",
-                    $"\"{outputPathTga}\""
-        ];
-
-        var workingDir = $"{App.HudPath.Replace("tf\\custom", string.Empty)}bin";
-        var exePath = Path.Combine(workingDir, "vtf2tga.exe");
-        var processInfo = new ProcessStartInfo
+        try
         {
-            FileName = exePath,
-            Arguments = string.Join(" ", args),
-            WorkingDirectory = workingDir,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            CreateNoWindow = true
-        };
-
-        if (!File.Exists(exePath)) throw new FileNotFoundException("VTF2TGA not found at expected location.", exePath);
-
-        var process = Process.Start(processInfo);
-        while (!process.StandardOutput.EndOfStream)
-            App.Logger.Info(process.StandardOutput.ReadLine());
-        await process.WaitForExitAsync();
-        process.Close();
-
-        File.Move(outputPathTga, $"{outputPath}.tga", true);
-
-        var tga = new TGA($"{outputPath}.tga");
-        var rectImage = new Bitmap(1920, 1080);
-        var graphics = Graphics.FromImage(rectImage);
-        graphics.DrawImage((Image)tga, 0, 0, rectImage.Width, rectImage.Height);
-        rectImage.Save($"{outputPath}.png");
-
-        return $"file://{outputPath}.png";
+            await Task.Run(() =>
+            {
+                VTF.ExtractToPng(inputPath, extractedPath);
+                VTF.ResizeImage(extractedPath, 1920, 1080, outputPath);
+                File.Delete(extractedPath);
+            });
+            return new Uri(outputPath).AbsoluteUri;
+        }
+        catch (Exception e)
+        {
+            App.Logger.Warn($"Could not generate a thumbnail for {folderPath}: {e.Message}");
+            return null;
+        }
     }
 }
