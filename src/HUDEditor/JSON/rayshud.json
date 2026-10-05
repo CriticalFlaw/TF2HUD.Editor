@@ -1185,7 +1185,7 @@
                 }
             },
             {
-                "Name": "rh_toggle_center_class",
+                "Name": "rh_toggle_center_team",
                 "Label": "Centered Team Select",
                 "Type": "Checkbox",
                 "ToolTip": "Toggle style of the team select to be center-oriented.",
