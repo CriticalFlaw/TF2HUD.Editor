@@ -18,8 +18,8 @@ namespace HUDEditor.Classes;
 internal class HUDBackground
 {
     private readonly string _hudFolderPath;
-    private string _hudImagePath;
-    private Uri _customImagePath;
+    private string? _hudImagePath;
+    private Uri? _customImagePath;
     private bool _useCustomBackground;
     private bool _useHUDBackground;
     private bool _useStockBackgrounds;
@@ -63,7 +63,7 @@ internal class HUDBackground
             Directory.CreateDirectory(disabledFolder);
 
             if (_useCustomBackground && _customImagePath is not null)
-                ApplyCustomBackground(consoleFolder, disabledFolder);
+                ApplyCustomBackground(_customImagePath, consoleFolder, disabledFolder);
             else if (_useHUDBackground)
                 ApplyHUDBackground(consoleFolder, disabledFolder);
             else if (_useStockBackgrounds)
@@ -78,7 +78,7 @@ internal class HUDBackground
         }
     }
 
-    private void ApplyCustomBackground(string consoleFolder, string disabledFolder)
+    private void ApplyCustomBackground(Uri imagePath, string consoleFolder, string disabledFolder)
     {
         // Move existing files — track what was moved for rollback.
         var moved = new List<(string From, string To)>();
@@ -101,7 +101,7 @@ internal class HUDBackground
                 moved.Add((dest, filePath)); // reverse mapping for rollback
             }
 
-            VTF.Convert(_customImagePath, _hudFolderPath);
+            VTF.Convert(imagePath, _hudFolderPath);
             Utilities.CreateChapterBackgroundsFile(_hudFolderPath);
         }
         catch

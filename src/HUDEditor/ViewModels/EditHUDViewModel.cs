@@ -66,7 +66,7 @@ internal partial class EditHUDViewModel : ViewModelBase
         _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
     }
 
-    private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    private void MainWindowViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(MainWindowViewModel.SelectedHudInstalled))
         {

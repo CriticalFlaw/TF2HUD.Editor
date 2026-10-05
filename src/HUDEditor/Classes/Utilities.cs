@@ -278,7 +278,7 @@ public static class Utilities
     public static bool SearchRegistry()
     {
         // Do not bother searching the registry if not on Windows.
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        if (!OperatingSystem.IsWindows())
             return false;
 
         var steamPath = GetSteamInstallPath();
@@ -306,6 +306,7 @@ public static class Utilities
         return false;
     }
 
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
     private static string? GetSteamInstallPath()
     {
         foreach (var view in new[] { RegistryView.Registry64, RegistryView.Registry32 })
@@ -432,7 +433,7 @@ public static class Utilities
     /// Fetches JSON from specified URL.
     /// </summary>
     /// <param name="url">URL to request resource from.</param>
-    public static async Task<T> Fetch<T>(string url)
+    public static async Task<T?> Fetch<T>(string url)
     {
         using HttpClient client = new();
         client.DefaultRequestHeaders.Add("User-Agent", "request");
@@ -716,7 +717,7 @@ public static class Utilities
     /// Checks if the selected HUD is installed correctly.
     /// </summary>
     /// <returns>True if the selected hud is installed.</returns>
-    public static bool CheckHudInstallation(HUD hud)
+    public static bool CheckHudInstallation(HUD? hud)
     {
         return hud != null &&
             App.HudPath != null &&
@@ -815,7 +816,7 @@ public static class Utilities
             Directory.CreateDirectory(JsonFolder);
 
             var downloads = new List<Task>();
-            var remoteFiles = (await Fetch<GitJson[]>(App.Config.ConfigSettings.AppConfig.JsonListURL)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
+            var remoteFiles = (await Fetch<GitJson[]>(App.Config.ConfigSettings.AppConfig.JsonListURL) ?? []).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
 
             foreach (var remoteFile in remoteFiles)
             {

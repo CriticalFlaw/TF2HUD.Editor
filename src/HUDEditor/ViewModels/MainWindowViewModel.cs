@@ -18,10 +18,10 @@ namespace HUDEditor.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    private List<HUD> _hudList;
+    private List<HUD> _hudList = [];
     public IEnumerable<HUD> HUDList => _hudList;
-    private HUD _highlightedHud;
-    public HUD HighlightedHud
+    private HUD? _highlightedHud;
+    public HUD? HighlightedHud
     {
         get => _highlightedHud;
         set
@@ -33,8 +33,8 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     public bool HighlightedHudInstalled => Utilities.CheckHudInstallation(HighlightedHud);
-    private HUD _selectedHud;
-    public HUD SelectedHud
+    private HUD? _selectedHud;
+    public HUD? SelectedHud
     {
         get => _selectedHud;
         private set
@@ -45,15 +45,15 @@ public partial class MainWindowViewModel : ViewModelBase
             OnPropertyChanged(nameof(SelectedHudInstalled));
 
             CurrentPageViewModel?.Dispose();
-            CurrentPageViewModel = _selectedHud != null ? new EditHUDViewModel(this, SelectedHud) : new HomePageViewModel(this, HUDList);
+            CurrentPageViewModel = _selectedHud is { } hud ? new EditHUDViewModel(this, hud) : new HomePageViewModel(this, HUDList);
             App.Logger.Info($"Changing page view to: {(_selectedHud?.Name ?? "Home")}");
             App.Config.ConfigSettings.UserPrefs.SelectedHUD = SelectedHud?.Name ?? string.Empty;
         }
     }
 
     public bool SelectedHudInstalled => Utilities.CheckHudInstallation(SelectedHud);
-    private ViewModelBase _currentPageViewModel;
-    public ViewModelBase CurrentPageViewModel
+    private ViewModelBase? _currentPageViewModel;
+    public ViewModelBase? CurrentPageViewModel
     {
         get => _currentPageViewModel;
         private set
@@ -87,8 +87,8 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
 
-    private Avalonia.Controls.Window _mainWindow;
-    public Avalonia.Controls.Window TopLevel
+    private Avalonia.Controls.Window? _mainWindow;
+    public Avalonia.Controls.Window? TopLevel
     {
         get => _mainWindow;
         set
@@ -102,7 +102,7 @@ public partial class MainWindowViewModel : ViewModelBase
     /// Retrieves the HUD object selected by user.
     /// </summary>
     /// <param name="name">Name of the HUD the user wants to view.</param>
-    public HUD this[string name] => HUDList.FirstOrDefault(hud => string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase));
+    public HUD? this[string name] => HUDList.FirstOrDefault(hud => string.Equals(hud.Name, name, StringComparison.InvariantCultureIgnoreCase));
 
     [RelayCommand]
     public void HighlightHUD(HUD hud)
@@ -245,10 +245,12 @@ public partial class MainWindowViewModel : ViewModelBase
             Installing = true;
 
             SelectedHud ??= HighlightedHud;
+            var hud = SelectedHud;
+            if (hud is null) return;
 
             // Force the user to set a directory before installing.
             if (!Utilities.CheckUserPath())
-                if (await Utilities.SetupDirectoryAsync(TopLevel, true) == false) return;
+                if (TopLevel is null || await Utilities.SetupDirectoryAsync(TopLevel, true) == false) return;
 
             // Stop the process if Team Fortress 2 is still running.
             if (await Utilities.CheckIsGameRunning())
@@ -258,7 +260,7 @@ public partial class MainWindowViewModel : ViewModelBase
             }
 
             // Download first, so a failed download doesn't leave the user without a HUD.
-            var hudArchive = await Utilities.DownloadHudArchive(SelectedHud.DownloadUrl, SelectedHud.Name);
+            var hudArchive = await Utilities.DownloadHudArchive(hud.DownloadUrl, hud.Name);
 
             // Check for unsupported HUDs in the tf/custom folder. Notify user if found.
             var knownHuds = HUDList.Select(x => x.Name).ToHashSet(StringComparer.OrdinalIgnoreCase);
@@ -281,23 +283,23 @@ public partial class MainWindowViewModel : ViewModelBase
             }
 
             // Install the selected HUD
-            Utilities.ExtractHud(hudArchive, App.HudPath, SelectedHud.Name);
+            Utilities.ExtractHud(hudArchive, App.HudPath, hud.Name);
 
             // Install Crosshairs
-            if (SelectedHud.InstallCrosshairs)
+            if (hud.InstallCrosshairs)
             {
-                App.Logger.Info($"Installing crosshairs to {SelectedHud.Name}");
-                await Utilities.InstallCrosshairs($"{App.HudPath}/{SelectedHud.Name}");
+                App.Logger.Info($"Installing crosshairs to {hud.Name}");
+                await Utilities.InstallCrosshairs($"{App.HudPath}/{hud.Name}");
             }
 
             // Update the page view.
-            if (string.IsNullOrWhiteSpace(SelectedHud.Name))
+            if (string.IsNullOrWhiteSpace(hud.Name))
             {
                 Installing = false;
                 return;
             }
-            SelectedHud.Settings.SaveSettings();
-            if (!SelectedHud.ApplyCustomizations())
+            hud.Settings.SaveSettings();
+            if (!hud.ApplyCustomizations())
                 await Utilities.ShowMessageBox(Resources.error_hud_apply_partial, MsBox.Avalonia.Enums.Icon.Warning);
 
             // Update timestamp
@@ -328,14 +330,15 @@ public partial class MainWindowViewModel : ViewModelBase
         try
         {
             // Check if the HUD is installed in a valid directory.
-            if (!SelectedHudInstalled) return;
+            var hud = SelectedHud;
+            if (hud is null || !SelectedHudInstalled) return;
 
             // Stop the process if Team Fortress 2 is still running.
             if (await Utilities.CheckIsGameRunning()) return;
 
             // Remove the HUD from the tf/custom directory.
-            App.Logger.Info($"Removing {SelectedHud.Name} from {App.HudPath}");
-            if (SelectedHud.Name != "") Utilities.DeleteDirectory($"{App.HudPath}/{SelectedHud.Name}");
+            App.Logger.Info($"Removing {hud.Name} from {App.HudPath}");
+            if (hud.Name != "") Utilities.DeleteDirectory($"{App.HudPath}/{hud.Name}");
 
             // Update timestamp
             if (CurrentPageViewModel is EditHUDViewModel editVm)
@@ -349,7 +352,7 @@ public partial class MainWindowViewModel : ViewModelBase
         }
         catch (Exception e)
         {
-            await Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_uninstall, SelectedHud.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
+            await Utilities.ShowMessageBox($"{string.Format(Resources.error_hud_uninstall, SelectedHud?.Name)} {e.Message}", MsBox.Avalonia.Enums.Icon.Error);
         }
     }
 
@@ -436,7 +439,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         try
         {
-            if (await Utilities.ShowPromptBox(Resources.info_add_hud) == ButtonResult.No) return;
+            if (TopLevel is null || await Utilities.ShowPromptBox(Resources.info_add_hud) == ButtonResult.No) return;
 
             var folders = await TopLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
             {

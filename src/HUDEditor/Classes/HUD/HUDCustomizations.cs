@@ -89,8 +89,7 @@ public partial class HUD
                         if (property.Contains('.'))
                         {
                             var filePath = $"{folderPath}/{property}";
-                            if (!Directory.Exists(Path.GetDirectoryName(filePath)))
-                                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                            Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
 
                             // Read file, check each topmost element until we come to an element that matches
                             // the pattern (Resource/UI/HudFile.res) which indicates it's a HUD ui file
@@ -358,6 +357,8 @@ public partial class HUD
                 var hudElement = new Dictionary<string, dynamic>();
                 foreach (var property in element)
                 {
+                    if (property.Value is null) continue;
+
                     if (string.Equals(property.Key, "replace", StringComparison.CurrentCultureIgnoreCase))
                     {
                         var values = property.Value.ToArray();
@@ -390,13 +391,11 @@ public partial class HUD
 
                         File.WriteAllText(absolutePath, output);
                     }
-                    else if (property.Value?.GetType() == typeof(JObject))
+                    else if (property.Value is JObject currentObj)
                     {
-                        var currentObj = property.Value.ToObject<JObject>();
-
                         if (currentObj.ContainsKey("true") && currentObj.ContainsKey("false"))
                         {
-                            hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()];
+                            hudElement[property.Key] = currentObj[userSetting.Value.ToLowerInvariant()]?.ToString() ?? string.Empty;
                         }
                         else
                         {
@@ -458,7 +457,7 @@ public partial class HUD
             //
             void WriteAnimationCustomizations(string filePath, JObject animationOptions)
             {
-                HUDAnimation CreateAnimation(Dictionary<string, dynamic> animation, KeyValuePair<string, JToken> animationOption)
+                HUDAnimation CreateAnimation(Dictionary<string, dynamic> animation, KeyValuePair<string, JToken?> animationOption)
                 {
                     return animation?["Type"].ToString().ToLower() switch
                     {
@@ -530,9 +529,12 @@ public partial class HUD
                 }
 
                 // Don't read animations file unless the user requests a new event the majority of the animation customizations are for enabling/disabling events, which use the 'replace' keyword
-                Dictionary<string, List<HUDAnimation>> animations = null;
+                Dictionary<string, List<HUDAnimation>>? animations = null;
 
                 foreach (var animationOption in animationOptions)
+                {
+                    if (animationOption.Value is null) continue;
+
                     switch (animationOption.Key.ToLowerInvariant())
                     {
                         case "replace":
@@ -561,7 +563,7 @@ public partial class HUD
                                 if (bool.TryParse(userSetting.Value, out var valid))
                                 {
                                     var lines = File.ReadAllLines(filePath);
-                                    foreach (string value in values)
+                                    foreach (var value in values.Select(v => (string?)v).OfType<string>())
                                         foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
                                             lines[index] = valid
                                                 ? Utilities.CommentTextLine(lines, index)
@@ -571,7 +573,7 @@ public partial class HUD
                                 else if (int.TryParse(userSetting.Value, out _))
                                 {
                                     var lines = File.ReadAllLines(filePath);
-                                    foreach (string value in values)
+                                    foreach (var value in values.Select(v => (string?)v).OfType<string>())
                                         foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
                                             lines[index] = Utilities.CommentTextLine(lines, index);
                                     File.WriteAllLines(filePath, lines);
@@ -586,7 +588,7 @@ public partial class HUD
                                 if (bool.TryParse(userSetting.Value, out var valid))
                                 {
                                     var lines = File.ReadAllLines(filePath);
-                                    foreach (string value in values)
+                                    foreach (var value in values.Select(v => (string?)v).OfType<string>())
                                         foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
                                             lines[index] = valid
                                                 ? Utilities.UncommentTextLine(lines, index)
@@ -596,7 +598,7 @@ public partial class HUD
                                 else if (int.TryParse(userSetting.Value, out _))
                                 {
                                     var lines = File.ReadAllLines(filePath);
-                                    foreach (string value in values)
+                                    foreach (var value in values.Select(v => (string?)v).OfType<string>())
                                         foreach (var index in Utilities.GetLineNumbersContainingString(lines, value))
                                             lines[index] = Utilities.UncommentTextLine(lines, index);
                                     File.WriteAllLines(filePath, lines);
@@ -615,7 +617,8 @@ public partial class HUD
 
                                 if (animationOption.Value.Type == JTokenType.Object)
                                 {
-                                    var animationsContainer = animationOption.Value.ToObject<Dictionary<string, JToken>>();
+                                    var animationsContainer = animationOption.Value.ToObject<Dictionary<string, JToken>>()
+                                        ?? throw new Exception($"Unexpected object at {animationOption.Key}!");
                                     if (animationsContainer.ContainsKey("true") && animationsContainer.ContainsKey("false"))
                                     {
                                         var selection = animationsContainer[userSetting.Value.ToLower()];
@@ -633,7 +636,8 @@ public partial class HUD
 
                                 foreach (var option in animationEvents)
                                 {
-                                    var animation = option.ToObject<Dictionary<string, dynamic>>();
+                                    var animation = option.ToObject<Dictionary<string, dynamic>>()
+                                        ?? throw new Exception($"Empty animation in {animationOption.Key}!");
 
                                     dynamic current = CreateAnimation(animation, animationOption);
 
@@ -653,6 +657,7 @@ public partial class HUD
                                 break;
                             }
                     }
+                }
 
                 if (animations is not null) File.WriteAllText(filePath, HUDAnimations.Stringify(animations));
             }
@@ -661,6 +666,12 @@ public partial class HUD
 
             foreach (var filePath in files)
             {
+                if (filePath.Value is not JObject fileOptions)
+                {
+                    App.Logger.Warn($"Skipping {filePath.Key}: expected an object of customizations.");
+                    continue;
+                }
+
                 var relativePath = string.Join('/', Regex.Split(filePath.Key, @"[\/]+"));
                 var absolutePath = App.HudPath + "/" + Name + "/" + string.Join('/', relativePath.Split('/'));
                 var extension = filePath.Key.Split(".")[^1];
@@ -668,12 +679,12 @@ public partial class HUD
                 if (resFileExtensions.Contains(extension))
                 {
                     var hudFile = Utilities.CreateNestedObject(hudFolders, relativePath.Split('/'));
-                    Utilities.Merge(hudFile, CompileHudElement(filePath.Value?.ToObject<JObject>(), absolutePath, relativePath, hudFile, ""));
+                    Utilities.Merge(hudFile, CompileHudElement(fileOptions, absolutePath, relativePath, hudFile, ""));
                 }
                 else if (string.Equals(extension, "txt"))
                 {
                     // Assume .txt is always an animation file (may cause issues with mod_textures.txt but assume we are only editing hud files)
-                    WriteAnimationCustomizations(absolutePath, filePath.Value?.ToObject<JObject>());
+                    WriteAnimationCustomizations(absolutePath, fileOptions);
                 }
                 else
                 {
@@ -690,7 +701,7 @@ public partial class HUD
         }
     }
 
-    private static (JObject, string, string[]) GetControlInfo(Controls hudSetting, Setting userSetting)
+    private static (JObject?, string?, string[]?) GetControlInfo(Controls hudSetting, Setting userSetting)
     {
         if (!string.Equals(hudSetting.Type, "ComboBox", StringComparison.CurrentCultureIgnoreCase))
             return (hudSetting.Files, hudSetting.Special, hudSetting.SpecialParameters);
@@ -706,18 +717,18 @@ public partial class HUD
         return (selected.Files, selected.Special, selected.SpecialParameters);
     }
 
-    private void EvaluateSpecial(string special, Setting userSetting, bool enable, string[] parameters)
+    private void EvaluateSpecial(string special, Setting userSetting, bool enable, string[]? parameters)
     {
         // Check for special conditions, namely if we should enable stock backgrounds.
         if (string.Equals(special, "StockBackgrounds", StringComparison.CurrentCultureIgnoreCase))
-            HudBackground.SetStockBackground(enable);
+            HudBackground?.SetStockBackground(enable);
 
         if (string.Equals(special, "HUDBackground", StringComparison.CurrentCultureIgnoreCase))
-            HudBackground.SetHUDBackground(parameters[0]);
+            if (parameters is { Length: > 0 }) HudBackground?.SetHUDBackground(parameters[0]);
 
         if (string.Equals(special, "CustomBackground", StringComparison.CurrentCultureIgnoreCase) &&
             Uri.TryCreate(userSetting.Value, UriKind.Absolute, out _))
-            HudBackground.SetCustomBackground(new Uri(userSetting.Value));
+            HudBackground?.SetCustomBackground(new Uri(userSetting.Value));
 
         if (string.Equals(special, "TransparentViewmodels", StringComparison.CurrentCultureIgnoreCase))
             CopyTransparentViewmodelAddon(enable);

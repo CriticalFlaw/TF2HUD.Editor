@@ -111,7 +111,7 @@ public partial class HUD
                     case "colorpicker":
                     case "colourpicker":
                         var colorContainer = CreateColorPicker(controlItem);
-                        var colorInput = colorContainer.Children.OfType<Avalonia.Controls.ColorPicker>().FirstOrDefault();
+                        var colorInput = colorContainer.Children.OfType<Avalonia.Controls.ColorPicker>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(colorContainer);
@@ -133,7 +133,7 @@ public partial class HUD
                         if (controlItem.Options is not { Length: > 0 }) break;
 
                         var comboBoxContainer = CreateComboBox(controlItem);
-                        var comboBoxInput = comboBoxContainer.Children.OfType<ComboBox>().FirstOrDefault();
+                        var comboBoxInput = comboBoxContainer.Children.OfType<ComboBox>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(comboBoxContainer);
@@ -151,7 +151,7 @@ public partial class HUD
                     case "integer":
                     case "integerupdown":
                         var integerContainer = CreateNumberPicker(controlItem);
-                        var integerInput = integerContainer.Children.OfType<NumericUpDown>().FirstOrDefault();
+                        var integerInput = integerContainer.Children.OfType<NumericUpDown>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(integerContainer);
@@ -168,7 +168,7 @@ public partial class HUD
                     case "crosshair":
                     case "customcrosshair":
                         var xhairContainer = CreateCrosshairPicker(controlItem);
-                        var xhairInput = xhairContainer.Children.OfType<ComboBox>().FirstOrDefault();
+                        var xhairInput = xhairContainer.Children.OfType<ComboBox>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(xhairContainer);
@@ -185,7 +185,7 @@ public partial class HUD
                     case "background":
                     case "custombackground":
                         var bgContainer = CreateBackgroundSetter(controlItem);
-                        var bgInput = bgContainer.Children.OfType<Button>().FirstOrDefault();
+                        var bgInput = bgContainer.Children.OfType<Button>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(bgContainer);
@@ -195,7 +195,7 @@ public partial class HUD
                     case "text":
                     case "textbox":
                         var textContainer = CreateTextBox(controlItem);
-                        var textInput = textContainer.Children.OfType<TextBox>().FirstOrDefault();
+                        var textInput = textContainer.Children.OfType<TextBox>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(textContainer);
@@ -360,9 +360,12 @@ public partial class HUD
         browse.Click += async (_, _) =>
         {
             await Utilities.ShowMessageBox(Assets.Resources.info_background_override);
-            var files = await TopLevel.GetTopLevel(browse).StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            var topLevel = TopLevel.GetTopLevel(browse);
+            if (topLevel is null) return;
+
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
-                Title = "Select an image file",
+                Title = Assets.Resources.dialog_select_image,
                 AllowMultiple = false,
                 FileTypeFilter =
                 [
@@ -624,7 +627,7 @@ public partial class HUD
         return checkbox;
     }
 
-    private Button CreateResetButton(string? section)
+    private Button CreateResetButton(string section)
     {
         var button = new Button
         {

@@ -191,7 +191,7 @@ internal static class VDF
             {
                 string key;
                 dynamic value;
-                string conditional;
+                string? conditional;
                 var keyToken = tokeniser.Next();
 
                 if (keyToken == objectTerminator) break;

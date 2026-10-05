@@ -28,11 +28,11 @@ public partial class MainWindow : Avalonia.Controls.Window
         };
     }
 
-    public void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    public void MainWindowViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(MainWindowViewModel.SelectedHud))
         {
-            App.Config.ConfigSettings.UserPrefs.SelectedHUD = ((MainWindowViewModel)sender).SelectedHud?.Name ?? string.Empty;
+            App.Config.ConfigSettings.UserPrefs.SelectedHUD = (sender as MainWindowViewModel)?.SelectedHud?.Name ?? string.Empty;
         }
     }
 }

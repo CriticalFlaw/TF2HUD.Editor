@@ -9,9 +9,9 @@ namespace HUDEditor.Classes;
 public partial class HUD
 {
     private Grid Controls = new();
-    private HUDBackground HudBackground;
+    private HUDBackground? HudBackground;
     private bool IsRendered;
-    private string[][] Layout;
+    private string[][]? Layout;
 
     #region HUD PROPERTIES
 
@@ -20,7 +20,7 @@ public partial class HUD
     public double Opacity { get; set; }
     public bool Maximize { get; set; }
     public string Thumbnail { get; set; }
-    public Bitmap ThumbnailImage { get; set; }
+    public Bitmap? ThumbnailImage { get; set; }
     public string Background { get; set; }
     public string Description { get; set; }
     public string Author { get; set; }
@@ -158,7 +158,7 @@ public partial class HUD
                 case ComboBox combo:
                     var index = 0;
                     // If we're dealing with crosshairs, find the correct index.
-                    ComboBoxItem firstItem = null;
+                    ComboBoxItem? firstItem = null;
                     if (combo.Items != null)
                     {
                         foreach (var it in combo.Items)
