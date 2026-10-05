@@ -12,6 +12,7 @@ using Sentry;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -52,9 +53,18 @@ public partial class App : Application
                 await Task.Delay(1000, splashScreenVm.CancellationToken);
                 await splashScreenVm.DownloadImages(mainWindowVm.HUDList, splashScreenVm.CancellationToken);
             }
-            catch (TaskCanceledException)
+            catch (OperationCanceledException)
             {
                 splashScreen.Close();
+                return;
+            }
+            catch (Exception ex)
+            {
+                // Capture the exception instead of closing without explanation
+                Logger.Error($"Startup failed: {ex}");
+                SentrySdk.CaptureException(ex);
+                await Utilities.ShowMessageBox(ex.Message, MsBox.Avalonia.Enums.Icon.Error);
+                desktop.Shutdown(1);
                 return;
             }
 
@@ -104,7 +114,12 @@ public partial class App : Application
         // Setup Sentry — SENTRY_DSN is applied by a GitHub Action during packaging.
         if (!Config.ConfigSettings.UserPrefs.DisableSentry)
         {
-            var dsn = Environment.GetEnvironmentVariable("SENTRY_DSN") ?? Config.ConfigSettings.AppConfig.SentryDsn;
+            var dsn = new[]
+            {
+                Environment.GetEnvironmentVariable("SENTRY_DSN"),
+                Assembly.GetExecutingAssembly().GetCustomAttributes<AssemblyMetadataAttribute>().FirstOrDefault(a => a.Key == "SentryDsn")?.Value,
+                Config.ConfigSettings.AppConfig.SentryDsn
+            }.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
             if (!string.IsNullOrWhiteSpace(dsn))
             {
                 SentrySdk.Init(o =>
@@ -117,25 +132,49 @@ public partial class App : Application
                 Logger.Warn("Sentry DSN not configured — error reporting disabled.");
         }
 
-        // Set user preferences
+        // Set user preferences. Only detect the system language when the user hasn't chosen one.
         var language = Config.ConfigSettings.UserPrefs.Language;
-        var systemLanguage = Utilities.GetSystemLanguage();
-        if (string.IsNullOrEmpty(language) || (language == "en-US" && systemLanguage != "en-US"))
+        if (language == "it") language = "it-IT"; // Migrate the old Italian code, which didn't match the it-IT resources.
+        if (string.IsNullOrWhiteSpace(language))
+            language = Utilities.GetSystemLanguage();
+
+        CultureInfo culture;
+        try { culture = new CultureInfo(language); }
+        catch (CultureNotFoundException) { language = "en-US"; culture = new CultureInfo(language); }
+
+        if (Config.ConfigSettings.UserPrefs.Language != language)
         {
-            language = systemLanguage;
             Config.ConfigSettings.UserPrefs.Language = language;
-            SaveConfiguration();
+            TrySaveConfiguration();
         }
-        Assets.Resources.Culture = new CultureInfo(language);
+        Assets.Resources.Culture = culture;
         HudPath = Config.ConfigSettings.UserPrefs.HUDDirectory;
     }
 
     private void App_DispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs e)
     {
+        Logger.Error(e.Exception.Message);
         SentrySdk.CaptureException(e.Exception);
 
         // Prevent the application from crashing
         e.Handled = true;
+    }
+
+    /// <summary>
+    /// Saves the configuration, logging instead of throwing (e.g. when the install folder isn't writable).
+    /// </summary>
+    public static bool TrySaveConfiguration()
+    {
+        try
+        {
+            SaveConfiguration();
+            return true;
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            Logger.Error($"Failed to save configuration: {e.Message}");
+            return false;
+        }
     }
 
     public static void SaveConfiguration()

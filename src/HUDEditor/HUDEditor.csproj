@@ -16,6 +16,10 @@
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\**" />
 	</ItemGroup>
+	
+	<ItemGroup Condition="'$(SENTRY_DSN)' != ''">
+		<AssemblyMetadata Include="SentryDsn" Value="$(SENTRY_DSN)" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Content Include="appsettings.json">
@@ -47,31 +51,33 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<InternalsVisibleTo Include="HUDEditor.Tests" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectCapability Include="Avalonia" />
 		<TrimmerRootAssembly Include="Avalonia.Themes.Fluent" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="12.1.1" />
-		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="12.1.1" />
-		<PackageReference Include="Avalonia.Desktop" Version="12.1.1" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.1" />
-		<PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.1" />
+		<PackageReference Include="Avalonia" Version="12.1.3" />
+		<PackageReference Include="Avalonia.Controls.ColorPicker" Version="12.1.3" />
+		<PackageReference Include="Avalonia.Desktop" Version="12.1.3" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.3" />
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.3" />
 		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3" />
+		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3" Condition="'$(Configuration)' == 'Debug'" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-		<PackageReference Include="Crews.Utility.TgaSharp" Version="1.0.0" />
 		<PackageReference Include="DialogHost.Avalonia" Version="0.12.3" />
-		<PackageReference Include="log4net" Version="3.3.2" />
+		<PackageReference Include="log4net" Version="3.5.0" />
 		<PackageReference Include="MessageBox.Avalonia" Version="12.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.11" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.11" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.11" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.12" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.12" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
 		<PackageReference Include="Octokit" Version="14.0.0" />
-		<PackageReference Include="ReactiveUI.Avalonia" Version="12.1.1" />
-		<PackageReference Include="Sentry" Version="6.9.0" />
-		<PackageReference Include="TargaSharp" Version="0.1.0" />
+		<PackageReference Include="ReactiveUI.Avalonia" Version="12.1.6" />
+		<PackageReference Include="Sentry" Version="6.12.0" />
 	</ItemGroup>
 
 	<ItemGroup>
