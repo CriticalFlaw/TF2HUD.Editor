@@ -87,12 +87,21 @@ internal class HUDBackground
             foreach (var filePath in Directory.GetFiles(consoleFolder))
             {
                 var dest = Path.Combine(disabledFolder, Path.GetFileName(filePath));
+
+                // If _disabled already holds a file with this name, it's the HUD's original from a previous apply,
+                // and the file in the console folder is a previously generated custom background. Don't overwrite the original.
+                if (File.Exists(dest))
+                {
+                    App.Logger.Info($"Keeping original \"{dest}\"; skipping generated \"{filePath}\"");
+                    continue;
+                }
+
                 App.Logger.Info($"Moving: \"{filePath}\" → \"{dest}\"");
-                File.Move(filePath, dest, overwrite: true);
+                File.Move(filePath, dest);
                 moved.Add((dest, filePath)); // reverse mapping for rollback
             }
 
-            VTF.Convert(_customImagePath);
+            VTF.Convert(_customImagePath, _hudFolderPath);
             Utilities.CreateChapterBackgroundsFile(_hudFolderPath);
         }
         catch
