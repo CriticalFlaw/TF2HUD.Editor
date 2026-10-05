@@ -9,12 +9,23 @@ public partial class MainWindow : Avalonia.Controls.Window
     public MainWindow()
     {
         InitializeComponent();
-        Utilities.SetupDirectoryAsync(this);
 
+        // Run once the window is shown, so a folder picker (if needed) has a visible owner and errors aren't lost.
+        Opened += async (_, _) =>
+        {
+            try
+            {
+                await Utilities.SetupDirectoryAsync(this);
 #if !DEBUG
-        // Check for updates
-        if (App.Config.ConfigSettings.UserPrefs.AutoUpdate == true) Utilities.UpdateAppSchema(true);
+                // Check for updates
+                if (App.Config.ConfigSettings.UserPrefs.AutoUpdate) await Utilities.UpdateAppSchema(true);
 #endif
+            }
+            catch (System.Exception e)
+            {
+                App.Logger.Error($"Startup checks failed: {e}");
+            }
+        };
     }
 
     public void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

@@ -77,6 +77,9 @@ public partial class SplashScreenViewModel : ViewModelBase
 
                 if (hud.Screenshots != null)
                     imageUrls.AddRange(hud.Screenshots);
+
+                if (IsRemote(hud.Background) && hud.Background != hud.Thumbnail)
+                    imageUrls.Add(hud.Background);
             }
 
             TotalImages = imageUrls.Count;
@@ -86,6 +89,10 @@ public partial class SplashScreenViewModel : ViewModelBase
             {
                 ct.ThrowIfCancellationRequested();
                 hud.ThumbnailImage = await DownloadAndReportAsync(hud.Thumbnail, ct);
+
+                // Pre-cache the page background so the background converter reads it from disk instead of downloading on the UI thread.
+                if (IsRemote(hud.Background) && hud.Background != hud.Thumbnail)
+                    await DownloadAndReportAsync(hud.Background, ct);
 
                 hud.ScreenshotImages = [];
                 if (hud.Screenshots.Length > 0)
@@ -106,6 +113,8 @@ public partial class SplashScreenViewModel : ViewModelBase
             OnPropertyChanged(nameof(StartupMessage));
         }
     }
+
+    private static bool IsRemote(string? url) => url is not null && url.StartsWith("http", System.StringComparison.OrdinalIgnoreCase);
 
     private async Task<Avalonia.Media.Imaging.Bitmap?> DownloadAndReportAsync(string? url, CancellationToken ct)
     {

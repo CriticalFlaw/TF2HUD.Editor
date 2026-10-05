@@ -12,15 +12,18 @@ namespace HUDEditor.Classes;
 
 public static class ImageCache
 {
-    private static readonly string CacheDir = Path.Combine(AppContext.BaseDirectory, "cache");
+    public static readonly string CacheDir = Path.Combine(AppContext.BaseDirectory, "cache");
+
+    private static readonly HttpClient Client = new() { Timeout = TimeSpan.FromSeconds(15) };
 
     static ImageCache() => Directory.CreateDirectory(CacheDir);
 
     private static string GetCachePath(string url)
     {
+        Directory.CreateDirectory(CacheDir); // The cache may have been cleared while the app is running.
         using var sha1 = SHA1.Create();
         var hash = BitConverter.ToString(sha1.ComputeHash(Encoding.UTF8.GetBytes(url))).Replace("-", "");
-        var ext = Path.GetExtension(new Uri(url).AbsolutePath);
+        var ext = Path.GetExtension(new Uri(url).LocalPath);
         if (string.IsNullOrWhiteSpace(ext) || ext.Length > 5) ext = ".img";
         return Path.Combine(CacheDir, $"{hash}{ext}");
     }
@@ -53,8 +56,7 @@ public static class ImageCache
             }
             else
             {
-                using var client = new HttpClient();
-                bytes = await client.GetByteArrayAsync(url);
+                bytes = await Client.GetByteArrayAsync(url);
                 await File.WriteAllBytesAsync(cachePath, bytes);
                 App.Logger.Info($"Downloaded: {cachePath}");
             }
@@ -63,6 +65,38 @@ public static class ImageCache
         }
         catch
         {
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Synchronous variant of <see cref="GetImageAsync"/> for callers that cannot await (e.g. value converters).
+    /// Reads local files and cached images directly; downloads with a short timeout otherwise.
+    /// </summary>
+    public static Bitmap? GetImage(string url)
+    {
+        if (string.IsNullOrWhiteSpace(url)) return null;
+
+        try
+        {
+            if (url.StartsWith("file://", StringComparison.OrdinalIgnoreCase) || File.Exists(url))
+            {
+                var localPath = Utilities.ToLocalPath(url);
+                return File.Exists(localPath) ? new Bitmap(localPath) : null;
+            }
+
+            var cachePath = GetCachePath(url);
+            if (!File.Exists(cachePath))
+            {
+                var bytes = Task.Run(() => Client.GetByteArrayAsync(url)).GetAwaiter().GetResult();
+                File.WriteAllBytes(cachePath, bytes);
+            }
+
+            return new Bitmap(cachePath);
+        }
+        catch (Exception e)
+        {
+            App.Logger.Error($"Error loading image \"{url}\": {e.Message}");
             return null;
         }
     }
@@ -79,7 +113,6 @@ public static class ImageCache
             if (!File.Exists(cachePath))
             {
                 await using var fileStream = File.OpenRead(url);
-                fileStream.Position = 0; // Reset stream position after hashing
                 await using var destStream = File.Create(cachePath);
                 await fileStream.CopyToAsync(destStream);
             }

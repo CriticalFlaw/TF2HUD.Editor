@@ -55,8 +55,8 @@ internal partial class EditHUDViewModel : ViewModelBase
         else
             _status = string.Format(Assets.Resources.status_installed_not, hud.Name);
 
-        if ((App.Config.ConfigSettings.UserPrefs.PathBypass && !Utilities.CheckUserPath()) ||
-            (!App.Config.ConfigSettings.UserPrefs.PathBypass & !App.HudPath.EndsWith("tf\\custom")))
+        // CheckUserPath handles both separator styles and the path-check bypass.
+        if (!Utilities.CheckUserPath())
             _status = Assets.Resources.status_path_notset;
 
         _selectedPreset = _hud.Settings.Preset;

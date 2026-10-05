@@ -9,16 +9,42 @@ namespace HUDEditor.Classes;
 
 public class HUDSettings
 {
-    public static readonly string UserFile = $"{Directory.CreateDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor").FullName}\\settings.json";
+    public static readonly string UserFile = Path.Combine(Directory.CreateDirectory(Utilities.UserDataFolder).FullName, "settings.json");
 
-    private static readonly UserJson Json = File.Exists(UserFile)
-        ? JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(UserFile))
-        : new UserJson();
+    private static readonly UserJson Json = LoadUserFile();
 
     private static readonly Dictionary<string, Preset> Presets = Json.Presets;
     private static readonly List<Setting> UserSettings = Json.Settings;
     private Preset _Preset;
     public string HUDName;
+
+    /// <summary>
+    /// Loads the user settings file. A corrupt file is backed up and replaced instead of crashing the app on startup.
+    /// </summary>
+    private static UserJson LoadUserFile()
+    {
+        try
+        {
+            if (File.Exists(UserFile))
+            {
+                var json = JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(UserFile));
+                if (json is not null)
+                {
+                    json.Settings ??= [];
+                    json.Presets ??= [];
+                    return json;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            var backup = UserFile + ".bak";
+            App.Logger.Error($"Failed to read user settings, backing up to \"{backup}\": {e.Message}");
+            try { File.Copy(UserFile, backup, true); } catch { /* best effort */ }
+        }
+
+        return new UserJson();
+    }
 
     public HUDSettings(string name)
     {
@@ -53,9 +79,9 @@ public class HUDSettings
     /// Retrieves a user setting by name.
     /// </summary>
     /// <param name="name">Name of the setting to retrieve.</param>
-    public Setting GetSetting(string name)
+    public Setting? GetSetting(string name)
     {
-        return UserSettings.First(x => x.Name == name && x.Preset == Preset);
+        return UserSettings.FirstOrDefault(x => x.Name == name && x.Preset == Preset);
     }
 
     /// <summary>
@@ -64,7 +90,7 @@ public class HUDSettings
     /// <param name="name">Name of the setting to retrieve.</param>
     public T GetSetting<T>(string name)
     {
-        var value = UserSettings.First(x => x.Name == name && x.Preset == Preset).Value;
+        var value = GetSetting(name)?.Value ?? string.Empty;
 
         switch (typeof(T).Name)
         {
@@ -91,9 +117,15 @@ public class HUDSettings
     /// </summary>
     /// <param name="name">Name of the setting to update.</param>
     /// <param name="value">New value for updating setting.</param>
-    public void SetSetting(string name, string value)
+    public void SetSetting(string? name, string? value)
     {
-        UserSettings.First(x => x.Name == name && x.Preset == Preset).Value = value;
+        var setting = name is null ? null : GetSetting(name);
+        if (setting is null)
+        {
+            App.Logger.Warn($"Tried to set unknown setting \"{name}\" on {HUDName}.");
+            return;
+        }
+        setting.Value = value ?? string.Empty;
     }
 
     /// <summary>
@@ -106,7 +138,11 @@ public class HUDSettings
             Presets = Presets,
             Settings = UserSettings
         };
-        File.WriteAllText(UserFile, JsonConvert.SerializeObject(settings, Formatting.Indented));
+        // Write to a temp file first, then replace, so a crash mid-write can't corrupt the settings.
+        Directory.CreateDirectory(Path.GetDirectoryName(UserFile)!); // May have been removed by "Clear cache".
+        var tempFile = UserFile + ".tmp";
+        File.WriteAllText(tempFile, JsonConvert.SerializeObject(settings, Formatting.Indented));
+        File.Move(tempFile, UserFile, overwrite: true);
         App.Logger.Info($"Saved user settings to: {UserFile}");
     }
 }

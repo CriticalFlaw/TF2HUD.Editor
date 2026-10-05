@@ -53,7 +53,7 @@ public static class Utilities
         "!", "#", "$", "%", "'", "(", ")", "*", "+", ",", "-", ".", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         ":", ";", "<", "=", ">", "?", "@", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
         "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "[", "\\", "]", "^", "_", "`", "a", "b", "c", "d", "e", "f", "g",
-        "h", "i", "j", "k", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "{", "|", "}", "~"
+        "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "{", "|", "}", "~"
     ];
 
     /// <summary>
@@ -203,11 +203,61 @@ public static class Utilities
     /// Gets the filename from the HUD schema control using a string value.
     /// </summary>
     /// <param name="control">Schema control to retrieve file names from.</param>
-    internal static dynamic GetFileNames(Controls control)
+    internal static dynamic? GetFileNames(Controls control)
     {
         if (!string.IsNullOrWhiteSpace(control.FileName))
             return control.FileName.Replace(".res", string.Empty);
-        return (control.ComboDirectories is not null) ? control.ComboDirectories : control.ComboFiles;
+
+        // Schema arrays default to empty (not null), so check for content rather than null.
+        if (control.ComboDirectories is { Length: > 0 }) return control.ComboDirectories;
+        if (control.ComboFiles is { Length: > 0 }) return control.ComboFiles;
+        return null;
+    }
+
+    public enum CrosshairSetting { None, Enabled, Style, Size, Color }
+
+    /// <summary>
+    /// Identifies controls whose values are shared across HUDs when crosshair persistence is enabled.
+    /// Matches on the control name (consistent across schemas) rather than the label, so e.g. "Health Size" isn't treated as the crosshair size.
+    /// </summary>
+    public static CrosshairSetting GetCrosshairSetting(Controls control)
+    {
+        var name = control.Name?.ToLowerInvariant() ?? string.Empty;
+        return control.Type?.ToLowerInvariant() switch
+        {
+            "checkbox" when name.EndsWith("xhair_enable") || name.EndsWith("xhair_visibility") => CrosshairSetting.Enabled,
+            "crosshair" or "customcrosshair" when name.EndsWith("xhair_style") || name.EndsWith("crosshair_style") || name.EndsWith("crosshair1_style") => CrosshairSetting.Style,
+            "integerupdown" or "integer" or "number" when name.EndsWith("xhair_size") => CrosshairSetting.Size,
+            "colorpicker" or "color" or "colour" or "colourpicker" when name.EndsWith("xhair_normal") || name.EndsWith("color_xhair") => CrosshairSetting.Color,
+            _ => CrosshairSetting.None
+        };
+    }
+
+    /// <summary>
+    /// Folder that holds the HUD schema files, next to the executable (not the working directory).
+    /// </summary>
+    public static string JsonFolder => Path.Combine(AppContext.BaseDirectory, "JSON");
+
+    /// <summary>
+    /// Folder that holds the user's settings file and other per-user editor data.
+    /// </summary>
+    public static string UserDataFolder => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TF2HUD.Editor");
+
+    /// <summary>
+    /// Gets the tf directory (parent of tf/custom) from the configured HUD path, regardless of separator style.
+    /// </summary>
+    public static string GetTfDirectory(string hudPath)
+    {
+        var full = Path.GetFullPath(hudPath.Replace('\\', '/').TrimEnd('/'));
+        return Path.GetDirectoryName(full) ?? full;
+    }
+
+    /// <summary>
+    /// Converts a file:// URI string (or a plain path) into a local file system path.
+    /// </summary>
+    public static string ToLocalPath(string uriOrPath)
+    {
+        return Uri.TryCreate(uriOrPath, UriKind.Absolute, out var uri) && uri.IsFile ? uri.LocalPath : uriOrPath;
     }
 
     /// <summary>
@@ -246,6 +296,7 @@ public static class Utilities
             if (Directory.Exists(tf2Path))
             {
                 App.Logger.Info($"Set target directory to: {tf2Path}");
+                App.HudPath = tf2Path;
                 App.Config.ConfigSettings.UserPrefs.HUDDirectory = tf2Path;
                 App.SaveConfiguration();
                 return true;
@@ -408,18 +459,39 @@ public static class Utilities
     /// <param name="hudName">Formatted name of the downloaded HUD.</param>
     public static async Task DownloadHud(string url, string filePath, string hudName)
     {
+        ExtractHud(await DownloadHudArchive(url, hudName), filePath, hudName);
+    }
+
+    /// <summary>
+    /// Downloads (or reads, for file:// URLs) a HUD zip archive and validates that it is a readable zip.
+    /// </summary>
+    public static async Task<byte[]> DownloadHudArchive(string url, string hudName)
+    {
         using HttpClient client = new();
         client.DefaultRequestHeaders.Add("User-Agent", "request");
 
         App.Logger.Info($"Downloading {hudName} from {url}");
         var uri = new Uri(url);
-        var bytes = uri.Scheme == "file"
-            ? await File.ReadAllBytesAsync(uri.AbsolutePath)
+        var bytes = uri.IsFile
+            ? await File.ReadAllBytesAsync(uri.LocalPath)
             : await client.GetByteArrayAsync(uri);
 
         if (bytes.Length == 0)
             throw new HttpRequestException("Response from download source did not return a valid zip file.");
 
+        // Validate before the caller removes anything from tf/custom.
+        using (var probe = new ZipArchive(new MemoryStream(bytes), ZipArchiveMode.Read))
+            if (probe.Entries.Count == 0)
+                throw new InvalidDataException("Downloaded HUD archive is empty.");
+
+        return bytes;
+    }
+
+    /// <summary>
+    /// Extracts a HUD zip archive into tf/custom/hudName, stripping the archive's top-level folder.
+    /// </summary>
+    public static void ExtractHud(byte[] bytes, string filePath, string hudName)
+    {
         // Create new ZIP object from bytes.
         using var stream = new MemoryStream(bytes);
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read);
@@ -487,12 +559,13 @@ public static class Utilities
     public static async Task InstallCrosshairs(string folderPath)
     {
         const string crosshairsName = "TF2-HUD-Crosshairs-master";
-        var crosshairsZipFileName = $"{crosshairsName}.zip";
+        var crosshairsZipFileName = Path.Combine(Path.GetTempPath(), $"{crosshairsName}.zip");
 
         // Download TF2 HUD Crosshairs
         await DownloadFile(App.Config.ConfigSettings.AppConfig.CrosshairPackURL, crosshairsZipFileName);
-        DeleteDirectory(crosshairsName);
-        ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath);
+        DeleteDirectory(Path.Join(folderPath, crosshairsName)); // Leftover from a previous failed attempt.
+        ZipFile.ExtractToDirectory(crosshairsZipFileName, folderPath, overwriteFiles: true);
+        File.Delete(crosshairsZipFileName);
 
         // Move crosshairs folder to HUD
         string targetDirectory = Path.Join(folderPath, "resource/crosshairs");
@@ -504,7 +577,14 @@ public static class Utilities
         {
             var absoluteFilePath = Path.Join(folderPath, relativeFilePath);
 
-            // Assume absoluteFilePath exists in the HUD
+            // Not every HUD (e.g. user-added ones) overrides these files; create a minimal one that just #bases the crosshairs.
+            if (!File.Exists(absoluteFilePath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(absoluteFilePath)!);
+                await File.WriteAllTextAsync(absoluteFilePath, $"#base \"{baseFilePath}\"\r\n");
+                return;
+            }
+
             var obj = VDF.Parse(await File.ReadAllTextAsync(absoluteFilePath));
 
             if (!obj.ContainsKey("#base"))
@@ -516,11 +596,13 @@ public static class Utilities
                 var baseType = obj["#base"].GetType();
                 if (baseType == typeof(string))
                 {
-                    obj["#base"] = new List<dynamic> { (string)obj["#base"], baseFilePath };
+                    if ((string)obj["#base"] != baseFilePath)
+                        obj["#base"] = new List<dynamic> { (string)obj["#base"], baseFilePath };
                 }
                 else if (baseType == typeof(List<dynamic>))
                 {
-                    obj["#base"].Add(baseFilePath);
+                    if (!((List<dynamic>)obj["#base"]).Contains(baseFilePath))
+                        obj["#base"].Add(baseFilePath);
                 }
                 else
                 {
@@ -553,7 +635,12 @@ public static class Utilities
                     ";
 
                 var hudAnimationsManifest = VDF.Parse(fileContents);
-                List<dynamic> files = hudAnimationsManifest["hudanimations_manifest"]["file"];
+                var manifest = (Dictionary<string, dynamic>)hudAnimationsManifest["hudanimations_manifest"];
+
+                // A manifest with a single "file" entry is parsed as a string, not a list.
+                if (!manifest.TryGetValue("file", out var fileEntries) || fileEntries is not List<dynamic>)
+                    manifest["file"] = fileEntries is string single ? new List<dynamic> { single } : new List<dynamic>();
+                List<dynamic> files = manifest["file"];
 
                 const string animationsBasePath = "resource/crosshairs/crosshair_animation.txt";
 
@@ -565,16 +652,15 @@ public static class Utilities
         );
     }
 
+    /// <summary>
+    /// Synchronously loads an image from a local file, the image cache or (as a last resort) the web.
+    /// Prefer <see cref="ImageCache.GetImageAsync"/> wherever an async call is possible.
+    /// </summary>
     public static Avalonia.Media.Imaging.Bitmap? LoadImage(string url)
     {
         try
         {
-            using var httpClient = new HttpClient();
-            using var response = httpClient.GetAsync(url).Result;
-            response.EnsureSuccessStatusCode();
-
-            using var stream = response.Content.ReadAsStreamAsync().Result;
-            return new Avalonia.Media.Imaging.Bitmap(stream);
+            return ImageCache.GetImage(url);
         }
         catch (Exception e)
         {
@@ -646,7 +732,9 @@ public static class Utilities
     public static async Task<bool> SetupDirectoryAsync(Avalonia.Controls.Window mainWindow, bool userSet = false)
     {
         App.Logger.Info("Checking target directory...");
-        if ((SearchRegistry() || CheckUserPath()) && !userSet)
+
+        // Respect an existing valid path; only fall back to the Steam registry lookup when there isn't one.
+        if (!userSet && (CheckUserPath() || SearchRegistry()))
         {
             App.Logger.Info($"Target directory is set to {App.HudPath}");
             return true;
@@ -707,7 +795,7 @@ public static class Utilities
         }";
 
         // Append the path with "/scripts" and create the directory if it doesn't exist.
-        hudPath += "\\scripts";
+        hudPath = Path.Combine(hudPath, "scripts");
         Directory.CreateDirectory(hudPath);
 
         // Create chapterbackgrounds.txt file with the contents.
@@ -724,14 +812,14 @@ public static class Utilities
         try
         {
             // Create the schema folder if it does not exist.
-            if (!Directory.Exists("JSON")) Directory.CreateDirectory("JSON");
+            Directory.CreateDirectory(JsonFolder);
 
             var downloads = new List<Task>();
             var remoteFiles = (await Fetch<GitJson[]>(App.Config.ConfigSettings.AppConfig.JsonListURL)).Where((x) => x.Name.EndsWith(".json") && x.Type == "file").ToArray();
 
             foreach (var remoteFile in remoteFiles)
             {
-                var localFilePath = $"JSON/{remoteFile.Name}";
+                var localFilePath = Path.Combine(JsonFolder, remoteFile.Name);
                 bool newFile = false, fileChanged = false;
 
                 if (!File.Exists(localFilePath))
@@ -745,7 +833,7 @@ public static class Utilities
             }
 
             // Remove HUD JSONs that aren't available online.
-            foreach (var localFile in new DirectoryInfo("JSON").EnumerateFiles())
+            foreach (var localFile in new DirectoryInfo(JsonFolder).EnumerateFiles())
             {
                 if (remoteFiles.Count((x) => x.Name == localFile.Name) == 0)
                 {
@@ -758,8 +846,16 @@ public static class Utilities
             if (Convert.ToBoolean(downloads.Count))
             {
                 if (!silent) if (await ShowPromptBox(Resources.info_hud_update) == ButtonResult.No) return;
-                Debug.WriteLine(Assembly.GetExecutingAssembly().Location);
-                Process.Start(Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"));
+
+                // Assembly.Location is empty in single-file builds, and there's no .exe on Linux; use the process path.
+                var exePath = Environment.ProcessPath;
+                if (string.IsNullOrWhiteSpace(exePath))
+                {
+                    App.Logger.Warn("Unable to determine the executable path; please restart the app manually.");
+                    return;
+                }
+                App.Logger.Info($"Restarting app: {exePath}");
+                Process.Start(new ProcessStartInfo(exePath) { WorkingDirectory = AppContext.BaseDirectory, UseShellExecute = false });
                 Environment.Exit(0);
             }
             else
@@ -815,9 +911,9 @@ public static class Utilities
     {
         if (await ShowPromptBox(Resources.info_clear_cache) == ButtonResult.No) return;
 
-        DeleteDirectory($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor");
-        DeleteDirectory("cache");
-        DeleteDirectory("JSON");
+        DeleteDirectory(UserDataFolder);
+        DeleteDirectory(ImageCache.CacheDir);
+        DeleteDirectory(JsonFolder);
         await UpdateAppSchema(true);
     }
 
@@ -826,8 +922,9 @@ public static class Utilities
         return await Task.Run(() =>
         {
             var zipPath = Path.Combine(hudDetailsFolder, $"{hudName}.zip");
+            if (File.Exists(zipPath)) File.Delete(zipPath);
             ZipFile.CreateFromDirectory(folderPath, zipPath, CompressionLevel.Fastest, true);
-            return $"file://{zipPath}";
+            return new Uri(Path.GetFullPath(zipPath)).AbsoluteUri;
         });
     }
 
@@ -841,7 +938,8 @@ public static class Utilities
     public static void DeleteDirectory(string path)
     {
         try { Directory.Delete(path, recursive: true); }
-        catch (IOException e) { App.Logger.Warn($"Could not delete \"{path}\": {e.Message}"); }
+        catch (DirectoryNotFoundException) { }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException) { App.Logger.Warn($"Could not delete \"{path}\": {e.Message}"); }
     }
 
     public static string GetSystemLanguage()
@@ -855,7 +953,8 @@ public static class Utilities
             var s when s.StartsWith("fr") => "fr-FR",
             var s when s.StartsWith("ru") => "ru-RU",
             var s when s.StartsWith("pt") => "pt-BR",
-            var s when s.StartsWith("it") => "it",
+            var s when s.StartsWith("it") => "it-IT",
+            var s when s.StartsWith("es") => "es-ES",
             _ => "en-US"
         };
     }
