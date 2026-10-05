@@ -309,6 +309,9 @@
   <data name="ui_language_cn" xml:space="preserve">
     <value>中文（简体）</value>
   </data>
+  <data name="ui_language_es" xml:space="preserve">
+    <value>西班牙语</value>
+  </data>
   <data name="header_error" xml:space="preserve">
     <value>错误</value>
   </data>

@@ -5,8 +5,6 @@ using HUDEditor.Classes;
 using HUDEditor.Models;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +19,8 @@ public partial class SettingsViewModel : ViewModelBase
         new() { CultureCode = "fr-FR", CultureName = Resources.ui_language_fr, FlagImagePath = Utilities.LoadFromResource("avares://HUDEditor/Assets/Images/Flags/fr.png") },
         new() { CultureCode = "ru-RU", CultureName = Resources.ui_language_ru, FlagImagePath = Utilities.LoadFromResource("avares://HUDEditor/Assets/Images/Flags/ru.png") },
         new() { CultureCode = "pt-BR", CultureName = Resources.ui_language_pt, FlagImagePath = Utilities.LoadFromResource("avares://HUDEditor/Assets/Images/Flags/br.png") },
-        new() { CultureCode = "it",    CultureName = Resources.ui_language_it, FlagImagePath = Utilities.LoadFromResource("avares://HUDEditor/Assets/Images/Flags/it.png") },
+        new() { CultureCode = "it-IT", CultureName = Resources.ui_language_it, FlagImagePath = Utilities.LoadFromResource("avares://HUDEditor/Assets/Images/Flags/it.png") },
+        new() { CultureCode = "es-ES", CultureName = Resources.ui_language_es, FlagImagePath = Utilities.LoadFromResource("avares://HUDEditor/Assets/Images/Flags/es.png") },
         new() { CultureCode = "zh-CN", CultureName = Resources.ui_language_cn, FlagImagePath = Utilities.LoadFromResource("avares://HUDEditor/Assets/Images/Flags/cn.png") },
     ];
 
@@ -37,7 +36,7 @@ public partial class SettingsViewModel : ViewModelBase
         }
     }
 
-    private string _selectedCulture = App.Config.ConfigSettings.UserPrefs.Language ?? "en-US";
+    private string _selectedCulture = string.IsNullOrWhiteSpace(App.Config.ConfigSettings.UserPrefs.Language) ? "en-US" : App.Config.ConfigSettings.UserPrefs.Language;
     public string SelectedCulture
     {
         get => _selectedCulture;
@@ -138,7 +137,7 @@ public partial class SettingsViewModel : ViewModelBase
         App.SaveConfiguration();
 
         // Ask the user to restart the app if they've changed the language
-        if (Resources.Culture != new CultureInfo(SelectedCulture))
+        if (!string.Equals(Resources.Culture?.Name, SelectedCulture, StringComparison.OrdinalIgnoreCase))
             await Utilities.ShowMessageBox(Resources.info_ask_restart);
     }
 
@@ -168,14 +167,14 @@ public partial class SettingsViewModel : ViewModelBase
     [RelayCommand]
     private static Task OpenUserSettings()
     {
-        Utilities.OpenLocalFile(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TF2HUD.Editor", "settings.json"));
+        Utilities.OpenLocalFile(HUDSettings.UserFile);
         return Task.CompletedTask;
     }
 
     [RelayCommand]
     private static async Task OpenLatestLogFile()
     {
-        var logsFolder = "logs";
+        var logsFolder = Path.Combine(AppContext.BaseDirectory, "logs");
         if (!Directory.Exists(logsFolder))
         {
             await Utilities.ShowMessageBox(Resources.error_logs_folder);

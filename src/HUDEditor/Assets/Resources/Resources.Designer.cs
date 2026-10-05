@@ -115,6 +115,24 @@ namespace HUDEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Some customizations could not be applied. Check the log file for details..
+        /// </summary>
+        public static string error_hud_apply_partial {
+            get {
+                return ResourceManager.GetString("error_hud_apply_partial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A HUD named {0} is already in the list..
+        /// </summary>
+        public static string error_hud_exists {
+            get {
+                return ResourceManager.GetString("error_hud_exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while uninstalling {0}..
         /// </summary>
         public static string error_hud_uninstall {
@@ -570,6 +588,15 @@ namespace HUDEditor.Assets {
         public static string ui_language_en {
             get {
                 return ResourceManager.GetString("ui_language_en", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spanish.
+        /// </summary>
+        public static string ui_language_es {
+            get {
+                return ResourceManager.GetString("ui_language_es", resourceCulture);
             }
         }
         

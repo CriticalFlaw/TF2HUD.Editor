@@ -120,6 +120,12 @@
   <data name="error_hud_install" xml:space="preserve">
     <value>An error occurred while installing {0}.</value>
   </data>
+  <data name="error_hud_apply_partial" xml:space="preserve">
+    <value>Some customizations could not be applied. Check the log file for details.</value>
+  </data>
+  <data name="error_hud_exists" xml:space="preserve">
+    <value>A HUD named {0} is already in the list.</value>
+  </data>
   <data name="error_hud_uninstall" xml:space="preserve">
     <value>An error occurred while uninstalling {0}.</value>
   </data>
@@ -308,6 +314,9 @@
   </data>
   <data name="ui_language_cn" xml:space="preserve">
     <value>Chinese</value>
+  </data>
+  <data name="ui_language_es" xml:space="preserve">
+    <value>Spanish</value>
   </data>
   <data name="header_error" xml:space="preserve">
     <value>Error</value>
