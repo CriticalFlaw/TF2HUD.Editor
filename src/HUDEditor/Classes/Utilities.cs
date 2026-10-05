@@ -321,7 +321,7 @@ public static class Utilities
         return null;
     }
 
-    private static IEnumerable<string> ParseLibraryFolders(string filePath)
+    internal static IEnumerable<string> ParseLibraryFolders(string filePath)
     {
         var paths = new List<string>();
 

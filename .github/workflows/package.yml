@@ -36,7 +36,7 @@ jobs:
       run: dotnet restore src/HUDEditor/HUDEditor.csproj
       
     - name: Test solution
-      run: dotnet test -c Release -r ${{ matrix.rid }} 
+      run: dotnet test ../HUDEditor.Tests/HUDEditor.Tests.csproj -c Release
       working-directory: src/HUDEditor
 
     - name: Publish for ${{ matrix.rid }}

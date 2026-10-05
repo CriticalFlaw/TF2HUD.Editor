@@ -1,7 +1,7 @@
 using HUDEditor.ViewModels;
 using Xunit;
 
-namespace HUDEditor.Tests;
+namespace HUDEditor.Tests.ViewModels;
 
 public class AppInfoViewModelTests
 {
@@ -10,11 +10,7 @@ public class AppInfoViewModelTests
     {
         var vm = new AppInfoViewModel();
 
-        // Should not be null or empty
         Assert.False(string.IsNullOrWhiteSpace(vm.AppVersion));
-
-        // Try parse as version parts (major.minor)
-        var parts = vm.AppVersion.Split('.');
-        Assert.True(parts.Length >= 2);
+        Assert.True(vm.AppVersion.Split('.').Length >= 2); // major.minor
     }
 }
