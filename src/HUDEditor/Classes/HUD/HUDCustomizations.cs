@@ -36,43 +36,49 @@ public partial class HUD
             var hudFolders = new Dictionary<string, dynamic>();
 
             App.Logger.Info($"------");
+            var success = true;
+            var prefs = App.Config.ConfigSettings.UserPrefs;
+            var crosshairChanged = false;
+
             foreach (var group in hudSettings)
             {
                 foreach (var control in group)
                 {
-                    var setting = Settings.GetSetting(control.Name);
-                    if (setting is null) continue;
-                    WriteToFile(control, setting, hudFolders);
+                    var settingName = Utilities.EncodeId(control.Name);
+                    var setting = Settings.GetSetting(settingName);
+                    if (setting is null)
+                    {
+                        // The page for this preset was never rendered; fall back to the schema default.
+                        Settings.AddSetting(settingName, control);
+                        setting = Settings.GetSetting(settingName)!;
+                    }
+                    success &= WriteToFile(control, setting, hudFolders);
 
                     // Apply persistent crosshair settings, where possible.
-                    if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence)
+                    if (!prefs.CrosshairPersistence) continue;
+                    switch (Utilities.GetCrosshairSetting(control))
                     {
-                        switch (control.Type.ToLowerInvariant())
-                        {
-                            case "checkbox":
-                                if (control.Label.Contains("Toggle Crosshair"))
-                                    App.Config.ConfigSettings.UserPrefs.CrosshairEnabled = Boolean.Parse(setting.Value);
-                                break;
-
-                            case "crosshair":
-                                if (control.Label.Contains("Style"))
-                                    App.Config.ConfigSettings.UserPrefs.CrosshairStyle = setting.Value;
-                                break;
-
-                            case "colorpicker":
-                                if (control.Label.Contains("Crosshair"))
-                                    App.Config.ConfigSettings.UserPrefs.CrosshairColor = setting.Value;
-                                break;
-
-                            case "integerupdown":
-                                if (control.Label.Contains("Size"))
-                                    App.Config.ConfigSettings.UserPrefs.CrosshairSize = int.Parse(setting.Value);
-                                break;
-                        }
-                        App.SaveConfiguration();
+                        case Utilities.CrosshairSetting.Enabled when bool.TryParse(setting.Value, out var enabled):
+                            prefs.CrosshairEnabled = enabled;
+                            crosshairChanged = true;
+                            break;
+                        case Utilities.CrosshairSetting.Style when !string.IsNullOrEmpty(setting.Value):
+                            prefs.CrosshairStyle = setting.Value;
+                            crosshairChanged = true;
+                            break;
+                        case Utilities.CrosshairSetting.Color when !string.IsNullOrEmpty(setting.Value):
+                            prefs.CrosshairColor = setting.Value;
+                            crosshairChanged = true;
+                            break;
+                        case Utilities.CrosshairSetting.Size when int.TryParse(setting.Value, out var size):
+                            prefs.CrosshairSize = size;
+                            crosshairChanged = true;
+                            break;
                     }
                 }
             }
+
+            if (crosshairChanged) App.SaveConfiguration();
 
             static void IterateProperties(Dictionary<string, dynamic> folder, string folderPath)
             {
@@ -130,7 +136,7 @@ public partial class HUD
             // Write HudFolders to the HUD once instead of each WriteToFile call reading and writing
             IterateProperties(hudFolders, App.HudPath + "/" + Name);
             HudBackground.ApplyBackground();
-            return true;
+            return success;
         }
         catch (Exception e)
         {
@@ -148,12 +154,11 @@ public partial class HUD
         try
         {
             // Check if the customization folder exist.
-            var path = $"{App.HudPath}\\{Name}\\";
-            if (!Directory.Exists($"{path}/{CustomizationsFolder}")) return;
+            var path = Path.Combine(App.HudPath, Name) + "/";
+            if (!Directory.Exists(path + CustomizationsFolder)) return;
 
             // Check if the "enabled" folder exists. If not, create it.
-            if (!Directory.Exists($"{path}/{EnabledFolder}"))
-                Directory.CreateDirectory($"{path}/{EnabledFolder}");
+            Directory.CreateDirectory(path + EnabledFolder);
 
             // Get user's settings for the selected HUD.
             var userSettings = (JsonConvert.DeserializeObject<UserJson>(File.ReadAllText(HUDSettings.UserFile)) ?.Settings ?? []).Where(x => x.Hud == Name);
@@ -219,13 +224,19 @@ public partial class HUD
                                     File.Move(enabled + $"/{file}", custom + $"/{file}", true);
                             }
 
-                            var name = control.Options[int.Parse(setting.Value)].FileName;
+                            if (!int.TryParse(setting.Value, out var optionIndex) || optionIndex < 0 || optionIndex >= control.Options.Length)
+                            {
+                                App.Logger.Warn($"Invalid option index \"{setting.Value}\" for {control.Name}; skipping.");
+                                break;
+                            }
+
+                            var name = control.Options[optionIndex].FileName;
                             if (string.IsNullOrWhiteSpace(name)) break;
 
                             name = name.Replace(".res", string.Empty);
                             if (Directory.Exists(custom + $"/{name}"))
                             {
-                                if (control.ComboDirectories is not null)
+                                if (control.ComboDirectories is { Length: > 0 })
                                     CopyDirectory(custom + $"/{name}", enabled);
                                 else
                                     Directory.Move(custom + $"/{name}", enabled + $"/{name}");
@@ -251,7 +262,7 @@ public partial class HUD
     /// <param name="hudSetting">Settings as defined for the HUD</param>
     /// <param name="userSetting">Settings as selected by the user</param>
     /// <param name="hudFolders">folders/files/properties Dictionary to write HUD properties to</param>
-    private void WriteToFile(Controls hudSetting, Setting userSetting, Dictionary<string, dynamic> hudFolders)
+    private bool WriteToFile(Controls hudSetting, Setting userSetting, Dictionary<string, dynamic> hudFolders)
     {
         try
         {
@@ -304,7 +315,7 @@ public partial class HUD
             if (hudSetting.WriteCfg is not null && !string.IsNullOrWhiteSpace(hudSetting.WriteCfg.FileName))
             {
                 // Find tf/cfg directory and create the HUD's cfg directory if it doesn't exist
-                var cfgPath = Path.GetFullPath(App.HudPath.Replace("\\custom", "\\cfg"));
+                var cfgPath = Path.Combine(Utilities.GetTfDirectory(App.HudPath), "cfg");
                 var hudFolder = Path.Combine(cfgPath, Name);
                 if (!Directory.Exists(hudFolder)) Directory.CreateDirectory(hudFolder);
 
@@ -338,7 +349,7 @@ public partial class HUD
             if (hudSetting.RenameFile is not null)
                 RenameFileOrFolder(Name, hudSetting.RenameFile.OldName, hudSetting.RenameFile.NewName, userSetting.Value);   // TODO: does Name need to be path?
 
-            if (files is null) return;
+            if (files is null) return true;
 
             // Applies $value (and handles keywords where applicable) to provided HUD element
             // JObject and returns a HUD element Dictionary, recursively
@@ -669,11 +680,13 @@ public partial class HUD
                     _ = Utilities.ShowMessageBox(string.Format(Resources.error_unknown_extension, extension), MsBox.Avalonia.Enums.Icon.Error);
                 }
             }
+
+            return true;
         }
         catch (Exception e)
         {
-            App.Logger.Error(e.Message);
-            Console.WriteLine(e);
+            App.Logger.Error($"Failed to apply {userSetting.Name}: {e}");
+            return false;
         }
     }
 

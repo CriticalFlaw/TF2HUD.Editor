@@ -91,7 +91,7 @@ internal class VDFTokenizer
 
                     var start = index;
 
-                    while (Text[index] != '"')
+                    while (index >= Text.Length || Text[index] != '"')
                     {
                         if (index >= Text.Length)
                         {
@@ -306,9 +306,9 @@ internal static class VDF
                         // Check for conditional.
                         var keyTokens = key.Split('^');
                         if (keyTokens.Length > 1)
-                            stringValue += $"{new string(tab, tabs)}\"{key}\" {keyTokens[1]}{newLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{keyTokens[0]}\" {keyTokens[1]}{newLine}";
                         else
-                            stringValue += $"{new string(tab, tabs)}{key}{newLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{key}\"{newLine}";
 
                         stringValue += $"{new string(tab, tabs)}{{{newLine}";
                         stringValue += $"{Stringify(item, tabs + 1)}{new string(tab, tabs)}}}{newLine}";
@@ -318,7 +318,7 @@ internal static class VDF
                         // Check for conditional.
                         var keyTokens = key.Split('^');
                         if (keyTokens.Length > 1)
-                            stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{item}\" {keyTokens[1]}{newLine}";
+                            stringValue += $"{new string(tab, tabs)}\"{keyTokens[0]}\"\t\"{item}\" {keyTokens[1]}{newLine}";
                         else
                             stringValue += $"{new string(tab, tabs)}\"{key}\"\t\"{item}\"{newLine}";
                     }
