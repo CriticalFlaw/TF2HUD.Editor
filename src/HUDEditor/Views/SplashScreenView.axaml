@@ -9,7 +9,7 @@
         x:DataType="vm:SplashScreenViewModel"
 		Icon="avares://HUDEditor/Assets/Images/favicon.ico"
         WindowStartupLocation="CenterScreen"
-        SystemDecorations="None"
+        WindowDecorations="None"
 		Background="Transparent"
 		Width="500" Height="250">
 
