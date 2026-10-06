@@ -23,7 +23,7 @@
 			<Run Text="> Improved Linux support" />
 			<LineBreak />
 			<Run Text="> Fixes for customizations, crosshair settings and custom backgrounds" />
-			<LineBreak 
+			<LineBreak />
 			<Run Text="> Backend improvements and bug-fixes" />
 			<LineBreak />
 			<Run Text="> Upgraded to .NET 10 and Avalonia 12" />
