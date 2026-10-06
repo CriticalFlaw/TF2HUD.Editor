@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Avalonia.Controls;
@@ -38,7 +39,8 @@ public partial class HUD
         // NOTE: ColumnDefinition and RowDefinition only exist on Grid, not Panel, so we are forced to use dynamic for each section.
         dynamic sectionsContainer;
 
-        if (LayoutOptions is not null)
+        // Schema arrays default to empty, so an empty layout means "no layout" (fall back to a WrapPanel).
+        if (LayoutOptions is { Length: > 0 })
         {
             // Splits Layout string[] into 2D Array using \s+
             Layout = LayoutOptions.Select(t => Regex.Split(t, "\\s+")).ToArray();
@@ -109,7 +111,7 @@ public partial class HUD
                     case "colorpicker":
                     case "colourpicker":
                         var colorContainer = CreateColorPicker(controlItem);
-                        var colorInput = colorContainer.Children.OfType<Avalonia.Controls.ColorPicker>().FirstOrDefault();
+                        var colorInput = colorContainer.Children.OfType<Avalonia.Controls.ColorPicker>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(colorContainer);
@@ -131,7 +133,7 @@ public partial class HUD
                         if (controlItem.Options is not { Length: > 0 }) break;
 
                         var comboBoxContainer = CreateComboBox(controlItem);
-                        var comboBoxInput = comboBoxContainer.Children.OfType<ComboBox>().FirstOrDefault();
+                        var comboBoxInput = comboBoxContainer.Children.OfType<ComboBox>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(comboBoxContainer);
@@ -149,7 +151,7 @@ public partial class HUD
                     case "integer":
                     case "integerupdown":
                         var integerContainer = CreateNumberPicker(controlItem);
-                        var integerInput = integerContainer.Children.OfType<NumericUpDown>().FirstOrDefault();
+                        var integerInput = integerContainer.Children.OfType<NumericUpDown>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(integerContainer);
@@ -166,7 +168,7 @@ public partial class HUD
                     case "crosshair":
                     case "customcrosshair":
                         var xhairContainer = CreateCrosshairPicker(controlItem);
-                        var xhairInput = xhairContainer.Children.OfType<ComboBox>().FirstOrDefault();
+                        var xhairInput = xhairContainer.Children.OfType<ComboBox>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(xhairContainer);
@@ -183,7 +185,7 @@ public partial class HUD
                     case "background":
                     case "custombackground":
                         var bgContainer = CreateBackgroundSetter(controlItem);
-                        var bgInput = bgContainer.Children.OfType<Button>().FirstOrDefault();
+                        var bgInput = bgContainer.Children.OfType<Button>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(bgContainer);
@@ -193,7 +195,7 @@ public partial class HUD
                     case "text":
                     case "textbox":
                         var textContainer = CreateTextBox(controlItem);
-                        var textInput = textContainer.Children.OfType<TextBox>().FirstOrDefault();
+                        var textInput = textContainer.Children.OfType<TextBox>().First();
 
                         // Add to page.
                         sectionContent.Children.Add(textContainer);
@@ -340,9 +342,11 @@ public partial class HUD
         Grid.SetRow(image, 2);
 
         var imageSource = Settings.GetSetting<string>(controlItem.Name);
-        if (!string.IsNullOrWhiteSpace(imageSource))
-            if (Uri.TryCreate(imageSource, UriKind.Absolute, out var path))
-                image.Source = new Bitmap(path.LocalPath);
+        if (!string.IsNullOrWhiteSpace(imageSource) && Uri.TryCreate(imageSource, UriKind.Absolute, out var path) && File.Exists(path.LocalPath))
+        {
+            try { image.Source = new Bitmap(path.LocalPath); }
+            catch (Exception e) { App.Logger.Warn($"Could not load background preview \"{path.LocalPath}\": {e.Message}"); }
+        }
 
         //----
 
@@ -356,9 +360,12 @@ public partial class HUD
         browse.Click += async (_, _) =>
         {
             await Utilities.ShowMessageBox(Assets.Resources.info_background_override);
-            var files = await TopLevel.GetTopLevel(browse).StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            var topLevel = TopLevel.GetTopLevel(browse);
+            if (topLevel is null) return;
+
+            var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
             {
-                Title = "Select an image file",
+                Title = Assets.Resources.dialog_select_image,
                 AllowMultiple = false,
                 FileTypeFilter =
                 [
@@ -372,10 +379,17 @@ public partial class HUD
 
             if (files.Count >= 1)
             {
+                var localPath = files[0].TryGetLocalPath();
+                if (localPath is null)
+                {
+                    await Utilities.ShowMessageBox(Assets.Resources.info_path_invalid, MsBox.Avalonia.Enums.Icon.Error);
+                    return;
+                }
+
                 await using var stream = await files[0].OpenReadAsync();
                 image.Source = new Bitmap(stream);
-                var imgPath = await ImageCache.SaveToCacheAsync(files[0].Path.AbsolutePath.ToString());
-                Settings.SetSetting(controlItem.Name, imgPath);
+                var imgPath = await ImageCache.SaveToCacheAsync(localPath);
+                Settings.SetSetting(controlItem.Name, imgPath ?? string.Empty);
             }
 
             CheckIsDirty(controlItem);
@@ -396,6 +410,7 @@ public partial class HUD
         {
             image.Source = null;
             Settings.SetSetting(controlItem.Name, "");
+            CheckIsDirty(controlItem);
         };
 
         Grid.SetColumn(clear, 1);
@@ -448,7 +463,8 @@ public partial class HUD
         }
 
         // Set the selected value depending on the what's retrieved from the setting file.
-        var xhair = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence ? App.Config.ConfigSettings.UserPrefs.CrosshairStyle : Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name));
+        var persist = App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && Utilities.GetCrosshairSetting(controlItem) == Utilities.CrosshairSetting.Style;
+        var xhair = persist ? App.Config.ConfigSettings.UserPrefs.CrosshairStyle : Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name));
         var index = Utilities.CrosshairStyles.IndexOf(xhair);
         combobox.SelectedIndex = (index >= 0) ? index : 0;
 
@@ -479,15 +495,15 @@ public partial class HUD
             Increment = controlItem.Increment
         };
         numpicker.Width = (controlItem.Width > 0) ? controlItem.Width : numpicker.Width;
-        numpicker.ValueChanged += (sender, _) =>
+        numpicker.ValueChanged += (sender, e) =>
         {
             var input = sender as NumericUpDown;
-            Settings.SetSetting(input.Name, input.Text);
+            Settings.SetSetting(input?.Name, e.NewValue.HasValue ? ((int)e.NewValue.Value).ToString() : controlItem.Value);
             CheckIsDirty(controlItem);
         };
         ToolTip.SetTip(numpicker, controlItem.Tooltip);
 
-        if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Size"))
+        if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && Utilities.GetCrosshairSetting(controlItem) == Utilities.CrosshairSetting.Size && App.Config.ConfigSettings.UserPrefs.CrosshairSize > 0)
             numpicker.Value = App.Config.ConfigSettings.UserPrefs.CrosshairSize;
 
         //----
@@ -530,7 +546,9 @@ public partial class HUD
         }
 
         // Set the selected value depending on the what's retrieved from the setting file.
-        combobox.SelectedIndex = int.Parse(Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name)));
+        combobox.SelectedIndex = int.TryParse(Settings.GetSetting<string>(Utilities.EncodeId(controlItem.Name)), out var selectedIndex) && selectedIndex >= 0 && selectedIndex < controlItem.Options.Length
+            ? selectedIndex
+            : 0;
 
         //----
 
@@ -546,7 +564,6 @@ public partial class HUD
         var label = new Label();
         label.Content = controlItem.Label;
         label.Classes.Add("OptionLabel");
-        //label.Width = (controlItem.Width > 0) ? controlItem.Width : label.Width;
 
         //----
 
@@ -554,24 +571,25 @@ public partial class HUD
         {
             Name = Utilities.EncodeId(controlItem.Name)
         };
-        //control.Width = (controlItem.Width > 0) ? controlItem.Width : control.Width;
         colorpicker.ColorChanged += (sender, _) =>
         {
-            var input = sender as ColorPicker;
-            Settings.SetSetting(input?.Name, Utilities.ConvertToRgba(input?.Color.ToString()));
+            if (sender is not ColorPicker input) return;
+            Settings.SetSetting(input.Name, Utilities.ConvertToRgba(input.Color.ToString()));
+            CheckIsDirty(controlItem);
         };
         ToolTip.SetTip(colorpicker, controlItem.Tooltip);
 
         // Attempt to bind the color from the settings.
         try
         {
-            if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Crosshair"))
+            if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && Utilities.GetCrosshairSetting(controlItem) == Utilities.CrosshairSetting.Color && !string.IsNullOrWhiteSpace(App.Config.ConfigSettings.UserPrefs.CrosshairColor))
                 colorpicker.Color = Utilities.ConvertToColor(App.Config.ConfigSettings.UserPrefs.CrosshairColor);
             else
                 colorpicker.Color = Settings.GetSetting<Color>(Utilities.EncodeId(controlItem.Name));
         }
         catch
         {
+            // Default color if unable to load it from settings.
             colorpicker.Color = Color.FromArgb(255, 0, 255, 0);
         }
 
@@ -603,13 +621,13 @@ public partial class HUD
         ToolTip.SetTip(checkbox, controlItem.Tooltip);
 
         // Persist the crosshair selection.
-        if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && controlItem.Label.Contains("Toggle Crosshair"))
+        if (App.Config.ConfigSettings.UserPrefs.CrosshairPersistence && Utilities.GetCrosshairSetting(controlItem) == Utilities.CrosshairSetting.Enabled)
             checkbox.IsChecked = App.Config.ConfigSettings.UserPrefs.CrosshairEnabled;
 
         return checkbox;
     }
 
-    private Button CreateResetButton(string? section)
+    private Button CreateResetButton(string section)
     {
         var button = new Button
         {
@@ -636,10 +654,10 @@ public partial class HUD
 
     private Button CreatePreviewButton(string url)
     {
-        // Create the preview modal
+        // Create the preview modal. The image is loaded on first click, not while the page is built,
+        // so opening a HUD with many previews doesn't block the UI on downloads.
         var image = new Image();
         image.Classes.Add("PreviewImage");
-        image.Source = Utilities.LoadImage(url);
 
         var border = new Border
         {
@@ -650,7 +668,11 @@ public partial class HUD
 
         var button = new Button();
         button.Classes.Add("PreviewButton");
-        button.Click += (_, _) => DialogHost.Show(border, "PreviewModal");
+        button.Click += async (_, _) =>
+        {
+            image.Source ??= await ImageCache.GetImageAsync(url);
+            await DialogHost.Show(border, "PreviewModal");
+        };
         return button;
     }
 
@@ -659,8 +681,10 @@ public partial class HUD
     /// </summary>
     private void CheckIsDirty(Models.Controls control)
     {
-        if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(control.Name).Value) && !DirtyControls.Contains(control.Label))
-            DirtyControls.Add(control.Label);
+        if (control.Restart && !string.Equals(control.Value, Settings.GetSetting(Utilities.EncodeId(control.Name))?.Value))
+        {
+            if (!DirtyControls.Contains(control.Label)) DirtyControls.Add(control.Label);
+        }
         else
             DirtyControls.Remove(control.Label);
     }

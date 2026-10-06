@@ -32,9 +32,9 @@ public partial class SplashScreenViewModel : ViewModelBase
     }
 
     public string ImageDownloadStatus =>
-    TotalImages == 0
-        ? Assets.Resources.ui_splash_images
-        : string.Format(Assets.Resources.ui_splash_images_download, ImagesDownloaded, TotalImages);
+        TotalImages == 0
+            ? Assets.Resources.ui_splash_images
+            : string.Format(Assets.Resources.ui_splash_images_download, ImagesDownloaded, TotalImages);
 
     private string _staticStartupMessage = Assets.Resources.ui_splash_initialize;
     private bool _isDownloadingImages;
@@ -50,46 +50,57 @@ public partial class SplashScreenViewModel : ViewModelBase
         OnPropertyChanged(nameof(StartupMessage));
     }
 
-
-    public void Cancel()
-    {
-        _cts.Cancel();
-    }
+    public void Cancel() => _cts.Cancel();
 
     private readonly CancellationTokenSource _cts = new();
-
     public CancellationToken CancellationToken => _cts.Token;
 
-    public async Task DownloadImages(IEnumerable<HUD> _hudList)
+    /// <summary>
+    /// Downloads and caches thumbnail and screenshot images for all HUDs.
+    /// </summary>
+    public async Task DownloadImages(IEnumerable<HUD> hudList, CancellationToken cancellationToken = default)
     {
+        // Link the external token with the internal one so either can cancel.
+        using var linked = CancellationTokenSource.CreateLinkedTokenSource(_cts.Token, cancellationToken);
+        var ct = linked.Token;
+
         try
         {
             _isDownloadingImages = true;
             OnPropertyChanged(nameof(StartupMessage));
+
             var imageUrls = new List<string>();
-            foreach (var hud in _hudList)
+            foreach (var hud in hudList)
             {
                 if (!string.IsNullOrWhiteSpace(hud.Thumbnail))
                     imageUrls.Add(hud.Thumbnail);
 
                 if (hud.Screenshots != null)
                     imageUrls.AddRange(hud.Screenshots);
+
+                if (IsRemote(hud.Background) && hud.Background != hud.Thumbnail)
+                    imageUrls.Add(hud.Background);
             }
 
             TotalImages = imageUrls.Count;
             ImagesDownloaded = 0;
 
-            foreach (var hud in _hudList)
+            foreach (var hud in hudList)
             {
-                hud.ThumbnailImage = await DownloadAndReportAsync(hud.Thumbnail);
+                ct.ThrowIfCancellationRequested();
+                hud.ThumbnailImage = await DownloadAndReportAsync(hud.Thumbnail, ct);
 
-                // Load and cache screenshots
+                // Pre-cache the page background so the background converter reads it from disk instead of downloading on the UI thread.
+                if (IsRemote(hud.Background) && hud.Background != hud.Thumbnail)
+                    await DownloadAndReportAsync(hud.Background, ct);
+
                 hud.ScreenshotImages = [];
-                if (hud.Screenshots != null)
+                if (hud.Screenshots.Length > 0)
                 {
                     foreach (var screenshotUrl in hud.Screenshots)
                     {
-                        var img = await DownloadAndReportAsync(screenshotUrl);
+                        ct.ThrowIfCancellationRequested();
+                        var img = await DownloadAndReportAsync(screenshotUrl, ct);
                         if (img != null)
                             hud.ScreenshotImages.Add(img);
                     }
@@ -103,8 +114,17 @@ public partial class SplashScreenViewModel : ViewModelBase
         }
     }
 
-    private async Task<Avalonia.Media.Imaging.Bitmap?> DownloadAndReportAsync(string url)
+    private static bool IsRemote(string? url) => url is not null && url.StartsWith("http", System.StringComparison.OrdinalIgnoreCase);
+
+    private async Task<Avalonia.Media.Imaging.Bitmap?> DownloadAndReportAsync(string? url, CancellationToken ct)
     {
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            ImagesDownloaded++;
+            return null;
+        }
+
+        ct.ThrowIfCancellationRequested();
         var bitmap = await ImageCache.GetImageAsync(url);
         ImagesDownloaded++;
         return bitmap;

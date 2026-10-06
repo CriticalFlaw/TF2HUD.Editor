@@ -28,7 +28,7 @@ public class UserPreferences
     public string HUDDirectory { get; set; } = string.Empty;
 
     [JsonPropertyName("user_language")]
-    public string Language { get; set; } = "en-US";
+    public string Language { get; set; } = string.Empty;
 
     [JsonPropertyName("app_update_auto")]
     public bool AutoUpdate { get; set; } = true;
@@ -73,13 +73,10 @@ public class AppConfig
     public string LatestUpdateURL { get; set; } = "https://github.com/CriticalFlaw/TF2HUD.Editor/releases/latest";
 
     [JsonPropertyName("mastercomfig_vpk")]
-    public string MastercomfigVpkURL { get; set; } = "https://github.com/mastercomfig/mastercomfig/releases/download/9.5.2/mastercomfig-transparent-viewmodels-addon.vpk";
+    public string MastercomfigVpkURL { get; set; } = "https://github.com/mastercomfig/mastercomfig/releases/download/9.100.1/mastercomfig-addon-transparent-viewmodels.vpk";
 
     [JsonPropertyName("tf2_hud_crosshairs_zip")]
     public string CrosshairPackURL { get; set; } = "https://github.com/Hypnootize/TF2-HUD-Crosshairs/archive/refs/heads/master.zip";
-
-    [JsonPropertyName("castingessentials_zip")]
-    public string CastingEssentialsURL { get; set; } = "https://github.com/Hypnootize/TF2-HUD-Crosshairs/archive/refs/heads/master.zip";
 
     [JsonPropertyName("sentry_dsn")]
     public string SentryDsn { get; set; } = "https://4e922f3f78a96ed10bd15cc899a69924@o287333.ingest.us.sentry.io/4509027513597952";

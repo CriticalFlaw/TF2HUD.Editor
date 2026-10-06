@@ -26,7 +26,7 @@ internal class PresetViewModel : ViewModelBase
         _editHudViewModel.PropertyChanged += EditHUDViewModelPropertyChanged;
     }
 
-    private void EditHUDViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    private void EditHUDViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(EditHUDViewModel.SelectedPreset))
             Selected = _editHudViewModel.SelectedPreset == Preset;

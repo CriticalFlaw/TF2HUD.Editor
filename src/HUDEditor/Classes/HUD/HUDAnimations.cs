@@ -108,7 +108,7 @@ internal static class HUDAnimations
         string ReadBool()
         {
             var token = ReadString();
-            if (token != "0" || token != "1") throw new VDFSyntaxException(VDFTokenType.String, token, ["0", "1"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
+            if (token != "0" && token != "1") throw new VDFSyntaxException(VDFTokenType.String, token, ["0", "1"], tokenizer.Index, tokenizer.Line, tokenizer.Character);
             return token;
         }
 

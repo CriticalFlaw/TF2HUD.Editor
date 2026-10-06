@@ -244,7 +244,6 @@
 		</Style>
 
 		<Style Selector="Button.LinkButton.GitHubButton">
-			<Setter Property="Content" Value="&#x0692;" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#171A21" />
 
@@ -288,7 +287,6 @@
 		</Style>
 
 		<Style Selector="Button.LinkButton.DiscordButton">
-			<Setter Property="Content" Value="&#x0689;" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#5865F2" />
 
@@ -299,7 +297,6 @@
 		</Style>
 
 		<Style Selector="Button.LinkButton.SteamButton">
-			<Setter Property="Content" Value="&#x0683;" />
 			<Setter Property="Foreground" Value="#FFFFFF" />
 			<Setter Property="Background" Value="#1B2838" />
 

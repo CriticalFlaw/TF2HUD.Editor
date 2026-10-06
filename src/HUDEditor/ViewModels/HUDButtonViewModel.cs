@@ -8,7 +8,7 @@ internal class HUDButtonViewModel : ViewModelBase
     public HUD Hud { get; }
     public string Name => Hud.Name;
     public string Author => Hud.Author;
-    public Bitmap Thumbnail => Hud.ThumbnailImage;
+    public Bitmap? Thumbnail => Hud.ThumbnailImage;
     public bool Unique => Hud.Unique;
     public string Icon => Hud.Unique ? "\u05AE" : "";
     public int Column { get; }

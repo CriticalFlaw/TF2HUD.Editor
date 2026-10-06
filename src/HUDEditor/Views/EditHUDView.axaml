@@ -53,7 +53,9 @@
 				</Grid>
 
 				<WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="2">
-					<Button Classes="LinkButton GitHubButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding GitHubUrl}" IsVisible="{Binding GitHubUrl, Converter={StaticResource LinkCheckConverterVisibility}}" />
+					<Button Classes="LinkButton GitHubButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding GitHubUrl}" IsVisible="{Binding GitHubUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
+						<Image Source="avares://HUDEditor/Assets/Images/github.png" Margin="5"/>
+					</Button>
 					<Button Classes="LinkButton TF2HudsButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding TF2HudsUrl}" IsVisible="{Binding TF2HudsUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
 						<Image Source="avares://HUDEditor/Assets/Images/tf2huds.png" Margin="5"/>
 					</Button>
@@ -63,8 +65,12 @@
 					<Button Classes="LinkButton GameBananaButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding GameBananaUrl}" IsVisible="{Binding GameBananaUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
 						<Image Source="avares://HUDEditor/Assets/Images/gamebanana.png" Margin="5"/>
 					</Button>
-					<Button Classes="LinkButton DiscordButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding DiscordUrl}" IsVisible="{Binding DiscordUrl, Converter={StaticResource LinkCheckConverterVisibility}}"/>
-					<Button Classes="LinkButton SteamButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding SteamUrl}" IsVisible="{Binding SteamUrl, Converter={StaticResource LinkCheckConverterVisibility}}"/>
+					<Button Classes="LinkButton DiscordButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding DiscordUrl}" IsVisible="{Binding DiscordUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
+						<Image Source="avares://HUDEditor/Assets/Images/discord.png" Margin="5"/>
+					</Button>
+					<Button Classes="LinkButton SteamButton" Command="{Binding OpenWebpageCommand}" CommandParameter="{Binding SteamUrl}" IsVisible="{Binding SteamUrl, Converter={StaticResource LinkCheckConverterVisibility}}">
+						<Image Source="avares://HUDEditor/Assets/Images/steam.png" Margin="5"/>
+					</Button>
 				</WrapPanel>
 			</Grid>
 			<ContentControl Content="{Binding Content}" Grid.Row="1" />

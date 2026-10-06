@@ -61,7 +61,7 @@ internal partial class HomePageViewModel : ViewModelBase
         _allHuds = hudList.Select((hud, i) => new HUDButtonViewModel(hud, i % 2, i / 2)).OrderBy(x => x.Name).ToList();
         ApplyFilters();
 
-        Info = new AppInfoViewModel();
+        _info = new AppInfoViewModel();
         _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
     }
 
@@ -87,7 +87,7 @@ internal partial class HomePageViewModel : ViewModelBase
         foreach (var hud in filtered) HUDListView.Add(hud);
     }
 
-    private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    private void MainWindowViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(MainWindowViewModel.HighlightedHud))
         {

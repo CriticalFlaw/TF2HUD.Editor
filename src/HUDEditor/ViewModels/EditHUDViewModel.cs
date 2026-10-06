@@ -55,17 +55,18 @@ internal partial class EditHUDViewModel : ViewModelBase
         else
             _status = string.Format(Assets.Resources.status_installed_not, hud.Name);
 
-        if ((App.Config.ConfigSettings.UserPrefs.PathBypass && !Utilities.CheckUserPath()) ||
-            (!App.Config.ConfigSettings.UserPrefs.PathBypass & !App.HudPath.EndsWith("tf/custom")))
+        // CheckUserPath handles both separator styles and the path-check bypass.
+        if (!Utilities.CheckUserPath())
             _status = Assets.Resources.status_path_notset;
 
         _selectedPreset = _hud.Settings.Preset;
         Presets = new ObservableCollection<PresetViewModel>(Enum.GetValues<Preset>().Select((p) => new PresetViewModel(this, p)));
         _mainWindowViewModel.WindowTitle = $"{Assets.Resources.ui_title} | {hud.Name}";
         Content = _hud.GetControls();
+        _mainWindowViewModel.PropertyChanged += MainWindowViewModelPropertyChanged;
     }
 
-    private void MainWindowViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+    private void MainWindowViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName == nameof(MainWindowViewModel.SelectedHudInstalled))
         {

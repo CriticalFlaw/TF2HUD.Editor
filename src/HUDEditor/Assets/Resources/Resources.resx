@@ -120,6 +120,12 @@
   <data name="error_hud_install" xml:space="preserve">
     <value>An error occurred while installing {0}.</value>
   </data>
+  <data name="error_hud_apply_partial" xml:space="preserve">
+    <value>Some customizations could not be applied. Check the log file for details.</value>
+  </data>
+  <data name="error_hud_exists" xml:space="preserve">
+    <value>A HUD named {0} is already in the list.</value>
+  </data>
   <data name="error_hud_uninstall" xml:space="preserve">
     <value>An error occurred while uninstalling {0}.</value>
   </data>
@@ -309,6 +315,9 @@
   <data name="ui_language_cn" xml:space="preserve">
     <value>Chinese</value>
   </data>
+  <data name="ui_language_es" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
   <data name="header_error" xml:space="preserve">
     <value>Error</value>
   </data>
@@ -323,5 +332,41 @@
   </data>
   <data name="ui_disable_sentry" xml:space="preserve">
     <value>Disable error tracking using Sentry</value>
+  </data>
+  <data name="error_image_convert" xml:space="preserve">
+    <value>Failed to convert image. Please try a different file.</value>
+  </data>
+  <data name="ui_cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="settings_user_path" xml:space="preserve">
+    <value>User Path</value>
+  </data>
+  <data name="settings_settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="settings_troubleshooting" xml:space="preserve">
+    <value>Troubleshooting</value>
+  </data>
+  <data name="appinfo_install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="appinfo_and" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="appinfo_favorite_huds" xml:space="preserve">
+    <value>your favorite Team Fortress 2 HUDs!</value>
+  </data>
+  <data name="appinfo_version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="error_logs_folder" xml:space="preserve">
+    <value>No logs folder found.</value>
+  </data>
+  <data name="error_no_log_files" xml:space="preserve">
+    <value>No log files found.</value>
+  </data>
+  <data name="dialog_select_image" xml:space="preserve">
+    <value>Select an image file</value>
   </data>
 </root>

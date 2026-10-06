@@ -61,6 +61,51 @@ namespace HUDEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to and.
+        /// </summary>
+        public static string appinfo_and {
+            get {
+                return ResourceManager.GetString("appinfo_and", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to your favorite Team Fortress 2 HUDs!.
+        /// </summary>
+        public static string appinfo_favorite_huds {
+            get {
+                return ResourceManager.GetString("appinfo_favorite_huds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install.
+        /// </summary>
+        public static string appinfo_install {
+            get {
+                return ResourceManager.GetString("appinfo_install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string appinfo_version {
+            get {
+                return ResourceManager.GetString("appinfo_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select an image file.
+        /// </summary>
+        public static string dialog_select_image {
+            get {
+                return ResourceManager.GetString("dialog_select_image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while installing {0}..
         /// </summary>
         public static string error_hud_install {
@@ -70,11 +115,56 @@ namespace HUDEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Some customizations could not be applied. Check the log file for details..
+        /// </summary>
+        public static string error_hud_apply_partial {
+            get {
+                return ResourceManager.GetString("error_hud_apply_partial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A HUD named {0} is already in the list..
+        /// </summary>
+        public static string error_hud_exists {
+            get {
+                return ResourceManager.GetString("error_hud_exists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while uninstalling {0}..
         /// </summary>
         public static string error_hud_uninstall {
             get {
                 return ResourceManager.GetString("error_hud_uninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to convert image. Please try a different file..
+        /// </summary>
+        public static string error_image_convert {
+            get {
+                return ResourceManager.GetString("error_image_convert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No logs folder found..
+        /// </summary>
+        public static string error_logs_folder {
+            get {
+                return ResourceManager.GetString("error_logs_folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No log files found..
+        /// </summary>
+        public static string error_no_log_files {
+            get {
+                return ResourceManager.GetString("error_no_log_files", resourceCulture);
             }
         }
         
@@ -241,6 +331,33 @@ namespace HUDEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string settings_settings {
+            get {
+                return ResourceManager.GetString("settings_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Troubleshooting.
+        /// </summary>
+        public static string settings_troubleshooting {
+            get {
+                return ResourceManager.GetString("settings_troubleshooting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Path.
+        /// </summary>
+        public static string settings_user_path {
+            get {
+                return ResourceManager.GetString("settings_user_path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} customizations applied on {1}..
         /// </summary>
         public static string status_applied {
@@ -376,6 +493,15 @@ namespace HUDEditor.Assets {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ui_cancel {
+            get {
+                return ResourceManager.GetString("ui_cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto-update files (Disable if doing local edits).
         /// </summary>
         public static string ui_check_updates {
@@ -462,6 +588,15 @@ namespace HUDEditor.Assets {
         public static string ui_language_en {
             get {
                 return ResourceManager.GetString("ui_language_en", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spanish.
+        /// </summary>
+        public static string ui_language_es {
+            get {
+                return ResourceManager.GetString("ui_language_es", resourceCulture);
             }
         }
         

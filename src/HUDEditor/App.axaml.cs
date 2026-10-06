@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using HUDEditor.Classes;
 using HUDEditor.Models;
 using HUDEditor.ViewModels;
 using HUDEditor.Views;
@@ -11,6 +12,7 @@ using Sentry;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -19,9 +21,9 @@ namespace HUDEditor;
 
 public partial class App : Application
 {
-    public static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
-    public static ConfigurationModel Config { get; private set; }
-    public static string HudPath { get; set; }
+    public static readonly ILog Logger = LogManager.GetLogger(typeof(App));
+    public static ConfigurationModel Config { get; private set; } = null!;
+    public static string HudPath { get; set; } = null!;
 
     public override void Initialize()
     {
@@ -30,6 +32,8 @@ public partial class App : Application
 
     public override async void OnFrameworkInitializationCompleted()
     {
+        Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var mainWindowVm = new MainWindowViewModel();
@@ -47,11 +51,20 @@ public partial class App : Application
                 await Task.Delay(1000, splashScreenVm.CancellationToken);
                 await mainWindowVm.LoadHUDs();
                 await Task.Delay(1000, splashScreenVm.CancellationToken);
-                await splashScreenVm.DownloadImages(mainWindowVm.HUDList);
+                await splashScreenVm.DownloadImages(mainWindowVm.HUDList, splashScreenVm.CancellationToken);
             }
-            catch (TaskCanceledException)
+            catch (OperationCanceledException)
             {
                 splashScreen.Close();
+                return;
+            }
+            catch (Exception ex)
+            {
+                // Capture the exception instead of closing without explanation
+                Logger.Error($"Startup failed: {ex}");
+                SentrySdk.CaptureException(ex);
+                await Utilities.ShowMessageBox(ex.Message, MsBox.Avalonia.Enums.Icon.Error);
+                desktop.Shutdown(1);
                 return;
             }
 
@@ -66,7 +79,6 @@ public partial class App : Application
             splashScreen.Close();
         }
 
-        Dispatcher.UIThread.UnhandledException += App_DispatcherUnhandledException;
         base.OnFrameworkInitializationCompleted();
     }
 
@@ -76,45 +88,107 @@ public partial class App : Application
         XmlConfigurator.Configure(new FileInfo(Path.Combine(AppContext.BaseDirectory, "log4net.config")));
         Logger.Info("=======================================================");
         Logger.Info($"Starting {Assembly.GetExecutingAssembly().GetName().Name} {Assembly.GetExecutingAssembly().GetName().Version}");
-        App.Logger.Info($"------");
+        Logger.Info("------");
 
         // Load Configuration
-        var json = File.ReadAllText("appsettings.json");
-        Config = JsonSerializer.Deserialize<ConfigurationModel>(json, new JsonSerializerOptions
+        var configPath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
+        try
         {
-            PropertyNameCaseInsensitive = true
-        }) ?? new ConfigurationModel();
+            if (!File.Exists(configPath))
+                Logger.Warn($"Config file not found at \"{configPath}\".");
+            else
+            {
+                var json = File.ReadAllText(configPath);
+                Config = JsonSerializer.Deserialize<ConfigurationModel>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new ConfigurationModel();
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error($"Failed to load \"{configPath}\": {ex.Message}. Using defaults.");
+        }
+        Config ??= new ConfigurationModel();
 
-        // Setup Sentry
+        // Setup Sentry — SENTRY_DSN is applied by a GitHub Action during packaging.
         if (!Config.ConfigSettings.UserPrefs.DisableSentry)
         {
-            SentrySdk.Init(o =>
+            var dsn = new[]
             {
-                o.Dsn = Config.ConfigSettings.AppConfig.SentryDsn;
-                o.Debug = true;
-            });
+                Environment.GetEnvironmentVariable("SENTRY_DSN"),
+                Assembly.GetExecutingAssembly().GetCustomAttributes<AssemblyMetadataAttribute>().FirstOrDefault(a => a.Key == "SentryDsn")?.Value,
+                Config.ConfigSettings.AppConfig.SentryDsn
+            }.FirstOrDefault(x => !string.IsNullOrWhiteSpace(x));
+            if (!string.IsNullOrWhiteSpace(dsn))
+            {
+                SentrySdk.Init(o =>
+                {
+                    o.Dsn = dsn;
+                    o.Debug = false;
+                });
+            }
+            else
+                Logger.Warn("Sentry DSN not configured — error reporting disabled.");
         }
 
-        // Set user preferences
-        Assets.Resources.Culture = new CultureInfo(Config.ConfigSettings.UserPrefs.Language);
+        // Set user preferences. Only detect the system language when the user hasn't chosen one.
+        var language = Config.ConfigSettings.UserPrefs.Language;
+        if (language == "it") language = "it-IT"; // Migrate the old Italian code, which didn't match the it-IT resources.
+        if (string.IsNullOrWhiteSpace(language))
+            language = Utilities.GetSystemLanguage();
+
+        CultureInfo culture;
+        try { culture = new CultureInfo(language); }
+        catch (CultureNotFoundException) { language = "en-US"; culture = new CultureInfo(language); }
+
+        if (Config.ConfigSettings.UserPrefs.Language != language)
+        {
+            Config.ConfigSettings.UserPrefs.Language = language;
+            TrySaveConfiguration();
+        }
+        Assets.Resources.Culture = culture;
         HudPath = Config.ConfigSettings.UserPrefs.HUDDirectory;
     }
 
-    private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+    private void App_DispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs e)
     {
+        Logger.Error(e.Exception.Message);
         SentrySdk.CaptureException(e.Exception);
 
         // Prevent the application from crashing
         e.Handled = true;
     }
 
+    /// <summary>
+    /// Saves the configuration, logging instead of throwing (e.g. when the install folder isn't writable).
+    /// </summary>
+    public static bool TrySaveConfiguration()
+    {
+        try
+        {
+            SaveConfiguration();
+            return true;
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        {
+            Logger.Error($"Failed to save configuration: {e.Message}");
+            return false;
+        }
+    }
+
     public static void SaveConfiguration()
     {
+        var configPath = Path.Combine(AppContext.BaseDirectory, "appsettings.json");
+        var tempPath = configPath + ".tmp";
+
         var json = JsonSerializer.Serialize(Config, new JsonSerializerOptions
         {
             WriteIndented = true
         });
 
-        File.WriteAllText("appsettings.json", json);
+        // Write to a temp file first, then replace the real config to prevent a crash mid-write.
+        File.WriteAllText(tempPath, json);
+        File.Move(tempPath, configPath, overwrite: true);
     }
 }

@@ -118,7 +118,7 @@ public class BtnInstallContentConverter : IValueConverter
         {
             var hud = (HUD)value;
             App.Logger.Info($"Selected HUD is {hud.Name}");
-            if (Directory.Exists($"{App.Config.ConfigSettings.UserPrefs.HUDDirectory}/{hud.Name}"))
+            if (!string.IsNullOrWhiteSpace(App.HudPath) && Directory.Exists(Path.Combine(App.HudPath, hud.Name)))
             {
                 App.Logger.Info($"{hud.Name} is installed");
                 return Resources.ui_reinstall ?? "Reinstall";
@@ -151,7 +151,7 @@ public class DisableOnLinuxConverter : IValueConverter
 
 public class SettingsFileExistsConverter : IValueConverter
 {
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => File.Exists(($"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}/TF2HUD.Editor/settings.json"));
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) => File.Exists(HUDSettings.UserFile);
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) => BindingOperations.DoNothing;
 }
 

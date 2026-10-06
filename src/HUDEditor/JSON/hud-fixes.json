@@ -28,7 +28,7 @@
                 "Type": "Checkbox",
                 "ToolTip": "Toggle crosshair feature.",
                 "Value": "false",
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_xhair_visibility.txt",
                     "TrueText": "x{CustomCrosshair{visible 1}}",
                     "FalseText": "x{CustomCrosshair{visible 0}}"
@@ -121,7 +121,7 @@
                 "Type": "Checkbox",
                 "ToolTip": "Toggle the spy silhouette seen while changing disguises.",
                 "Value": "false",
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_spy_disguise.txt",
                     "TrueText": "x{PlayerStatusSpyOutlineImage{image replay/thumbnails/blank}}",
                     "FalseText": ""
@@ -133,7 +133,7 @@
                 "Type": "Checkbox",
                 "ToolTip": "Hides the player character model seen on the bottom left of the screen.",
                 "Value": "false",
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_player_model.txt",
                     "TrueText": "x{classmodelpanel{tall 200 tall_minmode 102} classmodelpanelBG {tall 50 tall_minmode 50}}",
                     "FalseText": "x{classmodelpanel{tall 0 tall_minmode 0} classmodelpanelBG {tall 0 tall_minmode 0}}"
@@ -146,7 +146,7 @@
                 "ToolTip": "Toggle transparent viewmodels.",
                 "Special": "TransparentViewmodels",
                 "Value": "false",
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_transparent_viewmodels.txt",
                     "TrueText": "x{TransparentViewmodel{visible 1}}",
                     "FalseText": ""
@@ -270,7 +270,7 @@
                 "ToolTip": "Toggle speedometer under the crosshair.",
                 "Width": 200,
                 "Value": "false",
-                "WriteFile": {
+                "WriteCfg": {
                     "FileName": "hud_speedometer.txt",
                     "TrueText": "x{Speedometer{visible 1}}",
                     "FalseText": "x{Speedometer{visible 0}}"
